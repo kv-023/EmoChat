@@ -7,17 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3938C26F1EDC27C700D69F88 /* AppDelegate.swift */; };
-		3938C2721EDC27C700D69F88 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3938C2711EDC27C700D69F88 /* ViewController.swift */; };
+		39275D091EDC902400B1E020 /* Model in Resources */ = {isa = PBXBuildFile; fileRef = 39275D081EDC902400B1E020 /* Model */; };
+		39275D0B1EDC902900B1E020 /* View in Resources */ = {isa = PBXBuildFile; fileRef = 39275D0A1EDC902900B1E020 /* View */; };
+		39275D0D1EDC902E00B1E020 /* Controller in Resources */ = {isa = PBXBuildFile; fileRef = 39275D0C1EDC902E00B1E020 /* Controller */; };
 		3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2731EDC27C700D69F88 /* Main.storyboard */; };
 		3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2761EDC27C700D69F88 /* Assets.xcassets */; };
 		3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		39275D081EDC902400B1E020 /* Model */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Model; sourceTree = "<group>"; };
+		39275D0A1EDC902900B1E020 /* View */ = {isa = PBXFileReference; lastKnownFileType = folder; path = View; sourceTree = "<group>"; };
+		39275D0C1EDC902E00B1E020 /* Controller */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Controller; sourceTree = "<group>"; };
 		3938C26C1EDC27C700D69F88 /* EmoChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmoChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		3938C26F1EDC27C700D69F88 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3938C2711EDC27C700D69F88 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3938C2741EDC27C700D69F88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3938C2761EDC27C700D69F88 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3938C2791EDC27C700D69F88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -38,6 +40,8 @@
 		3938C2631EDC27C700D69F88 = {
 			isa = PBXGroup;
 			children = (
+				3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */,
+				3938C2731EDC27C700D69F88 /* Main.storyboard */,
 				3938C26E1EDC27C700D69F88 /* EmoChat */,
 				3938C26D1EDC27C700D69F88 /* Products */,
 			);
@@ -54,11 +58,10 @@
 		3938C26E1EDC27C700D69F88 /* EmoChat */ = {
 			isa = PBXGroup;
 			children = (
-				3938C26F1EDC27C700D69F88 /* AppDelegate.swift */,
-				3938C2711EDC27C700D69F88 /* ViewController.swift */,
-				3938C2731EDC27C700D69F88 /* Main.storyboard */,
+				39275D081EDC902400B1E020 /* Model */,
+				39275D0C1EDC902E00B1E020 /* Controller */,
+				39275D0A1EDC902900B1E020 /* View */,
 				3938C2761EDC27C700D69F88 /* Assets.xcassets */,
-				3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */,
 				3938C27B1EDC27C700D69F88 /* Info.plist */,
 			);
 			path = EmoChat;
@@ -125,6 +128,9 @@
 			files = (
 				3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */,
 				3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */,
+				39275D0D1EDC902E00B1E020 /* Controller in Resources */,
+				39275D091EDC902400B1E020 /* Model in Resources */,
+				39275D0B1EDC902900B1E020 /* View in Resources */,
 				3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -136,8 +142,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3938C2721EDC27C700D69F88 /* ViewController.swift in Sources */,
-				3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,6 +154,7 @@
 				3938C2741EDC27C700D69F88 /* Base */,
 			);
 			name = Main.storyboard;
+			path = EmoChat;
 			sourceTree = "<group>";
 		};
 		3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */ = {
@@ -158,6 +163,7 @@
 				3938C2791EDC27C700D69F88 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			path = EmoChat;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -299,6 +305,7 @@
 				3938C2801EDC27C700D69F88 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
