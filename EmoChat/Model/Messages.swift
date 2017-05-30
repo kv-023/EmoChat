@@ -15,6 +15,9 @@ class Mssages {
         self.messageId  = messageId
         self.sender = sender
         self.conversation = conversation
+        
+        
+        
     }
 }
 
