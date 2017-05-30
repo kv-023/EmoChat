@@ -8,6 +8,7 @@ DerivedData/
 
 .DS*
 ._DS*
+._*
 
 ## Various settings
 *.pbxuser
