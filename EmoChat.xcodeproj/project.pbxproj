@@ -7,25 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3938C26F1EDC27C700D69F88 /* AppDelegate.swift */; };
-		3938C2721EDC27C700D69F88 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3938C2711EDC27C700D69F88 /* ViewController.swift */; };
+		39275D091EDC902400B1E020 /* Model in Resources */ = {isa = PBXBuildFile; fileRef = 39275D081EDC902400B1E020 /* Model */; };
+		39275D0D1EDC902E00B1E020 /* Controller in Resources */ = {isa = PBXBuildFile; fileRef = 39275D0C1EDC902E00B1E020 /* Controller */; };
 		3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2731EDC27C700D69F88 /* Main.storyboard */; };
 		3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2761EDC27C700D69F88 /* Assets.xcassets */; };
 		3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */; };
-		746478FA29F53658399EE02D /* Pods_EmoChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */; };
+		39A381901EDD77ED00211556 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A3818F1EDD77ED00211556 /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		39275D081EDC902400B1E020 /* Model */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Model; sourceTree = "<group>"; };
+		39275D0C1EDC902E00B1E020 /* Controller */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Controller; sourceTree = "<group>"; };
 		3938C26C1EDC27C700D69F88 /* EmoChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmoChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		3938C26F1EDC27C700D69F88 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3938C2711EDC27C700D69F88 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3938C2741EDC27C700D69F88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3938C2761EDC27C700D69F88 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3938C2791EDC27C700D69F88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3938C27B1EDC27C700D69F88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5E5B970584D3FF3821DB6225 /* Pods-EmoChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmoChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmoChat/Pods-EmoChat.release.xcconfig"; sourceTree = "<group>"; };
-		6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmoChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E701EB98A17F8F7EB9DF59EA /* Pods-EmoChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmoChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EmoChat/Pods-EmoChat.debug.xcconfig"; sourceTree = "<group>"; };
+		39A3818F1EDD77ED00211556 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,7 +31,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				746478FA29F53658399EE02D /* Pods_EmoChat.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -43,10 +40,10 @@
 		3938C2631EDC27C700D69F88 = {
 			isa = PBXGroup;
 			children = (
+				3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */,
+				3938C2731EDC27C700D69F88 /* Main.storyboard */,
 				3938C26E1EDC27C700D69F88 /* EmoChat */,
 				3938C26D1EDC27C700D69F88 /* Products */,
-				EDB7F02033953CB545BB1360 /* Pods */,
-				3A8C5AD41793988FEA7CBB96 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -61,31 +58,13 @@
 		3938C26E1EDC27C700D69F88 /* EmoChat */ = {
 			isa = PBXGroup;
 			children = (
-				3938C26F1EDC27C700D69F88 /* AppDelegate.swift */,
-				3938C2711EDC27C700D69F88 /* ViewController.swift */,
-				3938C2731EDC27C700D69F88 /* Main.storyboard */,
+				39A3818F1EDD77ED00211556 /* AppDelegate.swift */,
+				39275D081EDC902400B1E020 /* Model */,
+				39275D0C1EDC902E00B1E020 /* Controller */,
 				3938C2761EDC27C700D69F88 /* Assets.xcassets */,
-				3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */,
 				3938C27B1EDC27C700D69F88 /* Info.plist */,
 			);
 			path = EmoChat;
-			sourceTree = "<group>";
-		};
-		3A8C5AD41793988FEA7CBB96 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		EDB7F02033953CB545BB1360 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				E701EB98A17F8F7EB9DF59EA /* Pods-EmoChat.debug.xcconfig */,
-				5E5B970584D3FF3821DB6225 /* Pods-EmoChat.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -95,12 +74,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3938C27E1EDC27C700D69F88 /* Build configuration list for PBXNativeTarget "EmoChat" */;
 			buildPhases = (
-				F4C6A2C995C8B24941246DAF /* [CP] Check Pods Manifest.lock */,
 				3938C2681EDC27C700D69F88 /* Sources */,
 				3938C2691EDC27C700D69F88 /* Frameworks */,
 				3938C26A1EDC27C700D69F88 /* Resources */,
-				D926E3C9E91EA32A08E977D9 /* [CP] Embed Pods Frameworks */,
-				AC9745F52E26DBFD145DACB1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -152,67 +128,20 @@
 			files = (
 				3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */,
 				3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */,
+				39275D0D1EDC902E00B1E020 /* Controller in Resources */,
+				39275D091EDC902400B1E020 /* Model in Resources */,
 				3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		AC9745F52E26DBFD145DACB1 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EmoChat/Pods-EmoChat-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D926E3C9E91EA32A08E977D9 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EmoChat/Pods-EmoChat-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F4C6A2C995C8B24941246DAF /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		3938C2681EDC27C700D69F88 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3938C2721EDC27C700D69F88 /* ViewController.swift in Sources */,
-				3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */,
+				39A381901EDD77ED00211556 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,6 +154,7 @@
 				3938C2741EDC27C700D69F88 /* Base */,
 			);
 			name = Main.storyboard;
+			path = EmoChat;
 			sourceTree = "<group>";
 		};
 		3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */ = {
@@ -233,6 +163,7 @@
 				3938C2791EDC27C700D69F88 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			path = EmoChat;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -333,7 +264,6 @@
 		};
 		3938C27F1EDC27C700D69F88 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E701EB98A17F8F7EB9DF59EA /* Pods-EmoChat.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = EmoChat/Info.plist;
@@ -346,7 +276,6 @@
 		};
 		3938C2801EDC27C700D69F88 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5E5B970584D3FF3821DB6225 /* Pods-EmoChat.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = EmoChat/Info.plist;
@@ -376,6 +305,7 @@
 				3938C2801EDC27C700D69F88 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
