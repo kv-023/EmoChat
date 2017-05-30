@@ -14,6 +14,9 @@
 		3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */; };
 		746478FA29F53658399EE02D /* Pods_EmoChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */; };
 		ED1E2D941EDD75B20058B6A6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */; };
+		ED1E2D971EDD76AE0058B6A6 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1E2D961EDD76AE0058B6A6 /* Users.swift */; };
+		ED1E2D991EDD76CC0058B6A6 /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1E2D981EDD76CC0058B6A6 /* Messages.swift */; };
+		ED1E2D9B1EDD76E50058B6A6 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1E2D9A1EDD76E50058B6A6 /* Conversation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +31,9 @@
 		6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmoChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E701EB98A17F8F7EB9DF59EA /* Pods-EmoChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmoChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EmoChat/Pods-EmoChat.debug.xcconfig"; sourceTree = "<group>"; };
 		ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		ED1E2D961EDD76AE0058B6A6 /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
+		ED1E2D981EDD76CC0058B6A6 /* Messages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
+		ED1E2D9A1EDD76E50058B6A6 /* Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +69,7 @@
 		3938C26E1EDC27C700D69F88 /* EmoChat */ = {
 			isa = PBXGroup;
 			children = (
+				ED1E2D951EDD76770058B6A6 /* Model */,
 				3938C26F1EDC27C700D69F88 /* AppDelegate.swift */,
 				3938C2711EDC27C700D69F88 /* ViewController.swift */,
 				3938C2731EDC27C700D69F88 /* Main.storyboard */,
@@ -80,6 +87,16 @@
 				6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		ED1E2D951EDD76770058B6A6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				ED1E2D961EDD76AE0058B6A6 /* Users.swift */,
+				ED1E2D981EDD76CC0058B6A6 /* Messages.swift */,
+				ED1E2D9A1EDD76E50058B6A6 /* Conversation.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		EDB7F02033953CB545BB1360 /* Pods */ = {
@@ -216,6 +233,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				3938C2721EDC27C700D69F88 /* ViewController.swift in Sources */,
+				ED1E2D991EDD76CC0058B6A6 /* Messages.swift in Sources */,
+				ED1E2D971EDD76AE0058B6A6 /* Users.swift in Sources */,
+				ED1E2D9B1EDD76E50058B6A6 /* Conversation.swift in Sources */,
 				3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
