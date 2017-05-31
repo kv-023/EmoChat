@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseDatabase
+import FirebaseAuth
 
 class ViewController: UIViewController {
 
@@ -88,12 +89,48 @@ class ViewController: UIViewController {
     @IBOutlet weak var buttonLogin: UIButton!
     @IBAction func buttonSignUp(_ sender: UIButton) {
         
+        if emailTextField.text != "" && passwordTextField.text != "" {
+            if segmentControl.selectedSegmentIndex == 0 {    // login
+                FIRAuth.auth()?.signIn(withEmail: emailTextField.text!,
+                                       password: passwordTextField.text!,
+                                       completion: { (user, error) in
+                if user != nil {
+                  print ("success")
+                } else {
+                    if let myError = error?.localizedDescription {
+                        print(myError)
+                    } else {
+                        print ("Something went wrong")
+                    }
+                    
+                }
+                                        
+                })
+                
+            } else {    // sign up
+                FIRAuth.auth()?.createUser(withEmail: emailTextField.text!,
+                                           password: passwordTextField.text!,
+                                           completion: { (user, error) in
+                
+                                            if user != nil {
+                                                print ("success")
+                                            } else {
+                                                if let myError = error?.localizedDescription {
+                                                    print(myError)
+                                                } else {
+                                                    print ("Something went wrong")
+                                                }
+                                            }
+                })
+            }
+        }
     }
-    
 }
 
 
-
+////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////LOGIN END//////////////////////////////////////
 
 
 
