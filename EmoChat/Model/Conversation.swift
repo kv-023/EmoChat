@@ -8,6 +8,13 @@
 
 
 class Conversation {
-    let conversationId: String = "00000000-0000-0000-0000-000000000000"
-    let usersInConversations: [Users?]? = []
+    var conversationId: String = "00000000-0000-0000-0000-000000000000"
+    var usersInConversations: [Users?]? = []
+    
+    init(conversationId: String, usersInConversations: [Users?]?) {
+        self.conversationId = conversationId
+        if usersInConversations != nil {
+            self.usersInConversations = usersInConversations
+        }
+    }
 }
