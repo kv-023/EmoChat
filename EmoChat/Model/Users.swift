@@ -33,8 +33,8 @@ class Users {
 
     func toAnyObject() -> Any {
         return [
-            "userId": userId,
-            "detail": ["name": name,
+            userId: ["userId": userId,
+                     "name": name,
                        "email":email]
         ]
     }

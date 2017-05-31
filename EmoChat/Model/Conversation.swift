@@ -45,8 +45,7 @@ class Conversation {
         }
 
         return [
-            "conversationId": conversationId,
-            "detail": [
+            conversationId: ["conversationId": conversationId,
                 "usersInConversations": usersInConversations_23]
         ]
     }

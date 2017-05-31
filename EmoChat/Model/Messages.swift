@@ -32,8 +32,8 @@ class Messages {
 
     func toAnyObject() -> Any {
         return [
-            "messageId": messageId,
-            "detail": [
+            messageId: [
+                "messageId": messageId,
                 "sender": sender,
                 "conversation": conversation]
         ]
