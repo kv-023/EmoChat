@@ -1,6 +1,0 @@
-framework module Pods_EmoChat {
-  umbrella header "Pods-EmoChat-umbrella.h"
-
-  export *
-  module * { export * }
-}
