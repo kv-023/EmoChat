@@ -77,7 +77,40 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
         //
     }
+    ////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////LOGIN//////////////////////////////////////////
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
     
+    @IBOutlet weak var segmentControl: UISegmentedControl!
+    
+    @IBOutlet weak var buttonLogin: UIButton!
+    @IBAction func buttonSignUp(_ sender: UIButton) {
+        
+    }
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
