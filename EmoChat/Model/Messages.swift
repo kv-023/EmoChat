@@ -6,9 +6,15 @@
 //  Copyright © 2017 SoftServe. All rights reserved.
 //
 
-class Mssages {
-    let messageId: String = "00000000-0000-0000-0000-000000000000"
-    let sender: String? = ""
-    let conversation: String? = ""
+class Messages {
+    var messageId: String = "00000000-0000-0000-0000-000000000000"
+    var sender: String? = ""
+    var conversation: String? = ""
+    
+    init(messageId: String, sender: String?, conversation: String?) {
+        self.messageId  = messageId
+        self.sender = sender
+        self.conversation = conversation
+    }
 }
 
