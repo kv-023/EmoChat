@@ -16,6 +16,28 @@ class Users {
         self.name = name
         self.email = email
     }
+
+    convenience init(name: String = "uknowned", email: String = "no e-mail") {
+        self.init()
+
+        self.userId = Auxiliary.getUUID()
+        self.name = name
+        self.email = email
+    }
+
+    func toAnyObjectInID() -> Any {
+        return [
+            "userId": userId
+        ]
+    }
+
+    func toAnyObject() -> Any {
+        return [
+            "userId": userId,
+            "detail": ["name": name,
+                       "email":email]
+        ]
+    }
 }
 
 

@@ -13,8 +13,42 @@ class Conversation {
     
     init(conversationId: String, usersInConversations: [Users?]?) {
         self.conversationId = conversationId
-        if usersInConversations != nil {
-            self.usersInConversations = usersInConversations
+
+        guard let notNullUsersInConversations = usersInConversations else {
+            return
         }
+
+        self.usersInConversations = notNullUsersInConversations
     }
+
+    init(usersInConversations: [Users?]?) {
+
+        self.conversationId = Auxiliary.getUUID()
+
+        guard let notNullUsersInConversations = usersInConversations else {
+            return
+        }
+
+        self.usersInConversations = notNullUsersInConversations
+    }
+
+    func toAnyObject() -> Any {
+        var usersInConversations_23 = [String: Bool]()
+
+        if let notNullUsersInConversations = usersInConversations {
+            for itemInArray in notNullUsersInConversations {
+                if let notNullItemInArray = itemInArray {
+                     usersInConversations_23.updateValue(true,
+                                                         forKey: notNullItemInArray.userId)
+                }
+            }
+        }
+
+        return [
+            "conversationId": conversationId,
+            "detail": [
+                "usersInConversations": usersInConversations_23]
+        ]
+    }
+    
 }

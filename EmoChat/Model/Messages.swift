@@ -16,5 +16,27 @@ class Messages {
         self.sender = sender
         self.conversation = conversation
     }
+
+    init () {
+
+    }
+
+    convenience init(sender: String?, conversation: String?) {
+
+        self.init()
+
+        self.messageId  = Auxiliary.getUUID()
+        self.sender = sender
+        self.conversation = conversation
+    }
+
+    func toAnyObject() -> Any {
+        return [
+            "messageId": messageId,
+            "detail": [
+                "sender": sender,
+                "conversation": conversation]
+        ]
+    }
 }
 

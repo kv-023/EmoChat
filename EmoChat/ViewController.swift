@@ -20,21 +20,38 @@ class ViewController: UIViewController {
 
     @IBAction func testFirebase(_ sender: Any) {
 
+//        ref = FIRDatabase.database().reference()
+//
+//        let tempUser:Users = Users(userId: "3", name: "srg", email: "srdg")
+//
+//
+//        ref?.child("Users").childByAutoId().setValue(tempUser.userId)
+//
+//        let tempConversation:Conversation = Conversation(conversationId: "123", usersInConversations: [tempUser])
+//
+//        ref?.child("Conversation").childByAutoId().setValue(tempConversation.conversationId)
+//
+//
+//        let tempMessage:Messages = Messages(messageId: "4567432",
+//                                         sender: tempUser.name, conversation: tempConversation.conversationId)
+//        ref?.child("Message").childByAutoId().setValue(tempMessage.messageId)
+
         ref = FIRDatabase.database().reference()
 
         let tempUser:Users = Users(userId: "3", name: "srg", email: "srdg")
 
 
-        ref?.child("Users").childByAutoId().setValue(tempUser.userId)
+        ref?.child("Users").setValue(tempUser.toAnyObject())
 
         let tempConversation:Conversation = Conversation(conversationId: "123", usersInConversations: [tempUser])
 
-        ref?.child("Conversation").childByAutoId().setValue(tempConversation.conversationId)
+//        ref?.child("Conversation").childByAutoId().setValue(tempConversation.conversationId)
+        ref?.child("Conversation").setValue(tempConversation.toAnyObject())
 
 
         let tempMessage:Messages = Messages(messageId: "4567432",
-                                         sender: tempUser.name, conversation: tempConversation.conversationId)
-        ref?.child("Message").childByAutoId().setValue(tempMessage.messageId)
+                                            sender: tempUser.name, conversation: tempConversation.conversationId)
+        ref?.child("Message").setValue(tempMessage.toAnyObject())
 
     }
 
