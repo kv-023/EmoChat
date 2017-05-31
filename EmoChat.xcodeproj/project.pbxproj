@@ -16,8 +16,9 @@
 		CCE0932F1EDDF0BD00BAF608 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE0932C1EDDF0BD00BAF608 /* Conversation.swift */; };
 		CCE093301EDDF0BD00BAF608 /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE0932D1EDDF0BD00BAF608 /* Messages.swift */; };
 		CCE093311EDDF0BD00BAF608 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE0932E1EDDF0BD00BAF608 /* Users.swift */; };
-		CCE093361EDDF10400BAF608 /* Options.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCE093351EDDF10400BAF608 /* Options.storyboard */; };
-		CCE0935D1EDEBBBB00BAF608 /* UserInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCE0935C1EDEBBBB00BAF608 /* UserInfo.storyboard */; };
+		CCE093611EDEC37B00BAF608 /* photo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CCE093601EDEC37B00BAF608 /* photo.jpg */; };
+		CCE093651EDEC52200BAF608 /* UserInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCE093631EDEC52200BAF608 /* UserInfo.storyboard */; };
+		CCE093661EDEC52200BAF608 /* Options.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCE093641EDEC52200BAF608 /* Options.storyboard */; };
 		ED1E2D941EDD75B20058B6A6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -34,8 +35,9 @@
 		CCE0932C1EDDF0BD00BAF608 /* Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		CCE0932D1EDDF0BD00BAF608 /* Messages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
 		CCE0932E1EDDF0BD00BAF608 /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
-		CCE093351EDDF10400BAF608 /* Options.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Options.storyboard; sourceTree = "<group>"; };
-		CCE0935C1EDEBBBB00BAF608 /* UserInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserInfo.storyboard; sourceTree = "<group>"; };
+		CCE093601EDEC37B00BAF608 /* photo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = photo.jpg; sourceTree = "<group>"; };
+		CCE093631EDEC52200BAF608 /* UserInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserInfo.storyboard; sourceTree = "<group>"; };
+		CCE093641EDEC52200BAF608 /* Options.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Options.storyboard; sourceTree = "<group>"; };
 		E701EB98A17F8F7EB9DF59EA /* Pods-EmoChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmoChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EmoChat/Pods-EmoChat.debug.xcconfig"; sourceTree = "<group>"; };
 		ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -73,8 +75,9 @@
 		3938C26E1EDC27C700D69F88 /* EmoChat */ = {
 			isa = PBXGroup;
 			children = (
+				CCE093621EDEC52200BAF608 /* View */,
+				CCE093601EDEC37B00BAF608 /* photo.jpg */,
 				3938C26F1EDC27C700D69F88 /* AppDelegate.swift */,
-				CCE093341EDDF10400BAF608 /* Views */,
 				CCE0932B1EDDF0BD00BAF608 /* Model */,
 				3938C2711EDC27C700D69F88 /* ViewController.swift */,
 				3938C2731EDC27C700D69F88 /* Main.storyboard */,
@@ -104,13 +107,13 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		CCE093341EDDF10400BAF608 /* Views */ = {
+		CCE093621EDEC52200BAF608 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				CCE093351EDDF10400BAF608 /* Options.storyboard */,
-				CCE0935C1EDEBBBB00BAF608 /* UserInfo.storyboard */,
+				CCE093631EDEC52200BAF608 /* UserInfo.storyboard */,
+				CCE093641EDEC52200BAF608 /* Options.storyboard */,
 			);
-			path = Views;
+			path = View;
 			sourceTree = "<group>";
 		};
 		EDB7F02033953CB545BB1360 /* Pods */ = {
@@ -185,11 +188,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */,
-				CCE093361EDDF10400BAF608 /* Options.storyboard in Resources */,
+				CCE093611EDEC37B00BAF608 /* photo.jpg in Resources */,
+				CCE093651EDEC52200BAF608 /* UserInfo.storyboard in Resources */,
 				ED1E2D941EDD75B20058B6A6 /* GoogleService-Info.plist in Resources */,
+				CCE093661EDEC52200BAF608 /* Options.storyboard in Resources */,
 				3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */,
 				3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */,
-				CCE0935D1EDEBBBB00BAF608 /* UserInfo.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

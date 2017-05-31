@@ -62,7 +62,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="118"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lfS-PP-2hd">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="lfS-PP-2hd">
                                                     <rect key="frame" x="15" y="16" width="85.5" height="85.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="lfS-PP-2hd" secondAttribute="height" multiplier="1:1" id="nMv-mV-sd3"/>
@@ -106,7 +106,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="kBM-hl-kZF" kind="show" id="kyy-mV-erG"/>
+                                            <segue destination="kBM-hl-kZF" kind="show" id="NLX-Ug-SmY"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -285,7 +285,7 @@
                                                         <constraint firstItem="Wry-yp-yhp" firstAttribute="height" secondItem="Aoe-Lr-vZC" secondAttribute="height" id="i4D-7X-1Ie"/>
                                                     </constraints>
                                                 </stackView>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="q3a-Uf-o0d">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="q3a-Uf-o0d">
                                                     <rect key="frame" x="15" y="16" width="85.5" height="85.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="q3a-Uf-o0d" secondAttribute="height" multiplier="1:1" id="Kik-Bw-6um"/>
@@ -343,7 +343,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kdA-Ft-LfL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3548" y="-551"/>
+            <point key="canvasLocation" x="3548" y="-541"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="sRi-pU-4p3">
@@ -457,4 +457,7 @@
             <point key="canvasLocation" x="912.79999999999995" y="138.98050974512745"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="photo.jpg" width="1242" height="1242"/>
+    </resources>
 </document>
