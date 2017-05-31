@@ -12,9 +12,12 @@
 		3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2731EDC27C700D69F88 /* Main.storyboard */; };
 		3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2761EDC27C700D69F88 /* Assets.xcassets */; };
 		3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */; };
-		39A381941EDDBB1000211556 /* Model in Resources */ = {isa = PBXBuildFile; fileRef = 39A381931EDDBB1000211556 /* Model */; };
 		746478FA29F53658399EE02D /* Pods_EmoChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */; };
-		CCE0932A1EDDE66E00BAF608 /* Options.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCE093291EDDE66E00BAF608 /* Options.storyboard */; };
+		CCE0932F1EDDF0BD00BAF608 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE0932C1EDDF0BD00BAF608 /* Conversation.swift */; };
+		CCE093301EDDF0BD00BAF608 /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE0932D1EDDF0BD00BAF608 /* Messages.swift */; };
+		CCE093311EDDF0BD00BAF608 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE0932E1EDDF0BD00BAF608 /* Users.swift */; };
+		CCE093361EDDF10400BAF608 /* Options.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCE093351EDDF10400BAF608 /* Options.storyboard */; };
+		CCE0935D1EDEBBBB00BAF608 /* UserInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCE0935C1EDEBBBB00BAF608 /* UserInfo.storyboard */; };
 		ED1E2D941EDD75B20058B6A6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -26,10 +29,13 @@
 		3938C2761EDC27C700D69F88 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3938C2791EDC27C700D69F88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3938C27B1EDC27C700D69F88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		39A381931EDDBB1000211556 /* Model */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Model; sourceTree = "<group>"; };
 		5E5B970584D3FF3821DB6225 /* Pods-EmoChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmoChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmoChat/Pods-EmoChat.release.xcconfig"; sourceTree = "<group>"; };
 		6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmoChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CCE093291EDDE66E00BAF608 /* Options.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Options.storyboard; path = Views/Options.storyboard; sourceTree = "<group>"; };
+		CCE0932C1EDDF0BD00BAF608 /* Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
+		CCE0932D1EDDF0BD00BAF608 /* Messages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
+		CCE0932E1EDDF0BD00BAF608 /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
+		CCE093351EDDF10400BAF608 /* Options.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Options.storyboard; sourceTree = "<group>"; };
+		CCE0935C1EDEBBBB00BAF608 /* UserInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserInfo.storyboard; sourceTree = "<group>"; };
 		E701EB98A17F8F7EB9DF59EA /* Pods-EmoChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmoChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EmoChat/Pods-EmoChat.debug.xcconfig"; sourceTree = "<group>"; };
 		ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -68,14 +74,14 @@
 			isa = PBXGroup;
 			children = (
 				3938C26F1EDC27C700D69F88 /* AppDelegate.swift */,
-				39A381931EDDBB1000211556 /* Model */,
+				CCE093341EDDF10400BAF608 /* Views */,
+				CCE0932B1EDDF0BD00BAF608 /* Model */,
 				3938C2711EDC27C700D69F88 /* ViewController.swift */,
 				3938C2731EDC27C700D69F88 /* Main.storyboard */,
 				3938C2761EDC27C700D69F88 /* Assets.xcassets */,
 				3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */,
 				3938C27B1EDC27C700D69F88 /* Info.plist */,
 				ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */,
-				CCE093291EDDE66E00BAF608 /* Options.storyboard */,
 			);
 			path = EmoChat;
 			sourceTree = "<group>";
@@ -86,6 +92,25 @@
 				6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CCE0932B1EDDF0BD00BAF608 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CCE0932C1EDDF0BD00BAF608 /* Conversation.swift */,
+				CCE0932D1EDDF0BD00BAF608 /* Messages.swift */,
+				CCE0932E1EDDF0BD00BAF608 /* Users.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CCE093341EDDF10400BAF608 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CCE093351EDDF10400BAF608 /* Options.storyboard */,
+				CCE0935C1EDEBBBB00BAF608 /* UserInfo.storyboard */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		EDB7F02033953CB545BB1360 /* Pods */ = {
@@ -159,12 +184,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CCE0932A1EDDE66E00BAF608 /* Options.storyboard in Resources */,
-				39A381941EDDBB1000211556 /* Model in Resources */,
 				3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */,
+				CCE093361EDDF10400BAF608 /* Options.storyboard in Resources */,
 				ED1E2D941EDD75B20058B6A6 /* GoogleService-Info.plist in Resources */,
 				3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */,
 				3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */,
+				CCE0935D1EDEBBBB00BAF608 /* UserInfo.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,6 +248,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCE0932F1EDDF0BD00BAF608 /* Conversation.swift in Sources */,
+				CCE093301EDDF0BD00BAF608 /* Messages.swift in Sources */,
+				CCE093311EDDF0BD00BAF608 /* Users.swift in Sources */,
 				3938C2721EDC27C700D69F88 /* ViewController.swift in Sources */,
 				3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */,
 			);
