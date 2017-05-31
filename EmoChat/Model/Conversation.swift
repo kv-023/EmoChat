@@ -32,6 +32,7 @@ class Conversation {
         self.usersInConversations = notNullUsersInConversations
     }
 
+    //MARK:- func. for FireBase use
     func toAnyObject() -> Any {
         var usersInConversations_23 = [String: Bool]()
 

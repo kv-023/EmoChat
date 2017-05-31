@@ -52,7 +52,8 @@ class ViewController: UIViewController {
 //        ref?.child("Users").setValue(arrayData)
 
 
-        ref?.child("Users").setValue(tempUser.toAnyObject())
+        //ref?.child("Users").setValue(tempUser.toAnyObject())
+        ref?.child("Users").setValue(Users.toAnyObject(users: usersInArray))
 
 //        let ref2: FIRDatabaseReference?// for test only
 //        ref2 = FIRDatabase.database().reference() // for test only

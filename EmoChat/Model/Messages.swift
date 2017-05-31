@@ -30,6 +30,7 @@ class Messages {
         self.conversation = conversation
     }
 
+    //MARK:- func. for FireBase use
     func toAnyObject() -> Any {
         return [
             messageId: [
