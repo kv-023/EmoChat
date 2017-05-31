@@ -7,8 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3926E7B61EDECC0400E38259 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3926E7B51EDECC0400E38259 /* ViewController.swift */; };
+		3926E7BB1EDECDBF00E38259 /* attache.png in Resources */ = {isa = PBXBuildFile; fileRef = 3926E7B81EDECDBF00E38259 /* attache.png */; };
+		3926E7BC1EDECDBF00E38259 /* mail-sent.png in Resources */ = {isa = PBXBuildFile; fileRef = 3926E7B91EDECDBF00E38259 /* mail-sent.png */; };
+		3926E7BD1EDECDBF00E38259 /* send.png in Resources */ = {isa = PBXBuildFile; fileRef = 3926E7BA1EDECDBF00E38259 /* send.png */; };
+		3926E7BF1EDEDA1700E38259 /* play-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 3926E7BE1EDEDA1700E38259 /* play-button.png */; };
 		3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3938C26F1EDC27C700D69F88 /* AppDelegate.swift */; };
-		3938C2721EDC27C700D69F88 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3938C2711EDC27C700D69F88 /* ViewController.swift */; };
 		3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2731EDC27C700D69F88 /* Main.storyboard */; };
 		3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2761EDC27C700D69F88 /* Assets.xcassets */; };
 		3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */; };
@@ -20,9 +24,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3926E7B51EDECC0400E38259 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3926E7B81EDECDBF00E38259 /* attache.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = attache.png; sourceTree = "<group>"; };
+		3926E7B91EDECDBF00E38259 /* mail-sent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mail-sent.png"; sourceTree = "<group>"; };
+		3926E7BA1EDECDBF00E38259 /* send.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = send.png; sourceTree = "<group>"; };
+		3926E7BE1EDEDA1700E38259 /* play-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play-button.png"; sourceTree = "<group>"; };
 		3938C26C1EDC27C700D69F88 /* EmoChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmoChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3938C26F1EDC27C700D69F88 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3938C2711EDC27C700D69F88 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3938C2741EDC27C700D69F88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3938C2761EDC27C700D69F88 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3938C2791EDC27C700D69F88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -48,6 +56,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3926E7B41EDECC0400E38259 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				3926E7B51EDECC0400E38259 /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		3926E7B71EDECDBF00E38259 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3926E7B81EDECDBF00E38259 /* attache.png */,
+				3926E7BE1EDEDA1700E38259 /* play-button.png */,
+				3926E7B91EDECDBF00E38259 /* mail-sent.png */,
+				3926E7BA1EDECDBF00E38259 /* send.png */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		3938C2631EDC27C700D69F88 = {
 			isa = PBXGroup;
 			children = (
@@ -71,10 +98,11 @@
 			children = (
 				ED1E2D951EDD76770058B6A6 /* Model */,
 				3938C26F1EDC27C700D69F88 /* AppDelegate.swift */,
-				3938C2711EDC27C700D69F88 /* ViewController.swift */,
+				3926E7B41EDECC0400E38259 /* Controller */,
 				3938C2731EDC27C700D69F88 /* Main.storyboard */,
 				3938C2761EDC27C700D69F88 /* Assets.xcassets */,
 				3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */,
+				3926E7B71EDECDBF00E38259 /* Supporting Files */,
 				3938C27B1EDC27C700D69F88 /* Info.plist */,
 				ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */,
 			);
@@ -170,8 +198,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3926E7BC1EDECDBF00E38259 /* mail-sent.png in Resources */,
+				3926E7BF1EDEDA1700E38259 /* play-button.png in Resources */,
 				3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */,
 				ED1E2D941EDD75B20058B6A6 /* GoogleService-Info.plist in Resources */,
+				3926E7BD1EDECDBF00E38259 /* send.png in Resources */,
+				3926E7BB1EDECDBF00E38259 /* attache.png in Resources */,
 				3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */,
 				3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */,
 			);
@@ -232,7 +264,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3938C2721EDC27C700D69F88 /* ViewController.swift in Sources */,
+				3926E7B61EDECC0400E38259 /* ViewController.swift in Sources */,
 				ED1E2D991EDD76CC0058B6A6 /* Messages.swift in Sources */,
 				ED1E2D971EDD76AE0058B6A6 /* Users.swift in Sources */,
 				ED1E2D9B1EDD76E50058B6A6 /* Conversation.swift in Sources */,
