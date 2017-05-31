@@ -69,6 +69,8 @@
 		3938C26E1EDC27C700D69F88 /* EmoChat */ = {
 			isa = PBXGroup;
 			children = (
+				EDB756A01EDEC051009AAE12 /* Controller */,
+				EDB756A11EDEC051009AAE12 /* View */,
 				3938C26F1EDC27C700D69F88 /* AppDelegate.swift */,
 				3938C2711EDC27C700D69F88 /* ViewController.swift */,
 				3938C2731EDC27C700D69F88 /* Main.storyboard */,
@@ -97,6 +99,20 @@
 				E7352C191EDEB19C0095264E /* Users.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		EDB756A01EDEC051009AAE12 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		EDB756A11EDEC051009AAE12 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		EDB7F02033953CB545BB1360 /* Pods */ = {
