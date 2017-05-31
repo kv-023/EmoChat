@@ -8,7 +8,7 @@
 
 
 class Conversation {
-    var conversationId: String = "00000000-0000-0000-0000-000000000000"
+    var conversationId: String = Auxiliary.getEmpyUUID()
     var usersInConversations: [Users?]? = []
     
     init(conversationId: String, usersInConversations: [Users?]?) {

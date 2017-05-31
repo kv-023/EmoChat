@@ -7,7 +7,7 @@
 //
 
 class Messages {
-    var messageId: String = "00000000-0000-0000-0000-000000000000"
+    var messageId: String = Auxiliary.getEmpyUUID()
     var sender: String? = ""
     var conversation: String? = ""
     
@@ -18,7 +18,8 @@ class Messages {
     }
 
     init () {
-
+        sender = "uknowned"
+        conversation = "empty"
     }
 
     convenience init(sender: String?, conversation: String?) {

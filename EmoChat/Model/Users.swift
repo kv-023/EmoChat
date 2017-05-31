@@ -8,9 +8,9 @@
 
 class Users {
 
-    var userId:String = "00000000-0000-0000-0000-000000000000"
-    var name: String? = ""
-    var email:String? = ""
+    var userId:String = Auxiliary.getEmpyUUID()
+    var name: String? = "uknowned"
+    var email:String? = "no e-mail"
     
     init(userId: String, name: String, email: String) {
         self.userId = userId
