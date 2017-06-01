@@ -173,9 +173,14 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Conversations" id="0FM-20-btW">
-                        <barButtonItem key="rightBarButtonItem" title="Options" id="tay-zl-S5V">
+                        <barButtonItem key="leftBarButtonItem" title="Options" id="tay-zl-S5V">
                             <connections>
                                 <segue destination="1Kc-Sn-Nlu" kind="show" id="1gb-dO-HB4"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="l9C-xL-cGG">
+                            <connections>
+                                <segue destination="2dX-fQ-tG0" kind="show" id="NNR-pC-BBf"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -184,13 +189,21 @@
             </objects>
             <point key="canvasLocation" x="1776.5" y="41.5"/>
         </scene>
+        <!--SearchUsers-->
+        <scene sceneID="6fD-Df-T3G">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="searchUsers" storyboardName="SearchUsers" id="2dX-fQ-tG0" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Px6-5A-mUv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2577" y="16"/>
+        </scene>
         <!--options-->
         <scene sceneID="Q3O-tk-l4u">
             <objects>
                 <viewControllerPlaceholder storyboardName="Options" referencedIdentifier="options" id="1Kc-Sn-Nlu" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cQQ-bf-fQR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2498" y="40"/>
+            <point key="canvasLocation" x="2507" y="60"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="0Td-Eg-OIv">
