@@ -13,6 +13,7 @@
 		3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2761EDC27C700D69F88 /* Assets.xcassets */; };
 		3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */; };
 		746478FA29F53658399EE02D /* Pods_EmoChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */; };
+		8461131C1EE0124400587DA6 /* SearchUsers.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8461131B1EE0124400587DA6 /* SearchUsers.storyboard */; };
 		846C791A1EDEED4A00F9E17E /* ChatSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 846C79181EDEED4A00F9E17E /* ChatSettings.storyboard */; };
 		846C791B1EDEED4A00F9E17E /* Conversations.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 846C79191EDEED4A00F9E17E /* Conversations.storyboard */; };
 		CC34DC0C1EE01D9100CAAFAB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC34DC0A1EE01D9100CAAFAB /* LoginViewController.swift */; };
@@ -35,6 +36,7 @@
 		3938C27B1EDC27C700D69F88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5E5B970584D3FF3821DB6225 /* Pods-EmoChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmoChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmoChat/Pods-EmoChat.release.xcconfig"; sourceTree = "<group>"; };
 		6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmoChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8461131B1EE0124400587DA6 /* SearchUsers.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SearchUsers.storyboard; sourceTree = "<group>"; };
 		846C79181EDEED4A00F9E17E /* ChatSettings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChatSettings.storyboard; sourceTree = "<group>"; };
 		846C79191EDEED4A00F9E17E /* Conversations.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Conversations.storyboard; sourceTree = "<group>"; };
 		CC34DC0A1EE01D9100CAAFAB /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 				CCE093741EDEE12A00BAF608 /* Options.storyboard */,
 				CCE093751EDEE12A00BAF608 /* UserInfo.storyboard */,
 				35EA65BA1EE0037900C467DC /* Login.storyboard */,
+				8461131B1EE0124400587DA6 /* SearchUsers.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
