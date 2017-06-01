@@ -67,6 +67,9 @@
                                         <constraint firstAttribute="trailingMargin" secondItem="WJQ-VX-wu9" secondAttribute="trailing" id="uYr-FQ-OE7"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="pZt-PA-0jh" kind="show" id="jIy-KA-Lnq"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="PhotoCellIdentifier" rowHeight="68" id="5Ft-3P-IMl">
                                 <rect key="frame" x="0.0" y="105" width="375" height="68"/>
@@ -116,6 +119,9 @@
                                         <constraint firstItem="2lD-lC-fNP" firstAttribute="leading" secondItem="aqU-Pb-7ZF" secondAttribute="trailing" constant="8" id="st1-ae-hcR"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="pZt-PA-0jh" kind="show" id="gGh-Ue-cec"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="VideoCellIdentifier" rowHeight="68" id="CDa-hL-sDu">
                                 <rect key="frame" x="0.0" y="173" width="375" height="68"/>
@@ -165,6 +171,9 @@
                                         <constraint firstAttribute="bottomMargin" secondItem="VSg-an-rd4" secondAttribute="bottom" constant="31.5" id="idd-1f-aiF"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="pZt-PA-0jh" kind="show" id="XBs-Oh-PsV"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -188,6 +197,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Aqs-Bb-5Jf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1776.5" y="41.5"/>
+        </scene>
+        <!--SingleConversation-->
+        <scene sceneID="ArT-qr-ar7">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="singleConversation" storyboardName="SingleConversation" id="pZt-PA-0jh" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rfc-HZ-a7R" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2393" y="-109"/>
         </scene>
         <!--SearchUsers-->
         <scene sceneID="6fD-Df-T3G">
@@ -227,4 +244,7 @@
     <resources>
         <image name="mob-contact-icon.png" width="50" height="50"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="jIy-KA-Lnq"/>
+    </inferredMetricsTieBreakers>
 </document>

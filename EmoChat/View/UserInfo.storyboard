@@ -15,7 +15,7 @@
         <scene sceneID="3zq-Ze-9Hm">
             <objects>
                 <tableViewController id="N0o-6h-Tfo" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="jUc-Md-smw">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="jUc-Md-smw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -209,10 +209,10 @@
             </objects>
             <point key="canvasLocation" x="1140" y="126"/>
         </scene>
-        <!--Storyboard Reference-->
+        <!--SingleConversation-->
         <scene sceneID="y6Q-Th-qSh">
             <objects>
-                <viewControllerPlaceholder id="JRk-0I-Iuj" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardIdentifier="singleConversation" storyboardName="SingleConversation" id="JRk-0I-Iuj" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xFz-mG-HaL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1874" y="126"/>
