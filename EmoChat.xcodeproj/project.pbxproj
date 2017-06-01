@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		35EA65BB1EE0037900C467DC /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35EA65BA1EE0037900C467DC /* Login.storyboard */; };
+		3931B0D01EE047A8007AB0BF /* SingleConversation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3931B0CF1EE047A8007AB0BF /* SingleConversation.storyboard */; };
 		3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3938C26F1EDC27C700D69F88 /* AppDelegate.swift */; };
 		3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2731EDC27C700D69F88 /* Main.storyboard */; };
 		3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2761EDC27C700D69F88 /* Assets.xcassets */; };
@@ -30,6 +31,7 @@
 
 /* Begin PBXFileReference section */
 		35EA65BA1EE0037900C467DC /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		3931B0CF1EE047A8007AB0BF /* SingleConversation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SingleConversation.storyboard; sourceTree = "<group>"; };
 		3938C26C1EDC27C700D69F88 /* EmoChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmoChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3938C26F1EDC27C700D69F88 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3938C2741EDC27C700D69F88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				FBB9DD2B1EE02EB90081C7CF /* SignUp.storyboard */,
 				846C79181EDEED4A00F9E17E /* ChatSettings.storyboard */,
 				846C79191EDEED4A00F9E17E /* Conversations.storyboard */,
+				3931B0CF1EE047A8007AB0BF /* SingleConversation.storyboard */,
 				CCE093741EDEE12A00BAF608 /* Options.storyboard */,
 				CCE093751EDEE12A00BAF608 /* UserInfo.storyboard */,
 				35EA65BA1EE0037900C467DC /* Login.storyboard */,
@@ -186,7 +189,6 @@
 				TargetAttributes = {
 					3938C26B1EDC27C700D69F88 = {
 						CreatedOnToolsVersion = 8.3.1;
-						DevelopmentTeam = R5ZXKV545V;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -214,6 +216,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3931B0D01EE047A8007AB0BF /* SingleConversation.storyboard in Resources */,
 				3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */,
 				CCE093761EDEE12A00BAF608 /* Options.storyboard in Resources */,
 				ED1E2D941EDD75B20058B6A6 /* GoogleService-Info.plist in Resources */,
@@ -414,7 +417,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = R5ZXKV545V;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = EmoChat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -431,7 +434,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = R5ZXKV545V;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = EmoChat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
