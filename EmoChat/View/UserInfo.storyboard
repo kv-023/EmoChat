@@ -58,10 +58,10 @@
                                         <rect key="frame" x="0.0" y="35" width="375" height="118"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="osx-SG-r8Z" id="MAQ-74-EF0">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="117.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="118"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="o8j-BA-5Km">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="o8j-BA-5Km">
                                                     <rect key="frame" x="15" y="16" width="85.5" height="85.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="o8j-BA-5Km" secondAttribute="height" multiplier="1:1" id="f0g-ut-M29"/>
@@ -199,6 +199,9 @@
                                                 <constraint firstAttribute="bottom" secondItem="5XI-1i-5eP" secondAttribute="bottom" id="iId-SP-sG4"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="JRk-0I-Iuj" kind="show" id="sNm-Pl-Y5t"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -236,10 +239,15 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="625-bz-Wx0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1056" y="-83"/>
+            <point key="canvasLocation" x="1140" y="126"/>
+        </scene>
+        <!--Storyboard Reference-->
+        <scene sceneID="y6Q-Th-qSh">
+            <objects>
+                <viewControllerPlaceholder id="JRk-0I-Iuj" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xFz-mG-HaL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1874" y="126"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="photo.jpg" width="1242" height="1242"/>
-    </resources>
 </document>
