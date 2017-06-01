@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="nvU-Z9-twn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ffh-No-9mc">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Table View Controller-->
+        <!--Conversations-->
         <scene sceneID="nfT-aP-fJ0">
             <objects>
-                <tableViewController id="nvU-Z9-twn" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="conversations" id="nvU-Z9-twn" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="77" sectionHeaderHeight="28" sectionFooterHeight="28" id="x95-HY-wlk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -172,10 +172,43 @@
                             <outlet property="delegate" destination="nvU-Z9-twn" id="SPM-AA-Clp"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Conversations" id="0FM-20-btW">
+                        <barButtonItem key="rightBarButtonItem" title="Options" id="tay-zl-S5V">
+                            <connections>
+                                <segue destination="1Kc-Sn-Nlu" kind="show" id="1gb-dO-HB4"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Aqs-Bb-5Jf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1190" y="42"/>
+            <point key="canvasLocation" x="1776.5" y="41.5"/>
+        </scene>
+        <!--options-->
+        <scene sceneID="Q3O-tk-l4u">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Options" referencedIdentifier="options" id="1Kc-Sn-Nlu" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cQQ-bf-fQR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2498" y="40"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="0Td-Eg-OIv">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ffh-No-9mc" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="D7t-V7-2U3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="nvU-Z9-twn" kind="relationship" relationship="rootViewController" id="JSa-aW-VK6"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fPz-SA-n4k" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="889" y="41"/>
         </scene>
     </scenes>
     <resources>

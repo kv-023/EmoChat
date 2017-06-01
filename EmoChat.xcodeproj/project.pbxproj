@@ -13,7 +13,6 @@
 		3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2761EDC27C700D69F88 /* Assets.xcassets */; };
 		3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */; };
 		746478FA29F53658399EE02D /* Pods_EmoChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */; };
-		8461131C1EE0124400587DA6 /* SearchUsers.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8461131B1EE0124400587DA6 /* SearchUsers.storyboard */; };
 		846C791A1EDEED4A00F9E17E /* ChatSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 846C79181EDEED4A00F9E17E /* ChatSettings.storyboard */; };
 		846C791B1EDEED4A00F9E17E /* Conversations.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 846C79191EDEED4A00F9E17E /* Conversations.storyboard */; };
 		CC34DC0C1EE01D9100CAAFAB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC34DC0A1EE01D9100CAAFAB /* LoginViewController.swift */; };
@@ -24,6 +23,9 @@
 		E7352C1B1EDEB19C0095264E /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C181EDEB19C0095264E /* Messages.swift */; };
 		E7352C1C1EDEB19C0095264E /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C191EDEB19C0095264E /* Users.swift */; };
 		ED1E2D941EDD75B20058B6A6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */; };
+		FBB9DD2C1EE02EB90081C7CF /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBB9DD2B1EE02EB90081C7CF /* SignUp.storyboard */; };
+		FBB9DD2E1EE02EBF0081C7CF /* Confirmation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBB9DD2D1EE02EBF0081C7CF /* Confirmation.storyboard */; };
+		FBB9DD301EE033E20081C7CF /* SearchUsers.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBB9DD2F1EE033E20081C7CF /* SearchUsers.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,7 +38,6 @@
 		3938C27B1EDC27C700D69F88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5E5B970584D3FF3821DB6225 /* Pods-EmoChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmoChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmoChat/Pods-EmoChat.release.xcconfig"; sourceTree = "<group>"; };
 		6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmoChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8461131B1EE0124400587DA6 /* SearchUsers.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SearchUsers.storyboard; sourceTree = "<group>"; };
 		846C79181EDEED4A00F9E17E /* ChatSettings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChatSettings.storyboard; sourceTree = "<group>"; };
 		846C79191EDEED4A00F9E17E /* Conversations.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Conversations.storyboard; sourceTree = "<group>"; };
 		CC34DC0A1EE01D9100CAAFAB /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -48,6 +49,9 @@
 		E7352C181EDEB19C0095264E /* Messages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
 		E7352C191EDEB19C0095264E /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FBB9DD2B1EE02EB90081C7CF /* SignUp.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SignUp.storyboard; sourceTree = "<group>"; };
+		FBB9DD2D1EE02EBF0081C7CF /* Confirmation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Confirmation.storyboard; sourceTree = "<group>"; };
+		FBB9DD2F1EE033E20081C7CF /* SearchUsers.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SearchUsers.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,12 +120,14 @@
 		CCE093731EDEE12A00BAF608 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FBB9DD2D1EE02EBF0081C7CF /* Confirmation.storyboard */,
+				FBB9DD2B1EE02EB90081C7CF /* SignUp.storyboard */,
 				846C79181EDEED4A00F9E17E /* ChatSettings.storyboard */,
 				846C79191EDEED4A00F9E17E /* Conversations.storyboard */,
 				CCE093741EDEE12A00BAF608 /* Options.storyboard */,
 				CCE093751EDEE12A00BAF608 /* UserInfo.storyboard */,
 				35EA65BA1EE0037900C467DC /* Login.storyboard */,
-				8461131B1EE0124400587DA6 /* SearchUsers.storyboard */,
+				FBB9DD2F1EE033E20081C7CF /* SearchUsers.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -180,6 +186,7 @@
 				TargetAttributes = {
 					3938C26B1EDC27C700D69F88 = {
 						CreatedOnToolsVersion = 8.3.1;
+						DevelopmentTeam = R5ZXKV545V;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -211,6 +218,9 @@
 				CCE093761EDEE12A00BAF608 /* Options.storyboard in Resources */,
 				ED1E2D941EDD75B20058B6A6 /* GoogleService-Info.plist in Resources */,
 				3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */,
+				FBB9DD2E1EE02EBF0081C7CF /* Confirmation.storyboard in Resources */,
+				FBB9DD301EE033E20081C7CF /* SearchUsers.storyboard in Resources */,
+				FBB9DD2C1EE02EB90081C7CF /* SignUp.storyboard in Resources */,
 				3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */,
 				846C791B1EDEED4A00F9E17E /* Conversations.storyboard in Resources */,
 				35EA65BB1EE0037900C467DC /* Login.storyboard in Resources */,
@@ -403,10 +413,14 @@
 			baseConfigurationReference = E701EB98A17F8F7EB9DF59EA /* Pods-EmoChat.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = R5ZXKV545V;
 				INFOPLIST_FILE = EmoChat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.softserve.EmoChat;
+				PRODUCT_BUNDLE_IDENTIFIER = study.EmoChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -416,10 +430,14 @@
 			baseConfigurationReference = 5E5B970584D3FF3821DB6225 /* Pods-EmoChat.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = R5ZXKV545V;
 				INFOPLIST_FILE = EmoChat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.softserve.EmoChat;
+				PRODUCT_BUNDLE_IDENTIFIER = study.EmoChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

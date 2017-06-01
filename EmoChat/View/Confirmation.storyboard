@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Storyboard Reference-->
+        <!--signUpPhoto-->
         <scene sceneID="VTE-au-eRo">
             <objects>
-                <viewControllerPlaceholder id="efQ-Vl-xsq" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardIdentifier="signUpPhoto" storyboardName="SignUp" referencedIdentifier="signUpPhoto" id="efQ-Vl-xsq" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zLA-9A-jmq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-716" y="35"/>
@@ -29,7 +29,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Image uploaded from iOS" translatesAutoresizingMaskIntoConstraints="NO" id="9bh-VC-Oor">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="confirm" image="bacground" translatesAutoresizingMaskIntoConstraints="NO" id="9bh-VC-Oor">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="znv-sb-zhb">
@@ -38,27 +38,34 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wWS-YA-ccG">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="5vI-Bs-rgA">
-                                                <rect key="frame" x="50" y="222.5" width="275" height="36"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Pt-VB-f0y">
+                                                <rect key="frame" x="153" y="218" width="68" height="36"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <state key="normal" title="Resend">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="5vI-Bs-rgA">
+                                                <rect key="frame" x="50" y="591" width="275" height="36"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lpa-Cl-CCa">
-                                                        <rect key="frame" x="0.0" y="0.0" width="141.5" height="36"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="77" height="36"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                        <state key="normal" title="Resend">
+                                                        <state key="normal" title="Previous">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
-                                                            <segue destination="efQ-Vl-xsq" kind="show" id="Cvd-Hl-1Pw"/>
+                                                            <segue destination="efQ-Vl-xsq" kind="presentation" modalTransitionStyle="crossDissolve" id="Cvd-Hl-1Pw"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UaX-PL-Sbx">
-                                                        <rect key="frame" x="141.5" y="0.0" width="133.5" height="36"/>
+                                                        <rect key="frame" x="211" y="0.0" width="64" height="36"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                         <state key="normal" title="Submit">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
-                                                            <segue destination="Fz1-2n-Ud1" kind="show" id="Mv0-Vh-GN5"/>
+                                                            <segue destination="Fz1-2n-Ud1" kind="presentation" modalTransitionStyle="crossDissolve" id="Mv0-Vh-GN5"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -66,7 +73,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="9MO-LQ-m9O">
                                                 <rect key="frame" x="50" y="40" width="275" height="112.5"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirmation" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zI2-4o-tHD">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirmation" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zI2-4o-tHD">
                                                         <rect key="frame" x="71.5" y="0.0" width="132.5" height="27.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -95,12 +102,14 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="5vI-Bs-rgA" firstAttribute="top" secondItem="FuO-VI-YCU" secondAttribute="bottom" constant="20" id="572-Xx-UPb"/>
+                                            <constraint firstAttribute="bottom" secondItem="5vI-Bs-rgA" secondAttribute="bottom" constant="20" id="Aj8-XF-BBf"/>
                                             <constraint firstItem="9MO-LQ-m9O" firstAttribute="centerX" secondItem="wWS-YA-ccG" secondAttribute="centerX" id="BwK-vd-Oaw"/>
                                             <constraint firstItem="FuO-VI-YCU" firstAttribute="centerX" secondItem="wWS-YA-ccG" secondAttribute="centerX" id="JjO-3h-dTW"/>
                                             <constraint firstItem="FuO-VI-YCU" firstAttribute="top" secondItem="9MO-LQ-m9O" secondAttribute="bottom" constant="20" id="KdT-uA-aK6"/>
                                             <constraint firstItem="9MO-LQ-m9O" firstAttribute="top" secondItem="wWS-YA-ccG" secondAttribute="top" constant="40" id="Ova-GC-JTs"/>
+                                            <constraint firstItem="6Pt-VB-f0y" firstAttribute="centerX" secondItem="wWS-YA-ccG" secondAttribute="centerX" id="WrE-qb-Hpp"/>
                                             <constraint firstAttribute="trailing" secondItem="5vI-Bs-rgA" secondAttribute="trailing" constant="50" id="cyg-FL-N4X"/>
+                                            <constraint firstItem="6Pt-VB-f0y" firstAttribute="top" secondItem="FuO-VI-YCU" secondAttribute="bottom" constant="15" id="gco-9J-DL7"/>
                                             <constraint firstItem="5vI-Bs-rgA" firstAttribute="leading" secondItem="wWS-YA-ccG" secondAttribute="leading" constant="50" id="s1J-3d-JZV"/>
                                             <constraint firstItem="9MO-LQ-m9O" firstAttribute="leading" secondItem="wWS-YA-ccG" secondAttribute="leading" constant="50" id="u3d-EI-rUe"/>
                                             <constraint firstAttribute="trailing" secondItem="9MO-LQ-m9O" secondAttribute="trailing" constant="50" id="yJm-W9-0aq"/>
@@ -134,16 +143,16 @@
             </objects>
             <point key="canvasLocation" x="-5.5999999999999996" y="152.47376311844079"/>
         </scene>
-        <!--Storyboard Reference-->
+        <!--Conversations-->
         <scene sceneID="g9f-S1-f85">
             <objects>
-                <viewControllerPlaceholder id="Fz1-2n-Ud1" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardIdentifier="conversations" storyboardName="Conversations" id="Fz1-2n-Ud1" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sdt-db-4Va" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="582" y="67"/>
         </scene>
     </scenes>
     <resources>
-        <image name="Image uploaded from iOS" width="576" height="1024"/>
+        <image name="bacground" width="576" height="1024"/>
     </resources>
 </document>

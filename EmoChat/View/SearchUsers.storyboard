@@ -12,7 +12,7 @@
         <!--Table View Controller-->
         <scene sceneID="Fjx-y7-bCn">
             <objects>
-                <tableViewController storyboardIdentifier="searchUsers" id="Ve4-XD-0jU" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SearchUsers" id="Ve4-XD-0jU" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="71" sectionHeaderHeight="28" sectionFooterHeight="28" id="Hd0-fd-Tub">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
