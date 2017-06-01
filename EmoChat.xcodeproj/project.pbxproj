@@ -17,6 +17,7 @@
 		E7352C271EDED52B0095264E /* Auxiliary.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C231EDED52B0095264E /* Auxiliary.swift */; };
 		E7352C281EDED52B0095264E /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C241EDED52B0095264E /* Messages.swift */; };
 		E7352C291EDED52B0095264E /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C251EDED52B0095264E /* Users.swift */; };
+		E7352C2B1EE0139E0095264E /* ModelGenericHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C2A1EE0139E0095264E /* ModelGenericHelper.swift */; };
 		ED1E2D941EDD75B20058B6A6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +36,7 @@
 		E7352C231EDED52B0095264E /* Auxiliary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auxiliary.swift; sourceTree = "<group>"; };
 		E7352C241EDED52B0095264E /* Messages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
 		E7352C251EDED52B0095264E /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
+		E7352C2A1EE0139E0095264E /* ModelGenericHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelGenericHelper.swift; sourceTree = "<group>"; };
 		ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -108,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				E7352C231EDED52B0095264E /* Auxiliary.swift */,
+				E7352C2A1EE0139E0095264E /* ModelGenericHelper.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 				E7352C281EDED52B0095264E /* Messages.swift in Sources */,
 				E7352C271EDED52B0095264E /* Auxiliary.swift in Sources */,
 				E7352C291EDED52B0095264E /* Users.swift in Sources */,
+				E7352C2B1EE0139E0095264E /* ModelGenericHelper.swift in Sources */,
 				3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

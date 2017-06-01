@@ -6,27 +6,27 @@
 //  Copyright © 2017 SoftServe. All rights reserved.
 //
 
-class Messages {
-    var messageId: String = Auxiliary.getEmpyUUID()
-    var sender: String? = ""
+class Messages: FireBaseEmoChat {
+    var uuid: String = Auxiliary.getEmpyUUID()
+    var sender: Users?
     var conversation: String? = ""
     
-    init(messageId: String, sender: String?, conversation: String?) {
-        self.messageId  = messageId
+    init(messageId: String, sender: Users?, conversation: String?) {
+        self.uuid  = messageId
         self.sender = sender
         self.conversation = conversation
     }
 
     init () {
-        sender = "uknowned"
+//        sender = "uknowned"
         conversation = "empty"
     }
 
-    convenience init(sender: String?, conversation: String?) {
+    convenience init(sender: Users?, conversation: String?) {
 
         self.init()
 
-        self.messageId  = Auxiliary.getUUID()
+        self.uuid  = Auxiliary.getUUID()
         self.sender = sender
         self.conversation = conversation
     }
@@ -34,9 +34,9 @@ class Messages {
     //MARK:- func. for FireBase use
     func toAnyObject() -> Any {
         return [
-            messageId: [
-                "messageId": messageId,
-                "sender": sender,
+            uuid: [
+                "messageId": uuid,
+                "senderId": sender?.uuid,
                 "conversation": conversation]
         ]
     }

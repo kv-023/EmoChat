@@ -7,48 +7,91 @@
 //
 
 
-class Conversation {
-    var conversationId: String = Auxiliary.getEmpyUUID()
-    var usersInConversations: [Users?]? = []
-    
-    init(conversationId: String, usersInConversations: [Users?]?) {
-        self.conversationId = conversationId
+class Conversation: FireBaseEmoChat {
+//    var conversationId: String = Auxiliary.getEmpyUUID()
+    var uuid: String
+    var usersInConversation: [Users?]? = []
+    var mesagesInConversation: [Messages?]? = []
 
-        guard let notNullUsersInConversations = usersInConversations else {
+//    typealias linkedTableType = [String: Bool]
+    
+    init(conversationId: String, usersInConversation: [Users?]?) {
+        self.uuid = conversationId
+
+        guard let notNullUsersInConversation = usersInConversation else {
             return
         }
 
-        self.usersInConversations = notNullUsersInConversations
+        self.usersInConversation = notNullUsersInConversation
     }
 
-    init(usersInConversations: [Users?]?) {
+    init(usersInConversation: [Users?]?) {
 
-        self.conversationId = Auxiliary.getUUID()
-
-        guard let notNullUsersInConversations = usersInConversations else {
+        self.uuid = Auxiliary.getEmpyUUID()
+        
+        guard let notNullUsersInConversation = usersInConversation else {
             return
         }
 
-        self.usersInConversations = notNullUsersInConversations
+        self.usersInConversation = notNullUsersInConversation
+    }
+
+    func appendMessage(_ newElement: Messages) {
+        mesagesInConversation?.append(newElement)
     }
 
     //MARK:- func. for FireBase use
     func toAnyObject() -> Any {
-        var usersInConversations_23 = [String: Bool]()
 
-        if let notNullUsersInConversations = usersInConversations {
-            for itemInArray in notNullUsersInConversations {
-                if let notNullItemInArray = itemInArray {
-                     usersInConversations_23.updateValue(true,
-                                                         forKey: notNullItemInArray.userId)
-                }
-            }
-        }
+//        var tempUsersInConversation = linkedTableType()
+//        var tempMesagesInConversation = linkedTableType()
+//
+//        //add table of users
+//        if let notNullUsersInConversation = usersInConversation {
+//            for itemInArray in notNullUsersInConversation {
+//                if let notNullItemInArray = itemInArray {
+//                     tempUsersInConversation.updateValue(true,
+//                                                         forKey: notNullItemInArray.uuid)
+//                }
+//            }
+//        }
+//
+//        //add table of convmessages
+//        if let notNullMessagesInConversation = mesagesInConversation {
+//            for itemInArray in notNullMessagesInConversation {
+//                if let notNullItemInArray = itemInArray {
+//                    tempMesagesInConversation.updateValue(true,
+//                                                        forKey: notNullItemInArray.uuid)
+//                }
+//            }
+//        }
+
+//        let tempUsersInConversation = collectDataFromModelInstance(usersInConversation)
+//        let tempMesagesInConversation = collectDataFromModelInstance(mesagesInConversation)
+
 
         return [
-            conversationId: ["conversationId": conversationId,
-                "usersInConversations": usersInConversations_23]
+            uuid: ["conversationId": uuid,
+                "usersInConversation": collectDataFromModelInstance(usersInConversation),
+                "mesagesInConversation": collectDataFromModelInstance(mesagesInConversation)]
+
         ]
     }
+
+//    private func collectDataFromModelInstance (_ dataInArray: [FireBaseEmoChat?]?) -> linkedTableType {
+//        var tempArrayData = linkedTableType()
+//
+//        if let notNullDataInInstance = dataInArray {
+//            for itemInArray in notNullDataInInstance {
+//                if let notNullDataInInstance = itemInArray {
+//                    tempArrayData.updateValue(true,
+//                                              forKey: notNullDataInInstance.uuid)
+//                }
+//            }
+//        }
+//        return tempArrayData
+//
+//    }
     
 }
+

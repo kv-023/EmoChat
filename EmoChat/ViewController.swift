@@ -54,22 +54,38 @@ class ViewController: UIViewController {
 
 
         //ref?.child("Users").setValue(tempUser.toAnyObject())
-        ref?.child("Users").setValue(Users.toAnyObject(users: usersInArray))
+//        ref?.child("Users").setValue(Users.toAnyObject(users: usersInArray))
 
 //        let ref2: FIRDatabaseReference?// for test only
 //        ref2 = FIRDatabase.database().reference() // for test only
 //        ref2?.child("Users").setValue(tempUser2.toAnyObject())// for test only
 
 
-        let tempConversation:Conversation = Conversation(conversationId: "conversationId-456", usersInConversations: usersInArray)
+        let tempConversation:Conversation = Conversation(conversationId: "conversationId-456", usersInConversation: usersInArray)
 
 //        ref?.child("Conversation").childByAutoId().setValue(tempConversation.conversationId)
-        ref?.child("Conversation").setValue(tempConversation.toAnyObject())
+ //       ref?.child("Conversation").setValue(tempConversation.toAnyObject())
 
 
         let tempMessage:Messages = Messages(messageId: "messageId-789",
-                                            sender: tempUser.name, conversation: tempConversation.conversationId)
+                                            sender: tempUser, conversation: tempConversation.uuid)
         ref?.child("Message").setValue(tempMessage.toAnyObject())
+
+//        tempUser.appendConversation(tempConversation)
+//        tempUser2.appendConversation(tempConversation)
+        if let notNullUsersInConversation = tempConversation.usersInConversation {
+            for itemUserConversation in notNullUsersInConversation {
+                if let itemUserConversation = itemUserConversation {
+                    itemUserConversation.appendConversation(tempConversation)
+                }
+            }
+        }
+
+        ref?.child("Users").setValue(Users.toAnyObject(users: usersInArray))
+        
+        tempConversation.appendMessage(tempMessage)
+        ref?.child("Conversation").setValue(tempConversation.toAnyObject())
+
 
     }
 
