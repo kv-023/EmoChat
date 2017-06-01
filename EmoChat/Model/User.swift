@@ -20,6 +20,7 @@ class User: FireBaseEmoChat {
         self.uuid = userId
         self.name = name
         self.email = email
+        
     }
 
     convenience init(name: String = "uknowned", email: String = "no e-mail") {
