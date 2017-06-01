@@ -16,7 +16,7 @@
 		E7352C261EDED52B0095264E /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C211EDED52B0095264E /* Conversation.swift */; };
 		E7352C271EDED52B0095264E /* Auxiliary.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C231EDED52B0095264E /* Auxiliary.swift */; };
 		E7352C281EDED52B0095264E /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C241EDED52B0095264E /* Message.swift */; };
-		E7352C291EDED52B0095264E /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C251EDED52B0095264E /* Users.swift */; };
+		E7352C291EDED52B0095264E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C251EDED52B0095264E /* User.swift */; };
 		E7352C2B1EE0139E0095264E /* ModelGenericHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C2A1EE0139E0095264E /* ModelGenericHelper.swift */; };
 		ED1E2D941EDD75B20058B6A6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
@@ -35,7 +35,7 @@
 		E7352C211EDED52B0095264E /* Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		E7352C231EDED52B0095264E /* Auxiliary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auxiliary.swift; sourceTree = "<group>"; };
 		E7352C241EDED52B0095264E /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
-		E7352C251EDED52B0095264E /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
+		E7352C251EDED52B0095264E /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E7352C2A1EE0139E0095264E /* ModelGenericHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelGenericHelper.swift; sourceTree = "<group>"; };
 		ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -101,7 +101,7 @@
 				E7352C221EDED52B0095264E /* Helper */,
 				E7352C211EDED52B0095264E /* Conversation.swift */,
 				E7352C241EDED52B0095264E /* Message.swift */,
-				E7352C251EDED52B0095264E /* Users.swift */,
+				E7352C251EDED52B0095264E /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -266,7 +266,7 @@
 				3938C2721EDC27C700D69F88 /* ViewController.swift in Sources */,
 				E7352C281EDED52B0095264E /* Message.swift in Sources */,
 				E7352C271EDED52B0095264E /* Auxiliary.swift in Sources */,
-				E7352C291EDED52B0095264E /* Users.swift in Sources */,
+				E7352C291EDED52B0095264E /* User.swift in Sources */,
 				E7352C2B1EE0139E0095264E /* ModelGenericHelper.swift in Sources */,
 				3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */,
 			);
