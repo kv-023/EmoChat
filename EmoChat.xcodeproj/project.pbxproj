@@ -1,0 +1,469 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		35EA65BB1EE0037900C467DC /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35EA65BA1EE0037900C467DC /* Login.storyboard */; };
+		3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3938C26F1EDC27C700D69F88 /* AppDelegate.swift */; };
+		3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2731EDC27C700D69F88 /* Main.storyboard */; };
+		3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2761EDC27C700D69F88 /* Assets.xcassets */; };
+		3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */; };
+		746478FA29F53658399EE02D /* Pods_EmoChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */; };
+		846C791A1EDEED4A00F9E17E /* ChatSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 846C79181EDEED4A00F9E17E /* ChatSettings.storyboard */; };
+		846C791B1EDEED4A00F9E17E /* Conversations.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 846C79191EDEED4A00F9E17E /* Conversations.storyboard */; };
+		CC34DC0C1EE01D9100CAAFAB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC34DC0A1EE01D9100CAAFAB /* LoginViewController.swift */; };
+		CC34DC0D1EE01D9100CAAFAB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC34DC0B1EE01D9100CAAFAB /* ViewController.swift */; };
+		CCE093761EDEE12A00BAF608 /* Options.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCE093741EDEE12A00BAF608 /* Options.storyboard */; };
+		CCE093771EDEE12A00BAF608 /* UserInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCE093751EDEE12A00BAF608 /* UserInfo.storyboard */; };
+		E7352C1A1EDEB19C0095264E /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C171EDEB19C0095264E /* Conversation.swift */; };
+		E7352C1B1EDEB19C0095264E /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C181EDEB19C0095264E /* Messages.swift */; };
+		E7352C1C1EDEB19C0095264E /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C191EDEB19C0095264E /* Users.swift */; };
+		ED1E2D941EDD75B20058B6A6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */; };
+		FBB9DD2C1EE02EB90081C7CF /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBB9DD2B1EE02EB90081C7CF /* SignUp.storyboard */; };
+		FBB9DD2E1EE02EBF0081C7CF /* Confirmation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBB9DD2D1EE02EBF0081C7CF /* Confirmation.storyboard */; };
+		FBB9DD301EE033E20081C7CF /* SearchUsers.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBB9DD2F1EE033E20081C7CF /* SearchUsers.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		35EA65BA1EE0037900C467DC /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		3938C26C1EDC27C700D69F88 /* EmoChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmoChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3938C26F1EDC27C700D69F88 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		3938C2741EDC27C700D69F88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		3938C2761EDC27C700D69F88 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3938C2791EDC27C700D69F88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		3938C27B1EDC27C700D69F88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5E5B970584D3FF3821DB6225 /* Pods-EmoChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmoChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmoChat/Pods-EmoChat.release.xcconfig"; sourceTree = "<group>"; };
+		6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmoChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		846C79181EDEED4A00F9E17E /* ChatSettings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChatSettings.storyboard; sourceTree = "<group>"; };
+		846C79191EDEED4A00F9E17E /* Conversations.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Conversations.storyboard; sourceTree = "<group>"; };
+		CC34DC0A1EE01D9100CAAFAB /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		CC34DC0B1EE01D9100CAAFAB /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CCE093741EDEE12A00BAF608 /* Options.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Options.storyboard; sourceTree = "<group>"; };
+		CCE093751EDEE12A00BAF608 /* UserInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserInfo.storyboard; sourceTree = "<group>"; };
+		E701EB98A17F8F7EB9DF59EA /* Pods-EmoChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmoChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EmoChat/Pods-EmoChat.debug.xcconfig"; sourceTree = "<group>"; };
+		E7352C171EDEB19C0095264E /* Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
+		E7352C181EDEB19C0095264E /* Messages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
+		E7352C191EDEB19C0095264E /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
+		ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FBB9DD2B1EE02EB90081C7CF /* SignUp.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SignUp.storyboard; sourceTree = "<group>"; };
+		FBB9DD2D1EE02EBF0081C7CF /* Confirmation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Confirmation.storyboard; sourceTree = "<group>"; };
+		FBB9DD2F1EE033E20081C7CF /* SearchUsers.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SearchUsers.storyboard; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3938C2691EDC27C700D69F88 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				746478FA29F53658399EE02D /* Pods_EmoChat.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3938C2631EDC27C700D69F88 = {
+			isa = PBXGroup;
+			children = (
+				3938C26E1EDC27C700D69F88 /* EmoChat */,
+				3938C26D1EDC27C700D69F88 /* Products */,
+				EDB7F02033953CB545BB1360 /* Pods */,
+				3A8C5AD41793988FEA7CBB96 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		3938C26D1EDC27C700D69F88 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3938C26C1EDC27C700D69F88 /* EmoChat.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3938C26E1EDC27C700D69F88 /* EmoChat */ = {
+			isa = PBXGroup;
+			children = (
+				CC34DC091EE01D9100CAAFAB /* Controller */,
+				CCE093731EDEE12A00BAF608 /* View */,
+				3938C26F1EDC27C700D69F88 /* AppDelegate.swift */,
+				3938C2731EDC27C700D69F88 /* Main.storyboard */,
+				3938C2761EDC27C700D69F88 /* Assets.xcassets */,
+				3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */,
+				E7352C161EDEB19C0095264E /* Model */,
+				3938C27B1EDC27C700D69F88 /* Info.plist */,
+				ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */,
+			);
+			path = EmoChat;
+			sourceTree = "<group>";
+		};
+		3A8C5AD41793988FEA7CBB96 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CC34DC091EE01D9100CAAFAB /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CC34DC0A1EE01D9100CAAFAB /* LoginViewController.swift */,
+				CC34DC0B1EE01D9100CAAFAB /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		CCE093731EDEE12A00BAF608 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FBB9DD2D1EE02EBF0081C7CF /* Confirmation.storyboard */,
+				FBB9DD2B1EE02EB90081C7CF /* SignUp.storyboard */,
+				846C79181EDEED4A00F9E17E /* ChatSettings.storyboard */,
+				846C79191EDEED4A00F9E17E /* Conversations.storyboard */,
+				CCE093741EDEE12A00BAF608 /* Options.storyboard */,
+				CCE093751EDEE12A00BAF608 /* UserInfo.storyboard */,
+				35EA65BA1EE0037900C467DC /* Login.storyboard */,
+				FBB9DD2F1EE033E20081C7CF /* SearchUsers.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E7352C161EDEB19C0095264E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E7352C171EDEB19C0095264E /* Conversation.swift */,
+				E7352C181EDEB19C0095264E /* Messages.swift */,
+				E7352C191EDEB19C0095264E /* Users.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		EDB7F02033953CB545BB1360 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E701EB98A17F8F7EB9DF59EA /* Pods-EmoChat.debug.xcconfig */,
+				5E5B970584D3FF3821DB6225 /* Pods-EmoChat.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3938C26B1EDC27C700D69F88 /* EmoChat */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3938C27E1EDC27C700D69F88 /* Build configuration list for PBXNativeTarget "EmoChat" */;
+			buildPhases = (
+				F4C6A2C995C8B24941246DAF /* [CP] Check Pods Manifest.lock */,
+				3938C2681EDC27C700D69F88 /* Sources */,
+				3938C2691EDC27C700D69F88 /* Frameworks */,
+				3938C26A1EDC27C700D69F88 /* Resources */,
+				D926E3C9E91EA32A08E977D9 /* [CP] Embed Pods Frameworks */,
+				AC9745F52E26DBFD145DACB1 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EmoChat;
+			productName = EmoChat;
+			productReference = 3938C26C1EDC27C700D69F88 /* EmoChat.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3938C2641EDC27C700D69F88 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = SoftServe;
+				TargetAttributes = {
+					3938C26B1EDC27C700D69F88 = {
+						CreatedOnToolsVersion = 8.3.1;
+						DevelopmentTeam = R5ZXKV545V;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 3938C2671EDC27C700D69F88 /* Build configuration list for PBXProject "EmoChat" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 3938C2631EDC27C700D69F88;
+			productRefGroup = 3938C26D1EDC27C700D69F88 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3938C26B1EDC27C700D69F88 /* EmoChat */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3938C26A1EDC27C700D69F88 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */,
+				CCE093761EDEE12A00BAF608 /* Options.storyboard in Resources */,
+				ED1E2D941EDD75B20058B6A6 /* GoogleService-Info.plist in Resources */,
+				3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */,
+				FBB9DD2E1EE02EBF0081C7CF /* Confirmation.storyboard in Resources */,
+				FBB9DD301EE033E20081C7CF /* SearchUsers.storyboard in Resources */,
+				FBB9DD2C1EE02EB90081C7CF /* SignUp.storyboard in Resources */,
+				3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */,
+				846C791B1EDEED4A00F9E17E /* Conversations.storyboard in Resources */,
+				35EA65BB1EE0037900C467DC /* Login.storyboard in Resources */,
+				CCE093771EDEE12A00BAF608 /* UserInfo.storyboard in Resources */,
+				846C791A1EDEED4A00F9E17E /* ChatSettings.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		AC9745F52E26DBFD145DACB1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EmoChat/Pods-EmoChat-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D926E3C9E91EA32A08E977D9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EmoChat/Pods-EmoChat-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F4C6A2C995C8B24941246DAF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3938C2681EDC27C700D69F88 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC34DC0C1EE01D9100CAAFAB /* LoginViewController.swift in Sources */,
+				E7352C1A1EDEB19C0095264E /* Conversation.swift in Sources */,
+				E7352C1B1EDEB19C0095264E /* Messages.swift in Sources */,
+				E7352C1C1EDEB19C0095264E /* Users.swift in Sources */,
+				CC34DC0D1EE01D9100CAAFAB /* ViewController.swift in Sources */,
+				3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		3938C2731EDC27C700D69F88 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3938C2741EDC27C700D69F88 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3938C2791EDC27C700D69F88 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		3938C27C1EDC27C700D69F88 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		3938C27D1EDC27C700D69F88 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3938C27F1EDC27C700D69F88 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E701EB98A17F8F7EB9DF59EA /* Pods-EmoChat.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = R5ZXKV545V;
+				INFOPLIST_FILE = EmoChat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = study.EmoChat;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		3938C2801EDC27C700D69F88 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5E5B970584D3FF3821DB6225 /* Pods-EmoChat.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = R5ZXKV545V;
+				INFOPLIST_FILE = EmoChat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = study.EmoChat;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3938C2671EDC27C700D69F88 /* Build configuration list for PBXProject "EmoChat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3938C27C1EDC27C700D69F88 /* Debug */,
+				3938C27D1EDC27C700D69F88 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3938C27E1EDC27C700D69F88 /* Build configuration list for PBXNativeTarget "EmoChat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3938C27F1EDC27C700D69F88 /* Debug */,
+				3938C2801EDC27C700D69F88 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3938C2641EDC27C700D69F88 /* Project object */;
+}
