@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="n3a-Ip-CRQ">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -22,7 +22,7 @@
                             <tableViewSection headerTitle="Chat Settings" id="zlj-fE-gUO">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="42" id="5qq-ge-WAs">
-                                        <rect key="frame" x="0.0" y="55.5" width="375" height="42"/>
+                                        <rect key="frame" x="0.0" y="56" width="375" height="42"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5qq-ge-WAs" id="yDd-tR-fgX">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="41"/>
@@ -41,9 +41,12 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="2OA-9s-Z8r" kind="show" id="sQA-Ph-LOo"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="42" id="MZ5-M4-eVt">
-                                        <rect key="frame" x="0.0" y="97.5" width="375" height="42"/>
+                                        <rect key="frame" x="0.0" y="98" width="375" height="42"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MZ5-M4-eVt" id="Fph-To-S4M">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="41"/>
@@ -64,7 +67,7 @@
                             <tableViewSection headerTitle="000 Members" id="Mqy-qc-bZF">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MemberCellIdentifier" rowHeight="67" id="acq-gV-2W2">
-                                        <rect key="frame" x="0.0" y="195.5" width="375" height="67"/>
+                                        <rect key="frame" x="0.0" y="196" width="375" height="67"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="acq-gV-2W2" id="tYF-bk-jNK">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="66"/>
@@ -102,7 +105,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MemberCellIdentifier" rowHeight="67" id="50I-D3-UiW">
-                                        <rect key="frame" x="0.0" y="262.5" width="375" height="67"/>
+                                        <rect key="frame" x="0.0" y="263" width="375" height="67"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="50I-D3-UiW" id="Ni4-UF-fhj">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="66"/>
@@ -152,6 +155,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u0n-FA-h7F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1148" y="145.27736131934034"/>
+        </scene>
+        <!--SearchUsers-->
+        <scene sceneID="rtw-Mf-zvd">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="searchUsers" storyboardName="SearchUsers" id="2OA-9s-Z8r" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tul-tO-ZCu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1781" y="-75"/>
         </scene>
         <!--UserInfo-->
         <scene sceneID="WYI-N5-fWe">
