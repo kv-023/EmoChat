@@ -105,6 +105,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
+    @IBOutlet weak var hintsLabel: UILabel!
     @IBOutlet weak var segmentControl: UISegmentedControl!
     
     @IBOutlet weak var buttonLogin: UIButton!
@@ -112,16 +113,17 @@ class ViewController: UIViewController {
         
         if emailTextField.text != "" && passwordTextField.text != "" {
             if segmentControl.selectedSegmentIndex == 0 {    // login
+                
                 FIRAuth.auth()?.signIn(withEmail: emailTextField.text!,
                                        password: passwordTextField.text!,
                                        completion: { (user, error) in
-                if user != nil {
-                  print ("success")
+                if user != nil && (user?.isEmailVerified)! {
+                  self.hintsLabel.text = ("success! you are in")
                 } else {
                     if let myError = error?.localizedDescription {
-                        print(myError)
+                        self.hintsLabel.text = myError
                     } else {
-                        print ("Something went wrong")
+                        self.hintsLabel.text = ("confirm your e-mail")
                     }
                     
                 }
@@ -134,12 +136,13 @@ class ViewController: UIViewController {
                                            completion: { (user, error) in
                 
                                             if user != nil {
-                                                print ("success")
+                                                 user?.sendEmailVerification(completion: nil) // send verification email
+                                                self.hintsLabel.text = ("success")
                                             } else {
                                                 if let myError = error?.localizedDescription {
-                                                    print(myError)
+                                                    self.hintsLabel.text = myError
                                                 } else {
-                                                    print ("Something went wrong")
+                                                    self.hintsLabel.text = ("Something went wrong")
                                                 }
                                             }
                 })
