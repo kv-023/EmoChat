@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		35EA65BB1EE0037900C467DC /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35EA65BA1EE0037900C467DC /* Login.storyboard */; };
+		35EA65C01EE0047400C467DC /* bacgroung.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 35EA65BD1EE0047400C467DC /* bacgroung.jpg */; };
+		35EA65C11EE0047400C467DC /* password-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 35EA65BE1EE0047400C467DC /* password-50.png */; };
+		35EA65C21EE0047400C467DC /* user-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 35EA65BF1EE0047400C467DC /* user-50.png */; };
+		35EA65C41EE0056000C467DC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EA65C31EE0056000C467DC /* LoginViewController.swift */; };
 		3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3938C26F1EDC27C700D69F88 /* AppDelegate.swift */; };
 		3938C2721EDC27C700D69F88 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3938C2711EDC27C700D69F88 /* ViewController.swift */; };
 		3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2731EDC27C700D69F88 /* Main.storyboard */; };
@@ -24,6 +29,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		35EA65BA1EE0037900C467DC /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		35EA65BD1EE0047400C467DC /* bacgroung.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bacgroung.jpg; sourceTree = "<group>"; };
+		35EA65BE1EE0047400C467DC /* password-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "password-50.png"; sourceTree = "<group>"; };
+		35EA65BF1EE0047400C467DC /* user-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user-50.png"; sourceTree = "<group>"; };
+		35EA65C31EE0056000C467DC /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = EmoChat/LoginViewController.swift; sourceTree = SOURCE_ROOT; };
 		3938C26C1EDC27C700D69F88 /* EmoChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmoChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3938C26F1EDC27C700D69F88 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3938C2711EDC27C700D69F88 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -56,6 +66,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		35EA65BC1EE0047400C467DC /* img */ = {
+			isa = PBXGroup;
+			children = (
+				35EA65BD1EE0047400C467DC /* bacgroung.jpg */,
+				35EA65BE1EE0047400C467DC /* password-50.png */,
+				35EA65BF1EE0047400C467DC /* user-50.png */,
+			);
+			path = img;
+			sourceTree = "<group>";
+		};
 		3938C2631EDC27C700D69F88 = {
 			isa = PBXGroup;
 			children = (
@@ -77,9 +97,11 @@
 		3938C26E1EDC27C700D69F88 /* EmoChat */ = {
 			isa = PBXGroup;
 			children = (
+				35EA65BC1EE0047400C467DC /* img */,
 				CCE093731EDEE12A00BAF608 /* View */,
 				EDB756A01EDEC051009AAE12 /* Controller */,
 				3938C26F1EDC27C700D69F88 /* AppDelegate.swift */,
+				35EA65C31EE0056000C467DC /* LoginViewController.swift */,
 				3938C2711EDC27C700D69F88 /* ViewController.swift */,
 				3938C2731EDC27C700D69F88 /* Main.storyboard */,
 				3938C2761EDC27C700D69F88 /* Assets.xcassets */,
@@ -106,6 +128,7 @@
 				846C79191EDEED4A00F9E17E /* Conversations.storyboard */,
 				CCE093741EDEE12A00BAF608 /* Options.storyboard */,
 				CCE093751EDEE12A00BAF608 /* UserInfo.storyboard */,
+				35EA65BA1EE0037900C467DC /* Login.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -198,12 +221,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35EA65C01EE0047400C467DC /* bacgroung.jpg in Resources */,
 				3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */,
 				CCE093761EDEE12A00BAF608 /* Options.storyboard in Resources */,
 				ED1E2D941EDD75B20058B6A6 /* GoogleService-Info.plist in Resources */,
 				3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */,
 				3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */,
 				846C791B1EDEED4A00F9E17E /* Conversations.storyboard in Resources */,
+				35EA65C21EE0047400C467DC /* user-50.png in Resources */,
+				35EA65C11EE0047400C467DC /* password-50.png in Resources */,
+				35EA65BB1EE0037900C467DC /* Login.storyboard in Resources */,
 				CCE093771EDEE12A00BAF608 /* UserInfo.storyboard in Resources */,
 				846C791A1EDEED4A00F9E17E /* ChatSettings.storyboard in Resources */,
 			);
@@ -264,6 +291,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35EA65C41EE0056000C467DC /* LoginViewController.swift in Sources */,
 				E7352C1A1EDEB19C0095264E /* Conversation.swift in Sources */,
 				E7352C1B1EDEB19C0095264E /* Messages.swift in Sources */,
 				E7352C1C1EDEB19C0095264E /* Users.swift in Sources */,
