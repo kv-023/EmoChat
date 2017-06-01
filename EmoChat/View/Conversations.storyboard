@@ -18,22 +18,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <navigationBar key="tableHeaderView" contentMode="scaleToFill" id="qJO-9v-Ma5">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <items>
-                                <navigationItem title="Conversations" id="Ugh-iD-fM7">
-                                    <barButtonItem key="leftBarButtonItem" title="Settings" id="dcY-JI-DtG">
-                                        <connections>
-                                            <segue destination="T41-dq-2Rw" kind="show" id="QOY-BE-V3g"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </navigationItem>
-                            </items>
-                        </navigationBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MessageCellIdentifier" rowHeight="77" id="A8c-ue-4H4">
-                                <rect key="frame" x="0.0" y="72" width="375" height="77"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="77"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="A8c-ue-4H4" id="g9f-NM-atA">
                                     <rect key="frame" x="0.0" y="0.0" width="342" height="77"/>
@@ -82,7 +69,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="PhotoCellIdentifier" rowHeight="68" id="5Ft-3P-IMl">
-                                <rect key="frame" x="0.0" y="149" width="375" height="68"/>
+                                <rect key="frame" x="0.0" y="105" width="375" height="68"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5Ft-3P-IMl" id="g3C-Ua-49u">
                                     <rect key="frame" x="0.0" y="0.0" width="342" height="68"/>
@@ -131,7 +118,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="VideoCellIdentifier" rowHeight="68" id="CDa-hL-sDu">
-                                <rect key="frame" x="0.0" y="217" width="375" height="68"/>
+                                <rect key="frame" x="0.0" y="173" width="375" height="68"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CDa-hL-sDu" id="aoA-F2-dVO">
                                     <rect key="frame" x="0.0" y="0.0" width="342" height="68"/>
@@ -189,14 +176,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Aqs-Bb-5Jf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1190" y="42"/>
-        </scene>
-        <!--Options-->
-        <scene sceneID="GK9-Yb-avK">
-            <objects>
-                <viewControllerPlaceholder storyboardIdentifier="options" storyboardName="Options" id="T41-dq-2Rw" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Gmy-r8-PjU" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1814" y="-91"/>
         </scene>
     </scenes>
     <resources>
