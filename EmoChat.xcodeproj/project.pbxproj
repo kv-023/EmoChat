@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3919148F1EE03A8A001370A5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3919148D1EE03A8A001370A5 /* Main.storyboard */; };
+		391914921EE03A91001370A5 /* SingleConversation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 391914901EE03A91001370A5 /* SingleConversation.storyboard */; };
 		3926E7B61EDECC0400E38259 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3926E7B51EDECC0400E38259 /* ViewController.swift */; };
 		3926E7BB1EDECDBF00E38259 /* attache.png in Resources */ = {isa = PBXBuildFile; fileRef = 3926E7B81EDECDBF00E38259 /* attache.png */; };
 		3926E7BC1EDECDBF00E38259 /* mail-sent.png in Resources */ = {isa = PBXBuildFile; fileRef = 3926E7B91EDECDBF00E38259 /* mail-sent.png */; };
 		3926E7BD1EDECDBF00E38259 /* send.png in Resources */ = {isa = PBXBuildFile; fileRef = 3926E7BA1EDECDBF00E38259 /* send.png */; };
 		3926E7BF1EDEDA1700E38259 /* play-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 3926E7BE1EDEDA1700E38259 /* play-button.png */; };
 		3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3938C26F1EDC27C700D69F88 /* AppDelegate.swift */; };
-		3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2731EDC27C700D69F88 /* Main.storyboard */; };
 		3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2761EDC27C700D69F88 /* Assets.xcassets */; };
 		3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */; };
 		746478FA29F53658399EE02D /* Pods_EmoChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */; };
@@ -24,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3919148E1EE03A8A001370A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		391914911EE03A91001370A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/SingleConversation.storyboard; sourceTree = "<group>"; };
 		3926E7B51EDECC0400E38259 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3926E7B81EDECDBF00E38259 /* attache.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = attache.png; sourceTree = "<group>"; };
 		3926E7B91EDECDBF00E38259 /* mail-sent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mail-sent.png"; sourceTree = "<group>"; };
@@ -31,7 +34,6 @@
 		3926E7BE1EDEDA1700E38259 /* play-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play-button.png"; sourceTree = "<group>"; };
 		3938C26C1EDC27C700D69F88 /* EmoChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmoChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3938C26F1EDC27C700D69F88 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3938C2741EDC27C700D69F88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3938C2761EDC27C700D69F88 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3938C2791EDC27C700D69F88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3938C27B1EDC27C700D69F88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -96,10 +98,11 @@
 		3938C26E1EDC27C700D69F88 /* EmoChat */ = {
 			isa = PBXGroup;
 			children = (
+				3919148D1EE03A8A001370A5 /* Main.storyboard */,
+				391914901EE03A91001370A5 /* SingleConversation.storyboard */,
 				ED1E2D951EDD76770058B6A6 /* Model */,
 				3938C26F1EDC27C700D69F88 /* AppDelegate.swift */,
 				3926E7B41EDECC0400E38259 /* Controller */,
-				3938C2731EDC27C700D69F88 /* Main.storyboard */,
 				3938C2761EDC27C700D69F88 /* Assets.xcassets */,
 				3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */,
 				3926E7B71EDECDBF00E38259 /* Supporting Files */,
@@ -200,12 +203,13 @@
 			files = (
 				3926E7BC1EDECDBF00E38259 /* mail-sent.png in Resources */,
 				3926E7BF1EDEDA1700E38259 /* play-button.png in Resources */,
+				391914921EE03A91001370A5 /* SingleConversation.storyboard in Resources */,
 				3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */,
+				3919148F1EE03A8A001370A5 /* Main.storyboard in Resources */,
 				ED1E2D941EDD75B20058B6A6 /* GoogleService-Info.plist in Resources */,
 				3926E7BD1EDECDBF00E38259 /* send.png in Resources */,
 				3926E7BB1EDECDBF00E38259 /* attache.png in Resources */,
 				3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */,
-				3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,12 +279,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		3938C2731EDC27C700D69F88 /* Main.storyboard */ = {
+		3919148D1EE03A8A001370A5 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				3938C2741EDC27C700D69F88 /* Base */,
+				3919148E1EE03A8A001370A5 /* Base */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		391914901EE03A91001370A5 /* SingleConversation.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				391914911EE03A91001370A5 /* Base */,
+			);
+			name = SingleConversation.storyboard;
 			sourceTree = "<group>";
 		};
 		3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */ = {
