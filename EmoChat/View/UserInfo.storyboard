@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="5TO-og-mqM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="N0o-6h-Tfo">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -11,43 +11,11 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="0Nb-eo-Pd0">
-            <objects>
-                <viewController storyboardIdentifier="userInfo" id="5TO-og-mqM" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Fnk-My-fBF"/>
-                        <viewControllerLayoutGuide type="bottom" id="U40-Ju-hyO"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="d3W-1J-EM4">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DNW-kh-VDC">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <connections>
-                                    <segue destination="N0o-6h-Tfo" kind="embed" id="chP-sq-UtL"/>
-                                </connections>
-                            </containerView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="DNW-kh-VDC" secondAttribute="trailing" id="OuB-vc-QVO"/>
-                            <constraint firstItem="DNW-kh-VDC" firstAttribute="leading" secondItem="d3W-1J-EM4" secondAttribute="leading" id="RyQ-Ob-fmk"/>
-                            <constraint firstItem="DNW-kh-VDC" firstAttribute="top" secondItem="d3W-1J-EM4" secondAttribute="top" id="t8F-uV-n2B"/>
-                            <constraint firstItem="U40-Ju-hyO" firstAttribute="top" secondItem="DNW-kh-VDC" secondAttribute="bottom" id="vsD-4P-S34"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cF6-VW-WYk" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="220" y="126.38680659670166"/>
-        </scene>
         <!--Table View Controller-->
         <scene sceneID="3zq-Ze-9Hm">
             <objects>
-                <tableViewController id="N0o-6h-Tfo" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="jUc-Md-smw">
+                <tableViewController storyboardIdentifier="userInfo" id="N0o-6h-Tfo" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="jUc-Md-smw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>

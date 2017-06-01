@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="9gh-xd-XfF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="DMc-tV-ehN">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -11,43 +11,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="c7f-cg-QI9">
-            <objects>
-                <viewController storyboardIdentifier="options" id="9gh-xd-XfF" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Rd8-LZ-SId"/>
-                        <viewControllerLayoutGuide type="bottom" id="rJK-ix-VSq"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="B27-MH-XNq">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KfV-or-0j7">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <connections>
-                                    <segue destination="DMc-tV-ehN" kind="embed" id="Bfl-Ij-Iat"/>
-                                </connections>
-                            </containerView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="KfV-or-0j7" secondAttribute="trailing" id="4sU-gj-oUb"/>
-                            <constraint firstItem="KfV-or-0j7" firstAttribute="top" secondItem="B27-MH-XNq" secondAttribute="top" id="8Xh-Af-Dk8"/>
-                            <constraint firstItem="rJK-ix-VSq" firstAttribute="top" secondItem="KfV-or-0j7" secondAttribute="bottom" id="IaO-bH-hSP"/>
-                            <constraint firstItem="KfV-or-0j7" firstAttribute="leading" secondItem="B27-MH-XNq" secondAttribute="leading" id="fhR-aA-cnh"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="Dv3-OE-QXN"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="aby-4d-OoP" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1852" y="138.98050974512745"/>
-        </scene>
         <!--Table View Controller-->
         <scene sceneID="0ht-Fh-LYI">
             <objects>
-                <tableViewController id="DMc-tV-ehN" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="options" id="DMc-tV-ehN" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="gc0-UG-MiM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -286,7 +253,7 @@
         <scene sceneID="4xs-iN-MGP">
             <objects>
                 <tableViewController id="kBM-hl-kZF" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="hhn-7Q-WBH">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="hhn-7Q-WBH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -385,7 +352,7 @@
         <scene sceneID="sRi-pU-4p3">
             <objects>
                 <tableViewController id="mZU-ok-4pv" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="o7h-cA-nTJ">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="o7h-cA-nTJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -393,7 +360,7 @@
                             <tableViewSection headerTitle="Change your number" footerTitle="Some info about changing phone number." id="sdk-aa-gA7">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="58" id="bnY-Kb-je5">
-                                        <rect key="frame" x="0.0" y="56" width="375" height="58"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="375" height="58"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bnY-Kb-je5" id="yVi-eH-eRE">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="57"/>
@@ -431,7 +398,7 @@
         <scene sceneID="xx3-9S-SF7">
             <objects>
                 <tableViewController id="pBm-Yw-aSi" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="k0k-F7-Fk8">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="k0k-F7-Fk8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -440,7 +407,7 @@
                                 <string key="footerTitle">You can choose a username on Emochat. If you do, other people will be able to find you by this username and contact you without knowing your phone number. You can use a-z, 0-9 and underscores.</string>
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="58" id="k2m-0n-tTk">
-                                        <rect key="frame" x="0.0" y="56" width="375" height="58"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="375" height="58"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="k2m-0n-tTk" id="4sI-Id-9PA">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="57"/>
@@ -450,7 +417,7 @@
                                                     <rect key="frame" x="15" y="8" width="360" height="42"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                                                    <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -486,7 +453,7 @@
                             <tableViewSection headerTitle="Enter your email address" footerTitle="Your email address will be changed if you verify your new email by entering the pass-code." id="emi-rF-uy2">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="58" id="bgz-DR-aOd">
-                                        <rect key="frame" x="0.0" y="56" width="375" height="58"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="375" height="58"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bgz-DR-aOd" id="ErL-ce-cKf">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="57"/>
@@ -496,7 +463,7 @@
                                                     <rect key="frame" x="15" y="8" width="360" height="42"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                                                    <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -508,7 +475,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="58" id="lJ2-0W-5xq">
-                                        <rect key="frame" x="0.0" y="114" width="375" height="58"/>
+                                        <rect key="frame" x="0.0" y="113.5" width="375" height="58"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lJ2-0W-5xq" id="m8F-th-blV">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="57"/>
