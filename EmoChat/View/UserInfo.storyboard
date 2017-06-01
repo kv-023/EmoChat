@@ -61,7 +61,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="118"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="o8j-BA-5Km">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="o8j-BA-5Km">
                                                     <rect key="frame" x="15" y="16" width="85.5" height="85.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="o8j-BA-5Km" secondAttribute="height" multiplier="1:1" id="f0g-ut-M29"/>
@@ -250,7 +250,4 @@
             <point key="canvasLocation" x="1874" y="126"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="photo.jpg" width="1242" height="1242"/>
-    </resources>
 </document>
