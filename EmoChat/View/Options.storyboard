@@ -15,7 +15,7 @@
         <scene sceneID="0ht-Fh-LYI">
             <objects>
                 <tableViewController storyboardIdentifier="options" id="DMc-tV-ehN" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="gc0-UG-MiM">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="gc0-UG-MiM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -29,7 +29,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="118"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lfS-PP-2hd">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="question_mark" translatesAutoresizingMaskIntoConstraints="NO" id="lfS-PP-2hd">
                                                     <rect key="frame" x="15" y="16" width="85.5" height="85.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="lfS-PP-2hd" secondAttribute="height" multiplier="1:1" id="nMv-mV-sd3"/>
@@ -238,6 +238,35 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection id="Ygg-XA-Rat">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="GQj-ew-DDp">
+                                        <rect key="frame" x="0.0" y="481" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GQj-ew-DDp" id="502-5w-VuJ">
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Log out" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gw6-Uw-Iqg">
+                                                    <rect key="frame" x="15" y="0.0" width="327" height="44"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="Gw6-Uw-Iqg" secondAttribute="bottom" id="7CQ-0v-gcA"/>
+                                                <constraint firstItem="Gw6-Uw-Iqg" firstAttribute="leading" secondItem="502-5w-VuJ" secondAttribute="leading" constant="15" id="irS-iI-QR5"/>
+                                                <constraint firstItem="Gw6-Uw-Iqg" firstAttribute="top" secondItem="502-5w-VuJ" secondAttribute="top" id="stL-RQ-t1k"/>
+                                                <constraint firstAttribute="trailing" secondItem="Gw6-Uw-Iqg" secondAttribute="trailing" id="zKR-qf-JP7"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="WhU-If-oRj" kind="presentation" id="cCo-fC-vgU"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="DMc-tV-ehN" id="AL4-Uq-yYJ"/>
@@ -248,6 +277,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fUl-a9-NPl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2600.8000000000002" y="138.98050974512745"/>
+        </scene>
+        <!--Login-->
+        <scene sceneID="7nc-fJ-ZQO">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="login" storyboardName="Login" id="WhU-If-oRj" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LGr-Gs-P1P" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2607" y="656"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="4xs-iN-MGP">
@@ -264,7 +301,7 @@
                                         <rect key="frame" x="0.0" y="35" width="375" height="118"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ncF-ga-I8t" id="hEh-fL-2dP">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="118"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="117.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="RmW-9g-MCI">
@@ -288,7 +325,7 @@
                                                         <constraint firstItem="Wry-yp-yhp" firstAttribute="height" secondItem="Aoe-Lr-vZC" secondAttribute="height" id="i4D-7X-1Ie"/>
                                                     </constraints>
                                                 </stackView>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="q3a-Uf-o0d">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="question_mark" translatesAutoresizingMaskIntoConstraints="NO" id="q3a-Uf-o0d">
                                                     <rect key="frame" x="15" y="16" width="85.5" height="85.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="q3a-Uf-o0d" secondAttribute="height" multiplier="1:1" id="Kik-Bw-6um"/>
@@ -317,7 +354,7 @@
                                         <rect key="frame" x="0.0" y="153" width="375" height="36"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eIx-Qc-h12" id="0fw-Ks-Aty">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="36"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="35.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set Profile Photo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QXR-EO-X72">
@@ -512,13 +549,16 @@
             </objects>
             <point key="canvasLocation" x="3548" y="831.63418290854577"/>
         </scene>
-        <!--Storyboard Reference-->
+        <!--Confirmation-->
         <scene sceneID="8BD-0D-Fya">
             <objects>
-                <viewControllerPlaceholder id="NNJ-U7-dzq" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardIdentifier="confirmation" storyboardName="Confirmation" id="NNJ-U7-dzq" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TDI-8O-Tvv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4305" y="831"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="question_mark" width="980" height="980"/>
+    </resources>
 </document>

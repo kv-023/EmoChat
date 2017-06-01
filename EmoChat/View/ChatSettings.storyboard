@@ -41,6 +41,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="ezk-yI-q5H" kind="show" id="45G-dj-obX"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="42" id="MZ5-M4-eVt">
                                         <rect key="frame" x="0.0" y="98" width="375" height="42"/>
@@ -152,6 +155,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u0n-FA-h7F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1148" y="145.27736131934034"/>
+        </scene>
+        <!--SearchUsers-->
+        <scene sceneID="yVF-xb-Tdq">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="SearchUsers" storyboardName="SearchUsers" id="ezk-yI-q5H" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="y0z-53-i7d" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1740" y="-85"/>
         </scene>
         <!--UserInfo-->
         <scene sceneID="WYI-N5-fWe">
