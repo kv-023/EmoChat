@@ -39,8 +39,8 @@ class ViewController: UIViewController {
 
         ref = FIRDatabase.database().reference()
 
-        let tempUser:Users = Users(userId: "userID123", name: "Galja", email: "galja@ukr.net")
-        let tempUser2:Users = Users(userId: "userID009", name: "Petja", email: "petja@gmail.com")
+        let tempUser:User = User(userId: "userID123", name: "Galja", email: "galja@ukr.net")
+        let tempUser2:User = User(userId: "userID009", name: "Petja", email: "petja@gmail.com")
 
         let usersInArray = [tempUser,tempUser2];
 //        var arrayData:[Any] = []
@@ -67,8 +67,10 @@ class ViewController: UIViewController {
  //       ref?.child("Conversation").setValue(tempConversation.toAnyObject())
 
 
-        let tempMessage:Messages = Messages(messageId: "messageId-789",
+        let tempMessage:Message = Message(messageId: "messageId-789",
                                             sender: tempUser, conversation: tempConversation.uuid)
+        tempMessage.messageText = "hello world!"
+
         ref?.child("Message").setValue(tempMessage.toAnyObject())
 
 //        tempUser.appendConversation(tempConversation)
@@ -81,7 +83,10 @@ class ViewController: UIViewController {
             }
         }
 
-        ref?.child("Users").setValue(Users.toAnyObject(users: usersInArray))
+
+
+
+        ref?.child("User").setValue(User.toAnyObject(users: usersInArray))
         
         tempConversation.appendMessage(tempMessage)
         ref?.child("Conversation").setValue(tempConversation.toAnyObject())

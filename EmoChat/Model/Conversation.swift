@@ -10,12 +10,12 @@
 class Conversation: FireBaseEmoChat {
 //    var conversationId: String = Auxiliary.getEmpyUUID()
     var uuid: String
-    var usersInConversation: [Users?]? = []
-    var mesagesInConversation: [Messages?]? = []
+    var usersInConversation: [User?]? = []
+    var mesagesInConversation: [Message?]? = []
 
 //    typealias linkedTableType = [String: Bool]
     
-    init(conversationId: String, usersInConversation: [Users?]?) {
+    init(conversationId: String, usersInConversation: [User?]?) {
         self.uuid = conversationId
 
         guard let notNullUsersInConversation = usersInConversation else {
@@ -25,7 +25,7 @@ class Conversation: FireBaseEmoChat {
         self.usersInConversation = notNullUsersInConversation
     }
 
-    init(usersInConversation: [Users?]?) {
+    init(usersInConversation: [User?]?) {
 
         self.uuid = Auxiliary.getEmpyUUID()
         
@@ -36,7 +36,7 @@ class Conversation: FireBaseEmoChat {
         self.usersInConversation = notNullUsersInConversation
     }
 
-    func appendMessage(_ newElement: Messages) {
+    func appendMessage(_ newElement: Message) {
         mesagesInConversation?.append(newElement)
     }
 

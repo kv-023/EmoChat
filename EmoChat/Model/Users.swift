@@ -1,18 +1,20 @@
 //
-//  Users.swift
+//  User.swift
 //  EmoChat
 //
 //  Created by Kirill on 5/30/17.
 //  Copyright © 2017 SoftServe. All rights reserved.
 //
 
-class Users: FireBaseEmoChat {
+class User: FireBaseEmoChat {
 
 //    var userId:String = Auxiliary.getEmpyUUID()
     var uuid: String = Auxiliary.getEmpyUUID()
     var name: String? = "uknowned"
     var email:String? = "no e-mail"
-    var userConversation: [Conversation?]? = []
+    var userConversations: [Conversation?]? = []
+    var userMessages: [Message?]? = []
+
     
     init(userId: String, name: String, email: String) {
         self.uuid = userId
@@ -29,7 +31,11 @@ class Users: FireBaseEmoChat {
     }
 
     func appendConversation(_ newElement: Conversation) {
-        userConversation?.append(newElement)
+        userConversations?.append(newElement)
+    }
+
+    func appendMessage(_ newElement: Message) {
+        userMessages?.append(newElement)
     }
 
     //MARK:- func. for FireBase use
@@ -50,11 +56,12 @@ class Users: FireBaseEmoChat {
         return ["userId": uuid,
                 "name": name ?? "uknowned",
                 "email":email ?? "no e-mail",
-                "userConversations": collectDataFromModelInstance(userConversation)
+                "userConversations": collectDataFromModelInstance(userConversations),
+                "userMessages": collectDataFromModelInstance(userMessages)
         ]
     }
 
-    class func toAnyObject(users usersInArray:[Users]) -> Any {
+    class func toAnyObject(users usersInArray:[User]) -> Any {
         var valueToReturn: [String: Any] = [:]
 
         for userInArr in usersInArray {

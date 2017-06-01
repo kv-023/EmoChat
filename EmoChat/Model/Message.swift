@@ -1,17 +1,22 @@
 //
-//  Messages.swift
+//  Message.swift
 //  EmoChat
 //
 //  Created by Kirill on 5/30/17.
 //  Copyright © 2017 SoftServe. All rights reserved.
 //
 
-class Messages: FireBaseEmoChat {
+class Message: FireBaseEmoChat {
     var uuid: String = Auxiliary.getEmpyUUID()
-    var sender: Users?
+    var sender: User?
     var conversation: String? = ""
-    
-    init(messageId: String, sender: Users?, conversation: String?) {
+    var messageText: String? = "" {
+        didSet {
+            sender?.appendMessage(self)
+        }
+    }
+
+    init(messageId: String, sender: User?, conversation: String?) {
         self.uuid  = messageId
         self.sender = sender
         self.conversation = conversation
@@ -22,7 +27,7 @@ class Messages: FireBaseEmoChat {
         conversation = "empty"
     }
 
-    convenience init(sender: Users?, conversation: String?) {
+    convenience init(sender: User?, conversation: String?) {
 
         self.init()
 
