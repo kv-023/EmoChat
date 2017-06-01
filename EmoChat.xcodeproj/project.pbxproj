@@ -8,15 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		35EA65BB1EE0037900C467DC /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35EA65BA1EE0037900C467DC /* Login.storyboard */; };
-		35EA65C41EE0056000C467DC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EA65C31EE0056000C467DC /* LoginViewController.swift */; };
 		3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3938C26F1EDC27C700D69F88 /* AppDelegate.swift */; };
-		3938C2721EDC27C700D69F88 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3938C2711EDC27C700D69F88 /* ViewController.swift */; };
 		3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2731EDC27C700D69F88 /* Main.storyboard */; };
 		3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2761EDC27C700D69F88 /* Assets.xcassets */; };
 		3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */; };
 		746478FA29F53658399EE02D /* Pods_EmoChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */; };
 		846C791A1EDEED4A00F9E17E /* ChatSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 846C79181EDEED4A00F9E17E /* ChatSettings.storyboard */; };
 		846C791B1EDEED4A00F9E17E /* Conversations.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 846C79191EDEED4A00F9E17E /* Conversations.storyboard */; };
+		CC34DC0C1EE01D9100CAAFAB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC34DC0A1EE01D9100CAAFAB /* LoginViewController.swift */; };
+		CC34DC0D1EE01D9100CAAFAB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC34DC0B1EE01D9100CAAFAB /* ViewController.swift */; };
 		CCE093761EDEE12A00BAF608 /* Options.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCE093741EDEE12A00BAF608 /* Options.storyboard */; };
 		CCE093771EDEE12A00BAF608 /* UserInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCE093751EDEE12A00BAF608 /* UserInfo.storyboard */; };
 		E7352C1A1EDEB19C0095264E /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C171EDEB19C0095264E /* Conversation.swift */; };
@@ -27,10 +27,8 @@
 
 /* Begin PBXFileReference section */
 		35EA65BA1EE0037900C467DC /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
-		35EA65C31EE0056000C467DC /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = EmoChat/LoginViewController.swift; sourceTree = SOURCE_ROOT; };
 		3938C26C1EDC27C700D69F88 /* EmoChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmoChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3938C26F1EDC27C700D69F88 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3938C2711EDC27C700D69F88 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3938C2741EDC27C700D69F88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3938C2761EDC27C700D69F88 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3938C2791EDC27C700D69F88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -39,6 +37,8 @@
 		6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmoChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		846C79181EDEED4A00F9E17E /* ChatSettings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChatSettings.storyboard; sourceTree = "<group>"; };
 		846C79191EDEED4A00F9E17E /* Conversations.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Conversations.storyboard; sourceTree = "<group>"; };
+		CC34DC0A1EE01D9100CAAFAB /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		CC34DC0B1EE01D9100CAAFAB /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		CCE093741EDEE12A00BAF608 /* Options.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Options.storyboard; sourceTree = "<group>"; };
 		CCE093751EDEE12A00BAF608 /* UserInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserInfo.storyboard; sourceTree = "<group>"; };
 		E701EB98A17F8F7EB9DF59EA /* Pods-EmoChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmoChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EmoChat/Pods-EmoChat.debug.xcconfig"; sourceTree = "<group>"; };
@@ -81,11 +81,9 @@
 		3938C26E1EDC27C700D69F88 /* EmoChat */ = {
 			isa = PBXGroup;
 			children = (
+				CC34DC091EE01D9100CAAFAB /* Controller */,
 				CCE093731EDEE12A00BAF608 /* View */,
-				EDB756A01EDEC051009AAE12 /* Controller */,
 				3938C26F1EDC27C700D69F88 /* AppDelegate.swift */,
-				35EA65C31EE0056000C467DC /* LoginViewController.swift */,
-				3938C2711EDC27C700D69F88 /* ViewController.swift */,
 				3938C2731EDC27C700D69F88 /* Main.storyboard */,
 				3938C2761EDC27C700D69F88 /* Assets.xcassets */,
 				3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */,
@@ -102,6 +100,15 @@
 				6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CC34DC091EE01D9100CAAFAB /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CC34DC0A1EE01D9100CAAFAB /* LoginViewController.swift */,
+				CC34DC0B1EE01D9100CAAFAB /* ViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		CCE093731EDEE12A00BAF608 /* View */ = {
@@ -124,13 +131,6 @@
 				E7352C191EDEB19C0095264E /* Users.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		EDB756A01EDEC051009AAE12 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controller;
 			sourceTree = "<group>";
 		};
 		EDB7F02033953CB545BB1360 /* Pods */ = {
@@ -271,11 +271,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				35EA65C41EE0056000C467DC /* LoginViewController.swift in Sources */,
+				CC34DC0C1EE01D9100CAAFAB /* LoginViewController.swift in Sources */,
 				E7352C1A1EDEB19C0095264E /* Conversation.swift in Sources */,
 				E7352C1B1EDEB19C0095264E /* Messages.swift in Sources */,
 				E7352C1C1EDEB19C0095264E /* Users.swift in Sources */,
-				3938C2721EDC27C700D69F88 /* ViewController.swift in Sources */,
+				CC34DC0D1EE01D9100CAAFAB /* ViewController.swift in Sources */,
 				3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
