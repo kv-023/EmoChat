@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FirebaseDatabase
+import FirebaseAuth
 
 extension UITextField {
     
@@ -27,6 +29,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var logIn: UIButton!
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet weak var hintsLabel: UILabel!
     
     
     override func viewDidLoad() {
@@ -60,7 +63,19 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
 
     @IBAction func loginAction(_ sender: UIButton) {
-        
+        if emailField.text != "" && passwordField.text != "" {
+            FIRAuth.auth()?.signIn(withEmail: emailField.text!, password: passwordField.text!, completion: { (user, error) in
+                                    if user != nil && (user?.isEmailVerified)! {
+                                        self.hintsLabel.text = ("success! you are in")
+                                    } else {
+                                        if let myError = error?.localizedDescription {
+                                            self.hintsLabel.text = myError
+                                        } else {
+                                            self.hintsLabel.text = ("confirm your e-mail")
+                                        }
+                                    }
+            });
+        }
     }
     
     

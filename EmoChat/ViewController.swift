@@ -125,10 +125,8 @@ class ViewController: UIViewController {
                     } else {
                         self.hintsLabel.text = ("confirm your e-mail")
                     }
-                    
                 }
-                                        
-                })
+            })
                 
             } else {    // sign up
                 FIRAuth.auth()?.createUser(withEmail: emailTextField.text!,
