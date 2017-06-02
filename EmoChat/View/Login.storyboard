@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina5_5" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16C68" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -19,20 +19,14 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bacground" translatesAutoresizingMaskIntoConstraints="NO" id="Jsq-gV-I2R">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="Jsq-gV-I2R">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vxy-HU-iRD">
-                                <rect key="frame" x="122" y="658" width="170" height="20"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="g4g-Ca-vAU">
-                                <rect key="frame" x="64" y="133" width="287" height="30"/>
+                                <rect key="frame" x="64" y="133" width="641" height="30"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
@@ -44,7 +38,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pJg-Fs-pwq">
-                                <rect key="frame" x="179" y="680" width="55" height="30"/>
+                                <rect key="frame" x="357" y="974" width="55" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Sign Up">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -54,7 +48,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="example@example.com" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vp7-IZ-JzE">
-                                <rect key="frame" x="64" y="88" width="287" height="30"/>
+                                <rect key="frame" x="64" y="88" width="641" height="30"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
@@ -66,7 +60,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bYC-FF-8D6">
-                                <rect key="frame" x="45" y="215" width="306" height="50"/>
+                                <rect key="frame" x="45" y="215" width="660" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="PQm-Vu-Jcs"/>
                                 </constraints>
@@ -78,6 +72,12 @@
                                     <action selector="loginAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kzE-vg-ifB"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vxy-HU-iRD">
+                                <rect key="frame" x="299" y="955" width="170" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -102,9 +102,9 @@
                             <constraint firstItem="vxy-HU-iRD" firstAttribute="centerX" secondItem="pJg-Fs-pwq" secondAttribute="centerX" id="hNK-3V-Un9"/>
                             <constraint firstItem="liz-RL-f33" firstAttribute="top" secondItem="MgN-Gu-vJX" secondAttribute="bottom" constant="15" id="k3G-vf-5rk"/>
                             <constraint firstItem="bYC-FF-8D6" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="25" id="lOg-9y-Gc1"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="pJg-Fs-pwq" secondAttribute="bottom" constant="26" id="nDC-nW-DmG"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="pJg-Fs-pwq" secondAttribute="bottom" constant="20" id="nDC-nW-DmG"/>
                             <constraint firstItem="Vp7-IZ-JzE" firstAttribute="leading" secondItem="MgN-Gu-vJX" secondAttribute="trailing" constant="8" symbolic="YES" id="njA-Hc-iTt"/>
-                            <constraint firstItem="pJg-Fs-pwq" firstAttribute="top" secondItem="vxy-HU-iRD" secondAttribute="bottom" constant="2" id="x5q-57-c8j"/>
+                            <constraint firstItem="pJg-Fs-pwq" firstAttribute="top" secondItem="vxy-HU-iRD" secondAttribute="bottom" constant="-1" id="x5q-57-c8j"/>
                             <constraint firstItem="Jsq-gV-I2R" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="zqp-s2-jxc"/>
                         </constraints>
                     </view>
@@ -116,7 +116,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="115.94202898550725" y="121.46739130434784"/>
+            <point key="canvasLocation" x="114.375" y="120.4225352112676"/>
         </scene>
         <!--SignUp-->
         <scene sceneID="FhU-OT-sVL">
@@ -128,7 +128,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="bacground" width="576" height="1024"/>
+        <image name="background" width="375" height="667"/>
         <image name="password-50" width="50" height="50"/>
         <image name="user-50" width="50" height="50"/>
     </resources>
