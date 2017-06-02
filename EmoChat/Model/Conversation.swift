@@ -78,6 +78,7 @@ class Conversation: FireBaseEmoChat {
         ]
     }
 
+    
 //    private func collectDataFromModelInstance (_ dataInArray: [FireBaseEmoChat?]?) -> linkedTableType {
 //        var tempArrayData = linkedTableType()
 //
