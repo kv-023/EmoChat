@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="5TO-og-mqM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="N0o-6h-Tfo">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -11,38 +11,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="0Nb-eo-Pd0">
-            <objects>
-                <viewController storyboardIdentifier="userInfo" id="5TO-og-mqM" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Fnk-My-fBF"/>
-                        <viewControllerLayoutGuide type="bottom" id="U40-Ju-hyO"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="d3W-1J-EM4">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DNW-kh-VDC">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <connections>
-                                    <segue destination="N0o-6h-Tfo" kind="embed" id="chP-sq-UtL"/>
-                                </connections>
-                            </containerView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="DNW-kh-VDC" secondAttribute="trailing" id="OuB-vc-QVO"/>
-                            <constraint firstItem="DNW-kh-VDC" firstAttribute="leading" secondItem="d3W-1J-EM4" secondAttribute="leading" id="RyQ-Ob-fmk"/>
-                            <constraint firstItem="DNW-kh-VDC" firstAttribute="top" secondItem="d3W-1J-EM4" secondAttribute="top" id="t8F-uV-n2B"/>
-                            <constraint firstItem="U40-Ju-hyO" firstAttribute="top" secondItem="DNW-kh-VDC" secondAttribute="bottom" id="vsD-4P-S34"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cF6-VW-WYk" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="220" y="126.38680659670166"/>
-        </scene>
         <!--Table View Controller-->
         <scene sceneID="3zq-Ze-9Hm">
             <objects>
@@ -54,14 +22,14 @@
                         <sections>
                             <tableViewSection id="SGV-eG-pCe">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="118" id="osx-SG-r8Z">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="118" id="osx-SG-r8Z">
                                         <rect key="frame" x="0.0" y="35" width="375" height="118"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="osx-SG-r8Z" id="MAQ-74-EF0">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="117.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="o8j-BA-5Km">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="o8j-BA-5Km">
                                                     <rect key="frame" x="15" y="16" width="85.5" height="85.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="o8j-BA-5Km" secondAttribute="height" multiplier="1:1" id="f0g-ut-M29"/>
@@ -109,11 +77,11 @@
                             </tableViewSection>
                             <tableViewSection id="QYx-PC-hlm">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="3PP-kd-cu3">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="3PP-kd-cu3">
                                         <rect key="frame" x="0.0" y="189" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3PP-kd-cu3" id="G3S-hp-vMy">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qrT-my-oMO">
@@ -142,11 +110,11 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="U3J-MJ-ufV">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="U3J-MJ-ufV">
                                         <rect key="frame" x="0.0" y="233" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="U3J-MJ-ufV" id="2tG-Ha-Ztl">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XfG-IZ-E14">
@@ -199,6 +167,9 @@
                                                 <constraint firstAttribute="bottom" secondItem="5XI-1i-5eP" secondAttribute="bottom" id="iId-SP-sG4"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="JRk-0I-Iuj" kind="show" id="sNm-Pl-Y5t"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -236,10 +207,15 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="625-bz-Wx0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1056" y="-83"/>
+            <point key="canvasLocation" x="1140" y="126"/>
+        </scene>
+        <!--SingleConversation-->
+        <scene sceneID="y6Q-Th-qSh">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="singleConversation" storyboardName="SingleConversation" id="JRk-0I-Iuj" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xFz-mG-HaL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1874" y="126"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="photo.jpg" width="1242" height="1242"/>
-    </resources>
 </document>

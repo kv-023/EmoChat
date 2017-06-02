@@ -7,33 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		35EA65BB1EE0037900C467DC /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35EA65BA1EE0037900C467DC /* Login.storyboard */; };
-		35EA65C01EE0047400C467DC /* bacgroung.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 35EA65BD1EE0047400C467DC /* bacgroung.jpg */; };
-		35EA65C11EE0047400C467DC /* password-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 35EA65BE1EE0047400C467DC /* password-50.png */; };
-		35EA65C21EE0047400C467DC /* user-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 35EA65BF1EE0047400C467DC /* user-50.png */; };
-		35EA65C41EE0056000C467DC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EA65C31EE0056000C467DC /* LoginViewController.swift */; };
 		3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3938C26F1EDC27C700D69F88 /* AppDelegate.swift */; };
 		3938C2721EDC27C700D69F88 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3938C2711EDC27C700D69F88 /* ViewController.swift */; };
 		3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2731EDC27C700D69F88 /* Main.storyboard */; };
 		3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2761EDC27C700D69F88 /* Assets.xcassets */; };
 		3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */; };
 		746478FA29F53658399EE02D /* Pods_EmoChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */; };
-		846C791A1EDEED4A00F9E17E /* ChatSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 846C79181EDEED4A00F9E17E /* ChatSettings.storyboard */; };
-		846C791B1EDEED4A00F9E17E /* Conversations.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 846C79191EDEED4A00F9E17E /* Conversations.storyboard */; };
-		CCE093761EDEE12A00BAF608 /* Options.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCE093741EDEE12A00BAF608 /* Options.storyboard */; };
-		CCE093771EDEE12A00BAF608 /* UserInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCE093751EDEE12A00BAF608 /* UserInfo.storyboard */; };
-		E7352C1A1EDEB19C0095264E /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C171EDEB19C0095264E /* Conversation.swift */; };
-		E7352C1B1EDEB19C0095264E /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C181EDEB19C0095264E /* Messages.swift */; };
-		E7352C1C1EDEB19C0095264E /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C191EDEB19C0095264E /* Users.swift */; };
+		E7352C261EDED52B0095264E /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C211EDED52B0095264E /* Conversation.swift */; };
+		E7352C271EDED52B0095264E /* Auxiliary.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C231EDED52B0095264E /* Auxiliary.swift */; };
+		E7352C281EDED52B0095264E /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C241EDED52B0095264E /* Message.swift */; };
+		E7352C291EDED52B0095264E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C251EDED52B0095264E /* User.swift */; };
+		E7352C2B1EE0139E0095264E /* ModelGenericHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C2A1EE0139E0095264E /* ModelGenericHelper.swift */; };
 		ED1E2D941EDD75B20058B6A6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */; };
+		FB982DD51EE1569700AC2FCD /* ChatSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DCC1EE1569700AC2FCD /* ChatSettings.storyboard */; };
+		FB982DD61EE1569700AC2FCD /* Confirmation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DCD1EE1569700AC2FCD /* Confirmation.storyboard */; };
+		FB982DD71EE1569700AC2FCD /* Conversations.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DCE1EE1569700AC2FCD /* Conversations.storyboard */; };
+		FB982DD81EE1569700AC2FCD /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DCF1EE1569700AC2FCD /* Login.storyboard */; };
+		FB982DD91EE1569700AC2FCD /* Options.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DD01EE1569700AC2FCD /* Options.storyboard */; };
+		FB982DDA1EE1569700AC2FCD /* SearchUsers.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DD11EE1569700AC2FCD /* SearchUsers.storyboard */; };
+		FB982DDB1EE1569700AC2FCD /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DD21EE1569700AC2FCD /* SignUp.storyboard */; };
+		FB982DDC1EE1569700AC2FCD /* SingleConversation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DD31EE1569700AC2FCD /* SingleConversation.storyboard */; };
+		FB982DDD1EE1569700AC2FCD /* UserInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DD41EE1569700AC2FCD /* UserInfo.storyboard */; };
+		FB982DE11EE156B700AC2FCD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB982DDF1EE156B700AC2FCD /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		35EA65BA1EE0037900C467DC /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
-		35EA65BD1EE0047400C467DC /* bacgroung.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bacgroung.jpg; sourceTree = "<group>"; };
-		35EA65BE1EE0047400C467DC /* password-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "password-50.png"; sourceTree = "<group>"; };
-		35EA65BF1EE0047400C467DC /* user-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user-50.png"; sourceTree = "<group>"; };
-		35EA65C31EE0056000C467DC /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = EmoChat/LoginViewController.swift; sourceTree = SOURCE_ROOT; };
 		3938C26C1EDC27C700D69F88 /* EmoChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmoChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3938C26F1EDC27C700D69F88 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3938C2711EDC27C700D69F88 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -43,15 +41,23 @@
 		3938C27B1EDC27C700D69F88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5E5B970584D3FF3821DB6225 /* Pods-EmoChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmoChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmoChat/Pods-EmoChat.release.xcconfig"; sourceTree = "<group>"; };
 		6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmoChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		846C79181EDEED4A00F9E17E /* ChatSettings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChatSettings.storyboard; sourceTree = "<group>"; };
-		846C79191EDEED4A00F9E17E /* Conversations.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Conversations.storyboard; sourceTree = "<group>"; };
-		CCE093741EDEE12A00BAF608 /* Options.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Options.storyboard; sourceTree = "<group>"; };
-		CCE093751EDEE12A00BAF608 /* UserInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserInfo.storyboard; sourceTree = "<group>"; };
 		E701EB98A17F8F7EB9DF59EA /* Pods-EmoChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmoChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EmoChat/Pods-EmoChat.debug.xcconfig"; sourceTree = "<group>"; };
-		E7352C171EDEB19C0095264E /* Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
-		E7352C181EDEB19C0095264E /* Messages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
-		E7352C191EDEB19C0095264E /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
+		E7352C211EDED52B0095264E /* Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
+		E7352C231EDED52B0095264E /* Auxiliary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auxiliary.swift; sourceTree = "<group>"; };
+		E7352C241EDED52B0095264E /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		E7352C251EDED52B0095264E /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		E7352C2A1EE0139E0095264E /* ModelGenericHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelGenericHelper.swift; sourceTree = "<group>"; };
 		ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FB982DCC1EE1569700AC2FCD /* ChatSettings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChatSettings.storyboard; sourceTree = "<group>"; };
+		FB982DCD1EE1569700AC2FCD /* Confirmation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Confirmation.storyboard; sourceTree = "<group>"; };
+		FB982DCE1EE1569700AC2FCD /* Conversations.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Conversations.storyboard; sourceTree = "<group>"; };
+		FB982DCF1EE1569700AC2FCD /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		FB982DD01EE1569700AC2FCD /* Options.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Options.storyboard; sourceTree = "<group>"; };
+		FB982DD11EE1569700AC2FCD /* SearchUsers.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SearchUsers.storyboard; sourceTree = "<group>"; };
+		FB982DD21EE1569700AC2FCD /* SignUp.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SignUp.storyboard; sourceTree = "<group>"; };
+		FB982DD31EE1569700AC2FCD /* SingleConversation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SingleConversation.storyboard; sourceTree = "<group>"; };
+		FB982DD41EE1569700AC2FCD /* UserInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserInfo.storyboard; sourceTree = "<group>"; };
+		FB982DDF1EE156B700AC2FCD /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,16 +72,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		35EA65BC1EE0047400C467DC /* img */ = {
-			isa = PBXGroup;
-			children = (
-				35EA65BD1EE0047400C467DC /* bacgroung.jpg */,
-				35EA65BE1EE0047400C467DC /* password-50.png */,
-				35EA65BF1EE0047400C467DC /* user-50.png */,
-			);
-			path = img;
-			sourceTree = "<group>";
-		};
 		3938C2631EDC27C700D69F88 = {
 			isa = PBXGroup;
 			children = (
@@ -97,16 +93,14 @@
 		3938C26E1EDC27C700D69F88 /* EmoChat */ = {
 			isa = PBXGroup;
 			children = (
-				35EA65BC1EE0047400C467DC /* img */,
-				CCE093731EDEE12A00BAF608 /* View */,
-				EDB756A01EDEC051009AAE12 /* Controller */,
+				FB982DDE1EE156B700AC2FCD /* Controller */,
+				FB982DCB1EE1569700AC2FCD /* View */,
+				E7352C201EDED52B0095264E /* Model */,
 				3938C26F1EDC27C700D69F88 /* AppDelegate.swift */,
-				35EA65C31EE0056000C467DC /* LoginViewController.swift */,
 				3938C2711EDC27C700D69F88 /* ViewController.swift */,
 				3938C2731EDC27C700D69F88 /* Main.storyboard */,
 				3938C2761EDC27C700D69F88 /* Assets.xcassets */,
 				3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */,
-				E7352C161EDEB19C0095264E /* Model */,
 				3938C27B1EDC27C700D69F88 /* Info.plist */,
 				ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */,
 			);
@@ -121,33 +115,24 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		CCE093731EDEE12A00BAF608 /* View */ = {
+		E7352C201EDED52B0095264E /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				846C79181EDEED4A00F9E17E /* ChatSettings.storyboard */,
-				846C79191EDEED4A00F9E17E /* Conversations.storyboard */,
-				CCE093741EDEE12A00BAF608 /* Options.storyboard */,
-				CCE093751EDEE12A00BAF608 /* UserInfo.storyboard */,
-				35EA65BA1EE0037900C467DC /* Login.storyboard */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		E7352C161EDEB19C0095264E /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				E7352C171EDEB19C0095264E /* Conversation.swift */,
-				E7352C181EDEB19C0095264E /* Messages.swift */,
-				E7352C191EDEB19C0095264E /* Users.swift */,
+				E7352C221EDED52B0095264E /* Helper */,
+				E7352C211EDED52B0095264E /* Conversation.swift */,
+				E7352C241EDED52B0095264E /* Message.swift */,
+				E7352C251EDED52B0095264E /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
 		};
-		EDB756A01EDEC051009AAE12 /* Controller */ = {
+		E7352C221EDED52B0095264E /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				E7352C231EDED52B0095264E /* Auxiliary.swift */,
+				E7352C2A1EE0139E0095264E /* ModelGenericHelper.swift */,
 			);
-			path = Controller;
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		EDB7F02033953CB545BB1360 /* Pods */ = {
@@ -157,6 +142,30 @@
 				5E5B970584D3FF3821DB6225 /* Pods-EmoChat.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		FB982DCB1EE1569700AC2FCD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FB982DCC1EE1569700AC2FCD /* ChatSettings.storyboard */,
+				FB982DCD1EE1569700AC2FCD /* Confirmation.storyboard */,
+				FB982DCE1EE1569700AC2FCD /* Conversations.storyboard */,
+				FB982DCF1EE1569700AC2FCD /* Login.storyboard */,
+				FB982DD01EE1569700AC2FCD /* Options.storyboard */,
+				FB982DD11EE1569700AC2FCD /* SearchUsers.storyboard */,
+				FB982DD21EE1569700AC2FCD /* SignUp.storyboard */,
+				FB982DD31EE1569700AC2FCD /* SingleConversation.storyboard */,
+				FB982DD41EE1569700AC2FCD /* UserInfo.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FB982DDE1EE156B700AC2FCD /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				FB982DDF1EE156B700AC2FCD /* LoginViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,18 +230,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				35EA65C01EE0047400C467DC /* bacgroung.jpg in Resources */,
+				FB982DD81EE1569700AC2FCD /* Login.storyboard in Resources */,
+				FB982DDA1EE1569700AC2FCD /* SearchUsers.storyboard in Resources */,
 				3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */,
-				CCE093761EDEE12A00BAF608 /* Options.storyboard in Resources */,
+				FB982DDB1EE1569700AC2FCD /* SignUp.storyboard in Resources */,
 				ED1E2D941EDD75B20058B6A6 /* GoogleService-Info.plist in Resources */,
+				FB982DDD1EE1569700AC2FCD /* UserInfo.storyboard in Resources */,
+				FB982DDC1EE1569700AC2FCD /* SingleConversation.storyboard in Resources */,
+				FB982DD71EE1569700AC2FCD /* Conversations.storyboard in Resources */,
+				FB982DD91EE1569700AC2FCD /* Options.storyboard in Resources */,
 				3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */,
+				FB982DD61EE1569700AC2FCD /* Confirmation.storyboard in Resources */,
+				FB982DD51EE1569700AC2FCD /* ChatSettings.storyboard in Resources */,
 				3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */,
-				846C791B1EDEED4A00F9E17E /* Conversations.storyboard in Resources */,
-				35EA65C21EE0047400C467DC /* user-50.png in Resources */,
-				35EA65C11EE0047400C467DC /* password-50.png in Resources */,
-				35EA65BB1EE0037900C467DC /* Login.storyboard in Resources */,
-				CCE093771EDEE12A00BAF608 /* UserInfo.storyboard in Resources */,
-				846C791A1EDEED4A00F9E17E /* ChatSettings.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,11 +301,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				35EA65C41EE0056000C467DC /* LoginViewController.swift in Sources */,
-				E7352C1A1EDEB19C0095264E /* Conversation.swift in Sources */,
-				E7352C1B1EDEB19C0095264E /* Messages.swift in Sources */,
-				E7352C1C1EDEB19C0095264E /* Users.swift in Sources */,
+				E7352C261EDED52B0095264E /* Conversation.swift in Sources */,
 				3938C2721EDC27C700D69F88 /* ViewController.swift in Sources */,
+				E7352C281EDED52B0095264E /* Message.swift in Sources */,
+				E7352C271EDED52B0095264E /* Auxiliary.swift in Sources */,
+				FB982DE11EE156B700AC2FCD /* LoginViewController.swift in Sources */,
+				E7352C291EDED52B0095264E /* User.swift in Sources */,
+				E7352C2B1EE0139E0095264E /* ModelGenericHelper.swift in Sources */,
 				3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
