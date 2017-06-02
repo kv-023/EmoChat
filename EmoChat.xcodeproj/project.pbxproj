@@ -19,6 +19,16 @@
 		E7352C291EDED52B0095264E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C251EDED52B0095264E /* User.swift */; };
 		E7352C2B1EE0139E0095264E /* ModelGenericHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C2A1EE0139E0095264E /* ModelGenericHelper.swift */; };
 		ED1E2D941EDD75B20058B6A6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */; };
+		FB982DD51EE1569700AC2FCD /* ChatSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DCC1EE1569700AC2FCD /* ChatSettings.storyboard */; };
+		FB982DD61EE1569700AC2FCD /* Confirmation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DCD1EE1569700AC2FCD /* Confirmation.storyboard */; };
+		FB982DD71EE1569700AC2FCD /* Conversations.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DCE1EE1569700AC2FCD /* Conversations.storyboard */; };
+		FB982DD81EE1569700AC2FCD /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DCF1EE1569700AC2FCD /* Login.storyboard */; };
+		FB982DD91EE1569700AC2FCD /* Options.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DD01EE1569700AC2FCD /* Options.storyboard */; };
+		FB982DDA1EE1569700AC2FCD /* SearchUsers.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DD11EE1569700AC2FCD /* SearchUsers.storyboard */; };
+		FB982DDB1EE1569700AC2FCD /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DD21EE1569700AC2FCD /* SignUp.storyboard */; };
+		FB982DDC1EE1569700AC2FCD /* SingleConversation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DD31EE1569700AC2FCD /* SingleConversation.storyboard */; };
+		FB982DDD1EE1569700AC2FCD /* UserInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DD41EE1569700AC2FCD /* UserInfo.storyboard */; };
+		FB982DE11EE156B700AC2FCD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB982DDF1EE156B700AC2FCD /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +48,16 @@
 		E7352C251EDED52B0095264E /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E7352C2A1EE0139E0095264E /* ModelGenericHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelGenericHelper.swift; sourceTree = "<group>"; };
 		ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FB982DCC1EE1569700AC2FCD /* ChatSettings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChatSettings.storyboard; sourceTree = "<group>"; };
+		FB982DCD1EE1569700AC2FCD /* Confirmation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Confirmation.storyboard; sourceTree = "<group>"; };
+		FB982DCE1EE1569700AC2FCD /* Conversations.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Conversations.storyboard; sourceTree = "<group>"; };
+		FB982DCF1EE1569700AC2FCD /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		FB982DD01EE1569700AC2FCD /* Options.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Options.storyboard; sourceTree = "<group>"; };
+		FB982DD11EE1569700AC2FCD /* SearchUsers.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SearchUsers.storyboard; sourceTree = "<group>"; };
+		FB982DD21EE1569700AC2FCD /* SignUp.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SignUp.storyboard; sourceTree = "<group>"; };
+		FB982DD31EE1569700AC2FCD /* SingleConversation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SingleConversation.storyboard; sourceTree = "<group>"; };
+		FB982DD41EE1569700AC2FCD /* UserInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserInfo.storyboard; sourceTree = "<group>"; };
+		FB982DDF1EE156B700AC2FCD /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,9 +93,9 @@
 		3938C26E1EDC27C700D69F88 /* EmoChat */ = {
 			isa = PBXGroup;
 			children = (
+				FB982DDE1EE156B700AC2FCD /* Controller */,
+				FB982DCB1EE1569700AC2FCD /* View */,
 				E7352C201EDED52B0095264E /* Model */,
-				EDB756A01EDEC051009AAE12 /* Controller */,
-				EDB756A11EDEC051009AAE12 /* View */,
 				3938C26F1EDC27C700D69F88 /* AppDelegate.swift */,
 				3938C2711EDC27C700D69F88 /* ViewController.swift */,
 				3938C2731EDC27C700D69F88 /* Main.storyboard */,
@@ -115,20 +135,6 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
-		EDB756A01EDEC051009AAE12 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		EDB756A11EDEC051009AAE12 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		EDB7F02033953CB545BB1360 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -136,6 +142,30 @@
 				5E5B970584D3FF3821DB6225 /* Pods-EmoChat.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		FB982DCB1EE1569700AC2FCD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FB982DCC1EE1569700AC2FCD /* ChatSettings.storyboard */,
+				FB982DCD1EE1569700AC2FCD /* Confirmation.storyboard */,
+				FB982DCE1EE1569700AC2FCD /* Conversations.storyboard */,
+				FB982DCF1EE1569700AC2FCD /* Login.storyboard */,
+				FB982DD01EE1569700AC2FCD /* Options.storyboard */,
+				FB982DD11EE1569700AC2FCD /* SearchUsers.storyboard */,
+				FB982DD21EE1569700AC2FCD /* SignUp.storyboard */,
+				FB982DD31EE1569700AC2FCD /* SingleConversation.storyboard */,
+				FB982DD41EE1569700AC2FCD /* UserInfo.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FB982DDE1EE156B700AC2FCD /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				FB982DDF1EE156B700AC2FCD /* LoginViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,9 +230,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB982DD81EE1569700AC2FCD /* Login.storyboard in Resources */,
+				FB982DDA1EE1569700AC2FCD /* SearchUsers.storyboard in Resources */,
 				3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */,
+				FB982DDB1EE1569700AC2FCD /* SignUp.storyboard in Resources */,
 				ED1E2D941EDD75B20058B6A6 /* GoogleService-Info.plist in Resources */,
+				FB982DDD1EE1569700AC2FCD /* UserInfo.storyboard in Resources */,
+				FB982DDC1EE1569700AC2FCD /* SingleConversation.storyboard in Resources */,
+				FB982DD71EE1569700AC2FCD /* Conversations.storyboard in Resources */,
+				FB982DD91EE1569700AC2FCD /* Options.storyboard in Resources */,
 				3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */,
+				FB982DD61EE1569700AC2FCD /* Confirmation.storyboard in Resources */,
+				FB982DD51EE1569700AC2FCD /* ChatSettings.storyboard in Resources */,
 				3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -266,6 +305,7 @@
 				3938C2721EDC27C700D69F88 /* ViewController.swift in Sources */,
 				E7352C281EDED52B0095264E /* Message.swift in Sources */,
 				E7352C271EDED52B0095264E /* Auxiliary.swift in Sources */,
+				FB982DE11EE156B700AC2FCD /* LoginViewController.swift in Sources */,
 				E7352C291EDED52B0095264E /* User.swift in Sources */,
 				E7352C2B1EE0139E0095264E /* ModelGenericHelper.swift in Sources */,
 				3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */,
