@@ -12,7 +12,7 @@ import FirebaseAuth
 
 class ViewController: UIViewController {
 
-    var ref: FIRDatabaseReference?
+    var ref: DatabaseReference?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +37,7 @@ class ViewController: UIViewController {
 //                                         sender: tempUser.name, conversation: tempConversation.conversationId)
 //        ref?.child("Message").childByAutoId().setValue(tempMessage.messageId)
 
-        ref = FIRDatabase.database().reference()
+        ref = Database.database().reference()
 
         let tempUser:User = User(userId: "userID123", name: "Galja", email: "galja@ukr.net")
         let tempUser2:User = User(userId: "userID009", name: "Petja", email: "petja@gmail.com")
@@ -114,7 +114,7 @@ class ViewController: UIViewController {
         if emailTextField.text != "" && passwordTextField.text != "" {
             if segmentControl.selectedSegmentIndex == 0 {    // login
                 
-                FIRAuth.auth()?.signIn(withEmail: emailTextField.text!,
+                Auth.auth().signIn(withEmail: emailTextField.text!,
                                        password: passwordTextField.text!,
                                        completion: { (user, error) in
                 if user != nil && (user?.isEmailVerified)! {
@@ -129,7 +129,7 @@ class ViewController: UIViewController {
             })
                 
             } else {    // sign up
-                FIRAuth.auth()?.createUser(withEmail: emailTextField.text!,
+                Auth.auth().createUser(withEmail: emailTextField.text!,
                                            password: passwordTextField.text!,
                                            completion: { (user, error) in
                 
