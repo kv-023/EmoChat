@@ -10,26 +10,46 @@ import UIKit
 
 class SignUpFirstViewController: UIViewController {
 
+    @IBOutlet weak var username: UITextField!
+    @IBOutlet weak var email: UITextField!
+    @IBOutlet weak var usernameWarning: UILabel!
+    @IBOutlet weak var emailWarning: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func usernameEdited(_ sender: UITextField) {
     }
-    */
+    
+    @IBAction func emailEdited(_ sender: UITextField) {
+    }
+    
+    @IBAction func passwordEdited(_ sender: UITextField) {
+    }
+    
+    @IBAction func confirmationEdited(_ sender: Any) {
+    }
+    
+    @IBAction func nextIsPressed(_ sender: UIButton) {
+        var success = true
+        if username.text == "" {
+            usernameWarning.text = "Enter username"
+            usernameWarning.isHidden = false
+            success = false
+        }
+        if email.text == "" {
+            emailWarning.text = "Enter email"
+            emailWarning.isHidden = false
+            success = false
+        }
+        if success {
+            performSegue(withIdentifier: "additional", sender: self)
+        }
+    }
 
 }

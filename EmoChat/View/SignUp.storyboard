@@ -40,9 +40,9 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="01v-tw-dNY">
-                                                <rect key="frame" x="50" y="98" width="275" height="258"/>
+                                                <rect key="frame" x="50" y="98" width="275" height="312"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Ij-XM-eqz">
+                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Ij-XM-eqz">
                                                         <rect key="frame" x="0.0" y="0.0" width="275" height="17"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -53,42 +53,66 @@
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
+                                                        <connections>
+                                                            <action selector="usernameEdited:" destination="vOK-ag-Oxs" eventType="editingChanged" id="fGt-Q1-feb"/>
+                                                        </connections>
                                                     </textField>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hGF-RW-dHh">
+                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wP4-C8-hZS">
                                                         <rect key="frame" x="0.0" y="67" width="275" height="17"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hGF-RW-dHh">
+                                                        <rect key="frame" x="0.0" y="94" width="275" height="17"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kCK-6T-a7R">
-                                                        <rect key="frame" x="0.0" y="94" width="275" height="30"/>
+                                                        <rect key="frame" x="0.0" y="121" width="275" height="30"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
+                                                        <connections>
+                                                            <action selector="emailEdited:" destination="vOK-ag-Oxs" eventType="editingChanged" id="zV8-b2-eZk"/>
+                                                        </connections>
                                                     </textField>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dvh-cr-cK7">
-                                                        <rect key="frame" x="0.0" y="134" width="275" height="17"/>
+                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZyE-OY-ILF">
+                                                        <rect key="frame" x="0.0" y="161" width="275" height="17"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dvh-cr-cK7">
+                                                        <rect key="frame" x="0.0" y="188" width="275" height="17"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OMK-br-5WK">
-                                                        <rect key="frame" x="0.0" y="161" width="275" height="30"/>
+                                                        <rect key="frame" x="0.0" y="215" width="275" height="30"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
+                                                        <connections>
+                                                            <action selector="passwordEdited:" destination="vOK-ag-Oxs" eventType="editingChanged" id="Qfy-i3-15W"/>
+                                                        </connections>
                                                     </textField>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password Confirmation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="62g-Tg-EsS">
-                                                        <rect key="frame" x="0.0" y="201" width="275" height="17"/>
+                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password Confirmation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="62g-Tg-EsS">
+                                                        <rect key="frame" x="0.0" y="255" width="275" height="17"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password Confirmation" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yUb-wW-TKM">
-                                                        <rect key="frame" x="0.0" y="228" width="275" height="30"/>
+                                                        <rect key="frame" x="0.0" y="282" width="275" height="30"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
+                                                        <connections>
+                                                            <action selector="confirmationEdited:" destination="vOK-ag-Oxs" eventType="editingChanged" id="bnV-2l-ZXw"/>
+                                                        </connections>
                                                     </textField>
                                                 </subviews>
                                             </stackView>
@@ -129,7 +153,7 @@
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
-                                                            <segue destination="vL3-mC-C5H" kind="presentation" modalTransitionStyle="crossDissolve" id="fUl-Dw-JHh"/>
+                                                            <action selector="nextIsPressed:" destination="vOK-ag-Oxs" eventType="touchUpInside" id="Cnt-Wd-bgd"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -196,6 +220,13 @@
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="email" destination="kCK-6T-a7R" id="gJk-F7-7de"/>
+                        <outlet property="emailWarning" destination="ZyE-OY-ILF" id="PxW-B7-IUg"/>
+                        <outlet property="username" destination="Ukb-gh-bfQ" id="la2-bq-DcZ"/>
+                        <outlet property="usernameWarning" destination="wP4-C8-hZS" id="OSI-ev-C19"/>
+                        <segue destination="vL3-mC-C5H" kind="presentation" identifier="additional" modalTransitionStyle="crossDissolve" id="dDN-nd-M7X"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BY2-kl-zDC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -430,9 +461,6 @@
                                                         <state key="normal" title="Next">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
-                                                        <connections>
-                                                            <segue destination="xD1-EM-0KW" kind="presentation" modalTransitionStyle="crossDissolve" id="Rca-je-7xD"/>
-                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -515,6 +543,9 @@
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <segue destination="xD1-EM-0KW" kind="presentation" identifier="photo" modalTransitionStyle="crossDissolve" id="89J-mH-yK8"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Ba-2S-AFB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -526,6 +557,6 @@
         <image name="question_mark" width="980" height="980"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="fUl-Dw-JHh"/>
+        <segue reference="dDN-nd-M7X"/>
     </inferredMetricsTieBreakers>
 </document>
