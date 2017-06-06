@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vOK-ag-Oxs">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vOK-ag-Oxs">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -201,10 +201,10 @@
             </objects>
             <point key="canvasLocation" x="1468" y="-147.07646176911544"/>
         </scene>
-        <!--View Controller-->
+        <!--Sign Up Choose Your Photo View Controller-->
         <scene sceneID="PCD-Qx-5TO">
             <objects>
-                <viewController restorationIdentifier="signUpPhoto" storyboardIdentifier="signUpPhoto" id="xD1-EM-0KW" sceneMemberID="viewController">
+                <viewController restorationIdentifier="signUpPhoto" storyboardIdentifier="signUpPhoto" id="xD1-EM-0KW" customClass="SignUpChooseYourPhotoViewController" customModule="EmoChat" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="IJC-Yf-eEz"/>
                         <viewControllerLayoutGuide type="bottom" id="u6i-T2-ybV"/>
