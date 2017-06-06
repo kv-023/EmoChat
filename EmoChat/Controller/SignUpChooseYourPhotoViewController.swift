@@ -9,6 +9,10 @@
 import UIKit
 
 class SignUpChooseYourPhotoViewController: UIViewController {
+    
+    @IBOutlet weak var chooseYourPhotoImageWiev: UIImageView!
+    
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
