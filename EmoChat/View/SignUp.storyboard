@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16C68" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vOK-ag-Oxs">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vOK-ag-Oxs">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -110,7 +110,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="nPK-8f-rto">
-                                                <rect key="frame" x="50" y="591" width="275" height="36"/>
+                                                <rect key="frame" x="50" y="601" width="275" height="36"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s6A-D1-FiA">
                                                         <rect key="frame" x="0.0" y="0.0" width="45" height="36"/>
@@ -135,7 +135,7 @@
                                                 </subviews>
                                             </stackView>
                                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="Kqu-dC-DMK">
-                                                <rect key="frame" x="168" y="594" width="39" height="37"/>
+                                                <rect key="frame" x="168" y="604" width="39" height="37"/>
                                             </pageControl>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -143,7 +143,7 @@
                                             <constraint firstAttribute="trailing" secondItem="01v-tw-dNY" secondAttribute="trailing" constant="50" id="2PY-Wq-ltq"/>
                                             <constraint firstItem="01v-tw-dNY" firstAttribute="top" secondItem="tHK-66-qsb" secondAttribute="bottom" constant="20" id="Iph-mQ-fyW"/>
                                             <constraint firstItem="01v-tw-dNY" firstAttribute="leading" secondItem="vA0-QZ-CBl" secondAttribute="leading" constant="50" id="L9I-MZ-bop"/>
-                                            <constraint firstAttribute="bottom" secondItem="nPK-8f-rto" secondAttribute="bottom" constant="20" id="Pyi-zL-rHL"/>
+                                            <constraint firstAttribute="bottom" secondItem="nPK-8f-rto" secondAttribute="bottom" constant="10" id="Pyi-zL-rHL"/>
                                             <constraint firstItem="tHK-66-qsb" firstAttribute="centerX" secondItem="vA0-QZ-CBl" secondAttribute="centerX" id="UQn-6o-t2s"/>
                                             <constraint firstItem="nPK-8f-rto" firstAttribute="top" secondItem="01v-tw-dNY" secondAttribute="bottom" constant="20" id="fCd-vf-Ht3"/>
                                             <constraint firstItem="Kqu-dC-DMK" firstAttribute="centerX" secondItem="vA0-QZ-CBl" secondAttribute="centerX" id="i2y-aq-RvR"/>
@@ -223,7 +223,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="TGS-mu-dPX">
-                                                <rect key="frame" x="50" y="591" width="275" height="36"/>
+                                                <rect key="frame" x="50" y="601" width="275" height="36"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v9q-d0-2c7">
                                                         <rect key="frame" x="0.0" y="0.0" width="77" height="36"/>
@@ -279,12 +279,12 @@
                                                 </userDefinedRuntimeAttributes>
                                             </imageView>
                                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" currentPage="2" translatesAutoresizingMaskIntoConstraints="NO" id="us5-pO-cbC">
-                                                <rect key="frame" x="168" y="594" width="39" height="37"/>
+                                                <rect key="frame" x="168" y="604" width="39" height="37"/>
                                             </pageControl>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="TGS-mu-dPX" secondAttribute="bottom" constant="20" id="0E5-qd-aY3"/>
+                                            <constraint firstAttribute="bottom" secondItem="TGS-mu-dPX" secondAttribute="bottom" constant="10" id="0E5-qd-aY3"/>
                                             <constraint firstItem="TGS-mu-dPX" firstAttribute="top" secondItem="us5-pO-cbC" secondAttribute="bottom" constant="-40" id="0NC-Ay-xFo"/>
                                             <constraint firstAttribute="trailing" secondItem="TGS-mu-dPX" secondAttribute="trailing" constant="50" id="5S2-W3-yaV"/>
                                             <constraint firstAttribute="height" constant="420" id="8Gp-rL-Vvb"/>
@@ -412,7 +412,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="i1b-e1-2Zv">
-                                                <rect key="frame" x="50" y="591" width="275" height="36"/>
+                                                <rect key="frame" x="50" y="601" width="275" height="36"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W7j-h6-A8S">
                                                         <rect key="frame" x="0.0" y="0.0" width="77" height="36"/>
@@ -454,7 +454,7 @@
                                                 </subviews>
                                             </stackView>
                                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" currentPage="1" translatesAutoresizingMaskIntoConstraints="NO" id="D5s-Iw-KwH">
-                                                <rect key="frame" x="168" y="594" width="39" height="37"/>
+                                                <rect key="frame" x="168" y="604" width="39" height="37"/>
                                             </pageControl>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -464,7 +464,7 @@
                                             <constraint firstAttribute="height" constant="390" id="8Za-Kf-WGK"/>
                                             <constraint firstAttribute="trailing" secondItem="i1b-e1-2Zv" secondAttribute="trailing" constant="50" id="AS0-wF-dxn"/>
                                             <constraint firstItem="i1b-e1-2Zv" firstAttribute="top" secondItem="D5s-Iw-KwH" secondAttribute="bottom" constant="-40" id="CF1-XZ-4nB"/>
-                                            <constraint firstAttribute="bottom" secondItem="i1b-e1-2Zv" secondAttribute="bottom" constant="20" id="J7V-Sv-aD7"/>
+                                            <constraint firstAttribute="bottom" secondItem="i1b-e1-2Zv" secondAttribute="bottom" constant="10" id="J7V-Sv-aD7"/>
                                             <constraint firstItem="uIz-6l-gUv" firstAttribute="top" secondItem="nGq-cS-Mf1" secondAttribute="top" constant="20" id="KK9-6S-bkh"/>
                                             <constraint firstItem="uCO-18-nZO" firstAttribute="top" secondItem="uIz-6l-gUv" secondAttribute="bottom" constant="20" id="RkD-ea-KuU"/>
                                             <constraint firstItem="uIz-6l-gUv" firstAttribute="centerX" secondItem="nGq-cS-Mf1" secondAttribute="centerX" id="iS1-PE-QPO"/>
