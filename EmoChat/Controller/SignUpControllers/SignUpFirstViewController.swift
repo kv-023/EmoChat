@@ -14,6 +14,10 @@ class SignUpFirstViewController: UIViewController {
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var usernameWarning: UILabel!
     @IBOutlet weak var emailWarning: UILabel!
+    @IBOutlet weak var password: UITextField!
+    @IBOutlet weak var confirmation: UITextField!
+    @IBOutlet weak var passwordWarning: UILabel!
+    @IBOutlet weak var confirmationWarning: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +49,11 @@ class SignUpFirstViewController: UIViewController {
         if email.text == "" {
             emailWarning.text = "Enter email"
             emailWarning.isHidden = false
+            success = false
+        }
+        if password.text != confirmation.text {
+            confirmationWarning.text = "Passwords do not match"
+            confirmationWarning.isHidden = false
             success = false
         }
         if success {
