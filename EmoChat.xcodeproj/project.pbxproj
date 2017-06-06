@@ -19,6 +19,8 @@
 		E7352C291EDED52B0095264E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C251EDED52B0095264E /* User.swift */; };
 		E7352C2B1EE0139E0095264E /* ModelGenericHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C2A1EE0139E0095264E /* ModelGenericHelper.swift */; };
 		ED1E2D941EDD75B20058B6A6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */; };
+		FB4317731EE6C24400770338 /* SignUpFirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4317721EE6C24400770338 /* SignUpFirstViewController.swift */; };
+		FB4317761EE6C2C000770338 /* RegExpControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4317751EE6C2C000770338 /* RegExpControl.swift */; };
 		FB982DD51EE1569700AC2FCD /* ChatSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DCC1EE1569700AC2FCD /* ChatSettings.storyboard */; };
 		FB982DD61EE1569700AC2FCD /* Confirmation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DCD1EE1569700AC2FCD /* Confirmation.storyboard */; };
 		FB982DD71EE1569700AC2FCD /* Conversations.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DCE1EE1569700AC2FCD /* Conversations.storyboard */; };
@@ -49,6 +51,8 @@
 		E7352C2A1EE0139E0095264E /* ModelGenericHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelGenericHelper.swift; sourceTree = "<group>"; };
 		ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ED5291B01EE16F24008F8174 /* EmoChat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EmoChat.entitlements; sourceTree = "<group>"; };
+		FB4317721EE6C24400770338 /* SignUpFirstViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpFirstViewController.swift; sourceTree = "<group>"; };
+		FB4317751EE6C2C000770338 /* RegExpControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegExpControl.swift; sourceTree = "<group>"; };
 		FB982DCC1EE1569700AC2FCD /* ChatSettings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChatSettings.storyboard; sourceTree = "<group>"; };
 		FB982DCD1EE1569700AC2FCD /* Confirmation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Confirmation.storyboard; sourceTree = "<group>"; };
 		FB982DCE1EE1569700AC2FCD /* Conversations.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Conversations.storyboard; sourceTree = "<group>"; };
@@ -146,6 +150,22 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		FB4317711EE6C21800770338 /* SignUpControllers */ = {
+			isa = PBXGroup;
+			children = (
+				FB4317721EE6C24400770338 /* SignUpFirstViewController.swift */,
+			);
+			path = SignUpControllers;
+			sourceTree = "<group>";
+		};
+		FB4317741EE6C2AC00770338 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				FB4317751EE6C2C000770338 /* RegExpControl.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 		FB982DCB1EE1569700AC2FCD /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -165,6 +185,8 @@
 		FB982DDE1EE156B700AC2FCD /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				FB4317741EE6C2AC00770338 /* Helper */,
+				FB4317711EE6C21800770338 /* SignUpControllers */,
 				FB982DDF1EE156B700AC2FCD /* LoginViewController.swift */,
 			);
 			path = Controller;
@@ -312,10 +334,12 @@
 				E7352C261EDED52B0095264E /* Conversation.swift in Sources */,
 				3938C2721EDC27C700D69F88 /* ViewController.swift in Sources */,
 				E7352C281EDED52B0095264E /* Message.swift in Sources */,
+				FB4317761EE6C2C000770338 /* RegExpControl.swift in Sources */,
 				E7352C271EDED52B0095264E /* Auxiliary.swift in Sources */,
 				FB982DE11EE156B700AC2FCD /* LoginViewController.swift in Sources */,
 				E7352C291EDED52B0095264E /* User.swift in Sources */,
 				E7352C2B1EE0139E0095264E /* ModelGenericHelper.swift in Sources */,
+				FB4317731EE6C24400770338 /* SignUpFirstViewController.swift in Sources */,
 				3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

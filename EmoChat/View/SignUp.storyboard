@@ -18,10 +18,10 @@
             </objects>
             <point key="canvasLocation" x="839" y="-166"/>
         </scene>
-        <!--View Controller-->
+        <!--Sign Up First View Controller-->
         <scene sceneID="Cij-HH-5tG">
             <objects>
-                <viewController storyboardIdentifier="signUp" id="vOK-ag-Oxs" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="signUp" id="vOK-ag-Oxs" customClass="SignUpFirstViewController" customModule="EmoChat" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="WMH-Em-Fcm"/>
                         <viewControllerLayoutGuide type="bottom" id="dPF-u9-DKq"/>
@@ -526,6 +526,6 @@
         <image name="question_mark" width="980" height="980"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="6op-yY-Gih"/>
+        <segue reference="fUl-Dw-JHh"/>
     </inferredMetricsTieBreakers>
 </document>
