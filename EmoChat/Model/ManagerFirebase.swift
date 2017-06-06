@@ -11,6 +11,6 @@ import Firebase
 
 class ManagerClass {
     
-    var ref: FIRDatabaseReference?
+    var ref: DatabaseReference?
     
 }
