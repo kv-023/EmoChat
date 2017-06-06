@@ -18,31 +18,18 @@ struct Regex {
             let regex = try NSRegularExpression(pattern: regex)
             let nsString = text as NSString
             let results = regex.matches(in: text, range: NSRange(location: 0, length: nsString.length))
+
             return results.map { nsString.substring(with: $0.range)}
         } catch let error {
             print("invalid regex: \(error.localizedDescription)")
+
             return []
         }
     }
 
     static func isMatchInString(for regex: String, in text: String) -> Bool {
-        //        let regExp = NSRegularExpression(pattern: regex, options: [.caseInsensitive])
-        //do {
-            //            let regExp = try NSRegularExpression(pattern: regex, options: [.caseInsensitive])
-            //
-            //            let range = NSRange(location: 0, length: text.characters.count)
-            //            if let numberMatches = regExp.numberOfMatchesInString(text,
-            //                                                                   options: .MatchingOptions(0),
-            //                                                                   range: range), numberMatches == 1 {
-            //                let s = "OK"
-            //            } else {
-            //                let s = "No matches found"
-            //            }
-            return  Regex.matches(for: regex, in: text).count > 0
-//        } catch let error {
-//            print("invalid regex: \(error.localizedDescription)")
-//            return false
-//        }
-    }
 
+        return  Regex.matches(for: regex, in: text).count > 0
+    }
+    
 }
