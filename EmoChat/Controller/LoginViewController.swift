@@ -26,11 +26,14 @@ extension UITextField {
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
 
+    // MARK: - IBOutlets
+
     @IBOutlet weak var logIn: UIButton!
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var hintsLabel: UILabel!
     
+    // MARK: - ViewController lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +42,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         emailField.delegate = self
         passwordField.delegate = self
         
-        
         //circular Get Started Button
         logIn.layer.cornerRadius = 15
         logIn.layer.masksToBounds = true
@@ -47,14 +49,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         logIn.layer.borderWidth = 2
         logIn.layer.borderColor = UIColor.white.cgColor
         
-        //custom text field
+    }
+    
+    override func viewDidLayoutSubviews() {
+        
         emailField.useUnderline()
         passwordField.useUnderline()
         
-        emailField.bounds = logIn.bounds
-        passwordField.bounds = logIn.bounds
-
-     
     }
     
     override func didReceiveMemoryWarning() {
@@ -92,7 +93,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     return true
         
     }
-    
 
 }
 
