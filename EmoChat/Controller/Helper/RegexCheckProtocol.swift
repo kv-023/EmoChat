@@ -28,6 +28,19 @@ extension RegexCheckProtocol {
         return flagForReturn
     }
 
+    func nameIsValid(uname textForAnalyze: String?) -> Bool {
+        var flagForReturn = true
+
+        if let notNullText = textForAnalyze {
+            let regexLoginPattern = ".{3,}"
+            flagForReturn = Regex.isMatchInString(for: regexLoginPattern,
+                                                  in: notNullText)
+        }
+
+        showInfoSignUp(flagForReturn)
+        return flagForReturn
+    }
+
     func emailIsValid(userEmail textForAnalyze: String?) -> Bool {
         var flagForReturn = true
 
