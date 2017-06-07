@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16C68" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_0" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -30,6 +30,9 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
+                                <connections>
+                                    <action selector="textFieldDidBeginEditing:" destination="BYZ-38-t0r" eventType="editingDidBegin" id="Kcp-xC-oXz"/>
+                                </connections>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="password-50" translatesAutoresizingMaskIntoConstraints="NO" id="liz-RL-f33">
                                 <rect key="frame" x="26" y="117" width="30" height="30"/>
@@ -52,6 +55,9 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
+                                <connections>
+                                    <action selector="textFieldDidBeginEditing:" destination="BYZ-38-t0r" eventType="editingDidBegin" id="yai-fi-boB"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vxy-HU-iRD">
                                 <rect key="frame" x="199" y="257" width="170" height="20"/>
@@ -112,14 +118,14 @@
                     </view>
                     <connections>
                         <outlet property="emailField" destination="Vp7-IZ-JzE" id="Zlv-3q-F9W"/>
-                        <outlet property="hintsLabel" destination="grm-3R-VOj" id="yqF-Hb-Mao"/>
+                        <outlet property="hintsLabel" destination="vxy-HU-iRD" id="LMe-us-l2E"/>
                         <outlet property="logIn" destination="bYC-FF-8D6" id="enb-QP-3wY"/>
                         <outlet property="passwordField" destination="g4g-Ca-vAU" id="Eym-TV-fuJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="112.5" y="119.36619718309859"/>
+            <point key="canvasLocation" x="-96" y="113"/>
         </scene>
         <!--SignUp-->
         <scene sceneID="FhU-OT-sVL">
@@ -133,6 +139,6 @@
     <resources>
         <image name="background" width="375" height="667"/>
         <image name="email" width="50" height="50"/>
-        <image name="password-50" width="50" height="50"/>
+        <image name="password-50" width="33" height="33"/>
     </resources>
 </document>

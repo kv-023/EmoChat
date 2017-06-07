@@ -22,6 +22,17 @@ extension UITextField {
         self.layer.addSublayer(border)
         self.layer.masksToBounds = true
     }
+	
+	// Shake function inplementation
+	func shake(count : Float? = nil, for duration : TimeInterval? = nil, withTranslation translation : Float? = nil) {
+		let animation : CABasicAnimation = CABasicAnimation(keyPath: "transform.translation.x")
+		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+		animation.repeatCount = count ?? 2
+		animation.duration = (duration ?? 0.5)/TimeInterval(animation.repeatCount)
+		animation.autoreverses = true
+		animation.byValue = translation ?? -5
+		layer.add(animation, forKey: "shake")
+	}
 }
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
@@ -41,44 +52,113 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         //set delegate
         emailField.delegate = self
         passwordField.delegate = self
-        
+		
         //circular Get Started Button
         logIn.layer.cornerRadius = 15
         logIn.layer.masksToBounds = true
         
         logIn.layer.borderWidth = 2
         logIn.layer.borderColor = UIColor.white.cgColor
-        
+		
+		//Gesture recognizer
+		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
+		view.addGestureRecognizer(tap)
     }
-    
+	
+	func dismissKeyboard() {
+		//Causes the view (or one of its embedded text fields) to resign the first responder status.
+		view.endEditing(true)
+	}
+	
     override func viewDidLayoutSubviews() {
-        
+		
         emailField.useUnderline()
         passwordField.useUnderline()
-        
+		
     }
     
-    override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning()	{
+		
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
 
-    @IBAction func loginAction(_ sender: UIButton) {
+    }
+	
+	func checkColor(textField: UITextField) -> Bool	{
+		if (textField.textColor == UIColor.red) {
+			return true
+		} else {
+			return false
+		}
+	}
+	
+	func checkError(email: UITextField, password: UITextField) {
+		if checkColor(textField: email) {
+			emailField.text = nil
+		}
+		if checkColor(textField: password) {
+			passwordField.text = nil;
+		}
+	}
+	
+	@IBAction func textFieldDidBeginEditing(_ textField: UITextField) {
+		checkError(email: emailField, password: passwordField)
+		emailField.textColor = UIColor.white
+		passwordField.textColor = UIColor.white
+		if passwordField.isSecureTextEntry == false {
+			passwordField.isSecureTextEntry = true;
+		}
+	}
+
+    @IBAction func loginAction(_ sender: UIButton)	{
+		checkError(email: emailField, password: passwordField)
         if emailField.text != "" && passwordField.text != "" {
-            Auth.auth().signIn(withEmail: emailField.text!, password: passwordField.text!, completion: { (user, error) in
-                                    if user != nil && (user?.isEmailVerified)! {
-                                        self.hintsLabel.text = ("success! you are in")
-                                    } else {
-                                        if let myError = error?.localizedDescription {
-                                            self.hintsLabel.text = myError
-                                        } else {
-                                            self.hintsLabel.text = ("confirm your e-mail")
-                                        }
-                                    }
+			//If both fields are not empty
+
+            Auth.auth().signIn(withEmail: emailField.text!, password: passwordField.text!, completion:
+			{ (user, error) in
+				if user != nil && (user?.isEmailVerified)! {
+					self.hintsLabel.text = ("success! you are in")
+				} else	{
+					if let myError = error?.localizedDescription {
+						self.hintsLabel.text = myError
+					} else {
+						self.hintsLabel.text = ("confirm your e-mail")
+					}
+				}
             });
         }
+		else if emailField.text == "" && passwordField.text != "" {
+			// Alert user of empty email
+			emailField.text = "Input your email"
+			emailField.textColor = UIColor.red
+			emailField.shake(count: 1, for: 0.05, withTranslation: 15)
+		}
+		else if emailField.text != "" && passwordField.text == "" {
+			// Alert user of empty password
+			passwordField.isSecureTextEntry = false;
+			passwordField.text = "Input your password"
+			passwordField.textColor = UIColor.red
+			passwordField.shake(count: 1, for: 0.05, withTranslation: 15)
+		} else {
+			passwordField.isSecureTextEntry = false;
+			emailField.text = "Input your email"
+			emailField.textColor = UIColor.red
+			passwordField.text = "Input your password"
+			passwordField.textColor = UIColor.red
+			//Alert to tell the user that there was an error because they didn't fill anything in the textfields because they didn't fill anything in
+			emailField.shake(count: 1, for: 0.05, withTranslation: 15)
+			passwordField.shake(count: 1, for: 0.05, withTranslation: 15)
+			self.passwordField.selectedTextRange = nil
+		}
+		if self.emailField.isEditing {
+			self.emailField.endEditing(true)
+		}
+		if self.passwordField.isEditing {
+			self.passwordField.endEditing(true)
+		}
     }
-    
+	
     
    // MARK: UITextFieldDelegate
     
