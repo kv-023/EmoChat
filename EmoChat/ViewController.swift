@@ -11,6 +11,8 @@ import FirebaseDatabase
 import FirebaseAuth
 
 class ViewController: UIViewController {
+    
+    
 
     //var ref: DatabaseReference?
     var m: ManagerFirebase?
@@ -21,12 +23,26 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
 
+
+    
+    
+    
+    
+    
     @IBAction func testFirebase(_ sender: Any) {
         m?.getCurrentUser(){ user in
             if let u = user {
                 self.hintsLabel.text = ("\(u.firstName!) \(u.secondName!)")
+                
             }
+            
         }
+        
+        
+        
+        
+       
+        
         
         
 //        ref = FIRDatabase.database().reference()

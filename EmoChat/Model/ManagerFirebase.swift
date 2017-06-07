@@ -99,4 +99,26 @@ class ManagerFirebase {
         }
     }
     
+    func checkUserNameUniqness(_ userName: String, result : @escaping (Bool)->Void) {
+        
+        let usersRef = Database.database().reference().child("users")
+        usersRef.queryOrdered(byChild: "username").queryEqual(toValue: "\(userName)").observeSingleEvent(of: .value , with: {
+            snapshot in
+            if !snapshot.exists() {
+                print("It seems like this one is free")
+                result(true)
+            }
+            else {
+                print("Taken")
+                result(false)
+            }
+        }) { error in
+            print(error.localizedDescription)
+        }
+    }
+    
+
+
 }
+    
+
