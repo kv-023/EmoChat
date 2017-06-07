@@ -10,18 +10,21 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Table View Controller-->
+        <!--Search Users View Controller-->
         <scene sceneID="Fjx-y7-bCn">
             <objects>
-                <tableViewController storyboardIdentifier="searchUsers" id="Ve4-XD-0jU" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="searchUsers" id="Ve4-XD-0jU" customClass="SearchUsersViewController" customModule="EmoChat" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="71" sectionHeaderHeight="28" sectionFooterHeight="28" id="Hd0-fd-Tub">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search for contacts or usernames" showsCancelButton="YES" id="vca-Y1-sDi">
+                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search for users..." showsCancelButton="YES" id="7Cl-p1-XQK">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="Ve4-XD-0jU" id="SV4-kV-iro"/>
+                            </connections>
                         </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="ContactCellIdentifier" rowHeight="71" id="5qh-pp-t4Y">
@@ -107,6 +110,23 @@
                                     <segue destination="Hth-hP-5bV" kind="show" id="Z4G-6l-E21"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cellIdentifier" textLabel="Kqc-Kc-fhe" rowHeight="71" style="IBUITableViewCellStyleDefault" id="lPX-Xw-Ddq">
+                                <rect key="frame" x="0.0" y="214" width="375" height="71"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lPX-Xw-Ddq" id="cdH-8p-0vk">
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="70.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Kqc-Kc-fhe">
+                                            <rect key="frame" x="15" y="0.0" width="325" height="70.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="Ve4-XD-0jU" id="ZrV-Iz-xZz"/>
@@ -115,16 +135,18 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="Jig-O8-YZj"/>
                     <connections>
-                        <outlet property="searchDisplayController" destination="hTJ-UA-BDi" id="dCP-J4-CyW"/>
+                        <outlet property="searchBar" destination="7Cl-p1-XQK" id="gCe-eZ-Qba"/>
+                        <outlet property="searchDisplayController" destination="mY3-Mi-Aif" id="6fe-Tg-wxm"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mk6-CQ-8dl" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="hTJ-UA-BDi">
+                <searchDisplayController id="mY3-Mi-Aif">
                     <connections>
-                        <outlet property="delegate" destination="Ve4-XD-0jU" id="ib6-hx-OQ8"/>
-                        <outlet property="searchContentsController" destination="Ve4-XD-0jU" id="Pks-v5-1fo"/>
-                        <outlet property="searchResultsDataSource" destination="Ve4-XD-0jU" id="uvK-kp-AKq"/>
-                        <outlet property="searchResultsDelegate" destination="Ve4-XD-0jU" id="GTG-cS-kou"/>
+                        <outlet property="delegate" destination="Ve4-XD-0jU" id="oxH-E2-g6J"/>
+                        <outlet property="searchBar" destination="7Cl-p1-XQK" id="mh7-2Y-e7I"/>
+                        <outlet property="searchContentsController" destination="Ve4-XD-0jU" id="qx1-WX-gXz"/>
+                        <outlet property="searchResultsDataSource" destination="Ve4-XD-0jU" id="gha-k3-eXc"/>
+                        <outlet property="searchResultsDelegate" destination="Ve4-XD-0jU" id="Sw4-xM-Yzu"/>
                     </connections>
                 </searchDisplayController>
             </objects>
