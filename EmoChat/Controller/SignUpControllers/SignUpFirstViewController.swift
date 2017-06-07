@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SignUpFirstViewController: UIViewController {
+class SignUpFirstViewController: UIViewController, RegexCheckProtocol {
 
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var email: UITextField!
@@ -18,6 +18,10 @@ class SignUpFirstViewController: UIViewController {
     @IBOutlet weak var confirmation: UITextField!
     @IBOutlet weak var passwordWarning: UILabel!
     @IBOutlet weak var confirmationWarning: UILabel!
+
+    var usernameValid = false
+    var emailValid = false
+    var passwordValid = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,12 +32,15 @@ class SignUpFirstViewController: UIViewController {
     }
     
     @IBAction func usernameEdited(_ sender: UITextField) {
+        usernameValid = usernameIsValid(userName: username.text)
     }
     
     @IBAction func emailEdited(_ sender: UITextField) {
+        emailValid = emailIsValid()
     }
     
     @IBAction func passwordEdited(_ sender: UITextField) {
+        passwordValid = passwordIsValid()
     }
     
     @IBAction func confirmationEdited(_ sender: Any) {
@@ -56,7 +63,10 @@ class SignUpFirstViewController: UIViewController {
             confirmationWarning.isHidden = false
             success = false
         }
-        if success {
+
+        if success
+            && (usernameValid && emailValid && passwordValid) {
+
             performSegue(withIdentifier: "additional", sender: self)
         }
     }
