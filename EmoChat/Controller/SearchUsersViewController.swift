@@ -13,10 +13,13 @@ import CoreFoundation
 class SearchUsersViewController: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
     
     // MARK: - properties
-    var filteredUsers: [User] = []
+    var sectionsArray: [[User]] = []
     var users: [User] = []
+    
+    var friends: [User] = []
+    var filteredFriends: [User] = []
+    
     let refUser = Database.database().reference(withPath: "User")
-    var searchActive = false
     
     // MARK: - IBOutlets
     @IBOutlet var searchBar: UISearchBar!
@@ -26,23 +29,28 @@ class SearchUsersViewController: UITableViewController, UISearchBarDelegate, UIS
         super.viewDidLoad()
         
         searchBar.showsCancelButton = false
-    
+        
+        let user1 = User(userId: "FirstUser", name: "FirstUser", email: "FirstUser")
+        let user2 = User(userId: "SecondUser", name: "SecondUser", email: "SecondUser")
+        let user3 = User(userId: "ThirdUser", name: "ThirdUser", email: "ThirdUser")
+        let user4 = User(userId: "Secvfour", name: "Secvfour", email: "Secvfour")
+        let user5 = User(userId: "Sevfive", name: "Sevfive", email: "Sevfive")
+
+        friends.append(contentsOf: [user1, user2, user3, user4, user5])
+        
         refUser.observe(.value, with: { (snapshot) in
             var newUsers: [User] = []
             for user in snapshot.children {
-                
                 let newUser = User(snapshot: user as! DataSnapshot)
                 if let us = newUser {
                     print(us)
                     newUsers.append(us)
                 }
             }
-            print(newUsers)
-            
             self.users = newUsers
             self.tableView.reloadData()
         })
-
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -52,62 +60,76 @@ class SearchUsersViewController: UITableViewController, UISearchBarDelegate, UIS
     // MARK: - UITableViewDataSource
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        if !friends.isEmpty {
+            return 1
+        } else {
+            return 0
+        }
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searchActive {
-            return filteredUsers.count
+        if !friends.isEmpty && section == 0 {
+            if searchBar.isFirstResponder {
+                return filteredFriends.count
+            }
+            return friends.count
+        } else {
+            return filteredFriends.count
         }
-        return users.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "cellIdentifier", for: indexPath)
-        if searchActive {
-            cell.textLabel?.text = filteredUsers[indexPath.row].uuid
+        
+        if !friends.isEmpty && indexPath.section == 0 && searchBar.isFirstResponder {
+            cell.textLabel?.text = filteredFriends[indexPath.row].uuid
         } else {
-            cell.textLabel?.text = users[indexPath.row].uuid
+            cell.textLabel?.text = friends[indexPath.row].uuid
         }
-
+        
         return cell
     }
     
     
     // MARK: - UISearchBarDelegate
-    
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchActive = true
+        print(#function)
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        searchActive = false;
+        print(#function)
+
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchActive = false
+        print(#function)
+
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchActive = false
+        print(#function)
     }
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        filteredUsers = users.filter({ (user) -> Bool in
-            let tmpText = user.uuid
-            let range = tmpText.range(of: searchText,
-                                           options: NSString.CompareOptions.caseInsensitive,
-                                           range: nil,
-                                           locale: nil)
-            return range != nil
-        })
-        if filteredUsers.count == 0 {
-            searchActive = false
-        } else {
-            searchActive = true
-        }
+        print(#function)
+
+        self.filteredFriends = searchUsers(self.friends, withFilter: searchText)
         self.tableView.reloadData()
     }
+    
+    // MARK: - Searching
+    func searchUsers(_ array: [User], withFilter filterString: String) -> [User] {
+        var filtered: [User] = []
+        for user in array {
+            if (filterString.characters.count > 0 && !user.uuid.lowercased().hasPrefix(filterString.lowercased())) {
+                continue
+            }
+            filtered.append(user)
+        }
+        return filtered
+    }
+    
+
 }
