@@ -40,43 +40,43 @@ class Conversation: FireBaseEmoChat {
         mesagesInConversation?.append(newElement)
     }
 
-    //MARK:- func. for FireBase use
-    func toAnyObject() -> Any {
-
-//        var tempUsersInConversation = linkedTableType()
-//        var tempMesagesInConversation = linkedTableType()
+//    //MARK:- func. for FireBase use
+//    func toAnyObject() -> Any {
 //
-//        //add table of users
-//        if let notNullUsersInConversation = usersInConversation {
-//            for itemInArray in notNullUsersInConversation {
-//                if let notNullItemInArray = itemInArray {
-//                     tempUsersInConversation.updateValue(true,
-//                                                         forKey: notNullItemInArray.uuid)
-//                }
-//            }
-//        }
+////        var tempUsersInConversation = linkedTableType()
+////        var tempMesagesInConversation = linkedTableType()
+////
+////        //add table of users
+////        if let notNullUsersInConversation = usersInConversation {
+////            for itemInArray in notNullUsersInConversation {
+////                if let notNullItemInArray = itemInArray {
+////                     tempUsersInConversation.updateValue(true,
+////                                                         forKey: notNullItemInArray.uuid)
+////                }
+////            }
+////        }
+////
+////        //add table of convmessages
+////        if let notNullMessagesInConversation = mesagesInConversation {
+////            for itemInArray in notNullMessagesInConversation {
+////                if let notNullItemInArray = itemInArray {
+////                    tempMesagesInConversation.updateValue(true,
+////                                                        forKey: notNullItemInArray.uuid)
+////                }
+////            }
+////        }
 //
-//        //add table of convmessages
-//        if let notNullMessagesInConversation = mesagesInConversation {
-//            for itemInArray in notNullMessagesInConversation {
-//                if let notNullItemInArray = itemInArray {
-//                    tempMesagesInConversation.updateValue(true,
-//                                                        forKey: notNullItemInArray.uuid)
-//                }
-//            }
-//        }
-
-//        let tempUsersInConversation = collectDataFromModelInstance(usersInConversation)
-//        let tempMesagesInConversation = collectDataFromModelInstance(mesagesInConversation)
-
-
-        return [
-            uuid: ["conversationId": uuid,
-                "usersInConversation": collectDataFromModelInstance(usersInConversation),
-                "mesagesInConversation": collectDataFromModelInstance(mesagesInConversation)]
-
-        ]
-    }
+////        let tempUsersInConversation = collectDataFromModelInstance(usersInConversation)
+////        let tempMesagesInConversation = collectDataFromModelInstance(mesagesInConversation)
+//
+//
+//        return [
+//            uuid: ["conversationId": uuid,
+//                "usersInConversation": collectDataFromModelInstance(usersInConversation),
+//                "mesagesInConversation": collectDataFromModelInstance(mesagesInConversation)]
+//
+//        ]
+//    }
 
 //    private func collectDataFromModelInstance (_ dataInArray: [FireBaseEmoChat?]?) -> linkedTableType {
 //        var tempArrayData = linkedTableType()
