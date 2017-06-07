@@ -82,8 +82,21 @@ class ManagerFirebase {
                 getUser(nil)
             }
         }
-        
-        
+    }
+    
+    func changeUsersEmail(email: String) {
+        if let user = Auth.auth().currentUser {
+            let uid = user.uid
+            self.ref?.child("users/\(uid)/email").setValue(user.email)
+            user.updateEmail(to: email)
+            { error in
+                if error != nil {
+                    print("Something Went Wrong")
+                } else {
+                    print("Email successfully updated")
+                }
+            }
+        }
     }
     
 }
