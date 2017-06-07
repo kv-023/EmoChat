@@ -194,7 +194,17 @@ class ManagerFirebase {
         
     }
 
-    
+    func changeUsersPassword(password: String) {
+        let user = Auth.auth().currentUser
+        let newPassword = password
+        user?.updatePassword(to: newPassword) { error in
+            if error != nil {
+                print("An error occured.")
+            } else {
+                print("Password changed.")
+            }
+        }
+    }//
 
 
 }
