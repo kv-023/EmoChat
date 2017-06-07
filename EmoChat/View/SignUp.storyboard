@@ -432,7 +432,7 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" returnKeyType="next"/>
                                                         <connections>
-                                                            <action selector="firstNameChanged:" destination="vL3-mC-C5H" eventType="editingChanged" id="ReX-rt-h1L"/>
+                                                            <action selector="firstNameChanged:" destination="vL3-mC-C5H" eventType="editingChanged" id="ri1-CX-3lC"/>
                                                             <outlet property="delegate" destination="vL3-mC-C5H" id="eML-aI-AJV"/>
                                                         </connections>
                                                     </textField>

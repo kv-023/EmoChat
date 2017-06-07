@@ -8,6 +8,25 @@
 
 import UIKit
 
+extension UITextField {
+    
+    func redBorder() {
+        self.layer.cornerRadius = 7.0
+        self.layer.borderWidth = 1.0
+        self.layer.borderColor = UIColor.red.cgColor
+        self.layer.masksToBounds = true
+    }
+    
+    func whiteBorder() {
+        self.layer.cornerRadius = 7.0
+        self.layer.borderWidth = 1.0
+        self.layer.borderColor = UIColor.white.cgColor
+        self.layer.masksToBounds = true
+    }
+
+    
+}
+
 class AdditionalViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var firstNameLabel: UILabel!
@@ -33,28 +52,45 @@ class AdditionalViewController: UIViewController, UITextFieldDelegate {
     // MARK: - Actions
     
     @IBAction func firstNameChanged(_ sender: UITextField) {
-        
+       
+        if Regex.isMatchInString(for: "[a-zA-Z]", in:firstNameField.text!) {
+            firstNameLabel.text = "Enter valid name"
+            firstNameLabel.textColor = UIColor.red
+            firstNameField.redBorder()
+        } else {
+            firstNameLabel.text = "First Name"
+            firstNameLabel.textColor = UIColor.white
+            firstNameField.whiteBorder()
+        }
+        /*
         if firstNameField.text!.rangeOfCharacter(from: characterset) != nil {
             firstNameLabel.text = "Enter valid name"
             firstNameLabel.textColor = UIColor.red
+            firstNameField.redBorder()
             }
         else {
             firstNameLabel.text = "First Name"
             firstNameLabel.textColor = UIColor.white
-        }
+            firstNameField.whiteBorder()
+            }*/
     }
 
     @IBAction func lastNameChanged(_ sender: UITextField) {
-        
+
         if lastNameField.text!.rangeOfCharacter(from: characterset) != nil {
             lastNameLabel.text = "Enter valid last name"
             lastNameLabel.textColor = UIColor.red
+            firstNameField.redBorder()
+
         }
         else {
             lastNameLabel.text = "Last Name"
             lastNameLabel.textColor = UIColor.white
+            firstNameField.whiteBorder()
+
         }
     }
+    
     
     /*
     // MARK: - Navigation
@@ -66,6 +102,9 @@ class AdditionalViewController: UIViewController, UITextFieldDelegate {
     }
     */
     
-
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        return true
+    }
     
 }
