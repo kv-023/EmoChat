@@ -8,35 +8,40 @@
 
 import UIKit
 
-extension UITextField {
-    
-    func redBorder() {
-        self.layer.cornerRadius = 7.0
-        self.layer.borderWidth = 1.0
-        self.layer.borderColor = UIColor.red.cgColor
-        self.layer.masksToBounds = true
-    }
-    
-    func whiteBorder() {
-        self.layer.cornerRadius = 7.0
-        self.layer.borderWidth = 1.0
-        self.layer.borderColor = UIColor.white.cgColor
-        self.layer.masksToBounds = true
-    }
+//extension UITextField {
+//    
+//    func redBorder() {
+//        self.layer.cornerRadius = 7.0
+//        self.layer.borderWidth = 1.0
+//        self.layer.borderColor = UIColor.red.cgColor
+//        self.layer.masksToBounds = true
+//    }
+//    
+//    func whiteBorder() {
+//        self.layer.cornerRadius = 7.0
+//        self.layer.borderWidth = 1.0
+//        self.layer.borderColor = UIColor.white.cgColor
+//        self.layer.masksToBounds = true
+//    }
+//
+//    
+//}
+//
+//extension UILabel {
+//    
+//    func printError(errorText: String) {
+//        self.textColor = UIColor.red
+//        self.text = errorText
+//    }
+//
+//    func printOK(okText: String) {
+//        self.textColor = UIColor.white
+//        self.text = okText
+//    }
+//    
+//}
 
-    
-}
-
-extension UILabel {
-    
-    func printError(errorText: String) {
-        self.textColor = UIColor.red
-        self.text = errorText
-    }
-    
-}
-
-class AdditionalViewController: UIViewController, UITextFieldDelegate {
+class AdditionalViewController: UIViewController, UITextFieldDelegate, RegexCheckProtocol {
     
     @IBOutlet weak var firstNameLabel: UILabel!
     @IBOutlet weak var lastNameLabel: UILabel!
@@ -62,7 +67,8 @@ class AdditionalViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func firstNameChanged(_ sender: UITextField) {
        
-        if Regex.isMatchInString(for: "[a-zA-Z]", in:firstNameField.text!) {
+//        if Regex.isMatchInString(for: "[a-zA-Z]", in:firstNameField.text!) {
+        if usernameIsValid(userName: sender.text){
             firstNameLabel.printError(errorText: "Enter valid name")
             firstNameField.redBorder()
         } else {

@@ -19,7 +19,7 @@ extension RegexCheckProtocol {
         var flagForReturn = true
 
         if let notNullText = textForAnalyze {
-            let regexLoginPattern = "^[a-zA-Z0-9-]*$"
+            let regexLoginPattern = "^[a-zA-Z0-9-]{3,}$"
             flagForReturn = Regex.isMatchInString(for: regexLoginPattern,
                                                        in: notNullText)
         }
@@ -28,15 +28,27 @@ extension RegexCheckProtocol {
         return flagForReturn
     }
 
-    func emailIsValid() -> Bool {
-        let flagForReturn = true
+    func emailIsValid(userEmail textForAnalyze: String?) -> Bool {
+        var flagForReturn = true
+
+        if let notNullText = textForAnalyze {
+            let regexLoginPattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
+            flagForReturn = Regex.isMatchInString(for: regexLoginPattern,
+                                                  in: notNullText)
+        }
 
         showInfoSignUp(flagForReturn)
         return flagForReturn
     }
 
-    func passwordIsValid() -> Bool {
-        let flagForReturn = true
+    func passwordIsValid(userPassword textForAnalyze: String?) -> Bool {
+        var flagForReturn = true
+
+        if let notNullText = textForAnalyze {
+            let regexLoginPattern = "^.{3,}$"
+            flagForReturn = Regex.isMatchInString(for: regexLoginPattern,
+                                                  in: notNullText)
+        }
 
         showInfoSignUp(flagForReturn)
         return flagForReturn
@@ -49,4 +61,5 @@ extension RegexCheckProtocol {
             print("An error occurred")
         }
     }
+
 }

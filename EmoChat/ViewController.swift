@@ -14,6 +14,9 @@ class ViewController: UIViewController {
 
     var ref: FIRDatabaseReference?
 
+    @IBAction func regexTestButtoPressed(_ sender: UIButton) {
+        regexTest()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -21,60 +24,20 @@ class ViewController: UIViewController {
 
     @IBAction func testFirebase(_ sender: Any) {
 
-//        ref = FIRDatabase.database().reference()
-//
-//        let tempUser:Users = Users(userId: "3", name: "srg", email: "srdg")
-//
-//
-//        ref?.child("Users").childByAutoId().setValue(tempUser.userId)
-//
-//        let tempConversation:Conversation = Conversation(conversationId: "123", usersInConversations: [tempUser])
-//
-//        ref?.child("Conversation").childByAutoId().setValue(tempConversation.conversationId)
-//
-//
-//        let tempMessage:Messages = Messages(messageId: "4567432",
-//                                         sender: tempUser.name, conversation: tempConversation.conversationId)
-//        ref?.child("Message").childByAutoId().setValue(tempMessage.messageId)
-
         ref = FIRDatabase.database().reference()
 
         let tempUser:User = User(userId: "userID123", name: "Galja", email: "galja@ukr.net")
         let tempUser2:User = User(userId: "userID009", name: "Petja", email: "petja@gmail.com")
 
         let usersInArray = [tempUser,tempUser2];
-//        var arrayData:[Any] = []
-//        for item in usersInArray {
-//            arrayData.append(item.toAnyObject())
-//        }
-//
-////        ref?.child("Users").setValue(tempUser.toAnyObject())
-////        ref?.child("Users").setValue(tempUser2.toAnyObject())
-//        ref?.child("Users").setValue(arrayData)
-
-
-        //ref?.child("Users").setValue(tempUser.toAnyObject())
-//        ref?.child("Users").setValue(Users.toAnyObject(users: usersInArray))
-
-//        let ref2: FIRDatabaseReference?// for test only
-//        ref2 = FIRDatabase.database().reference() // for test only
-//        ref2?.child("Users").setValue(tempUser2.toAnyObject())// for test only
 
 
         let tempConversation:Conversation = Conversation(conversationId: "conversationId-456", usersInConversation: usersInArray)
-
-//        ref?.child("Conversation").childByAutoId().setValue(tempConversation.conversationId)
- //       ref?.child("Conversation").setValue(tempConversation.toAnyObject())
-
-
         let tempMessage:Message = Message(messageId: "messageId-789",
                                             sender: tempUser, conversation: tempConversation.uuid)
         tempMessage.messageText = "hello world!"
 
         ref?.child("Message").setValue(tempMessage.toAnyObject())
-
-//        tempUser.appendConversation(tempConversation)
-//        tempUser2.appendConversation(tempConversation)
         if let notNullUsersInConversation = tempConversation.usersInConversation {
             for itemUserConversation in notNullUsersInConversation {
                 if let itemUserConversation = itemUserConversation {
@@ -82,9 +45,6 @@ class ViewController: UIViewController {
                 }
             }
         }
-
-
-
 
         ref?.child("User").setValue(User.toAnyObject(users: usersInArray))
         
@@ -147,12 +107,31 @@ class ViewController: UIViewController {
             }
         }
     }
-}
-
-
 ////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////LOGIN END//////////////////////////////////////
+
+//MARK:- Regex expression
+
+    func regexTest() {
+
+        let arrayOfTestedData = ["BlaBlaBla", "Bla_Bla%Bla"]
+        let regexLoginPattern = "^[a-zA-Z0-9-]*$"
+
+        for itemInArray in arrayOfTestedData {
+            let strinIsMatched = Regex.isMatchInString(for: regexLoginPattern, in: itemInArray)
+            print ("string is matched: \(strinIsMatched)")
+            
+        }
+        
+        
+        
+    }
+    
+}
+
+
+
 
 
 

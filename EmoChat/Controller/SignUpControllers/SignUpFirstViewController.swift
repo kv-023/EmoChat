@@ -19,10 +19,56 @@ class SignUpFirstViewController: UIViewController, RegexCheckProtocol {
     @IBOutlet weak var passwordWarning: UILabel!
     @IBOutlet weak var confirmationWarning: UILabel!
 
-    var usernameValid = false
-    var emailValid = false
-    var passwordValid = false
-    
+    var usernameValid = false {
+        didSet {
+            if !usernameValid {
+                usernameWarning.printError(errorText: "Enter valid name")
+                username.redBorder()
+            } else {
+                usernameWarning.printOK(okText: "User name")
+                username.whiteBorder()
+            }
+            usernameWarning.isHidden = !usernameValid
+        }
+    }
+
+    var emailValid = false {
+        didSet {
+            if !emailValid {
+                emailWarning.printError(errorText: "Enter valid email")
+                email.redBorder()
+            } else {
+                emailWarning.printOK(okText: "Email")
+                email.whiteBorder()
+            }
+            emailWarning.isHidden = !emailValid
+        }
+    }
+    var passwordValid = false {
+        didSet {
+            if !passwordValid {
+                passwordWarning.printError(errorText: "Enter valid password")
+                password.redBorder()
+            } else {
+                passwordWarning.printOK(okText: "Password")
+                password.whiteBorder()
+            }
+            passwordWarning.isHidden = !passwordValid
+        }
+    }
+    var passwordConfirmationValid = false {
+        didSet {
+            if !passwordConfirmationValid {
+                confirmationWarning.printError(errorText: "Enter valid password confirmation")
+                confirmation.redBorder()
+            } else {
+                confirmationWarning.printOK(okText: "Confirmation")
+                confirmation.whiteBorder()
+            }
+            confirmationWarning.isHidden = !passwordConfirmationValid
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -30,22 +76,23 @@ class SignUpFirstViewController: UIViewController, RegexCheckProtocol {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
+
     @IBAction func usernameEdited(_ sender: UITextField) {
-        usernameValid = usernameIsValid(userName: username.text)
+        usernameValid = usernameIsValid(userName: sender.text)
     }
-    
+
     @IBAction func emailEdited(_ sender: UITextField) {
-        emailValid = emailIsValid()
+        emailValid = emailIsValid(userEmail: sender.text)
     }
-    
+
     @IBAction func passwordEdited(_ sender: UITextField) {
-        passwordValid = passwordIsValid()
+        passwordValid = passwordIsValid(userPassword: sender.text)
     }
-    
-    @IBAction func confirmationEdited(_ sender: Any) {
+
+    @IBAction func confirmationEdited(_ sender: UITextField) {
+        passwordConfirmationValid = passwordIsValid(userPassword: sender.text)
     }
-    
+
     @IBAction func nextIsPressed(_ sender: UIButton) {
         var success = true
         if username.text == "" {
@@ -65,10 +112,13 @@ class SignUpFirstViewController: UIViewController, RegexCheckProtocol {
         }
 
         if success
-            && (usernameValid && emailValid && passwordValid) {
+            && (usernameValid
+                && emailValid
+                && passwordValid
+                && passwordConfirmationValid) {
 
             performSegue(withIdentifier: "additional", sender: self)
         }
     }
-
+    
 }
