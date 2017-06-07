@@ -8,39 +8,6 @@
 
 import UIKit
 
-//extension UITextField {
-//    
-//    func redBorder() {
-//        self.layer.cornerRadius = 7.0
-//        self.layer.borderWidth = 1.0
-//        self.layer.borderColor = UIColor.red.cgColor
-//        self.layer.masksToBounds = true
-//    }
-//    
-//    func whiteBorder() {
-//        self.layer.cornerRadius = 7.0
-//        self.layer.borderWidth = 1.0
-//        self.layer.borderColor = UIColor.white.cgColor
-//        self.layer.masksToBounds = true
-//    }
-//
-//    
-//}
-//
-//extension UILabel {
-//    
-//    func printError(errorText: String) {
-//        self.textColor = UIColor.red
-//        self.text = errorText
-//    }
-//
-//    func printOK(okText: String) {
-//        self.textColor = UIColor.white
-//        self.text = okText
-//    }
-//    
-//}
-
 class AdditionalViewController: UIViewController, UITextFieldDelegate, RegexCheckProtocol {
     
     @IBOutlet weak var firstNameLabel: UILabel!
@@ -50,8 +17,6 @@ class AdditionalViewController: UIViewController, UITextFieldDelegate, RegexChec
     @IBOutlet weak var lastNameField: UITextField!
     @IBOutlet weak var phoneField: UITextField!
     
-    private let characterset = CharacterSet(charactersIn:
-        "'-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ").inverted
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,41 +32,28 @@ class AdditionalViewController: UIViewController, UITextFieldDelegate, RegexChec
     
     @IBAction func firstNameChanged(_ sender: UITextField) {
        
-//        if Regex.isMatchInString(for: "[a-zA-Z]", in:firstNameField.text!) {
-        if usernameIsValid(userName: sender.text){
+        if nameIsValid(uname: sender.text) {
+            firstNameLabel.text = "First Name"
+            firstNameLabel.textColor = UIColor.white
+            firstNameField.whiteBorder()
+            
+        } else {
             firstNameLabel.printError(errorText: "Enter valid name")
             firstNameField.redBorder()
-        } else {
-            firstNameLabel.text = "First Name"
-            firstNameLabel.textColor = UIColor.white
-            firstNameField.whiteBorder()
         }
-        /*
-        if firstNameField.text!.rangeOfCharacter(from: characterset) != nil {
-            firstNameLabel.text = "Enter valid name"
-            firstNameLabel.textColor = UIColor.red
-            firstNameField.redBorder()
-            }
-        else {
-            firstNameLabel.text = "First Name"
-            firstNameLabel.textColor = UIColor.white
-            firstNameField.whiteBorder()
-            }*/
+       
     }
 
     @IBAction func lastNameChanged(_ sender: UITextField) {
 
-        if lastNameField.text!.rangeOfCharacter(from: characterset) != nil {
-            lastNameLabel.text = "Enter valid last name"
-            lastNameLabel.textColor = UIColor.red
-            firstNameField.redBorder()
-
-        }
-        else {
+        if nameIsValid(uname: sender.text) {
             lastNameLabel.text = "Last Name"
             lastNameLabel.textColor = UIColor.white
-            firstNameField.whiteBorder()
-
+            lastNameField.whiteBorder()
+            
+        } else {
+            lastNameLabel.printError(errorText: "Enter valid last name")
+            lastNameField.redBorder()
         }
     }
     

@@ -32,8 +32,8 @@ extension RegexCheckProtocol {
         var flagForReturn = true
 
         if let notNullText = textForAnalyze {
-            let regexLoginPattern = ".{3,}"
-            flagForReturn = Regex.isMatchInString(for: regexLoginPattern,
+            let regexNamePattern = "^[a-zA-Z-']{2,18}$"
+            flagForReturn = Regex.isMatchInString(for: regexNamePattern,
                                                   in: notNullText)
         }
 
