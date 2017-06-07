@@ -264,18 +264,6 @@
                                                     </label>
                                                 </subviews>
                                             </stackView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jgs-OI-m2y">
-                                                <rect key="frame" x="87.5" y="118" width="200" height="200"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="200" id="CoA-Ni-dly"/>
-                                                    <constraint firstAttribute="height" constant="200" id="G5a-N4-hm6"/>
-                                                    <constraint firstAttribute="width" secondItem="Jgs-OI-m2y" secondAttribute="height" multiplier="1:1" id="H0J-60-cXV"/>
-                                                </constraints>
-                                                <state key="normal" title="Button" image="question_mark"/>
-                                                <connections>
-                                                    <action selector="chooseYourPhotoButton:" destination="xD1-EM-0KW" eventType="touchUpInside" id="ux2-rw-IZK"/>
-                                                </connections>
-                                            </button>
                                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" currentPage="2" translatesAutoresizingMaskIntoConstraints="NO" id="us5-pO-cbC">
                                                 <rect key="frame" x="168" y="604" width="39" height="37"/>
                                             </pageControl>
@@ -287,8 +275,6 @@
                                             <constraint firstAttribute="trailing" secondItem="TGS-mu-dPX" secondAttribute="trailing" constant="50" id="5S2-W3-yaV"/>
                                             <constraint firstAttribute="height" constant="420" id="8Gp-rL-Vvb"/>
                                             <constraint firstItem="TGS-mu-dPX" firstAttribute="leading" secondItem="NBe-gg-5gN" secondAttribute="leading" constant="50" id="BED-if-rLD"/>
-                                            <constraint firstItem="Jgs-OI-m2y" firstAttribute="centerX" secondItem="NBe-gg-5gN" secondAttribute="centerX" id="VeN-lc-OaJ"/>
-                                            <constraint firstItem="Jgs-OI-m2y" firstAttribute="top" secondItem="AM9-EK-ARo" secondAttribute="bottom" constant="40" id="cW5-OE-Tjb"/>
                                             <constraint firstItem="AM9-EK-ARo" firstAttribute="top" secondItem="NBe-gg-5gN" secondAttribute="top" constant="20" id="gOa-mu-6Dw"/>
                                             <constraint firstItem="us5-pO-cbC" firstAttribute="centerX" secondItem="NBe-gg-5gN" secondAttribute="centerX" id="qYX-sn-b0j"/>
                                             <constraint firstItem="AM9-EK-ARo" firstAttribute="centerX" secondItem="NBe-gg-5gN" secondAttribute="centerX" id="yd8-IJ-fj7"/>
@@ -304,10 +290,24 @@
                                             </mask>
                                         </variation>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mVA-cd-RIj">
+                                        <rect key="frame" x="87.5" y="118" width="200" height="200"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="200" id="QCU-VB-zc8"/>
+                                            <constraint firstAttribute="height" constant="200" id="j4V-Jz-xTF"/>
+                                            <constraint firstAttribute="width" secondItem="mVA-cd-RIj" secondAttribute="height" multiplier="1:1" id="wO7-JC-8nd"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="chooseYourPhotoButton:" destination="xD1-EM-0KW" eventType="touchUpInside" id="NXS-9h-pcL"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="mVA-cd-RIj" firstAttribute="top" secondItem="AM9-EK-ARo" secondAttribute="bottom" constant="40" id="LQV-St-fyl"/>
                                     <constraint firstItem="NBe-gg-5gN" firstAttribute="centerX" secondItem="UcD-CD-e7y" secondAttribute="centerX" id="UgS-QQ-Vhq"/>
                                     <constraint firstAttribute="trailing" secondItem="NBe-gg-5gN" secondAttribute="trailing" id="Z1l-cD-Nc8"/>
+                                    <constraint firstItem="mVA-cd-RIj" firstAttribute="centerX" secondItem="UcD-CD-e7y" secondAttribute="centerX" id="aQ8-GE-mnK"/>
                                     <constraint firstAttribute="bottom" secondItem="NBe-gg-5gN" secondAttribute="bottom" id="iVh-Eh-WJl"/>
                                     <constraint firstItem="NBe-gg-5gN" firstAttribute="leading" secondItem="UcD-CD-e7y" secondAttribute="leading" id="tQy-7r-qDT"/>
                                     <constraint firstItem="NBe-gg-5gN" firstAttribute="top" secondItem="UcD-CD-e7y" secondAttribute="top" id="vp3-9U-ibz"/>
@@ -521,7 +521,6 @@
     </scenes>
     <resources>
         <image name="background" width="375" height="667"/>
-        <image name="question_mark" width="980" height="980"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="6op-yY-Gih"/>
