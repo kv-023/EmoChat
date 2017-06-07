@@ -12,60 +12,60 @@ class SignUpFirstViewController: UIViewController, RegexCheckProtocol {
 
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var email: UITextField!
-    @IBOutlet weak var usernameWarning: UILabel!
-    @IBOutlet weak var emailWarning: UILabel!
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var confirmation: UITextField!
-    @IBOutlet weak var passwordWarning: UILabel!
-    @IBOutlet weak var confirmationWarning: UILabel!
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var passwordLabel: UILabel!
+    @IBOutlet weak var confirmationLabel: UILabel!
 
     var usernameValid = false {
         didSet {
             if !usernameValid {
-                usernameWarning.printError(errorText: "Enter valid name")
+                usernameLabel.printError(errorText: "Enter valid name")
                 username.redBorder()
             } else {
-                usernameWarning.printOK(okText: "User name")
+                usernameLabel.printOK(okText: "User name")
                 username.whiteBorder()
             }
-            usernameWarning.isHidden = usernameValid
+            usernameLabel.isHidden = usernameValid
         }
     }
 
     var emailValid = false {
         didSet {
             if !emailValid {
-                emailWarning.printError(errorText: "Enter valid email")
+                emailLabel.printError(errorText: "Enter valid email")
                 email.redBorder()
             } else {
-                emailWarning.printOK(okText: "Email")
+                emailLabel.printOK(okText: "Email")
                 email.whiteBorder()
             }
-            emailWarning.isHidden = emailValid
+            emailLabel.isHidden = emailValid
         }
     }
     var passwordValid = false {
         didSet {
             if !passwordValid {
-                passwordWarning.printError(errorText: "Enter valid password")
+                passwordLabel.printError(errorText: "Enter valid password")
                 password.redBorder()
             } else {
-                passwordWarning.printOK(okText: "Password")
+                passwordLabel.printOK(okText: "Password")
                 password.whiteBorder()
             }
-            passwordWarning.isHidden = passwordValid
+            passwordLabel.isHidden = passwordValid
         }
     }
     var passwordConfirmationValid = false {
         didSet {
             if !passwordConfirmationValid {
-                confirmationWarning.printError(errorText: "Enter valid password confirmation")
+                confirmationLabel.printError(errorText: "Enter valid password confirmation")
                 confirmation.redBorder()
             } else {
-                confirmationWarning.printOK(okText: "Confirmation")
+                confirmationLabel.printOK(okText: "Confirmation")
                 confirmation.whiteBorder()
             }
-            confirmationWarning.isHidden = passwordConfirmationValid
+            confirmationLabel.isHidden = passwordConfirmationValid
         }
     }
 
@@ -96,18 +96,15 @@ class SignUpFirstViewController: UIViewController, RegexCheckProtocol {
     @IBAction func nextIsPressed(_ sender: UIButton) {
         var success = true
         if username.text == "" {
-            usernameWarning.text = "Enter username"
-            usernameWarning.isHidden = false
+            usernameLabel.text = "Enter username"
             success = false
         }
         if email.text == "" {
-            emailWarning.text = "Enter email"
-            emailWarning.isHidden = false
+            emailLabel.text = "Enter email"
             success = false
         }
         if password.text != confirmation.text {
-            confirmationWarning.text = "Passwords do not match"
-            confirmationWarning.isHidden = false
+            confirmationLabel.text = "Passwords do not match"
             success = false
         }
 
