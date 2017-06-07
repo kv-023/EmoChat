@@ -6,7 +6,7 @@
 //  Copyright © 2017 SoftServe. All rights reserved.
 //
 
-//sign up, login in
+
 
 import Foundation
 import Firebase
@@ -19,20 +19,54 @@ class ManagerFirebase {
         self.ref = Database.database().reference()
     }
     
-//    func updateUserProfilePhoto(_ photoUrl: String) {  // UPDATE NAME AND USERPIC
-//        let user = Auth.auth().currentUser
-//        if let user = user {
-//            let changeRequest = user.createProfileChangeRequest()
-//            changeRequest.photoURL = URL(string: photoUrl)
-//            changeRequest.commitChanges { error in
-//                if error != nil {
-//                    print("Something Went Wrong")
-//                } else {
-//                    print("Profile successfully updated")
-//                }
-//            }
-//        }
-//    }
+    /*
+        You can pass a closure which take the result as a string
+     */
+    func logIn (email: String, password: String, result: @escaping (String) -> Void) {
+        Auth.auth().signIn(withEmail: email,
+                           password: password,
+                           completion: { (user, error) in
+                            if user != nil && (user?.isEmailVerified)! {
+                                result("Success")
+                            } else {
+                                if let myError = error?.localizedDescription {
+                                    result(myError)
+                                } else {
+                                    result("Confirm your e-mail")
+                                }
+                            }
+        })
+    }
+    
+    /*
+        You can pass a closure which take the result as a string
+     */
+    func signUp (email: String, password: String, result: @escaping (String) -> Void) {
+        Auth.auth().createUser(withEmail: email,
+                               password: password,
+                               completion: { (user, error) in
+                                
+                                if user != nil {
+                                    user?.sendEmailVerification(completion: nil) // send verification email
+                                    result("Success")
+                                } else {
+                                    if let err = error?.localizedDescription {
+                                        result(err)
+                                    } else {
+                                        result("Something went wrong")
+                                    }
+                                }
+        })
+
+    }
+    
+    //??????
+    func updateUserProfilePhoto(_ photoUrl: String) {
+        if let uid = Auth.auth().currentUser?.uid {
+            self.ref?.child("users/\(uid)/photoURL").setValue(photoUrl)
+
+        }
+    }
     
     //Add email, uid, username and additional info to database. Call this method after succefull sign up.
     func addInfoUser (username: String!, phoneNumber: String?, firstName: String?, secondName: String?, photoURL: String?){
@@ -67,6 +101,7 @@ class ManagerFirebase {
      }
      */
     func getCurrentUser (getUser: @escaping (User?) -> Void) {
+        
         if let uid = Auth.auth().currentUser?.uid{
             self.ref?.child("users").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
                 // Get user value

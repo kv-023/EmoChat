@@ -26,7 +26,6 @@ class ViewController: UIViewController {
             if let u = user, let fN = u.firstName, let sN = u.secondName{
                 self.hintsLabel.text = ("\(fN) \(sN)")
             }
-
         }
         m?.filterUsers(with: "olg"){array in
             for u in array {
