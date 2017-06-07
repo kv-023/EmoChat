@@ -37,13 +37,13 @@ class Message: FireBaseEmoChat {
     }
 
     //MARK:- func. for FireBase use
-    func toAnyObject() -> Any {
-        return [
-            uuid: [
-                "messageId": uuid,
-                "senderId": sender?.uuid,
-                "conversation": conversation]
-        ]
-    }
+//    func toAnyObject() -> Any {
+//        return [
+//            uuid: [
+//                "messageId": uuid,
+//                "senderId": sender?.uuid,
+//                "conversation": conversation]
+//        ]
+//    }
 }
 
