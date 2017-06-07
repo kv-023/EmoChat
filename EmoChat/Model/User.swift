@@ -21,6 +21,7 @@ class User {
     var userConversations: [Conversation?]? = []
     var userMessages: [Message?]? = []
 
+
     
     init (email: String, username: String, phoneNumber: String?, firstName: String?, secondName: String?, photoURL: String?) {
         self.email = email

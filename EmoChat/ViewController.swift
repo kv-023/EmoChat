@@ -13,20 +13,32 @@ import FirebaseAuth
 class ViewController: UIViewController {
 
     //var ref: DatabaseReference?
-    var m: ManagerFirebase = ManagerFirebase()
+    var m: ManagerFirebase?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        m  = ManagerFirebase();
         // Do any additional setup after loading the view, typically from a nib.
     }
 
     @IBAction func testFirebase(_ sender: Any) {
-        m.getCurrentUser(){ user in
-            if let u = user {
-                self.hintsLabel.text = ("\(u.firstName!) \(u.secondName!)")
+        m?.getCurrentUser(){ user in
+            if let u = user, let fN = u.firstName, let sN = u.secondName{
+                self.hintsLabel.text = ("\(fN) \(sN)")
+            }
+
+        }
+        m?.filterUsers(with: "olg"){array in
+            for u in array {
+                print(u.username)
             }
         }
-        
+        m?.filterUsers(with: "b"){array in
+            for u in array {
+                print(u.username)
+            }
+        }
+//        m?.filterUsers(with: "b", from: 5, withCount: 5)
         
 //        ref = FIRDatabase.database().reference()
 //
@@ -109,7 +121,7 @@ class ViewController: UIViewController {
     //check manager
     @IBAction func touchCheck(_ sender: Any) {
         
-        m.addInfoUser(username: "olgasaliy", phoneNumber: "39999999", firstName: "Olga", secondName: "Saliy", photoURL: nil)
+        m?.addInfoUser(username: "olgasaliy", phoneNumber: "39999999", firstName: "Olga", secondName: "Saliy", photoURL: nil)
     }
     ////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////
