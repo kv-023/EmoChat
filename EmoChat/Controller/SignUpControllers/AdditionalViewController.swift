@@ -71,6 +71,12 @@ class AdditionalViewController: UIViewController, UITextFieldDelegate, RegexChec
     //MARK: - UITextFieldDelegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
+        if textField == firstNameField {
+            lastNameField.becomeFirstResponder()
+        } else if textField == lastNameField {
+            lastNameField.resignFirstResponder()
+        }
+
         return true
     }
     
