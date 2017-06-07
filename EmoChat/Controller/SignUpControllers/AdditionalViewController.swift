@@ -27,6 +27,15 @@ extension UITextField {
     
 }
 
+extension UILabel {
+    
+    func printError(errorText: String) {
+        self.textColor = UIColor.red
+        self.text = errorText
+    }
+    
+}
+
 class AdditionalViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var firstNameLabel: UILabel!
@@ -54,8 +63,7 @@ class AdditionalViewController: UIViewController, UITextFieldDelegate {
     @IBAction func firstNameChanged(_ sender: UITextField) {
        
         if Regex.isMatchInString(for: "[a-zA-Z]", in:firstNameField.text!) {
-            firstNameLabel.text = "Enter valid name"
-            firstNameLabel.textColor = UIColor.red
+            firstNameLabel.printError(errorText: "Enter valid name")
             firstNameField.redBorder()
         } else {
             firstNameLabel.text = "First Name"
