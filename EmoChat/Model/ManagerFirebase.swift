@@ -127,6 +127,7 @@ class ManagerFirebase {
         }
     }
     
+
     /*
      Function generates User from snapshot
      */
@@ -140,7 +141,40 @@ class ManagerFirebase {
         let photoURL = value?["photoURL"] as! String?
         
         return User(email: email, username: username, phoneNumber: phonenumber, firstName: firstname, secondName: secondname, photoURL: photoURL)
+    }
+
+    func changeUsersEmail(email: String) {
+        if let user = Auth.auth().currentUser {
+            let uid = user.uid
+            self.ref?.child("users/\(uid)/email").setValue(user.email)
+            user.updateEmail(to: email)
+            { error in
+                if error != nil {
+                    print("Something Went Wrong")
+                } else {
+                    print("Email successfully updated")
+                }
+            }
+        }
+    }
+    
+    func checkUserNameUniqness(_ userName: String, result : @escaping (Bool)->Void) {
         
+        let usersRef = Database.database().reference().child("users")
+        usersRef.queryOrdered(byChild: "username").queryEqual(toValue: "\(userName)").observeSingleEvent(of: .value , with: {
+            snapshot in
+            if !snapshot.exists() {
+                print("It seems like this one is free")
+                result(true)
+            }
+            else {
+                print("Taken")
+                result(false)
+            }
+        }) { error in
+            print(error.localizedDescription)
+        }
+
     }
     /*
         Example for using
@@ -162,4 +196,8 @@ class ManagerFirebase {
     }
 
     
+
+
 }
+    
+

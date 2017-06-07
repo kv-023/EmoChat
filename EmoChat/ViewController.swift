@@ -11,6 +11,8 @@ import FirebaseDatabase
 import FirebaseAuth
 
 class ViewController: UIViewController {
+    
+    
 
     //var ref: DatabaseReference?
     var m: ManagerFirebase?
@@ -21,11 +23,18 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
 
+
+    
+    
+    
+    
+    
     @IBAction func testFirebase(_ sender: Any) {
         m?.getCurrentUser(){ user in
             if let u = user, let fN = u.firstName, let sN = u.secondName{
                 self.hintsLabel.text = ("\(fN) \(sN)")
             }
+            
         }
         m?.filterUsers(with: "olg"){array in
             for u in array {
