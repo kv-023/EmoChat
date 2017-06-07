@@ -10,8 +10,10 @@ import UIKit
 
 class SignUpChooseYourPhotoViewController: UIViewController {
     
-    @IBOutlet weak var chooseYourPhotoImageWiev: UIImageView!
     
+    @IBAction func chooseYourPhotoButton(_ sender: Any) {
+        print("test")
+    }
 
 
     override func viewDidLoad() {

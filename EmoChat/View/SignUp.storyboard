@@ -272,6 +272,9 @@
                                                     <constraint firstAttribute="width" secondItem="Jgs-OI-m2y" secondAttribute="height" multiplier="1:1" id="H0J-60-cXV"/>
                                                 </constraints>
                                                 <state key="normal" title="Button" image="question_mark"/>
+                                                <connections>
+                                                    <action selector="chooseYourPhotoButton:" destination="xD1-EM-0KW" eventType="touchUpInside" id="ux2-rw-IZK"/>
+                                                </connections>
                                             </button>
                                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" currentPage="2" translatesAutoresizingMaskIntoConstraints="NO" id="us5-pO-cbC">
                                                 <rect key="frame" x="168" y="604" width="39" height="37"/>

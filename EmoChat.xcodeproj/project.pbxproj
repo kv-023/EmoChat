@@ -447,7 +447,7 @@
 				DEVELOPMENT_TEAM = VYB8K8V8U5;
 				INFOPLIST_FILE = EmoChat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.study.EmoChat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.softserve.EmoChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -461,7 +461,7 @@
 				DEVELOPMENT_TEAM = VYB8K8V8U5;
 				INFOPLIST_FILE = EmoChat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.study.EmoChat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.softserve.EmoChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
