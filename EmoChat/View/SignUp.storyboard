@@ -290,7 +290,7 @@
                                             </mask>
                                         </variation>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mVA-cd-RIj">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mVA-cd-RIj">
                                         <rect key="frame" x="87.5" y="118" width="200" height="200"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="QCU-VB-zc8"/>
@@ -299,7 +299,7 @@
                                         </constraints>
                                         <state key="normal" title="Button"/>
                                         <connections>
-                                            <action selector="chooseYourPhotoButton:" destination="xD1-EM-0KW" eventType="touchUpInside" id="NXS-9h-pcL"/>
+                                            <action selector="chooseYourPhotoButton:" destination="xD1-EM-0KW" eventType="touchUpInside" id="8iT-fC-m1z"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -334,6 +334,9 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="uM5-zM-qrS"/>
+                    <connections>
+                        <outlet property="image" destination="mVA-cd-RIj" id="eS9-Mz-S28"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PYM-Oc-bSf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
