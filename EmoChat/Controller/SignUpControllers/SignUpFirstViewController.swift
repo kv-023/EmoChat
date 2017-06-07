@@ -28,7 +28,7 @@ class SignUpFirstViewController: UIViewController, RegexCheckProtocol {
                 usernameWarning.printOK(okText: "User name")
                 username.whiteBorder()
             }
-            usernameWarning.isHidden = !usernameValid
+            usernameWarning.isHidden = usernameValid
         }
     }
 
@@ -41,7 +41,7 @@ class SignUpFirstViewController: UIViewController, RegexCheckProtocol {
                 emailWarning.printOK(okText: "Email")
                 email.whiteBorder()
             }
-            emailWarning.isHidden = !emailValid
+            emailWarning.isHidden = emailValid
         }
     }
     var passwordValid = false {
@@ -53,7 +53,7 @@ class SignUpFirstViewController: UIViewController, RegexCheckProtocol {
                 passwordWarning.printOK(okText: "Password")
                 password.whiteBorder()
             }
-            passwordWarning.isHidden = !passwordValid
+            passwordWarning.isHidden = passwordValid
         }
     }
     var passwordConfirmationValid = false {
@@ -65,7 +65,7 @@ class SignUpFirstViewController: UIViewController, RegexCheckProtocol {
                 confirmationWarning.printOK(okText: "Confirmation")
                 confirmation.whiteBorder()
             }
-            confirmationWarning.isHidden = !passwordConfirmationValid
+            confirmationWarning.isHidden = passwordConfirmationValid
         }
     }
 
