@@ -64,7 +64,6 @@ class ManagerFirebase {
     func updateUserProfilePhoto(_ photoUrl: String) {
         if let uid = Auth.auth().currentUser?.uid {
             self.ref?.child("users/\(uid)/photoURL").setValue(photoUrl)
-
         }
     }
     
