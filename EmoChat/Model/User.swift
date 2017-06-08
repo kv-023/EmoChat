@@ -90,16 +90,8 @@ class User {
 //    }
 }
 
-extension User {
-    convenience init?(snapshot: DataSnapshot) {
-        let snapshotValue = snapshot.value as! [String: AnyObject]
-        guard let uuid = snapshotValue["userId"] as? String,
-            let name = snapshotValue["name"] as? String,
-            let email = snapshotValue["email"] as? String else {
-            return nil
-        }
-        self.init(userId: uuid, name: name, email: email)
+extension User: Equatable {
+    static func ==(lhs:User, rhs:User) -> Bool { // Implement Equatable
+        return lhs.username == rhs.username
     }
 }
-
-

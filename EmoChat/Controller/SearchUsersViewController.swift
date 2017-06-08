@@ -13,13 +13,13 @@ import CoreFoundation
 class SearchUsersViewController: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
     
     // MARK: - properties
-    var sectionsArray: [[User]] = []
-    var users: [User] = []
+    var m = ManagerFirebase()
     
     var friends: [User] = []
     var filteredFriends: [User] = []
+    var checkmarkedFriends: [User] = []
     
-    let refUser = Database.database().reference(withPath: "User")
+    var refUser: DatabaseReference?
     
     // MARK: - IBOutlets
     @IBOutlet var searchBar: UISearchBar!
@@ -28,33 +28,62 @@ class SearchUsersViewController: UITableViewController, UISearchBarDelegate, UIS
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        refUser = Database.database().reference(withPath: "User")
+        
         searchBar.showsCancelButton = false
         
-        let user1 = User(userId: "FirstUser", name: "FirstUser", email: "FirstUser")
-        let user2 = User(userId: "SecondUser", name: "SecondUser", email: "SecondUser")
-        let user3 = User(userId: "ThirdUser", name: "ThirdUser", email: "ThirdUser")
-        let user4 = User(userId: "Secvfour", name: "Secvfour", email: "Secvfour")
-        let user5 = User(userId: "Sevfive", name: "Sevfive", email: "Sevfive")
+        let user1 = User(email: "FirstUser", username: "FirstUser", phoneNumber: nil, firstName: nil, secondName: nil, photoURL: nil)
+        let user2 = User(email: "SecondUser", username: "SecondUser", phoneNumber: nil, firstName: nil, secondName: nil, photoURL: nil)
+        let user3 = User(email: "ThirdUser", username: "ThirdUser", phoneNumber: nil, firstName: nil, secondName: nil, photoURL: nil)
+        let user4 = User(email: "Secvfour", username: "Secvfour", phoneNumber: nil, firstName: nil, secondName: nil, photoURL: nil)
+        let user5 = User(email: "Sevfive", username: "Sevfive", phoneNumber: nil, firstName: nil, secondName: nil, photoURL: nil)
 
         friends.append(contentsOf: [user1, user2, user3, user4, user5])
         
-        refUser.observe(.value, with: { (snapshot) in
-            var newUsers: [User] = []
-            for user in snapshot.children {
-                let newUser = User(snapshot: user as! DataSnapshot)
-                if let us = newUser {
-                    print(us)
-                    newUsers.append(us)
-                }
+        m.filterUsers(with: "olg") { (array) in
+            for u in array {
+                print(u.username)
             }
-            self.users = newUsers
-            self.tableView.reloadData()
-        })
-        
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    // MARK: - UITableViewDelegate
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
+            tableView.cellForRow(at: indexPath)?.accessoryType = .none
+            
+            if let text = searchBar.text, text.characters.count > 0 || searchBar.isFirstResponder {
+                let user = filteredFriends[indexPath.row]
+                //user.checkmarkedUser = false
+                checkmarkedFriends = checkmarkedFriends.filter {$0 !== user}
+            } else {
+                let user = friends[indexPath.row]
+                //user.checkmarkedUser = true
+                checkmarkedFriends = checkmarkedFriends.filter {$0 !== user}
+            }
+
+        } else {
+            
+            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+            
+            if let text = searchBar.text, text.characters.count > 0 || searchBar.isFirstResponder {
+                let user = filteredFriends[indexPath.row]
+                //user.checkmarkedUser = true
+                self.checkmarkedFriends.append(user)
+            } else {
+                let user = friends[indexPath.row]
+                //user.checkmarkedUser = true
+                self.checkmarkedFriends.append(user)
+            }
+        }
+
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
     // MARK: - UITableViewDataSource
@@ -83,10 +112,20 @@ class SearchUsersViewController: UITableViewController, UISearchBarDelegate, UIS
         
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "cellIdentifier", for: indexPath)
         
+        var user: User?
+        
         if !friends.isEmpty && indexPath.section == 0 && searchBar.isFirstResponder {
-            cell.textLabel?.text = filteredFriends[indexPath.row].uuid
+            user = filteredFriends[indexPath.row]
+            cell.textLabel?.text = user?.username
         } else {
-            cell.textLabel?.text = friends[indexPath.row].uuid
+            user = friends[indexPath.row]
+            cell.textLabel?.text = user?.username
+        }
+        
+        if checkmarkedFriends.contains(user!) {
+            cell.accessoryType = .checkmark
+        } else {
+            cell.accessoryType = .none
         }
         
         return cell
@@ -123,7 +162,7 @@ class SearchUsersViewController: UITableViewController, UISearchBarDelegate, UIS
     func searchUsers(_ array: [User], withFilter filterString: String) -> [User] {
         var filtered: [User] = []
         for user in array {
-            if (filterString.characters.count > 0 && !user.uuid.lowercased().hasPrefix(filterString.lowercased())) {
+            if (filterString.characters.count > 0 && !user.username.lowercased().hasPrefix(filterString.lowercased())) {
                 continue
             }
             filtered.append(user)

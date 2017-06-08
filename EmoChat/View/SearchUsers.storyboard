@@ -110,15 +110,15 @@
                                     <segue destination="Hth-hP-5bV" kind="show" id="Z4G-6l-E21"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cellIdentifier" textLabel="Kqc-Kc-fhe" rowHeight="71" style="IBUITableViewCellStyleDefault" id="lPX-Xw-Ddq">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellIdentifier" textLabel="Kqc-Kc-fhe" rowHeight="71" style="IBUITableViewCellStyleDefault" id="lPX-Xw-Ddq">
                                 <rect key="frame" x="0.0" y="214" width="375" height="71"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lPX-Xw-Ddq" id="cdH-8p-0vk">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="70.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="70.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Kqc-Kc-fhe">
-                                            <rect key="frame" x="15" y="0.0" width="325" height="70.5"/>
+                                            <rect key="frame" x="15" y="0.0" width="345" height="70.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
