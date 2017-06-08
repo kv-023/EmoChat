@@ -18,9 +18,7 @@ class User {
     var email:String!
     var username:String!
     var photoURL: String?
-    var userConversations: [Conversation?]? = []
-    var userMessages: [Message?]? = []
-
+    var userConversations: [Conversation]? = []
 
     
     init (email: String, username: String, phoneNumber: String?, firstName: String?, secondName: String?, photoURL: String?) {
@@ -32,6 +30,17 @@ class User {
         self.photoURL = photoURL
     }
     
+    /*
+     Function generates User from snapshot
+     */
+    init (data: NSDictionary?) {
+        self.username = data?["username"] as! String
+        self.firstName = data?["firstName"] as! String?
+        self.secondName = data?["secondName"] as! String?
+        self.email = data?["email"] as! String
+        self.phoneNumber = data?["phoneNumber"] as! String?
+        self.photoURL = data?["photoURL"] as! String?
+    }
     
 //    init(userId: String, name: String, email: String) {
 //        self.uuid = userId
@@ -52,9 +61,6 @@ class User {
         userConversations?.append(newElement)
     }
 
-    func appendMessage(_ newElement: Message) {
-        userMessages?.append(newElement)
-    }
 
 //    //MARK:- func. for FireBase use
 //    func toAnyObjectInID() -> Any {

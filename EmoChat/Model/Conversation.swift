@@ -9,23 +9,33 @@
 
 class Conversation {
 
+    //название
+    var name: String?
     var uuid: String
     var usersInConversation: [User] = []
     var messagesInConversation: [Message]? = []
     var lastMessage: Message?
 
     
-    init?(conversationId: String, usersInConversation: [User], messagesInConversation: [Message]?, lastMessage: Message?) {
-        
-        guard (usersInConversation.count) > 1
-        else {
-            return nil
-        }
-        
+    init(conversationId: String, usersInConversation: [User], messagesInConversation: [Message]?, lastMessage: Message?) {
         self.lastMessage = lastMessage
         self.uuid = conversationId
         self.usersInConversation = usersInConversation
         self.messagesInConversation = messagesInConversation
         
     }
+    
+//    init?(conversationId: String, usersInConversation: [User], messagesInConversation: [Message]?, lastMessage: Message?) {
+//        
+//        guard (usersInConversation.count) > 1
+//        else {
+//            return nil
+//        }
+//        
+//        self.lastMessage = lastMessage
+//        self.uuid = conversationId
+//        self.usersInConversation = usersInConversation
+//        self.messagesInConversation = messagesInConversation
+//        
+//    }
 }

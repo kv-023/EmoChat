@@ -20,6 +20,26 @@ class ManagerFirebase {
     }
     
     /*
+        Function to get all(!!!!) messages in conversation. Need to pass conversation's id
+     */
+    func getListOfMessages (inConversation uid: String, result: @escaping ([Message]?) -> Void){
+            self.ref?.observeSingleEvent(of: .value, with: { (snapshot) in
+                let value = snapshot.value as? NSDictionary
+                var listOfMessages = [Message]()
+                if let conversationMessagesId = ((value?["conversations"] as? NSDictionary)?["\(uid)"] as? NSDictionary)?["messagesInConversation"] as? NSDictionary
+                {
+                    let messages = value?["messages"] as? NSDictionary
+                    for messageID in conversationMessagesId.allKeys {
+                        let messsageDictionary = messages?["\(messageID)"] as! NSDictionary
+                        listOfMessages.append(Message(data: messsageDictionary, uid: messageID as? String))
+                    }
+                }
+                result(listOfMessages)
+            })
+    }
+    
+    
+    /*
         You can pass a closure which take the result as a string
      */
     func logIn (email: String, password: String, result: @escaping (String) -> Void) {
@@ -90,8 +110,52 @@ class ManagerFirebase {
         }
     }
     
+    /*
+        Generate array of User from array of their ids
+     */
+    private func getUsersFromIDs (ids: NSDictionary, value: NSDictionary?) -> [User] {
+        //dictionary of users's id
+        let value = value?["users"] as? NSDictionary
+        var users = [User]()
+        for id in ids.allKeys {
+            if let user = value?["\(id)"] as? NSDictionary{
+                users.append(User(data: user))
+            }
+        }
+        return users
+    }
+    
+    
+    
+    
+    private func getConversetionsFromSnapshot (_ value: NSDictionary?, accordingTo arrayID: [String]) -> [Conversation] {
+        var conversations = [Conversation]()
+
+        for eachConv in arrayID {
+            //dictionary with specified conversation
+            let conversationSnapshot = (value?["conversations"] as? NSDictionary)?[eachConv] as? NSDictionary
+            
+            var lastMessageDictionary: NSDictionary?
+            var lastMessage: Message?
+            
+            //id of last message
+            if let idLastMessage = conversationSnapshot?["lastMessage"] as? String {
+               //dictionary of last message
+                lastMessageDictionary = (value?["messages"] as? NSDictionary)?[idLastMessage] as? NSDictionary
+                lastMessage = Message(data: lastMessageDictionary, uid: idLastMessage)
+            }
+            
+            //members in conversation
+            let users = self.getUsersFromIDs(ids: conversationSnapshot?["usersInConversation"] as! NSDictionary,value: value)
+            conversations.append(Conversation(conversationId: eachConv, usersInConversation: users, messagesInConversation: nil, lastMessage: lastMessage))
+            }
+        return conversations
+        
+    }
     
     /*
+     Result is the current user with additional info and his conversations (but conversations without messages)
+     
      Example how to set fetched info in UI
         m.getCurrentUser(){ user in
         if let u = user, let fN = u.firstName, let sN = u.secondName{
@@ -102,21 +166,31 @@ class ManagerFirebase {
     func getCurrentUser (getUser: @escaping (User?) -> Void) {
         
         if let uid = Auth.auth().currentUser?.uid{
-            self.ref?.child("users").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
-                // Get user value
+            self.ref?.observeSingleEvent(of: .value, with: { (snapshot) in
+                // .child("users").child(uid)
                 
                 var user:User? = nil
-
-                let value = snapshot.value as? NSDictionary
-                let username = value?["username"] as! String
-                let firstname = value?["firstName"] as! String?
-                let secondname = value?["secondName"] as! String?
-                let email = value?["email"] as! String
-                let phonenumber = value?["phoneNumber"] as! String?
-                let photoURL = value?["photoURL"] as! String?
                 
+                let value = snapshot.value as? NSDictionary
+                
+                let userSnapshot = (value?["users"] as? NSDictionary)?["\(uid)"] as? NSDictionary
+                
+                let username = userSnapshot?["username"] as! String
+                let firstname = userSnapshot?["firstName"] as! String?
+                let secondname = userSnapshot?["secondName"] as! String?
+                let email = userSnapshot?["email"] as! String
+                let phonenumber = userSnapshot?["phoneNumber"] as! String?
+                let photoURL = userSnapshot?["photoURL"] as! String?
+                let conversationsID = userSnapshot?["conversations"] as? NSDictionary
                 
                 user = User(email: email, username: username, phoneNumber: phonenumber, firstName: firstname, secondName: secondname, photoURL: photoURL)
+                
+                if let conversationsArrayId = conversationsID?.allKeys {
+                    user?.userConversations = self.getConversetionsFromSnapshot(value, accordingTo: conversationsArrayId as! [String])
+
+                }
+                
+                
                 getUser(user)
                 // ...
             }) { (error) in
@@ -126,21 +200,8 @@ class ManagerFirebase {
         }
     }
     
-
-    /*
-     Function generates User from snapshot
-     */
-    func genarateUser (data:DataSnapshot) -> User {
-        let value = data.value as? NSDictionary
-        let username = value?["username"] as! String
-        let firstname = value?["firstName"] as! String?
-        let secondname = value?["secondName"] as! String?
-        let email = value?["email"] as! String
-        let phonenumber = value?["phoneNumber"] as! String?
-        let photoURL = value?["photoURL"] as! String?
-        
-        return User(email: email, username: username, phoneNumber: phonenumber, firstName: firstname, secondName: secondname, photoURL: photoURL)
-    }
+    
+    
 
     func changeUsersEmail(email: String) {
         if let user = Auth.auth().currentUser {
@@ -159,8 +220,8 @@ class ManagerFirebase {
     
     func checkUserNameUniqness(_ userName: String, result : @escaping (Bool)->Void) {
         
-        let usersRef = Database.database().reference().child("users")
-        usersRef.queryOrdered(byChild: "username").queryEqual(toValue: "\(userName)").observeSingleEvent(of: .value , with: {
+        //let usersRef = Database.database().reference().child("users")
+        ref?.child("users").queryOrdered(byChild: "username").queryEqual(toValue: "\(userName)").observeSingleEvent(of: .value , with: {
             snapshot in
             if !snapshot.exists() {
                 print("It seems like this one is free")
@@ -175,6 +236,7 @@ class ManagerFirebase {
         }
 
     }
+
     /*
         Example for using
         m?.filterUsers(with: "olg"){array in
@@ -188,7 +250,7 @@ class ManagerFirebase {
         ref?.child("users").queryOrdered(byChild: "username").queryStarting(atValue: text).queryEnding(atValue: text+"\u{f8ff}").observe(.value, with: { snapshot in
             var users = [User]()
             for u in snapshot.children{
-                users.append(self.genarateUser(data: u as! DataSnapshot))
+                users.append(User(data: (u as! DataSnapshot).value as? NSDictionary))
             }
             array(users)
         })

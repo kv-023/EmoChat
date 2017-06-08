@@ -30,12 +30,16 @@ class ViewController: UIViewController {
     
     
     @IBAction func testFirebase(_ sender: Any) {
+        
         m?.getCurrentUser(){ user in
-            if let u = user, let fN = u.firstName, let sN = u.secondName{
-                self.hintsLabel.text = ("\(fN) \(sN)")
+            self.m?.getListOfMessages(inConversation: (user?.userConversations?.first?.uuid)!) {list in
+                if let message = list?.first {
+                    print(message.content!.content)
+                }
             }
-            
         }
+        
+        
         m?.filterUsers(with: "olg"){array in
             for u in array {
                 print(u.username)

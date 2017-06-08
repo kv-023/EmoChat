@@ -6,6 +6,8 @@
 //  Copyright © 2017 SoftServe. All rights reserved.
 //
 
+import Foundation
+
 enum MessageContentType {
     case photo
     case video
@@ -13,7 +15,7 @@ enum MessageContentType {
 }
 
 class Message {
-    let uid: String!
+    let uid: String?
     let senderId: String!
     let conversation: String!
     let time: String!
@@ -27,5 +29,25 @@ class Message {
         self.conversation = conversation
         self.time = time
         self.content = content
+    }
+    
+    /*
+     Function generates Message from snapshot
+     */
+    init (data: NSDictionary?, uid: String?) {
+        self.uid = uid
+        self.senderId = data?["senderId"] as! String?
+        self.conversation = data?["conversation"] as! String?
+        self.time = data?["time"] as! String
+        
+        let media = data?["media"] as? NSDictionary
+        if let photo = media?.value(forKey: "photo") {
+            self.content = (type: MessageContentType.photo, content: photo as! String)
+        } else if let video = media?.value(forKey: "video") {
+            self.content = (type: MessageContentType.video, content: video as! String)
+        } else if let text = media?.value(forKey: "text") {
+            self.content = (type: MessageContentType.text, content: text as! String)
+        }
+        
     }
 }
