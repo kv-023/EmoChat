@@ -22,19 +22,22 @@ class AdditionalViewController: UIViewController, UITextFieldDelegate, RegexChec
     
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-        phoneField.placeholder = "+" + getCountryCode() + " "
+        phoneField.placeholder = getCountryCode()
+        
         //Hide keyboard by tap
         self.hideKeyboard()
-        // Do any additional setup after loading the view.
-        
         
     }
     
     func getCountryCode()->String{
+        
         let currentLocale = (Locale.current as NSLocale).object(forKey: .countryCode) as? String
         let countryCode = prefixCodes[currentLocale!]
-        return countryCode!
+        let code = "+" + countryCode! + " "
+        
+        return code
     }
     
     override func didReceiveMemoryWarning() {
@@ -72,7 +75,7 @@ class AdditionalViewController: UIViewController, UITextFieldDelegate, RegexChec
     }
     
     @IBAction func phoneNumberChanged(_ sender: UITextField) {
-        let code = "+" + getCountryCode() + " "
+        let code = getCountryCode()
         
         if (phoneField.text?.characters.count)! < code.characters.count {
             phoneField.text = code
@@ -81,7 +84,7 @@ class AdditionalViewController: UIViewController, UITextFieldDelegate, RegexChec
     }
     
     @IBAction func phoneNumberEditingDidBegin(_ sender: UITextField) {
-        let code = "+" + getCountryCode() + " "
+        let code = getCountryCode()
         
         if (phoneField.text?.characters.count)! < code.characters.count {
             phoneField.text = code
@@ -89,9 +92,9 @@ class AdditionalViewController: UIViewController, UITextFieldDelegate, RegexChec
     }
     
     @IBAction func phoneNumberEditingDidEnd(_ sender: UITextField) {
-        let code = "+" + getCountryCode() + " "
+        let code =  getCountryCode()
 
-        if (phoneField.text?.characters.count)! <= code.characters.count {
+        if (phoneField.text?.characters.count)! < code.characters.count {
             phoneField.text = ""
         }
     }
