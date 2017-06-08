@@ -25,7 +25,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="Jsq-gV-I2R">
                                 <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="g4g-Ca-vAU">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="g4g-Ca-vAU">
                                 <rect key="frame" x="64" y="116" width="441" height="30"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -50,7 +50,7 @@
                                     <segue destination="IaR-1T-y9q" kind="presentation" modalTransitionStyle="crossDissolve" id="Hbk-AG-u2S"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="example@example.com" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vp7-IZ-JzE">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="example@example.com" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Vp7-IZ-JzE">
                                 <rect key="frame" x="64" y="71" width="441" height="30"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -121,11 +121,22 @@
                         <outlet property="hintsLabel" destination="vxy-HU-iRD" id="LMe-us-l2E"/>
                         <outlet property="logIn" destination="bYC-FF-8D6" id="enb-QP-3wY"/>
                         <outlet property="passwordField" destination="g4g-Ca-vAU" id="Eym-TV-fuJ"/>
+                        <segue destination="NF9-jD-ZzW" kind="show" identifier="LogIn_Home" id="o8h-oU-7mN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-96" y="113"/>
+            <point key="canvasLocation" x="-800" y="-189"/>
+        </scene>
+        <!--Conversations-->
+        <scene sceneID="6nA-kd-UVg">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="LogIn_Home" storyboardName="Conversations" id="NF9-jD-ZzW" userLabel="Conversations" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="I5e-BM-7Ie"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4fE-Ge-q0G" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-111" y="-342"/>
         </scene>
         <!--SignUp-->
         <scene sceneID="FhU-OT-sVL">
@@ -133,7 +144,7 @@
                 <viewControllerPlaceholder storyboardIdentifier="signUp" storyboardName="SignUp" id="IaR-1T-y9q" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ljk-yw-pwJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="688" y="86"/>
+            <point key="canvasLocation" x="-129" y="-161"/>
         </scene>
     </scenes>
     <resources>
