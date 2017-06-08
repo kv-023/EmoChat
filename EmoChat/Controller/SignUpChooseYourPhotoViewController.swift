@@ -17,14 +17,20 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
     
     @IBAction func chooseYourPhotoButton(_ sender: Any) {
     
-        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-            let imagePicker = UIImagePickerController()
-            imagePicker.delegate = self
-            imagePicker.allowsEditing = false
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = false
+
+
+
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            imagePicker.sourceType = .camera
+//            imagePicker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
+        } else {
             imagePicker.sourceType = .photoLibrary
-            imagePicker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
-            present(imagePicker, animated: true, completion: nil)
+
         }
+        present(imagePicker, animated: true, completion: nil)
     }
     
     
@@ -40,9 +46,7 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
-        
         let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-        print(chosenImage.description)
         
         //add image to view
         
