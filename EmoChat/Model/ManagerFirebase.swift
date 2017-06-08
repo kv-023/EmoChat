@@ -205,7 +205,7 @@ class ManagerFirebase {
                 print("Password changed.")
             }
         }
-    }//
+    }
 
 
 }

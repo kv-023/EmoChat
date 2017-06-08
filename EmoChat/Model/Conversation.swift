@@ -7,38 +7,38 @@
 //
 
 
-class Conversation: FireBaseEmoChat {
-//    var conversationId: String = Auxiliary.getEmpyUUID()
+class Conversation {
+
     var uuid: String
-    var usersInConversation: [User?]? = []
-    var mesagesInConversation: [Message?]? = []
+    var usersInConversation: [User] = []
+    var mesagesInConversation: [Message]? = []
 
-//    typealias linkedTableType = [String: Bool]
     
-    init(conversationId: String, usersInConversation: [User?]?) {
-        self.uuid = conversationId
-
-        guard let notNullUsersInConversation = usersInConversation else {
-            return
-        }
-
-        self.usersInConversation = notNullUsersInConversation
-    }
-
-    init(usersInConversation: [User?]?) {
-
-        self.uuid = Auxiliary.getEmpyUUID()
+    init(conversationId: String, usersInConversation: [User], messagesInConversation: [Message]?) {
         
-        guard let notNullUsersInConversation = usersInConversation else {
-            return
-        }
-
-        self.usersInConversation = notNullUsersInConversation
+        guard (usersInConversation.count) > 1
+        else { return }
+        
+        self.uuid = conversationId
+        self.usersInConversation = usersInConversation
+        self.mesagesInConversation = messagesInConversation
+        
     }
 
-    func appendMessage(_ newElement: Message) {
-        mesagesInConversation?.append(newElement)
-    }
+//    init(usersInConversation: [User?]?) {
+//
+//        self.uuid = Auxiliary.getEmpyUUID()
+//        
+//        guard let notNullUsersInConversation = usersInConversation else {
+//            return
+//        }
+//
+//        self.usersInConversation = notNullUsersInConversation
+//    }
+//
+//    func appendMessage(_ newElement: Message) {
+//        mesagesInConversation?.append(newElement)
+//    }
 
 //    //MARK:- func. for FireBase use
 //    func toAnyObject() -> Any {
