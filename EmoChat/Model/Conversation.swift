@@ -11,19 +11,21 @@ class Conversation {
 
     var uuid: String
     var usersInConversation: [User] = []
-    var mesagesInConversation: [Message]? = []
+    var messagesInConversation: [Message]? = []
+    var lastMessage: Message?
 
     
-    init?(conversationId: String, usersInConversation: [User], messagesInConversation: [Message]?) {
+    init?(conversationId: String, usersInConversation: [User], messagesInConversation: [Message]?, lastMessage: Message?) {
         
         guard (usersInConversation.count) > 1
         else {
             return nil
         }
         
+        self.lastMessage = lastMessage
         self.uuid = conversationId
         self.usersInConversation = usersInConversation
-        self.mesagesInConversation = messagesInConversation
+        self.messagesInConversation = messagesInConversation
         
     }
 }
