@@ -24,6 +24,7 @@ class Conversation {
         self.mesagesInConversation = messagesInConversation
         
     }
+}
 
 //    init(usersInConversation: [User?]?) {
 //
