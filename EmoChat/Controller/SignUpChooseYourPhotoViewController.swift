@@ -64,13 +64,39 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.allowsEditing = false
+
         
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+        
+        
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: {
+            action in
             imagePicker.sourceType = .camera
-        } else {
+            self.present(imagePicker, animated: true, completion: nil)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: {
+            action in
             imagePicker.sourceType = .photoLibrary
-            
-        }
+            self.present(imagePicker, animated: true, completion: nil)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
+
+        
+        
+        
+        
+        
+//        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+//            imagePicker.sourceType = .camera
+//        } else {
+//            imagePicker.sourceType = .photoLibrary
+//            
+//        }
         present(imagePicker, animated: true, completion: nil)
     }
     
