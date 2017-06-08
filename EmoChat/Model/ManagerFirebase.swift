@@ -184,6 +184,7 @@ class ManagerFirebase {
         }
      */
     func filterUsers (with text: String, array: @escaping ([User]) -> Void){
+       let text = text.lowercased()
         ref?.child("users").queryOrdered(byChild: "username").queryStarting(atValue: text).queryEnding(atValue: text+"\u{f8ff}").observe(.value, with: { snapshot in
             var users = [User]()
             for u in snapshot.children{
