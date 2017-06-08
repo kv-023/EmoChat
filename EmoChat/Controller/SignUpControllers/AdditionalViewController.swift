@@ -21,6 +21,8 @@ class AdditionalViewController: UIViewController, UITextFieldDelegate, RegexChec
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Hide keyboard by tap
         self.hideKeyboard()
         // Do any additional setup after loading the view.
     }

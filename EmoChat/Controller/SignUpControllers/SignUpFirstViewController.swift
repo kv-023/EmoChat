@@ -71,6 +71,9 @@ class SignUpFirstViewController: UIViewController, RegexCheckProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Hide keyboard by tap
+        self.hideKeyboard()
     }
 
     override func didReceiveMemoryWarning() {
