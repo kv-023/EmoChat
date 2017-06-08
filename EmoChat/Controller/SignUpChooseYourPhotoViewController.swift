@@ -11,32 +11,16 @@ import Firebase
 
 class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate   {
     
-//    @IBOutlet weak var image: UIImageView!
-    
-    @IBOutlet weak var chooseYourPhotoButtonImage: UIButton!
-    
-    @IBAction func chooseYourPhotoButton(_ sender: Any) {
-    
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.allowsEditing = false
-
-
-
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            imagePicker.sourceType = .camera
-//            imagePicker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
-        } else {
-            imagePicker.sourceType = .photoLibrary
-
-        }
-        present(imagePicker, animated: true, completion: nil)
-    }
-    
+    @IBOutlet weak var userPhotoView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        self.userPhotoView.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTaped))
+        self.userPhotoView.addGestureRecognizer(tapGesture)
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -50,10 +34,10 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
         
         //add image to view
         
-        chooseYourPhotoButtonImage.setImage(chosenImage, for: .normal)
-        chooseYourPhotoButtonImage.imageView?.contentMode = .scaleAspectFill
-        chooseYourPhotoButtonImage.clipsToBounds = true
-        chooseYourPhotoButtonImage.layer.cornerRadius = chooseYourPhotoButtonImage.frame.width/2
+        userPhotoView.contentMode = .scaleAspectFill
+        userPhotoView.clipsToBounds = true
+        userPhotoView.layer.cornerRadius = userPhotoView.frame.width/2
+        userPhotoView.image = chosenImage
         
         //add image to firebase
         
@@ -75,6 +59,22 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
         }
         dismiss(animated:true, completion: nil)
     }
+    
+    func imageTaped() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = false
+        
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            imagePicker.sourceType = .camera
+        } else {
+            imagePicker.sourceType = .photoLibrary
+            
+        }
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+
     /*
      // MARK: - Navigation
      
