@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class AdditionalViewController: UIViewController, UITextFieldDelegate, RegexCheckProtocol {
     
     @IBOutlet weak var firstNameLabel: UILabel!
@@ -20,9 +21,10 @@ class AdditionalViewController: UIViewController, UITextFieldDelegate, RegexChec
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboard()
         // Do any additional setup after loading the view.
     }
-
+        
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
