@@ -10,28 +10,51 @@ import UIKit
 import Firebase
 import CoreFoundation
 
-class SearchUsersViewController: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
+enum SearchType: Int {
+    case contacts
+    case globalUsers
+}
+
+class SearchUsersViewController: UITableViewController {
     
     // MARK: - properties
-    var m = ManagerFirebase()
-    
+    var managerFirebase = ManagerFirebase()
     var friends: [User] = []
     var filteredFriends: [User] = []
-    var checkmarkedFriends: [User] = []
-    
-    //var refUser: DatabaseReference?
-    
-    // MARK: - IBOutlets
-    @IBOutlet var searchBar: UISearchBar!
+    var checkmarkedFriends: [User] = [] {
+        didSet {
+            if checkmarkedFriends.count > 0 {
+                navigationItem.rightBarButtonItem?.isEnabled = true
+            } else {
+                navigationItem.rightBarButtonItem?.isEnabled = false
+            }
+        }
+    }
+    var filteredUsers: [User] = []
+    var searchController: UISearchController!
+    var searchType = SearchType.contacts
 
+    
     // MARK: - ViewController lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //refUser = Database.database().reference(withPath: "User")
+        let createConversationButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createConversationAction(_:)))
         
-        searchBar.showsCancelButton = false
+        self.navigationItem.rightBarButtonItem = createConversationButton
+        createConversationButton.isEnabled = false
         
+        searchController = UISearchController(searchResultsController: nil)
+        
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search users..."
+        searchController.searchBar.searchBarStyle = .minimal
+        searchController.searchBar.delegate = self
+        searchController.searchBar.scopeBarBackgroundImage = UIImage(color: UIColor.white)
+        definesPresentationContext = true
+        tableView.tableHeaderView = searchController.searchBar
+
         let user1 = User(email: "FirstUser", username: "FirstUser", phoneNumber: nil, firstName: nil, secondName: "secondName", photoURL: nil)
         let user2 = User(email: "SecondUser", username: "SecondUser", phoneNumber: nil, firstName: nil, secondName: nil, photoURL: nil)
         let user3 = User(email: "ThirdUser", username: "ThirdUser", phoneNumber: nil, firstName: "firstName", secondName: "secondName", photoURL: nil)
@@ -39,12 +62,6 @@ class SearchUsersViewController: UITableViewController, UISearchBarDelegate, UIS
         let user5 = User(email: "Sevfive", username: "Sevfive", phoneNumber: nil, firstName: "firstName", secondName: nil, photoURL: nil)
 
         friends.append(contentsOf: [user1, user2, user3, user4, user5])
-        
-        m.filterUsers(with: "olg") { (array) in
-            for u in array {
-                print(u.username)
-            }
-        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,131 +72,153 @@ class SearchUsersViewController: UITableViewController, UISearchBarDelegate, UIS
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
-            tableView.cellForRow(at: indexPath)?.accessoryType = .none
-            
-            if let text = searchBar.text, text.characters.count > 0 || searchBar.isFirstResponder {
-                let user = filteredFriends[indexPath.row]
-                checkmarkedFriends = checkmarkedFriends.filter {$0 !== user}
+        switch searchType {
+        case .contacts:
+            if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
+                tableView.cellForRow(at: indexPath)?.accessoryType = .none
+                let user = (searchController.isActive) ? filteredFriends[indexPath.row] : friends[indexPath.row]
+                checkmarkedFriends = checkmarkedFriends.filter { $0 !== user }
             } else {
-                let user = friends[indexPath.row]
-                checkmarkedFriends = checkmarkedFriends.filter {$0 !== user}
+                tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+                let user = (searchController.isActive) ? filteredFriends[indexPath.row] : friends[indexPath.row]
+                checkmarkedFriends.append(user)
             }
-
-        } else {
-            
-            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-            
-            if let text = searchBar.text, text.characters.count > 0 || searchBar.isFirstResponder {
-                let user = filteredFriends[indexPath.row]
-                self.checkmarkedFriends.append(user)
-            } else {
-                let user = friends[indexPath.row]
-                self.checkmarkedFriends.append(user)
-            }
+        case .globalUsers:
+            tableView.deselectRow(at: indexPath, animated: true)
         }
-
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
     // MARK: - UITableViewDataSource
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        if !friends.isEmpty {
-            return 1
-        } else {
-            return 0
-        }
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if !friends.isEmpty && section == 0 {
-            if searchBar.isFirstResponder {
+        switch searchType {
+        case .contacts:
+            if searchController.isActive {
                 return filteredFriends.count
+            } else {
+                return friends.count
             }
-            return friends.count
-        } else {
-            return filteredFriends.count
+        case .globalUsers:
+            return filteredUsers.count
         }
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var user: User?
-        
-        if !friends.isEmpty && indexPath.section == 0 && searchBar.isFirstResponder {
+        switch searchType {
+        case .contacts:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ContactCellIdentifier", for: indexPath) as! ContactCell
+            let user = (searchController.isActive) ? filteredFriends[indexPath.row] : friends[indexPath.row]
+            cell.contactNameLabel.text = "\(user.firstName ?? "") \(user.secondName ?? "")"
+            cell.contactUsernameLabel.text = user.username
             
-            let cell = self.tableView.dequeueReusableCell(withIdentifier: "ContactCellIdentifier", for: indexPath) as! ContactCell
-
-            user = filteredFriends[indexPath.row]
-            cell.contactUsernameLabel.text = user?.username
-            cell.contactNameLabel.text = "\(user?.firstName ?? "") \(user?.secondName ?? "")"
-            
-            if checkmarkedFriends.contains(user!) {
+            if checkmarkedFriends.contains(user) {
                 cell.accessoryType = .checkmark
             } else {
                 cell.accessoryType = .none
             }
             
             return cell
-            
-        } else {
-            let cell = self.tableView.dequeueReusableCell(withIdentifier: "ContactCellIdentifier", for: indexPath) as! ContactCell
-            
-            user = friends[indexPath.row]
-            cell.contactUsernameLabel.text = user?.username
-            cell.contactNameLabel.text = "\(user?.firstName ?? "") \(user?.secondName ?? "")"
-
-            if checkmarkedFriends.contains(user!) {
-                cell.accessoryType = .checkmark
-            } else {
-                cell.accessoryType = .none
-            }
+        case .globalUsers:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "UserCellIdentifier", for: indexPath) as! GlobalUserCell
+            let user = filteredUsers[indexPath.row]
+            cell.userNameSurnameLabel.text = "\(user.firstName ?? "") \(user.secondName ?? "")"
+            cell.userUsernameLabel.text = user.username
             
             return cell
         }
-        
-    }
-    
-    
-    // MARK: - UISearchBarDelegate
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        print(#function)
-    }
-    
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        print(#function)
-
-    }
-
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        print(#function)
-
-    }
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        print(#function)
-    }
-
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print(#function)
-
-        self.filteredFriends = searchUsers(self.friends, withFilter: searchText)
-        self.tableView.reloadData()
     }
     
     // MARK: - Searching
-    func searchUsers(_ array: [User], withFilter filterString: String) -> [User] {
-        var filtered: [User] = []
-        for user in array {
-            if (filterString.characters.count > 0 && !user.username.lowercased().hasPrefix(filterString.lowercased())) {
-                continue
+    func filterContent(for searchText: String, scope: SearchType) {
+        switch scope {
+        case .contacts:
+            filteredFriends = friends.filter({ (friend) -> Bool in
+                return friend.username.lowercased().hasPrefix(searchText.lowercased())
+            })
+            tableView.reloadData()
+        case .globalUsers:
+            if searchText != "" {
+                managerFirebase.filterUsers(with: searchText, array: { (array) in
+                    self.filteredUsers = array
+                    self.tableView.reloadData()
+                })
+            } else {
+                filteredUsers.removeAll()
+                tableView.reloadData()
             }
-            filtered.append(user)
         }
-        return filtered
     }
     
+    // MARK: - Actions
+    func createConversationAction(_ sender: UIBarButtonItem) {
+        var usernames = ""
+        
+        for u in checkmarkedFriends {
+            usernames = "\(usernames) \(u.username!), "
+        }
+        
+        let title = "New Conversation"
+        let message = "Create conversation with \(usernames) ?"
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        
+        let yesAction = UIAlertAction(title: "Yes", style: .default) { (action) in
+            
+        }
+        let noAction = UIAlertAction(title: "No", style: .destructive, handler: nil)
+        alert.addAction(yesAction)
+        alert.addAction(noAction)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+}
 
+extension SearchUsersViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        if let searchText = searchController.searchBar.text {
+            filterContent(for: searchText, scope: searchType)
+            //tableView.reloadData()
+        }
+    }
+}
+
+extension SearchUsersViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        searchType = SearchType(rawValue: selectedScope)!
+        tableView.reloadData()
+        filterContent(for: searchBar.text!, scope: searchType)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        if searchType == .globalUsers && searchBar.text == "" || filteredUsers.isEmpty {
+            searchType = .contacts
+            searchBar.selectedScopeButtonIndex = searchType.rawValue
+        }
+    }
+    
+    func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
+        searchController.searchBar.scopeButtonTitles = ["Contacts", "Global search"]
+        return true
+    }
+}
+
+public extension UIImage {
+    public convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {
+        let rect = CGRect(origin: .zero, size: size)
+        UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
+        color.setFill()
+        UIRectFill(rect)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        guard let cgImage = image?.cgImage else { return nil }
+        self.init(cgImage: cgImage)
+    }
 }

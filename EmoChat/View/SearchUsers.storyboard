@@ -18,17 +18,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search for users..." showsCancelButton="YES" id="7Cl-p1-XQK">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <textInputTraits key="textInputTraits"/>
-                            <connections>
-                                <outlet property="delegate" destination="Ve4-XD-0jU" id="SV4-kV-iro"/>
-                            </connections>
-                        </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="ContactCellIdentifier" rowHeight="71" id="5qh-pp-t4Y" customClass="ContactCell" customModule="EmoChat" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="72" width="375" height="71"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="71"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5qh-pp-t4Y" id="dAY-64-EOL">
                                     <rect key="frame" x="0.0" y="0.0" width="336" height="71"/>
@@ -72,8 +64,8 @@
                                     <outlet property="contactUsernameLabel" destination="qA3-Zz-Bq7" id="aut-wW-mIF"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="UserCellIdentifier" rowHeight="71" id="eIk-C1-ZQ0">
-                                <rect key="frame" x="0.0" y="143" width="375" height="71"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="UserCellIdentifier" rowHeight="71" id="eIk-C1-ZQ0" customClass="GlobalUserCell" customModule="EmoChat" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="99" width="375" height="71"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eIk-C1-ZQ0" id="QsT-en-F2p">
                                     <rect key="frame" x="0.0" y="0.0" width="342" height="71"/>
@@ -86,13 +78,13 @@
                                                 <constraint firstAttribute="height" constant="50" id="qnd-BW-uRu"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Name Surname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="27A-wL-HbE">
-                                            <rect key="frame" x="66" y="8" width="118" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="userName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="27A-wL-HbE">
+                                            <rect key="frame" x="66" y="8" width="79" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="userName" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ogb-ue-4Wb">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name Surname" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ogb-ue-4Wb">
                                             <rect key="frame" x="66" y="36.5" width="268" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <nil key="textColor"/>
@@ -112,25 +104,11 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="userNameSurnameLabel" destination="Ogb-ue-4Wb" id="Ncy-pW-UeI"/>
+                                    <outlet property="userPhoto" destination="IxX-a1-4EV" id="V6t-ww-EeQ"/>
+                                    <outlet property="userUsernameLabel" destination="27A-wL-HbE" id="pod-Fj-Gdx"/>
                                     <segue destination="Hth-hP-5bV" kind="show" id="Z4G-6l-E21"/>
                                 </connections>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellIdentifier" textLabel="Kqc-Kc-fhe" rowHeight="71" style="IBUITableViewCellStyleDefault" id="lPX-Xw-Ddq">
-                                <rect key="frame" x="0.0" y="214" width="375" height="71"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lPX-Xw-Ddq" id="cdH-8p-0vk">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="70.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Kqc-Kc-fhe">
-                                            <rect key="frame" x="15" y="0.0" width="345" height="70.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -139,21 +117,8 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="Jig-O8-YZj"/>
-                    <connections>
-                        <outlet property="searchBar" destination="7Cl-p1-XQK" id="gCe-eZ-Qba"/>
-                        <outlet property="searchDisplayController" destination="mY3-Mi-Aif" id="6fe-Tg-wxm"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mk6-CQ-8dl" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="mY3-Mi-Aif">
-                    <connections>
-                        <outlet property="delegate" destination="Ve4-XD-0jU" id="oxH-E2-g6J"/>
-                        <outlet property="searchBar" destination="7Cl-p1-XQK" id="mh7-2Y-e7I"/>
-                        <outlet property="searchContentsController" destination="Ve4-XD-0jU" id="qx1-WX-gXz"/>
-                        <outlet property="searchResultsDataSource" destination="Ve4-XD-0jU" id="gha-k3-eXc"/>
-                        <outlet property="searchResultsDelegate" destination="Ve4-XD-0jU" id="Sw4-xM-Yzu"/>
-                    </connections>
-                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1108" y="-74"/>
         </scene>
