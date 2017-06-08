@@ -19,7 +19,7 @@ class SearchUsersViewController: UITableViewController, UISearchBarDelegate, UIS
     var filteredFriends: [User] = []
     var checkmarkedFriends: [User] = []
     
-    var refUser: DatabaseReference?
+    //var refUser: DatabaseReference?
     
     // MARK: - IBOutlets
     @IBOutlet var searchBar: UISearchBar!
@@ -28,15 +28,15 @@ class SearchUsersViewController: UITableViewController, UISearchBarDelegate, UIS
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        refUser = Database.database().reference(withPath: "User")
+        //refUser = Database.database().reference(withPath: "User")
         
         searchBar.showsCancelButton = false
         
-        let user1 = User(email: "FirstUser", username: "FirstUser", phoneNumber: nil, firstName: nil, secondName: nil, photoURL: nil)
+        let user1 = User(email: "FirstUser", username: "FirstUser", phoneNumber: nil, firstName: nil, secondName: "secondName", photoURL: nil)
         let user2 = User(email: "SecondUser", username: "SecondUser", phoneNumber: nil, firstName: nil, secondName: nil, photoURL: nil)
-        let user3 = User(email: "ThirdUser", username: "ThirdUser", phoneNumber: nil, firstName: nil, secondName: nil, photoURL: nil)
+        let user3 = User(email: "ThirdUser", username: "ThirdUser", phoneNumber: nil, firstName: "firstName", secondName: "secondName", photoURL: nil)
         let user4 = User(email: "Secvfour", username: "Secvfour", phoneNumber: nil, firstName: nil, secondName: nil, photoURL: nil)
-        let user5 = User(email: "Sevfive", username: "Sevfive", phoneNumber: nil, firstName: nil, secondName: nil, photoURL: nil)
+        let user5 = User(email: "Sevfive", username: "Sevfive", phoneNumber: nil, firstName: "firstName", secondName: nil, photoURL: nil)
 
         friends.append(contentsOf: [user1, user2, user3, user4, user5])
         
@@ -60,11 +60,9 @@ class SearchUsersViewController: UITableViewController, UISearchBarDelegate, UIS
             
             if let text = searchBar.text, text.characters.count > 0 || searchBar.isFirstResponder {
                 let user = filteredFriends[indexPath.row]
-                //user.checkmarkedUser = false
                 checkmarkedFriends = checkmarkedFriends.filter {$0 !== user}
             } else {
                 let user = friends[indexPath.row]
-                //user.checkmarkedUser = true
                 checkmarkedFriends = checkmarkedFriends.filter {$0 !== user}
             }
 
@@ -74,11 +72,9 @@ class SearchUsersViewController: UITableViewController, UISearchBarDelegate, UIS
             
             if let text = searchBar.text, text.characters.count > 0 || searchBar.isFirstResponder {
                 let user = filteredFriends[indexPath.row]
-                //user.checkmarkedUser = true
                 self.checkmarkedFriends.append(user)
             } else {
                 let user = friends[indexPath.row]
-                //user.checkmarkedUser = true
                 self.checkmarkedFriends.append(user)
             }
         }
@@ -110,25 +106,40 @@ class SearchUsersViewController: UITableViewController, UISearchBarDelegate, UIS
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = self.tableView.dequeueReusableCell(withIdentifier: "cellIdentifier", for: indexPath)
-        
         var user: User?
         
         if !friends.isEmpty && indexPath.section == 0 && searchBar.isFirstResponder {
+            
+            let cell = self.tableView.dequeueReusableCell(withIdentifier: "ContactCellIdentifier", for: indexPath) as! ContactCell
+
             user = filteredFriends[indexPath.row]
-            cell.textLabel?.text = user?.username
+            cell.contactUsernameLabel.text = user?.username
+            cell.contactNameLabel.text = "\(user?.firstName ?? "") \(user?.secondName ?? "")"
+            
+            if checkmarkedFriends.contains(user!) {
+                cell.accessoryType = .checkmark
+            } else {
+                cell.accessoryType = .none
+            }
+            
+            return cell
+            
         } else {
+            let cell = self.tableView.dequeueReusableCell(withIdentifier: "ContactCellIdentifier", for: indexPath) as! ContactCell
+            
             user = friends[indexPath.row]
-            cell.textLabel?.text = user?.username
+            cell.contactUsernameLabel.text = user?.username
+            cell.contactNameLabel.text = "\(user?.firstName ?? "") \(user?.secondName ?? "")"
+
+            if checkmarkedFriends.contains(user!) {
+                cell.accessoryType = .checkmark
+            } else {
+                cell.accessoryType = .none
+            }
+            
+            return cell
         }
         
-        if checkmarkedFriends.contains(user!) {
-            cell.accessoryType = .checkmark
-        } else {
-            cell.accessoryType = .none
-        }
-        
-        return cell
     }
     
     

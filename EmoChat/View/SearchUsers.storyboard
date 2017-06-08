@@ -27,7 +27,7 @@
                             </connections>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="ContactCellIdentifier" rowHeight="71" id="5qh-pp-t4Y">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="ContactCellIdentifier" rowHeight="71" id="5qh-pp-t4Y" customClass="ContactCell" customModule="EmoChat" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="72" width="375" height="71"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5qh-pp-t4Y" id="dAY-64-EOL">
@@ -41,13 +41,13 @@
                                                 <constraint firstAttribute="height" constant="50" id="urw-Cl-9n9"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Name Surname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qA3-Zz-Bq7">
-                                            <rect key="frame" x="66" y="8" width="118" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="userName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qA3-Zz-Bq7">
+                                            <rect key="frame" x="66" y="8" width="79" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="userName" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iXd-bY-oeR">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name Surname" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iXd-bY-oeR">
                                             <rect key="frame" x="66" y="36.5" width="262" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <nil key="textColor"/>
@@ -66,6 +66,11 @@
                                         <constraint firstItem="qA3-Zz-Bq7" firstAttribute="leading" secondItem="EdF-bW-pKZ" secondAttribute="trailing" constant="8" id="u9D-ot-En5"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="contactNameLabel" destination="iXd-bY-oeR" id="p9O-Nq-dwl"/>
+                                    <outlet property="contactPhoto" destination="EdF-bW-pKZ" id="PlI-S1-8Wt"/>
+                                    <outlet property="contactUsernameLabel" destination="qA3-Zz-Bq7" id="aut-wW-mIF"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="UserCellIdentifier" rowHeight="71" id="eIk-C1-ZQ0">
                                 <rect key="frame" x="0.0" y="143" width="375" height="71"/>
@@ -150,7 +155,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1108" y="-77.811094452773617"/>
+            <point key="canvasLocation" x="1108" y="-74"/>
         </scene>
         <!--UserInfo-->
         <scene sceneID="ocg-4c-gLV">
