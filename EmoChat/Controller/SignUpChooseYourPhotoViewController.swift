@@ -11,14 +11,12 @@ import Firebase
 
 class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate   {
     
+//    @IBOutlet weak var image: UIImageView!
     
-    @IBOutlet weak var image: UIButton!
+    @IBOutlet weak var chooseYourPhotoButtonImage: UIButton!
     
     @IBAction func chooseYourPhotoButton(_ sender: Any) {
-        
-        
-
-        
+    
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
             let imagePicker = UIImagePickerController()
             imagePicker.delegate = self
@@ -42,10 +40,16 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
+        
         let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
         print(chosenImage.description)
         
-        image.setImage(chosenImage, for: .normal)
+        //add image to view
+        
+        chooseYourPhotoButtonImage.setImage(chosenImage, for: .normal)
+        chooseYourPhotoButtonImage.imageView?.contentMode = .scaleAspectFill
+        chooseYourPhotoButtonImage.clipsToBounds = true
+        chooseYourPhotoButtonImage.layer.cornerRadius = chooseYourPhotoButtonImage.frame.width/2
         
         //add image to firebase
         

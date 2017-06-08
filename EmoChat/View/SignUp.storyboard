@@ -291,13 +291,13 @@
                                         </variation>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mVA-cd-RIj">
-                                        <rect key="frame" x="87.5" y="118" width="200" height="200"/>
+                                        <rect key="frame" x="88" y="118" width="200" height="200"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="QCU-VB-zc8"/>
                                             <constraint firstAttribute="height" constant="200" id="j4V-Jz-xTF"/>
                                             <constraint firstAttribute="width" secondItem="mVA-cd-RIj" secondAttribute="height" multiplier="1:1" id="wO7-JC-8nd"/>
                                         </constraints>
-                                        <state key="normal" title="Button"/>
+                                        <state key="normal" title="Add your photo"/>
                                         <connections>
                                             <action selector="chooseYourPhotoButton:" destination="xD1-EM-0KW" eventType="touchUpInside" id="8iT-fC-m1z"/>
                                         </connections>
@@ -335,7 +335,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="uM5-zM-qrS"/>
                     <connections>
-                        <outlet property="image" destination="mVA-cd-RIj" id="eS9-Mz-S28"/>
+                        <outlet property="chooseYourPhotoButtonImage" destination="mVA-cd-RIj" id="ISo-8M-Mwn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PYM-Oc-bSf" userLabel="First Responder" sceneMemberID="firstResponder"/>
