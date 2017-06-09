@@ -109,6 +109,9 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
                 print("Error uploading: \(error)")
                 return
             }
+        
+        
+        
             //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -117,7 +120,7 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
             
             
             
-            //dissmiss image picker
+//            dissmiss image picker
             
             self.dismiss(animated:true, completion: nil)
         }
