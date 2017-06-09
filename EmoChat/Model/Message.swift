@@ -6,44 +6,48 @@
 //  Copyright © 2017 SoftServe. All rights reserved.
 //
 
-class Message: FireBaseEmoChat {
-    var uuid: String = Auxiliary.getEmpyUUID()
-    var sender: User?
-    var conversation: String? = ""
-    var messageText: String? = "" {
-        didSet {
-            sender?.appendMessage(self)
-        }
-    }
+import Foundation
 
-    init(messageId: String, sender: User?, conversation: String?) {
-        self.uuid  = messageId
-        self.sender = sender
-        self.conversation = conversation
-    }
-
-    init () {
-//        sender = "uknowned"
-        conversation = "empty"
-    }
-
-    convenience init(sender: User?, conversation: String?) {
-
-        self.init()
-
-        self.uuid  = Auxiliary.getUUID()
-        self.sender = sender
-        self.conversation = conversation
-    }
-
-    //MARK:- func. for FireBase use
-//    func toAnyObject() -> Any {
-//        return [
-//            uuid: [
-//                "messageId": uuid,
-//                "senderId": sender?.uuid,
-//                "conversation": conversation]
-//        ]
-//    }
+enum MessageContentType {
+    case photo
+    case video
+    case text
 }
 
+class Message {
+    let uid: String?
+    let senderId: String!
+    let conversation: String!
+    let time: Date!
+    var content: (type: MessageContentType, content: String)!
+
+
+    init (uid: String, senderId: String, conversation: String, time: Date, content: (type: MessageContentType, content: String))
+    {
+        self.uid = uid
+        self.senderId = senderId
+        self.conversation = conversation
+        self.time = time
+        self.content = content
+    }
+    
+    /*
+     Function generates Message from snapshot
+     */
+    init (data: NSDictionary?, uid: String?) {
+        self.uid = uid
+        self.senderId = data?["senderId"] as! String?
+        self.conversation = data?["conversation"] as! String?
+        let time = data?["time"] as? TimeInterval
+        self.time = (Date(timeIntervalSince1970: time!/1000))
+        let media = data?["media"] as? NSDictionary
+        if let photo = media?.value(forKey: "photo") {
+            self.content = (type: MessageContentType.photo, content: photo as! String)
+        } else if let video = media?.value(forKey: "video") {
+            self.content = (type: MessageContentType.video, content: video as! String)
+        } else if let text = media?.value(forKey: "text") {
+            self.content = (type: MessageContentType.text, content: text as! String)
+        }
+        
+    }
+}

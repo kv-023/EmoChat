@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     
     
 
-    //var ref: DatabaseReference?
+   //var ref: DatabaseReference?
     var m: ManagerFirebase?
 
     override func viewDidLoad() {
@@ -25,17 +25,32 @@ class ViewController: UIViewController {
 
 
     
+    @IBAction func hello(_ sender: UIButton) {
+        
+        print("set")
+       m?.getAllUsersInvolvedInPersonalConversation() {setU in
+        
+           print(setU)
+           
+      }
+    }
+    
+   
     
     
     
     
     @IBAction func testFirebase(_ sender: Any) {
+        
         m?.getCurrentUser(){ user in
-            if let u = user, let fN = u.firstName, let sN = u.secondName{
-                self.hintsLabel.text = ("\(fN) \(sN)")
+            self.m?.getListOfMessages(inConversation: (user?.userConversations?.first?.uuid)!) {list in
+                if let message = list?.first {
+                    print(message.content!.content)
+                }
             }
-            
         }
+        
+        
         m?.filterUsers(with: "olg"){array in
             for u in array {
                 print(u.username)

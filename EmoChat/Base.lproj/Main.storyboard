@@ -75,12 +75,12 @@
                                     <action selector="touchCheck:" destination="BYZ-38-t0r" eventType="touchDown" id="LrE-hs-ujv"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hXo-6o-4Ru">
-                                <rect key="frame" x="164" y="556" width="46" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mi1-dC-9Tl">
+                                <rect key="frame" x="164" y="617" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
-                                    <action selector="uniq:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tpd-Nb-KFS"/>
+                                    <action selector="hello:" destination="BYZ-38-t0r" eventType="touchUpInside" id="m46-pn-jGB"/>
                                 </connections>
                             </button>
                         </subviews>
