@@ -121,7 +121,7 @@
                         <outlet property="hintsLabel" destination="vxy-HU-iRD" id="LMe-us-l2E"/>
                         <outlet property="logIn" destination="bYC-FF-8D6" id="enb-QP-3wY"/>
                         <outlet property="passwordField" destination="g4g-Ca-vAU" id="Eym-TV-fuJ"/>
-                        <segue destination="NF9-jD-ZzW" kind="show" identifier="LogIn_Home" id="o8h-oU-7mN"/>
+                        <segue destination="NF9-jD-ZzW" kind="show" identifier="LogIn_Home" id="AfB-yh-mcp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -164,16 +164,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 					if user != nil /*&& (user?.isEmailVerified)!*/ {
 						
 						self.hintsLabel.text = ("success! you are in")
-						
-						//Go to Conversations View Controller
-//						let targetStoryboardName = "LogIn_Home"
-//						let targetStoryboard = UIStoryboard(name: targetStoryboardName, bundle: nil)
-//						if let targetViewController = targetStoryboard.instantiateInitialViewController() {
-//							self.navigationController?.pushViewController(targetViewController, animated: true)
-//							
-						let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-						let newViewController = storyBoard.instantiateViewController(withIdentifier: "LogIn_Home")
-						self.present(newViewController, animated: true, completion: nil)
+
+						let storyBoard: UIStoryboard = UIStoryboard(name: "Conversations", bundle: nil)
+						if let newViewController = storyBoard.instantiateInitialViewController() {
+							self.present(newViewController, animated: true, completion: nil)
+						}
 					
 					} else	{
 						
