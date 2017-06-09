@@ -14,9 +14,11 @@ import Firebase
 class ManagerFirebase {
     
     let ref: DatabaseReference?
+    let storageRef: StorageReference
     
     init () {
         self.ref = Database.database().reference()
+        self.storageRef = Storage.storage().reference()
     }
     
     /*
@@ -130,7 +132,7 @@ class ManagerFirebase {
     
     private func getConversetionsFromSnapshot (_ value: NSDictionary?, accordingTo arrayID: [String]) -> [Conversation] {
         var conversations = [Conversation]()
-
+        
         for eachConv in arrayID {
             //dictionary with specified conversation
             let conversationSnapshot = (value?["conversations"] as? NSDictionary)?[eachConv] as? NSDictionary
@@ -140,7 +142,7 @@ class ManagerFirebase {
             
             //id of last message
             if let idLastMessage = conversationSnapshot?["lastMessage"] as? String {
-               //dictionary of last message
+                //dictionary of last message
                 lastMessageDictionary = (value?["messages"] as? NSDictionary)?[idLastMessage] as? NSDictionary
                 lastMessage = Message(data: lastMessageDictionary, uid: idLastMessage)
             }
@@ -151,6 +153,59 @@ class ManagerFirebase {
             }
         return conversations
         
+    }
+    
+    
+    
+    func addPhoto (_ image: UIImage) {
+        if let uid = Auth.auth().currentUser?.uid {
+            guard let chosenImageData = UIImageJPEGRepresentation(image, 1) else { return }
+            
+            //create reference
+            
+            
+            let imagePath = "userPics/\(uid)/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
+            
+            let metaData = StorageMetadata()
+            metaData.contentType = "image/jpeg"
+            
+            //add to firebase
+            
+            self.storageRef.child(imagePath).putData(chosenImageData, metadata: metaData) { (metaData, error) in
+                
+                if error != nil {
+                    print("Error uploading: \(error!)")
+                    return
+                } else {
+                    self.ref?.child("users/\(uid)/photo").setValue(imagePath)
+                    print("Upload Succeeded!")
+
+                }
+            }
+        }
+    }
+    
+    func getUserPic (from userURL: String, result: @escaping (UIImage?) -> Void) {
+        let photoRef = storageRef.child(userURL)
+        
+        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
+        photoRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+            if let error = error {
+                result(nil)
+                print(error)
+                // Uh-oh, an error occurred!
+            } else {
+                // Data for "images/island.jpg" is returned
+                result(UIImage(data: data!))
+            }
+        }
+    }
+    
+    func orderListOfConversations (_ array: [Conversation]) -> [Conversation]{
+        var result = [Conversation]()
+        
+        
+        return result
     }
     
     /*
@@ -170,7 +225,6 @@ class ManagerFirebase {
                 // .child("users").child(uid)
                 
                 var user:User? = nil
-                
                 let value = snapshot.value as? NSDictionary
                 
                 let userSnapshot = (value?["users"] as? NSDictionary)?["\(uid)"] as? NSDictionary
