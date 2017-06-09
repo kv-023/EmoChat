@@ -38,8 +38,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     // MARK: - ViewController lifecycle
     
     override func viewDidLoad() {
-		backgroundAnimated.loadGif(name: "giphy")
         super.viewDidLoad()
+		backgroundAnimated.loadGif(name: "giphy")
         //set delegate
         emailField.delegate = self
         passwordField.delegate = self
@@ -52,7 +52,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 		
 		emailField.backgroundColor = UIColor.white.withAlphaComponent(0.9)
 		passwordField.backgroundColor = UIColor.white.withAlphaComponent(0.9)
-		logIn.backgroundColor = UIColor.black
+		logIn.backgroundColor = UIColor.black.withAlphaComponent(0.9)
 		logIn.layer.cornerRadius = 7
 		logIn.layer.borderWidth = 1
 		logIn.layer.borderColor = UIColor.black.cgColor

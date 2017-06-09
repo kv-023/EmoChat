@@ -71,7 +71,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="PQm-Vu-Jcs"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="21"/>
+                                <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="20"/>
                                 <state key="normal" title="SIGN IN">
                                     <color key="titleColor" red="1" green="0.97648879443720238" blue="0.98122545260118732" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
