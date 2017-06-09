@@ -202,8 +202,8 @@ extension SearchUsersViewController: UISearchBarDelegate {
             searchBar.selectedScopeButtonIndex = searchType.rawValue
         }
     }
-    
-    func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
+
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         searchController.searchBar.scopeButtonTitles = ["Contacts", "Global search"]
         return true
     }
