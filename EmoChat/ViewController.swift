@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     
     
 
-    //var ref: DatabaseReference?
+   //var ref: DatabaseReference?
     var m: ManagerFirebase?
 
     override func viewDidLoad() {
@@ -25,6 +25,17 @@ class ViewController: UIViewController {
 
 
     
+    @IBAction func hello(_ sender: UIButton) {
+        
+        print("set")
+       m?.getAllUsersInvolvedInPersonalConversation() {setU in
+        
+           print(setU)
+           
+      }
+    }
+    
+   
     
     
     

@@ -18,8 +18,8 @@ class User {
     var email:String!
     var username:String!
     var photoURL: String?
-    var userConversations: [Conversation?]? = []
-    var userMessages: [Message?]? = []
+    var userConversations: [Conversation]? = []
+
 
 
     
@@ -48,13 +48,13 @@ class User {
 //        self.email = email
 //    }
 
-    func appendConversation(_ newElement: Conversation) {
-        userConversations?.append(newElement)
-    }
+//    func appendConversation(_ newElement: Conversation) {
+//        userConversations?.append(newElement)
+//    }
 
-    func appendMessage(_ newElement: Message) {
-        userMessages?.append(newElement)
-    }
+//    func appendMessage(_ newElement: Message) {
+//        userMessages?.append(newElement)
+//    }
 
 //    //MARK:- func. for FireBase use
 //    func toAnyObjectInID() -> Any {

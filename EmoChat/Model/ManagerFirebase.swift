@@ -206,8 +206,63 @@ class ManagerFirebase {
             }
         }
     }
-
-
-}
     
+    
+    func getConversationIdFromUser(getId: @escaping ([String]) -> Void)
+    {
+       
+        
+        if let uid = Auth.auth().currentUser?.uid {
+            let ref = Database.database().reference().child("users").child("\(uid)").child("conversation")
+            ref.queryOrderedByKey().observe(.value, with: { (snapshot) in
+                if snapshot.exists()
+                {
+                     var arrayOfConversationID = [String]()
+                    if let conversationID = ((snapshot.value as AnyObject).allKeys)! as? [String]
+                    {
+                        for id in conversationID
+                        {
+                            arrayOfConversationID.append(id)
+                        }
+                    }
+                    getId(arrayOfConversationID)
+                }
+            })
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    func getAllUsersInvolvedInPersonalConversation(result: @escaping (Set<String>) -> Void) {
+        
+        
+        var setOfUniqueUsersInvolvedInPersonalConversation = Set<String>()
+        
+       
+            self.getConversationIdFromUser() { arrayOfConversationID in
+            for id in arrayOfConversationID {
+            
+                let ref = Database.database().reference().child("conversations").child("\(id)").child("usersInConversation")
+                ref.queryOrderedByKey().observe(.value, with: { (snapshot) in
+                    if snapshot.exists() {
+                        if let usersInConversation = ((snapshot.value as AnyObject).allKeys)! as? [String]{
+                            if usersInConversation.count == 2 // two users - means tet-a-tet (personal) conversation
+                            {
+                                for user in usersInConversation {
+                                    setOfUniqueUsersInvolvedInPersonalConversation.insert(user)
+                                }
+                            }
+                            result(setOfUniqueUsersInvolvedInPersonalConversation)
+                        }
+                    }
+                })
+            }
+        }
+    }
+}
+
 
