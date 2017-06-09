@@ -12,10 +12,14 @@ import Firebase
 class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate   {
     
     @IBOutlet weak var userPhotoView: UIImageView!
+    var storageRef: StorageReference!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        let storage = Storage.storage()
+        storageRef = storage.reference()
         
         self.userPhotoView.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTaped))
@@ -70,7 +74,7 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
-        let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        guard let chosenImage = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
         
         //add image to view
         
@@ -80,32 +84,46 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
         userPhotoView.image = chosenImage
         
         //add image to firebase
+        
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         
-        let storage = Storage.storage()
-        let storageRef = storage.reference()
+        guard let chosenImageData = UIImageJPEGRepresentation(chosenImage, 1) else { return }
         
         //create reference
-        let tempimageRef = storageRef.child("images/tmpImage.jpg")
+        
+        let imagePath = Auth.auth().currentUser!.uid +
+        "/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
+        
         let metaData = StorageMetadata()
         metaData.contentType = "image/jpeg"
         
-        //add image to base
-        tempimageRef.putData(UIImageJPEGRepresentation(chosenImage, 0.8)!, metadata: metaData) { (data, error) in
-            if error == nil {
-                print("upload succesfull")
-            } else {
-                print(error?.localizedDescription as Any)
+        //add to firebase
+        
+        self.storageRef.child(imagePath).putData(chosenImageData, metadata: metaData) { (metaData, error) in
+            
+            if let error = error {
+                print("Error uploading: \(error)")
+                return
             }
+            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            
+            
+            
+            //dissmiss image picker
+            
+            self.dismiss(animated:true, completion: nil)
         }
-        dismiss(animated:true, completion: nil)
+        
+        
     }
-    
-    
     /*
      // MARK: - Navigation
      
@@ -115,4 +133,5 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
      // Pass the selected object to the new view controller.
      }
      */
+    
 }
