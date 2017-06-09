@@ -65,13 +65,16 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bYC-FF-8D6">
-                                <rect key="frame" x="101" y="159" width="105" height="75"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bYC-FF-8D6">
+                                <rect key="frame" x="60" y="159" width="201" height="50"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="75" id="PQm-Vu-Jcs"/>
+                                    <constraint firstAttribute="height" constant="50" id="PQm-Vu-Jcs"/>
                                 </constraints>
-                                <state key="normal" title="Login to my account &gt;" image="LogIn.png">
+                                <fontDescription key="fontDescription" name="HiraMinProN-W6" family="Hiragino Mincho ProN" pointSize="19"/>
+                                <state key="normal" title="Sign in">
                                     <color key="titleColor" red="1" green="0.97648879443720238" blue="0.98122545260118732" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
                                     <action selector="loginAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kzE-vg-ifB"/>
@@ -99,7 +102,7 @@
                             <constraint firstItem="liz-RL-f33" firstAttribute="bottom" secondItem="g4g-Ca-vAU" secondAttribute="bottom" id="O6C-qg-3iG"/>
                             <constraint firstAttribute="trailing" secondItem="Jsq-gV-I2R" secondAttribute="trailing" id="SRb-kv-jWB"/>
                             <constraint firstItem="Jsq-gV-I2R" firstAttribute="centerX" secondItem="Vp7-IZ-JzE" secondAttribute="centerX" id="THE-q2-2Zu"/>
-                            <constraint firstItem="g4g-Ca-vAU" firstAttribute="trailing" secondItem="bYC-FF-8D6" secondAttribute="trailing" constant="55" id="Ue3-dT-PxA"/>
+                            <constraint firstItem="g4g-Ca-vAU" firstAttribute="trailing" secondItem="bYC-FF-8D6" secondAttribute="trailing" id="Ue3-dT-PxA"/>
                             <constraint firstItem="liz-RL-f33" firstAttribute="top" secondItem="g4g-Ca-vAU" secondAttribute="top" id="VhH-Wn-NJB"/>
                             <constraint firstAttribute="trailingMargin" secondItem="g4g-Ca-vAU" secondAttribute="trailing" constant="43" id="Zdo-D7-xEQ"/>
                             <constraint firstItem="g4g-Ca-vAU" firstAttribute="centerX" secondItem="vxy-HU-iRD" secondAttribute="centerX" id="c5a-TM-Q4s"/>
@@ -107,7 +110,7 @@
                             <constraint firstItem="Vp7-IZ-JzE" firstAttribute="centerX" secondItem="Jsq-gV-I2R" secondAttribute="centerX" id="hA8-Mo-qUB"/>
                             <constraint firstItem="vxy-HU-iRD" firstAttribute="centerX" secondItem="pJg-Fs-pwq" secondAttribute="centerX" id="hNK-3V-Un9"/>
                             <constraint firstItem="liz-RL-f33" firstAttribute="top" secondItem="MgN-Gu-vJX" secondAttribute="bottom" constant="11" id="k3G-vf-5rk"/>
-                            <constraint firstItem="bYC-FF-8D6" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="85" id="lOg-9y-Gc1"/>
+                            <constraint firstItem="bYC-FF-8D6" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="44" id="lOg-9y-Gc1"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="pJg-Fs-pwq" secondAttribute="bottom" constant="14" id="nDC-nW-DmG"/>
                             <constraint firstItem="Vp7-IZ-JzE" firstAttribute="leading" secondItem="MgN-Gu-vJX" secondAttribute="trailing" constant="8" symbolic="YES" id="njA-Hc-iTt"/>
                             <constraint firstItem="pJg-Fs-pwq" firstAttribute="top" secondItem="vxy-HU-iRD" secondAttribute="bottom" constant="-1" id="x5q-57-c8j"/>
@@ -148,7 +151,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="LogIn.png" width="600" height="270"/>
         <image name="email" width="50" height="50"/>
         <image name="password-50" width="33" height="33"/>
     </resources>

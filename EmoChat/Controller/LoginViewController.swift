@@ -48,8 +48,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         logIn.layer.cornerRadius = 15
         logIn.layer.masksToBounds = true
         
-//        logIn.layer.borderWidth = 2
-//        logIn.layer.borderColor = UIColor.white.cgColor
+		logIn.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+		logIn.layer.cornerRadius = 7
+		logIn.layer.borderWidth = 1
+		logIn.layer.borderColor = UIColor.black.cgColor
 		
 		//Gesture recognizer
 		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
