@@ -10,7 +10,6 @@
 		3932B02C1EEACB180070F676 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3932B02B1EEACB180070F676 /* Background.swift */; };
 		3932B02E1EEACD780070F676 /* giphy.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3932B02D1EEACD780070F676 /* giphy.gif */; };
 		3932B0301EEACE8B0070F676 /* giphy-downsized.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3932B02F1EEACE8B0070F676 /* giphy-downsized.gif */; };
-		3932B0321EEADA2F0070F676 /* LogIn.png in Resources */ = {isa = PBXBuildFile; fileRef = 3932B0311EEADA2F0070F676 /* LogIn.png */; };
 		3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3938C26F1EDC27C700D69F88 /* AppDelegate.swift */; };
 		3938C2721EDC27C700D69F88 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3938C2711EDC27C700D69F88 /* ViewController.swift */; };
 		3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2731EDC27C700D69F88 /* Main.storyboard */; };
@@ -39,7 +38,6 @@
 		3932B02B1EEACB180070F676 /* Background.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
 		3932B02D1EEACD780070F676 /* giphy.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = giphy.gif; sourceTree = "<group>"; };
 		3932B02F1EEACE8B0070F676 /* giphy-downsized.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "giphy-downsized.gif"; sourceTree = "<group>"; };
-		3932B0311EEADA2F0070F676 /* LogIn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LogIn.png; sourceTree = "<group>"; };
 		3938C26C1EDC27C700D69F88 /* EmoChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmoChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3938C26F1EDC27C700D69F88 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3938C2711EDC27C700D69F88 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -110,10 +108,9 @@
 				3938C2711EDC27C700D69F88 /* ViewController.swift */,
 				3938C2731EDC27C700D69F88 /* Main.storyboard */,
 				3938C2761EDC27C700D69F88 /* Assets.xcassets */,
+				3932B02D1EEACD780070F676 /* giphy.gif */,
 				3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */,
 				3938C27B1EDC27C700D69F88 /* Info.plist */,
-				3932B02D1EEACD780070F676 /* giphy.gif */,
-				3932B0311EEADA2F0070F676 /* LogIn.png */,
 				3932B02F1EEACE8B0070F676 /* giphy-downsized.gif */,
 				ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */,
 				3932B02B1EEACB180070F676 /* Background.swift */,
@@ -255,7 +252,6 @@
 				FB982DDA1EE1569700AC2FCD /* SearchUsers.storyboard in Resources */,
 				3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */,
 				3932B0301EEACE8B0070F676 /* giphy-downsized.gif in Resources */,
-				3932B0321EEADA2F0070F676 /* LogIn.png in Resources */,
 				FB982DDB1EE1569700AC2FCD /* SignUp.storyboard in Resources */,
 				ED1E2D941EDD75B20058B6A6 /* GoogleService-Info.plist in Resources */,
 				FB982DDD1EE1569700AC2FCD /* UserInfo.storyboard in Resources */,

@@ -47,8 +47,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         //circular Get Started Button
         logIn.layer.cornerRadius = 15
         logIn.layer.masksToBounds = true
-        
-		logIn.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+		
+		
+		
+		emailField.backgroundColor = UIColor.white.withAlphaComponent(0.9)
+		passwordField.backgroundColor = UIColor.white.withAlphaComponent(0.9)
+		logIn.backgroundColor = UIColor.black
 		logIn.layer.cornerRadius = 7
 		logIn.layer.borderWidth = 1
 		logIn.layer.borderColor = UIColor.black.cgColor
