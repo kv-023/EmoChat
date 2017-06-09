@@ -28,6 +28,46 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
         // Dispose of any resources that can be recreated.
     }
     
+    func imageTaped() {
+        
+        //create image picker
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = false
+        
+        
+        //handling image picker sourse type
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: {
+            action in
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                picker.sourceType = .camera
+                self.present(picker, animated: true, completion: nil)
+            } else {
+                let alertCameraError = UIAlertController(title: "Camera Error", message: "Some promlems with camera, use the library", preferredStyle: UIAlertControllerStyle.alert)
+                alertCameraError.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                self.present(alertCameraError, animated: true, completion: nil)
+            }
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: {
+            action in
+            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+                picker.sourceType = .photoLibrary
+                self.present(picker, animated: true, completion: nil)
+            } else {
+                let alertCameraError = UIAlertController(title: "Library error", message: "Something went wrong", preferredStyle: UIAlertControllerStyle.alert)
+                alertCameraError.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                self.present(alertCameraError, animated: true, completion: nil)
+            }
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+        self.present(picker, animated: true, completion: nil)
+    }
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
@@ -40,6 +80,11 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
         userPhotoView.image = chosenImage
         
         //add image to firebase
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         
         let storage = Storage.storage()
         let storageRef = storage.reference()
@@ -60,47 +105,7 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
         dismiss(animated:true, completion: nil)
     }
     
-    func imageTaped() {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.allowsEditing = false
-
-        
-        
-        
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        
-        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: {
-            action in
-            imagePicker.sourceType = .camera
-            self.present(imagePicker, animated: true, completion: nil)
-        }))
-        
-        alert.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: {
-            action in
-            imagePicker.sourceType = .photoLibrary
-            self.present(imagePicker, animated: true, completion: nil)
-        }))
-        
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        
-        self.present(alert, animated: true, completion: nil)
-
-        
-        
-        
-        
-        
-//        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-//            imagePicker.sourceType = .camera
-//        } else {
-//            imagePicker.sourceType = .photoLibrary
-//            
-//        }
-        present(imagePicker, animated: true, completion: nil)
-    }
     
-
     /*
      // MARK: - Navigation
      
