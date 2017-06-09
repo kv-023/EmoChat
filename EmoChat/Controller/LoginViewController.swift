@@ -11,18 +11,7 @@ import FirebaseDatabase
 import FirebaseAuth
 
 extension UITextField {
-    
-    func useUnderline() {
-        
-        let border = CALayer()
-        let borderWidth = CGFloat(2.0)
-        border.borderColor = UIColor.white.cgColor
-        border.frame = CGRect(x: 0, y: self.frame.size.height - borderWidth, width: self.frame.size.width, height: self.frame.size.height)
-        border.borderWidth = borderWidth
-        self.layer.addSublayer(border)
-        self.layer.masksToBounds = true
-    }
-	
+
 	// Shake function inplementation
 
 	func shake(count : Float? = nil, for duration : TimeInterval? = nil, withTranslation translation : Float? = nil) {
@@ -40,16 +29,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 
     // MARK: - IBOutlets
 
+	@IBOutlet weak var backgroundAnimated: UIImageView!
     @IBOutlet weak var logIn: UIButton!
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var hintsLabel: UILabel!
-	
+
     // MARK: - ViewController lifecycle
     
     override func viewDidLoad() {
+		backgroundAnimated.loadGif(name: "giphy")
         super.viewDidLoad()
-        
         //set delegate
         emailField.delegate = self
         passwordField.delegate = self
@@ -58,14 +48,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         logIn.layer.cornerRadius = 15
         logIn.layer.masksToBounds = true
         
-        logIn.layer.borderWidth = 2
-        logIn.layer.borderColor = UIColor.white.cgColor
+//        logIn.layer.borderWidth = 2
+//        logIn.layer.borderColor = UIColor.white.cgColor
 		
 		//Gesture recognizer
 		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
 		view.addGestureRecognizer(tap)
     }
-	
+
 	func dismissKeyboard() {
 
 		//Causes the view (or one of its embedded text fields) to resign the first responder status.
@@ -73,13 +63,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 		view.endEditing(true)
 
 	}
-	
-    override func viewDidLayoutSubviews() {
-		
-        emailField.useUnderline()
-        passwordField.useUnderline()
-		
-    }
     
     override func didReceiveMemoryWarning()	{
 		
@@ -112,8 +95,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 	@IBAction func textFieldDidBeginEditing(_ textField: UITextField) {
 
 		checkError(email: emailField, password: passwordField)
-		emailField.textColor = UIColor.white
-		passwordField.textColor = UIColor.white
+		emailField.textColor = UIColor.black
+		passwordField.textColor = UIColor.black
 		if passwordField.isSecureTextEntry == false {
 			passwordField.isSecureTextEntry = true;
 		}
@@ -158,29 +141,39 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 			emailField.shake(count: 1, for: 0.05, withTranslation: 15)
 		default:
 			//All okay - move forward to authentication
-				
+			
+			// Preventing of creation additional pressing of Login button
+			self.logIn.isEnabled = false;
+			
 			Auth.auth().signIn(withEmail: self.emailField.text!, password: self.passwordField.text!, completion: { (user, error) in
-
-					if user != nil /*&& (user?.isEmailVerified)!*/ {
-						
-						self.hintsLabel.text = ("success! you are in")
-
-						let storyBoard: UIStoryboard = UIStoryboard(name: "Conversations", bundle: nil)
-						if let newViewController = storyBoard.instantiateInitialViewController() {
-							self.present(newViewController, animated: true, completion: nil)
-						}
+				
+				if user != nil /*&& (user?.isEmailVerified)!*/ {
 					
-					} else	{
-						
-						if let myError = error?.localizedDescription {
-							self.hintsLabel.text = myError
-						} else {
-							self.hintsLabel.text = ("confirm your e-mail")
-						}
-
+					self.hintsLabel.text = ("You have succesfuly logged in")
+					self.hintsLabel.textColor = UIColor.green
+					let when = DispatchTime.now() + 0.5
+					DispatchQueue.main.asyncAfter(deadline: when) {
+						self.performSegue(withIdentifier: "showConversations", sender: self)
 					}
+						
+				} else	{
+					
+					// Enabling button to allow making amends due to mistake
+					
+					self.logIn.isEnabled = true;
+
+					if let myError = error?.localizedDescription {
+						self.hintsLabel.text = myError
+						self.hintsLabel.textColor = UIColor.red
+					} else {
+						self.hintsLabel.text = ("Please confirm your e-mail")
+						self.hintsLabel.textColor = UIColor.red
+					}
+
+				}
 			});
 		}
+
 		if self.emailField.isEditing {
 			self.emailField.endEditing(true)
 		}
