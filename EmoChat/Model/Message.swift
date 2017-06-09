@@ -18,11 +18,11 @@ class Message {
     let uid: String?
     let senderId: String!
     let conversation: String!
-    let time: NSDate!
+    let time: Date!
     var content: (type: MessageContentType, content: String)!
 
 
-    init (uid: String, senderId: String, conversation: String, time: NSDate, content: (type: MessageContentType, content: String))
+    init (uid: String, senderId: String, conversation: String, time: Date, content: (type: MessageContentType, content: String))
     {
         self.uid = uid
         self.senderId = senderId
@@ -39,7 +39,7 @@ class Message {
         self.senderId = data?["senderId"] as! String?
         self.conversation = data?["conversation"] as! String?
         let time = data?["time"] as? TimeInterval
-        self.time = (NSDate(timeIntervalSince1970: time!/1000))
+        self.time = (Date(timeIntervalSince1970: time!/1000))
         let media = data?["media"] as? NSDictionary
         if let photo = media?.value(forKey: "photo") {
             self.content = (type: MessageContentType.photo, content: photo as! String)

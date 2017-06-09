@@ -202,10 +202,12 @@ class ManagerFirebase {
     }
     
     func orderListOfConversations (_ array: [Conversation]) -> [Conversation]{
-        var result = [Conversation]()
-        
-        
-        return result
+
+        let sortedArray = array.sorted { (cv1, cv2) -> Bool in
+            return ((cv1.lastMessage?.time.compare((cv2.lastMessage?.time)!)) != nil)
+        }
+ 
+        return sortedArray
     }
     
     /*
@@ -240,7 +242,7 @@ class ManagerFirebase {
                 user = User(email: email, username: username, phoneNumber: phonenumber, firstName: firstname, secondName: secondname, photoURL: photoURL)
                 
                 if let conversationsArrayId = conversationsID?.allKeys {
-                    user?.userConversations = self.getConversetionsFromSnapshot(value, accordingTo: conversationsArrayId as! [String])
+                    user?.userConversations = self.orderListOfConversations(self.getConversetionsFromSnapshot(value, accordingTo: conversationsArrayId as! [String]))
 
                 }
                 
