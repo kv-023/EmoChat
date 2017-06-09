@@ -57,9 +57,9 @@ class User {
 //        self.email = email
 //    }
 
-    func appendConversation(_ newElement: Conversation) {
-        userConversations?.append(newElement)
-    }
+//    func appendConversation(_ newElement: Conversation) {
+//        userConversations?.append(newElement)
+//    }
 
 
 //    //MARK:- func. for FireBase use
