@@ -130,7 +130,7 @@ class ManagerFirebase {
     
     
     
-    private func getConversetionsFromSnapshot (_ value: NSDictionary?, accordingTo arrayID: [String]) -> [Conversation] {
+    private func getConversetionsFromSnapshot (_ value: NSDictionary?, accordingTo arrayID: [String], currentUserEmail email: String) -> [Conversation] {
         var conversations = [Conversation]()
         
         for eachConv in arrayID {
@@ -149,7 +149,25 @@ class ManagerFirebase {
             
             //members in conversation
             let users = self.getUsersFromIDs(ids: conversationSnapshot?["usersInConversation"] as! NSDictionary,value: value)
-            conversations.append(Conversation(conversationId: eachConv, usersInConversation: users, messagesInConversation: nil, lastMessage: lastMessage))
+            
+            let conversation = Conversation(conversationId: eachConv, usersInConversation: users, messagesInConversation: nil, lastMessage: lastMessage)
+            
+            //define the name of conversation
+            var result = ""
+            if let name = conversationSnapshot?["name"] as? String {
+                result = name
+            } else {
+                let membersInConversation = users.filter { $0.email != email }
+                for member in  membersInConversation{
+                    result += "\(member.getNameOrUsername())"
+                    if membersInConversation.count > 1 {
+                        result += ", "
+                    }
+                }
+            }
+            conversation.name = result
+            
+            conversations.append(conversation)
             }
         return conversations
         
@@ -242,7 +260,7 @@ class ManagerFirebase {
                 user = User(email: email, username: username, phoneNumber: phonenumber, firstName: firstname, secondName: secondname, photoURL: photoURL)
                 
                 if let conversationsArrayId = conversationsID?.allKeys {
-                    user?.userConversations = self.orderListOfConversations(self.getConversetionsFromSnapshot(value, accordingTo: conversationsArrayId as! [String]))
+                    user?.userConversations = self.orderListOfConversations(self.getConversetionsFromSnapshot(value, accordingTo: conversationsArrayId as! [String], currentUserEmail: email))
 
                 }
                 
