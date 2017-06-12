@@ -107,7 +107,7 @@
                                     <outlet property="userNameSurnameLabel" destination="Ogb-ue-4Wb" id="Ncy-pW-UeI"/>
                                     <outlet property="userPhoto" destination="IxX-a1-4EV" id="V6t-ww-EeQ"/>
                                     <outlet property="userUsernameLabel" destination="27A-wL-HbE" id="pod-Fj-Gdx"/>
-                                    <segue destination="Hth-hP-5bV" kind="show" id="Z4G-6l-E21"/>
+                                    <segue destination="Hth-hP-5bV" kind="show" identifier="showUserInfo" id="Z4G-6l-E21"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

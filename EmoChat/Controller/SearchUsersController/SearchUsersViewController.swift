@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import CoreFoundation
+import Foundation
 
 enum SearchType: Int {
     case contacts
@@ -33,7 +34,7 @@ class SearchUsersViewController: UITableViewController {
     var filteredUsers: [User] = []
     var searchController: UISearchController!
     var searchType = SearchType.contacts
-
+    var selectedUser: User!
     
     // MARK: - ViewController lifecycle
     override func viewDidLoad() {
@@ -84,7 +85,7 @@ class SearchUsersViewController: UITableViewController {
                 checkmarkedFriends.append(user)
             }
         case .globalUsers:
-            tableView.deselectRow(at: indexPath, animated: true)
+            selectedUser = filteredUsers[indexPath.row]
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
@@ -164,8 +165,8 @@ class SearchUsersViewController: UITableViewController {
             usernames = "\(usernames) \(u.username!), "
         }
         
-        let title = "New Conversation"
-        let message = "Create conversation with \(usernames) ?"
+        let title = NSLocalizedString("New Conversation", comment: "Create new conversation")
+        let message =  NSLocalizedString("Create conversation with \(usernames) ?", comment: "Usernames")
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
         
         let yesAction = UIAlertAction(title: "Yes", style: .default) { (action) in
@@ -176,6 +177,17 @@ class SearchUsersViewController: UITableViewController {
         alert.addAction(noAction)
         
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "showUserInfo"?:
+            //transfer self.selectedUser to the next viewController
+            print("showUserInfo")
+        default:
+            preconditionFailure("Unexpected segue identifier")
+        }
     }
 }
 
@@ -204,7 +216,10 @@ extension SearchUsersViewController: UISearchBarDelegate {
     }
 
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        searchController.searchBar.scopeButtonTitles = ["Contacts", "Global search"]
+        let contactsScope = NSLocalizedString("Contacts", comment: "Contacts search section")
+        let globalScope = NSLocalizedString("Globas search", comment: "Globas search section")
+        searchController.searchBar.scopeButtonTitles = [contactsScope, globalScope]
+        
         return true
     }
 }
