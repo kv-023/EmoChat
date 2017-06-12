@@ -180,8 +180,6 @@ class ManagerFirebase {
             guard let chosenImageData = UIImageJPEGRepresentation(image, 1) else { return }
             
             //create reference
-            
-            
             let imagePath = "userPics/\(uid)/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
             
             let metaData = StorageMetadata()
@@ -219,12 +217,11 @@ class ManagerFirebase {
         }
     }
     
-    func orderListOfConversations (_ array: [Conversation]) -> [Conversation]{
+    func sortListOfConversations (_ array: [Conversation]) -> [Conversation]{
 
         let sortedArray = array.sorted { (cv1, cv2) -> Bool in
             return ((cv1.lastMessage?.time.compare((cv2.lastMessage?.time)!)) != nil)
         }
- 
         return sortedArray
     }
     
@@ -260,7 +257,7 @@ class ManagerFirebase {
                 user = User(email: email, username: username, phoneNumber: phonenumber, firstName: firstname, secondName: secondname, photoURL: photoURL)
                 
                 if let conversationsArrayId = conversationsID?.allKeys {
-                    user?.userConversations = self.orderListOfConversations(self.getConversetionsFromSnapshot(value, accordingTo: conversationsArrayId as! [String], currentUserEmail: email))
+                    user?.userConversations = self.sortListOfConversations(self.getConversetionsFromSnapshot(value, accordingTo: conversationsArrayId as! [String], currentUserEmail: email))
 
                 }
                 
@@ -374,11 +371,9 @@ class ManagerFirebase {
     
     
     func getAllUsersInvolvedInPersonalConversation(result: @escaping (Set<String>) -> Void) {
-        
-        
+
         var setOfUniqueUsersInvolvedInPersonalConversation = Set<String>()
         
-       
             self.getConversationIdFromUser() { arrayOfConversationID in
             for id in arrayOfConversationID {
             
