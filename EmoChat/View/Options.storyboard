@@ -80,7 +80,7 @@
                             </tableViewSection>
                             <tableViewSection id="cqL-Kg-nG1">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="EZU-yv-5Qq">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="EZU-yv-5Qq" customClass="PhoneNumberTableViewCell" customModule="EmoChat" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="189" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EZU-yv-5Qq" id="tgd-eT-RkK">
@@ -113,6 +113,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="phoneNumberLabel" destination="rKL-on-zRp" id="kBI-vL-UZH"/>
                                             <segue destination="mZU-ok-4pv" kind="show" id="v63-qb-8j0"/>
                                         </connections>
                                     </tableViewCell>

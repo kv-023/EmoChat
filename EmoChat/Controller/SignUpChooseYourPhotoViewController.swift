@@ -37,7 +37,7 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
         //create image picker
         let picker = UIImagePickerController()
         picker.delegate = self
-        picker.allowsEditing = false
+        picker.allowsEditing = true
         
         
         //handling image picker sourse type
@@ -74,7 +74,7 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
-        guard let chosenImage = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
+        guard let chosenImage = info[UIImagePickerControllerEditedImage] as? UIImage else { return }
         
         //add image to view
         
@@ -95,8 +95,7 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
         
         //create reference
         
-        let imagePath = Auth.auth().currentUser!.uid +
-        "/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
+        let imagePath = Auth.auth().currentUser!.uid + "/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
         
         let metaData = StorageMetadata()
         metaData.contentType = "image/jpeg"
