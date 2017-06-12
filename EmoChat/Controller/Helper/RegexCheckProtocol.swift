@@ -59,7 +59,7 @@ extension RegexCheckProtocol {
         var flagForReturn = true
 
         if let notNullText = textForAnalyze {
-            let regexLoginPattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
+            let regexLoginPattern = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
             flagForReturn = Regex.isMatchInString(for: regexLoginPattern,
                                                   in: notNullText)
         }

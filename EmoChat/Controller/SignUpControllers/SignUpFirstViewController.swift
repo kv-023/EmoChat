@@ -120,18 +120,22 @@ class SignUpFirstViewController: UIViewController, UITextFieldDelegate, RegexChe
         var success = true
         if username.text == "" {
             usernameLabel.printError(errorText: NSLocalizedString("Enter username", comment: "Empty username"))
+            username.redBorder()
             success = false
         }
         if email.text == "" {
             emailLabel.printError(errorText: NSLocalizedString("Enter email", comment: "Empty email"))
+            email.redBorder()
             success = false
         }
         if password.text != confirmation.text {
             confirmationLabel.printError(errorText: NSLocalizedString("Passwords do not match", comment: "Confirmation is not as password"))
+            confirmation.redBorder()
             success = false
         }
         if password.text == "" {
             passwordLabel.printError(errorText: NSLocalizedString("Enter password", comment: "Empty password"))
+            password.redBorder()
         }
         if success
             && (usernameValid
@@ -143,7 +147,8 @@ class SignUpFirstViewController: UIViewController, UITextFieldDelegate, RegexChe
                 if resultString == "Success" {
                     self.performSegue(withIdentifier: "additional", sender: self)
                 } else {
-                    
+                    self.emailLabel.printError(errorText: resultString)
+                    self.email.redBorder()
                 }
             }
         }
