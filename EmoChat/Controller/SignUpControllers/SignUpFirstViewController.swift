@@ -19,14 +19,15 @@ class SignUpFirstViewController: UIViewController, UITextFieldDelegate, RegexChe
     @IBOutlet weak var passwordLabel: UILabel!
     @IBOutlet weak var confirmationLabel: UILabel!
     @IBOutlet weak var theScrollView: UIScrollView!
+    var manager: ManagerFirebase?
 
     var usernameValid = false {
         didSet {
             if !usernameValid {
-                usernameLabel.printError(errorText: "Enter valid name")
+                usernameLabel.printError(errorText: NSLocalizedString("Enter valid name", comment: "Valid name warning"))
                 username.redBorder()
             } else {
-                usernameLabel.printOK(okText: "User name")
+                usernameLabel.printOK(okText: NSLocalizedString("Username", comment: "Username without warning"))
                 username.whiteBorder()
             }
         }
@@ -35,10 +36,10 @@ class SignUpFirstViewController: UIViewController, UITextFieldDelegate, RegexChe
     var emailValid = false {
         didSet {
             if !emailValid {
-                emailLabel.printError(errorText: "Enter valid email")
+                emailLabel.printError(errorText: NSLocalizedString("Enter valid email", comment: "Valid email warning"))
                 email.redBorder()
             } else {
-                emailLabel.printOK(okText: "Email")
+                emailLabel.printOK(okText: NSLocalizedString("Email", comment: "Email without warning"))
                 email.whiteBorder()
             }
         }
@@ -46,10 +47,10 @@ class SignUpFirstViewController: UIViewController, UITextFieldDelegate, RegexChe
     var passwordValid = false {
         didSet {
             if !passwordValid {
-                passwordLabel.printError(errorText: "Enter valid password")
+                passwordLabel.printError(errorText: NSLocalizedString("Enter valid password", comment: "Valid password warning"))
                 password.redBorder()
             } else {
-                passwordLabel.printOK(okText: "Password")
+                passwordLabel.printOK(okText: NSLocalizedString("Password", comment: "Password without warning"))
                 password.whiteBorder()
             }
         }
@@ -57,10 +58,10 @@ class SignUpFirstViewController: UIViewController, UITextFieldDelegate, RegexChe
     var passwordConfirmationValid = false {
         didSet {
             if !passwordConfirmationValid {
-                confirmationLabel.printError(errorText: "Enter valid password confirmation")
+                confirmationLabel.printError(errorText: NSLocalizedString("Passwords do not match", comment: "Confirmation does not match warning"))
                 confirmation.redBorder()
             } else {
-                confirmationLabel.printOK(okText: "Confirmation")
+                confirmationLabel.printOK(okText: NSLocalizedString("Confirmation", comment: "Confirmation without warning"))
                 confirmation.whiteBorder()
             }
         }
@@ -72,9 +73,12 @@ class SignUpFirstViewController: UIViewController, UITextFieldDelegate, RegexChe
         //Hide keyboard by tap
         self.hideKeyboard()
         
-        //Scroll when keyboard is up
+        //Scroll when keyboard is shown
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+        //Create Firebase manager
+        manager = ManagerFirebase()
     }
     
     func keyboardWillShow(notification:NSNotification){
@@ -115,27 +119,38 @@ class SignUpFirstViewController: UIViewController, UITextFieldDelegate, RegexChe
     @IBAction func nextIsPressed(_ sender: UIButton) {
         var success = true
         if username.text == "" {
-            usernameLabel.printError(errorText: "Enter username")
+            usernameLabel.printError(errorText: NSLocalizedString("Enter username", comment: "Empty username"))
+            username.redBorder()
             success = false
         }
         if email.text == "" {
-            emailLabel.printError(errorText: "Enter email")
+            emailLabel.printError(errorText: NSLocalizedString("Enter email", comment: "Empty email"))
+            email.redBorder()
             success = false
         }
         if password.text != confirmation.text {
-            confirmationLabel.printError(errorText: "Passwords do not match")
+            confirmationLabel.printError(errorText: NSLocalizedString("Passwords do not match", comment: "Confirmation is not as password"))
+            confirmation.redBorder()
             success = false
         }
         if password.text == "" {
-            passwordLabel.printError(errorText: "Enter password")
+            passwordLabel.printError(errorText: NSLocalizedString("Enter password", comment: "Empty password"))
+            password.redBorder()
         }
         if success
             && (usernameValid
                 && emailValid
                 && passwordValid
                 && passwordConfirmationValid) {
-
-            performSegue(withIdentifier: "additional", sender: self)
+            manager?.signUp(email: email.text!, password: password.text!) {
+                resultString in
+                if resultString == "Success" {
+                    self.performSegue(withIdentifier: "additional", sender: self)
+                } else {
+                    self.emailLabel.printError(errorText: resultString)
+                    self.email.redBorder()
+                }
+            }
         }
     }
     

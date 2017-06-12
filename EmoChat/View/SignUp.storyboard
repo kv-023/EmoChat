@@ -52,13 +52,13 @@
                                                         <rect key="frame" x="0.0" y="27" width="220" height="30"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next"/>
                                                         <connections>
                                                             <action selector="usernameEdited:" destination="vOK-ag-Oxs" eventType="editingChanged" id="fGt-Q1-feb"/>
                                                             <outlet property="delegate" destination="vOK-ag-Oxs" id="azF-Kd-bkB"/>
                                                         </connections>
                                                     </textField>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hGF-RW-dHh">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hGF-RW-dHh">
                                                         <rect key="frame" x="0.0" y="67" width="220" height="17"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -68,7 +68,7 @@
                                                         <rect key="frame" x="0.0" y="94" width="220" height="30"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
+                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next"/>
                                                         <connections>
                                                             <action selector="emailEdited:" destination="vOK-ag-Oxs" eventType="editingChanged" id="zV8-b2-eZk"/>
                                                             <outlet property="delegate" destination="vOK-ag-Oxs" id="gxh-bx-srd"/>
@@ -84,7 +84,7 @@
                                                         <rect key="frame" x="0.0" y="161" width="220" height="30"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES"/>
+                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next" secureTextEntry="YES"/>
                                                         <connections>
                                                             <action selector="passwordEdited:" destination="vOK-ag-Oxs" eventType="editingChanged" id="Qfy-i3-15W"/>
                                                             <outlet property="delegate" destination="vOK-ag-Oxs" id="klw-6s-PNW"/>
@@ -100,7 +100,7 @@
                                                         <rect key="frame" x="0.0" y="228" width="220" height="30"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
+                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done" secureTextEntry="YES"/>
                                                         <connections>
                                                             <action selector="confirmationEdited:" destination="vOK-ag-Oxs" eventType="editingChanged" id="bnV-2l-ZXw"/>
                                                             <outlet property="delegate" destination="vOK-ag-Oxs" id="VT9-21-Vjb"/>
