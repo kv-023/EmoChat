@@ -35,7 +35,7 @@ class AdditionalViewController: UIViewController, UITextFieldDelegate, RegexChec
         
         let currentLocale = (Locale.current as NSLocale).object(forKey: .countryCode) as? String
         let countryCode = prefixCodes[currentLocale!]
-        let code = "+" + countryCode! + " "
+        let code = "+" + countryCode!
         
         return code
     }
@@ -75,17 +75,21 @@ class AdditionalViewController: UIViewController, UITextFieldDelegate, RegexChec
     }
     
     @IBAction func phoneNumberChanged(_ sender: UITextField) {
-        let code = getCountryCode()
         
-        if (phoneField.text?.characters.count)! < code.characters.count {
-            phoneField.text = code
+        if (phoneField.text?.characters.count)! == 0 {
+            phoneField.text = "+"
         }
-        phoneField.text = sender.text
+        
+        if phoneIsValid(uname: sender.text) {
+            phoneField.text = sender.text
+            phoneField.whiteBorder()
+        } else {
+            phoneField.redBorder()
+        }
     }
     
     @IBAction func phoneNumberEditingDidBegin(_ sender: UITextField) {
         let code = getCountryCode()
-        
         if (phoneField.text?.characters.count)! < code.characters.count {
             phoneField.text = code
         }

@@ -40,6 +40,20 @@ extension RegexCheckProtocol {
         showInfoSignUp(flagForReturn)
         return flagForReturn
     }
+    
+    func phoneIsValid(uname textForAnalyze: String?) -> Bool {
+        var flagForReturn = true
+        
+        if let notNullText = textForAnalyze {
+            let regexPhonePattern = "^[+0-9][0-9]{0,13}$"
+            flagForReturn = Regex.isMatchInString(for: regexPhonePattern,
+                                                  in: notNullText)
+        }
+        
+        showInfoSignUp(flagForReturn)
+        return flagForReturn
+    }
+    
 
     func emailIsValid(userEmail textForAnalyze: String?) -> Bool {
         var flagForReturn = true
