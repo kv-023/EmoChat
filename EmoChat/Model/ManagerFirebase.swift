@@ -259,6 +259,7 @@ class ManagerFirebase {
         m.getCurrentUser(){ user in
         if let u = user, let fN = u.firstName, let sN = u.secondName{
             self.hintsLabel.text = ("\(fN) \(sN)")
+     
         }
      }
      */
@@ -285,7 +286,6 @@ class ManagerFirebase {
                 
                 if let conversationsArrayId = conversationsID?.allKeys {
                     user?.userConversations = self.sortListOfConversations(self.getConversetionsFromSnapshot(value, accordingTo: conversationsArrayId as! [String], currentUserEmail: email))
-
                 }
                 
                 
@@ -373,7 +373,7 @@ class ManagerFirebase {
        
         
         if let uid = Auth.auth().currentUser?.uid {
-            let ref = Database.database().reference().child("users").child("\(uid)").child("conversation")
+            let ref = Database.database().reference().child("users").child("\(uid)").child("conversations")
             ref.queryOrderedByKey().observe(.value, with: { (snapshot) in
                 if snapshot.exists()
                 {
@@ -386,6 +386,7 @@ class ManagerFirebase {
                         }
                     }
                     getId(arrayOfConversationID)
+                   
                 }
             })
         }
@@ -400,10 +401,8 @@ class ManagerFirebase {
     func getAllUsersInvolvedInPersonalConversation(result: @escaping (Set<String>) -> Void) {
 
         var setOfUniqueUsersInvolvedInPersonalConversation = Set<String>()
-        
             self.getConversationIdFromUser() { arrayOfConversationID in
             for id in arrayOfConversationID {
-            
                 let ref = Database.database().reference().child("conversations").child("\(id)").child("usersInConversation")
                 ref.queryOrderedByKey().observe(.value, with: { (snapshot) in
                     if snapshot.exists() {
