@@ -41,11 +41,24 @@ extension RegexCheckProtocol {
         return flagForReturn
     }
     
+    func lastNameIsValid(uname textForAnalyze: String?) -> Bool {
+        var flagForReturn = true
+        
+        if let notNullText = textForAnalyze {
+            let regexNamePattern = "^[a-zA-Z-']{0,18}$"
+            flagForReturn = Regex.isMatchInString(for: regexNamePattern,
+                                                  in: notNullText)
+        }
+        
+        showInfoSignUp(flagForReturn)
+        return flagForReturn
+    }
+    
     func phoneIsValid(uname textForAnalyze: String?) -> Bool {
         var flagForReturn = true
         
         if let notNullText = textForAnalyze {
-            let regexPhonePattern = "^[+0-9][0-9]{0,13}$"
+            let regexPhonePattern = "^[+0-9]{0,13}$"
             flagForReturn = Regex.isMatchInString(for: regexPhonePattern,
                                                   in: notNullText)
         }
