@@ -42,6 +42,18 @@ class User {
         self.photoURL = data?["photoURL"] as! String?
     }
     
+    func getNameOrUsername () -> String {
+        var result = ""
+        if let firstName = self.firstName {
+            result += firstName
+            if let secondName = self.secondName {
+                result += " \(secondName)"
+            }
+        } else {
+            result += self.username
+        }
+        return result
+    }
 //    init(userId: String, name: String, email: String) {
 //        self.uuid = userId
 //        self.name = name
