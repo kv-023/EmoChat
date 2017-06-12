@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SignUpFirstViewController: UIViewController, RegexCheckProtocol {
+class SignUpFirstViewController: UIViewController, UITextFieldDelegate, RegexCheckProtocol {
 
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var email: UITextField!
@@ -18,6 +18,7 @@ class SignUpFirstViewController: UIViewController, RegexCheckProtocol {
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var passwordLabel: UILabel!
     @IBOutlet weak var confirmationLabel: UILabel!
+    @IBOutlet weak var theScrollView: UIScrollView!
 
     var usernameValid = false {
         didSet {
@@ -28,7 +29,6 @@ class SignUpFirstViewController: UIViewController, RegexCheckProtocol {
                 usernameLabel.printOK(okText: "User name")
                 username.whiteBorder()
             }
-            usernameLabel.isHidden = usernameValid
         }
     }
 
@@ -41,7 +41,6 @@ class SignUpFirstViewController: UIViewController, RegexCheckProtocol {
                 emailLabel.printOK(okText: "Email")
                 email.whiteBorder()
             }
-            emailLabel.isHidden = emailValid
         }
     }
     var passwordValid = false {
@@ -53,7 +52,6 @@ class SignUpFirstViewController: UIViewController, RegexCheckProtocol {
                 passwordLabel.printOK(okText: "Password")
                 password.whiteBorder()
             }
-            passwordLabel.isHidden = passwordValid
         }
     }
     var passwordConfirmationValid = false {
@@ -65,7 +63,6 @@ class SignUpFirstViewController: UIViewController, RegexCheckProtocol {
                 confirmationLabel.printOK(okText: "Confirmation")
                 confirmation.whiteBorder()
             }
-            confirmationLabel.isHidden = passwordConfirmationValid
         }
     }
 
@@ -74,6 +71,25 @@ class SignUpFirstViewController: UIViewController, RegexCheckProtocol {
         
         //Hide keyboard by tap
         self.hideKeyboard()
+        
+        //Scroll when keyboard is up
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    func keyboardWillShow(notification:NSNotification){
+        var userInfo = notification.userInfo!
+        var keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+        keyboardFrame = self.view.convert(keyboardFrame, from: nil)
+        
+        var contentInset:UIEdgeInsets = self.theScrollView.contentInset
+        contentInset.bottom = keyboardFrame.size.height
+        self.theScrollView.contentInset = contentInset
+    }
+    
+    func keyboardWillHide(notification:NSNotification){
+        let contentInset:UIEdgeInsets = UIEdgeInsets.zero
+        self.theScrollView.contentInset = contentInset
     }
 
     override func didReceiveMemoryWarning() {
@@ -99,18 +115,20 @@ class SignUpFirstViewController: UIViewController, RegexCheckProtocol {
     @IBAction func nextIsPressed(_ sender: UIButton) {
         var success = true
         if username.text == "" {
-            usernameLabel.text = "Enter username"
+            usernameLabel.printError(errorText: "Enter username")
             success = false
         }
         if email.text == "" {
-            emailLabel.text = "Enter email"
+            emailLabel.printError(errorText: "Enter email")
             success = false
         }
         if password.text != confirmation.text {
-            confirmationLabel.text = "Passwords do not match"
+            confirmationLabel.printError(errorText: "Passwords do not match")
             success = false
         }
-
+        if password.text == "" {
+            passwordLabel.printError(errorText: "Enter password")
+        }
         if success
             && (usernameValid
                 && emailValid
@@ -119,6 +137,19 @@ class SignUpFirstViewController: UIViewController, RegexCheckProtocol {
 
             performSegue(withIdentifier: "additional", sender: self)
         }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == username {
+            email.becomeFirstResponder()
+        } else if textField == email {
+            password.becomeFirstResponder()
+        } else if textField == password {
+            confirmation.becomeFirstResponder()
+        } else {
+            confirmation.resignFirstResponder()
+        }
+        return true
     }
     
 }
