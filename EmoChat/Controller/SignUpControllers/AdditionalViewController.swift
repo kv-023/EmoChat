@@ -138,14 +138,18 @@ class AdditionalViewController: UIViewController, UITextFieldDelegate, RegexChec
         if textField == firstNameField {
             lastNameField.becomeFirstResponder()
         } else if textField == lastNameField {
-            lastNameField.resignFirstResponder()
+            phoneField.becomeFirstResponder()
         }
 
         return true
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
+        if textField == phoneField {
+        let allowedCharacters = CharacterSet.decimalDigits
+        let characterSet = CharacterSet(charactersIn: string)
+        return allowedCharacters.isSuperset(of: characterSet)
+        }
         return true
     }
     
