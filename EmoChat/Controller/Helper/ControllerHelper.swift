@@ -59,11 +59,11 @@ extension UILabel {
 
     func printError(errorText: String) {
         self.textColor = UIColor.red
-        self.text = errorText
+        self.text = NSLocalizedString(errorText, comment: "error text")
     }
 
     func printOK(okText: String) {
         self.textColor = UIColor.white
-        self.text = okText
+        self.text = NSLocalizedString(okText, comment: "ok text")
     }
 }

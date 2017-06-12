@@ -69,7 +69,7 @@ class AdditionalViewController: UIViewController, UITextFieldDelegate, RegexChec
     @IBAction func firstNameChanged(_ sender: UITextField) {
        
         if nameIsValid(uname: sender.text) {
-            firstNameLabel.text = "First Name"
+            firstNameLabel.text = NSLocalizedString("First Name", comment: "First Name")
             firstNameLabel.textColor = UIColor.white
             firstNameField.whiteBorder()
             
@@ -83,7 +83,7 @@ class AdditionalViewController: UIViewController, UITextFieldDelegate, RegexChec
     @IBAction func lastNameChanged(_ sender: UITextField) {
 
         if nameIsValid(uname: sender.text) {
-            lastNameLabel.text = "Last Name"
+            lastNameLabel.text = NSLocalizedString("Last Name", comment: "Last Name")
             lastNameLabel.textColor = UIColor.white
             lastNameField.whiteBorder()
             
@@ -145,11 +145,13 @@ class AdditionalViewController: UIViewController, UITextFieldDelegate, RegexChec
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
         if textField == phoneField {
         let allowedCharacters = CharacterSet.decimalDigits
         let characterSet = CharacterSet(charactersIn: string)
         return allowedCharacters.isSuperset(of: characterSet)
         }
+        
         return true
     }
     
