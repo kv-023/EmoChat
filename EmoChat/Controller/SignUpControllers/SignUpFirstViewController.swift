@@ -73,7 +73,7 @@ class SignUpFirstViewController: UIViewController, UITextFieldDelegate, RegexChe
         //Hide keyboard by tap
         self.hideKeyboard()
         
-        //Scroll when keyboard is up
+        //Scroll when keyboard is shown
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
         

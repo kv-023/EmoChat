@@ -19,7 +19,7 @@ extension RegexCheckProtocol {
         var flagForReturn = true
 
         if let notNullText = textForAnalyze {
-            let regexLoginPattern = "^[a-zA-Z0-9-]{3,}$"
+            let regexLoginPattern = "^[a-z0-9-]{5,}$"
             flagForReturn = Regex.isMatchInString(for: regexLoginPattern,
                                                        in: notNullText)
         }
@@ -72,7 +72,7 @@ extension RegexCheckProtocol {
         var flagForReturn = true
 
         if let notNullText = textForAnalyze {
-            let regexLoginPattern = "^.{3,}$"
+            let regexLoginPattern = "^.{6,}$"
             flagForReturn = Regex.isMatchInString(for: regexLoginPattern,
                                                   in: notNullText)
         }
