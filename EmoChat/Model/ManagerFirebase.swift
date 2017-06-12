@@ -11,6 +11,33 @@
 import Foundation
 import Firebase
 
+
+enum UserOperationResult
+{
+    case failure(String)
+    case successSingleUser(User)
+    case successArrayOfUsers([User])
+    case success
+}
+
+
+enum ConversationOperationResult
+{
+    case failure(String)
+    case successSingleConversation(Conversation)
+    case successUpdate(Bool)
+    case success
+}
+
+enum MessageOperationResult
+{
+    case failure(String)
+    case successSingleMessage(Message)
+    case successArrayOfMessages([Message])
+    case success
+}
+
+
 class ManagerFirebase {
     
     let ref: DatabaseReference?
