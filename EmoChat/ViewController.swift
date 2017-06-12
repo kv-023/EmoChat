@@ -28,10 +28,16 @@ class ViewController: UIViewController {
     @IBAction func hello(_ sender: UIButton) {
         
         print("set")
-       m?.getAllUsersInvolvedInPersonalConversation() {setU in
+       m?.getFriends() {op in
+        switch op {
+        case let .successArrayOfUsers(users):
+            for u in users {
+                print(u.username)
+            }
         
-           print(setU)
-           
+        default :
+        break
+           }
       }
     }
     

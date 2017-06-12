@@ -398,9 +398,14 @@ class ManagerFirebase {
     
     
     
-    func getAllUsersInvolvedInPersonalConversation(result: @escaping (Set<String>) -> Void) {
-
+    func getAllUsersInvolvedInPersonalConversation(result: @escaping (NSDictionary) -> Void) {
+        var dictResult = [String: Bool]()
         var setOfUniqueUsersInvolvedInPersonalConversation = Set<String>()
+        
+        if let uid = Auth.auth().currentUser?.uid
+        {
+            
+        
             self.getConversationIdFromUser() { arrayOfConversationID in
             for id in arrayOfConversationID {
                 let ref = Database.database().reference().child("conversations").child("\(id)").child("usersInConversation")
@@ -410,15 +415,34 @@ class ManagerFirebase {
                             if usersInConversation.count == 2 // two users - means tet-a-tet (personal) conversation
                             {
                                 for user in usersInConversation {
-                                    setOfUniqueUsersInvolvedInPersonalConversation.insert(user)
+                                    if user != uid {
+                                    let result = setOfUniqueUsersInvolvedInPersonalConversation.insert(user)
+                                    if result.inserted {
+                                        dictResult.updateValue(true, forKey: user)
+                                    }
+                                    }
                                 }
                             }
-                            result(setOfUniqueUsersInvolvedInPersonalConversation)
+                            result(dictResult as NSDictionary)
                         }
                     }
                 })
             }
         }
+    }
+    }
+    
+    func getFriends (result: @escaping (UserOperationResult) -> Void) {
+        self.ref?.observeSingleEvent(of: .value, with: { (snapshot) in
+            let value = snapshot.value as? NSDictionary
+            self.getAllUsersInvolvedInPersonalConversation() {
+                res in
+                result(.successArrayOfUsers(self.getUsersFromIDs(ids: res, value: value)))
+            }
+        
+        })
+        
+        
     }
 }
 
