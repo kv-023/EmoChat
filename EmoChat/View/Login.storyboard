@@ -57,6 +57,7 @@
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
                                 <connections>
                                     <action selector="textFieldDidBeginEditing:" destination="BYZ-38-t0r" eventType="editingDidBegin" id="yai-fi-boB"/>
+                                    <action selector="textFieldDidChange:" destination="BYZ-38-t0r" eventType="editingChanged" id="Mb7-p4-QZs"/>
                                 </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vxy-HU-iRD">
@@ -66,10 +67,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bYC-FF-8D6">
-                                <rect key="frame" x="60" y="184" width="201" height="50"/>
+                                <rect key="frame" x="123" y="184" width="65" height="43"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="PQm-Vu-Jcs"/>
+                                    <constraint firstAttribute="height" constant="43" id="PQm-Vu-Jcs"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="20"/>
                                 <state key="normal" title="SIGN IN">
@@ -102,7 +103,7 @@
                             <constraint firstItem="liz-RL-f33" firstAttribute="bottom" secondItem="g4g-Ca-vAU" secondAttribute="bottom" constant="-3" id="O6C-qg-3iG"/>
                             <constraint firstAttribute="trailing" secondItem="Jsq-gV-I2R" secondAttribute="trailing" id="SRb-kv-jWB"/>
                             <constraint firstItem="Jsq-gV-I2R" firstAttribute="centerX" secondItem="Vp7-IZ-JzE" secondAttribute="centerX" id="THE-q2-2Zu"/>
-                            <constraint firstItem="g4g-Ca-vAU" firstAttribute="trailing" secondItem="bYC-FF-8D6" secondAttribute="trailing" id="Ue3-dT-PxA"/>
+                            <constraint firstItem="g4g-Ca-vAU" firstAttribute="trailing" secondItem="bYC-FF-8D6" secondAttribute="trailing" constant="73" id="Ue3-dT-PxA"/>
                             <constraint firstItem="liz-RL-f33" firstAttribute="top" secondItem="g4g-Ca-vAU" secondAttribute="top" constant="-1" id="VhH-Wn-NJB"/>
                             <constraint firstAttribute="trailingMargin" secondItem="g4g-Ca-vAU" secondAttribute="trailing" constant="43" id="Zdo-D7-xEQ"/>
                             <constraint firstItem="g4g-Ca-vAU" firstAttribute="centerX" secondItem="vxy-HU-iRD" secondAttribute="centerX" id="c5a-TM-Q4s"/>
@@ -110,7 +111,7 @@
                             <constraint firstItem="Vp7-IZ-JzE" firstAttribute="centerX" secondItem="Jsq-gV-I2R" secondAttribute="centerX" id="hA8-Mo-qUB"/>
                             <constraint firstItem="vxy-HU-iRD" firstAttribute="centerX" secondItem="pJg-Fs-pwq" secondAttribute="centerX" id="hNK-3V-Un9"/>
                             <constraint firstItem="liz-RL-f33" firstAttribute="top" secondItem="MgN-Gu-vJX" secondAttribute="bottom" constant="11" id="k3G-vf-5rk"/>
-                            <constraint firstItem="bYC-FF-8D6" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="44" id="lOg-9y-Gc1"/>
+                            <constraint firstItem="bYC-FF-8D6" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="107" id="lOg-9y-Gc1"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="pJg-Fs-pwq" secondAttribute="bottom" constant="14" id="nDC-nW-DmG"/>
                             <constraint firstItem="Vp7-IZ-JzE" firstAttribute="leading" secondItem="MgN-Gu-vJX" secondAttribute="trailing" constant="8" symbolic="YES" id="njA-Hc-iTt"/>
                             <constraint firstItem="pJg-Fs-pwq" firstAttribute="top" secondItem="vxy-HU-iRD" secondAttribute="bottom" constant="-1" id="x5q-57-c8j"/>
@@ -129,7 +130,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-883" y="-342"/>
+            <point key="canvasLocation" x="-883.125" y="-342.25352112676057"/>
         </scene>
         <!--Conversations-->
         <scene sceneID="6nA-kd-UVg">
