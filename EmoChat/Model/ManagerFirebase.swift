@@ -11,6 +11,34 @@
 import Foundation
 import Firebase
 
+
+enum UserOperationResult
+{
+    case failure(String)
+    case successSingleUser(User)
+    case successArrayOfUsers([User])
+    case successUserPic(UIImage)
+    case success
+}
+
+
+enum ConversationOperationResult
+{
+    case failure(String)
+    case successSingleConversation(Conversation)
+    case successUpdate(Bool)
+    case success
+}
+
+enum MessageOperationResult
+{
+    case failure(String)
+    case successSingleMessage(Message)
+    case successArrayOfMessages([Message])
+    case success
+}
+
+
 class ManagerFirebase {
     
     let ref: DatabaseReference?
@@ -24,7 +52,7 @@ class ManagerFirebase {
     /*
         Function to get all(!!!!) messages in conversation. Need to pass conversation's id
      */
-    func getListOfMessages (inConversation uid: String, result: @escaping ([Message]?) -> Void){
+    func getListOfMessages (inConversation uid: String, result: @escaping (MessageOperationResult) -> Void){
             self.ref?.observeSingleEvent(of: .value, with: { (snapshot) in
                 let value = snapshot.value as? NSDictionary
                 var listOfMessages = [Message]()
@@ -36,7 +64,7 @@ class ManagerFirebase {
                         listOfMessages.append(Message(data: messsageDictionary, uid: messageID as? String))
                     }
                 }
-                result(listOfMessages)
+                result(.successArrayOfUsers(listOfMessages))
             })
     }
     
@@ -44,17 +72,17 @@ class ManagerFirebase {
     /*
         You can pass a closure which take the result as a string
      */
-    func logIn (email: String, password: String, result: @escaping (String) -> Void) {
+    func logIn (email: String, password: String, result: @escaping (UserOperationResult) -> Void) {
         Auth.auth().signIn(withEmail: email,
                            password: password,
                            completion: { (user, error) in
                             if user != nil && (user?.isEmailVerified)! {
-                                result("Success")
+                                result(.success)
                             } else {
-                                if let myError = error?.localizedDescription {
-                                    result(myError)
+                                if let err = error?.localizedDescription {
+                                    result(.failure(err))
                                 } else {
-                                    result("Confirm your e-mail")
+                                    result(.failure("Confirm your e-mail"))
                                 }
                             }
         })
@@ -63,19 +91,19 @@ class ManagerFirebase {
     /*
         You can pass a closure which take the result as a string
      */
-    func signUp (email: String, password: String, result: @escaping (String) -> Void) {
+    func signUp (email: String, password: String, result: @escaping (UserOperationResult) -> Void) {
         Auth.auth().createUser(withEmail: email,
                                password: password,
                                completion: { (user, error) in
                                 
                                 if user != nil {
                                     user?.sendEmailVerification(completion: nil) // send verification email
-                                    result("Success")
+                                    result(.success)
                                 } else {
                                     if let err = error?.localizedDescription {
-                                        result(err)
+                                        result(.failure(err))
                                     } else {
-                                        result("Something went wrong")
+                                        result(.failure("Confirm your e-mail"))
                                     }
                                 }
         })
@@ -90,25 +118,31 @@ class ManagerFirebase {
     }
     
     //Add email, uid, username and additional info to database. Call this method after succefull sign up.
-    func addInfoUser (username: String!, phoneNumber: String?, firstName: String?, secondName: String?, photoURL: String?){
-        if let user = Auth.auth().currentUser, user.isEmailVerified == true {
-            let uid = user.uid
-            
-            self.ref?.child("users/\(uid)/username").setValue(username)
-            self.ref?.child("users/\(uid)/email").setValue(user.email)
-            if let pN = phoneNumber{
-                self.ref?.child("users/\(uid)/phoneNumber").setValue(pN)
+    func addInfoUser (username: String!, phoneNumber: String?, firstName: String?, secondName: String?, photoURL: String?, result: @escaping (UserOperationResult) -> Void){
+        if let user = Auth.auth().currentUser {
+            if user.isEmailVerified == true {
+                let uid = user.uid
+                
+                self.ref?.child("users/\(uid)/username").setValue(username)
+                self.ref?.child("users/\(uid)/email").setValue(user.email)
+                if let pN = phoneNumber{
+                    self.ref?.child("users/\(uid)/phoneNumber").setValue(pN)
+                }
+                if let fN = firstName{
+                    self.ref?.child("users/\(uid)/firstName").setValue(fN)
+                }
+                if let sN = secondName{
+                    self.ref?.child("users/\(uid)/secondName").setValue(sN)
+                }
+                if let pURL = photoURL {
+                    self.ref?.child("users/\(uid)/photoURL").setValue(pURL)
+                }
+                result(.success)
+            } else {
+                result(.failure("Email isn't verified"))
             }
-            if let fN = firstName{
-                self.ref?.child("users/\(uid)/firstName").setValue(fN)
-            }
-            if let sN = secondName{
-                self.ref?.child("users/\(uid)/secondName").setValue(sN)
-            }
-            if let pURL = photoURL {
-                self.ref?.child("users/\(uid)/photoURL").setValue(pURL)
-            }
-            
+        } else {
+            result(.failure("User isn't authenticated"))
         }
     }
     
@@ -175,9 +209,11 @@ class ManagerFirebase {
     
     
     
-    func addPhoto (_ image: UIImage) {
+    func addPhoto (_ image: UIImage, result: @escaping (UserOperationResult) -> Void) {
         if let uid = Auth.auth().currentUser?.uid {
-            guard let chosenImageData = UIImageJPEGRepresentation(image, 1) else { return }
+            guard let chosenImageData = UIImageJPEGRepresentation(image, 1) else {
+                result(.failure("Something went wrong"))
+            }
             
             //create reference
             let imagePath = "userPics/\(uid)/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
@@ -190,29 +226,30 @@ class ManagerFirebase {
             self.storageRef.child(imagePath).putData(chosenImageData, metadata: metaData) { (metaData, error) in
                 
                 if error != nil {
-                    print("Error uploading: \(error!)")
+                    result(.failure(error))
                     return
                 } else {
                     self.ref?.child("users/\(uid)/photo").setValue(imagePath)
-                    print("Upload Succeeded!")
+                    result(.success)
 
                 }
             }
+        } else {
+            result(.failure("User isn't authenticated"))
         }
     }
     
-    func getUserPic (from userURL: String, result: @escaping (UIImage?) -> Void) {
+    func getUserPic (from userURL: String, result: @escaping (UserOperationResult?) -> Void) {
         let photoRef = storageRef.child(userURL)
         
         // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
         photoRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
             if let error = error {
-                result(nil)
-                print(error)
+                result(.failure(error))
                 // Uh-oh, an error occurred!
             } else {
                 // Data for "images/island.jpg" is returned
-                result(UIImage(data: data!))
+                result(.successUserPic(UIImage(data: data!)))
             }
         }
     }
@@ -232,10 +269,11 @@ class ManagerFirebase {
         m.getCurrentUser(){ user in
         if let u = user, let fN = u.firstName, let sN = u.secondName{
             self.hintsLabel.text = ("\(fN) \(sN)")
+     
         }
      }
      */
-    func getCurrentUser (getUser: @escaping (User?) -> Void) {
+    func getCurrentUser (getUser: @escaping (UserOperationResult) -> Void) {
         
         if let uid = Auth.auth().currentUser?.uid{
             self.ref?.observeSingleEvent(of: .value, with: { (snapshot) in
@@ -258,52 +296,53 @@ class ManagerFirebase {
                 
                 if let conversationsArrayId = conversationsID?.allKeys {
                     user?.userConversations = self.sortListOfConversations(self.getConversetionsFromSnapshot(value, accordingTo: conversationsArrayId as! [String], currentUserEmail: email))
-
                 }
                 
-                
-                getUser(user)
+                result(.successSingleUser(user))
                 // ...
             }) { (error) in
-                print(error.localizedDescription)
-                getUser(nil)
+                result(.failure(error.localizedDescription))
             }
+        } else {
+            result(.failure("User isn't authenticated"))
         }
     }
     
     
     
 
-    func changeUsersEmail(email: String) {
+    func changeUsersEmail(email: String, result: @escaping (UserOperationResult) -> Void) {
         if let user = Auth.auth().currentUser {
             let uid = user.uid
             self.ref?.child("users/\(uid)/email").setValue(user.email)
-            user.updateEmail(to: email)
-            { error in
+            user.updateEmail(to: email){ error in
                 if error != nil {
-                    print("Something Went Wrong")
+                    result(.failure(("Something Went Wrong")))
                 } else {
-                    print("Email successfully updated")
+                    result(.success)
                 }
             }
+        } else {
+            result(.failure("User isn't authenticated"))
         }
     }
     
-    func checkUserNameUniqness(_ userName: String, result : @escaping (Bool)->Void) {
+    func checkUserNameUniqness(_ userName: String, result : @escaping (UserOperationResult)->Void) {
         
         //let usersRef = Database.database().reference().child("users")
         ref?.child("users").queryOrdered(byChild: "username").queryEqual(toValue: "\(userName)").observeSingleEvent(of: .value , with: {
             snapshot in
             if !snapshot.exists() {
-                print("It seems like this one is free")
-                result(true)
+                //print("It seems like this one is free")
+                result(.success)
             }
             else {
                 print("Taken")
-                result(false)
+                result(.failure("Username is taken"))
             }
         }) { error in
-            print(error.localizedDescription)
+            result(.failure(error.localizedDescription))
+            
         }
 
     }
@@ -328,14 +367,14 @@ class ManagerFirebase {
         
     }
 
-    func changeUsersPassword(password: String) {
+    func changeUsersPassword(password: String, result: @escaping (UserOperationResult) -> Void) {
         let user = Auth.auth().currentUser
         let newPassword = password
         user?.updatePassword(to: newPassword) { error in
             if error != nil {
-                print("An error occured.")
+                result(.failure("An error occured."))
             } else {
-                print("Password changed.")
+                result(.success)
             }
         }
     }
@@ -346,7 +385,7 @@ class ManagerFirebase {
        
         
         if let uid = Auth.auth().currentUser?.uid {
-            let ref = Database.database().reference().child("users").child("\(uid)").child("conversation")
+            let ref = Database.database().reference().child("users").child("\(uid)").child("conversations")
             ref.queryOrderedByKey().observe(.value, with: { (snapshot) in
                 if snapshot.exists()
                 {
@@ -359,6 +398,7 @@ class ManagerFirebase {
                         }
                     }
                     getId(arrayOfConversationID)
+                   
                 }
             })
         }
@@ -370,13 +410,16 @@ class ManagerFirebase {
     
     
     
-    func getAllUsersInvolvedInPersonalConversation(result: @escaping (Set<String>) -> Void) {
-
+    func getAllUsersInvolvedInPersonalConversation(result: @escaping (NSDictionary) -> Void) {
+        var dictResult = [String: Bool]()
         var setOfUniqueUsersInvolvedInPersonalConversation = Set<String>()
+        
+        if let uid = Auth.auth().currentUser?.uid
+        {
+            
         
             self.getConversationIdFromUser() { arrayOfConversationID in
             for id in arrayOfConversationID {
-            
                 let ref = Database.database().reference().child("conversations").child("\(id)").child("usersInConversation")
                 ref.queryOrderedByKey().observe(.value, with: { (snapshot) in
                     if snapshot.exists() {
@@ -384,15 +427,34 @@ class ManagerFirebase {
                             if usersInConversation.count == 2 // two users - means tet-a-tet (personal) conversation
                             {
                                 for user in usersInConversation {
-                                    setOfUniqueUsersInvolvedInPersonalConversation.insert(user)
+                                    if user != uid {
+                                    let result = setOfUniqueUsersInvolvedInPersonalConversation.insert(user)
+                                    if result.inserted {
+                                        dictResult.updateValue(true, forKey: user)
+                                    }
+                                    }
                                 }
                             }
-                            result(setOfUniqueUsersInvolvedInPersonalConversation)
+                            result(dictResult as NSDictionary)
                         }
                     }
                 })
             }
         }
+    }
+    }
+    
+    func getFriends (result: @escaping (UserOperationResult) -> Void) {
+        self.ref?.observeSingleEvent(of: .value, with: { (snapshot) in
+            let value = snapshot.value as? NSDictionary
+            self.getAllUsersInvolvedInPersonalConversation() {
+                res in
+                result(.successArrayOfUsers(self.getUsersFromIDs(ids: res, value: value)))
+            }
+        
+        })
+        
+        
     }
 }
 
