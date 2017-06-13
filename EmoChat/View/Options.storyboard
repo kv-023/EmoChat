@@ -435,17 +435,17 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <outlet property="changeNumberTextField" destination="lqs-L4-NsD" id="HAf-3L-Ld7"/>
+                        <outlet property="changeNumberTextField" destination="lqs-L4-NsD" id="rB3-Do-ldz"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8h4-V3-S5W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3548" y="138.98050974512745"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Options Change User Name Table View Controller-->
         <scene sceneID="xx3-9S-SF7">
             <objects>
-                <tableViewController id="pBm-Yw-aSi" sceneMemberID="viewController">
+                <tableViewController id="pBm-Yw-aSi" customClass="OptionsChangeUserNameTableViewController" customModule="EmoChat" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="k0k-F7-Fk8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -484,6 +484,9 @@
                             <outlet property="delegate" destination="pBm-Yw-aSi" id="UDa-RD-FEQ"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="changeUserNameTextField" destination="hWM-bm-EKQ" id="Mkw-Me-5Pt"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vr9-q1-hEN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
