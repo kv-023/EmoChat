@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vOK-ag-Oxs">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="xD1-EM-0KW">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -263,7 +263,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="question_mark" translatesAutoresizingMaskIntoConstraints="NO" id="7uM-tU-baj">
-                                                <rect key="frame" x="87.5" y="118" width="200" height="200"/>
+                                                <rect key="frame" x="60" y="118" width="200" height="200"/>
                                                 <gestureRecognizers/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="7uM-tU-baj" secondAttribute="height" multiplier="1:1" id="5xv-c4-wma"/>
@@ -317,20 +317,6 @@
                                                     </label>
                                                 </subviews>
                                             </stackView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="question_mark" translatesAutoresizingMaskIntoConstraints="NO" id="Mqy-s1-tuL">
-                                                <rect key="frame" x="60" y="118" width="200" height="200"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="200" id="3Vu-GN-fvT"/>
-                                                    <constraint firstAttribute="width" secondItem="Mqy-s1-tuL" secondAttribute="height" multiplier="1:1" id="WZW-ep-d4X"/>
-                                                    <constraint firstAttribute="width" constant="200" id="ZN2-ks-Ydp"/>
-                                                </constraints>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <integer key="value" value="100"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskssToBounds" value="YES"/>
-                                                </userDefinedRuntimeAttributes>
-                                            </imageView>
                                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" currentPage="2" translatesAutoresizingMaskIntoConstraints="NO" id="us5-pO-cbC">
                                                 <rect key="frame" x="140.5" y="505" width="39" height="37"/>
                                             </pageControl>
@@ -632,6 +618,6 @@
         <image name="question_mark" width="980" height="980"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="dDN-nd-M7X"/>
+        <segue reference="6op-yY-Gih"/>
     </inferredMetricsTieBreakers>
 </document>
