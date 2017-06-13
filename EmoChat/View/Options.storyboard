@@ -294,10 +294,10 @@
             </objects>
             <point key="canvasLocation" x="2607" y="656"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Options Change Photo Name Second Name Table View Controller-->
         <scene sceneID="4xs-iN-MGP">
             <objects>
-                <tableViewController id="kBM-hl-kZF" sceneMemberID="viewController">
+                <tableViewController id="kBM-hl-kZF" customClass="OptionsChangePhotoNameSecondNameTableViewController" customModule="EmoChat" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="hhn-7Q-WBH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -388,6 +388,11 @@
                             <outlet property="delegate" destination="kBM-hl-kZF" id="CJz-oB-X5x"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="nameTextField" destination="Aoe-Lr-vZC" id="WA5-Bd-fBT"/>
+                        <outlet property="secondNameTextField" destination="Wry-yp-yhp" id="Mck-OO-r0y"/>
+                        <outlet property="userPhotoView" destination="q3a-Uf-o0d" id="gFG-jo-rXV"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kdA-Ft-LfL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
