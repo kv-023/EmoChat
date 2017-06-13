@@ -275,7 +275,10 @@
                     </tableView>
                     <connections>
                         <outlet property="emailLabel" destination="eDC-oi-k7P" id="lZo-3O-HnQ"/>
+                        <outlet property="nameAndSecondNameLabel" destination="tdm-tr-667" id="m5v-If-IxZ"/>
                         <outlet property="phoneNumberLabel" destination="rKL-on-zRp" id="qm2-Uq-slb"/>
+                        <outlet property="statusLabel" destination="m4L-az-jUJ" id="cht-gU-5hW"/>
+                        <outlet property="userImageView" destination="lfS-PP-2hd" id="Ugd-Zu-N2Y"/>
                         <outlet property="userNameLabel" destination="Ytb-Uk-iS4" id="YUz-XI-Itf"/>
                     </connections>
                 </tableViewController>

@@ -78,12 +78,15 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
         
         //add image to view
         
+        
+        
         userPhotoView.contentMode = .scaleAspectFill
         userPhotoView.clipsToBounds = true
         userPhotoView.layer.cornerRadius = userPhotoView.frame.width/2
         userPhotoView.image = chosenImage
         
         //add image to firebase
+        
         
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
