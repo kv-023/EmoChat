@@ -120,7 +120,6 @@ class ManagerFirebase {
     //Add email, uid, username and additional info to database. Call this method after succefull sign up.
     func addInfoUser (username: String!, phoneNumber: String?, firstName: String?, secondName: String?, photoURL: String?, result: @escaping (UserOperationResult) -> Void){
         if let user = Auth.auth().currentUser {
-            if user.isEmailVerified == true {
                 let uid = user.uid
                 
                 self.ref?.child("users/\(uid)/username").setValue(username)
@@ -138,9 +137,6 @@ class ManagerFirebase {
                     self.ref?.child("users/\(uid)/photoURL").setValue(pURL)
                 }
                 result(.success)
-            } else {
-                result(.failure("Email isn't verified"))
-            }
         } else {
             result(.failure("User isn't authenticated"))
         }
