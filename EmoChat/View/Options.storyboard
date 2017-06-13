@@ -440,7 +440,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8h4-V3-S5W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3548" y="138.98050974512745"/>
+            <point key="canvasLocation" x="4385" y="-113"/>
         </scene>
         <!--Options Change User Name Table View Controller-->
         <scene sceneID="xx3-9S-SF7">
@@ -490,12 +490,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vr9-q1-hEN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4306" y="139"/>
+            <point key="canvasLocation" x="4367" y="656"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Options Change Email Table View Controller-->
         <scene sceneID="6Jk-2M-eQk">
             <objects>
-                <tableViewController id="Ne3-0g-hLd" sceneMemberID="viewController">
+                <tableViewController id="Ne3-0g-hLd" customClass="OptionsChangeEmailTableViewController" customModule="EmoChat" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Rbt-Mb-g7D">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -558,10 +558,13 @@
                             <outlet property="delegate" destination="Ne3-0g-hLd" id="OgR-tJ-7Zb"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="changeEmailTextField" destination="CUU-vZ-7Mh" id="qUZ-BB-fcD"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3lO-Li-Sa6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3548" y="831.63418290854577"/>
+            <point key="canvasLocation" x="3249" y="1173"/>
         </scene>
         <!--Confirmation-->
         <scene sceneID="8BD-0D-Fya">
@@ -569,7 +572,7 @@
                 <viewControllerPlaceholder storyboardIdentifier="confirmation" storyboardName="Confirmation" id="NNJ-U7-dzq" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TDI-8O-Tvv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4305" y="831"/>
+            <point key="canvasLocation" x="4202" y="1374"/>
         </scene>
     </scenes>
     <resources>

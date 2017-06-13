@@ -10,7 +10,6 @@ import UIKit
 
 class OptionsMainPageTableViewController: UITableViewController {
     
-    
     @IBOutlet weak var userImageView: UIImageView!
     
     @IBOutlet weak var nameAndSecondNameLabel: UILabel!
