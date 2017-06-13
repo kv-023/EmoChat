@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vOK-ag-Oxs">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="xD1-EM-0KW">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -241,10 +241,10 @@
             </objects>
             <point key="canvasLocation" x="1468" y="-147.07646176911544"/>
         </scene>
-        <!--View Controller-->
+        <!--Sign Up Choose Your Photo View Controller-->
         <scene sceneID="PCD-Qx-5TO">
             <objects>
-                <viewController restorationIdentifier="signUpPhoto" storyboardIdentifier="signUpPhoto" id="xD1-EM-0KW" sceneMemberID="viewController">
+                <viewController restorationIdentifier="signUpPhoto" storyboardIdentifier="signUpPhoto" id="xD1-EM-0KW" customClass="SignUpChooseYourPhotoViewController" customModule="EmoChat" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="IJC-Yf-eEz"/>
                         <viewControllerLayoutGuide type="bottom" id="u6i-T2-ybV"/>
@@ -262,6 +262,19 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NBe-gg-5gN">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                                         <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="question_mark" translatesAutoresizingMaskIntoConstraints="NO" id="7uM-tU-baj">
+                                                <rect key="frame" x="60" y="118" width="200" height="200"/>
+                                                <gestureRecognizers/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="7uM-tU-baj" secondAttribute="height" multiplier="1:1" id="5xv-c4-wma"/>
+                                                    <constraint firstAttribute="width" constant="200" id="Nas-7i-uRq"/>
+                                                    <constraint firstAttribute="height" constant="200" id="yA7-zD-ZXv"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="zaG-Bv-2rT" appends="YES" id="KN5-qg-Cfy"/>
+                                                    <outletCollection property="gestureRecognizers" destination="zaG-Bv-2rT" appends="YES" id="fQc-xq-gBm"/>
+                                                </connections>
+                                            </imageView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="TGS-mu-dPX">
                                                 <rect key="frame" x="50" y="502" width="220" height="36"/>
                                                 <subviews>
@@ -304,20 +317,6 @@
                                                     </label>
                                                 </subviews>
                                             </stackView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="question_mark" translatesAutoresizingMaskIntoConstraints="NO" id="Mqy-s1-tuL">
-                                                <rect key="frame" x="60" y="118" width="200" height="200"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="200" id="3Vu-GN-fvT"/>
-                                                    <constraint firstAttribute="width" secondItem="Mqy-s1-tuL" secondAttribute="height" multiplier="1:1" id="WZW-ep-d4X"/>
-                                                    <constraint firstAttribute="width" constant="200" id="ZN2-ks-Ydp"/>
-                                                </constraints>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <integer key="value" value="100"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskssToBounds" value="YES"/>
-                                                </userDefinedRuntimeAttributes>
-                                            </imageView>
                                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" currentPage="2" translatesAutoresizingMaskIntoConstraints="NO" id="us5-pO-cbC">
                                                 <rect key="frame" x="140.5" y="505" width="39" height="37"/>
                                             </pageControl>
@@ -329,9 +328,9 @@
                                             <constraint firstAttribute="trailing" secondItem="TGS-mu-dPX" secondAttribute="trailing" constant="50" id="5S2-W3-yaV"/>
                                             <constraint firstAttribute="height" constant="420" id="8Gp-rL-Vvb"/>
                                             <constraint firstItem="TGS-mu-dPX" firstAttribute="leading" secondItem="NBe-gg-5gN" secondAttribute="leading" constant="50" id="BED-if-rLD"/>
-                                            <constraint firstItem="Mqy-s1-tuL" firstAttribute="top" secondItem="AM9-EK-ARo" secondAttribute="bottom" constant="40" id="eNi-Ss-Mjf"/>
+                                            <constraint firstItem="7uM-tU-baj" firstAttribute="centerX" secondItem="NBe-gg-5gN" secondAttribute="centerX" id="P51-lT-MdS"/>
                                             <constraint firstItem="AM9-EK-ARo" firstAttribute="top" secondItem="NBe-gg-5gN" secondAttribute="top" constant="20" id="gOa-mu-6Dw"/>
-                                            <constraint firstItem="Mqy-s1-tuL" firstAttribute="centerX" secondItem="NBe-gg-5gN" secondAttribute="centerX" id="grQ-WS-gMT"/>
+                                            <constraint firstItem="7uM-tU-baj" firstAttribute="top" secondItem="AM9-EK-ARo" secondAttribute="bottom" constant="40" id="kfw-1O-tx7"/>
                                             <constraint firstItem="us5-pO-cbC" firstAttribute="centerX" secondItem="NBe-gg-5gN" secondAttribute="centerX" id="qYX-sn-b0j"/>
                                             <constraint firstItem="AM9-EK-ARo" firstAttribute="centerX" secondItem="NBe-gg-5gN" secondAttribute="centerX" id="yd8-IJ-fj7"/>
                                         </constraints>
@@ -386,8 +385,16 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="uM5-zM-qrS"/>
+                    <connections>
+                        <outlet property="userPhotoView" destination="7uM-tU-baj" id="fNa-Jw-fho"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PYM-Oc-bSf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="zaG-Bv-2rT">
+                    <connections>
+                        <action selector="addPhotoTap:" destination="xD1-EM-0KW" id="m84-q2-Y3H"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3120.8000000000002" y="-146.17691154422789"/>
         </scene>
@@ -611,6 +618,6 @@
         <image name="question_mark" width="980" height="980"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="dDN-nd-M7X"/>
+        <segue reference="6op-yY-Gih"/>
     </inferredMetricsTieBreakers>
 </document>
