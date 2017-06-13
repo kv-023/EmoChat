@@ -11,16 +11,58 @@ import FirebaseDatabase
 import FirebaseAuth
 
 class ViewController: UIViewController {
+    
+    
 
-    var ref: DatabaseReference?
+   //var ref: DatabaseReference?
+    var m: ManagerFirebase?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        m  = ManagerFirebase();
         // Do any additional setup after loading the view, typically from a nib.
     }
 
-    @IBAction func testFirebase(_ sender: Any) {
 
+    
+    @IBAction func hello(_ sender: UIButton) {
+        
+        print("set")
+       m?.getAllUsersInvolvedInPersonalConversation() {setU in
+        
+           print(setU)
+           
+      }
+    }
+    
+   
+    
+    
+    
+    
+    @IBAction func testFirebase(_ sender: Any) {
+        
+        m?.getCurrentUser(){ user in
+            self.m?.getListOfMessages(inConversation: (user?.userConversations?.first?.uuid)!) {list in
+                if let message = list?.first {
+                    print(message.content!.content)
+                }
+            }
+        }
+        
+        
+        m?.filterUsers(with: "olg"){array in
+            for u in array {
+                print(u.username)
+            }
+        }
+        m?.filterUsers(with: "b"){array in
+            for u in array {
+                print(u.username)
+            }
+        }
+//        m?.filterUsers(with: "b", from: 5, withCount: 5)
+        
 //        ref = FIRDatabase.database().reference()
 //
 //        let tempUser:Users = Users(userId: "3", name: "srg", email: "srdg")
@@ -37,12 +79,12 @@ class ViewController: UIViewController {
 //                                         sender: tempUser.name, conversation: tempConversation.conversationId)
 //        ref?.child("Message").childByAutoId().setValue(tempMessage.messageId)
 
-        ref = Database.database().reference()
-
-        let tempUser:User = User(userId: "userID123", name: "Galja", email: "galja@ukr.net")
-        let tempUser2:User = User(userId: "userID009", name: "Petja", email: "petja@gmail.com")
-
-        let usersInArray = [tempUser,tempUser2];
+//        ref = Database.database().reference()
+//
+//        let tempUser:User = User(userId: "userID123", name: "Galja", email: "galja@ukr.net")
+//        let tempUser2:User = User(userId: "userID009", name: "Petja", email: "petja@gmail.com")
+//
+//        let usersInArray = [tempUser,tempUser2];
 //        var arrayData:[Any] = []
 //        for item in usersInArray {
 //            arrayData.append(item.toAnyObject())
@@ -61,36 +103,36 @@ class ViewController: UIViewController {
 //        ref2?.child("Users").setValue(tempUser2.toAnyObject())// for test only
 
 
-        let tempConversation:Conversation = Conversation(conversationId: "conversationId-456", usersInConversation: usersInArray)
+       // let tempConversation:Conversation = Conversation(conversationId: "conversationId-456", usersInConversation: usersInArray)
 
 //        ref?.child("Conversation").childByAutoId().setValue(tempConversation.conversationId)
  //       ref?.child("Conversation").setValue(tempConversation.toAnyObject())
 
 
-        let tempMessage:Message = Message(messageId: "messageId-789",
-                                            sender: tempUser, conversation: tempConversation.uuid)
-        tempMessage.messageText = "hello world!"
-
-        ref?.child("Message").setValue(tempMessage.toAnyObject())
-
+//        let tempMessage:Message = Message(messageId: "messageId-789",
+//                                            sender: tempUser, conversation: tempConversation.uuid)
+//        tempMessage.messageText = "hello world!"
+//
+//        ref?.child("Message").setValue(tempMessage.toAnyObject())
+//
 //        tempUser.appendConversation(tempConversation)
 //        tempUser2.appendConversation(tempConversation)
-        if let notNullUsersInConversation = tempConversation.usersInConversation {
-            for itemUserConversation in notNullUsersInConversation {
-                if let itemUserConversation = itemUserConversation {
-                    itemUserConversation.appendConversation(tempConversation)
-                }
-            }
-        }
-
-
-
-
-        ref?.child("User").setValue(User.toAnyObject(users: usersInArray))
-        
-        tempConversation.appendMessage(tempMessage)
-        ref?.child("Conversation").setValue(tempConversation.toAnyObject())
-
+//        if let notNullUsersInConversation = tempConversation.usersInConversation {
+//            for itemUserConversation in notNullUsersInConversation {
+//                if let itemUserConversation = itemUserConversation {
+//                    itemUserConversation.appendConversation(tempConversation)
+//                }
+//            }
+//        }
+//
+//
+//
+//
+//        ref?.child("User").setValue(User.toAnyObject(users: usersInArray))
+//        
+//        tempConversation.appendMessage(tempMessage)
+//        ref?.child("Conversation").setValue(tempConversation.toAnyObject())
+//
 
     }
 
@@ -98,6 +140,11 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
         //
+    }
+    //check manager
+    @IBAction func touchCheck(_ sender: Any) {
+        
+        m?.addInfoUser(username: "olgasaliy", phoneNumber: "39999999", firstName: "Olga", secondName: "Saliy", photoURL: nil)
     }
     ////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////
@@ -153,6 +200,10 @@ class ViewController: UIViewController {
 ////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////LOGIN END//////////////////////////////////////
+
+
+
+
 
 
 
