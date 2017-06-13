@@ -117,7 +117,7 @@ class SignUpFirstViewController: UIViewController, UITextFieldDelegate, RegexChe
     }
 
     @IBAction func nextIsPressed(_ sender: UIButton) {
-        var success = true
+        var success = true, unique = true
         if username.text == "" {
             usernameLabel.printError(errorText: NSLocalizedString("Enter username", comment: "Empty username"))
             username.redBorder()
@@ -144,12 +144,22 @@ class SignUpFirstViewController: UIViewController, UITextFieldDelegate, RegexChe
                 && passwordConfirmationValid) {
             manager?.signUp(email: email.text!, password: password.text!) {
                 resultString in
-                if resultString == "Success" {
-                    self.performSegue(withIdentifier: "additional", sender: self)
-                } else {
+                if resultString != "Success" {
                     self.emailLabel.printError(errorText: resultString)
                     self.email.redBorder()
+                    unique = false
                 }
+            }
+            manager?.checkUserNameUniqness(username.text!) {
+                usernameResult in
+                if !usernameResult {
+                    self.username.redBorder()
+                    self.emailLabel.printError(errorText: "Username already exists")
+                    unique = false
+                }
+            }
+            if unique {
+                performSegue(withIdentifier: "additional", sender: self)
             }
         }
     }
