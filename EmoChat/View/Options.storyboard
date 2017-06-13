@@ -14,7 +14,7 @@
         <!--Options Main Page Table View Controller-->
         <scene sceneID="0ht-Fh-LYI">
             <objects>
-                <tableViewController storyboardIdentifier="options" id="DMc-tV-ehN" customClass="OptionsMainPageTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="options" id="DMc-tV-ehN" customClass="OptionsMainPageTableViewController" customModule="EmoChat" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="gc0-UG-MiM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -113,7 +113,6 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="phoneNumberLabel" destination="rKL-on-zRp" id="kBI-vL-UZH"/>
                                             <segue destination="mZU-ok-4pv" kind="show" id="v63-qb-8j0"/>
                                         </connections>
                                     </tableViewCell>
@@ -274,6 +273,11 @@
                             <outlet property="delegate" destination="DMc-tV-ehN" id="Yif-En-zhF"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="emailLabel" destination="eDC-oi-k7P" id="lZo-3O-HnQ"/>
+                        <outlet property="phoneNumberLabel" destination="rKL-on-zRp" id="qm2-Uq-slb"/>
+                        <outlet property="userNameLabel" destination="Ytb-Uk-iS4" id="YUz-XI-Itf"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fUl-a9-NPl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

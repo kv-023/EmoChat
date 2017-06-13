@@ -14,7 +14,6 @@
 		3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */; };
 		746478FA29F53658399EE02D /* Pods_EmoChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */; };
 		A34710AC1EEAC6DE00E513BE /* OptionsMainPageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34710AB1EEAC6DE00E513BE /* OptionsMainPageTableViewController.swift */; };
-		A34710B51EEE887000E513BE /* PhoneNumberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34710B41EEE887000E513BE /* PhoneNumberTableViewCell.swift */; };
 		A3E99AFF1EE6DCA70052A90C /* SignUpChooseYourPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E99AFE1EE6DCA70052A90C /* SignUpChooseYourPhotoViewController.swift */; };
 		E7352C261EDED52B0095264E /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C211EDED52B0095264E /* Conversation.swift */; };
 		E7352C271EDED52B0095264E /* Auxiliary.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C231EDED52B0095264E /* Auxiliary.swift */; };
@@ -45,7 +44,6 @@
 		5E5B970584D3FF3821DB6225 /* Pods-EmoChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmoChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmoChat/Pods-EmoChat.release.xcconfig"; sourceTree = "<group>"; };
 		6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmoChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A34710AB1EEAC6DE00E513BE /* OptionsMainPageTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsMainPageTableViewController.swift; sourceTree = "<group>"; };
-		A34710B41EEE887000E513BE /* PhoneNumberTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhoneNumberTableViewCell.swift; path = Controller/OptionsViewControllerCells/PhoneNumberTableViewCell.swift; sourceTree = "<group>"; };
 		A3E99AFE1EE6DCA70052A90C /* SignUpChooseYourPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpChooseYourPhotoViewController.swift; sourceTree = "<group>"; };
 		E701EB98A17F8F7EB9DF59EA /* Pods-EmoChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmoChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EmoChat/Pods-EmoChat.debug.xcconfig"; sourceTree = "<group>"; };
 		E7352C211EDED52B0095264E /* Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
@@ -123,15 +121,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		A34710AF1EEE858100E513BE /* OptionsViewControllerCells */ = {
-			isa = PBXGroup;
-			children = (
-				A34710B41EEE887000E513BE /* PhoneNumberTableViewCell.swift */,
-			);
-			name = OptionsViewControllerCells;
-			path = ..;
-			sourceTree = "<group>";
-		};
 		E7352C201EDED52B0095264E /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -164,13 +153,13 @@
 		FB982DCB1EE1569700AC2FCD /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FB982DD21EE1569700AC2FCD /* SignUp.storyboard */,
 				FB982DCC1EE1569700AC2FCD /* ChatSettings.storyboard */,
 				FB982DCD1EE1569700AC2FCD /* Confirmation.storyboard */,
 				FB982DCE1EE1569700AC2FCD /* Conversations.storyboard */,
 				FB982DCF1EE1569700AC2FCD /* Login.storyboard */,
 				FB982DD01EE1569700AC2FCD /* Options.storyboard */,
 				FB982DD11EE1569700AC2FCD /* SearchUsers.storyboard */,
-				FB982DD21EE1569700AC2FCD /* SignUp.storyboard */,
 				FB982DD31EE1569700AC2FCD /* SingleConversation.storyboard */,
 				FB982DD41EE1569700AC2FCD /* UserInfo.storyboard */,
 			);
@@ -180,7 +169,6 @@
 		FB982DDE1EE156B700AC2FCD /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				A34710AF1EEE858100E513BE /* OptionsViewControllerCells */,
 				A34710AB1EEAC6DE00E513BE /* OptionsMainPageTableViewController.swift */,
 				FB982DDF1EE156B700AC2FCD /* LoginViewController.swift */,
 				A3E99AFE1EE6DCA70052A90C /* SignUpChooseYourPhotoViewController.swift */,
@@ -337,7 +325,6 @@
 				E7352C291EDED52B0095264E /* User.swift in Sources */,
 				E7352C2B1EE0139E0095264E /* ModelGenericHelper.swift in Sources */,
 				3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */,
-				A34710B51EEE887000E513BE /* PhoneNumberTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
