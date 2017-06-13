@@ -13,6 +13,8 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
     
     @IBOutlet weak var userPhotoView: UIImageView!
     var storageRef: StorageReference!
+    var username: String?
+    var manager: ManagerFirebase?
     
     
     override func viewDidLoad() {
@@ -24,6 +26,7 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
         self.userPhotoView.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTaped))
         self.userPhotoView.addGestureRecognizer(tapGesture)
+        manager = ManagerFirebase()
         
     }
     

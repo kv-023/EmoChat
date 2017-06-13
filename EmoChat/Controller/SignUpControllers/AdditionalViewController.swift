@@ -184,4 +184,11 @@ class AdditionalViewController: UIViewController, UITextFieldDelegate, RegexChec
         return true
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "choosePhoto" {
+            let destination:SignUpChooseYourPhotoViewController = segue.destination as! SignUpChooseYourPhotoViewController
+            destination.username = username
+        }
+    }
+    
 }
