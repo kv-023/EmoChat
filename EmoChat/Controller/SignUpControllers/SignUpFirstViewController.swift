@@ -187,4 +187,11 @@ class SignUpFirstViewController: UIViewController, UITextFieldDelegate, RegexChe
         return true
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "additional" {
+            let destination:AdditionalViewController = segue.destination as! AdditionalViewController
+            destination.username = username.text
+        }
+    }
+    
 }
