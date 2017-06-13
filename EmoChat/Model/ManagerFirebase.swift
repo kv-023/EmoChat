@@ -380,7 +380,7 @@ class ManagerFirebase {
     
     func changeUsersPassword(password: String, result: @escaping (UserOperationResult) -> Void) {
         if let user = Auth.auth().currentUser {
-            user?.updatePassword(to: password) { error in
+            user.updatePassword(to: password) { error in
                 if error != nil {
                     result(.failure("An error occured."))
                 } else {
