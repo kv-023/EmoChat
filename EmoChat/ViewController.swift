@@ -17,6 +17,9 @@ class ViewController: UIViewController {
    //var ref: DatabaseReference?
     var m: ManagerFirebase?
 
+    @IBAction func regexTestButtoPressed(_ sender: UIButton) {
+        regexTest()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         m  = ManagerFirebase();
@@ -27,12 +30,18 @@ class ViewController: UIViewController {
     
     @IBAction func hello(_ sender: UIButton) {
         
-        print("set")
-       m?.getAllUsersInvolvedInPersonalConversation() {setU in
-        
-           print(setU)
-           
-      }
+//        print("set")
+//       m?.getFriends() {op in
+//        switch op {
+//        case let .successArrayOfUsers(users):
+//            for u in users {
+//                print(u.username)
+//            }
+//        
+//        default :
+//        break
+//           }
+//      }
     }
     
    
@@ -42,25 +51,25 @@ class ViewController: UIViewController {
     
     @IBAction func testFirebase(_ sender: Any) {
         
-        m?.getCurrentUser(){ user in
-            self.m?.getListOfMessages(inConversation: (user?.userConversations?.first?.uuid)!) {list in
-                if let message = list?.first {
-                    print(message.content!.content)
-                }
-            }
-        }
-        
-        
-        m?.filterUsers(with: "olg"){array in
-            for u in array {
-                print(u.username)
-            }
-        }
-        m?.filterUsers(with: "b"){array in
-            for u in array {
-                print(u.username)
-            }
-        }
+//        m?.getCurrentUser(){ user in
+//            self.m?.getListOfMessages(inConversation: (user?.userConversations?.first?.uuid)!) {list in
+//                if let message = list?.first {
+//                    print(message.content!.content)
+//                }
+//            }
+//        }
+//        
+//        
+//        m?.filterUsers(with: "olg"){array in
+//            for u in array {
+//                print(u.username)
+//            }
+//        }
+//        m?.filterUsers(with: "b"){array in
+//            for u in array {
+//                print(u.username)
+//            }
+//        }
 //        m?.filterUsers(with: "b", from: 5, withCount: 5)
         
 //        ref = FIRDatabase.database().reference()
@@ -144,7 +153,7 @@ class ViewController: UIViewController {
     //check manager
     @IBAction func touchCheck(_ sender: Any) {
         
-        m?.addInfoUser(username: "olgasaliy", phoneNumber: "39999999", firstName: "Olga", secondName: "Saliy", photoURL: nil)
+//        m?.addInfoUser(username: "olgasaliy", phoneNumber: "39999999", firstName: "Olga", secondName: "Saliy", photoURL: nil)
     }
     ////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////
@@ -194,16 +203,28 @@ class ViewController: UIViewController {
             }
         }
     }
-}
-
-
 ////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////LOGIN END//////////////////////////////////////
 
+//MARK:- Regex expression
 
+    func regexTest() {
 
+        let arrayOfTestedData = ["BlaBlaBla", "Bla_Bla%Bla"]
+        let regexLoginPattern = "^[a-zA-Z0-9-]*$"
 
+        for itemInArray in arrayOfTestedData {
+            let strinIsMatched = Regex.isMatchInString(for: regexLoginPattern, in: itemInArray)
+            print ("string is matched: \(strinIsMatched)")
+            
+        }
+        
+        
+        
+    }
+    
+}
 
 
 
