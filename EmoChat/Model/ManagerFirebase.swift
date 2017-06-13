@@ -213,6 +213,7 @@ class ManagerFirebase {
         if let uid = Auth.auth().currentUser?.uid {
             guard let chosenImageData = UIImageJPEGRepresentation(image, 1) else {
                 result(.failure("Something went wrong"))
+                return
             }
             
             //create reference
@@ -226,8 +227,7 @@ class ManagerFirebase {
             self.storageRef.child(imagePath).putData(chosenImageData, metadata: metaData) { (metaData, error) in
                 
                 if error != nil {
-                    result(.failure(error?.localizedDescription))
-                    return
+                    result(.failure((error?.localizedDescription)!))
                 } else {
                     self.ref?.child("users/\(uid)/photo").setValue(imagePath)
                     result(.success)
@@ -249,7 +249,7 @@ class ManagerFirebase {
                 // Uh-oh, an error occurred!
             } else {
                 // Data for "images/island.jpg" is returned
-                result(.successUserPic(UIImage(data: data!)))
+                result(.successUserPic((UIImage(data: data!))!))
             }
         }
     }

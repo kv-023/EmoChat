@@ -137,31 +137,31 @@ class SignUpFirstViewController: UIViewController, UITextFieldDelegate, RegexChe
             passwordLabel.printError(errorText: NSLocalizedString("Enter password", comment: "Empty password"))
             password.redBorder()
         }
-        if success
-            && (usernameValid
-                && emailValid
-                && passwordValid
-                && passwordConfirmationValid) {
-            manager?.signUp(email: email.text!, password: password.text!) {
-                resultString in
-                if resultString != "Success" {
-                    self.emailLabel.printError(errorText: resultString)
-                    self.email.redBorder()
-                    unique = false
-                }
-            }
-            manager?.checkUserNameUniqness(username.text!) {
-                usernameResult in
-                if !usernameResult {
-                    self.username.redBorder()
-                    self.emailLabel.printError(errorText: "Username already exists")
-                    unique = false
-                }
-            }
-            if unique {
-                performSegue(withIdentifier: "additional", sender: self)
-            }
-        }
+//        if success
+//            && (usernameValid
+//                && emailValid
+//                && passwordValid
+//                && passwordConfirmationValid) {
+//            manager?.signUp(email: email.text!, password: password.text!) {
+//                resultString in
+//                if resultString != "Success" {
+//                    self.emailLabel.printError(errorText: resultString)
+//                    self.email.redBorder()
+//                    unique = false
+//                }
+//            }
+//            manager?.checkUserNameUniqness(username.text!) {
+//                usernameResult in
+//                if !usernameResult {
+//                    self.username.redBorder()
+//                    self.emailLabel.printError(errorText: "Username already exists")
+//                    unique = false
+//                }
+//            }
+//            if unique {
+//                performSegue(withIdentifier: "additional", sender: self)
+//            }
+//        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
