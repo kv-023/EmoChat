@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="DMc-tV-ehN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="DMc-tV-ehN">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Table View Controller-->
+        <!--Options Main Page Table View Controller-->
         <scene sceneID="0ht-Fh-LYI">
             <objects>
-                <tableViewController storyboardIdentifier="options" id="DMc-tV-ehN" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="options" id="DMc-tV-ehN" customClass="OptionsMainPageTableViewController" customModule="EmoChat" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="gc0-UG-MiM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -80,7 +80,7 @@
                             </tableViewSection>
                             <tableViewSection id="cqL-Kg-nG1">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="EZU-yv-5Qq">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="EZU-yv-5Qq" userLabel="Table View Cell" customClass="PhoneNumberTableViewCell" customModule="EmoChat" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="189" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EZU-yv-5Qq" id="tgd-eT-RkK">
@@ -273,6 +273,14 @@
                             <outlet property="delegate" destination="DMc-tV-ehN" id="Yif-En-zhF"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="emailLabel" destination="eDC-oi-k7P" id="lZo-3O-HnQ"/>
+                        <outlet property="nameAndSecondNameLabel" destination="tdm-tr-667" id="m5v-If-IxZ"/>
+                        <outlet property="phoneNumberLabel" destination="rKL-on-zRp" id="qm2-Uq-slb"/>
+                        <outlet property="statusLabel" destination="m4L-az-jUJ" id="cht-gU-5hW"/>
+                        <outlet property="userImageView" destination="lfS-PP-2hd" id="Ugd-Zu-N2Y"/>
+                        <outlet property="userNameLabel" destination="Ytb-Uk-iS4" id="YUz-XI-Itf"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fUl-a9-NPl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -286,10 +294,10 @@
             </objects>
             <point key="canvasLocation" x="2607" y="656"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Options Change Photo Name Second Name Table View Controller-->
         <scene sceneID="4xs-iN-MGP">
             <objects>
-                <tableViewController id="kBM-hl-kZF" sceneMemberID="viewController">
+                <tableViewController id="kBM-hl-kZF" customClass="OptionsChangePhotoNameSecondNameTableViewController" customModule="EmoChat" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="hhn-7Q-WBH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -301,7 +309,7 @@
                                         <rect key="frame" x="0.0" y="35" width="375" height="118"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ncF-ga-I8t" id="hEh-fL-2dP">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="117.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="118"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="RmW-9g-MCI">
@@ -350,25 +358,23 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="36" id="eIx-Qc-h12">
-                                        <rect key="frame" x="0.0" y="153" width="375" height="36"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="58" id="eIx-Qc-h12">
+                                        <rect key="frame" x="0.0" y="153" width="375" height="58"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eIx-Qc-h12" id="0fw-Ks-Aty">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="36"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="58"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set Profile Photo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QXR-EO-X72">
-                                                    <rect key="frame" x="15" y="8" width="352" height="19.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.043137254899999998" green="0.41568627450000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yUq-e6-V2W">
+                                                    <rect key="frame" x="23" y="8" width="344" height="41.5"/>
+                                                    <state key="normal" title="Set User Photo"/>
+                                                </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="QXR-EO-X72" firstAttribute="leading" secondItem="0fw-Ks-Aty" secondAttribute="leading" constant="15" id="RIJ-E0-K8D"/>
-                                                <constraint firstAttribute="trailing" secondItem="QXR-EO-X72" secondAttribute="trailing" constant="8" id="b9E-U3-0QH"/>
-                                                <constraint firstItem="QXR-EO-X72" firstAttribute="top" secondItem="0fw-Ks-Aty" secondAttribute="top" constant="8" id="iy8-aS-Z06"/>
-                                                <constraint firstAttribute="bottom" secondItem="QXR-EO-X72" secondAttribute="bottom" constant="8" id="ovy-Di-gat"/>
+                                                <constraint firstItem="yUq-e6-V2W" firstAttribute="leading" secondItem="0fw-Ks-Aty" secondAttribute="leadingMargin" constant="15" id="kbL-1t-I6h"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="yUq-e6-V2W" secondAttribute="trailing" id="ncv-54-fYv"/>
+                                                <constraint firstItem="yUq-e6-V2W" firstAttribute="top" secondItem="0fw-Ks-Aty" secondAttribute="topMargin" id="oCe-SU-udW"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="yUq-e6-V2W" secondAttribute="bottom" id="tKG-rY-r6k"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -380,15 +386,21 @@
                             <outlet property="delegate" destination="kBM-hl-kZF" id="CJz-oB-X5x"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="nameTextField" destination="Aoe-Lr-vZC" id="WA5-Bd-fBT"/>
+                        <outlet property="secondNameTextField" destination="Wry-yp-yhp" id="Mck-OO-r0y"/>
+                        <outlet property="setUserPhotoButton" destination="yUq-e6-V2W" id="GZU-zb-BVS"/>
+                        <outlet property="userPhotoView" destination="q3a-Uf-o0d" id="gFG-jo-rXV"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kdA-Ft-LfL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3548" y="-541"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Options Change Number Table View Controller-->
         <scene sceneID="sRi-pU-4p3">
             <objects>
-                <tableViewController id="mZU-ok-4pv" sceneMemberID="viewController">
+                <tableViewController id="mZU-ok-4pv" customClass="OptionsChangeNumberTableViewController" customModule="EmoChat" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="o7h-cA-nTJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -426,15 +438,18 @@
                             <outlet property="delegate" destination="mZU-ok-4pv" id="3vS-Lt-cb5"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="changeNumberTextField" destination="lqs-L4-NsD" id="rB3-Do-ldz"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8h4-V3-S5W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3548" y="138.98050974512745"/>
+            <point key="canvasLocation" x="4385" y="-113"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Options Change User Name Table View Controller-->
         <scene sceneID="xx3-9S-SF7">
             <objects>
-                <tableViewController id="pBm-Yw-aSi" sceneMemberID="viewController">
+                <tableViewController id="pBm-Yw-aSi" customClass="OptionsChangeUserNameTableViewController" customModule="EmoChat" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="k0k-F7-Fk8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -473,15 +488,18 @@
                             <outlet property="delegate" destination="pBm-Yw-aSi" id="UDa-RD-FEQ"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="changeUserNameTextField" destination="hWM-bm-EKQ" id="Mkw-Me-5Pt"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vr9-q1-hEN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4306" y="139"/>
+            <point key="canvasLocation" x="4367" y="656"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Options Change Email Table View Controller-->
         <scene sceneID="6Jk-2M-eQk">
             <objects>
-                <tableViewController id="Ne3-0g-hLd" sceneMemberID="viewController">
+                <tableViewController id="Ne3-0g-hLd" customClass="OptionsChangeEmailTableViewController" customModule="EmoChat" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Rbt-Mb-g7D">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -493,7 +511,7 @@
                                         <rect key="frame" x="0.0" y="56" width="375" height="58"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bgz-DR-aOd" id="ErL-ce-cKf">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="57.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="57"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="olai.white.1996@gmail.com" placeholder="Email Address" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CUU-vZ-7Mh">
@@ -518,18 +536,16 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="57"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h3v-Tz-Ur1">
-                                                    <rect key="frame" x="15" y="8" width="352" height="41"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <color key="textColor" red="0.043137254899999998" green="0.41568627450000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1iz-ve-iDY">
+                                                    <rect key="frame" x="23" y="8" width="344" height="41.5"/>
+                                                    <state key="normal" title="Button"/>
+                                                </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="h3v-Tz-Ur1" firstAttribute="bottom" secondItem="m8F-th-blV" secondAttribute="bottomMargin" id="0gi-FE-v7F"/>
-                                                <constraint firstItem="h3v-Tz-Ur1" firstAttribute="top" secondItem="m8F-th-blV" secondAttribute="topMargin" id="7ki-sU-t3V"/>
-                                                <constraint firstItem="h3v-Tz-Ur1" firstAttribute="trailing" secondItem="m8F-th-blV" secondAttribute="trailingMargin" id="8yu-gq-8UI"/>
-                                                <constraint firstItem="h3v-Tz-Ur1" firstAttribute="leading" secondItem="m8F-th-blV" secondAttribute="leading" constant="15" id="jK6-gq-ZO1"/>
+                                                <constraint firstItem="1iz-ve-iDY" firstAttribute="leading" secondItem="m8F-th-blV" secondAttribute="leadingMargin" constant="15" id="7OS-cX-zcS"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="1iz-ve-iDY" secondAttribute="trailing" id="S1x-bP-EKb"/>
+                                                <constraint firstItem="1iz-ve-iDY" firstAttribute="top" secondItem="m8F-th-blV" secondAttribute="topMargin" id="Urr-vY-jt7"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="1iz-ve-iDY" secondAttribute="bottom" id="VvX-BN-sFg"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -544,10 +560,13 @@
                             <outlet property="delegate" destination="Ne3-0g-hLd" id="OgR-tJ-7Zb"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="changeEmailTextField" destination="CUU-vZ-7Mh" id="qUZ-BB-fcD"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3lO-Li-Sa6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3548" y="831.63418290854577"/>
+            <point key="canvasLocation" x="3249" y="1173"/>
         </scene>
         <!--Confirmation-->
         <scene sceneID="8BD-0D-Fya">
@@ -555,7 +574,7 @@
                 <viewControllerPlaceholder storyboardIdentifier="confirmation" storyboardName="Confirmation" id="NNJ-U7-dzq" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TDI-8O-Tvv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4305" y="831"/>
+            <point key="canvasLocation" x="4202" y="1374"/>
         </scene>
     </scenes>
     <resources>
