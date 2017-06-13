@@ -358,25 +358,23 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="36" id="eIx-Qc-h12">
-                                        <rect key="frame" x="0.0" y="153" width="375" height="36"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="58" id="eIx-Qc-h12">
+                                        <rect key="frame" x="0.0" y="153" width="375" height="58"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eIx-Qc-h12" id="0fw-Ks-Aty">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="36"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="58"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set Profile Photo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QXR-EO-X72">
-                                                    <rect key="frame" x="15" y="8" width="352" height="19.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.043137254899999998" green="0.41568627450000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yUq-e6-V2W">
+                                                    <rect key="frame" x="23" y="8" width="344" height="41.5"/>
+                                                    <state key="normal" title="Set User Photo"/>
+                                                </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="QXR-EO-X72" firstAttribute="leading" secondItem="0fw-Ks-Aty" secondAttribute="leading" constant="15" id="RIJ-E0-K8D"/>
-                                                <constraint firstAttribute="trailing" secondItem="QXR-EO-X72" secondAttribute="trailing" constant="8" id="b9E-U3-0QH"/>
-                                                <constraint firstItem="QXR-EO-X72" firstAttribute="top" secondItem="0fw-Ks-Aty" secondAttribute="top" constant="8" id="iy8-aS-Z06"/>
-                                                <constraint firstAttribute="bottom" secondItem="QXR-EO-X72" secondAttribute="bottom" constant="8" id="ovy-Di-gat"/>
+                                                <constraint firstItem="yUq-e6-V2W" firstAttribute="leading" secondItem="0fw-Ks-Aty" secondAttribute="leadingMargin" constant="15" id="kbL-1t-I6h"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="yUq-e6-V2W" secondAttribute="trailing" id="ncv-54-fYv"/>
+                                                <constraint firstItem="yUq-e6-V2W" firstAttribute="top" secondItem="0fw-Ks-Aty" secondAttribute="topMargin" id="oCe-SU-udW"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="yUq-e6-V2W" secondAttribute="bottom" id="tKG-rY-r6k"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -391,6 +389,7 @@
                     <connections>
                         <outlet property="nameTextField" destination="Aoe-Lr-vZC" id="WA5-Bd-fBT"/>
                         <outlet property="secondNameTextField" destination="Wry-yp-yhp" id="Mck-OO-r0y"/>
+                        <outlet property="setUserPhotoButton" destination="yUq-e6-V2W" id="GZU-zb-BVS"/>
                         <outlet property="userPhotoView" destination="q3a-Uf-o0d" id="gFG-jo-rXV"/>
                     </connections>
                 </tableViewController>
@@ -537,18 +536,16 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="57"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h3v-Tz-Ur1">
-                                                    <rect key="frame" x="15" y="8" width="352" height="41"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <color key="textColor" red="0.043137254899999998" green="0.41568627450000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1iz-ve-iDY">
+                                                    <rect key="frame" x="23" y="8" width="344" height="41.5"/>
+                                                    <state key="normal" title="Button"/>
+                                                </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="h3v-Tz-Ur1" firstAttribute="bottom" secondItem="m8F-th-blV" secondAttribute="bottomMargin" id="0gi-FE-v7F"/>
-                                                <constraint firstItem="h3v-Tz-Ur1" firstAttribute="top" secondItem="m8F-th-blV" secondAttribute="topMargin" id="7ki-sU-t3V"/>
-                                                <constraint firstItem="h3v-Tz-Ur1" firstAttribute="trailing" secondItem="m8F-th-blV" secondAttribute="trailingMargin" id="8yu-gq-8UI"/>
-                                                <constraint firstItem="h3v-Tz-Ur1" firstAttribute="leading" secondItem="m8F-th-blV" secondAttribute="leading" constant="15" id="jK6-gq-ZO1"/>
+                                                <constraint firstItem="1iz-ve-iDY" firstAttribute="leading" secondItem="m8F-th-blV" secondAttribute="leadingMargin" constant="15" id="7OS-cX-zcS"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="1iz-ve-iDY" secondAttribute="trailing" id="S1x-bP-EKb"/>
+                                                <constraint firstItem="1iz-ve-iDY" firstAttribute="top" secondItem="m8F-th-blV" secondAttribute="topMargin" id="Urr-vY-jt7"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="1iz-ve-iDY" secondAttribute="bottom" id="VvX-BN-sFg"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
