@@ -64,7 +64,7 @@ class ManagerFirebase {
                         listOfMessages.append(Message(data: messsageDictionary, uid: messageID as? String))
                     }
                 }
-                result(.successArrayOfUsers(listOfMessages))
+                result(.successArrayOfMessages(listOfMessages))
             })
     }
     
@@ -226,7 +226,7 @@ class ManagerFirebase {
             self.storageRef.child(imagePath).putData(chosenImageData, metadata: metaData) { (metaData, error) in
                 
                 if error != nil {
-                    result(.failure(error))
+                    result(.failure(error?.localizedDescription))
                     return
                 } else {
                     self.ref?.child("users/\(uid)/photo").setValue(imagePath)
@@ -245,7 +245,7 @@ class ManagerFirebase {
         // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
         photoRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
             if let error = error {
-                result(.failure(error))
+                result(.failure(error.localizedDescription))
                 // Uh-oh, an error occurred!
             } else {
                 // Data for "images/island.jpg" is returned
@@ -279,7 +279,7 @@ class ManagerFirebase {
             self.ref?.observeSingleEvent(of: .value, with: { (snapshot) in
                 // .child("users").child(uid)
                 
-                var user:User? = nil
+                
                 let value = snapshot.value as? NSDictionary
                 
                 let userSnapshot = (value?["users"] as? NSDictionary)?["\(uid)"] as? NSDictionary
@@ -292,19 +292,19 @@ class ManagerFirebase {
                 let photoURL = userSnapshot?["photoURL"] as! String?
                 let conversationsID = userSnapshot?["conversations"] as? NSDictionary
                 
-                user = User(email: email, username: username, phoneNumber: phonenumber, firstName: firstname, secondName: secondname, photoURL: photoURL)
+                var user = User(email: email, username: username, phoneNumber: phonenumber, firstName: firstname, secondName: secondname, photoURL: photoURL)
                 
                 if let conversationsArrayId = conversationsID?.allKeys {
-                    user?.userConversations = self.sortListOfConversations(self.getConversetionsFromSnapshot(value, accordingTo: conversationsArrayId as! [String], currentUserEmail: email))
+                    user.userConversations = self.sortListOfConversations(self.getConversetionsFromSnapshot(value, accordingTo: conversationsArrayId as! [String], currentUserEmail: email))
                 }
                 
-                result(.successSingleUser(user))
+                getUser(.successSingleUser(user))
                 // ...
             }) { (error) in
-                result(.failure(error.localizedDescription))
+                getUser(.failure(error.localizedDescription))
             }
         } else {
-            result(.failure("User isn't authenticated"))
+            getUser(.failure("User isn't authenticated"))
         }
     }
     
