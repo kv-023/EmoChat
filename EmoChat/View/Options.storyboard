@@ -80,7 +80,7 @@
                             </tableViewSection>
                             <tableViewSection id="cqL-Kg-nG1">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="EZU-yv-5Qq" customClass="PhoneNumberTableViewCell" customModule="EmoChat" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="EZU-yv-5Qq" userLabel="Table View Cell" customClass="PhoneNumberTableViewCell" customModule="EmoChat" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="189" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EZU-yv-5Qq" id="tgd-eT-RkK">
@@ -393,10 +393,10 @@
             </objects>
             <point key="canvasLocation" x="3548" y="-541"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Options Change Number Table View Controller-->
         <scene sceneID="sRi-pU-4p3">
             <objects>
-                <tableViewController id="mZU-ok-4pv" sceneMemberID="viewController">
+                <tableViewController id="mZU-ok-4pv" customClass="OptionsChangeNumberTableViewController" customModule="EmoChat" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="o7h-cA-nTJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -434,6 +434,9 @@
                             <outlet property="delegate" destination="mZU-ok-4pv" id="3vS-Lt-cb5"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="changeNumberTextField" destination="lqs-L4-NsD" id="HAf-3L-Ld7"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8h4-V3-S5W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -1,36 +1,21 @@
 //
-//  OptionsMainPageTableViewController.swift
+//  OptionsChangeNumberTableViewController.swift
+//  EmoChat
 //
-//
-//  Created by 3 on 09.06.17.
-//
+//  Created by 3 on 13.06.17.
+//  Copyright © 2017 SoftServe. All rights reserved.
 //
 
 import UIKit
 
-class OptionsMainPageTableViewController: UITableViewController {
+class OptionsChangeNumberTableViewController: UITableViewController {
     
-    
-    @IBOutlet weak var userImageView: UIImageView!
-    
-    @IBOutlet weak var nameAndSecondNameLabel: UILabel!
-    
-    @IBOutlet weak var statusLabel: UILabel!
-    
-    @IBOutlet weak var phoneNumberLabel: UILabel!
-    
-    @IBOutlet weak var userNameLabel: UILabel!
-    
-    @IBOutlet weak var emailLabel: UILabel!
-    
+    @IBOutlet weak var changeNumberTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
-        phoneNumberLabel.text = "095 1111111"
-        userNameLabel.text = "@alexsmth"
-        emailLabel.text = "vitya@i.ua"
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -44,7 +29,6 @@ class OptionsMainPageTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    
     // MARK: - Table view data source
     /*
      override func numberOfSections(in tableView: UITableView) -> Int {
@@ -55,6 +39,16 @@ class OptionsMainPageTableViewController: UITableViewController {
      override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
      // #warning Incomplete implementation, return the number of rows
      return 0
+     }
+     */
+    
+    /*
+     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+     let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+     
+     // Configure the cell...
+     
+     return cell
      }
      */
     
