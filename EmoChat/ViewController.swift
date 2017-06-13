@@ -17,6 +17,9 @@ class ViewController: UIViewController {
    //var ref: DatabaseReference?
     var m: ManagerFirebase?
 
+    @IBAction func regexTestButtoPressed(_ sender: UIButton) {
+        regexTest()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         m  = ManagerFirebase();
@@ -194,16 +197,28 @@ class ViewController: UIViewController {
             }
         }
     }
-}
-
-
 ////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////LOGIN END//////////////////////////////////////
 
+//MARK:- Regex expression
 
+    func regexTest() {
 
+        let arrayOfTestedData = ["BlaBlaBla", "Bla_Bla%Bla"]
+        let regexLoginPattern = "^[a-zA-Z0-9-]*$"
 
+        for itemInArray in arrayOfTestedData {
+            let strinIsMatched = Regex.isMatchInString(for: regexLoginPattern, in: itemInArray)
+            print ("string is matched: \(strinIsMatched)")
+            
+        }
+        
+        
+        
+    }
+    
+}
 
 
 
