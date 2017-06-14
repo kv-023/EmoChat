@@ -22,7 +22,7 @@ class ViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        m  = ManagerFirebase();
+        m  = ManagerFirebase.shared
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -52,15 +52,15 @@ class ViewController: UIViewController {
     @IBAction func testFirebase(_ sender: Any) {
       //  print((m?.emailIsVerified())!)
         
-//        m?.getCurrentUser(){ op in
-//                    switch op {
-//                    case let .successSingleUser (user):
-//                        print(user)
-//            
-//                    default :
-//                    break
-//                       }
-//        }
+        m?.getCurrentUser(){ op in
+                    switch op {
+                    case let .successSingleUser (user):
+                        print(user)
+            
+                    default :
+                    break
+                       }
+        }
 //        m?.changeInfo(phoneNumber: "0940332299", firstName: "bodya", secondName: nil) {op in
 //            switch op {
 //            case let .success:

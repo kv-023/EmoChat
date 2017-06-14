@@ -44,8 +44,9 @@ class ManagerFirebase {
     
     let ref: DatabaseReference?
     let storageRef: StorageReference
+    public static let shared = ManagerFirebase()
     
-    init () {
+    private init () {
         self.ref = Database.database().reference()
         self.storageRef = Storage.storage().reference()
     }
@@ -65,7 +66,7 @@ class ManagerFirebase {
                                 if let err = error?.localizedDescription {
                                     result(.failure(err))
                                 } else {
-                                    result(.failure("Confirm your e-mail"))
+                                    result(.failure(NSLocalizedString("Confirm your e-mail", comment: "Email isn't confirmed")))
                                 }
                             }
         })
@@ -87,7 +88,7 @@ class ManagerFirebase {
                                     if let err = error?.localizedDescription {
                                         result(.failure(err))
                                     } else {
-                                        result(.failure("Confirm your e-mail"))
+                                        result(.failure(NSLocalizedString("Something went wrong", comment: "Undefined error")))
                                     }
                                 }
         })
@@ -117,7 +118,7 @@ class ManagerFirebase {
                 }
                 result(.success)
         } else {
-            result(.failure("User isn't authenticated"))
+            result(.failure(NSLocalizedString("User isn't authenticated", comment: "")))
         }
     }
     
@@ -189,7 +190,7 @@ class ManagerFirebase {
                 getUser(.failure(error.localizedDescription))
             }
         } else {
-            getUser(.failure("User isn't authenticated"))
+            getUser(.failure(NSLocalizedString("User isn't authenticated", comment: "")))
         }
     }
     
@@ -264,7 +265,7 @@ class ManagerFirebase {
     func addPhoto (_ image: UIImage, previous url: String?, result: @escaping (UserOperationResult) -> Void) {
         if let uid = Auth.auth().currentUser?.uid {
             guard let chosenImageData = UIImageJPEGRepresentation(image, 1) else {
-                result(.failure("Something went wrong"))
+                result(.failure(NSLocalizedString("Something went wrong", comment: "Undefined error")))
                 return
             }
             
@@ -284,7 +285,7 @@ class ManagerFirebase {
                     if let previousURL = url {
                         self.storageRef.child(previousURL).delete { error in
                             if error != nil {
-                                result(.failure("Previous photo wasn't delete"))
+                                result(.failure(NSLocalizedString("Previous photo wasn't deleted", comment: "") ))
                             }
                         }
                     }
@@ -294,7 +295,7 @@ class ManagerFirebase {
                 }
             }
         } else {
-            result(.failure("User isn't authenticated"))
+            result(.failure(NSLocalizedString("User isn't authenticated", comment: "")))
         }
     }
     
@@ -354,7 +355,7 @@ class ManagerFirebase {
             result(.success)
             //have to set new name to currentUser
         } else {
-            result(.failure("User isn't authenticated"))
+            result(.failure(NSLocalizedString("User isn't authenticated", comment: "")))
         }
     }
 
@@ -378,30 +379,30 @@ class ManagerFirebase {
                 }
             }
         } else {
-            result(.failure("User isn't authenticated"))
+            result(.failure(NSLocalizedString("User isn't authenticated", comment: "")))
         }
     }
     
     func changeUsersEmail(email: String, result: @escaping (UserOperationResult) -> Void) {
         if let user = Auth.auth().currentUser {
             user.updateEmail(to: email){ error in
-                if error != nil {
-                    result(.failure(("Something Went Wrong")))
+                if let error = error?.localizedDescription {
+                    result(.failure(error))
                 } else {
                     self.ref?.child("users/\(user.uid)/email").setValue(user.email)
                     result(.success)
                 }
             }
         } else {
-            result(.failure("User isn't authenticated"))
+            result(.failure(NSLocalizedString("User isn't authenticated", comment: "")))
         }
     }
     
     func changeUsersPassword(password: String, result: @escaping (UserOperationResult) -> Void) {
         if let user = Auth.auth().currentUser {
             user.updatePassword(to: password) { error in
-                if error != nil {
-                    result(.failure("An error occured."))
+                if let error = error?.localizedDescription {
+                    result(.failure(error))
                 } else {
                     result(.success)
                 }
@@ -425,7 +426,7 @@ class ManagerFirebase {
                 result(.success)
             }
             else {
-                result(.failure("Username is taken"))
+                result(.failure(NSLocalizedString("Username is taken", comment: "Username isn't unique") ))
             }
         }) { error in
             result(.failure(error.localizedDescription))
