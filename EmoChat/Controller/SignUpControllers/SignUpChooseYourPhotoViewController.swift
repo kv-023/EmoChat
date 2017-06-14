@@ -21,7 +21,11 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
     var manager: ManagerFirebase?
     var success: Bool = true
     var userImage: UIImage?
-    var alert: UIAlertController?
+    var warning: UIAlertController?
+    
+    override func viewWillAppear(_ animated: Bool) {
+        userPhotoView.clipsToBounds = true
+        userPhotoView.layer.cornerRadius = userPhotoView.frame.width/2    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,8 +37,8 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTaped))
         self.userPhotoView.addGestureRecognizer(tapGesture)
         manager = ManagerFirebase()
-        alert = UIAlertController(title: "Warning", message: nil, preferredStyle: .alert)
-        alert?.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        warning = UIAlertController(title: "Warning", message: nil, preferredStyle: .alert)
+        warning?.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
     }
     
     override func didReceiveMemoryWarning() {
@@ -85,6 +89,7 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         guard let chosenImage = info[UIImagePickerControllerEditedImage] as? UIImage else { return }
+        
         userImage = chosenImage
         
         //add image to view
@@ -92,6 +97,7 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
         userPhotoView.clipsToBounds = true
         userPhotoView.layer.cornerRadius = userPhotoView.frame.width/2
         userPhotoView.image = chosenImage
+        self.dismiss(animated:true, completion: nil)
     }
     
     @IBAction func signUpIsPressed(_ sender: UIButton) {
@@ -100,11 +106,11 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
         if let image = userImage {
             manager?.addPhoto(image) {
                 result in
-                self.dismiss(animated:true, completion: nil)
+                
                 switch result {
                 case .failure(let error):
-                    self.alert?.message = error
-                    self.present(self.alert!, animated: true)
+                    self.warning?.message = error
+                    self.present(self.warning!, animated: true)
                     self.success = false
                 default:
                     break
