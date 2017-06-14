@@ -282,7 +282,7 @@ class ManagerFirebase {
                 if error != nil {
                     result(.failure((error?.localizedDescription)!))
                 } else {
-                    self.ref?.child("users/\(uid)/photo").setValue(imagePath)
+                    self.ref?.child("users/\(uid)/photoURL").setValue(imagePath)
                     result(.success)
 
                 }
