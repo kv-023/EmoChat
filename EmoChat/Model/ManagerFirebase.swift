@@ -97,7 +97,7 @@ class ManagerFirebase {
     
     //MARK: Check if email is verified
     func emailIsVerified () -> Bool {
-        return Auth.auth().currentUser?.isEmailVerified
+        return Auth.auth().currentUser?.isEmailVerified ?? false
     }
     
 
