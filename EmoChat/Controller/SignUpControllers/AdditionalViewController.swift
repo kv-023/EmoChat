@@ -116,7 +116,7 @@ RegexCheckProtocol {
         }
 
         phoneField.imageQuestionShowed = !currentphoneIsValid
-        phoneField.textInfoForQuestionLabel = regexErrorText.SignUpError.phone.localizede
+        phoneField.textInfoForQuestionLabel = regexErrorText.SignUpError.phone.localized
     }
 
     @IBAction func phoneNumberEditingDidBegin(_ sender: UITextField) {
