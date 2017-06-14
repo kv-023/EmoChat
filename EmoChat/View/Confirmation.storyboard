@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16C68" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bgf-Uo-ggv">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bgf-Uo-ggv">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -17,10 +17,10 @@
             </objects>
             <point key="canvasLocation" x="-716" y="35"/>
         </scene>
-        <!--View Controller-->
+        <!--Confirmation View Controller-->
         <scene sceneID="VhQ-Is-8r9">
             <objects>
-                <viewController id="bgf-Uo-ggv" sceneMemberID="viewController">
+                <viewController id="bgf-Uo-ggv" customClass="ConfirmationViewController" customModule="EmoChat" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="155-qR-bIH"/>
                         <viewControllerLayoutGuide type="bottom" id="9Zu-Vg-Cer"/>
@@ -38,15 +38,8 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wWS-YA-ccG">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Pt-VB-f0y">
-                                                <rect key="frame" x="153" y="218" width="68" height="36"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                <state key="normal" title="Resend">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                            </button>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="5vI-Bs-rgA">
-                                                <rect key="frame" x="50" y="591" width="275" height="36"/>
+                                                <rect key="frame" x="50" y="601" width="275" height="36"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lpa-Cl-CCa">
                                                         <rect key="frame" x="0.0" y="0.0" width="77" height="36"/>
@@ -59,19 +52,19 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UaX-PL-Sbx">
-                                                        <rect key="frame" x="211" y="0.0" width="64" height="36"/>
+                                                        <rect key="frame" x="245" y="0.0" width="30" height="36"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                        <state key="normal" title="Submit">
+                                                        <state key="normal" title="OK">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
-                                                            <segue destination="Fz1-2n-Ud1" kind="presentation" modalTransitionStyle="crossDissolve" id="Mv0-Vh-GN5"/>
+                                                            <action selector="okIsPressed:" destination="bgf-Uo-ggv" eventType="touchUpInside" id="Xdz-wG-RoV"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="9MO-LQ-m9O">
-                                                <rect key="frame" x="50" y="40" width="275" height="112.5"/>
+                                                <rect key="frame" x="50" y="40" width="275" height="163.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirmation" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zI2-4o-tHD">
                                                         <rect key="frame" x="71.5" y="0.0" width="132.5" height="27.5"/>
@@ -79,37 +72,33 @@
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter 4 digit number you have recieved via email" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zTG-uj-xo5">
-                                                        <rect key="frame" x="20.5" y="37.5" width="234" height="41"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We have sent you a letter of confirmation for:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zTG-uj-xo5">
+                                                        <rect key="frame" x="29" y="37.5" width="217" height="41"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="example@email.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fU1-KX-10y">
-                                                        <rect key="frame" x="45" y="88.5" width="185.5" height="24"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fU1-KX-10y">
+                                                        <rect key="frame" x="135" y="88.5" width="5.5" height="24"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Follow the link you have got in order to proceed." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aIE-km-gss">
+                                                        <rect key="frame" x="0.0" y="122.5" width="275" height="41"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
                                             </stackView>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="4 digits" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FuO-VI-YCU">
-                                                <rect key="frame" x="153" y="173" width="69.5" height="30"/>
-                                                <nil key="textColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="5vI-Bs-rgA" secondAttribute="bottom" constant="20" id="Aj8-XF-BBf"/>
+                                            <constraint firstAttribute="bottom" secondItem="5vI-Bs-rgA" secondAttribute="bottom" constant="10" id="Aj8-XF-BBf"/>
                                             <constraint firstItem="9MO-LQ-m9O" firstAttribute="centerX" secondItem="wWS-YA-ccG" secondAttribute="centerX" id="BwK-vd-Oaw"/>
-                                            <constraint firstItem="FuO-VI-YCU" firstAttribute="centerX" secondItem="wWS-YA-ccG" secondAttribute="centerX" id="JjO-3h-dTW"/>
-                                            <constraint firstItem="FuO-VI-YCU" firstAttribute="top" secondItem="9MO-LQ-m9O" secondAttribute="bottom" constant="20" id="KdT-uA-aK6"/>
                                             <constraint firstItem="9MO-LQ-m9O" firstAttribute="top" secondItem="wWS-YA-ccG" secondAttribute="top" constant="40" id="Ova-GC-JTs"/>
-                                            <constraint firstItem="6Pt-VB-f0y" firstAttribute="centerX" secondItem="wWS-YA-ccG" secondAttribute="centerX" id="WrE-qb-Hpp"/>
                                             <constraint firstAttribute="trailing" secondItem="5vI-Bs-rgA" secondAttribute="trailing" constant="50" id="cyg-FL-N4X"/>
-                                            <constraint firstItem="6Pt-VB-f0y" firstAttribute="top" secondItem="FuO-VI-YCU" secondAttribute="bottom" constant="15" id="gco-9J-DL7"/>
                                             <constraint firstItem="5vI-Bs-rgA" firstAttribute="leading" secondItem="wWS-YA-ccG" secondAttribute="leading" constant="50" id="s1J-3d-JZV"/>
                                             <constraint firstItem="9MO-LQ-m9O" firstAttribute="leading" secondItem="wWS-YA-ccG" secondAttribute="leading" constant="50" id="u3d-EI-rUe"/>
                                             <constraint firstAttribute="trailing" secondItem="9MO-LQ-m9O" secondAttribute="trailing" constant="50" id="yJm-W9-0aq"/>
@@ -138,6 +127,11 @@
                             <constraint firstItem="9bh-VC-Oor" firstAttribute="leading" secondItem="fXy-Kz-yxV" secondAttribute="leading" id="o3B-gV-qmw"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="emailLabel" destination="fU1-KX-10y" id="cAe-iR-YT6"/>
+                        <segue destination="Fz1-2n-Ud1" kind="presentation" identifier="conversations" modalTransitionStyle="crossDissolve" id="Y1f-gZ-qlJ"/>
+                        <segue destination="k6j-9t-SLN" kind="presentation" identifier="login" modalTransitionStyle="crossDissolve" id="FGC-sL-Sqz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MMG-Yj-TVq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -150,6 +144,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sdt-db-4Va" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="582" y="67"/>
+        </scene>
+        <!--Login-->
+        <scene sceneID="vji-1U-UM4">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="login" storyboardName="Login" id="k6j-9t-SLN" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fId-0d-fp3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="602" y="184"/>
         </scene>
     </scenes>
     <resources>

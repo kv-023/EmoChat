@@ -94,12 +94,6 @@ class ManagerFirebase {
         })
 
     }
-    
-    //MARK: Check if email is verified
-    func emailIsVerified () -> Bool {
-        return Auth.auth().currentUser?.isEmailVerified
-    }
-    
 
     // MARK: Add additional info
     //Add email, uid, username and additional info to database. Call this method after succefull sign up.

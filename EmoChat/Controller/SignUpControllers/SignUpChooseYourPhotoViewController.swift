@@ -15,8 +15,11 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
     @IBOutlet weak var warningLabel: UILabel!
     var storageRef: StorageReference!
     var username: String?
+    var email: String?
+    var password: String?
     var manager: ManagerFirebase?
-    
+    var success: Bool = true
+    var userImage: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,37 +82,41 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         guard let chosenImage = info[UIImagePickerControllerEditedImage] as? UIImage else { return }
+        userImage = chosenImage
         
         //add image to view
-        
-        
-        
         userPhotoView.contentMode = .scaleAspectFill
         userPhotoView.clipsToBounds = true
         userPhotoView.layer.cornerRadius = userPhotoView.frame.width/2
         userPhotoView.image = chosenImage
-        
+    }
+    
+    @IBAction func signUpIsPressed(_ sender: UIButton) {
         //add image to firebase
         
-        manager?.addPhoto(chosenImage) {
-            result in
-            self.dismiss(animated:true, completion: nil)
-            switch result {
-            case .failure(let error):
-                self.warningLabel.text = error
-            default:
-                break
+        if let image = userImage {
+            manager?.addPhoto(image) {
+                result in
+                self.dismiss(animated:true, completion: nil)
+                switch result {
+                case .failure(let error):
+                    self.warningLabel.text = error
+                    self.success = false
+                default:
+                    break
+                }
             }
-        }        
+        }
+        if success {
+            performSegue(withIdentifier: "confirmation", sender: self)
+        }
     }
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "confirmation" {
+            let destination: ConfirmationViewController = segue.destination as! ConfirmationViewController
+            destination.email = email
+            destination.password = password
+        }
+    }
 }

@@ -191,6 +191,8 @@ class SignUpFirstViewController: UIViewController, UITextFieldDelegate, RegexChe
         if segue.identifier == "additional" {
             let destination:AdditionalViewController = segue.destination as! AdditionalViewController
             destination.username = username.text
+            destination.email = email.text
+            destination.password = password.text
         }
     }
     
