@@ -13,6 +13,7 @@ import FirebaseAuth
 class ViewController: UIViewController {
     
     
+    
 
    //var ref: DatabaseReference?
     var m: ManagerFirebase?
@@ -174,6 +175,29 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var hintsLabel: UILabel!
     @IBOutlet weak var segmentControl: UISegmentedControl!
+    
+    @IBAction func DADADA(_ sender: Any) {
+        
+
+        /*
+        self.m?.addInfoUser(username: "golubovskiy", phoneNumber: "0", firstName: "Dtima", secondName: "Gol", photoURL: nil, result: { (updResult) in
+            switch updResult {
+            case .success:
+                print("Success")
+            default:
+                return
+            }
+            
+        })
+ */
+        let user = User(email: "dadada", username: "dadada", phoneNumber: nil, firstName: nil, secondName: nil, photoURL: nil, uid: "dadada")
+        let user1 = User(email: "netnet", username: "netnet", phoneNumber: nil, firstName: nil, secondName: nil, photoURL: nil, uid: "netnet")
+        let user2 = User(email: "user2", username: "user2", phoneNumber: nil, firstName: nil, secondName: nil, photoURL: nil, uid: "user2")
+
+        m?.createConversation([user, user1, user2], withName: "firstConversation")
+        
+        m?.createConversation([user1, user2])
+    }
     
     @IBOutlet weak var buttonLogin: UIButton!
     @IBAction func buttonSignUp(_ sender: UIButton) {

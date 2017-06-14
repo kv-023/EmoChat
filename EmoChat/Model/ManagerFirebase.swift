@@ -208,7 +208,8 @@ class ManagerFirebase {
         var users = [User]()
         for id in ids.allKeys {
             if let user = value?["\(id)"] as? NSDictionary{
-                users.append(User(data: user))
+                users.append(User(data: user, uid: (id as! String)))
+                
             }
         }
         return users
@@ -435,7 +436,7 @@ class ManagerFirebase {
         ref?.child("users").queryOrdered(byChild: "username").queryStarting(atValue: text).queryEnding(atValue: text+"\u{f8ff}").observe(.value, with: { snapshot in
             var users = [User]()
             for u in snapshot.children{
-                users.append(User(data: (u as! DataSnapshot).value as? NSDictionary))
+                users.append(User(data: (u as! DataSnapshot).value as? NSDictionary, uid: snapshot.key))
             }
             result(.successArrayOfUsers(users))
         })
@@ -456,6 +457,32 @@ class ManagerFirebase {
         }
         return result
     }
+    
+    
+    
+    
+    func createConversation(_ members: [User], withName name: String? = nil) -> ConversationOperationResult {
+        
+        let refConv = ref?.child("conversations").childByAutoId()
+        let uid: String = (refConv?.key)!
+        
+        for member in members {
+            ref?.child("conversations/\(uid)/usersInConversation/\(member.uid!)").setValue(true)
+        }
+        if members.count > 2 {
+            ref?.child("conversations/\(uid)/name").setValue(name)
+        }
+        
+        if refConv != nil {
+            return .success
+        } else {
+            return .failure("Something went wrong")
+        }
+        
+    }
+    
+    
+    
 }
 
 
