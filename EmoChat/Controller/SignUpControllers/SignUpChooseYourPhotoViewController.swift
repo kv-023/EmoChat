@@ -12,6 +12,7 @@ import Firebase
 class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate   {
     
     @IBOutlet weak var userPhotoView: UIImageView!
+    @IBOutlet weak var warningLabel: UILabel!
     var storageRef: StorageReference!
     var username: String?
     var manager: ManagerFirebase?
@@ -90,47 +91,16 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
         
         //add image to firebase
         
-        
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        
-        guard let chosenImageData = UIImageJPEGRepresentation(chosenImage, 1) else { return }
-        
-        //create reference
-        
-        let imagePath = Auth.auth().currentUser!.uid + "/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
-        
-        let metaData = StorageMetadata()
-        metaData.contentType = "image/jpeg"
-        
-        //add to firebase
-        
-        self.storageRef.child(imagePath).putData(chosenImageData, metadata: metaData) { (metaData, error) in
-            
-            if let error = error {
-                print("Error uploading: \(error)")
-                return
-            }
-        
-        
-        
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            
-            
-            
-//            dissmiss image picker
-            
+        manager?.addPhoto(chosenImage) {
+            result in
             self.dismiss(animated:true, completion: nil)
-        }
-        
-        
+            switch result {
+            case .failure(let error):
+                self.warningLabel.text = error
+            default:
+                break
+            }
+        }        
     }
     /*
      // MARK: - Navigation
