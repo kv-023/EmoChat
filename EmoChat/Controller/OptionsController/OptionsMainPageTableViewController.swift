@@ -1,9 +1,9 @@
 //
 //  OptionsMainPageTableViewController.swift
-//
+//  EmoChat
 //
 //  Created by 3 on 09.06.17.
-//
+//  Copyright © 2017 SoftServe. All rights reserved.
 //
 
 import UIKit

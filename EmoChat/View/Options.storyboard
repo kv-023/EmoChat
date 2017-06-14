@@ -386,16 +386,10 @@
                             <outlet property="delegate" destination="kBM-hl-kZF" id="CJz-oB-X5x"/>
                         </connections>
                     </tableView>
-                    <connections>
-                        <outlet property="nameTextField" destination="Aoe-Lr-vZC" id="WA5-Bd-fBT"/>
-                        <outlet property="secondNameTextField" destination="Wry-yp-yhp" id="Mck-OO-r0y"/>
-                        <outlet property="setUserPhotoButton" destination="yUq-e6-V2W" id="GZU-zb-BVS"/>
-                        <outlet property="userPhotoView" destination="q3a-Uf-o0d" id="gFG-jo-rXV"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kdA-Ft-LfL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3548" y="-541"/>
+            <point key="canvasLocation" x="3390" y="-439"/>
         </scene>
         <!--Options Change Number Table View Controller-->
         <scene sceneID="sRi-pU-4p3">
@@ -444,7 +438,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8h4-V3-S5W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4385" y="-113"/>
+            <point key="canvasLocation" x="4106" y="-145"/>
         </scene>
         <!--Options Change User Name Table View Controller-->
         <scene sceneID="xx3-9S-SF7">
@@ -494,7 +488,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vr9-q1-hEN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4367" y="656"/>
+            <point key="canvasLocation" x="4105" y="519"/>
         </scene>
         <!--Options Change Email Table View Controller-->
         <scene sceneID="6Jk-2M-eQk">
@@ -538,7 +532,7 @@
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1iz-ve-iDY">
                                                     <rect key="frame" x="23" y="8" width="344" height="41.5"/>
-                                                    <state key="normal" title="Button"/>
+                                                    <state key="normal" title="Change email"/>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -566,7 +560,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3lO-Li-Sa6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3249" y="1173"/>
+            <point key="canvasLocation" x="3350" y="897"/>
         </scene>
         <!--Confirmation-->
         <scene sceneID="8BD-0D-Fya">
