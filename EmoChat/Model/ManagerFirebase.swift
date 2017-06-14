@@ -44,9 +44,9 @@ class ManagerFirebase {
     
     let ref: DatabaseReference?
     let storageRef: StorageReference
-//    var user: User?
+    public static let shared = ManagerFirebase()
     
-    init () {
+    private init () {
         self.ref = Database.database().reference()
         self.storageRef = Storage.storage().reference()
     }
@@ -66,7 +66,7 @@ class ManagerFirebase {
                                 if let err = error?.localizedDescription {
                                     result(.failure(err))
                                 } else {
-                                    result(.failure("Confirm your e-mail"))
+                                    result(.failure(NSLocalizedString("Confirm your e-mail", comment: "Email isn't confirmed")))
                                 }
                             }
         })
@@ -88,16 +88,11 @@ class ManagerFirebase {
                                     if let err = error?.localizedDescription {
                                         result(.failure(err))
                                     } else {
-                                        result(.failure("Confirm your e-mail"))
+                                        result(.failure(NSLocalizedString("Something went wrong", comment: "Undefined error")))
                                     }
                                 }
         })
 
-    }
-    
-    //MARK: Check if email is verified
-    func emailIsVerified () -> Bool {
-        return (Auth.auth().currentUser?.isEmailVerified)!
     }
     
 
@@ -123,7 +118,7 @@ class ManagerFirebase {
                 }
                 result(.success)
         } else {
-            result(.failure("User isn't authenticated"))
+            result(.failure(NSLocalizedString("User isn't authenticated", comment: "")))
         }
     }
     
@@ -195,7 +190,7 @@ class ManagerFirebase {
                 getUser(.failure(error.localizedDescription))
             }
         } else {
-            getUser(.failure("User isn't authenticated"))
+            getUser(.failure(NSLocalizedString("User isn't authenticated", comment: "")))
         }
     }
     
@@ -268,10 +263,10 @@ class ManagerFirebase {
     
     //MARK: UserPic
     //Add photo of user's profile to storage and database
-    func addPhoto (_ image: UIImage, result: @escaping (UserOperationResult) -> Void) {
+    func addPhoto (_ image: UIImage, previous url: String?, result: @escaping (UserOperationResult) -> Void) {
         if let uid = Auth.auth().currentUser?.uid {
             guard let chosenImageData = UIImageJPEGRepresentation(image, 1) else {
-                result(.failure("Something went wrong"))
+                result(.failure(NSLocalizedString("Something went wrong", comment: "Undefined error")))
                 return
             }
             
@@ -288,25 +283,46 @@ class ManagerFirebase {
                 if error != nil {
                     result(.failure((error?.localizedDescription)!))
                 } else {
+                    if let previousURL = url {
+                        self.storageRef.child(previousURL).delete { error in
+                            if error != nil {
+                                result(.failure(NSLocalizedString("Previous photo wasn't deleted", comment: "") ))
+                            }
+                        }
+                    }
                     self.ref?.child("users/\(uid)/photoURL").setValue(imagePath)
                     result(.success)
 
                 }
             }
         } else {
-            result(.failure("User isn't authenticated"))
+            result(.failure(NSLocalizedString("User isn't authenticated", comment: "")))
         }
     }
     
     
-    //TODO: getSmallUserPic
+    //MARK: Return userPic
+    func getUserPic (from userURL: String, result: @escaping (UserOperationResult?) -> Void) {
+        let photoRef = storageRef.child(userURL)
+        
+        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
+        photoRef.getData(maxSize: 1 * 200 * 200) { data, error in
+            if let error = error {
+                result(.failure(error.localizedDescription))
+                // Uh-oh, an error occurred!
+            } else {
+                // Data for "images/island.jpg" is returned
+                result(.successUserPic((UIImage(data: data!))!))
+            }
+        }
+    }
     
     //Return full resolution photo
     func getUserPicFullResolution (from userURL: String, result: @escaping (UserOperationResult?) -> Void) {
         let photoRef = storageRef.child(userURL)
         
         // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
-        photoRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+        photoRef.getData(maxSize: 2 * 1024 * 1024) { data, error in
             if let error = error {
                 result(.failure(error.localizedDescription))
                 // Uh-oh, an error occurred!
@@ -322,7 +338,6 @@ class ManagerFirebase {
     
     
     //MARK: Update profile
-
     func changeInfo (phoneNumber: String?, firstName: String?, secondName: String?, result: @escaping (UserOperationResult) -> Void) {
         if let uid = Auth.auth().currentUser?.uid{
             var childUpdates = [String: String] ()
@@ -341,54 +356,54 @@ class ManagerFirebase {
             result(.success)
             //have to set new name to currentUser
         } else {
-            result(.failure("User isn't authenticated"))
+            result(.failure(NSLocalizedString("User isn't authenticated", comment: "")))
+        }
+    }
+
+    
+    private func setUsername (username: String, uid: String) {
+        let childUpdates = ["/users/\(uid)/username": username]
+        self.ref?.updateChildValues(childUpdates)
+    }
+    
+    func changeUsername (newUsername: String, result: @escaping (UserOperationResult) -> Void) {
+        if let uid = Auth.auth().currentUser?.uid {
+            self.checkUserNameUniqness(newUsername) { param in
+                switch param {
+                case .success:
+                    self.setUsername(username: newUsername, uid: uid)
+                    result(.success)
+                case let .failure(fail):
+                    result(.failure(fail))
+                default :
+                    break
+                }
+            }
+        } else {
+            result(.failure(NSLocalizedString("User isn't authenticated", comment: "")))
         }
     }
     
-//    func changePhoneNumber (phoneNumber: String, result: @escaping (UserOperationResult) -> Void) {
-//        if let uid = Auth.auth().currentUser?.uid{
-//            let childUpdates = ["/users/\(uid)/phoneNumber": phoneNumber]
-//            
-//            self.ref?.updateChildValues(childUpdates)
-//            result(.success)
-//        } else {
-//            result(.failure("User isn't authenticated"))
-//        }
-//    }
-//    
-//    func changeNameOfUser(firstName: String, secondName: String, result: @escaping (UserOperationResult) -> Void) {
-//        if let uid = Auth.auth().currentUser?.uid{
-//            let childUpdates = ["/users/\(uid)/firstName": firstName,
-//                                "/users/\(uid)/secondName": secondName]
-//        
-//            self.ref?.updateChildValues(childUpdates)
-//            result(.success)
-//        } else {
-//            result(.failure("User isn't authenticated"))
-//        }
-//        //have to set new name to currentUser
-//    }
-//
     func changeUsersEmail(email: String, result: @escaping (UserOperationResult) -> Void) {
         if let user = Auth.auth().currentUser {
             user.updateEmail(to: email){ error in
-                if error != nil {
-                    result(.failure(("Something Went Wrong")))
+                if let error = error?.localizedDescription {
+                    result(.failure(error))
                 } else {
                     self.ref?.child("users/\(user.uid)/email").setValue(user.email)
                     result(.success)
                 }
             }
         } else {
-            result(.failure("User isn't authenticated"))
+            result(.failure(NSLocalizedString("User isn't authenticated", comment: "")))
         }
     }
     
     func changeUsersPassword(password: String, result: @escaping (UserOperationResult) -> Void) {
         if let user = Auth.auth().currentUser {
             user.updatePassword(to: password) { error in
-                if error != nil {
-                    result(.failure("An error occured."))
+                if let error = error?.localizedDescription {
+                    result(.failure(error))
                 } else {
                     result(.success)
                 }
@@ -396,12 +411,12 @@ class ManagerFirebase {
         }
     }
     
-    // TODO: Do it later
-    func updateUserProfilePhoto(_ photoUrl: String) {
-        if let uid = Auth.auth().currentUser?.uid {
-            self.ref?.child("users/\(uid)/photoURL").setValue(photoUrl)
-        }
-    }
+//    // TODO: Do it later
+//    func updateUserProfilePhoto(_ photoUrl: String) {
+//        if let uid = Auth.auth().currentUser?.uid {
+//            self.ref?.child("users/\(uid)/photoURL").setValue(photoUrl)
+//        }
+//    }
     
     
     //MARK: To check if username is unique
@@ -412,8 +427,7 @@ class ManagerFirebase {
                 result(.success)
             }
             else {
-                print("Taken")
-                result(.failure("Username is taken"))
+                result(.failure(NSLocalizedString("Username is taken", comment: "Username isn't unique") ))
             }
         }) { error in
             result(.failure(error.localizedDescription))
