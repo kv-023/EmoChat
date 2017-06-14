@@ -18,7 +18,11 @@ class CustomTextFieldWithPopOverInfoBox: UITextField {
 
     var image: UIImage?
     var btnQuestion:UIButton?
-    var textInfoForQuestionLabel: String?
+    var textInfoForQuestionLabel: String? {
+        didSet {
+            
+        }
+    }
     var popOverVC: PopOverViewController?
 
     //    @IBInspectable
@@ -46,6 +50,8 @@ class CustomTextFieldWithPopOverInfoBox: UITextField {
     private func commonInit() {
         clipsToBounds = true
 
+        textInfoForQuestionLabel = "smth went wrong..."
+
         popOverVC = Bundle.main.loadNibNamed("PopOverVC", owner: self, options: nil)?[0] as? PopOverViewController
 
         imgLeftInset = dataContainer.imgLeftInset
@@ -70,16 +76,18 @@ class CustomTextFieldWithPopOverInfoBox: UITextField {
 
         leftView = btnQuestion
 
-        hideOrShowImageQuestion()
+        hideQuestionImage()
     }
 
     func hideOrShowImageQuestion() {
-        if imageQuestionShowed {
+        if !imageQuestionShowed {
             //hide it
             hideQuestionImage()
+            whiteBorder()
         } else {
             //show it
             showQuestionImage()
+            redBorder()
         }
     }
 
@@ -112,8 +120,12 @@ class CustomTextFieldWithPopOverInfoBox: UITextField {
 
                 // Present the view controller using the popover style.
                 vcPopOver.modalPresentationStyle = .popover
-                vcPopOver.preferredContentSize = self.bounds.size
-                //CGSize(width: 50, height: 50)
+                // vcPopOver.preferredContentSize = self.bounds.size
+                let summOfAllHorizontalCanstraints = 20 // you can find it in "PopOverVC.xib"
+                let widthForFrameRect = self.bounds.width
+                vcPopOver.preferredContentSize = CGSize(width: widthForFrameRect,
+                                                        height: textHeight(text: textInfoForQuestionLabel,
+                                                                           maxWidth: widthForFrameRect - CGFloat(summOfAllHorizontalCanstraints)))
 
                 vcPopOver.infoLabelText = textInfoForQuestionLabel
 
@@ -133,6 +145,23 @@ class CustomTextFieldWithPopOverInfoBox: UITextField {
                 notNullVCOwner.present(vcPopOver, animated: true, completion: nil)
             }
         }
+    }
+
+    private func textHeight(text: String?, maxWidth: CGFloat = 200) -> CGFloat {
+        let minimumTextHeight: CGFloat = 25
+        var textHeight: CGFloat = minimumTextHeight
+
+        if let notNullText = text {
+            let rect: CGRect = notNullText.boundingRect(with:
+                CGSize(width: maxWidth, height:CGFloat.greatestFiniteMagnitude),
+                                                        options: ([.usesLineFragmentOrigin, .usesFontLeading]),
+                                                        attributes: [NSFontAttributeName: UIFont(name: "Arial", size: 16) ?? 15],
+                                                        context: nil)
+
+            textHeight = max(rect.size.height + 5, minimumTextHeight)
+        }
+
+        return textHeight
     }
 
 }

@@ -8,12 +8,16 @@
 
 import UIKit
 
-class SignUpFirstViewController: UIViewController, UITextFieldDelegate, RegexCheckProtocol {
+class SignUpFirstViewController:
+    //UIViewController,rtd
+    EmoChatUIViewController,
+    UITextFieldDelegate,
+RegexCheckProtocol {
 
-    @IBOutlet weak var username: UITextField!
-    @IBOutlet weak var email: UITextField!
-    @IBOutlet weak var password: UITextField!
-    @IBOutlet weak var confirmation: UITextField!
+    @IBOutlet weak var username: CustomTextFieldWithPopOverInfoBox! //UITextField!
+    @IBOutlet weak var email: CustomTextFieldWithPopOverInfoBox! //UITextField!
+    @IBOutlet weak var password: CustomTextFieldWithPopOverInfoBox! //UITextField!
+    @IBOutlet weak var confirmation: CustomTextFieldWithPopOverInfoBox! //UITextField!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var passwordLabel: UILabel!
@@ -25,11 +29,13 @@ class SignUpFirstViewController: UIViewController, UITextFieldDelegate, RegexChe
         didSet {
             if !usernameValid {
                 usernameLabel.printError(errorText: NSLocalizedString("Enter valid name", comment: "Valid name warning"))
-                username.redBorder()
+
             } else {
                 usernameLabel.printOK(okText: NSLocalizedString("Username", comment: "Username without warning"))
-                username.whiteBorder()
             }
+
+            username.imageQuestionShowed = !usernameValid
+            username.textInfoForQuestionLabel = regexErrorText.SignUpError.userName.localized
         }
     }
 
@@ -37,33 +43,36 @@ class SignUpFirstViewController: UIViewController, UITextFieldDelegate, RegexChe
         didSet {
             if !emailValid {
                 emailLabel.printError(errorText: NSLocalizedString("Enter valid email", comment: "Valid email warning"))
-                email.redBorder()
             } else {
                 emailLabel.printOK(okText: NSLocalizedString("Email", comment: "Email without warning"))
-                email.whiteBorder()
             }
+
+            email.imageQuestionShowed = !emailValid
+            email.textInfoForQuestionLabel = regexErrorText.SignUpError.email.localized
         }
     }
     var passwordValid = false {
         didSet {
             if !passwordValid {
                 passwordLabel.printError(errorText: NSLocalizedString("Enter valid password", comment: "Valid password warning"))
-                password.redBorder()
             } else {
                 passwordLabel.printOK(okText: NSLocalizedString("Password", comment: "Password without warning"))
-                password.whiteBorder()
             }
+
+            password.imageQuestionShowed = !passwordValid
+            password.textInfoForQuestionLabel = regexErrorText.SignUpError.password.localized
         }
     }
     var passwordConfirmationValid = false {
         didSet {
             if !passwordConfirmationValid {
                 confirmationLabel.printError(errorText: NSLocalizedString("Passwords do not match", comment: "Confirmation does not match warning"))
-                confirmation.redBorder()
             } else {
                 confirmationLabel.printOK(okText: NSLocalizedString("Confirmation", comment: "Confirmation without warning"))
-                confirmation.whiteBorder()
             }
+
+            confirmation.imageQuestionShowed = !passwordConfirmationValid
+            confirmation.textInfoForQuestionLabel = regexErrorText.SignUpError.passwordConfirmation.localized
         }
     }
 
