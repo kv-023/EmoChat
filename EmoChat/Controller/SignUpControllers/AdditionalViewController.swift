@@ -135,33 +135,28 @@ class AdditionalViewController: UIViewController, UITextFieldDelegate, RegexChec
         if nameIsValid(uname: firstNameField.text!) &&
             lastNameIsValid(uname: lastNameField.text!) &&
             phoneIsValid(uname: phoneField.text!) {
-            manager.addInfoUser(username: username,
-                                phoneNumber: phoneField.text,
-                                firstName: firstNameField.text,
-                                secondName: lastNameField.text,
-                                photoURL: "") {
-                result in
-                switch result {
-                case .success:
-                    self.performSegue(withIdentifier: "choosePhoto", sender: self)
-                case .failure(let error):
-                    self.firstNameLabel.text = error
-                default:
-                    break
+            if firstNameField.text != nil ||
+                lastNameField.text != nil ||
+                phoneField.text != nil {
+                manager.addInfoUser(username: username,
+                                    phoneNumber: (phoneField.text != nil ? phoneField.text : nil),
+                                    firstName: (firstNameField.text != nil ? firstNameField.text : nil),
+                                    secondName: (lastNameField.text != nil ? lastNameField.text : nil),
+                                    photoURL: nil) {
+                                        result in
+                                        switch result {
+                                        case .success:
+                                            self.performSegue(withIdentifier: "choosePhoto", sender: self)
+                                        case .failure(let error):
+                                            self.firstNameLabel.text = error
+                                        default:
+                                            break
+                                        }
                 }
             }
         }
         
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
     //MARK: - UITextFieldDelegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
