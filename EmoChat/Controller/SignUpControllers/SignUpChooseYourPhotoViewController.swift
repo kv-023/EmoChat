@@ -13,6 +13,7 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
     
     @IBOutlet weak var userPhotoView: UIImageView!
     @IBOutlet weak var warningLabel: UILabel!
+    
     var storageRef: StorageReference!
     var username: String?
     var email: String?
@@ -20,6 +21,7 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
     var manager: ManagerFirebase?
     var success: Bool = true
     var userImage: UIImage?
+    var alert: UIAlertController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +33,8 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTaped))
         self.userPhotoView.addGestureRecognizer(tapGesture)
         manager = ManagerFirebase()
-        
+        alert = UIAlertController(title: "Warning", message: nil, preferredStyle: .alert)
+        alert?.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
     }
     
     override func didReceiveMemoryWarning() {
@@ -100,7 +103,8 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
                 self.dismiss(animated:true, completion: nil)
                 switch result {
                 case .failure(let error):
-                    self.warningLabel.text = error
+                    self.alert?.message = error
+                    self.present(self.alert!, animated: true)
                     self.success = false
                 default:
                     break
