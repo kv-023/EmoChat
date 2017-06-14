@@ -146,10 +146,10 @@ class SearchUsersViewController: UITableViewController {
             tableView.reloadData()
         case .globalUsers:
             if searchText != "" {
-                managerFirebase.filterUsers(with: searchText, array: { (array) in
-                    self.filteredUsers = array
-                    self.tableView.reloadData()
-                })
+//                managerFirebase.filterUsers(with: searchText, array: { (array) in
+//                    self.filteredUsers = array
+//                    self.tableView.reloadData()
+//                })
             } else {
                 filteredUsers.removeAll()
                 tableView.reloadData()
