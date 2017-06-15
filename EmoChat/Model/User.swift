@@ -8,21 +8,26 @@
 
 import Foundation
 
-class User {
-
-//    var userId:String = Auxiliary.getEmpyUUID()
-   // var uuid: String = Auxiliary.getEmpyUUID()
+class User: NSCoding {
     
-    var firstName: String? = nil
-    var secondName: String? = nil
-    var phoneNumber: String? = nil
+    var uid: String!
+    var firstName: String?
+    var secondName: String?
+    var phoneNumber: String?
     var email:String!
     var username:String!
     var photoURL: String?
-    var userConversations: [Conversation]? = []
+    var userConversations: [Conversation] = []
     var contacts: [User] = []
-    var uid: String!
     
+    
+    func encode(with aCoder: NSCoder) {
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        
+    }
     
     init (email: String, username: String, phoneNumber: String?, firstName: String?, secondName: String?, photoURL: String?) {
         self.email = email
