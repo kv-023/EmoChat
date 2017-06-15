@@ -12,6 +12,10 @@
 		3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2731EDC27C700D69F88 /* Main.storyboard */; };
 		3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2761EDC27C700D69F88 /* Assets.xcassets */; };
 		3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */; };
+		51CCDE6B1EF2AB30002340B5 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CCDE691EF2AB30002340B5 /* Background.swift */; };
+		51CCDE6C1EF2AB30002340B5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CCDE6A1EF2AB30002340B5 /* LoginViewController.swift */; };
+		51CCDE6E1EF2AB40002340B5 /* giphy.gif in Resources */ = {isa = PBXBuildFile; fileRef = 51CCDE6D1EF2AB40002340B5 /* giphy.gif */; };
+		51CCDE701EF2AB5B002340B5 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51CCDE6F1EF2AB5B002340B5 /* Login.storyboard */; };
 		746478FA29F53658399EE02D /* Pods_EmoChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */; };
 		84247A391EE9CDA6009E8167 /* GlobalUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84247A381EE9CDA6009E8167 /* GlobalUserCell.swift */; };
 		84312F931EE94FB600FAC4D1 /* SearchUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84312F921EE94FB600FAC4D1 /* SearchUsersViewController.swift */; };
@@ -44,13 +48,11 @@
 		FB982DD51EE1569700AC2FCD /* ChatSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DCC1EE1569700AC2FCD /* ChatSettings.storyboard */; };
 		FB982DD61EE1569700AC2FCD /* Confirmation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DCD1EE1569700AC2FCD /* Confirmation.storyboard */; };
 		FB982DD71EE1569700AC2FCD /* Conversations.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DCE1EE1569700AC2FCD /* Conversations.storyboard */; };
-		FB982DD81EE1569700AC2FCD /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DCF1EE1569700AC2FCD /* Login.storyboard */; };
 		FB982DD91EE1569700AC2FCD /* Options.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DD01EE1569700AC2FCD /* Options.storyboard */; };
 		FB982DDA1EE1569700AC2FCD /* SearchUsers.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DD11EE1569700AC2FCD /* SearchUsers.storyboard */; };
 		FB982DDB1EE1569700AC2FCD /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DD21EE1569700AC2FCD /* SignUp.storyboard */; };
 		FB982DDC1EE1569700AC2FCD /* SingleConversation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DD31EE1569700AC2FCD /* SingleConversation.storyboard */; };
 		FB982DDD1EE1569700AC2FCD /* UserInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DD41EE1569700AC2FCD /* UserInfo.storyboard */; };
-		FB982DE11EE156B700AC2FCD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB982DDF1EE156B700AC2FCD /* LoginViewController.swift */; };
 		FBF7A9CA1EF012E600ABADF5 /* SignUpChooseYourPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF7A9C91EF012E600ABADF5 /* SignUpChooseYourPhotoViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -62,6 +64,10 @@
 		3938C2761EDC27C700D69F88 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3938C2791EDC27C700D69F88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3938C27B1EDC27C700D69F88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		51CCDE691EF2AB30002340B5 /* Background.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
+		51CCDE6A1EF2AB30002340B5 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		51CCDE6D1EF2AB40002340B5 /* giphy.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = giphy.gif; sourceTree = "<group>"; };
+		51CCDE6F1EF2AB5B002340B5 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		5E5B970584D3FF3821DB6225 /* Pods-EmoChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmoChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmoChat/Pods-EmoChat.release.xcconfig"; sourceTree = "<group>"; };
 		6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmoChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84247A381EE9CDA6009E8167 /* GlobalUserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalUserCell.swift; sourceTree = "<group>"; };
@@ -97,13 +103,11 @@
 		FB982DCC1EE1569700AC2FCD /* ChatSettings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChatSettings.storyboard; sourceTree = "<group>"; };
 		FB982DCD1EE1569700AC2FCD /* Confirmation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Confirmation.storyboard; sourceTree = "<group>"; };
 		FB982DCE1EE1569700AC2FCD /* Conversations.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Conversations.storyboard; sourceTree = "<group>"; };
-		FB982DCF1EE1569700AC2FCD /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		FB982DD01EE1569700AC2FCD /* Options.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Options.storyboard; sourceTree = "<group>"; };
 		FB982DD11EE1569700AC2FCD /* SearchUsers.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SearchUsers.storyboard; sourceTree = "<group>"; };
 		FB982DD21EE1569700AC2FCD /* SignUp.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SignUp.storyboard; sourceTree = "<group>"; };
 		FB982DD31EE1569700AC2FCD /* SingleConversation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SingleConversation.storyboard; sourceTree = "<group>"; };
 		FB982DD41EE1569700AC2FCD /* UserInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserInfo.storyboard; sourceTree = "<group>"; };
-		FB982DDF1EE156B700AC2FCD /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		FBF7A9C91EF012E600ABADF5 /* SignUpChooseYourPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpChooseYourPhotoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -150,6 +154,7 @@
 				3938C2731EDC27C700D69F88 /* Main.storyboard */,
 				3938C2761EDC27C700D69F88 /* Assets.xcassets */,
 				3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */,
+				51CCDE6D1EF2AB40002340B5 /* giphy.gif */,
 				3938C27B1EDC27C700D69F88 /* Info.plist */,
 				ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */,
 				E7883F3D1EF1C2DA00E876CC /* Localizable.strings */,
@@ -163,6 +168,15 @@
 				6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		51CCDE681EF2AB30002340B5 /* LoginViewController */ = {
+			isa = PBXGroup;
+			children = (
+				51CCDE691EF2AB30002340B5 /* Background.swift */,
+				51CCDE6A1EF2AB30002340B5 /* LoginViewController.swift */,
+			);
+			path = LoginViewController;
 			sourceTree = "<group>";
 		};
 		84312F911EE94F9F00FAC4D1 /* SearchUsersController */ = {
@@ -272,9 +286,9 @@
 			children = (
 				FB982DD21EE1569700AC2FCD /* SignUp.storyboard */,
 				FB982DCC1EE1569700AC2FCD /* ChatSettings.storyboard */,
+				51CCDE6F1EF2AB5B002340B5 /* Login.storyboard */,
 				FB982DCD1EE1569700AC2FCD /* Confirmation.storyboard */,
 				FB982DCE1EE1569700AC2FCD /* Conversations.storyboard */,
-				FB982DCF1EE1569700AC2FCD /* Login.storyboard */,
 				FB982DD01EE1569700AC2FCD /* Options.storyboard */,
 				FB982DD11EE1569700AC2FCD /* SearchUsers.storyboard */,
 				FB982DD31EE1569700AC2FCD /* SingleConversation.storyboard */,
@@ -286,11 +300,11 @@
 		FB982DDE1EE156B700AC2FCD /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				51CCDE681EF2AB30002340B5 /* LoginViewController */,
 				A3E7E7CF1EEFD864006D24BC /* OptionsController */,
 				FB4317741EE6C2AC00770338 /* Helper */,
 				FB4317711EE6C21800770338 /* SignUpControllers */,
 				84312F911EE94F9F00FAC4D1 /* SearchUsersController */,
-				FB982DDF1EE156B700AC2FCD /* LoginViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -362,7 +376,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB982DD81EE1569700AC2FCD /* Login.storyboard in Resources */,
+				51CCDE701EF2AB5B002340B5 /* Login.storyboard in Resources */,
 				FB982DDA1EE1569700AC2FCD /* SearchUsers.storyboard in Resources */,
 				3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */,
 				FB982DDB1EE1569700AC2FCD /* SignUp.storyboard in Resources */,
@@ -376,6 +390,7 @@
 				3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */,
 				FB982DD61EE1569700AC2FCD /* Confirmation.storyboard in Resources */,
 				FB982DD51EE1569700AC2FCD /* ChatSettings.storyboard in Resources */,
+				51CCDE6E1EF2AB40002340B5 /* giphy.gif in Resources */,
 				3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -453,10 +468,11 @@
 				FBF7A9CA1EF012E600ABADF5 /* SignUpChooseYourPhotoViewController.swift in Sources */,
 				84312F931EE94FB600FAC4D1 /* SearchUsersViewController.swift in Sources */,
 				E7352C281EDED52B0095264E /* Message.swift in Sources */,
+				51CCDE6C1EF2AB30002340B5 /* LoginViewController.swift in Sources */,
 				A39232881EEFFF8F00E70CD9 /* OptionsChangePhotoNameSecondNameTableViewController.swift in Sources */,
 				E7352C271EDED52B0095264E /* Auxiliary.swift in Sources */,
+				51CCDE6B1EF2AB30002340B5 /* Background.swift in Sources */,
 				84312F961EE9507E00FAC4D1 /* ContactCell.swift in Sources */,
-				FB982DE11EE156B700AC2FCD /* LoginViewController.swift in Sources */,
 				E7352C291EDED52B0095264E /* User.swift in Sources */,
 				E7352C2B1EE0139E0095264E /* ModelGenericHelper.swift in Sources */,
 				FB4317731EE6C24400770338 /* SignUpFirstViewController.swift in Sources */,

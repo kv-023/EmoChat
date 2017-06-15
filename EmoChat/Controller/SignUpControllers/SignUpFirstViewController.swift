@@ -23,6 +23,7 @@ RegexCheckProtocol {
     @IBOutlet weak var passwordLabel: UILabel!
     @IBOutlet weak var confirmationLabel: UILabel!
     @IBOutlet weak var theScrollView: UIScrollView!
+	@IBOutlet weak var backgroundAnimated: UIImageView!
     var manager: ManagerFirebase?
 
     var usernameValid = false {
@@ -78,6 +79,8 @@ RegexCheckProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+		backgroundAnimated.loadGif(name: "giphy")
+		
         
         //Hide keyboard by tap
         self.hideKeyboard()

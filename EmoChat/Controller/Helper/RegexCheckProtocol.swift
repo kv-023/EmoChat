@@ -118,4 +118,11 @@ enum regexErrorText: String, Localizable {
         case passwordConfirmation = "app.regexCheck.passwordConfirmation"
 
     }
+	
+	enum LogInError: String, Localizable {
+		static let parent: LocalizeParent = nil
+
+		case email = "app.regexCheck.email"
+		case password = "app.regexCheck.password"
+	}
 }
