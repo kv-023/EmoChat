@@ -12,7 +12,7 @@ class OptionsChangeNumberTableViewController: UITableViewController, UITextField
     
     @IBOutlet weak var changeNumberTextField: UITextField!
     //    var titleForFooterLabel = "Some info about changing phone number."
-    var manager: ManagerFirebase!
+    var manager: ManagerFirebase?
     
     @IBOutlet weak var footerLabel: UILabel!
     
@@ -91,14 +91,9 @@ class OptionsChangeNumberTableViewController: UITableViewController, UITextField
     
     // MARK: - Saving to firebase
     func saveNumber(sender: UIBarButtonItem) {
-        
-        //ad some action
-        
-        
-        
         if
             phoneIsValid(uname: changeNumberTextField.text!) {
-            manager.addInfoUser(username: nil,
+            manager?.addInfoUser(username: nil,
                                 phoneNumber: changeNumberTextField.text,
                                 firstName: nil,
                                 secondName: nil,
