@@ -12,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <viewController storyboardIdentifier="popoverViewController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Mkh-mo-sHs" customClass="PopOverViewController" customModule="CustomTextFieldEmoChat" customModuleProvider="target">
+        <viewController storyboardIdentifier="popoverViewController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Mkh-mo-sHs" customClass="PopOverViewController" customModule="EmoChat" customModuleProvider="target">
             <layoutGuides>
                 <viewControllerLayoutGuide type="top" id="Ez5-GR-4xi"/>
                 <viewControllerLayoutGuide type="bottom" id="J97-Fc-CRm"/>
@@ -21,16 +21,16 @@
                 <rect key="frame" x="0.0" y="0.0" width="200" height="50"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="info" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xNj-jL-cuc">
-                        <rect key="frame" x="21" y="14.5" width="29" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="info" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xNj-jL-cuc">
+                        <rect key="frame" x="21" y="17" width="158" height="17"/>
+                        <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <color key="backgroundColor" red="0.66798857869999995" green="0.66798857869999995" blue="0.66798857869999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
-                    <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="xNj-jL-cuc" secondAttribute="trailing" constant="5" id="Msm-2x-vyA"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="xNj-jL-cuc" secondAttribute="trailing" constant="5" id="Msm-2x-vyA"/>
                     <constraint firstItem="xNj-jL-cuc" firstAttribute="centerY" secondItem="Phy-Te-SXK" secondAttribute="centerY" id="gBM-qd-i5N"/>
                     <constraint firstItem="xNj-jL-cuc" firstAttribute="leading" secondItem="Phy-Te-SXK" secondAttribute="leadingMargin" constant="5" id="n7h-1r-MZp"/>
                 </constraints>

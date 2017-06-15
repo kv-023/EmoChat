@@ -6,7 +6,7 @@
 //  Copyright © 2017 mc373. All rights reserved.
 //
 
-//Superclass for all instances which have to use PopOveIo box in textField
+//Superclass for all instances which have to use PopOverInfo box in textField
 
 import UIKit
 

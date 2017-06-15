@@ -8,15 +8,19 @@
 
 import UIKit
 
-class AdditionalViewController: UIViewController, UITextFieldDelegate, RegexCheckProtocol {
+class AdditionalViewController:
+    //UIViewController,
+    EmoChatUIViewController,
+    UITextFieldDelegate,
+RegexCheckProtocol {
     
     @IBOutlet weak var theScrollView: UIScrollView!
     @IBOutlet weak var firstNameLabel: UILabel!
     @IBOutlet weak var lastNameLabel: UILabel!
 
-    @IBOutlet weak var firstNameField: UITextField!
-    @IBOutlet weak var lastNameField: UITextField!
-    @IBOutlet weak var phoneField: UITextField!
+    @IBOutlet weak var firstNameField: CustomTextFieldWithPopOverInfoBox! //UITextField!
+    @IBOutlet weak var lastNameField: CustomTextFieldWithPopOverInfoBox! //UITextField!
+    @IBOutlet weak var phoneField: CustomTextFieldWithPopOverInfoBox! //UITextField!
     
     var username: String?
     var email: String?
@@ -78,31 +82,32 @@ class AdditionalViewController: UIViewController, UITextFieldDelegate, RegexChec
     // MARK: - Actions
     
     @IBAction func firstNameChanged(_ sender: UITextField) {
-       
-        if nameIsValid(uname: sender.text) {
+        let currentNameIsValid = nameIsValid(uname: sender.text)
+
+        if currentNameIsValid {
             firstNameLabel.text = NSLocalizedString("First Name", comment: "First Name")
             firstNameLabel.textColor = UIColor.white
-            firstNameField.whiteBorder()
-            
         } else {
             firstNameLabel.printError(errorText: "Enter valid name")
-            firstNameField.redBorder()
         }
-       
+
+        firstNameField.imageQuestionShowed = !currentNameIsValid
+        firstNameField.textInfoForQuestionLabel = regexErrorText.SignUpError.name.localized
     }
 
     
     @IBAction func lastNameChanged(_ sender: UITextField) {
+        let currentLastNameIsValid = lastNameIsValid(uname: sender.text)
 
-        if lastNameIsValid(uname: sender.text) {
+        if currentLastNameIsValid {
             lastNameLabel.text = NSLocalizedString("Last Name", comment: "Last Name")
             lastNameLabel.textColor = UIColor.white
-            lastNameField.whiteBorder()
-            
         } else {
             lastNameLabel.printError(errorText: "Enter valid last name")
-            lastNameField.redBorder()
         }
+
+        lastNameField.imageQuestionShowed = !currentLastNameIsValid
+        lastNameField.textInfoForQuestionLabel = regexErrorText.SignUpError.lastName.localized
     }
     
     @IBAction func phoneNumberChanged(_ sender: UITextField) {
@@ -110,15 +115,16 @@ class AdditionalViewController: UIViewController, UITextFieldDelegate, RegexChec
         if (phoneField.text?.characters.count)! == 0 {
             phoneField.text = "+"
         }
-        
-        if phoneIsValid(uname: sender.text) {
+
+        let currentphoneIsValid = phoneIsValid(uname: sender.text)
+        if currentphoneIsValid {
             phoneField.text = sender.text
-            phoneField.whiteBorder()
-        } else {
-            phoneField.redBorder()
         }
+
+        phoneField.imageQuestionShowed = !currentphoneIsValid
+        phoneField.textInfoForQuestionLabel = regexErrorText.SignUpError.phone.localized
     }
-    
+
     @IBAction func phoneNumberEditingDidBegin(_ sender: UITextField) {
         let code = getCountryCode()
         if (phoneField.text?.characters.count)! < code.characters.count {
