@@ -11,13 +11,14 @@ import Firebase
 
 class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate   {
     
+	@IBOutlet weak var backgroundAnimated: UIImageView!
     @IBOutlet weak var userPhotoView: UIImageView!
     var storageRef: StorageReference!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-		//backgroundAnimated.loadGif(name: "giphy")
+		backgroundAnimated.loadGif(name: "giphy")
         
         let storage = Storage.storage()
         storageRef = storage.reference()

@@ -81,7 +81,6 @@ RegexCheckProtocol {
         super.viewDidLoad()
 		backgroundAnimated.loadGif(name: "giphy")
 		
-        
         //Hide keyboard by tap
         self.hideKeyboard()
         

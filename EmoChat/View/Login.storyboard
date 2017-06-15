@@ -88,6 +88,10 @@
                                     <action selector="loginAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kzE-vg-ifB"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="48p-N9-KBY">
+                                <rect key="frame" x="104" y="346" width="113" height="94"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -116,6 +120,7 @@
                         <outlet property="hintsLabel" destination="vxy-HU-iRD" id="LMe-us-l2E"/>
                         <outlet property="logIn" destination="bYC-FF-8D6" id="enb-QP-3wY"/>
                         <outlet property="passwordField" destination="g4g-Ca-vAU" id="Eym-TV-fuJ"/>
+                        <outlet property="transition" destination="48p-N9-KBY" id="2Dl-xb-bUO"/>
                         <segue destination="NF9-jD-ZzW" kind="show" identifier="showConversations" id="AfB-yh-mcp"/>
                     </connections>
                 </viewController>

@@ -16,6 +16,7 @@
 		51CCDE6C1EF2AB30002340B5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CCDE6A1EF2AB30002340B5 /* LoginViewController.swift */; };
 		51CCDE6E1EF2AB40002340B5 /* giphy.gif in Resources */ = {isa = PBXBuildFile; fileRef = 51CCDE6D1EF2AB40002340B5 /* giphy.gif */; };
 		51CCDE701EF2AB5B002340B5 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51CCDE6F1EF2AB5B002340B5 /* Login.storyboard */; };
+		51CCDE721EF2E8C5002340B5 /* transition.gif in Resources */ = {isa = PBXBuildFile; fileRef = 51CCDE711EF2E8C5002340B5 /* transition.gif */; };
 		746478FA29F53658399EE02D /* Pods_EmoChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */; };
 		84247A391EE9CDA6009E8167 /* GlobalUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84247A381EE9CDA6009E8167 /* GlobalUserCell.swift */; };
 		84312F931EE94FB600FAC4D1 /* SearchUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84312F921EE94FB600FAC4D1 /* SearchUsersViewController.swift */; };
@@ -68,6 +69,7 @@
 		51CCDE6A1EF2AB30002340B5 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		51CCDE6D1EF2AB40002340B5 /* giphy.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = giphy.gif; sourceTree = "<group>"; };
 		51CCDE6F1EF2AB5B002340B5 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		51CCDE711EF2E8C5002340B5 /* transition.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = transition.gif; sourceTree = "<group>"; };
 		5E5B970584D3FF3821DB6225 /* Pods-EmoChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmoChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmoChat/Pods-EmoChat.release.xcconfig"; sourceTree = "<group>"; };
 		6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmoChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84247A381EE9CDA6009E8167 /* GlobalUserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalUserCell.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				3938C2761EDC27C700D69F88 /* Assets.xcassets */,
 				3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */,
 				51CCDE6D1EF2AB40002340B5 /* giphy.gif */,
+				51CCDE711EF2E8C5002340B5 /* transition.gif */,
 				3938C27B1EDC27C700D69F88 /* Info.plist */,
 				ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */,
 				E7883F3D1EF1C2DA00E876CC /* Localizable.strings */,
@@ -389,6 +392,7 @@
 				E7883F3B1EF1C2DA00E876CC /* Localizable.strings in Resources */,
 				3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */,
 				FB982DD61EE1569700AC2FCD /* Confirmation.storyboard in Resources */,
+				51CCDE721EF2E8C5002340B5 /* transition.gif in Resources */,
 				FB982DD51EE1569700AC2FCD /* ChatSettings.storyboard in Resources */,
 				51CCDE6E1EF2AB40002340B5 /* giphy.gif in Resources */,
 				3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */,

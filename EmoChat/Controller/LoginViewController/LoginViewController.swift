@@ -19,7 +19,8 @@ class LoginViewController: UIViewController {
 	@IBOutlet weak var emailField: CustomTextFieldWithPopOverInfoBox!
 	@IBOutlet weak var passwordField: CustomTextFieldWithPopOverInfoBox!
 	@IBOutlet weak var hintsLabel: UILabel!
-
+	@IBOutlet weak var transition: UIImageView!
+	
 	var manager: ManagerFirebase? = nil
 	
 	var currentEmailIsValid: Bool = false {
@@ -277,10 +278,10 @@ class LoginViewController: UIViewController {
 					
 					self.hintsLabel.text = ("You have succesfuly logged in")
 					self.hintsLabel.textColor = UIColor.green
-					
+					self.transition.loadGif(name: "transition")
 					// MARK: - Slow delay between transition to conversations. Go to conversation through Segue
 					
-					let when = DispatchTime.now() + 0.5
+					let when = DispatchTime.now() + 2.5
 					DispatchQueue.main.asyncAfter(deadline: when) {
 						self.performSegue(withIdentifier: "showConversations", sender: self)
 					}

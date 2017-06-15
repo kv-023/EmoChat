@@ -17,7 +17,7 @@ RegexCheckProtocol {
     @IBOutlet weak var theScrollView: UIScrollView!
     @IBOutlet weak var firstNameLabel: UILabel!
     @IBOutlet weak var lastNameLabel: UILabel!
-
+	@IBOutlet weak var backgroundAnimated: UIImageView!
     @IBOutlet weak var firstNameField: CustomTextFieldWithPopOverInfoBox! //UITextField!
     @IBOutlet weak var lastNameField: CustomTextFieldWithPopOverInfoBox! //UITextField!
     @IBOutlet weak var phoneField: CustomTextFieldWithPopOverInfoBox! //UITextField!
@@ -32,6 +32,7 @@ RegexCheckProtocol {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+		backgroundAnimated.loadGif(name: "giphy")
         phoneField.placeholder = getCountryCode()
         
         //Hide keyboard by tap

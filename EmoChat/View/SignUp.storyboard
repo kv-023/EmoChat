@@ -225,7 +225,7 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="backgroundAnimated" destination="73f-K5-v22" id="vmb-4Z-I5s"/>
+                        <outlet property="backgroundAnimated" destination="73f-K5-v22" id="B1g-lp-sSb"/>
                         <outlet property="confirmation" destination="yUb-wW-TKM" id="KWy-Nt-Ng3"/>
                         <outlet property="confirmationLabel" destination="62g-Tg-EsS" id="ohF-RK-KBQ"/>
                         <outlet property="email" destination="kCK-6T-a7R" id="gJk-F7-7de"/>
@@ -240,7 +240,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BY2-kl-zDC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1468" y="-147.07646176911544"/>
+            <point key="canvasLocation" x="1455" y="-147"/>
         </scene>
         <!--Sign Up Choose Your Photo View Controller-->
         <scene sceneID="PCD-Qx-5TO">
@@ -387,6 +387,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="uM5-zM-qrS"/>
                     <connections>
+                        <outlet property="backgroundAnimated" destination="eRS-ZX-bnA" id="RXf-6W-2ZD"/>
                         <outlet property="userPhotoView" destination="7uM-tU-baj" id="fNa-Jw-fho"/>
                     </connections>
                 </viewController>
@@ -600,6 +601,7 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="backgroundAnimated" destination="sHZ-Kn-Ye3" id="TWa-j7-Cen"/>
                         <outlet property="firstNameField" destination="PU8-J7-b5o" id="lcK-ia-itq"/>
                         <outlet property="firstNameLabel" destination="LCL-ww-oww" id="jJo-m6-nqB"/>
                         <outlet property="lastNameField" destination="99n-cr-ZCN" id="vwq-fS-ZHO"/>

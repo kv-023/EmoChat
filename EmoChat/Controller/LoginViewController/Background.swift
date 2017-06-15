@@ -70,7 +70,7 @@ extension UIImage {
 	}
 	
 	internal class func delayForImageAtIndex(_ index: Int, source: CGImageSource!) -> Double {
-		var delay = 0.1
+		var delay = 0.000001
 		
 		// Get dictionaries
 		let cfProperties = CGImageSourceCopyPropertiesAtIndex(source, index, nil)
@@ -104,7 +104,6 @@ extension UIImage {
 		
 		var a = a
 		var b = b
-		
 		// Check if one of them is nil
 		if b == nil || a == nil {
 			if b != nil {
@@ -118,13 +117,12 @@ extension UIImage {
 		
 		// Swap for modulo
 		if a! < b! {
-			a = a! + b!
-			b = a! - b!
-			a = a! - b!
+			let c = a
+			a = b
+			b = c
 		}
 		
 		// Get greatest common divisor
-		
 		var rest: Int
 		while true {
 			rest = a! % b!
@@ -196,7 +194,7 @@ extension UIImage {
 			}
 		}
 		
-		// Set animation
+		// Heyhey
 		let animation = UIImage.animatedImage(with: frames,
 		                                      duration: Double(duration) / 1000.0)
 		
