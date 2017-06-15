@@ -57,7 +57,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         if emailField.text != "" && passwordField.text != "" {
             Auth.auth().signIn(withEmail: emailField.text!, password: passwordField.text!, completion: { (user, error) in
                                     if user != nil && (user?.isEmailVerified)! {
-                                        self.hintsLabel.text = ("success! you are in")
+                                       // self.hintsLabel.text = ("success! you are in")
                                     } else {
                                         if let myError = error?.localizedDescription {
                                             self.hintsLabel.text = myError
