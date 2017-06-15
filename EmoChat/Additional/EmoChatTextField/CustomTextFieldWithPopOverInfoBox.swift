@@ -164,20 +164,32 @@ class CustomTextFieldWithPopOverInfoBox: UITextField {
         return textHeight
     }
 
+
+    override func redBorder() {
+        super.redBorder()
+
+        shake()
+    }
+
+    //MARK: Shake animation inplementation
+
+    func shake() {
+        shake(count: 2, for: 0.2, withTranslation: 2)
+    }
+
+    func shake(count : Float? = nil,
+               for duration : TimeInterval? = nil,
+               withTranslation translation : Float? = nil) {
+        let animation : CABasicAnimation = CABasicAnimation(keyPath: "transform.translation.x")
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+        animation.repeatCount = count ?? 2
+        animation.duration = (duration ?? 0.5)/TimeInterval(animation.repeatCount)
+        animation.autoreverses = true
+        animation.byValue = translation ?? -5
+        layer.add(animation, forKey: "shake")
+    }
+
 }
-
-//MARK:- Spec. controller's behavior
-
-////MARK: Shake animation inplementation
-//func shake(count : Float? = nil, for duration : TimeInterval? = nil, withTranslation translation : Float? = nil) {
-//    let animation : CABasicAnimation = CABasicAnimation(keyPath: "transform.translation.x")
-//    animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
-//    animation.repeatCount = count ?? 2
-//    animation.duration = (duration ?? 0.5)/TimeInterval(animation.repeatCount)
-//    animation.autoreverses = true
-//    animation.byValue = translation ?? -5
-//    layer.add(animation, forKey: "shake")
-//}
 
 //MARK: data structure
 fileprivate struct HelperForCustomTextFieldWithPopOverInfoBox {
