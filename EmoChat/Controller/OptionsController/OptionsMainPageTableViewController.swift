@@ -8,7 +8,7 @@
 
 import UIKit
 
-class OptionsMainPageTableViewController: UITableViewController {
+class OptionsMainPageTableViewController:  UITableViewController  {
     
     @IBOutlet weak var userImageView: UIImageView!
     
@@ -22,29 +22,51 @@ class OptionsMainPageTableViewController: UITableViewController {
     
     @IBOutlet weak var emailLabel: UILabel!
     
+    var manager: ManagerFirebase
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Temporary logIn
+        manager.logIn(email: "zellensky@gmail.com", password: "qwerty") {
+            result in
+            switch result {
+            case .success:
+                print("succ!!!!!!!!!!!!!!!!!!!!!!!ess")
+            case .failure(let error):
+                print("\(error) fail fail fail")
+            default:
+                print("!@#$^&^%$#EVVFDCDEDD")
+                break
+            }
+        }
         
-//        let alertCameraError = UIAlertController(title: "Help", message: "Help, help, help!", preferredStyle: UIAlertControllerStyle.alert)
-//        alertCameraError.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-//        self.present(alertCameraError, animated: true, completion: nil)
-     
+        
+        
+//        manager?.getCurrentUser {
+//            getUser in
+//            switch getUser {
+//            case .success:
+//                print("SSSSSSS")
+//            case .failure(let error):
+//                print(error)
+//            default:
+//                print("def")
+//                break
+//            }
+//        }
         
         
         
         
         
-        phoneNumberLabel.text = "095 1111111"
-        userNameLabel.text = "@alexsmth"
-        emailLabel.text = "vitya@i.ua"
+        self.phoneNumberLabel.text = "095 1111111"
+        self.userNameLabel.text = "@alexsmth"
+        self.emailLabel.text = "vitya@i.ua"
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
         
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        
     }
     func helpMe() {
         print("nihao chiba help")

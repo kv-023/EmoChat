@@ -20,12 +20,35 @@ class OptionsChangePhotoNameSecondNameTableViewController: UITableViewController
     
     @IBOutlet weak var lastNameLabel: UILabel!
     
+    var manager: ManagerFirebase!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //Create a right save button and add it to vc
         let rightButtonItem = UIBarButtonItem.init(barButtonSystemItem: .save, target: self, action: #selector(saveInformation))
         self.navigationItem.rightBarButtonItem = rightButtonItem
+        
+        manager = ManagerFirebase()
+        
+        
+        
+        
+        
+        //Temporary logIn
+        manager?.logIn(email: "zellensky@gmail.com", password: "qwerty") {
+            result in
+            switch result {
+            case .success:
+                print("success")
+                break
+            case .failure(let error):
+                print("\(error) fail fail fail")
+            default:
+                break
+            }
+            
+        }
     }
     
     func saveInformation(sender: UIBarButtonItem) {
