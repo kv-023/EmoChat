@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum MessageContentType {
+enum MessageContentType: String {
     case photo
     case video
     case text

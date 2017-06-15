@@ -474,27 +474,54 @@ class ManagerFirebase {
     
     
     
-    
+    // MARK: - Conversations
     func createConversation(_ members: [User], withName name: String? = nil) -> ConversationOperationResult {
         
-        let refConv = ref?.child("conversations").childByAutoId()
-        let uid: String = (refConv?.key)!
+        if let refConv = ref?.child("conversations").childByAutoId() {
+            
+            let uid: String = (refConv.key)
+            
+            for member in members {
+                refConv.child("usersInConversation/\(member.uid!)").setValue(true)
+            }
+            
+            if members.count > 2 {
+                refConv.child("name").setValue(name)
+            } else {
+                ref?.child("u")
+            }
         
-        for member in members {
-            ref?.child("conversations/\(uid)/usersInConversation/\(member.uid!)").setValue(true)
-        }
-        if members.count > 2 {
-            ref?.child("conversations/\(uid)/name").setValue(name)
-        }
-        
-        if refConv != nil {
-            return .success
+            let conversation = Conversation(conversationId: uid,
+                                            usersInConversation: members,
+                                            messagesInConversation: [],
+                                            lastMessage: nil)
+            return .successSingleConversation(conversation)
         } else {
             return .failure("Something went wrong")
         }
         
     }
     
+    // MARK: - Messages
+    func createMessage(conversation: Conversation, sender: User, content:(type: MessageContentType, content: String)) -> MessageOperationResult {
+        
+        let timeStamp = Int((Date().timeIntervalSince1970 * 1000.0))
+        
+        let message = Message(uid: "\(timeStamp)\(sender.uid!)",
+            senderId: sender.uid,
+            time: Date(timeIntervalSince1970: TimeInterval(timeStamp / 1000)),
+            content: (type: content.type, content: content.content))
+        
+        if let messageRef = ref?.child("conversations/\(conversation.uuid)/messagesInConversation/\(message.uid!)") {
+            messageRef.child("content/\(message.content.type)").setValue(message.content.content)
+            messageRef.child("senderId").setValue(message.senderId!)
+            messageRef.child("time").setValue(timeStamp)
+            ref?.child("conversations/\(conversation.uuid)/lastMessage").setValue(timeStamp)
+            return .successSingleMessage(message)
+        } else {
+            return .failure(NSLocalizedString("Something went wrong", comment: ""))
+        }
+    }
     
     
 }
