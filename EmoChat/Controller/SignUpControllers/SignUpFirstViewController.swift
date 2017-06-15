@@ -162,7 +162,7 @@ class SignUpFirstViewController: UIViewController, UITextFieldDelegate, RegexChe
                     break
                 case .failure(let error):
                     self.username.redBorder()
-                    self.emailLabel.printError(errorText: error)
+                    self.usernameLabel.printError(errorText: error)
                     unique = false
                 default:
                     break
