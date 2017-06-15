@@ -52,6 +52,30 @@ class ManagerFirebase {
     }
     
     
+    func getURLsFromConversation(_ conversation: Conversation) -> [String] {
+        var arrayOfURLs = [String]()
+        for member in conversation.usersInConversation {
+            if let url = member.photoURL {
+                arrayOfURLs.append(url)
+            }
+        }
+        return arrayOfURLs
+    }
+    
+    //MARK: Delete account
+    func deleteAccount (result: @escaping (UserOperationResult)-> Void) {
+        if let user = Auth.auth().currentUser {
+            user.delete() {
+                (error) in
+                if let err = error?.localizedDescription {
+                    result(.failure(err))
+                } else {
+                    result(.success)
+                }
+            }
+        }
+    }
+    
     // MARK: Log In
     /*
         You can pass a closure which take the result as a string
@@ -96,7 +120,7 @@ class ManagerFirebase {
     }
     
 
-    // MARK: Add additional info
+    // MARK: - Add additional info
     //Add email, uid, username and additional info to database. Call this method after succefull sign up.
     func addInfoUser (username: String!, phoneNumber: String?, firstName: String?, secondName: String?, photoURL: String?, result: @escaping (UserOperationResult) -> Void){
         if let user = Auth.auth().currentUser {
@@ -137,7 +161,7 @@ class ManagerFirebase {
         return result
     }
     
-    //MARK: Getting the full object of the current user
+    //MARK: - Getting the full object of the current user
     /*
      Get authentificated user. Result is the User with additional info and his conversations (but conversations without messages)
      
@@ -159,10 +183,10 @@ class ManagerFirebase {
             self.ref?.observeSingleEvent(of: .value, with: { (snapshot) in
                 // .child("users").child(uid)
                 
-                
                 let value = snapshot.value as? NSDictionary
                 
-                let userSnapshot = (value?["users"] as? NSDictionary)?["\(uid)"] as? NSDictionary
+                let userSnapshot = snapshot.childSnapshot(forPath: "users/\(uid)").value as? NSDictionary
+
                 //getting additional info
                 let username = userSnapshot?["username"] as! String
                 let firstname = userSnapshot?["firstName"] as! String?
@@ -180,7 +204,7 @@ class ManagerFirebase {
                 if let conversationsArrayId = conversationsID?.allKeys {
                     user.userConversations = self.sortListOfConversations(self.getConversetionsFromSnapshot(value, accordingTo: conversationsArrayId as! [String], currentUserEmail: email))
                     //getting array of contacts
-                    user.contacts = self.getContacts(from: user.userConversations!)
+                    user.contacts = self.getContacts(from: user.userConversations)
                 }
                 
                 
@@ -261,7 +285,7 @@ class ManagerFirebase {
     
     
     
-    //MARK: UserPic
+    //MARK: - UserPic
     //Add photo of user's profile to storage and database
     func addPhoto (_ image: UIImage, previous url: String?, result: @escaping (UserOperationResult) -> Void) {
         if let uid = Auth.auth().currentUser?.uid {
@@ -411,7 +435,7 @@ class ManagerFirebase {
         }
     }
     
-//    // TODO: Do it later
+
 //    func updateUserProfilePhoto(_ photoUrl: String) {
 //        if let uid = Auth.auth().currentUser?.uid {
 //            self.ref?.child("users/\(uid)/photoURL").setValue(photoUrl)
@@ -490,11 +514,76 @@ class ManagerFirebase {
         if refConv != nil {
             return .success
         } else {
-            return .failure("Something went wrong")
+            return .failure(NSLocalizedString("Something went wrong", comment: "Undefined error"))
         }
         
     }
     
+    //MARK: - test
+    func valueChanged (action: @escaping (String) -> Void) {
+        if let uid = Auth.auth().currentUser?.uid {
+            let namePath = self.ref?.child("users/\(uid)")
+            namePath?.observe(.childChanged, with: { (snapshot) in
+                action((snapshot.value as? String)!)
+                
+            })
+        }
+    }
+    
+    func updateConversations (getNewConversation: @escaping (Conversation) -> Void) {
+        if let uid = Auth.auth().currentUser?.uid {
+            
+            let namePath = self.ref?.child("users/\(uid)/conversations")
+            namePath?.observe(.childAdded, with: { (snapshot) in
+                let idConv = snapshot.key
+                self.ref?.observeSingleEvent(of: .value, with: { (snapshot) in
+                    let users = snapshot.childSnapshot(forPath: "users").value as? NSDictionary
+                    let conversation = snapshot.childSnapshot(forPath: "conversations/\(idConv)").value as! NSDictionary
+                    
+                    let newConv = Conversation(conversationId: idConv, usersInConversation: self.getUsersFromIDs(ids: conversation["usersInConversation"] as! NSDictionary, value: users), messagesInConversation: nil, lastMessage: nil)
+                    
+                    getNewConversation(newConv)
+                })
+                //action((snapshot.value as? String)!)
+             
+                
+            })
+            
+        }
+    }
+    
+    func getMessageFromConversation (_ allConversations: [Conversation], result: @escaping (Conversation, Message) -> Void) {
+        for eachConv in allConversations{
+            self.ref?.child("conversations/\(eachConv.uuid)/conversations/messagesInConversation").observe(.childAdded, with: {(snapshot) in
+                let uidMessage = snapshot.key
+                let messageSnapshot = snapshot.value as? NSDictionary
+                let message = Message(data: messageSnapshot, uid: uidMessage)
+                result(eachConv, message)
+            })
+        }
+        
+//            let namePath = self.ref?.child("users/\(uid)/conversations")
+//            namePath?.observe(.childAdded, with: { (snapshot) in
+//                let idConv = snapshot.key
+//                self.ref?.observeSingleEvent(of: .value, with: { (snapshot) in
+//                    //let users = snapshot.childSnapshot(forPath: "users").value as? NSDictionary
+//                    let conversation = snapshot.childSnapshot(forPath: "conversations/\(idConv)").value as! NSDictionary
+//                    
+//                })
+//                //action((snapshot.value as? String)!)
+//                
+//                
+//            })
+            
+        
+
+        
+//        let namePath = self.ref?.child("conversations/conversationId-456")
+//        namePath?.observe(.childChanged, with: { (snapshot) in
+//            let changedSnap = snapshot.value
+//            
+//        })
+    }
     
     
 }

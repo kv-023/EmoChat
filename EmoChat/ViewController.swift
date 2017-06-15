@@ -17,6 +17,7 @@ class ViewController: UIViewController {
 
    //var ref: DatabaseReference?
     var m: ManagerFirebase?
+    @IBOutlet weak var label: UILabel!
 
     @IBAction func regexTestButtoPressed(_ sender: UIButton) {
         regexTest()
@@ -24,6 +25,31 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         m  = ManagerFirebase.shared
+        m?.getCurrentUser(){ op in
+            switch op {
+            case let .successSingleUser (user):
+                self.m?.getMessageFromConversation(user.userConversations, result: {
+                    (res1, res2) in
+                    print(res1)
+                    print(res2)
+                })
+            default :
+                break
+            }
+        }
+        
+//        m?.valueChanged() {
+//            newValue in
+//            self.label.text = newValue
+//        }
+        
+//        m?.changeContentOfMessage()
+        
+//        m?.updateConversations() {
+//            newConv in
+//                self.label.text = newConv.uuid
+//            print(newConv)
+//        }
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -53,15 +79,11 @@ class ViewController: UIViewController {
     @IBAction func testFirebase(_ sender: Any) {
       //  print((m?.emailIsVerified())!)
         
-        m?.getCurrentUser(){ op in
-                    switch op {
-                    case let .successSingleUser (user):
-                        print(user)
-            
-                    default :
-                    break
-                       }
-        }
+
+       
+
+        
+
 //        m?.changeInfo(phoneNumber: "0940332299", firstName: "bodya", secondName: nil) {op in
 //            switch op {
 //            case let .success:
