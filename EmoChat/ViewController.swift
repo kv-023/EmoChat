@@ -51,15 +51,26 @@ class ViewController: UIViewController {
     
     @IBAction func testFirebase(_ sender: Any) {
         
-//        m?.getCurrentUser(){ user in
-//            self.m?.getListOfMessages(inConversation: (user?.userConversations?.first?.uuid)!) {list in
-//                if let message = list?.first {
-//                    print(message.content!.content)
-//                }
-//            }
-//        }
-//        
-//        
+        m?.getCurrentUser(){ op in
+                    switch op {
+                    case let .successSingleUser (user):
+                        print(user)
+            
+                    default :
+                    break
+                       }
+        }
+        m?.changeInfo(phoneNumber: "0940332299", firstName: "bodya", secondName: nil) {op in
+            switch op {
+            case let .success:
+                print("success")
+                
+            default :
+                break
+            }
+        }
+//
+//
 //        m?.filterUsers(with: "olg"){array in
 //            for u in array {
 //                print(u.username)

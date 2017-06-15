@@ -19,6 +19,7 @@ class User {
     var username:String!
     var photoURL: String?
     var userConversations: [Conversation]? = []
+    var contacts: [User] = []
 
     
     init (email: String, username: String, phoneNumber: String?, firstName: String?, secondName: String?, photoURL: String?) {

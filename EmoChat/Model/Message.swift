@@ -17,16 +17,14 @@ enum MessageContentType {
 class Message {
     let uid: String?
     let senderId: String!
-    let conversation: String!
     let time: Date!
     var content: (type: MessageContentType, content: String)!
 
 
-    init (uid: String, senderId: String, conversation: String, time: Date, content: (type: MessageContentType, content: String))
+    init (uid: String, senderId: String, time: Date, content: (type: MessageContentType, content: String))
     {
         self.uid = uid
         self.senderId = senderId
-        self.conversation = conversation
         self.time = time
         self.content = content
     }
@@ -37,7 +35,6 @@ class Message {
     init (data: NSDictionary?, uid: String?) {
         self.uid = uid
         self.senderId = data?["senderId"] as! String?
-        self.conversation = data?["conversation"] as! String?
         let time = data?["time"] as? TimeInterval
         self.time = (Date(timeIntervalSince1970: time!/1000))
         let media = data?["media"] as? NSDictionary
