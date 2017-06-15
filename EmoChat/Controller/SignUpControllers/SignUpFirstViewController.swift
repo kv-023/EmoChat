@@ -157,7 +157,8 @@ RegexCheckProtocol {
                 case .success:
                     break
                 case .failure(let error):
-                    self.emailLabel.printError(errorText: error)
+                    self.email.imageQuestionShowed = true
+                    self.email.textInfoForQuestionLabel = error
                     self.email.redBorder()
                     unique = false
                 default:
@@ -171,7 +172,8 @@ RegexCheckProtocol {
                     break
                 case .failure(let error):
                     self.username.redBorder()
-                    self.usernameLabel.printError(errorText: error)
+                    self.username.imageQuestionShowed = true
+                    self.username.textInfoForQuestionLabel = error
                     unique = false
                 default:
                     break
