@@ -5,7 +5,7 @@
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -40,7 +40,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="01v-tw-dNY">
-                                                <rect key="frame" x="50" y="98" width="220" height="258"/>
+                                                <rect key="frame" x="50" y="98" width="220" height="288"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Ij-XM-eqz">
                                                         <rect key="frame" x="0.0" y="0.0" width="220" height="17"/>
@@ -106,6 +106,9 @@
                                                             <outlet property="delegate" destination="vOK-ag-Oxs" id="VT9-21-Vjb"/>
                                                         </connections>
                                                     </textField>
+                                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Ydv-pc-jP8">
+                                                        <rect key="frame" x="0.0" y="268" width="220" height="20"/>
+                                                    </activityIndicatorView>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="tHK-66-qsb">
@@ -225,6 +228,7 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="Ydv-pc-jP8" id="Gtq-8I-vZw"/>
                         <outlet property="confirmation" destination="yUb-wW-TKM" id="KWy-Nt-Ng3"/>
                         <outlet property="confirmationLabel" destination="62g-Tg-EsS" id="ohF-RK-KBQ"/>
                         <outlet property="email" destination="kCK-6T-a7R" id="gJk-F7-7de"/>
@@ -275,6 +279,9 @@
                                                     <outletCollection property="gestureRecognizers" destination="zaG-Bv-2rT" appends="YES" id="fQc-xq-gBm"/>
                                                 </connections>
                                             </imageView>
+                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="HKu-28-BTh">
+                                                <rect key="frame" x="150" y="328" width="20" height="20"/>
+                                            </activityIndicatorView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="TGS-mu-dPX">
                                                 <rect key="frame" x="50" y="502" width="220" height="36"/>
                                                 <subviews>
@@ -325,6 +332,7 @@
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="TGS-mu-dPX" secondAttribute="bottom" constant="10" id="0E5-qd-aY3"/>
                                             <constraint firstItem="TGS-mu-dPX" firstAttribute="top" secondItem="us5-pO-cbC" secondAttribute="bottom" constant="-40" id="0NC-Ay-xFo"/>
+                                            <constraint firstItem="HKu-28-BTh" firstAttribute="top" secondItem="7uM-tU-baj" secondAttribute="bottom" constant="10" id="2aW-pl-Htu"/>
                                             <constraint firstAttribute="trailing" secondItem="TGS-mu-dPX" secondAttribute="trailing" constant="50" id="5S2-W3-yaV"/>
                                             <constraint firstAttribute="height" constant="420" id="8Gp-rL-Vvb"/>
                                             <constraint firstItem="TGS-mu-dPX" firstAttribute="leading" secondItem="NBe-gg-5gN" secondAttribute="leading" constant="50" id="BED-if-rLD"/>
@@ -332,6 +340,7 @@
                                             <constraint firstItem="AM9-EK-ARo" firstAttribute="top" secondItem="NBe-gg-5gN" secondAttribute="top" constant="20" id="gOa-mu-6Dw"/>
                                             <constraint firstItem="7uM-tU-baj" firstAttribute="top" secondItem="AM9-EK-ARo" secondAttribute="bottom" constant="40" id="kfw-1O-tx7"/>
                                             <constraint firstItem="us5-pO-cbC" firstAttribute="centerX" secondItem="NBe-gg-5gN" secondAttribute="centerX" id="qYX-sn-b0j"/>
+                                            <constraint firstItem="HKu-28-BTh" firstAttribute="centerX" secondItem="NBe-gg-5gN" secondAttribute="centerX" id="uPt-bD-fQB"/>
                                             <constraint firstItem="AM9-EK-ARo" firstAttribute="centerX" secondItem="NBe-gg-5gN" secondAttribute="centerX" id="yd8-IJ-fj7"/>
                                         </constraints>
                                         <variation key="default">
@@ -386,6 +395,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="uM5-zM-qrS"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="HKu-28-BTh" id="V73-NZ-WP5"/>
                         <outlet property="userPhotoView" destination="7uM-tU-baj" id="fNa-Jw-fho"/>
                         <outlet property="warningLabel" destination="fGk-em-0fR" id="ahm-XI-YiF"/>
                         <segue destination="jYn-X3-rRN" kind="presentation" identifier="confirmation" modalTransitionStyle="crossDissolve" id="PqP-Po-RqJ"/>
@@ -430,7 +440,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="uCO-18-nZO">
-                                                <rect key="frame" x="50" y="98" width="220" height="191"/>
+                                                <rect key="frame" x="50" y="98" width="220" height="221"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LCL-ww-oww">
                                                         <rect key="frame" x="0.0" y="0.0" width="220" height="17"/>
@@ -482,6 +492,9 @@
                                                             <outlet property="delegate" destination="vL3-mC-C5H" id="8Vj-2Y-0a2"/>
                                                         </connections>
                                                     </textField>
+                                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="e7d-yw-VK9">
+                                                        <rect key="frame" x="0.0" y="201" width="220" height="20"/>
+                                                    </activityIndicatorView>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="i1b-e1-2Zv">
@@ -601,6 +614,7 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="e7d-yw-VK9" id="ZI9-N6-9ew"/>
                         <outlet property="firstNameField" destination="PU8-J7-b5o" id="lcK-ia-itq"/>
                         <outlet property="firstNameLabel" destination="LCL-ww-oww" id="jJo-m6-nqB"/>
                         <outlet property="lastNameField" destination="99n-cr-ZCN" id="vwq-fS-ZHO"/>
@@ -620,6 +634,6 @@
         <image name="question_mark" width="980" height="980"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="dDN-nd-M7X"/>
+        <segue reference="6op-yY-Gih"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -8,23 +8,20 @@
 
 import UIKit
 
-class SignUpFirstViewController:
-    //UIViewController,rtd
-    EmoChatUIViewController,
-    UITextFieldDelegate,
-RegexCheckProtocol {
+class SignUpFirstViewController: EmoChatUIViewController, UITextFieldDelegate, RegexCheckProtocol {
 
-    @IBOutlet weak var username: CustomTextFieldWithPopOverInfoBox! //UITextField!
-    @IBOutlet weak var email: CustomTextFieldWithPopOverInfoBox! //UITextField!
-    @IBOutlet weak var password: CustomTextFieldWithPopOverInfoBox! //UITextField!
-    @IBOutlet weak var confirmation: CustomTextFieldWithPopOverInfoBox! //UITextField!
+    @IBOutlet weak var username: CustomTextFieldWithPopOverInfoBox!
+    @IBOutlet weak var email: CustomTextFieldWithPopOverInfoBox!
+    @IBOutlet weak var password: CustomTextFieldWithPopOverInfoBox!
+    @IBOutlet weak var confirmation: CustomTextFieldWithPopOverInfoBox!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var passwordLabel: UILabel!
     @IBOutlet weak var confirmationLabel: UILabel!
     @IBOutlet weak var theScrollView: UIScrollView!
     var manager: ManagerFirebase?
-
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     var usernameValid = false {
         didSet {
             if !usernameValid {
@@ -66,7 +63,7 @@ RegexCheckProtocol {
     var passwordConfirmationValid = false {
         didSet {
             if !passwordConfirmationValid {
-                confirmationLabel.printError(errorText: NSLocalizedString("Passwords do not match", comment: "Confirmation does not match warning"))
+                confirmationLabel.printError(errorText: NSLocalizedString("Enter valid confirmation", comment: "Valid confirmation warning"))
             } else {
                 confirmationLabel.printOK(okText: NSLocalizedString("Confirmation", comment: "Confirmation without warning"))
             }
@@ -74,6 +71,10 @@ RegexCheckProtocol {
             confirmation.imageQuestionShowed = !passwordConfirmationValid
             confirmation.textInfoForQuestionLabel = regexErrorText.SignUpError.passwordConfirmation.localized
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        activityIndicator.isHidden = true
     }
 
     override func viewDidLoad() {
@@ -126,7 +127,7 @@ RegexCheckProtocol {
     }
 
     @IBAction func nextIsPressed(_ sender: UIButton) {
-        var success = true, unique = true
+        var success = true
         if username.text == "" {
             usernameLabel.printError(errorText: NSLocalizedString("Enter username", comment: "Empty username"))
             username.redBorder()
@@ -151,36 +152,36 @@ RegexCheckProtocol {
                 && emailValid
                 && passwordValid
                 && passwordConfirmationValid) {
-            manager?.signUp(email: email.text!, password: password.text!) {
+            activityIndicator.isHidden = false
+            activityIndicator.startAnimating()
+            manager?.checkUserNameUniqness(self.username.text!) {
                 result in
                 switch result {
                 case .success:
-                    break
-                case .failure(let error):
-                    self.email.imageQuestionShowed = true
-                    self.email.textInfoForQuestionLabel = error
-                    self.email.redBorder()
-                    unique = false
-                default:
-                    break
-                }
-            }
-            manager?.checkUserNameUniqness(username.text!) {
-                result in
-                switch result {
-                case .success:
-                    break
+                    self.manager?.signUp(email: self.email.text!, password: self.password.text!) {
+                        result in
+                        switch result {
+                        case .success:
+                            self.performSegue(withIdentifier: "additional", sender: self)
+                        case .failure(let error):
+                            self.email.imageQuestionShowed = true
+                            self.email.textInfoForQuestionLabel = error
+                            self.email.redBorder()
+                            self.activityIndicator.isHidden = true
+                            self.activityIndicator.stopAnimating()
+                        default:
+                            break
+                        }
+                    }
                 case .failure(let error):
                     self.username.redBorder()
                     self.username.imageQuestionShowed = true
                     self.username.textInfoForQuestionLabel = error
-                    unique = false
+                    self.activityIndicator.isHidden = true
+                    self.activityIndicator.stopAnimating()
                 default:
                     break
                 }
-            }
-            if unique {
-                performSegue(withIdentifier: "additional", sender: self)
             }
         }
     }

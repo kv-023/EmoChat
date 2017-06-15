@@ -13,19 +13,21 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
     
     @IBOutlet weak var userPhotoView: UIImageView!
     @IBOutlet weak var warningLabel: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var storageRef: StorageReference!
     var username: String?
     var email: String?
     var password: String?
     var manager: ManagerFirebase?
-    var success: Bool = true
     var userImage: UIImage?
     var warning: UIAlertController?
     
     override func viewWillAppear(_ animated: Bool) {
         userPhotoView.clipsToBounds = true
-        userPhotoView.layer.cornerRadius = userPhotoView.frame.width/2    }
+        userPhotoView.layer.cornerRadius = userPhotoView.frame.width/2
+        activityIndicator.isHidden = true
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,22 +104,25 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
     
     @IBAction func signUpIsPressed(_ sender: UIButton) {
         //add image to firebase
-        
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
         if let image = userImage {
             manager?.addPhoto(image) {
                 result in
                 
                 switch result {
+                case .success:
+                    self.performSegue(withIdentifier: "confirmation", sender: self)
                 case .failure(let error):
                     self.warning?.message = error
                     self.present(self.warning!, animated: true)
-                    self.success = false
+                    self.activityIndicator.isHidden = true
+                    self.activityIndicator.stopAnimating()
                 default:
                     break
                 }
             }
-        }
-        if success {
+        } else {
             performSegue(withIdentifier: "confirmation", sender: self)
         }
     }
