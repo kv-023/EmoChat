@@ -51,6 +51,7 @@
 		FB982DDC1EE1569700AC2FCD /* SingleConversation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DD31EE1569700AC2FCD /* SingleConversation.storyboard */; };
 		FB982DDD1EE1569700AC2FCD /* UserInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DD41EE1569700AC2FCD /* UserInfo.storyboard */; };
 		FB982DE11EE156B700AC2FCD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB982DDF1EE156B700AC2FCD /* LoginViewController.swift */; };
+		FBAC19811EF13E1A0027AF9D /* ConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAC19801EF13E1A0027AF9D /* ConfirmationViewController.swift */; };
 		FBF7A9CA1EF012E600ABADF5 /* SignUpChooseYourPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF7A9C91EF012E600ABADF5 /* SignUpChooseYourPhotoViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -104,6 +105,7 @@
 		FB982DD31EE1569700AC2FCD /* SingleConversation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SingleConversation.storyboard; sourceTree = "<group>"; };
 		FB982DD41EE1569700AC2FCD /* UserInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserInfo.storyboard; sourceTree = "<group>"; };
 		FB982DDF1EE156B700AC2FCD /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		FBAC19801EF13E1A0027AF9D /* ConfirmationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmationViewController.swift; sourceTree = "<group>"; };
 		FBF7A9C91EF012E600ABADF5 /* SignUpChooseYourPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpChooseYourPhotoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -286,6 +288,7 @@
 		FB982DDE1EE156B700AC2FCD /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				FBAC197F1EF13E000027AF9D /* ConfirmationController */,
 				A3E7E7CF1EEFD864006D24BC /* OptionsController */,
 				FB4317741EE6C2AC00770338 /* Helper */,
 				FB4317711EE6C21800770338 /* SignUpControllers */,
@@ -293,6 +296,14 @@
 				FB982DDF1EE156B700AC2FCD /* LoginViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		FBAC197F1EF13E000027AF9D /* ConfirmationController */ = {
+			isa = PBXGroup;
+			children = (
+				FBAC19801EF13E1A0027AF9D /* ConfirmationViewController.swift */,
+			);
+			path = ConfirmationController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -442,6 +453,7 @@
 				3938C2721EDC27C700D69F88 /* ViewController.swift in Sources */,
 				A39232841EEFF58E00E70CD9 /* OptionsChangeUserNameTableViewController.swift in Sources */,
 				A39232861EEFF77200E70CD9 /* OptionsChangeEmailTableViewController.swift in Sources */,
+				FBAC19811EF13E1A0027AF9D /* ConfirmationViewController.swift in Sources */,
 				E7883F381EF1611F00E876CC /* Localize.swift in Sources */,
 				CC45A7571EE6D40E00FF13AE /* ManagerFirebase.swift in Sources */,
 				E7B926F01EF1487B0018F5FF /* EmoChatUIViewController.swift in Sources */,
@@ -598,7 +610,7 @@
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = EmoChat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.softserve.EmoChat3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.softserve.EmoChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -612,7 +624,7 @@
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = EmoChat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.softserve.EmoChat3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.softserve.EmoChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};

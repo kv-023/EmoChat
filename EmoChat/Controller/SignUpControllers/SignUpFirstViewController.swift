@@ -8,23 +8,29 @@
 
 import UIKit
 
-class SignUpFirstViewController:
-    //UIViewController,rtd
-    EmoChatUIViewController,
-    UITextFieldDelegate,
-RegexCheckProtocol {
+class SignUpFirstViewController: EmoChatUIViewController, UITextFieldDelegate, RegexCheckProtocol {
 
-    @IBOutlet weak var username: CustomTextFieldWithPopOverInfoBox! //UITextField!
-    @IBOutlet weak var email: CustomTextFieldWithPopOverInfoBox! //UITextField!
-    @IBOutlet weak var password: CustomTextFieldWithPopOverInfoBox! //UITextField!
-    @IBOutlet weak var confirmation: CustomTextFieldWithPopOverInfoBox! //UITextField!
+    @IBOutlet weak var username: CustomTextFieldWithPopOverInfoBox!
+    @IBOutlet weak var email: CustomTextFieldWithPopOverInfoBox!
+    @IBOutlet weak var password: CustomTextFieldWithPopOverInfoBox!
+    @IBOutlet weak var confirmation: CustomTextFieldWithPopOverInfoBox!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var passwordLabel: UILabel!
     @IBOutlet weak var confirmationLabel: UILabel!
     @IBOutlet weak var theScrollView: UIScrollView!
     var manager: ManagerFirebase?
-
+    var enteredEmail: String?
+    var enteredUsername: String?
+    var enteredPassword: String?
+    var firstName: String?
+    var lastName: String?
+    var phoneNumber: String?
+    var image: UIImage?
+    var returned: Bool?
+    var edited = false
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     var usernameValid = false {
         didSet {
             if !usernameValid {
@@ -66,7 +72,7 @@ RegexCheckProtocol {
     var passwordConfirmationValid = false {
         didSet {
             if !passwordConfirmationValid {
-                confirmationLabel.printError(errorText: NSLocalizedString("Passwords do not match", comment: "Confirmation does not match warning"))
+                confirmationLabel.printError(errorText: NSLocalizedString("Enter valid confirmation", comment: "Valid confirmation warning"))
             } else {
                 confirmationLabel.printOK(okText: NSLocalizedString("Confirmation", comment: "Confirmation without warning"))
             }
@@ -74,6 +80,14 @@ RegexCheckProtocol {
             confirmation.imageQuestionShowed = !passwordConfirmationValid
             confirmation.textInfoForQuestionLabel = regexErrorText.SignUpError.passwordConfirmation.localized
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        activityIndicator.isHidden = true
+        email.text = enteredEmail
+        password.text = enteredPassword
+        confirmation.text = enteredPassword
+        username.text = enteredUsername
     }
 
     override func viewDidLoad() {
@@ -87,7 +101,7 @@ RegexCheckProtocol {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         //Create Firebase manager
-        manager = ManagerFirebase()
+        manager = ManagerFirebase.shared
     }
     
     func keyboardWillShow(notification:NSNotification){
@@ -111,22 +125,30 @@ RegexCheckProtocol {
 
     @IBAction func usernameEdited(_ sender: UITextField) {
         usernameValid = usernameIsValid(userName: sender.text)
+        edited = true
     }
 
     @IBAction func emailEdited(_ sender: UITextField) {
         emailValid = emailIsValid(userEmail: sender.text)
+        edited = true
     }
 
     @IBAction func passwordEdited(_ sender: UITextField) {
         passwordValid = passwordIsValid(userPassword: sender.text)
+        edited = true
     }
 
     @IBAction func confirmationEdited(_ sender: UITextField) {
         passwordConfirmationValid = passwordIsValid(userPassword: sender.text)
+        edited = true
     }
 
     @IBAction func nextIsPressed(_ sender: UIButton) {
-        var success = true, unique = true
+        usernameValid = usernameIsValid(userName: username.text)
+        emailValid = emailIsValid(userEmail: email.text)
+        passwordValid = passwordIsValid(userPassword: password.text)
+        passwordConfirmationValid = passwordIsValid(userPassword: confirmation.text)
+        var success = true
         if username.text == "" {
             usernameLabel.printError(errorText: NSLocalizedString("Enter username", comment: "Empty username"))
             username.redBorder()
@@ -145,40 +167,63 @@ RegexCheckProtocol {
         if password.text == "" {
             passwordLabel.printError(errorText: NSLocalizedString("Enter password", comment: "Empty password"))
             password.redBorder()
+            success = false
         }
         if success
             && (usernameValid
                 && emailValid
                 && passwordValid
                 && passwordConfirmationValid) {
-            manager?.signUp(email: email.text!, password: password.text!) {
-                result in
-                switch result {
-                case .success:
-                    break
-                case .failure(let error):
-                    self.emailLabel.printError(errorText: error)
-                    self.email.redBorder()
-                    unique = false
-                default:
-                    break
+            var reuse = false
+            if let check = returned {
+                if check {
+                    reuse = true
+                }
+                if check && edited {
+                    manager?.deleteAccount {
+                        result in
+                        switch result {
+                        default:
+                            break
+                        }
+                    }
+                    returned = false
                 }
             }
-            manager?.checkUserNameUniqness(username.text!) {
-                result in
-                switch result {
-                case .success:
-                    break
-                case .failure(let error):
-                    self.username.redBorder()
-                    self.emailLabel.printError(errorText: error)
-                    unique = false
-                default:
-                    break
-                }
-            }
-            if unique {
+            if reuse && (!edited) {
                 performSegue(withIdentifier: "additional", sender: self)
+            } else {
+                activityIndicator.isHidden = false
+                activityIndicator.startAnimating()
+                manager?.checkUserNameUniqness(self.username.text!) {
+                    result in
+                    switch result {
+                    case .success:
+                        self.manager?.signUp(email: self.email.text!, password: self.password.text!) {
+                            result in
+                            switch result {
+                            case .success:
+                                self.performSegue(withIdentifier: "additional", sender: self)
+                            case .failure(let error):
+                                self.email.imageQuestionShowed = true
+                                self.email.textInfoForQuestionLabel = error
+                                self.email.redBorder()
+                                self.activityIndicator.isHidden = true
+                                self.activityIndicator.stopAnimating()
+                            default:
+                                break
+                            }
+                        }
+                    case .failure(let error):
+                        self.username.redBorder()
+                        self.username.imageQuestionShowed = true
+                        self.username.textInfoForQuestionLabel = error
+                        self.activityIndicator.isHidden = true
+                        self.activityIndicator.stopAnimating()
+                    default:
+                        break
+                    }
+                }
             }
         }
     }
@@ -200,6 +245,12 @@ RegexCheckProtocol {
         if segue.identifier == "additional" {
             let destination:AdditionalViewController = segue.destination as! AdditionalViewController
             destination.username = username.text
+            destination.email = email.text
+            destination.password = password.text
+            destination.firstName = firstName
+            destination.lastName = lastName
+            destination.phoneNumber = phoneNumber
+            destination.image = image
         }
     }
     

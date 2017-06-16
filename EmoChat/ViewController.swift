@@ -13,16 +13,43 @@ import FirebaseAuth
 class ViewController: UIViewController {
     
     
+    
 
    //var ref: DatabaseReference?
     var m: ManagerFirebase?
+    @IBOutlet weak var label: UILabel!
 
     @IBAction func regexTestButtoPressed(_ sender: UIButton) {
         regexTest()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        m  = ManagerFirebase();
+        m  = ManagerFirebase.shared
+        m?.getCurrentUser(){ op in
+            switch op {
+            case let .successSingleUser (user):
+                self.m?.getMessageFromConversation(user.userConversations, result: {
+                    (res1, res2) in
+                    print(res1)
+                    print(res2)
+                })
+            default :
+                break
+            }
+        }
+        
+//        m?.valueChanged() {
+//            newValue in
+//            self.label.text = newValue
+//        }
+        
+//        m?.changeContentOfMessage()
+        
+//        m?.updateConversations() {
+//            newConv in
+//                self.label.text = newConv.uuid
+//            print(newConv)
+//        }
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -50,25 +77,22 @@ class ViewController: UIViewController {
     
     
     @IBAction func testFirebase(_ sender: Any) {
+      //  print((m?.emailIsVerified())!)
         
-        m?.getCurrentUser(){ op in
-                    switch op {
-                    case let .successSingleUser (user):
-                        print(user)
-            
-                    default :
-                    break
-                       }
-        }
-        m?.changeInfo(phoneNumber: "0940332299", firstName: "bodya", secondName: nil) {op in
-            switch op {
-            case let .success:
-                print("success")
-                
-            default :
-                break
-            }
-        }
+
+       
+
+        
+
+//        m?.changeInfo(phoneNumber: "0940332299", firstName: "bodya", secondName: nil) {op in
+//            switch op {
+//            case let .success:
+//                print("success")
+//                
+//            default :
+//                break
+//            }
+//        }
 //
 //
 //        m?.filterUsers(with: "olg"){array in
@@ -174,6 +198,45 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var hintsLabel: UILabel!
     @IBOutlet weak var segmentControl: UISegmentedControl!
+    
+    @IBAction func DADADA(_ sender: Any) {
+        
+
+        /*
+        self.m?.addInfoUser(username: "golubovskiy", phoneNumber: "0", firstName: "Dtima", secondName: "Gol", photoURL: nil, result: { (updResult) in
+            switch updResult {
+            case .success:
+                print("Success")
+            default:
+                return
+            }
+            
+        })
+ */
+        
+        let user = User(email: "dadada", username: "dadada", phoneNumber: nil, firstName: nil, secondName: nil, photoURL: nil, uid: "userUID")
+        let user1 = User(email: "netnet", username: "netnet", phoneNumber: nil, firstName: nil, secondName: nil, photoURL: nil, uid: "user1UID")
+        let user2 = User(email: "user2", username: "user2", phoneNumber: nil, firstName: nil, secondName: nil, photoURL: nil, uid: "user2UID")
+        
+        
+        //m?.createConversation([user, user1, user2], withName: "firstConversation")
+        
+        //m?.createConversation([user1, user2])
+        var conv: Conversation!
+        
+        switch m!.createConversation([user, user1, user2], withName: "firstConversation") {
+        case let .successSingleConversation(conversation):
+            conv = conversation
+            m?.createMessage(conversation: conversation, sender: conversation.usersInConversation[0], content: (type: .text, content: "Hello dadada"))
+        default:
+            return
+        }
+        
+        
+        
+        m?.createMessage(conversation: conv, sender: conv.usersInConversation[1], content: (type: .text, content: "New message"))
+        
+    }
     
     @IBOutlet weak var buttonLogin: UIButton!
     @IBAction func buttonSignUp(_ sender: UIButton) {
