@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		351C842C1EF3E39000F99D69 /* ChatSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C842B1EF3E39000F99D69 /* ChatSettingsTableViewController.swift */; };
+		351C84301EF406BF00F99D69 /* LogoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C842F1EF406BF00F99D69 /* LogoTableViewCell.swift */; };
 		3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3938C26F1EDC27C700D69F88 /* AppDelegate.swift */; };
 		3938C2721EDC27C700D69F88 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3938C2711EDC27C700D69F88 /* ViewController.swift */; };
 		3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2731EDC27C700D69F88 /* Main.storyboard */; };
@@ -49,6 +50,7 @@
 
 /* Begin PBXFileReference section */
 		351C842B1EF3E39000F99D69 /* ChatSettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatSettingsTableViewController.swift; sourceTree = "<group>"; };
+		351C842F1EF406BF00F99D69 /* LogoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoTableViewCell.swift; sourceTree = "<group>"; };
 		3938C26C1EDC27C700D69F88 /* EmoChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmoChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3938C26F1EDC27C700D69F88 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3938C2711EDC27C700D69F88 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 				84312F911EE94F9F00FAC4D1 /* SearchUsersController */,
 				FB982DDF1EE156B700AC2FCD /* LoginViewController.swift */,
 				351C842B1EF3E39000F99D69 /* ChatSettingsTableViewController.swift */,
+				351C842F1EF406BF00F99D69 /* LogoTableViewCell.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -408,6 +411,7 @@
 				A309F3761EEFED6000DF6449 /* OptionsChangeNumberTableViewController.swift in Sources */,
 				FBF7A9CA1EF012E600ABADF5 /* SignUpChooseYourPhotoViewController.swift in Sources */,
 				84312F931EE94FB600FAC4D1 /* SearchUsersViewController.swift in Sources */,
+				351C84301EF406BF00F99D69 /* LogoTableViewCell.swift in Sources */,
 				E7352C281EDED52B0095264E /* Message.swift in Sources */,
 				A39232881EEFFF8F00E70CD9 /* OptionsChangePhotoNameSecondNameTableViewController.swift in Sources */,
 				E7352C271EDED52B0095264E /* Auxiliary.swift in Sources */,
