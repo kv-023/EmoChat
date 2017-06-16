@@ -18,14 +18,18 @@ RegexCheckProtocol {
     @IBOutlet weak var firstNameLabel: UILabel!
     @IBOutlet weak var lastNameLabel: UILabel!
 
-    @IBOutlet weak var firstNameField: CustomTextFieldWithPopOverInfoBox! //UITextField!
-    @IBOutlet weak var lastNameField: CustomTextFieldWithPopOverInfoBox! //UITextField!
-    @IBOutlet weak var phoneField: CustomTextFieldWithPopOverInfoBox! //UITextField!
+    @IBOutlet weak var firstNameField: CustomTextFieldWithPopOverInfoBox!
+    @IBOutlet weak var lastNameField: CustomTextFieldWithPopOverInfoBox!
+    @IBOutlet weak var phoneField: CustomTextFieldWithPopOverInfoBox!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var username: String?
     var email: String?
     var password: String?
+    var firstName: String?
+    var lastName: String?
+    var phoneNumber: String?
+    var image: UIImage?
     var manager: ManagerFirebase!
     var alert: UIAlertController?
     
@@ -35,6 +39,9 @@ RegexCheckProtocol {
     
     override func viewWillAppear(_ animated: Bool) {
         activityIndicator.isHidden = true
+        firstNameField.text = firstName
+        lastNameField.text = lastName
+        phoneField.text = phoneNumber
     }
     
     override func viewDidLoad() {
@@ -155,9 +162,9 @@ RegexCheckProtocol {
                 activityIndicator.isHidden = false
                 activityIndicator.startAnimating()
                 manager.addInfoUser(username: username,
-                                    phoneNumber: (phoneField.text != nil ? phoneField.text : nil),
-                                    firstName: (firstNameField.text != nil ? firstNameField.text : nil),
-                                    secondName: (lastNameField.text != nil ? lastNameField.text : nil),
+                                    phoneNumber: (phoneField.text != "" ? phoneField.text : nil),
+                                    firstName: (firstNameField.text != "" ? firstNameField.text : nil),
+                                    secondName: (lastNameField.text != "" ? lastNameField.text : nil),
                                     photoURL: nil) {
                                         result in
                                         switch result {
@@ -208,7 +215,21 @@ RegexCheckProtocol {
             destination.username = username
             destination.email = email
             destination.password = password
+            destination.firstName = firstNameField.text
+            destination.lastName = lastNameField.text
+            destination.phoneNumber = phoneField.text
+            destination.image = image
+        }
+        if segue.identifier == "necessary" {
+            let destination: SignUpFirstViewController = segue.destination as! SignUpFirstViewController
+            destination.enteredEmail = email
+            destination.enteredUsername = username
+            destination.enteredPassword = password
+            destination.returned = true
+            destination.firstName = firstNameField.text
+            destination.lastName = lastNameField.text
+            destination.phoneNumber = phoneField.text
+            destination.image = image
         }
     }
-    
 }

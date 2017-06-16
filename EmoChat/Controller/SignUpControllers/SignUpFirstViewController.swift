@@ -20,6 +20,14 @@ class SignUpFirstViewController: EmoChatUIViewController, UITextFieldDelegate, R
     @IBOutlet weak var confirmationLabel: UILabel!
     @IBOutlet weak var theScrollView: UIScrollView!
     var manager: ManagerFirebase?
+    var enteredEmail: String?
+    var enteredUsername: String?
+    var enteredPassword: String?
+    var firstName: String?
+    var lastName: String?
+    var phoneNumber: String?
+    var image: UIImage?
+    var returned: Bool?
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var usernameValid = false {
@@ -75,6 +83,10 @@ class SignUpFirstViewController: EmoChatUIViewController, UITextFieldDelegate, R
     
     override func viewWillAppear(_ animated: Bool) {
         activityIndicator.isHidden = true
+        email.text = enteredEmail
+        password.text = enteredPassword
+        confirmation.text = enteredPassword
+        username.text = enteredUsername
     }
 
     override func viewDidLoad() {
@@ -154,33 +166,39 @@ class SignUpFirstViewController: EmoChatUIViewController, UITextFieldDelegate, R
                 && passwordConfirmationValid) {
             activityIndicator.isHidden = false
             activityIndicator.startAnimating()
-            manager?.checkUserNameUniqness(self.username.text!) {
-                result in
-                switch result {
-                case .success:
-                    self.manager?.signUp(email: self.email.text!, password: self.password.text!) {
-                        result in
-                        switch result {
-                        case .success:
-                            self.performSegue(withIdentifier: "additional", sender: self)
-                        case .failure(let error):
-                            self.email.imageQuestionShowed = true
-                            self.email.textInfoForQuestionLabel = error
-                            self.email.redBorder()
-                            self.activityIndicator.isHidden = true
-                            self.activityIndicator.stopAnimating()
-                        default:
-                            break
+            if let check = returned {
+                if check {
+                    
+                }
+            } else {
+                manager?.checkUserNameUniqness(self.username.text!) {
+                    result in
+                    switch result {
+                    case .success:
+                        self.manager?.signUp(email: self.email.text!, password: self.password.text!) {
+                            result in
+                            switch result {
+                            case .success:
+                                self.performSegue(withIdentifier: "additional", sender: self)
+                            case .failure(let error):
+                                self.email.imageQuestionShowed = true
+                                self.email.textInfoForQuestionLabel = error
+                                self.email.redBorder()
+                                self.activityIndicator.isHidden = true
+                                self.activityIndicator.stopAnimating()
+                            default:
+                                break
+                            }
                         }
+                    case .failure(let error):
+                        self.username.redBorder()
+                        self.username.imageQuestionShowed = true
+                        self.username.textInfoForQuestionLabel = error
+                        self.activityIndicator.isHidden = true
+                        self.activityIndicator.stopAnimating()
+                    default:
+                        break
                     }
-                case .failure(let error):
-                    self.username.redBorder()
-                    self.username.imageQuestionShowed = true
-                    self.username.textInfoForQuestionLabel = error
-                    self.activityIndicator.isHidden = true
-                    self.activityIndicator.stopAnimating()
-                default:
-                    break
                 }
             }
         }
@@ -205,6 +223,10 @@ class SignUpFirstViewController: EmoChatUIViewController, UITextFieldDelegate, R
             destination.username = username.text
             destination.email = email.text
             destination.password = password.text
+            destination.firstName = firstName
+            destination.lastName = lastName
+            destination.phoneNumber = phoneNumber
+            destination.image = image
         }
     }
     

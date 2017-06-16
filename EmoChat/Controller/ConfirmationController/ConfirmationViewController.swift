@@ -12,8 +12,13 @@ class ConfirmationViewController: UIViewController {
 
     @IBOutlet weak var emailLabel: UILabel!
     var manager: ManagerFirebase?
+    var username: String?
     var email: String?
     var password: String?
+    var firstName: String?
+    var lastName: String?
+    var phoneNumber: String?
+    var image: UIImage?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +45,19 @@ class ConfirmationViewController: UIViewController {
             }
         } else {
             performSegue(withIdentifier: "login", sender: self)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "choosePhoto" {
+            let destination: SignUpChooseYourPhotoViewController = segue.destination as! SignUpChooseYourPhotoViewController
+            destination.username = username
+            destination.email = email
+            destination.password = password
+            destination.firstName = firstName
+            destination.lastName = lastName
+            destination.phoneNumber = phoneNumber
+            destination.image = image
         }
     }
 }

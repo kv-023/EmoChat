@@ -48,7 +48,7 @@
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
-                                                            <segue destination="efQ-Vl-xsq" kind="presentation" modalTransitionStyle="crossDissolve" id="Cvd-Hl-1Pw"/>
+                                                            <segue destination="efQ-Vl-xsq" kind="presentation" identifier="choosePhoto" modalTransitionStyle="crossDissolve" id="Cvd-Hl-1Pw"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UaX-PL-Sbx">

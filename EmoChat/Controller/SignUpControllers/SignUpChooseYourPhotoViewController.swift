@@ -19,7 +19,12 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
     var username: String?
     var email: String?
     var password: String?
+    var firstName: String?
+    var lastName: String?
+    var phoneNumber: String?
     var manager: ManagerFirebase?
+    var image: UIImage?
+    
     var userImage: UIImage?
     var warning: UIAlertController?
     
@@ -27,6 +32,10 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
         userPhotoView.clipsToBounds = true
         userPhotoView.layer.cornerRadius = userPhotoView.frame.width/2
         activityIndicator.isHidden = true
+//        if let picture = image {
+//            userImage = picture
+//            userPhotoView.image = picture
+//        }
     }
     
     override func viewDidLoad() {
@@ -130,8 +139,23 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "confirmation" {
             let destination: ConfirmationViewController = segue.destination as! ConfirmationViewController
+            destination.username = username
             destination.email = email
             destination.password = password
+            destination.firstName = firstName
+            destination.lastName = lastName
+            destination.phoneNumber = phoneNumber
+            destination.image = image
+        }
+        if segue.identifier == "additional" {
+            let destination: AdditionalViewController = segue.destination as! AdditionalViewController
+            destination.username = username
+            destination.email = email
+            destination.password = password
+            destination.firstName = firstName
+            destination.lastName = lastName
+            destination.phoneNumber = phoneNumber
+            destination.image = image
         }
     }
 }
