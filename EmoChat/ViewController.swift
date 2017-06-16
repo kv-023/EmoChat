@@ -62,7 +62,7 @@ class ViewController: UIViewController {
         }
         m?.changeInfo(phoneNumber: "0940332299", firstName: "bodya", secondName: nil) {op in
             switch op {
-            case let .success:
+            case .success:
                 print("success")
                 
             default :

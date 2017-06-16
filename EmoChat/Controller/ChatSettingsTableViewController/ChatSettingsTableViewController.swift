@@ -9,23 +9,12 @@
 import UIKit
 
 class ChatSettingsTableViewController: UITableViewController {
-
-    //var users: Int = 0 = 0
-    
-    
+  
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-    
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
-
-    
     
     
     override func didReceiveMemoryWarning() {
@@ -53,30 +42,71 @@ class ChatSettingsTableViewController: UITableViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+  /*  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var cell = UITableViewCell()
-        var cell2 = LogoTableViewCell()
+       // var cell = UITableViewCell()
+        var logoCell = LogoTableViewCell()
+        var usersCell = UserTableViewCell()
         
         if indexPath.section == 0 {
             
-            cell2 = tableView.dequeueReusableCell(withIdentifier: "logoCell", for: indexPath) as! LogoTableViewCell
-            cell2.conversLogo.image = UIImage.init(named: "1.png")
+           let cell = tableView.dequeueReusableCell(withIdentifier: "logoCell", for: indexPath) as! LogoTableViewCell
+            
+            cell.conversLogo.image = UIImage.init(named: "1.png")
+            //return cell
             
         } else if indexPath.section == 1 && indexPath.row == 0 {
             
-                cell = tableView.dequeueReusableCell(withIdentifier: "addUser", for: indexPath)
+             let   cell = tableView.dequeueReusableCell(withIdentifier: "addUser", for: indexPath) as! AddUsersTableViewCell
             
         } else if indexPath.section == 1 && indexPath.row == 1 {
-            cell = tableView.dequeueReusableCell(withIdentifier: "leaveChat", for: indexPath)
+           let cell = tableView.dequeueReusableCell(withIdentifier: "leaveChat", for: indexPath) as! LeaveChatTableViewCell
             
         } else if indexPath.section == 2 {
-            cell = tableView.dequeueReusableCell(withIdentifier: "users", for: indexPath)
-        }
+           let cell = tableView.dequeueReusableCell(withIdentifier: "users", for: indexPath) as! UserTableViewCell
+        
         
         return cell
     }
+    }
+    */
     
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    
+        switch indexPath.section {
+            
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "logoCell", for: indexPath) as! LogoTableViewCell
+            cell.conversLogo.image = UIImage.init(named: "1.png")
+            return cell
+            
+        case 1:
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "addUser", for: indexPath) as! AddUserTableViewCell
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "leaveChat", for: indexPath) as! LeaveChatTableViewCell
+                return cell
+            }
+           
+        default: let cell = tableView.dequeueReusableCell(withIdentifier: "user", for: indexPath) as! UserTableViewCell
+                return cell
+            
+        }
+    
+    }
+
+     // MARK: - UITableViewDelegate
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 1 {
+            return "Chat Settings"
+        } else if section == 2 {
+                return "111 users in conversation"
+            }
+         return ""
+        }
+
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case 0:
@@ -89,20 +119,14 @@ class ChatSettingsTableViewController: UITableViewController {
         }
         
     }
-
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 1 {
-            return "Chat Settings"
-        } else if section == 2 {
-                return "111 users in conversation"
-            }
-         return ""
-        }
-
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 25
     }
+    /*
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }*/
     
     /*
     // Override to support conditional editing of the table view.
