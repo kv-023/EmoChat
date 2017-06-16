@@ -22,7 +22,7 @@ class ConfirmationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        manager = ManagerFirebase()
+        manager = ManagerFirebase.shared
         emailLabel.text = email
         // Do any additional setup after loading the view.
     }

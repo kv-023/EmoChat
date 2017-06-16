@@ -28,6 +28,7 @@ class SignUpFirstViewController: EmoChatUIViewController, UITextFieldDelegate, R
     var phoneNumber: String?
     var image: UIImage?
     var returned: Bool?
+    var edited = false
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var usernameValid = false {
@@ -124,21 +125,29 @@ class SignUpFirstViewController: EmoChatUIViewController, UITextFieldDelegate, R
 
     @IBAction func usernameEdited(_ sender: UITextField) {
         usernameValid = usernameIsValid(userName: sender.text)
+        edited = true
     }
 
     @IBAction func emailEdited(_ sender: UITextField) {
         emailValid = emailIsValid(userEmail: sender.text)
+        edited = true
     }
 
     @IBAction func passwordEdited(_ sender: UITextField) {
         passwordValid = passwordIsValid(userPassword: sender.text)
+        edited = true
     }
 
     @IBAction func confirmationEdited(_ sender: UITextField) {
         passwordConfirmationValid = passwordIsValid(userPassword: sender.text)
+        edited = true
     }
 
     @IBAction func nextIsPressed(_ sender: UIButton) {
+        usernameValid = usernameIsValid(userName: username.text)
+        emailValid = emailIsValid(userEmail: email.text)
+        passwordValid = passwordIsValid(userPassword: password.text)
+        passwordConfirmationValid = passwordIsValid(userPassword: confirmation.text)
         var success = true
         if username.text == "" {
             usernameLabel.printError(errorText: NSLocalizedString("Enter username", comment: "Empty username"))
@@ -158,19 +167,34 @@ class SignUpFirstViewController: EmoChatUIViewController, UITextFieldDelegate, R
         if password.text == "" {
             passwordLabel.printError(errorText: NSLocalizedString("Enter password", comment: "Empty password"))
             password.redBorder()
+            success = false
         }
         if success
             && (usernameValid
                 && emailValid
                 && passwordValid
                 && passwordConfirmationValid) {
-            activityIndicator.isHidden = false
-            activityIndicator.startAnimating()
+            var reuse = false
             if let check = returned {
                 if check {
-                    
+                    reuse = true
                 }
+                if check && edited {
+                    manager?.deleteAccount {
+                        result in
+                        switch result {
+                        default:
+                            break
+                        }
+                    }
+                    returned = false
+                }
+            }
+            if reuse && (!edited) {
+                performSegue(withIdentifier: "additional", sender: self)
             } else {
+                activityIndicator.isHidden = false
+                activityIndicator.startAnimating()
                 manager?.checkUserNameUniqness(self.username.text!) {
                     result in
                     switch result {

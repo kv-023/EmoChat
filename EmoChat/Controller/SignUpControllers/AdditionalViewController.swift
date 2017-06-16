@@ -101,7 +101,6 @@ RegexCheckProtocol {
         } else {
             firstNameLabel.printError(errorText: "Enter valid name")
         }
-
         firstNameField.imageQuestionShowed = !currentNameIsValid
         firstNameField.textInfoForQuestionLabel = regexErrorText.SignUpError.name.localized
     }
@@ -116,7 +115,6 @@ RegexCheckProtocol {
         } else {
             lastNameLabel.printError(errorText: "Enter valid last name")
         }
-
         lastNameField.imageQuestionShowed = !currentLastNameIsValid
         lastNameField.textInfoForQuestionLabel = regexErrorText.SignUpError.lastName.localized
     }
@@ -131,7 +129,6 @@ RegexCheckProtocol {
         if currentphoneIsValid {
             phoneField.text = sender.text
         }
-
         phoneField.imageQuestionShowed = !currentphoneIsValid
         phoneField.textInfoForQuestionLabel = regexErrorText.SignUpError.phone.localized
     }
@@ -155,34 +152,29 @@ RegexCheckProtocol {
         if nameIsValid(uname: firstNameField.text!) &&
             lastNameIsValid(uname: lastNameField.text!) &&
             phoneIsValid(uname: phoneField.text!) {
-            if firstNameField.text != "" ||
-                lastNameField.text != "" ||
-                phoneField.text != "" {
-                activityIndicator.isHidden = false
-                activityIndicator.startAnimating()
-                manager.addInfoUser(username: username,
-                                    phoneNumber: (phoneField.text != "" ? phoneField.text : nil),
-                                    firstName: (firstNameField.text != "" ? firstNameField.text : nil),
-                                    secondName: (lastNameField.text != "" ? lastNameField.text : nil),
-                                    photoURL: nil) {
-                                        result in
-                                        switch result {
-                                        case .success:
-                                            self.performSegue(withIdentifier: "choosePhoto", sender: self)
-                                        case .failure(let error):
-                                            self.alert?.message = error
-                                            self.present(self.alert!, animated: true)
-                                            self.activityIndicator.isHidden = true
-                                            self.activityIndicator.stopAnimating()
-                                        default:
-                                            break
-                                        }
-                }
-            } else {
-                performSegue(withIdentifier: "choosePhoto", sender: self)
+            activityIndicator.isHidden = false
+            activityIndicator.startAnimating()
+            manager.addInfoUser(username: username,
+                                phoneNumber: (phoneField.text != "" ? phoneField.text : nil),
+                                firstName: (firstNameField.text != "" ? firstNameField.text : nil),
+                                secondName: (lastNameField.text != "" ? lastNameField.text : nil),
+                                photoURL: nil) {
+                                    result in
+                                    switch result {
+                                    case .success:
+                                        self.performSegue(withIdentifier: "choosePhoto", sender: self)
+                                    case .failure(let error):
+                                        self.alert?.message = error
+                                        self.present(self.alert!, animated: true)
+                                        self.activityIndicator.isHidden = true
+                                        self.activityIndicator.stopAnimating()
+                                    default:
+                                        break
+                                    }
             }
+        } else {
+            performSegue(withIdentifier: "choosePhoto", sender: self)
         }
-        
     }
     
     //MARK: - UITextFieldDelegate

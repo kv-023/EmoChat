@@ -24,6 +24,7 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
     var phoneNumber: String?
     var manager: ManagerFirebase?
     var image: UIImage?
+    var edited = false
     
     var userImage: UIImage?
     var warning: UIAlertController?
@@ -32,10 +33,10 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
         userPhotoView.clipsToBounds = true
         userPhotoView.layer.cornerRadius = userPhotoView.frame.width/2
         activityIndicator.isHidden = true
-//        if let picture = image {
-//            userImage = picture
-//            userPhotoView.image = picture
-//        }
+        if let picture = image {
+            userImage = picture
+            userPhotoView.image = picture
+        }
     }
     
     override func viewDidLoad() {
@@ -47,7 +48,7 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
         self.userPhotoView.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTaped))
         self.userPhotoView.addGestureRecognizer(tapGesture)
-        manager = ManagerFirebase()
+        manager = ManagerFirebase.shared
         warning = UIAlertController(title: "Warning", message: nil, preferredStyle: .alert)
         warning?.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
     }
@@ -100,7 +101,7 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         guard let chosenImage = info[UIImagePickerControllerEditedImage] as? UIImage else { return }
-        
+        edited = true
         userImage = chosenImage
         
         //add image to view
@@ -116,20 +117,23 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
         if let image = userImage {
-            manager?.addPhoto(image) {
-                result in
-                
-                switch result {
-                case .success:
-                    self.performSegue(withIdentifier: "confirmation", sender: self)
-                case .failure(let error):
-                    self.warning?.message = error
-                    self.present(self.warning!, animated: true)
-                    self.activityIndicator.isHidden = true
-                    self.activityIndicator.stopAnimating()
-                default:
-                    break
+            if edited {
+                manager?.addPhoto(image, previous: nil) {
+                    result in
+                    switch result {
+                    case .success:
+                        self.performSegue(withIdentifier: "confirmation", sender: self)
+                    case .failure(let error):
+                        self.warning?.message = error
+                        self.present(self.warning!, animated: true)
+                        self.activityIndicator.isHidden = true
+                        self.activityIndicator.stopAnimating()
+                    default:
+                        break
+                    }
                 }
+            } else {
+                performSegue(withIdentifier: "confirmation", sender: self)
             }
         } else {
             performSegue(withIdentifier: "confirmation", sender: self)
@@ -145,7 +149,7 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
             destination.firstName = firstName
             destination.lastName = lastName
             destination.phoneNumber = phoneNumber
-            destination.image = image
+            destination.image = userImage
         }
         if segue.identifier == "additional" {
             let destination: AdditionalViewController = segue.destination as! AdditionalViewController
@@ -155,7 +159,7 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
             destination.firstName = firstName
             destination.lastName = lastName
             destination.phoneNumber = phoneNumber
-            destination.image = image
+            destination.image = userImage
         }
     }
 }
