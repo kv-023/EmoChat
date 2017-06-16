@@ -20,15 +20,14 @@
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="logoCell" rowHeight="100" id="50I-D3-UiW" customClass="LogoTableViewCell" customModule="EmoChat" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="55.5" width="320" height="100"/>
+                                <rect key="frame" x="0.0" y="56" width="320" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="50I-D3-UiW" id="Ni4-UF-fhj">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="99.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="99"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1zD-WG-HAm">
                                             <rect key="frame" x="8" y="4" width="90" height="90"/>
-                                            <color key="backgroundColor" red="1" green="0.13328364919999999" blue="0.3259914438" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="90" id="saC-pP-WbF"/>
                                             </constraints>
@@ -56,10 +55,10 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="addUser" rowHeight="43" id="AHq-8k-QQX" customClass="AddUserTableViewCell" customModule="EmoChat" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="155.5" width="320" height="43"/>
+                                <rect key="frame" x="0.0" y="156" width="320" height="43"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AHq-8k-QQX" id="qdW-qX-4SC">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="42.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="42"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add User" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zL2-PO-BLE">
@@ -85,10 +84,10 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="leaveChat" rowHeight="43" id="Wbg-uX-ZHS" customClass="LeaveChatTableViewCell" customModule="EmoChat" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="198.5" width="320" height="43"/>
+                                <rect key="frame" x="0.0" y="199" width="320" height="43"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Wbg-uX-ZHS" id="xzp-kc-odx">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="42.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="42"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Leave Chat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VKd-yg-ecZ">
@@ -119,11 +118,11 @@
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="user" rowHeight="60" id="YFT-99-V5x" customClass="UserTableViewCell" customModule="EmoChat" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="241.5" width="320" height="60"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="user" rowHeight="60" id="YFT-99-V5x" customClass="UserTableViewCell" customModule="EmoChat" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="242" width="320" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YFT-99-V5x" id="4dy-og-gDf">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="59"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9gk-3Z-iZp">
@@ -139,8 +138,8 @@
                                                 <constraint firstAttribute="width" constant="50" id="Wzv-eI-Q5o"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vasiliy Apasny" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="av5-ph-aAn">
-                                            <rect key="frame" x="76" y="5" width="236" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name LastName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="av5-ph-aAn">
+                                            <rect key="frame" x="76" y="5" width="203" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -155,6 +154,10 @@
                                         <constraint firstItem="av5-ph-aAn" firstAttribute="leading" secondItem="Meh-xU-eMG" secondAttribute="trailing" constant="18" id="xUk-SH-Oil"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="userName" destination="av5-ph-aAn" id="cP1-RV-NQK"/>
+                                    <outlet property="userPic" destination="Meh-xU-eMG" id="bUX-tv-kVI"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <sections/>

@@ -13,9 +13,110 @@ class ChatSettingsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        let myimage1 = UIImage(named: "1.png")
+        let myimage2 = UIImage(named: "2.png")
+        let myimage3 = UIImage(named: "3.png")
+        let myimage4 = UIImage(named: "4.png")
+        let myimage5 = UIImage(named: "5.png")
+        let myimage6 = UIImage(named: "6.png")
+        let myimage7 = UIImage(named: "7.png")
+        let myimage8 = UIImage(named: "8.png")
+        let myimage9 = UIImage(named: "9.png")
+        let myimage10 = UIImage(named: "10.png")
+        
+        var logoImages: Array<UIImage> = []
+        
+        logoImages.append(myimage1!)
+        logoImages.append(myimage2!)
+        logoImages.append(myimage3!)
+        logoImages.append(myimage4!)
+        logoImages.append(myimage5!)
+        logoImages.append(myimage6!)
+        logoImages.append(myimage7!)
+        logoImages.append(myimage8!)
+        logoImages.append(myimage9!)
+        logoImages.append(myimage10!)
+        
+        var finalMixedImage = UIImage()
+        
+        if (logoImages.count == 1) {
+            finalMixedImage = logoImages[0]
+        } else if (logoImages.count == 2) {
+            finalMixedImage = getMixed2Img(image1: logoImages[0], image2: logoImages[1])
+        } else if (logoImages.count == 3) {
+            finalMixedImage = getMixed3Img(image1: logoImages[0], image2: logoImages[1], image3: logoImages[2])
+        } else if (logoImages.count == 4) {
+            finalMixedImage = getMixed4Img(image1: logoImages[0], image2: logoImages[1], image3: logoImages[2], image4: logoImages[3])
+        } else if (logoImages.count > 4) {
+            var tempArray = logoImages
+            
+            let randomIndex1 = Int(arc4random_uniform(UInt32(tempArray.count)))
+            let image1 = tempArray[randomIndex1]
+            tempArray.remove(at: randomIndex1)
+            let randomIndex2 = Int(arc4random_uniform(UInt32(tempArray.count)))
+            let image2 = tempArray[randomIndex2]
+            tempArray.remove(at: randomIndex2)
+            let randomIndex3 = Int(arc4random_uniform(UInt32(tempArray.count)))
+            let image3 = tempArray[randomIndex3]
+            tempArray.remove(at: randomIndex3)
+            let randomIndex4 = Int(arc4random_uniform(UInt32(tempArray.count)))
+            let image4 = tempArray[randomIndex4]
+            tempArray.remove(at: randomIndex4)
+            finalMixedImage = getMixed4Img(image1: image1, image2: image2, image3: image3, image4: image4)
+        }
+        
+        
+    }
 
+    
+    func getMixed2Img(image1: UIImage, image2: UIImage) -> UIImage {
+        
+        let size = CGSize(width:(image1.size.width + image2.size.width), height:image1.size.height)
+        
+        UIGraphicsBeginImageContext(size)
+        
+        image1.draw(in: CGRect(x:0, y:0, width:image1.size.width, height:image1.size.height))
+        image2.draw(in: CGRect(x:image1.size.width, y:0, width:image2.size.width, height:image2.size.height))
+        
+        let finalImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return finalImage!
     }
     
+    func getMixed3Img(image1: UIImage, image2: UIImage, image3: UIImage) -> UIImage {
+        
+        let size = CGSize(width:(image1.size.width + image2.size.width), height:(image2.size.height + image3.size.height))
+        
+        UIGraphicsBeginImageContext(size)
+        
+        image1.draw(in: CGRect(x:0, y:(size.height/4), width:image1.size.width, height:image1.size.height))
+        image2.draw(in: CGRect(x:image1.size.width, y:0, width:image2.size.width, height:image2.size.height))
+        image3.draw(in: CGRect(x:image1.size.width, y:image2.size.height, width:image3.size.width, height:image3.size.height))
+        let finalImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return finalImage!
+    }
+    
+    
+    func getMixed4Img(image1: UIImage, image2: UIImage, image3: UIImage, image4: UIImage) -> UIImage {
+        
+        let size = CGSize(width:(image1.size.width + image2.size.width), height:(image1.size.height + image3.size.height))
+        
+        UIGraphicsBeginImageContext(size)
+        
+        image1.draw(in: CGRect(x:0, y:0, width:image1.size.width, height:image1.size.height))
+        image2.draw(in: CGRect(x:image1.size.width, y:0, width:image2.size.width, height:image2.size.height))
+        image3.draw(in: CGRect(x:0, y:(size.height/2), width:image3.size.width, height:image3.size.height))
+        image4.draw(in: CGRect(x:(size.height/2), y:(size.height/2), width:image4.size.width, height:image4.size.height))
+        let finalImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return finalImage!
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -42,43 +143,20 @@ class ChatSettingsTableViewController: UITableViewController {
         }
     }
     
-  /*  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-       // var cell = UITableViewCell()
-        var logoCell = LogoTableViewCell()
-        var usersCell = UserTableViewCell()
-        
-        if indexPath.section == 0 {
-            
-           let cell = tableView.dequeueReusableCell(withIdentifier: "logoCell", for: indexPath) as! LogoTableViewCell
-            
-            cell.conversLogo.image = UIImage.init(named: "1.png")
-            //return cell
-            
-        } else if indexPath.section == 1 && indexPath.row == 0 {
-            
-             let   cell = tableView.dequeueReusableCell(withIdentifier: "addUser", for: indexPath) as! AddUsersTableViewCell
-            
-        } else if indexPath.section == 1 && indexPath.row == 1 {
-           let cell = tableView.dequeueReusableCell(withIdentifier: "leaveChat", for: indexPath) as! LeaveChatTableViewCell
-            
-        } else if indexPath.section == 2 {
-           let cell = tableView.dequeueReusableCell(withIdentifier: "users", for: indexPath) as! UserTableViewCell
-        
-        
-        return cell
-    }
-    }
-    */
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
         switch indexPath.section {
             
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "logoCell", for: indexPath) as! LogoTableViewCell
-            cell.conversLogo.image = UIImage.init(named: "1.png")
-            cell.conversationTitle.text = "Bolshie molodcy"
+            
+            let img = getMixed3Img(image1: UIImage.init(named: "1.png")!,
+                                   image2: UIImage.init(named: "2.png")!,
+                                   image3: UIImage.init(named: "3.png")!
+            )
+            
+            cell.conversLogo.image = img
+            
             return cell
             
         case 1:
