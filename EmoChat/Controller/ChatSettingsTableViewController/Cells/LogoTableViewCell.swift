@@ -10,6 +10,7 @@ import UIKit
 
 class LogoTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var conversationTitle: UILabel!
     @IBOutlet var conversLogo: UIImageView!
     
     override func awakeFromNib() {

@@ -78,6 +78,7 @@ class ChatSettingsTableViewController: UITableViewController {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "logoCell", for: indexPath) as! LogoTableViewCell
             cell.conversLogo.image = UIImage.init(named: "1.png")
+            cell.conversationTitle.text = "Bolshie molodcy"
             return cell
             
         case 1:
@@ -89,8 +90,9 @@ class ChatSettingsTableViewController: UITableViewController {
                 return cell
             }
            
-        default: let cell = tableView.dequeueReusableCell(withIdentifier: "user", for: indexPath) as! UserTableViewCell
-                return cell
+        default:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "user", for: indexPath) as! UserTableViewCell
+            return cell
             
         }
     
@@ -99,18 +101,25 @@ class ChatSettingsTableViewController: UITableViewController {
      // MARK: - UITableViewDelegate
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 1 {
-            return "Chat Settings"
-        } else if section == 2 {
-                return "111 users in conversation"
-            }
-         return ""
+        switch section {
+            
+        case 1:
+            return "CHAT SETTINGS"
+            
+        case 2:
+            return "7 USERS IN CONVERSATION"
+            
+        default:
+            return ""
         }
+    }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
+            
         case 0:
             return 100
+            
         case 1:
             return 43
             
@@ -120,13 +129,13 @@ class ChatSettingsTableViewController: UITableViewController {
         
     }
     
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 25
     }
-    /*
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-    }*/
+    }
     
     /*
     // Override to support conditional editing of the table view.

@@ -220,8 +220,8 @@
 		F508422D1EF427A600C24EDE /* ChatSettingsTableViewController */ = {
 			isa = PBXGroup;
 			children = (
-				F508422F1EF427A600C24EDE /* ChatSettingsTableViewController.swift */,
 				F508422E1EF427A600C24EDE /* Cells */,
+				F508422F1EF427A600C24EDE /* ChatSettingsTableViewController.swift */,
 			);
 			path = ChatSettingsTableViewController;
 			sourceTree = "<group>";
