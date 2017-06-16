@@ -8,19 +8,26 @@
 
 import Foundation
 
-class User {
-
-//    var userId:String = Auxiliary.getEmpyUUID()
-   // var uuid: String = Auxiliary.getEmpyUUID()
-    var firstName: String? = nil
-    var secondName: String? = nil
-    var phoneNumber: String? = nil
+class User: NSCoding {
+    
+    var uid: String!
+    var firstName: String?
+    var secondName: String?
+    var phoneNumber: String?
     var email:String!
     var username:String!
     var photoURL: String?
-    var userConversations: [Conversation]? = []
+    var userConversations: [Conversation] = []
     var contacts: [User] = []
-
+    
+    
+    func encode(with aCoder: NSCoder) {
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        
+    }
     
     init (email: String, username: String, phoneNumber: String?, firstName: String?, secondName: String?, photoURL: String?) {
         self.email = email
@@ -31,16 +38,28 @@ class User {
         self.photoURL = photoURL
     }
     
+    init (email: String, username: String, phoneNumber: String?, firstName: String?, secondName: String?, photoURL: String?, uid: String!) {
+        self.email = email
+        self.username = username
+        self.phoneNumber = phoneNumber
+        self.firstName = firstName
+        self.secondName = secondName
+        self.photoURL = photoURL
+        self.uid = uid
+    }
+    
     /*
      Function generates User from snapshot
      */
-    init (data: NSDictionary?) {
+    init (data: NSDictionary?, uid: String?) {
+        
         self.username = data?["username"] as! String
         self.firstName = data?["firstName"] as! String?
         self.secondName = data?["secondName"] as! String?
         self.email = data?["email"] as! String
         self.phoneNumber = data?["phoneNumber"] as! String?
         self.photoURL = data?["photoURL"] as! String?
+        self.uid = uid
     }
     
     func getNameOrUsername () -> String {

@@ -19,7 +19,7 @@ enum SearchType: Int {
 class SearchUsersViewController: UITableViewController {
     
     // MARK: - properties
-    var managerFirebase = ManagerFirebase()
+    var managerFirebase = ManagerFirebase.shared
     var friends: [User] = []
     var filteredFriends: [User] = []
     var checkmarkedFriends: [User] = [] {

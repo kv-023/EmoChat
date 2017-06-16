@@ -56,8 +56,7 @@ RegexCheckProtocol {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
         
-        manager = ManagerFirebase()
-        
+        manager = ManagerFirebase.shared
         alert = UIAlertController(title: "Warning", message: nil, preferredStyle: .alert)
         alert?.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
     }
