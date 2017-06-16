@@ -40,10 +40,9 @@ class OptionsChangePhotoNameSecondNameTableViewController: UITableViewController
             result in
             switch result {
             case .success:
-                print("success")
                 break
             case .failure(let error):
-                print("\(error) fail fail fail")
+                print("\(error) fail login")
             default:
                 break
             }

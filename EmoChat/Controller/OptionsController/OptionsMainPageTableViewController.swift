@@ -8,72 +8,66 @@
 
 import UIKit
 
-class OptionsMainPageTableViewController:  UITableViewController  {
+class OptionsMainPageTableViewController:  UITableViewController, UIImagePickerControllerDelegate, UITextFieldDelegate, UINavigationControllerDelegate, RegexCheckProtocol  {
     
     @IBOutlet weak var userImageView: UIImageView!
     
-    @IBOutlet weak var nameAndSecondNameLabel: UILabel!
+    @IBOutlet weak var nameAndLastNameLabe: UILabel!
     
     @IBOutlet weak var statusLabel: UILabel!
     
     @IBOutlet weak var phoneNumberLabel: UILabel!
     
-    @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var usernameLabel: UILabel!
     
     @IBOutlet weak var emailLabel: UILabel!
     
-    var manager: ManagerFirebase
+    var manager: ManagerFirebase!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //Temporary logIn
+        manager = ManagerFirebase()
+        
+        tempLogIn()
+        
+        //Get current user
+        manager.getCurrentUser {
+            result in
+            switch result {
+            case .successSingleUser(let user):
+                print("success getUser")
+                
+                self.nameAndLastNameLabe.text = user.firstName! + " " + (user.secondName)!
+                self.phoneNumberLabel.text = user.phoneNumber
+                self.emailLabel.text = user.email
+                self.usernameLabel.text = user.username
+                break
+            case .failure(let error):
+                print("\(error) fail with getUser")
+            default:
+                break
+            }
+        }
+    }
+    
+    func tempLogIn() {
         manager.logIn(email: "zellensky@gmail.com", password: "qwerty") {
             result in
             switch result {
             case .success:
-                print("succ!!!!!!!!!!!!!!!!!!!!!!!ess")
+                print("success login")
+                break
             case .failure(let error):
-                print("\(error) fail fail fail")
+                print(error)
+                print("error login")
             default:
-                print("!@#$^&^%$#EVVFDCDEDD")
                 break
             }
         }
-        
-        
-        
-//        manager?.getCurrentUser {
-//            getUser in
-//            switch getUser {
-//            case .success:
-//                print("SSSSSSS")
-//            case .failure(let error):
-//                print(error)
-//            default:
-//                print("def")
-//                break
-//            }
-//        }
-        
-        
-        
-        
-        
-        self.phoneNumberLabel.text = "095 1111111"
-        self.userNameLabel.text = "@alexsmth"
-        self.emailLabel.text = "vitya@i.ua"
-        
-        
-        
-        
     }
-    func helpMe() {
-        print("nihao chiba help")
-        
-        let alertCameraError = UIAlertController(title: "Help", message: "Help, help, help!", preferredStyle: UIAlertControllerStyle.alert)
-        alertCameraError.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-        self.present(alertCameraError, animated: true, completion: nil)
-    }
+    
+    
     
 }

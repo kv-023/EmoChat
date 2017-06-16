@@ -97,14 +97,15 @@ class OptionsChangeNumberTableViewController: UITableViewController, UITextField
                                 phoneNumber: changeNumberTextField.text,
                                 firstName: nil,
                                 secondName: nil,
-                                photoURL: "") {
+                                photoURL: nil) {
                                     result in
                                     switch result {
                                     case .success:
+                                        print("ok")
                                         //                                        Back to previous VC
-                                        if let navController = self.navigationController {
-                                            navController.popViewController(animated: true)
-                                        }
+//                                        if let navController = self.navigationController {
+//                                            navController.popViewController(animated: true)
+//                                        }
                                     case .failure(let error):
                                         self.footerLabel.text = error
                                     default:
