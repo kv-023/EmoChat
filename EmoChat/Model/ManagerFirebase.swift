@@ -204,7 +204,7 @@ class ManagerFirebase {
                 if let conversationsArrayId = conversationsID?.allKeys {
                     user.userConversations = self.sortListOfConversations(self.getConversetionsFromSnapshot(value, accordingTo: conversationsArrayId as! [String], currentUserEmail: email))
                     //getting array of contacts
-                    user.contacts = self.getContacts(from: user.userConversations)
+                    user.contacts = self.getContacts(from: user.userConversations!)
                 }
                 
                 
@@ -526,17 +526,7 @@ class ManagerFirebase {
         
     }
     
-    //MARK: - test
-    func valueChanged (action: @escaping (String) -> Void) {
-        if let uid = Auth.auth().currentUser?.uid {
-            let namePath = self.ref?.child("users/\(uid)")
-            namePath?.observe(.childChanged, with: { (snapshot) in
-                action((snapshot.value as? String)!)
-                
-            })
-        }
-    }
-    // MARK: - Messages
+        // MARK: - Messages
     func createMessage(conversation: Conversation, sender: User, content:(type: MessageContentType, content: String)) -> MessageOperationResult {
         
         let timeStamp = Int((Date().timeIntervalSince1970 * 1000.0))
@@ -556,6 +546,18 @@ class ManagerFirebase {
             return .failure(NSLocalizedString("Something went wrong", comment: ""))
         }
     }
+    
+    //MARK: - test
+    func valueChanged (action: @escaping (String) -> Void) {
+        if let uid = Auth.auth().currentUser?.uid {
+            let namePath = self.ref?.child("users/\(uid)")
+            namePath?.observe(.childChanged, with: { (snapshot) in
+                action((snapshot.value as? String)!)
+                
+            })
+        }
+    }
+
     
     func updateConversations (getNewConversation: @escaping (Conversation) -> Void) {
         if let uid = Auth.auth().currentUser?.uid {
@@ -581,7 +583,7 @@ class ManagerFirebase {
     
     func getMessageFromConversation (_ allConversations: [Conversation], result: @escaping (Conversation, Message) -> Void) {
         for eachConv in allConversations{
-            self.ref?.child("conversations/\(eachConv.uuid)/conversations/messagesInConversation").observe(.childAdded, with: {(snapshot) in
+            self.ref?.child("conversations/\(eachConv.uuid)/messagesInConversation").observe(.childAdded, with: {(snapshot) in
                 let uidMessage = snapshot.key
                 let messageSnapshot = snapshot.value as? NSDictionary
                 let message = Message(data: messageSnapshot, uid: uidMessage)

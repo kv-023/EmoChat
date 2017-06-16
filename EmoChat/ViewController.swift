@@ -22,21 +22,41 @@ class ViewController: UIViewController {
     @IBAction func regexTestButtoPressed(_ sender: UIButton) {
         regexTest()
     }
+    
+   // var user: User!
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        m  = ManagerFirebase.shared
-        m?.getCurrentUser(){ op in
-            switch op {
-            case let .successSingleUser (user):
-                self.m?.getMessageFromConversation(user.userConversations, result: {
-                    (res1, res2) in
-                    print(res1)
-                    print(res2)
+
+        
+        
+        m = ManagerFirebase.shared
+        
+        m?.getCurrentUser(){ (result) in
+            switch result {
+            case let .successSingleUser(user):
+                //self.user = user
+                print(user.username)
+                print(user.userConversations)
+                self.m?.getMessageFromConversation(user.userConversations!, result: {
+                    (conv, message) in
+                    print("Message \(message.content) from  \(conv.name!)")
                 })
-            default :
-                break
+//                for conv in user.userConversations! {
+//                    self.m?.ref?.child("conversations/\(conv.uuid)/messagesInConversation").observe(.childAdded, with: { (snapshot) in
+//                        print("CHILD ADDED")
+//                    })
+//                }
+            default:
+                print("NONONO")
             }
         }
+
         
 //        m?.valueChanged() {
 //            newValue in
@@ -213,7 +233,7 @@ class ViewController: UIViewController {
             
         })
  */
-        
+        /*
         let user = User(email: "dadada", username: "dadada", phoneNumber: nil, firstName: nil, secondName: nil, photoURL: nil, uid: "userUID")
         let user1 = User(email: "netnet", username: "netnet", phoneNumber: nil, firstName: nil, secondName: nil, photoURL: nil, uid: "user1UID")
         let user2 = User(email: "user2", username: "user2", phoneNumber: nil, firstName: nil, secondName: nil, photoURL: nil, uid: "user2UID")
@@ -235,7 +255,26 @@ class ViewController: UIViewController {
         
         
         m?.createMessage(conversation: conv, sender: conv.usersInConversation[1], content: (type: .text, content: "New message"))
+        */
+        /*
+        m?.getCurrentUser(getUser: { (result) in
+            switch result {
+            case let .successSingleUser(user):
+                for conv in user.userConversations! {
+                    print(conv.uuid)
+                    self.m?.ref?.child("conversations/\(conv.uuid)/messagesInConversation").observe(.childAdded, with: { (snapshot) in
+                        print("CHILD ADDED")
+                    })
+                }
+            default:
+                print("NONONO")
+            }
+        })
+ */
         
+
+        
+
     }
     
     @IBOutlet weak var buttonLogin: UIButton!

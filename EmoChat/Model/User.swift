@@ -17,7 +17,7 @@ class User: NSCoding {
     var email:String!
     var username:String!
     var photoURL: String?
-    var userConversations: [Conversation] = []
+    var userConversations: [Conversation]?
     var contacts: [User] = []
     
     
