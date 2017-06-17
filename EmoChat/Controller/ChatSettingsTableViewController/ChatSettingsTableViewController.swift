@@ -13,7 +13,9 @@ class ChatSettingsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
+
+        
         let myimage1 = UIImage(named: "1.png")
         let myimage2 = UIImage(named: "2.png")
         let myimage3 = UIImage(named: "3.png")
@@ -65,6 +67,32 @@ class ChatSettingsTableViewController: UITableViewController {
             tempArray.remove(at: randomIndex4)
             finalMixedImage = getMixed4Img(image1: image1, image2: image2, image3: image3, image4: image4)
         }
+        
+        
+    }
+    func loadNewLogo(tapGestureRecognizer: UITapGestureRecognizer) {
+        
+        let imagePicker = UIImagePickerController()
+        
+        imagePicker.delegate = self as? UIImagePickerControllerDelegate & UINavigationControllerDelegate
+        imagePicker.allowsEditing = true
+        
+        let alert = UIAlertController(title: "Image Source", message: "Choose new conversation logo", preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: {
+            action in
+            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+                imagePicker.sourceType = .photoLibrary
+                self.present(imagePicker, animated: true, completion: nil)
+            }
+        }
+            )
+        )
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
+        self.present(imagePicker, animated: true, completion: nil)
         
         
     }
@@ -149,13 +177,18 @@ class ChatSettingsTableViewController: UITableViewController {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "logoCell", for: indexPath) as! LogoTableViewCell
             
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(loadNewLogo))
+
+            
             let img = getMixed3Img(image1: UIImage.init(named: "1.png")!,
                                    image2: UIImage.init(named: "2.png")!,
                                    image3: UIImage.init(named: "3.png")!
             )
             
             cell.conversLogo.image = img
-            
+            cell.conversLogo.isUserInteractionEnabled = true
+            cell.conversLogo.addGestureRecognizer(tapGestureRecognizer)
+
             return cell
             
         case 1:
