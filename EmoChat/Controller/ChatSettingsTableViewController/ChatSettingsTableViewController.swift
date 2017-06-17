@@ -211,6 +211,15 @@ class ChatSettingsTableViewController: UITableViewController {
         return 25
     }
     
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+       
+        if indexPath.section == 0 {
+            return nil
+        } else {
+            return indexPath
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
