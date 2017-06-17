@@ -15,9 +15,22 @@ class LogoTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(loadNewLogo))
+        conversLogo.isUserInteractionEnabled = true
+        conversLogo.addGestureRecognizer(tapGestureRecognizer)
+       // conversLogo.layer.cornerRadius = conversLogo.frame.height/2
+
+        
     }
 
+    
+    func loadNewLogo(tapGestureRecognizer: UITapGestureRecognizer) {
+        print("111111")
+        
+    }
+    
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

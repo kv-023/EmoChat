@@ -28,6 +28,7 @@
                                     <subviews>
                                         <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1zD-WG-HAm">
                                             <rect key="frame" x="8" y="4" width="90" height="90"/>
+                                            <color key="backgroundColor" red="1" green="0.2106863839" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="90" id="saC-pP-WbF"/>
                                             </constraints>
@@ -51,7 +52,6 @@
                                 <connections>
                                     <outlet property="conversLogo" destination="1zD-WG-HAm" id="drh-QM-gTq"/>
                                     <outlet property="conversationTitle" destination="JRi-IN-ln9" id="kWW-sg-FsK"/>
-                                    <segue destination="bgU-9T-H2b" kind="show" id="DOk-Kx-zmN"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="addUser" rowHeight="43" id="AHq-8k-QQX" customClass="AddUserTableViewCell" customModule="EmoChat" customModuleProvider="target">
@@ -82,6 +82,9 @@
                                         <constraint firstItem="zL2-PO-BLE" firstAttribute="top" secondItem="qdW-qX-4SC" secondAttribute="top" id="k6Y-Dc-Fzj"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="ezk-yI-q5H" kind="show" id="4aN-9G-7tV"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="leaveChat" rowHeight="43" id="Wbg-uX-ZHS" customClass="LeaveChatTableViewCell" customModule="EmoChat" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="199" width="320" height="43"/>
@@ -157,6 +160,7 @@
                                 <connections>
                                     <outlet property="userName" destination="av5-ph-aAn" id="cP1-RV-NQK"/>
                                     <outlet property="userPic" destination="Meh-xU-eMG" id="bUX-tv-kVI"/>
+                                    <segue destination="bgU-9T-H2b" kind="show" id="UdT-f7-GWO"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -186,7 +190,7 @@
                 <viewControllerPlaceholder storyboardIdentifier="userInfo" storyboardName="UserInfo" id="bgU-9T-H2b" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MjR-D3-vcJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1803.2" y="89.955022488755631"/>
+            <point key="canvasLocation" x="1860" y="89"/>
         </scene>
     </scenes>
     <resources>

@@ -13,8 +13,7 @@ class ChatSettingsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+                
         let myimage1 = UIImage(named: "1.png")
         let myimage2 = UIImage(named: "2.png")
         let myimage3 = UIImage(named: "3.png")
