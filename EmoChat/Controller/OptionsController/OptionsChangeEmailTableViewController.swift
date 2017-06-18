@@ -12,6 +12,8 @@ class OptionsChangeEmailTableViewController: UITableViewController {
     
     @IBOutlet weak var changeEmailTextField: UITextField!
 
+    @IBOutlet weak var infoLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

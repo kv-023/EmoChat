@@ -12,17 +12,17 @@ class OptionsChangeUserNameTableViewController: UITableViewController, UITextFie
     
     @IBOutlet weak var changeUserNameTextField: UITextField!
     
-    @IBOutlet weak var footerLabel: UILabel!
+    @IBOutlet weak var infoLabel: UILabel!
     
     var manager: ManagerFirebase?
     
     var usernameValid = false {
         didSet {
             if !usernameValid {
-                footerLabel.printError(errorText: NSLocalizedString("Enter valid name", comment: "Valid name warning"))
+                infoLabel.printError(errorText: NSLocalizedString("Enter valid name", comment: "Valid name warning"))
                 changeUserNameTextField.redBorder()
             } else {
-                footerLabel.printOK(okText: NSLocalizedString("Username", comment: "Username without warning"))
+                infoLabel.printOK(okText: NSLocalizedString("Username", comment: "Username without warning"))
                 changeUserNameTextField.whiteBorder()
             }
         }
@@ -46,17 +46,17 @@ class OptionsChangeUserNameTableViewController: UITableViewController, UITextFie
     // MARK: - Actions
     @IBAction func usernameEdited(_ sender: UITextField) {
         usernameValid = usernameIsValid(userName: sender.text)
-    }
-    
-    // MARK: - Saving to firebase
-    func saveUserName(sender: UIBarButtonItem) {
-        
-        print("nihao chiba username")
-        
         
     }
-    
-    
-    
+        // MARK: - Saving to firebase
+        func saveUserName(sender: UIBarButtonItem) {
+            
+            print("nihao chiba username")
+            
+            
+        }
+        
+        
+        
 }
 

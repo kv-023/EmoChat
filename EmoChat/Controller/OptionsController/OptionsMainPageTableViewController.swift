@@ -11,45 +11,25 @@ import UIKit
 class OptionsMainPageTableViewController:  UITableViewController, UIImagePickerControllerDelegate, UITextFieldDelegate, UINavigationControllerDelegate, RegexCheckProtocol  {
     
     @IBOutlet weak var userImageView: UIImageView!
-    
-    @IBOutlet weak var nameAndLastNameLabe: UILabel!
-    
+    @IBOutlet weak var nameAndLastNameLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
-    
     @IBOutlet weak var phoneNumberLabel: UILabel!
-    
     @IBOutlet weak var usernameLabel: UILabel!
-    
     @IBOutlet weak var emailLabel: UILabel!
     
     var manager: ManagerFirebase!
-
+    
+    var currentUserVC: User!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         manager = ManagerFirebase()
         
-        tempLogIn()
+//         tempLogIn()
+//         tempGetCurrentUser()
         
-        //Get current user
-        manager.getCurrentUser {
-            result in
-            switch result {
-            case .successSingleUser(let user):
-                print("success getUser")
-                
-                self.nameAndLastNameLabe.text = user.firstName! + " " + (user.secondName)!
-                self.phoneNumberLabel.text = user.phoneNumber
-                self.emailLabel.text = user.email
-                self.usernameLabel.text = user.username
-                break
-            case .failure(let error):
-                print("\(error) fail with getUser")
-            default:
-                break
-            }
-        }
+        
     }
     
     func tempLogIn() {
@@ -68,6 +48,43 @@ class OptionsMainPageTableViewController:  UITableViewController, UIImagePickerC
         }
     }
     
+    func tempGetCurrentUser() {
+        manager.getCurrentUser {
+            result in
+            switch result {
+            case .successSingleUser(let user):
+                print("success getUser")
+                
+                self.currentUserVC = user
+                
+                self.nameAndLastNameLabel.text = user.firstName
+                self.usernameLabel.text = user.username
+                self.phoneNumberLabel.text = user.phoneNumber
+                self.emailLabel.text = user.phoneNumber
+                
+                break
+            case .failure(let error):
+                print("\(error) fail with getUser")
+            default:
+                break
+            }
+        }
+
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showPhone" {
+                let destinationVC = segue.destination as! OptionsChangeNumberTableViewController
+                destinationVC.currentUser = currentUserVC
+            
+        }
+    }
     
     
 }
+/*
+ let url = URL(string:(user.photoURL)!)
+ let data = try? Data(contentsOf: url!)
+ self.userImageView.image = UIImage(data: data!)
+ */

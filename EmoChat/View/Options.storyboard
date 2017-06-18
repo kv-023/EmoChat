@@ -113,7 +113,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="mZU-ok-4pv" kind="show" id="v63-qb-8j0"/>
+                                            <segue destination="mZU-ok-4pv" kind="show" identifier="showPhone" id="v63-qb-8j0"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="aTs-4Y-m0u">
@@ -275,7 +275,7 @@
                     </tableView>
                     <connections>
                         <outlet property="emailLabel" destination="eDC-oi-k7P" id="lZo-3O-HnQ"/>
-                        <outlet property="nameAndLastNameLabe" destination="tdm-tr-667" id="8H7-WR-bom"/>
+                        <outlet property="nameAndLastNameLabel" destination="tdm-tr-667" id="Kmz-Hq-1Tx"/>
                         <outlet property="phoneNumberLabel" destination="rKL-on-zRp" id="qm2-Uq-slb"/>
                         <outlet property="statusLabel" destination="m4L-az-jUJ" id="cht-gU-5hW"/>
                         <outlet property="userImageView" destination="lfS-PP-2hd" id="Ugd-Zu-N2Y"/>
@@ -302,6 +302,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OTd-Z7-RXc">
+                            <rect key="frame" x="0.0" y="229" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <sections>
                             <tableViewSection id="hO7-dF-0Jf">
                                 <cells>
@@ -399,23 +406,6 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="58" id="020-Ng-GcT">
-                                        <rect key="frame" x="0.0" y="211" width="375" height="58"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="020-Ng-GcT" id="ixA-4M-XBY">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="58"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o34-0f-0cX">
-                                                    <rect key="frame" x="8" y="8" width="42" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -427,12 +417,20 @@
                     <connections>
                         <outlet property="firstNameLabel" destination="QZa-GR-15a" id="Zan-Ba-hdo"/>
                         <outlet property="firstNameTextField" destination="Aoe-Lr-vZC" id="gXP-5G-vQQ"/>
+                        <outlet property="infoLabel" destination="OTd-Z7-RXc" id="xEx-hd-Zb8"/>
                         <outlet property="lastNameLabel" destination="FAY-gC-Etp" id="dnj-il-VaD"/>
                         <outlet property="lastNaneTexField" destination="Wry-yp-yhp" id="XGH-Ws-xNV"/>
                         <outlet property="userPhotoView" destination="q3a-Uf-o0d" id="vep-uv-lee"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kdA-Ft-LfL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Jks-4u-jgz">
+                    <rect key="frame" x="0.0" y="0.0" width="42" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </objects>
             <point key="canvasLocation" x="3390" y="-439"/>
         </scene>
@@ -444,6 +442,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Info about phone number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="POu-vl-Tl4">
+                            <rect key="frame" x="0.0" y="117.5" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <sections>
                             <tableViewSection headerTitle="Change your number" id="sdk-aa-gA7">
                                 <cells>
@@ -475,28 +480,6 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="XLL-5U-ywF">
-                                        <rect key="frame" x="0.0" y="100" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XLL-5U-ywF" id="nYo-xe-v6u">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Some info about changing phone number." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gl5-Ms-faS">
-                                                    <rect key="frame" x="15" y="8" width="352" height="27.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="gl5-Ms-faS" secondAttribute="bottom" constant="8" id="2BC-pe-wKM"/>
-                                                <constraint firstItem="gl5-Ms-faS" firstAttribute="leading" secondItem="nYo-xe-v6u" secondAttribute="leading" constant="15" id="IwG-Vi-MiW"/>
-                                                <constraint firstItem="gl5-Ms-faS" firstAttribute="top" secondItem="nYo-xe-v6u" secondAttribute="top" constant="8" id="UMt-dw-bUq"/>
-                                                <constraint firstAttribute="trailing" secondItem="gl5-Ms-faS" secondAttribute="trailing" constant="8" id="WX4-4D-Tzg"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -507,7 +490,7 @@
                     </tableView>
                     <connections>
                         <outlet property="changeNumberTextField" destination="lqs-L4-NsD" id="rB3-Do-ldz"/>
-                        <outlet property="footerLabel" destination="gl5-Ms-faS" id="lQk-pK-z93"/>
+                        <outlet property="infoLabel" destination="POu-vl-Tl4" id="6Jd-jZ-pSi"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8h4-V3-S5W" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -522,6 +505,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Tdq-WK-Kic">
+                            <rect key="frame" x="0.0" y="191.5" width="375" height="159"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <string key="text">You can choose a username on Emochat. If you do, other people will be able to find you by this username and contact you without knowing your phone number. You can use a-z, 0-9 and underscores.</string>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <sections>
                             <tableViewSection headerTitle="Change your username" id="M7E-As-08f">
                                 <string key="footerTitle">You can choose a username on Emochat. If you do, other people will be able to find you by this username and contact you without knowing your phone number. You can use a-z, 0-9 and underscores.</string>
@@ -551,29 +542,6 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="58" id="tcS-WV-B9S">
-                                        <rect key="frame" x="0.0" y="114" width="375" height="58"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tcS-WV-B9S" id="r9M-CC-Mf2">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="57"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gU3-u7-vTq">
-                                                    <rect key="frame" x="15" y="8" width="352" height="41.5"/>
-                                                    <string key="text">You can choose a username on Emochat. If you do, other people will be able to find you by this username and contact you without knowing your phone number. You can use a-z, 0-9 and underscores.</string>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="gU3-u7-vTq" firstAttribute="leading" secondItem="r9M-CC-Mf2" secondAttribute="leading" constant="15" id="BnA-8a-qAb"/>
-                                                <constraint firstAttribute="trailing" secondItem="gU3-u7-vTq" secondAttribute="trailing" constant="8" id="DKs-IB-XCx"/>
-                                                <constraint firstItem="gU3-u7-vTq" firstAttribute="top" secondItem="r9M-CC-Mf2" secondAttribute="top" constant="8" id="NLq-LX-KZ8"/>
-                                                <constraint firstAttribute="bottom" secondItem="gU3-u7-vTq" secondAttribute="bottom" constant="8" id="Qy9-kA-WQW"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -584,12 +552,12 @@
                     </tableView>
                     <connections>
                         <outlet property="changeUserNameTextField" destination="hWM-bm-EKQ" id="Mkw-Me-5Pt"/>
-                        <outlet property="footerLabel" destination="gU3-u7-vTq" id="3nr-o6-arz"/>
+                        <outlet property="infoLabel" destination="Tdq-WK-Kic" id="cmi-SK-VQn"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vr9-q1-hEN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4105" y="519"/>
+            <point key="canvasLocation" x="4104.8000000000002" y="518.59070464767615"/>
         </scene>
         <!--Options Change Email Table View Controller-->
         <scene sceneID="6Jk-2M-eQk">
@@ -599,6 +567,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="biU-5h-oqz">
+                            <rect key="frame" x="0.0" y="217.5" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <sections>
                             <tableViewSection headerTitle="Enter your email address" footerTitle="Your email address will be changed if you verify your new email by entering the pass-code." id="emi-rF-uy2">
                                 <cells>
@@ -657,6 +632,7 @@
                     </tableView>
                     <connections>
                         <outlet property="changeEmailTextField" destination="CUU-vZ-7Mh" id="qUZ-BB-fcD"/>
+                        <outlet property="infoLabel" destination="biU-5h-oqz" id="Hbe-7V-4aM"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3lO-Li-Sa6" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -20,6 +20,8 @@ class OptionsChangePhotoNameSecondNameTableViewController: UITableViewController
     
     @IBOutlet weak var lastNameLabel: UILabel!
     
+    @IBOutlet weak var infoLabel: UILabel!
+    
     var manager: ManagerFirebase!
     
     override func viewDidLoad() {
