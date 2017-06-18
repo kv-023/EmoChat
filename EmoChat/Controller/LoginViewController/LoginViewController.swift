@@ -10,7 +10,10 @@ import UIKit
 import FirebaseDatabase
 import FirebaseAuth
 
-class LoginViewController: UIViewController {
+class LoginViewController:
+//UIViewController
+    EmoChatUIViewController
+{
 	
 	// MARK: - IBOutlets
 	
