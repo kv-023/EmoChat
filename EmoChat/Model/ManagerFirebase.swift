@@ -324,10 +324,39 @@ class ManagerFirebase {
 
     func changeInfo (phoneNumber: String?, firstName: String?, secondName: String?, result: @escaping (UserOperationResult) -> Void) {
         if let uid = Auth.auth().currentUser?.uid{
+<<<<<<< HEAD
             var childUpdates = [String: String] ()
             
             if let phone = phoneNumber {
                 childUpdates.updateValue(phone, forKey: "/users/\(uid)/phoneNumber")
+=======
+            self.ref?.observeSingleEvent(of: .value, with: { (snapshot) in
+                // .child("users").child(uid)
+                
+                
+                let value = snapshot.value as? NSDictionary
+                
+                let userSnapshot = (value?["users"] as? NSDictionary)?["\(uid)"] as? NSDictionary
+                
+                let username = userSnapshot?["username"] as! String
+                let firstname = userSnapshot?["firstName"] as! String?
+                let secondname = userSnapshot?["secondName"] as! String?
+                let email = userSnapshot?["email"] as! String
+                let phonenumber = userSnapshot?["phoneNumber"] as! String?
+                let photoURL = userSnapshot?["photoURL"] as! String?
+                let conversationsID = userSnapshot?["conversations"] as? NSDictionary
+                
+                let user = User(email: email, username: username, phoneNumber: phonenumber, firstName: firstname, secondName: secondname, photoURL: photoURL)
+                
+                if let conversationsArrayId = conversationsID?.allKeys {
+                    user.userConversations = self.sortListOfConversations(self.getConversetionsFromSnapshot(value, accordingTo: conversationsArrayId as! [String], currentUserEmail: email))
+                }
+                
+                getUser(.successSingleUser(user))
+                // ...
+            }) { (error) in
+                getUser(.failure(error.localizedDescription))
+>>>>>>> 4ca4bdd28bdcf945d7181406ac0b824246e2e6b1
             }
             if let firstName = firstName {
                 childUpdates.updateValue(firstName, forKey: "/users/\(uid)/firstName")
