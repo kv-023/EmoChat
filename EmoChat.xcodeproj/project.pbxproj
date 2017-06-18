@@ -30,12 +30,9 @@
 		E7352C381EE81B790095264E /* ControllerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C371EE81B790095264E /* ControllerHelper.swift */; };
 		E7352C3A1EE81CB60095264E /* RegexCheckProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C391EE81CB60095264E /* RegexCheckProtocol.swift */; };
 		ED1E2D941EDD75B20058B6A6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */; };
-		F50842301EF427A600C24EDE /* ChatSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F508422F1EF427A600C24EDE /* ChatSettingsTableViewController.swift */; };
-		F50842341EF42B1400C24EDE /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50842331EF42B1400C24EDE /* UserTableViewCell.swift */; };
 		F54D21761EE7130600B0B177 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54D21751EE7130600B0B177 /* Regex.swift */; };
 		F54D21781EE7149100B0B177 /* AdditionalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54D21771EE7149000B0B177 /* AdditionalViewController.swift */; };
-		F58FB4A51EF6BF4B004A90E1 /* AddUsersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58FB4A41EF6BF4B004A90E1 /* AddUsersTableViewCell.swift */; };
-		F58FB4A71EF6BF57004A90E1 /* LeaveChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58FB4A61EF6BF57004A90E1 /* LeaveChatTableViewCell.swift */; };
+		F5E339401EF6DA5500D224BF /* ChatSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3393F1EF6DA5500D224BF /* ChatSettingsTableViewController.swift */; };
 		FB4317731EE6C24400770338 /* SignUpFirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4317721EE6C24400770338 /* SignUpFirstViewController.swift */; };
 		FB982DD51EE1569700AC2FCD /* ChatSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DCC1EE1569700AC2FCD /* ChatSettings.storyboard */; };
 		FB982DD61EE1569700AC2FCD /* Confirmation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DCD1EE1569700AC2FCD /* Confirmation.storyboard */; };
@@ -79,12 +76,9 @@
 		E7352C391EE81CB60095264E /* RegexCheckProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegexCheckProtocol.swift; sourceTree = "<group>"; };
 		ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ED5291B01EE16F24008F8174 /* EmoChat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EmoChat.entitlements; sourceTree = "<group>"; };
-		F508422F1EF427A600C24EDE /* ChatSettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatSettingsTableViewController.swift; sourceTree = "<group>"; };
-		F50842331EF42B1400C24EDE /* UserTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		F54D21751EE7130600B0B177 /* Regex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
 		F54D21771EE7149000B0B177 /* AdditionalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdditionalViewController.swift; sourceTree = "<group>"; };
-		F58FB4A41EF6BF4B004A90E1 /* AddUsersTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddUsersTableViewCell.swift; sourceTree = "<group>"; };
-		F58FB4A61EF6BF57004A90E1 /* LeaveChatTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaveChatTableViewCell.swift; sourceTree = "<group>"; };
+		F5E3393F1EF6DA5500D224BF /* ChatSettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatSettingsTableViewController.swift; sourceTree = "<group>"; };
 		FB4317721EE6C24400770338 /* SignUpFirstViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpFirstViewController.swift; sourceTree = "<group>"; };
 		FB982DCC1EE1569700AC2FCD /* ChatSettings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChatSettings.storyboard; sourceTree = "<group>"; };
 		FB982DCD1EE1569700AC2FCD /* Confirmation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Confirmation.storyboard; sourceTree = "<group>"; };
@@ -218,20 +212,9 @@
 		F508422D1EF427A600C24EDE /* ChatSettingsTableViewController */ = {
 			isa = PBXGroup;
 			children = (
-				F508422E1EF427A600C24EDE /* Cells */,
-				F508422F1EF427A600C24EDE /* ChatSettingsTableViewController.swift */,
+				F5E3393F1EF6DA5500D224BF /* ChatSettingsTableViewController.swift */,
 			);
 			path = ChatSettingsTableViewController;
-			sourceTree = "<group>";
-		};
-		F508422E1EF427A600C24EDE /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				F58FB4A41EF6BF4B004A90E1 /* AddUsersTableViewCell.swift */,
-				F58FB4A61EF6BF57004A90E1 /* LeaveChatTableViewCell.swift */,
-				F50842331EF42B1400C24EDE /* UserTableViewCell.swift */,
-			);
-			path = Cells;
 			sourceTree = "<group>";
 		};
 		FB4317711EE6C21800770338 /* SignUpControllers */ = {
@@ -422,10 +405,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				E7352C261EDED52B0095264E /* Conversation.swift in Sources */,
+				F5E339401EF6DA5500D224BF /* ChatSettingsTableViewController.swift in Sources */,
 				F54D21781EE7149100B0B177 /* AdditionalViewController.swift in Sources */,
 				F54D21761EE7130600B0B177 /* Regex.swift in Sources */,
 				3938C2721EDC27C700D69F88 /* ViewController.swift in Sources */,
-				F50842341EF42B1400C24EDE /* UserTableViewCell.swift in Sources */,
 				A39232841EEFF58E00E70CD9 /* OptionsChangeUserNameTableViewController.swift in Sources */,
 				A39232861EEFF77200E70CD9 /* OptionsChangeEmailTableViewController.swift in Sources */,
 				CC45A7571EE6D40E00FF13AE /* ManagerFirebase.swift in Sources */,
@@ -435,16 +418,13 @@
 				FBF7A9CA1EF012E600ABADF5 /* SignUpChooseYourPhotoViewController.swift in Sources */,
 				84312F931EE94FB600FAC4D1 /* SearchUsersViewController.swift in Sources */,
 				E7352C281EDED52B0095264E /* Message.swift in Sources */,
-				F50842301EF427A600C24EDE /* ChatSettingsTableViewController.swift in Sources */,
 				A39232881EEFFF8F00E70CD9 /* OptionsChangePhotoNameSecondNameTableViewController.swift in Sources */,
-				F58FB4A71EF6BF57004A90E1 /* LeaveChatTableViewCell.swift in Sources */,
 				E7352C271EDED52B0095264E /* Auxiliary.swift in Sources */,
 				84312F961EE9507E00FAC4D1 /* ContactCell.swift in Sources */,
 				FB982DE11EE156B700AC2FCD /* LoginViewController.swift in Sources */,
 				E7352C291EDED52B0095264E /* User.swift in Sources */,
 				E7352C2B1EE0139E0095264E /* ModelGenericHelper.swift in Sources */,
 				FB4317731EE6C24400770338 /* SignUpFirstViewController.swift in Sources */,
-				F58FB4A51EF6BF4B004A90E1 /* AddUsersTableViewCell.swift in Sources */,
 				E7352C3A1EE81CB60095264E /* RegexCheckProtocol.swift in Sources */,
 				3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */,
 				E7352C381EE81B790095264E /* ControllerHelper.swift in Sources */,

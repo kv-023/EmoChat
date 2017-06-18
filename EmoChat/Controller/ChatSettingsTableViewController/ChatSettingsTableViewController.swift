@@ -2,22 +2,29 @@
 //  ChatSettingsTableViewController.swift
 //  EmoChat
 //
-//  Created by Vladyslav Tsykhmystro on 16.06.17.
+//  Created by Vlad on 18.06.17.
 //  Copyright © 2017 SoftServe. All rights reserved.
 //
 
 import UIKit
 
 class ChatSettingsTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-  
-    var logoCell = UITableViewCell()
     
+    var logoCell = UITableViewCell()
+    var addUserCell = UITableViewCell()
+    var leaveChatCell = UITableViewCell()
+    var userCell = UITableViewCell()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -26,95 +33,96 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        
-        return 3 
+        return 3
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       
+        
         switch section {
-            
-            case 0: return 1
-            
-            case 1: return 2
-            
-            default: return 7
-            
+        case 0:
+            return 1
+        case 1:
+            return 2
+        default:
+            return 5
         }
+        
     }
+
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    
+        
         switch indexPath.section {
             
         case 0:
-             logoCell = tableView.dequeueReusableCell(withIdentifier: "logoCell", for: indexPath)
+            logoCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+            
+            logoCell.textLabel?.text = "Conversation title"
+
+            logoCell.imageView?.layer.cornerRadius = 30
+            logoCell.imageView?.image = UIImage.init(named: "1.png")
             
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(loadNewLogo))
-
-            
-            logoCell.imageView?.clipsToBounds = true
-            logoCell.imageView?.layer.cornerRadius =  (logoCell.imageView?.frame.width)! / 2
-            logoCell.imageView?.image = UIImage.init(named: "1.png")
             logoCell.imageView?.isUserInteractionEnabled = true
             logoCell.imageView?.addGestureRecognizer(tapGestureRecognizer)
-
+            
             return logoCell
             
         case 1:
             if indexPath.row == 0 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "addUser", for: indexPath) as! AddUserTableViewCell
-                return cell
+                addUserCell = tableView.dequeueReusableCell(withIdentifier: "invite", for: indexPath)
+                return addUserCell
             } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "leaveChat", for: indexPath) as! LeaveChatTableViewCell
-                return cell
+                leaveChatCell = tableView.dequeueReusableCell(withIdentifier: "leave", for: indexPath)
+                return leaveChatCell
             }
-           
-        default:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "user", for: indexPath) as! UserTableViewCell
-            return cell
             
+        default:
+            userCell = tableView.dequeueReusableCell(withIdentifier: "user", for: indexPath)
+            userCell.imageView?.image = UIImage.init(named: "male.png")
+            userCell.textLabel?.text = "Name LastName"
+            return userCell
         }
-    
     }
-
-     // MARK: - UITableViewDelegate
     
+    //MARK: - UITableViewDelegate
+    
+/*
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-            
-        case 1:
-            return "CHAT SETTINGS"
-            
         case 2:
-            return "USERS"
-            
+            return "Users"
         default:
             return ""
         }
-    }
+    }*/
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        switch section {
+        case 0:
+            return 0
+        case 1:
+            return 0
+        default:
+            return 20
+        }
 
+    }
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
         switch indexPath.section {
-            
         case 0:
             return 70
-            
         case 1:
             return 40
-            
         default:
             return 50
         }
-        
-    }
-    
-     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 25
     }
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-       
+        
         if indexPath.section == 0 {
             return nil
         } else {
@@ -125,6 +133,7 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
+
     
     /*
     // Override to support conditional editing of the table view.
@@ -172,6 +181,7 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
     */
     
     
+    // MARK: Loading New Photo
     func loadNewLogo(tapGestureRecognizer: UITapGestureRecognizer) {
         
         let imagePicker = UIImagePickerController()
@@ -199,54 +209,6 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
         
     }
     
-    
-    func getMixed2Img(image1: UIImage, image2: UIImage) -> UIImage {
-        
-        let size = CGSize(width:(image1.size.width + image2.size.width), height:image1.size.height)
-        
-        UIGraphicsBeginImageContext(size)
-        
-        image1.draw(in: CGRect(x:0, y:0, width:image1.size.width, height:image1.size.height))
-        image2.draw(in: CGRect(x:image1.size.width, y:0, width:image2.size.width, height:image2.size.height))
-        
-        let finalImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return finalImage!
-    }
-    
-    func getMixed3Img(image1: UIImage, image2: UIImage, image3: UIImage) -> UIImage {
-        
-        let size = CGSize(width:(image1.size.width + image2.size.width), height:(image2.size.height + image3.size.height))
-        
-        UIGraphicsBeginImageContext(size)
-        
-        image1.draw(in: CGRect(x:0, y:(size.height/4), width:image1.size.width, height:image1.size.height))
-        image2.draw(in: CGRect(x:image1.size.width, y:0, width:image2.size.width, height:image2.size.height))
-        image3.draw(in: CGRect(x:image1.size.width, y:image2.size.height, width:image3.size.width, height:image3.size.height))
-        let finalImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return finalImage!
-    }
-    
-    
-    func getMixed4Img(image1: UIImage, image2: UIImage, image3: UIImage, image4: UIImage) -> UIImage {
-        
-        let size = CGSize(width:(image1.size.width + image2.size.width), height:(image1.size.height + image3.size.height))
-        
-        UIGraphicsBeginImageContext(size)
-        
-        image1.draw(in: CGRect(x:0, y:0, width:image1.size.width, height:image1.size.height))
-        image2.draw(in: CGRect(x:image1.size.width, y:0, width:image2.size.width, height:image2.size.height))
-        image3.draw(in: CGRect(x:0, y:(size.height/2), width:image3.size.width, height:image3.size.height))
-        image4.draw(in: CGRect(x:(size.height/2), y:(size.height/2), width:image4.size.width, height:image4.size.height))
-        let finalImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return finalImage!
-    }
-
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         guard let chosenImage = info[UIImagePickerControllerEditedImage] as? UIImage else { return }
@@ -255,7 +217,7 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
         
         logoCell.imageView?.contentMode = .scaleAspectFill
         logoCell.imageView?.clipsToBounds = true
-        logoCell.imageView?.layer.cornerRadius = (logoCell.imageView?.frame.width)!/2
+        logoCell.imageView?.layer.cornerRadius = 30
         logoCell.imageView?.image = chosenImage
         
         //add image to firebase
@@ -267,42 +229,39 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         /*
-        guard let chosenImageData = UIImageJPEGRepresentation(chosenImage, 1) else { return }
-        
-        //create reference
-        
-        let imagePath = Auth.auth().currentUser!.uid + "/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
-        
-        let metaData = StorageMetadata()
-        metaData.contentType = "image/jpeg"
-        
-        //add to firebase
-        
-        self.storageRef.child(imagePath).putData(chosenImageData, metadata: metaData) { (metaData, error) in
-            
-            if let error = error {
-                print("Error uploading: \(error)")
-                return
-            }
-            
-            
-            
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            
-            
-            
-            //            dissmiss image picker
-            */
-            self.dismiss(animated:true, completion: nil)
-        }
+         guard let chosenImageData = UIImageJPEGRepresentation(chosenImage, 1) else { return }
+         
+         //create reference
+         
+         let imagePath = Auth.auth().currentUser!.uid + "/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
+         
+         let metaData = StorageMetadata()
+         metaData.contentType = "image/jpeg"
+         
+         //add to firebase
+         
+         self.storageRef.child(imagePath).putData(chosenImageData, metadata: metaData) { (metaData, error) in
+         
+         if let error = error {
+         print("Error uploading: \(error)")
+         return
+         }
+         
+         
+         
+         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+         
+         
+         
+         //            dissmiss image picker
+         */
+        self.dismiss(animated:true, completion: nil)
+    }
 
-  
-
+    
+    
 }
-
-
-
