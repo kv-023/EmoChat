@@ -20,10 +20,8 @@ class OptionsChangeUserNameTableViewController: UITableViewController, UITextFie
         didSet {
             if !usernameValid {
                 infoLabel.printError(errorText: NSLocalizedString("Enter valid name", comment: "Valid name warning"))
-                changeUserNameTextField.redBorder()
             } else {
                 infoLabel.printOK(okText: NSLocalizedString("Username", comment: "Username without warning"))
-                changeUserNameTextField.whiteBorder()
             }
         }
     }

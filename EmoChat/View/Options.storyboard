@@ -609,6 +609,9 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1iz-ve-iDY">
                                                     <rect key="frame" x="23" y="8" width="344" height="41.5"/>
                                                     <state key="normal" title="Change email"/>
+                                                    <connections>
+                                                        <action selector="changeEmailAction:" destination="Ne3-0g-hLd" eventType="touchUpInside" id="jK6-ft-MPW"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
