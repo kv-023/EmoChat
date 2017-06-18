@@ -14,16 +14,12 @@ import ImageIO
 extension UIImageView {
 	
 	public func loadGif(name: String) {
-		
 		DispatchQueue.global().async {
-			
 			let image = UIImage.gif(name: name)
 			DispatchQueue.main.async {
 				self.image = image
 			}
-
 		}
-
 	}
 	
 }
@@ -57,7 +53,6 @@ extension UIImage {
 	}
 	
 	public class func gif(name: String) -> UIImage? {
-
 		// Check for existance of gif
 		guard let bundleURL = Bundle.main
 			.url(forResource: name, withExtension: "gif") else {
@@ -75,7 +70,7 @@ extension UIImage {
 	}
 	
 	internal class func delayForImageAtIndex(_ index: Int, source: CGImageSource!) -> Double {
-		var delay = 0.01
+		var delay = 0.1
 		
 		// Get dictionaries
 		let cfProperties = CGImageSourceCopyPropertiesAtIndex(source, index, nil)
@@ -106,13 +101,10 @@ extension UIImage {
 	}
 	
 	internal class func gcdForPair(_ a: Int?, _ b: Int?) -> Int {
-		
 		var a = a
 		var b = b
-
 		// Check if one of them is nil
 		if b == nil || a == nil {
-
 			if b != nil {
 				return b!
 			} else if a != nil {
@@ -120,38 +112,30 @@ extension UIImage {
 			} else {
 				return 0
 			}
-
 		}
 		
 		// Swap for modulo
 		if a! < b! {
-
-			a! += b!
-			b = a! - b!
-			a! -= b!
-
+			let c = a
+			a = b
+			b = c
 		}
 		
 		// Get greatest common divisor
 		var rest: Int
-
 		while true {
-
 			rest = a! % b!
 			
 			if rest == 0 {
 				return b! // Found it
 			} else {
-
 				a = b
 				b = rest
 			}
-
 		}
 	}
 	
 	internal class func gcdForArray(_ array: Array<Int>) -> Int {
-		
 		if array.isEmpty {
 			return 1
 		}
@@ -166,39 +150,25 @@ extension UIImage {
 	}
 	
 	internal class func animatedImageWithSource(_ source: CGImageSource) -> UIImage? {
-		
-		// Count number of images in gif
-
 		let count = CGImageSourceGetCount(source)
-		
-		// Create two arrays to fill them with images
-
 		var images = [CGImage]()
 		var delays = [Int]()
 		
-		// Fill arrays by images
-
+		// Fill arrays
 		for i in 0..<count {
-			
-			// Creae image by every index
-
+			// Add image
 			if let image = CGImageSourceCreateImageAtIndex(source, i, nil) {
 				images.append(image)
 			}
 			
-			// Add delay for every frame at its source
-
+			// At it's delay in cs
 			let delaySeconds = UIImage.delayForImageAtIndex(Int(i),
 			                                                source: source)
-			// Transform seconds to ms
-
-			delays.append(Int(delaySeconds * 1000.0))
+			delays.append(Int(delaySeconds * 1000.0)) // Seconds to ms
 		}
 		
 		// Calculate full duration
-
 		let duration: Int = {
-			
 			var sum = 0
 			
 			for val: Int in delays {
@@ -209,24 +179,21 @@ extension UIImage {
 		}()
 		
 		// Get frames
-
 		let gcd = gcdForArray(delays)
 		var frames = [UIImage]()
 		
 		var frame: UIImage
 		var frameCount: Int
 		for i in 0..<count {
-			
 			frame = UIImage(cgImage: images[Int(i)])
 			frameCount = Int(delays[Int(i)] / gcd)
 			
 			for _ in 0..<frameCount {
 				frames.append(frame)
 			}
-
 		}
 		
-		// Animate image with array of images
+		// Heyhey
 		let animation = UIImage.animatedImage(with: frames,
 		                                      duration: Double(duration) / 1000.0)
 		

@@ -24,7 +24,11 @@ RegexCheckProtocol {
     @IBOutlet weak var confirmationLabel: UILabel!
     @IBOutlet weak var theScrollView: UIScrollView!
 	@IBOutlet weak var backgroundAnimated: UIImageView!
+	
     var manager: ManagerFirebase?
+	var backgroundFrame: CGRect?
+	var posX : CGFloat!
+	var posY : CGFloat!
 
     var usernameValid = false {
         didSet {
@@ -78,9 +82,12 @@ RegexCheckProtocol {
     }
 
     override func viewDidLoad() {
-        super.viewDidLoad()
-		backgroundAnimated.loadGif(name: "giphy")
 		
+		super.viewDidLoad()
+		backgroundAnimated.loadGif(name: "giphy")
+		backgroundAnimated.frame.origin.x = posX
+		backgroundAnimated.frame.origin.y = posY
+
         //Hide keyboard by tap
         self.hideKeyboard()
         
@@ -90,11 +97,12 @@ RegexCheckProtocol {
         
         //Create Firebase manager
         manager = ManagerFirebase()
+
     }
     
     func keyboardWillShow(notification:NSNotification){
         var userInfo = notification.userInfo!
-        var keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+        var keyboardFrame: CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
         keyboardFrame = self.view.convert(keyboardFrame, from: nil)
         
         var contentInset:UIEdgeInsets = self.theScrollView.contentInset

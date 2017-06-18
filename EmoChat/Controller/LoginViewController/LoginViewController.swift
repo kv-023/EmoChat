@@ -27,7 +27,7 @@ class LoginViewController: UIViewController {
 		
 		didSet {
 			
-			setButton(button: logIn, duration: 0.4, delay: 0)
+			setButton(button: logIn, duration: 0.4, delay: 0, active: true, setAlpha: 1)
 			
 		}
 
@@ -36,7 +36,7 @@ class LoginViewController: UIViewController {
 		
 		didSet {
 			
-			setButton(button: logIn, duration: 0.4, delay: 0)
+			setButton(button: logIn, duration: 0.4, delay: 0, active: true, setAlpha: 1)
 			
 		}
 
@@ -46,10 +46,10 @@ class LoginViewController: UIViewController {
 	
 	override func viewDidLoad() {
 		
-	// Load view and set animated background
+	// Load varw and set animated background
 		super.viewDidLoad()
 		backgroundAnimated.loadGif(name: "giphy")
-
+		
 	// Circular Get Started Button
 		logIn.layer.cornerRadius = 15
 		logIn.layer.masksToBounds = true
@@ -61,7 +61,7 @@ class LoginViewController: UIViewController {
 		logIn.layer.cornerRadius = 7
 		logIn.layer.borderWidth = 1
 		logIn.layer.borderColor = UIColor.black.cgColor
-		setButton(button: logIn, duration: 0, delay: 0)
+		setButton(button: logIn, duration: 0, delay: 0, active: true, setAlpha: 1)
 		
 	// MARK: - Gesture recognizer
 		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
@@ -86,6 +86,19 @@ class LoginViewController: UIViewController {
 		
 	}
 	
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		
+		if segue.identifier == "showSignUp"
+		{
+			let destinationVC = segue.destination as? SignUpFirstViewController
+
+			destinationVC?.posX = backgroundAnimated.frame.origin.x
+			destinationVC?.posY = backgroundAnimated.frame.origin.y
+			
+		}
+		
+	}
+	
 	// MARK: - Animate button fade in
 	
 	func animateButton(_ button: UIButton, _ duration: Double, _ delay: Double, _ alpha: CGFloat)
@@ -100,15 +113,26 @@ class LoginViewController: UIViewController {
 	
 	// MARK: - Disable or Enable Button
 	
-	func setButton(button: UIButton, duration: Double, delay: Double) {
+	func setButton(button: UIButton, duration: Double, delay: Double, active: Bool, setAlpha: CGFloat) {
 		
-		let isActive = currentEmailIsValid && currentPasswordIsValid
-		let isAlpha:CGFloat = isActive ? 1.0 : 0.6
-
-		animateButton(button, duration, delay, isAlpha)
-		logIn.isEnabled = isActive
+		if active {
+			
+			let isActive = currentEmailIsValid && currentPasswordIsValid
+			
+			let isAlpha: CGFloat = isActive ? 1.0 : 0.6
+			animateButton(button, duration, delay, isAlpha)
+			logIn.isEnabled = isActive
+		
+		} else {
+			
+			animateButton(button, duration, delay, setAlpha)
+			logIn.isEnabled = setAlpha == 1 ? true : false
+		
+		}
 	}
 	
+	/* @Deprecated
+
 	func checkColor(textField: CustomTextFieldWithPopOverInfoBox) -> Bool	{
 		
 	// MARK: - Checks if color is red
@@ -135,6 +159,8 @@ class LoginViewController: UIViewController {
 		
 	}
 	
+	@Deprecated */
+	
 	func isValidEmail(_ email: String) -> Bool {
 		
 	// MARK: - Checks if email is valid by RegExp
@@ -154,33 +180,41 @@ class LoginViewController: UIViewController {
 	}
 	
 	@IBAction func textFieldDidBeginEditing(_ textField: CustomTextFieldWithPopOverInfoBox) {
+
+	/* @Deprecated
+
+		// MARK: - By tapping one of text fields the function captures events described below:
 		
-	// MARK: - By tapping one of text fields the function captures events described below:
+		// MARK: - Check if need to clear previous error placed in textField placeholder
 		
-	// MARK: - Check if need to clear previous error placed in textField placeholder
+			checkToCleanError(email: emailField, password: passwordField)
 		
-		checkToCleanError(email: emailField, password: passwordField)
+		// MARK: - Set color of text typing
 		
-	// MARK: - Set color of text typing
+			emailField.textColor = UIColor.black
+			passwordField.textColor = UIColor.black
 		
-		emailField.textColor = UIColor.black
-		passwordField.textColor = UIColor.black
+		// MARK: - Previous errors may be unencrypted to present it in ASCII. Following action will encrypt input again
+
+			if passwordField.isSecureTextEntry == false {
+				passwordField.isSecureTextEntry = true;
+			}
 		
-	// MARK: - Previous errors may be unencrypted to present it in ASCII. Following action will encrypt input again
-		
-		if passwordField.isSecureTextEntry == false {
-			passwordField.isSecureTextEntry = true;
-		}
-		
-	// MARK: - Capture textField input and create Responder
+			// MARK: - Capture textField input and create Responder
+		@Deprecated */
 		
 		switch textField {
 			
 		case self.emailField:
+			
 			emailField.becomeFirstResponder()
+			
 		case self.passwordField:
+			
 			passwordField.becomeFirstResponder()
+			
 		default:
+			
 			emailField.resignFirstResponder()
 			passwordField.resignFirstResponder()
 			
@@ -221,7 +255,8 @@ class LoginViewController: UIViewController {
 	
 	@IBAction func loginAction(_ sender: UIButton)	{
 		
-			// Capture error again , to clear if login button was pressed again
+		/* @Deprecated
+		// Capture error again , to clear if login button was pressed again
 		
 		checkToCleanError(email: emailField, password: passwordField)
 		
@@ -265,56 +300,67 @@ class LoginViewController: UIViewController {
 				// When both fields are not empty - advance to a stage of verification
 	
 				// Disable logIn button for prevention of additional invokation of the press-button scenario
+		
+		@Deprecated	*/
+		
+		
+		self.logIn.isEnabled = false;
 			
-			self.logIn.isEnabled = false;
+		// Firebase authentication, get both textFields initialized
 			
-				// Firebase authentication, get both textFields initialized
-			
-			Auth.auth().signIn(withEmail: self.emailField.text!, password: self.passwordField.text!, completion: { (user, error) in
+		Auth.auth().signIn(withEmail: self.emailField.text!, password: self.passwordField.text!, completion: { (user, error) in
 				
-				// Completion closure. Check if user is exist and if his email is verified.
+			// Completion closure. Check if user is exist and if his email is verified.
 				
-				if user != nil && (user?.isEmailVerified)! {
+			if user != nil && (user?.isEmailVerified)! {
 					
-					self.hintsLabel.text = ("You have succesfuly logged in")
-					self.hintsLabel.textColor = UIColor.green
-					self.transition.loadGif(name: "transition")
-					// MARK: - Slow delay between transition to conversations. Go to conversation through Segue
+				self.hintsLabel.text = ("You have succesfuly logged in")
+				self.hintsLabel.textColor = UIColor.green
+				self.setButton(button: self.logIn, duration: 0, delay: 0, active: false, setAlpha: 0)
+				self.transition.loadGif(name: "transition")
+			
+			// Slow delay between transition to conversations. Go to conversation through Segue
+				
+				let when = DispatchTime.now() + 2.5
+				DispatchQueue.main.asyncAfter(deadline: when) {
 					
-					let when = DispatchTime.now() + 2.5
-					DispatchQueue.main.asyncAfter(deadline: when) {
-						self.performSegue(withIdentifier: "showConversations", sender: self)
-					}
+					self.performSegue(withIdentifier: "showConversations", sender: self)
+
+				}
 					
-				} else	{
+			} else	{
 					
-					// Enable logIn button again to allow making amends
+			// Enable logIn button again to allow making amends
 					
-					self.logIn.isEnabled = true;
+				self.logIn.isEnabled = true;
 					
-					if let myError = error?.localizedDescription {
-						self.hintsLabel.text = myError
-						self.hintsLabel.textColor = UIColor.red
-					} else {
-						self.hintsLabel.text = ("Please confirm your e-mail")
-						self.hintsLabel.textColor = UIColor.red
-					}
+				if let myError = error?.localizedDescription {
+					
+					self.hintsLabel.text = myError
+					self.hintsLabel.textColor = UIColor.red
+
+				} else {
+
+					self.hintsLabel.text = ("Please confirm your e-mail")
+					self.hintsLabel.textColor = UIColor.red
+
+				}
 					
 				}
 			});
-		}
 		
 	// MARK: - In case of button press all previous actions on edit will cease
 		
 		if self.emailField.isEditing {
 			self.emailField.endEditing(true)
 		}
+
 		if self.passwordField.isEditing {
 			self.passwordField.endEditing(true)
 		}
 	}
 	
-	// MARK: By return button transits to password if currently on email field, and makes password field inactive if pressed in password field
+	// MARK: - By return button transits to password if currently on email field, and makes password field inactive if pressed in password field
 	
 	func textFieldShouldReturn(_ textField: CustomTextFieldWithPopOverInfoBox) -> Bool {
 		
