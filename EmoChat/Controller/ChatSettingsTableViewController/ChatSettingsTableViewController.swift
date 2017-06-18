@@ -8,141 +8,14 @@
 
 import UIKit
 
-class ChatSettingsTableViewController: UITableViewController {
+class ChatSettingsTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   
+    var logoCell = UITableViewCell()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
-        
-        let myimage1 = UIImage(named: "1.png")
-        let myimage2 = UIImage(named: "2.png")
-        let myimage3 = UIImage(named: "3.png")
-        let myimage4 = UIImage(named: "4.png")
-        let myimage5 = UIImage(named: "5.png")
-        let myimage6 = UIImage(named: "6.png")
-        let myimage7 = UIImage(named: "7.png")
-        let myimage8 = UIImage(named: "8.png")
-        let myimage9 = UIImage(named: "9.png")
-        let myimage10 = UIImage(named: "10.png")
-        
-        var logoImages: Array<UIImage> = []
-        
-        logoImages.append(myimage1!)
-        logoImages.append(myimage2!)
-        logoImages.append(myimage3!)
-        logoImages.append(myimage4!)
-        logoImages.append(myimage5!)
-        logoImages.append(myimage6!)
-        logoImages.append(myimage7!)
-        logoImages.append(myimage8!)
-        logoImages.append(myimage9!)
-        logoImages.append(myimage10!)
-        
-        var finalMixedImage = UIImage()
-        
-        if (logoImages.count == 1) {
-            finalMixedImage = logoImages[0]
-        } else if (logoImages.count == 2) {
-            finalMixedImage = getMixed2Img(image1: logoImages[0], image2: logoImages[1])
-        } else if (logoImages.count == 3) {
-            finalMixedImage = getMixed3Img(image1: logoImages[0], image2: logoImages[1], image3: logoImages[2])
-        } else if (logoImages.count == 4) {
-            finalMixedImage = getMixed4Img(image1: logoImages[0], image2: logoImages[1], image3: logoImages[2], image4: logoImages[3])
-        } else if (logoImages.count > 4) {
-            var tempArray = logoImages
-            
-            let randomIndex1 = Int(arc4random_uniform(UInt32(tempArray.count)))
-            let image1 = tempArray[randomIndex1]
-            tempArray.remove(at: randomIndex1)
-            let randomIndex2 = Int(arc4random_uniform(UInt32(tempArray.count)))
-            let image2 = tempArray[randomIndex2]
-            tempArray.remove(at: randomIndex2)
-            let randomIndex3 = Int(arc4random_uniform(UInt32(tempArray.count)))
-            let image3 = tempArray[randomIndex3]
-            tempArray.remove(at: randomIndex3)
-            let randomIndex4 = Int(arc4random_uniform(UInt32(tempArray.count)))
-            let image4 = tempArray[randomIndex4]
-            tempArray.remove(at: randomIndex4)
-            finalMixedImage = getMixed4Img(image1: image1, image2: image2, image3: image3, image4: image4)
-        }
-        
-        
-    }
-    func loadNewLogo(tapGestureRecognizer: UITapGestureRecognizer) {
-        
-        let imagePicker = UIImagePickerController()
-        
-        imagePicker.delegate = self as? UIImagePickerControllerDelegate & UINavigationControllerDelegate
-        imagePicker.allowsEditing = true
-        
-        let alert = UIAlertController(title: "Image Source", message: "Choose new conversation logo", preferredStyle: .actionSheet)
-        
-        alert.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: {
-            action in
-            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-                imagePicker.sourceType = .photoLibrary
-                self.present(imagePicker, animated: true, completion: nil)
-            }
-        }
-            )
-        )
-        
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        
-        self.present(alert, animated: true, completion: nil)
-        self.present(imagePicker, animated: true, completion: nil)
-        
-        
-    }
-
-    
-    func getMixed2Img(image1: UIImage, image2: UIImage) -> UIImage {
-        
-        let size = CGSize(width:(image1.size.width + image2.size.width), height:image1.size.height)
-        
-        UIGraphicsBeginImageContext(size)
-        
-        image1.draw(in: CGRect(x:0, y:0, width:image1.size.width, height:image1.size.height))
-        image2.draw(in: CGRect(x:image1.size.width, y:0, width:image2.size.width, height:image2.size.height))
-        
-        let finalImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return finalImage!
-    }
-    
-    func getMixed3Img(image1: UIImage, image2: UIImage, image3: UIImage) -> UIImage {
-        
-        let size = CGSize(width:(image1.size.width + image2.size.width), height:(image2.size.height + image3.size.height))
-        
-        UIGraphicsBeginImageContext(size)
-        
-        image1.draw(in: CGRect(x:0, y:(size.height/4), width:image1.size.width, height:image1.size.height))
-        image2.draw(in: CGRect(x:image1.size.width, y:0, width:image2.size.width, height:image2.size.height))
-        image3.draw(in: CGRect(x:image1.size.width, y:image2.size.height, width:image3.size.width, height:image3.size.height))
-        let finalImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return finalImage!
-    }
-    
-    
-    func getMixed4Img(image1: UIImage, image2: UIImage, image3: UIImage, image4: UIImage) -> UIImage {
-        
-        let size = CGSize(width:(image1.size.width + image2.size.width), height:(image1.size.height + image3.size.height))
-        
-        UIGraphicsBeginImageContext(size)
-        
-        image1.draw(in: CGRect(x:0, y:0, width:image1.size.width, height:image1.size.height))
-        image2.draw(in: CGRect(x:image1.size.width, y:0, width:image2.size.width, height:image2.size.height))
-        image3.draw(in: CGRect(x:0, y:(size.height/2), width:image3.size.width, height:image3.size.height))
-        image4.draw(in: CGRect(x:(size.height/2), y:(size.height/2), width:image4.size.width, height:image4.size.height))
-        let finalImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return finalImage!
     }
     
     override func didReceiveMemoryWarning() {
@@ -175,21 +48,18 @@ class ChatSettingsTableViewController: UITableViewController {
         switch indexPath.section {
             
         case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "logoCell", for: indexPath) as! LogoTableViewCell
+             logoCell = tableView.dequeueReusableCell(withIdentifier: "logoCell", for: indexPath)
             
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(loadNewLogo))
 
             
-            let img = getMixed3Img(image1: UIImage.init(named: "1.png")!,
-                                   image2: UIImage.init(named: "2.png")!,
-                                   image3: UIImage.init(named: "3.png")!
-            )
-            
-            cell.conversLogo.image = img
-            cell.conversLogo.isUserInteractionEnabled = true
-            cell.conversLogo.addGestureRecognizer(tapGestureRecognizer)
+            logoCell.imageView?.clipsToBounds = true
+            logoCell.imageView?.layer.cornerRadius =  (logoCell.imageView?.frame.width)! / 2
+            logoCell.imageView?.image = UIImage.init(named: "1.png")
+            logoCell.imageView?.isUserInteractionEnabled = true
+            logoCell.imageView?.addGestureRecognizer(tapGestureRecognizer)
 
-            return cell
+            return logoCell
             
         case 1:
             if indexPath.row == 0 {
@@ -217,7 +87,7 @@ class ChatSettingsTableViewController: UITableViewController {
             return "CHAT SETTINGS"
             
         case 2:
-            return "7 USERS IN CONVERSATION"
+            return "USERS"
             
         default:
             return ""
@@ -228,13 +98,13 @@ class ChatSettingsTableViewController: UITableViewController {
         switch indexPath.section {
             
         case 0:
-            return 100
+            return 70
             
         case 1:
-            return 43
+            return 40
             
         default:
-            return 60
+            return 50
         }
         
     }
@@ -300,8 +170,136 @@ class ChatSettingsTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
     
+    
+    func loadNewLogo(tapGestureRecognizer: UITapGestureRecognizer) {
+        
+        let imagePicker = UIImagePickerController()
+        
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        
+        let alert = UIAlertController(title: "Image Source", message: "Choose new conversation logo", preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: {
+            action in
+            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+                imagePicker.sourceType = .photoLibrary
+                self.present(imagePicker, animated: true, completion: nil)
+            }
+        }
+            )
+        )
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
+        self.present(imagePicker, animated: true, completion: nil)
+        
+        
+    }
+    
+    
+    func getMixed2Img(image1: UIImage, image2: UIImage) -> UIImage {
+        
+        let size = CGSize(width:(image1.size.width + image2.size.width), height:image1.size.height)
+        
+        UIGraphicsBeginImageContext(size)
+        
+        image1.draw(in: CGRect(x:0, y:0, width:image1.size.width, height:image1.size.height))
+        image2.draw(in: CGRect(x:image1.size.width, y:0, width:image2.size.width, height:image2.size.height))
+        
+        let finalImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return finalImage!
+    }
+    
+    func getMixed3Img(image1: UIImage, image2: UIImage, image3: UIImage) -> UIImage {
+        
+        let size = CGSize(width:(image1.size.width + image2.size.width), height:(image2.size.height + image3.size.height))
+        
+        UIGraphicsBeginImageContext(size)
+        
+        image1.draw(in: CGRect(x:0, y:(size.height/4), width:image1.size.width, height:image1.size.height))
+        image2.draw(in: CGRect(x:image1.size.width, y:0, width:image2.size.width, height:image2.size.height))
+        image3.draw(in: CGRect(x:image1.size.width, y:image2.size.height, width:image3.size.width, height:image3.size.height))
+        let finalImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return finalImage!
+    }
+    
+    
+    func getMixed4Img(image1: UIImage, image2: UIImage, image3: UIImage, image4: UIImage) -> UIImage {
+        
+        let size = CGSize(width:(image1.size.width + image2.size.width), height:(image1.size.height + image3.size.height))
+        
+        UIGraphicsBeginImageContext(size)
+        
+        image1.draw(in: CGRect(x:0, y:0, width:image1.size.width, height:image1.size.height))
+        image2.draw(in: CGRect(x:image1.size.width, y:0, width:image2.size.width, height:image2.size.height))
+        image3.draw(in: CGRect(x:0, y:(size.height/2), width:image3.size.width, height:image3.size.height))
+        image4.draw(in: CGRect(x:(size.height/2), y:(size.height/2), width:image4.size.width, height:image4.size.height))
+        let finalImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return finalImage!
+    }
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        guard let chosenImage = info[UIImagePickerControllerEditedImage] as? UIImage else { return }
+        
+        //Add image
+        
+        logoCell.imageView?.contentMode = .scaleAspectFill
+        logoCell.imageView?.clipsToBounds = true
+        logoCell.imageView?.layer.cornerRadius = (logoCell.imageView?.frame.width)!/2
+        logoCell.imageView?.image = chosenImage
+        
+        //add image to firebase
+        
+        
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        /*
+        guard let chosenImageData = UIImageJPEGRepresentation(chosenImage, 1) else { return }
+        
+        //create reference
+        
+        let imagePath = Auth.auth().currentUser!.uid + "/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
+        
+        let metaData = StorageMetadata()
+        metaData.contentType = "image/jpeg"
+        
+        //add to firebase
+        
+        self.storageRef.child(imagePath).putData(chosenImageData, metadata: metaData) { (metaData, error) in
+            
+            if let error = error {
+                print("Error uploading: \(error)")
+                return
+            }
+            
+            
+            
+            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            
+            
+            
+            //            dissmiss image picker
+            */
+            self.dismiss(animated:true, completion: nil)
+        }
+
   
 
 }
