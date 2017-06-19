@@ -17,7 +17,9 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        tableView.contentInset = UIEdgeInsetsMake(10, 0, 0, 0)
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -263,5 +265,51 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
     }
 
     
+    //MARK: - Mix Photos 
+    
+    func getMixed2Img(image1: UIImage, image2: UIImage) -> UIImage {
+        
+        let size = CGSize(width:(image1.size.width + image2.size.width), height:image1.size.height)
+        
+        UIGraphicsBeginImageContext(size)
+        
+        image1.draw(in: CGRect(x:0, y:0, width:image1.size.width, height:image1.size.height))
+        image2.draw(in: CGRect(x:image1.size.width, y:0, width:image2.size.width, height:image2.size.height))
+        let finalImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return finalImage!
+    }
+    
+    func getMixed3Img(image1: UIImage, image2: UIImage, image3: UIImage) -> UIImage {
+        
+        let size = CGSize(width:(image1.size.width + image2.size.width), height:(image2.size.height + image3.size.height))
+        
+        UIGraphicsBeginImageContext(size)
+        
+        image1.draw(in: CGRect(x:0, y:(size.height/4), width:image1.size.width, height:image1.size.height))
+        image2.draw(in: CGRect(x:image1.size.width, y:0, width:image2.size.width, height:image2.size.height))
+        image3.draw(in: CGRect(x:image1.size.width, y:image2.size.height, width:image3.size.width, height:image3.size.height))
+        let finalImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return finalImage!
+    }
+    
+    func getMixed4Img(image1: UIImage, image2: UIImage, image3: UIImage, image4: UIImage) -> UIImage {
+        
+        let size = CGSize(width:(image1.size.width + image2.size.width), height:(image1.size.height + image3.size.height))
+        
+        UIGraphicsBeginImageContext(size)
+        
+        image1.draw(in: CGRect(x:0, y:0, width:image1.size.width, height:image1.size.height))
+        image2.draw(in: CGRect(x:image1.size.width, y:0, width:image2.size.width, height:image2.size.height))
+        image3.draw(in: CGRect(x:0, y:(size.height/2), width:image3.size.width, height:image3.size.height))
+        image4.draw(in: CGRect(x:(size.height/2), y:(size.height/2), width:image4.size.width, height:image4.size.height))
+        let finalImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return finalImage!
+    }
     
 }

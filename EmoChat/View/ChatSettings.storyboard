@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="fCk-rj-mID">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16C68" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="a3v-gZ-Ph8">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -16,7 +16,7 @@
                 <viewControllerPlaceholder storyboardIdentifier="SearchUsers" storyboardName="SearchUsers" id="ezk-yI-q5H" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y0z-53-i7d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1909" y="-89"/>
+            <point key="canvasLocation" x="2906.25" y="-89.788732394366193"/>
         </scene>
         <!--Chat Settings Table View Controller-->
         <scene sceneID="14Y-VU-rcE">
@@ -137,10 +137,11 @@
                             <outlet property="delegate" destination="fCk-rj-mID" id="FHh-vW-5h2"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="fqN-lf-BkN"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TFO-x3-drM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1286.25" y="126.7605633802817"/>
+            <point key="canvasLocation" x="2283.75" y="126.7605633802817"/>
         </scene>
         <!--UserInfo-->
         <scene sceneID="WYI-N5-fWe">
@@ -148,7 +149,25 @@
                 <viewControllerPlaceholder storyboardIdentifier="userInfo" storyboardName="UserInfo" id="bgU-9T-H2b" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MjR-D3-vcJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1909" y="150"/>
+            <point key="canvasLocation" x="2906.25" y="150"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="9St-NM-FIr">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="a3v-gZ-Ph8" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="FxR-Zc-3ss">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="fCk-rj-mID" kind="relationship" relationship="rootViewController" id="Qtb-Wt-JET"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="i5s-M8-wxt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1286.25" y="126.7605633802817"/>
         </scene>
     </scenes>
     <resources>
