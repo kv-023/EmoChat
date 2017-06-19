@@ -87,7 +87,7 @@ RegexCheckProtocol {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         //Create Firebase manager
-        manager = ManagerFirebase()
+        manager = ManagerFirebase.shared
     }
     
     func keyboardWillShow(notification:NSNotification){
