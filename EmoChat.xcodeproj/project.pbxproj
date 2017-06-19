@@ -313,6 +313,7 @@
 			children = (
 				35C9507B1EF7D733006FA7E6 /* Extensions */,
 				F508422D1EF427A600C24EDE /* ChatSettingsTableViewController */,
+				FBAC197F1EF13E000027AF9D /* ConfirmationController */,
 				A3E7E7CF1EEFD864006D24BC /* OptionsController */,
 				FB4317741EE6C2AC00770338 /* Helper */,
 				FB4317711EE6C21800770338 /* SignUpControllers */,
