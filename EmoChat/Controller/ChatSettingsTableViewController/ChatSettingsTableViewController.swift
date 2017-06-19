@@ -17,7 +17,7 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
         tableView.contentInset = UIEdgeInsetsMake(10, 0, 0, 0)
         
         // Uncomment the following line to preserve selection between presentations
@@ -98,19 +98,15 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
             return ""
         }
     }*/
+  
     
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        switch section {
-        case 0:
-            return 0
-        case 1:
-            return 0
-        default:
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if section == 1 {
             return 20
+        } else {
+            return 0
         }
-
     }
-    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         switch indexPath.section {
