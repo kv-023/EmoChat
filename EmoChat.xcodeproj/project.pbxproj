@@ -21,6 +21,7 @@
 		A39232861EEFF77200E70CD9 /* OptionsChangeEmailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39232851EEFF77200E70CD9 /* OptionsChangeEmailTableViewController.swift */; };
 		A39232881EEFFF8F00E70CD9 /* OptionsChangePhotoNameSecondNameTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39232871EEFFF8F00E70CD9 /* OptionsChangePhotoNameSecondNameTableViewController.swift */; };
 		A3E7E7D11EEFD893006D24BC /* OptionsMainPageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E7E7D01EEFD893006D24BC /* OptionsMainPageTableViewController.swift */; };
+		CC13C5D51EF4092900B38E59 /* ArchiverManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC13C5D41EF4092900B38E59 /* ArchiverManager.swift */; };
 		CC45A7571EE6D40E00FF13AE /* ManagerFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC45A7561EE6D40E00FF13AE /* ManagerFirebase.swift */; };
 		E7352C261EDED52B0095264E /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C211EDED52B0095264E /* Conversation.swift */; };
 		E7352C271EDED52B0095264E /* Auxiliary.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C231EDED52B0095264E /* Auxiliary.swift */; };
@@ -73,6 +74,7 @@
 		A39232851EEFF77200E70CD9 /* OptionsChangeEmailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OptionsChangeEmailTableViewController.swift; path = OptionsController/OptionsChangeEmailTableViewController.swift; sourceTree = "<group>"; };
 		A39232871EEFFF8F00E70CD9 /* OptionsChangePhotoNameSecondNameTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OptionsChangePhotoNameSecondNameTableViewController.swift; path = OptionsController/OptionsChangePhotoNameSecondNameTableViewController.swift; sourceTree = "<group>"; };
 		A3E7E7D01EEFD893006D24BC /* OptionsMainPageTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OptionsMainPageTableViewController.swift; path = OptionsController/OptionsMainPageTableViewController.swift; sourceTree = "<group>"; };
+		CC13C5D41EF4092900B38E59 /* ArchiverManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArchiverManager.swift; sourceTree = "<group>"; };
 		CC45A7561EE6D40E00FF13AE /* ManagerFirebase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerFirebase.swift; sourceTree = "<group>"; };
 		E701EB98A17F8F7EB9DF59EA /* Pods-EmoChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmoChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EmoChat/Pods-EmoChat.debug.xcconfig"; sourceTree = "<group>"; };
 		E7352C211EDED52B0095264E /* Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 		E7352C221EDED52B0095264E /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				CC13C5D41EF4092900B38E59 /* ArchiverManager.swift */,
 				E7352C231EDED52B0095264E /* Auxiliary.swift */,
 				E7352C2A1EE0139E0095264E /* ModelGenericHelper.swift */,
 			);
@@ -456,6 +459,7 @@
 				FBAC19811EF13E1A0027AF9D /* ConfirmationViewController.swift in Sources */,
 				E7883F381EF1611F00E876CC /* Localize.swift in Sources */,
 				CC45A7571EE6D40E00FF13AE /* ManagerFirebase.swift in Sources */,
+				CC13C5D51EF4092900B38E59 /* ArchiverManager.swift in Sources */,
 				E7B926F01EF1487B0018F5FF /* EmoChatUIViewController.swift in Sources */,
 				84247A391EE9CDA6009E8167 /* GlobalUserCell.swift in Sources */,
 				E7B926F11EF1487B0018F5FF /* PopOverHelper.swift in Sources */,

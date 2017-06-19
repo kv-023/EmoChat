@@ -19,12 +19,13 @@ enum SearchType: Int {
 class SearchUsersViewController: UITableViewController {
     
     // MARK: - properties
+    var currentUser: User!
     var managerFirebase = ManagerFirebase.shared
     var friends: [User] = []
     var filteredFriends: [User] = []
     var checkmarkedFriends: [User] = [] {
         didSet {
-            if checkmarkedFriends.count > 0 {
+            if checkmarkedFriends.count > 1 {
                 navigationItem.rightBarButtonItem?.isEnabled = true
             } else {
                 navigationItem.rightBarButtonItem?.isEnabled = false
@@ -39,6 +40,18 @@ class SearchUsersViewController: UITableViewController {
     // MARK: - ViewController lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        managerFirebase.getCurrentUser { (result) in
+            switch result {
+            case let .successSingleUser(user):
+                print(user.username)
+                print(user.contacts)
+                self.currentUser = user
+                self.friends = user.contacts
+            default:
+                print("NONONO")
+            }
+        }
         
         let createConversationButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createConversationAction(_:)))
         
@@ -46,23 +59,15 @@ class SearchUsersViewController: UITableViewController {
         createConversationButton.isEnabled = false
         
         searchController = UISearchController(searchResultsController: nil)
-        
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search users..."
+        searchController.searchBar.placeholder = NSLocalizedString("Search users...", comment: "")
         searchController.searchBar.searchBarStyle = .minimal
         searchController.searchBar.delegate = self
         searchController.searchBar.scopeBarBackgroundImage = UIImage(color: UIColor.white)
+        searchController.searchBar.setValue(NSLocalizedString("Done", comment: ""), forKey: "_cancelButtonText")
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
-
-        let user1 = User(email: "FirstUser", username: "FirstUser", phoneNumber: nil, firstName: nil, secondName: "secondName", photoURL: nil)
-        let user2 = User(email: "SecondUser", username: "SecondUser", phoneNumber: nil, firstName: nil, secondName: nil, photoURL: nil)
-        let user3 = User(email: "ThirdUser", username: "ThirdUser", phoneNumber: nil, firstName: "firstName", secondName: "secondName", photoURL: nil)
-        let user4 = User(email: "Secvfour", username: "Secvfour", phoneNumber: nil, firstName: nil, secondName: nil, photoURL: nil)
-        let user5 = User(email: "Sevfive", username: "Sevfive", phoneNumber: nil, firstName: "firstName", secondName: nil, photoURL: nil)
-
-        friends.append(contentsOf: [user1, user2, user3, user4, user5])
     }
 
     override func didReceiveMemoryWarning() {
@@ -146,10 +151,16 @@ class SearchUsersViewController: UITableViewController {
             tableView.reloadData()
         case .globalUsers:
             if searchText != "" {
-//                managerFirebase.filterUsers(with: searchText, array: { (array) in
-//                    self.filteredUsers = array
-//                    self.tableView.reloadData()
-//                })
+                managerFirebase.filterUsers(with: searchText,
+                                            result: { (result) in
+                                                switch result {
+                                                case let .successArrayOfUsers(users):
+                                                    self.filteredUsers = users
+                                                    self.tableView.reloadData()
+                                                default:
+                                                    return
+                                                }
+                })
             } else {
                 filteredUsers.removeAll()
                 tableView.reloadData()
@@ -206,6 +217,8 @@ extension SearchUsersViewController: UISearchBarDelegate {
         searchType = SearchType(rawValue: selectedScope)!
         tableView.reloadData()
         filterContent(for: searchBar.text!, scope: searchType)
+        print(self.currentUser.contacts)
+        print(self.friends)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -217,7 +230,7 @@ extension SearchUsersViewController: UISearchBarDelegate {
 
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         let contactsScope = NSLocalizedString("Contacts", comment: "Contacts search section")
-        let globalScope = NSLocalizedString("Globas search", comment: "Globas search section")
+        let globalScope = NSLocalizedString("Global search", comment: "Global search section")
         searchController.searchBar.scopeButtonTitles = [contactsScope, globalScope]
         
         return true
