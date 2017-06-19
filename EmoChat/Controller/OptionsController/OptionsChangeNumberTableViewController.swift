@@ -99,35 +99,9 @@ class OptionsChangeNumberTableViewController: UITableViewController, UITextField
     
     
     // MARK: - Saving to firebase
-    /*
-     func saveNumber(sender: UIBarButtonItem) {
-     if phoneIsValid(uname: changeNumberTextField.text!) {
-     manager?.addInfoUser(username: currentUser.username,
-     phoneNumber: changeNumberTextField.text,
-     firstName: nil,
-     secondName: nil,
-     photoURL: nil) {
-     result in
-     switch result {
-     case .success:
-     //                                      Back to previous VC
-     if let navController = self.navigationController {
-     navController.popViewController(animated: true)
-     }
-     case .failure(let error):
-     self.infoLabel.text = error
-     default:
-     break
-     }
-     }
-     }
-     
-     }
-     */
-    
     func saveNumber(sender: UIBarButtonItem) {
         if phoneIsValid(uname: changeNumberTextField.text!){
-            manager?.changeInfo(phoneNumber: nil,
+            manager?.changeInfo(phoneNumber: changeNumberTextField.text,
                                 firstName: nil,
                                 secondName: nil) {
                                     result in

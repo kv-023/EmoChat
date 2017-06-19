@@ -15,7 +15,7 @@ class OptionsChangeEmailTableViewController: UITableViewController, RegexCheckPr
     @IBOutlet weak var infoLabel: UILabel!
     
     var manager: ManagerFirebase?
-
+    
     
     var emailValid = false {
         didSet {
@@ -31,7 +31,7 @@ class OptionsChangeEmailTableViewController: UITableViewController, RegexCheckPr
         super.viewDidLoad()
         
         manager = ManagerFirebase()
-
+        
         
         //create a right save button and add it to vc
         
@@ -61,32 +61,47 @@ class OptionsChangeEmailTableViewController: UITableViewController, RegexCheckPr
         
         
         var success = true, unique = true
-       
+        
         if changeEmailTextField.text == "" {
             infoLabel.printError(errorText: NSLocalizedString("Enter email", comment: "Empty email"))
             changeEmailTextField.redBorder()
             success = false
         }
         if success
-                && emailValid {
+            && emailValid {
             
             
+            print("Vdalo vdalo vdalo")
             
-//manager?.changeUsersEmail(email: <#T##String#>, result: <#T##(UserOperationResult) -> Void#>)
+//            manager?.changeUsersEmail(email: changeEmailTextField.text!){
+//                result in
+//                switch result {
+//                case .success:
+//                    print("Vdalo")
+//                case .failure(let error):
+//                    self.infoLabel.text = error
+//                default:
+//                    break
+//            }
             
-            }
-           
-            
-            if unique {
-                performSegue(withIdentifier: "additional", sender: self)
-            }
         }
         
         
-        
-        
-        
-        
-        
+            
+            
+            
+            
     }
+    
+    
+
+}
+
+
+
+
+
+
+
+
 

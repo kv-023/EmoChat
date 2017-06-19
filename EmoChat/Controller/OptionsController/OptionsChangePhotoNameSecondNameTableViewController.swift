@@ -16,10 +16,6 @@ class OptionsChangePhotoNameSecondNameTableViewController: UITableViewController
     
     @IBOutlet weak var lastNaneTexField: UITextField!
     
-    @IBOutlet weak var firstNameLabel: UILabel!
-    
-    @IBOutlet weak var lastNameLabel: UILabel!
-    
     @IBOutlet weak var infoLabel: UILabel!
     
     var manager: ManagerFirebase!
@@ -75,12 +71,22 @@ class OptionsChangePhotoNameSecondNameTableViewController: UITableViewController
         userPhotoView.image = chosenImage
         
         //Add image to firebase
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         
-        print ("nihao chiba save to firebase")
         
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        
+        manager?.addPhoto(chosenImage) {
+            result in
+            switch result {
+            case .success:
+                print("photo save normal")
+                break
+            case .failure(let error):
+                print("\(error) fail saving photo")
+            default:
+                break
+            }
+            
+        }
+
         //Dissmiss image picker
         self.dismiss(animated:true, completion: nil)
     }
@@ -90,10 +96,10 @@ class OptionsChangePhotoNameSecondNameTableViewController: UITableViewController
         let currentNameIsValid = nameIsValid(uname: sender.text)
         
         if currentNameIsValid {
-            firstNameLabel.text = NSLocalizedString("First Name", comment: "First Name")
-            firstNameLabel.textColor = UIColor.white
+            infoLabel.text = NSLocalizedString("First Name", comment: "First Name")
+            infoLabel.textColor = UIColor.white
         } else {
-            firstNameLabel.printError(errorText: "Enter valid name")
+            infoLabel.printError(errorText: "Enter valid name")
         }
     }
     
@@ -102,10 +108,10 @@ class OptionsChangePhotoNameSecondNameTableViewController: UITableViewController
         let currentLastNameIsValid = lastNameIsValid(uname: sender.text)
         
         if currentLastNameIsValid {
-            lastNameLabel.text = NSLocalizedString("Last Name", comment: "Last Name")
-            lastNameLabel.textColor = UIColor.white
+            infoLabel.text = NSLocalizedString("Last Name", comment: "Last Name")
+            infoLabel.textColor = UIColor.white
         } else {
-            lastNameLabel.printError(errorText: "Enter valid last name")
+            infoLabel.printError(errorText: "Enter valid last name")
         }
     }
     

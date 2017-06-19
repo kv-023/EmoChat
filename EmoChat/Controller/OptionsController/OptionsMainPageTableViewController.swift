@@ -26,8 +26,13 @@ class OptionsMainPageTableViewController:  UITableViewController, UIImagePickerC
         
         manager = ManagerFirebase()
         
-//         tempLogIn()
-//         tempGetCurrentUser()
+        tempLogIn()
+        tempGetCurrentUser()
+        
+        
+        
+        
+        
         
         
     }
@@ -55,12 +60,8 @@ class OptionsMainPageTableViewController:  UITableViewController, UIImagePickerC
             case .successSingleUser(let user):
                 print("success getUser")
                 
-                self.currentUserVC = user
+                self.tempTemp(user: user)
                 
-                self.nameAndLastNameLabel.text = user.firstName
-                self.usernameLabel.text = user.username
-                self.phoneNumberLabel.text = user.phoneNumber
-                self.emailLabel.text = user.phoneNumber
                 
                 break
             case .failure(let error):
@@ -69,22 +70,33 @@ class OptionsMainPageTableViewController:  UITableViewController, UIImagePickerC
                 break
             }
         }
-
+        
     }
     
     
+    func tempTemp (user: User) {
+        
+        
+        
+
+        
+            
+        
+
+        
+        nameAndLastNameLabel.text = user.firstName
+        usernameLabel.text = user.username
+        phoneNumberLabel.text = user.phoneNumber
+        emailLabel.text = user.phoneNumber
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showPhone" {
-                let destinationVC = segue.destination as! OptionsChangeNumberTableViewController
-                destinationVC.currentUser = currentUserVC
+            let destinationVC = segue.destination as! OptionsChangeNumberTableViewController
+            destinationVC.currentUser = currentUserVC
             
         }
     }
     
     
 }
-/*
- let url = URL(string:(user.photoURL)!)
- let data = try? Data(contentsOf: url!)
- self.userImageView.image = UIImage(data: data!)
- */

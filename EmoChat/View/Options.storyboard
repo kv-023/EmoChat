@@ -323,7 +323,7 @@
                                                     <rect key="frame" x="111" y="15" width="264" height="87.5"/>
                                                     <subviews>
                                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Aoe-Lr-vZC">
-                                                            <rect key="frame" x="0.0" y="0.0" width="264" height="32"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="264" height="44"/>
                                                             <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <textInputTraits key="textInputTraits"/>
@@ -331,14 +331,8 @@
                                                                 <action selector="firstNameChanged:" destination="kBM-hl-kZF" eventType="editingChanged" id="MpJ-XJ-vyX"/>
                                                             </connections>
                                                         </textField>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QZa-GR-15a">
-                                                            <rect key="frame" x="0.0" y="32" width="264" height="12"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
                                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Second Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wry-yp-yhp">
-                                                            <rect key="frame" x="0.0" y="44" width="264" height="31.5"/>
+                                                            <rect key="frame" x="0.0" y="44" width="264" height="43.5"/>
                                                             <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <textInputTraits key="textInputTraits"/>
@@ -346,12 +340,6 @@
                                                                 <action selector="lastNameChanged:" destination="kBM-hl-kZF" eventType="editingChanged" id="wBP-To-chm"/>
                                                             </connections>
                                                         </textField>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FAY-gC-Etp">
-                                                            <rect key="frame" x="0.0" y="75.5" width="264" height="12"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="Wry-yp-yhp" firstAttribute="width" secondItem="Aoe-Lr-vZC" secondAttribute="width" id="QkT-mN-jJV"/>
@@ -415,10 +403,8 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <outlet property="firstNameLabel" destination="QZa-GR-15a" id="Zan-Ba-hdo"/>
                         <outlet property="firstNameTextField" destination="Aoe-Lr-vZC" id="gXP-5G-vQQ"/>
                         <outlet property="infoLabel" destination="OTd-Z7-RXc" id="xEx-hd-Zb8"/>
-                        <outlet property="lastNameLabel" destination="FAY-gC-Etp" id="dnj-il-VaD"/>
                         <outlet property="lastNaneTexField" destination="Wry-yp-yhp" id="XGH-Ws-xNV"/>
                         <outlet property="userPhotoView" destination="q3a-Uf-o0d" id="vep-uv-lee"/>
                     </connections>
