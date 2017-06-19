@@ -37,26 +37,26 @@ class ViewController: UIViewController {
         
         m = ManagerFirebase.shared
         
-        m?.getCurrentUser(){ (result) in
-            switch result {
-            case let .successSingleUser(user):
-                //self.user = user
-                print(user.username)
-                print(user.userConversations)
-                self.m?.getMessageFromConversation(user.userConversations!, result: {
-                    (conv, message) in
-                    print("Message \(message.content) from  \(conv.name!)")
-                })
-                //                for conv in user.userConversations! {
-                //                    self.m?.ref?.child("conversations/\(conv.uuid)/messagesInConversation").observe(.childAdded, with: { (snapshot) in
-                //                        print("CHILD ADDED")
-                //                    })
-            //                }
-            default:
-                print("NONONO")
-            }
-        }
-        
+//        m?.getCurrentUser(){ (result) in
+//            switch result {
+//            case let .successSingleUser(user):
+//                //self.user = user
+//                print(user.username)
+//                print(user.userConversations)
+//                self.m?.getMessageFromConversation(user.userConversations!, result: {
+//                    (conv, message) in
+//                    print("Message \(message.content) from  \(conv.name!)")
+//                })
+//                //                for conv in user.userConversations! {
+//                //                    self.m?.ref?.child("conversations/\(conv.uuid)/messagesInConversation").observe(.childAdded, with: { (snapshot) in
+//                //                        print("CHILD ADDED")
+//                //                    })
+//            //                }
+//            default:
+//                print("NONONO")
+//            }
+//        }
+//        
         
         //        m?.valueChanged() {
         //            newValue in
@@ -76,19 +76,11 @@ class ViewController: UIViewController {
     
     
     @IBAction func hello(_ sender: UIButton) {
-        
-        //        print("set")
-        //       m?.getFriends() {op in
-        //        switch op {
-        //        case let .successArrayOfUsers(users):
-        //            for u in users {
-        //                print(u.username)
-        //            }
-        //
-        //        default :
-        //        break
-        //           }
-        //      }
+        do {
+            try Auth.auth().signOut()
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
     }
     
     
@@ -288,6 +280,18 @@ class ViewController: UIViewController {
                                    completion: { (user, error) in
                                     if user != nil && (user?.isEmailVerified)! {
                                         self.hintsLabel.text = ("success! you are in")
+                                                ManagerFirebase.shared.getCurrentUser { result in
+                                                    switch (result) {
+                                                    case .successSingleUser(let user):
+                                                        ArchiverManager.shared.saveData(user: user)
+                                                    case .failure(let error):
+                                                        print(error)
+                                                        break
+                                                    default:
+                                                        break
+                                                    }
+                                                }
+                                        
                                     } else {
                                         if let myError = error?.localizedDescription {
                                             self.hintsLabel.text = myError

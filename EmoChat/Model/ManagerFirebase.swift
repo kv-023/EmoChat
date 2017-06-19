@@ -188,6 +188,7 @@ class ManagerFirebase {
                 let userSnapshot = snapshot.childSnapshot(forPath: "users/\(uid)").value as? NSDictionary
 
                 //getting additional info
+                
                 let username = userSnapshot?["username"] as! String
                 let firstname = userSnapshot?["firstName"] as! String?
                 let secondname = userSnapshot?["secondName"] as! String?
@@ -198,7 +199,8 @@ class ManagerFirebase {
                 let conversationsID = userSnapshot?["conversations"] as? NSDictionary
                 
                 //create user without conversations and contacts
-                let user = User(email: email, username: username, phoneNumber: phonenumber, firstName: firstname, secondName: secondname, photoURL: photoURL)
+                
+                let user = User(email: email, username: username, phoneNumber: phonenumber, firstName: firstname, secondName: secondname, photoURL: photoURL, uid: uid)
                 
                 //generate array of conversations
                 if let conversationsArrayId = conversationsID?.allKeys {

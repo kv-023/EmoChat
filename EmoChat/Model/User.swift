@@ -8,7 +8,7 @@
 
 import Foundation
 
-class User: NSCoding {
+class User: NSObject, NSCoding {
     
     var uid: String!
     var firstName: String?
@@ -141,10 +141,6 @@ class User: NSCoding {
     //
     //        return valueToReturn
     //    }
-}
 
-extension User: Equatable {
-    static func ==(lhs:User, rhs:User) -> Bool { // Implement Equatable
-        return lhs.username == rhs.username
-    }
+
 }
