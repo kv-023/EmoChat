@@ -202,6 +202,7 @@
 		E7352C201EDED52B0095264E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E7883F441EF7DF4300E876CC /* RestUI */,
 				E7352C221EDED52B0095264E /* Helper */,
 				E7352C211EDED52B0095264E /* Conversation.swift */,
 				E7352C241EDED52B0095264E /* Message.swift */,
@@ -224,6 +225,13 @@
 			isa = PBXGroup;
 			children = (
 				E7883F421EF7DA6600E876CC /* RestUIController.swift */,
+			);
+			path = RestUI;
+			sourceTree = "<group>";
+		};
+		E7883F441EF7DF4300E876CC /* RestUI */ = {
+			isa = PBXGroup;
+			children = (
 			);
 			path = RestUI;
 			sourceTree = "<group>";
