@@ -42,7 +42,7 @@ class ViewController: UIViewController {
             case let .successSingleUser(user):
                 //self.user = user
                 print(user.username)
-                print(user.userConversations)
+                print(user.userConversations!)
                 self.m?.getMessageFromConversation(user.userConversations!, result: {
                     (conv, message) in
                     print("Message \(message.content) from  \(conv.name!)")

@@ -182,6 +182,7 @@ class ManagerFirebase {
         if let uid = Auth.auth().currentUser?.uid{
             self.ref?.observeSingleEvent(of: .value, with: { (snapshot) in
                 // .child("users").child(uid)
+                let usersValue = snapshot.childSnapshot(forPath: "users").value as? NSDictionary
                 
                 let value = snapshot.value as? NSDictionary
                 
@@ -200,13 +201,18 @@ class ManagerFirebase {
                 //create user without conversations and contacts
                 let user = User(email: email, username: username, phoneNumber: phonenumber, firstName: firstname, secondName: secondname, photoURL: photoURL)
                 
+                //get contacts
+                let contactsIDs = userSnapshot?["contacts"] as? NSDictionary
+                if contactsIDs != nil {
+                    user.contacts = self.getUsersFromIDs(ids: contactsIDs!, value: value)
+                }
+                
                 //generate array of conversations
                 if let conversationsArrayId = conversationsID?.allKeys {
                     user.userConversations = self.sortListOfConversations(self.getConversetionsFromSnapshot(value, accordingTo: conversationsArrayId as! [String], currentUserEmail: email))
                     //getting array of contacts
-                    user.contacts = self.getContacts(from: user.userConversations!)
+                    //user.contacts = self.getContacts(from: user.userConversations!)
                 }
-                
                 
                 //return result
                 getUser(.successSingleUser(user))
@@ -228,9 +234,9 @@ class ManagerFirebase {
         for id in ids.allKeys {
             if let user = value?["\(id)"] as? NSDictionary{
                 users.append(User(data: user, uid: (id as! String)))
-                
             }
         }
+        
         return users
     }
     
@@ -471,7 +477,10 @@ class ManagerFirebase {
      */
     func filterUsers (with text: String, result: @escaping (UserOperationResult) -> Void){
        let text = text.lowercased()
-        ref?.child("users").queryOrdered(byChild: "username").queryStarting(atValue: text).queryEnding(atValue: text+"\u{f8ff}").observe(.value, with: { snapshot in
+        ref?.child("users").queryOrdered(byChild: "username")
+            .queryStarting(atValue: text)
+            .queryEnding(atValue: text+"\u{f8ff}")
+            .observeSingleEvent(of: .value, with: { snapshot in
             var users = [User]()
             for u in snapshot.children{
                 users.append(User(data: (u as! DataSnapshot).value as? NSDictionary, uid: snapshot.key))
@@ -495,6 +504,7 @@ class ManagerFirebase {
         }
         return result
     }
+
     
     
     

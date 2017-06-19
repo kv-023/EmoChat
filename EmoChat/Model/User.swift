@@ -144,7 +144,7 @@ class User: NSCoding {
 }
 
 extension User: Equatable {
-    static func ==(lhs:User, rhs:User) -> Bool { // Implement Equatable
+    static func ==(lhs:User, rhs:User) -> Bool { 
         return lhs.username == rhs.username
     }
 }
