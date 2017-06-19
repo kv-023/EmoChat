@@ -38,7 +38,6 @@ class OptionsChangeUserNameTableViewController: UITableViewController, UITextFie
         
         
         //Create manager
-        manager = ManagerFirebase()
     }
     
     // MARK: - Actions

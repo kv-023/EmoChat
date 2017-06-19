@@ -30,7 +30,6 @@ class OptionsChangeEmailTableViewController: UITableViewController, RegexCheckPr
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        manager = ManagerFirebase()
         
         
         //create a right save button and add it to vc

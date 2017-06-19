@@ -24,7 +24,6 @@ class OptionsMainPageTableViewController:  UITableViewController, UIImagePickerC
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        manager = ManagerFirebase()
         
         tempLogIn()
         tempGetCurrentUser()

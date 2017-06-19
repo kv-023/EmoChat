@@ -28,7 +28,6 @@ class OptionsChangeNumberTableViewController: UITableViewController, UITextField
         super.viewDidLoad()
         
         //Create manager
-        manager = ManagerFirebase()
         
         //Create a right save button and add it to vc
         let rightButtonItem = UIBarButtonItem.init(barButtonSystemItem: .save, target: self, action: #selector(saveNumber))

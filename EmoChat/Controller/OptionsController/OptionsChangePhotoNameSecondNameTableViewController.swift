@@ -27,7 +27,6 @@ class OptionsChangePhotoNameSecondNameTableViewController: UITableViewController
         let rightButtonItem = UIBarButtonItem.init(barButtonSystemItem: .save, target: self, action: #selector(saveInformation))
         self.navigationItem.rightBarButtonItem = rightButtonItem
         
-        manager = ManagerFirebase()
         
         
         
@@ -73,7 +72,7 @@ class OptionsChangePhotoNameSecondNameTableViewController: UITableViewController
         //Add image to firebase
         
         
-        manager?.addPhoto(chosenImage) {
+        manager?.addPhoto(chosenImage, previous: nil) {
             result in
             switch result {
             case .success:
