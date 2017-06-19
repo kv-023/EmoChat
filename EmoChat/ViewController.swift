@@ -57,7 +57,6 @@ class ViewController: UIViewController {
             }
         }
         
-        
         //        m?.valueChanged() {
         //            newValue in
         //            self.label.text = newValue
@@ -76,19 +75,11 @@ class ViewController: UIViewController {
     
     
     @IBAction func hello(_ sender: UIButton) {
-        
-        //        print("set")
-        //       m?.getFriends() {op in
-        //        switch op {
-        //        case let .successArrayOfUsers(users):
-        //            for u in users {
-        //                print(u.username)
-        //            }
-        //
-        //        default :
-        //        break
-        //           }
-        //      }
+        do {
+            try Auth.auth().signOut()
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
     }
     
     
@@ -288,6 +279,18 @@ class ViewController: UIViewController {
                                    completion: { (user, error) in
                                     if user != nil && (user?.isEmailVerified)! {
                                         self.hintsLabel.text = ("success! you are in")
+                                                ManagerFirebase.shared.getCurrentUser { result in
+                                                    switch (result) {
+                                                    case .successSingleUser(let user):
+                                                        ArchiverManager.shared.saveData(user: user)
+                                                    case .failure(let error):
+                                                        print(error)
+                                                        break
+                                                    default:
+                                                        break
+                                                    }
+                                                }
+                                        
                                     } else {
                                         if let myError = error?.localizedDescription {
                                             self.hintsLabel.text = myError
