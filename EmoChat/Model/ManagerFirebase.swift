@@ -187,6 +187,7 @@ class ManagerFirebase {
                 let userSnapshot = snapshot.childSnapshot(forPath: "users/\(uid)").value as? NSDictionary
 
                 //getting additional info
+                
                 let username = userSnapshot?["username"] as! String
                 let firstname = userSnapshot?["firstName"] as! String?
                 let secondname = userSnapshot?["secondName"] as! String?
@@ -197,15 +198,21 @@ class ManagerFirebase {
                 let conversationsID = userSnapshot?["conversations"] as? NSDictionary
                 
                 //create user without conversations and contacts
-                let user = User(email: email, username: username, phoneNumber: phonenumber, firstName: firstname, secondName: secondname, photoURL: photoURL)
+                
+                let user = User(email: email, username: username, phoneNumber: phonenumber, firstName: firstname, secondName: secondname, photoURL: photoURL, uid: uid)
+                
+                //get contacts
+                let contactsIDs = userSnapshot?["contacts"] as? NSDictionary
+                if contactsIDs != nil {
+                    user.contacts = self.getUsersFromIDs(ids: contactsIDs!, value: value)
+                }
                 
                 //generate array of conversations
                 if let conversationsArrayId = conversationsID?.allKeys {
                     user.userConversations = self.sortListOfConversations(self.getConversetionsFromSnapshot(value, accordingTo: conversationsArrayId as! [String], currentUserEmail: email))
                     //getting array of contacts
-                    user.contacts = self.getContacts(from: user.userConversations)
+                    //user.contacts = self.getContacts(from: user.userConversations!)
                 }
-                
                 
                 //return result
                 getUser(.successSingleUser(user))
@@ -227,9 +234,9 @@ class ManagerFirebase {
         for id in ids.allKeys {
             if let user = value?["\(id)"] as? NSDictionary{
                 users.append(User(data: user, uid: (id as! String)))
-                
             }
         }
+        
         return users
     }
     
@@ -325,7 +332,7 @@ class ManagerFirebase {
     
     
     //MARK: Return userPic
-    func getUserPic (from userURL: String, result: @escaping (UserOperationResult?) -> Void) {
+    func getUserPic (from userURL: String, result: @escaping (UserOperationResult) -> Void) {
         let photoRef = storageRef.child(userURL)
         
         // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
@@ -341,7 +348,7 @@ class ManagerFirebase {
     }
     
     //Return full resolution photo
-    func getUserPicFullResolution (from userURL: String, result: @escaping (UserOperationResult?) -> Void) {
+    func getUserPicFullResolution (from userURL: String, result: @escaping (UserOperationResult) -> Void) {
         let photoRef = storageRef.child(userURL)
         
         // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
@@ -470,7 +477,10 @@ class ManagerFirebase {
      */
     func filterUsers (with text: String, result: @escaping (UserOperationResult) -> Void){
        let text = text.lowercased()
-        ref?.child("users").queryOrdered(byChild: "username").queryStarting(atValue: text).queryEnding(atValue: text+"\u{f8ff}").observe(.value, with: { snapshot in
+        ref?.child("users").queryOrdered(byChild: "username")
+            .queryStarting(atValue: text)
+            .queryEnding(atValue: text+"\u{f8ff}")
+            .observeSingleEvent(of: .value, with: { snapshot in
             var users = [User]()
             for u in snapshot.children{
                 users.append(User(data: (u as! DataSnapshot).value as? NSDictionary, uid: snapshot.key))
@@ -494,6 +504,7 @@ class ManagerFirebase {
         }
         return result
     }
+
     
     
     
@@ -525,17 +536,7 @@ class ManagerFirebase {
         
     }
     
-    //MARK: - test
-    func valueChanged (action: @escaping (String) -> Void) {
-        if let uid = Auth.auth().currentUser?.uid {
-            let namePath = self.ref?.child("users/\(uid)")
-            namePath?.observe(.childChanged, with: { (snapshot) in
-                action((snapshot.value as? String)!)
-                
-            })
-        }
-    }
-    // MARK: - Messages
+        // MARK: - Messages
     func createMessage(conversation: Conversation, sender: User, content:(type: MessageContentType, content: String)) -> MessageOperationResult {
         
         let timeStamp = Int((Date().timeIntervalSince1970 * 1000.0))
@@ -555,6 +556,18 @@ class ManagerFirebase {
             return .failure(NSLocalizedString("Something went wrong", comment: ""))
         }
     }
+    
+    //MARK: - test
+    func valueChanged (action: @escaping (String) -> Void) {
+        if let uid = Auth.auth().currentUser?.uid {
+            let namePath = self.ref?.child("users/\(uid)")
+            namePath?.observe(.childChanged, with: { (snapshot) in
+                action((snapshot.value as? String)!)
+                
+            })
+        }
+    }
+
     
     func updateConversations (getNewConversation: @escaping (Conversation) -> Void) {
         if let uid = Auth.auth().currentUser?.uid {
@@ -580,7 +593,7 @@ class ManagerFirebase {
     
     func getMessageFromConversation (_ allConversations: [Conversation], result: @escaping (Conversation, Message) -> Void) {
         for eachConv in allConversations{
-            self.ref?.child("conversations/\(eachConv.uuid)/conversations/messagesInConversation").observe(.childAdded, with: {(snapshot) in
+            self.ref?.child("conversations/\(eachConv.uuid)/messagesInConversation").observe(.childAdded, with: {(snapshot) in
                 let uidMessage = snapshot.key
                 let messageSnapshot = snapshot.value as? NSDictionary
                 let message = Message(data: messageSnapshot, uid: uidMessage)
