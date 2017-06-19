@@ -9,9 +9,9 @@
 import Foundation
 import UIKit
 
-extension UIImageView {
+public extension UIImage {
     
-    func getMixed2Img(image1: UIImage, image2: UIImage) -> UIImage {
+    class func getMixed2Img(image1: UIImage, image2: UIImage) -> UIImage {
         
         let size = CGSize(width:(image1.size.width + image2.size.width), height:image1.size.height)
         
