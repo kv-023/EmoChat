@@ -182,7 +182,6 @@ class ManagerFirebase {
         if let uid = Auth.auth().currentUser?.uid{
             self.ref?.observeSingleEvent(of: .value, with: { (snapshot) in
                 // .child("users").child(uid)
-                let usersValue = snapshot.childSnapshot(forPath: "users").value as? NSDictionary
                 
                 let value = snapshot.value as? NSDictionary
                 

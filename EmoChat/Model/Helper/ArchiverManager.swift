@@ -21,7 +21,6 @@ class ArchiverManager {
         let manager = FileManager.default
         //2 - this returns an array of urls from our documentDirectory and we take the first path
         let url = manager.urls(for: .documentDirectory, in: .userDomainMask).first
-        print("this is the url path in the documentDirectory \(url)")
         //3 - creates a new path component and creates a new file called "User" which is where we will store our user.
         return (url!.appendingPathComponent("User").path)
     }

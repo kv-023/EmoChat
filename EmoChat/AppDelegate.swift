@@ -19,8 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		FirebaseApp.configure()
 
         if Auth.auth().currentUser != nil {
-            let info = ArchiverManager.shared.loadData()?.getNameOrUsername()
-            print(info!)
+            if let info = ArchiverManager.shared.loadData()?.getNameOrUsername() {
+                print(info)
+
+            }
         }
   
 		return true
