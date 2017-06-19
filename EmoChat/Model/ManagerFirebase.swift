@@ -333,7 +333,7 @@ class ManagerFirebase {
     
     
     //MARK: Return userPic
-    func getUserPic (from userURL: String, result: @escaping (UserOperationResult?) -> Void) {
+    func getUserPic (from userURL: String, result: @escaping (UserOperationResult) -> Void) {
         let photoRef = storageRef.child(userURL)
         
         // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
@@ -349,7 +349,7 @@ class ManagerFirebase {
     }
     
     //Return full resolution photo
-    func getUserPicFullResolution (from userURL: String, result: @escaping (UserOperationResult?) -> Void) {
+    func getUserPicFullResolution (from userURL: String, result: @escaping (UserOperationResult) -> Void) {
         let photoRef = storageRef.child(userURL)
         
         // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
