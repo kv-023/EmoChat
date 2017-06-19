@@ -61,14 +61,9 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
             
             logoCell.textLabel?.text = "Conversation title"
             
-            
-            //let img = UIImage.getMixed3Img(image1: UIImage.init(named: "1.png"), image2: UIImage.init(named: "1.png"), image3: UIImage.init(named: "1.png"))
-            let img = UIImage.getMi
             logoCell.imageView?.layer.cornerRadius = 30
             logoCell.imageView?.image = UIImage.init(named: "1.png")
-            //let img = UIImage.getMixed3Img()
             
-            //logoCell.imageView?.image = UIImage.getMixed2Img(UIImage.init(named: "1.png"))
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(loadNewLogo))
             logoCell.imageView?.isUserInteractionEnabled = true
             logoCell.imageView?.addGestureRecognizer(tapGestureRecognizer)

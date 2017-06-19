@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-public extension UIImage {
+extension UIImage {
     
     class func getMixed2Img(image1: UIImage, image2: UIImage) -> UIImage {
         
@@ -25,7 +25,7 @@ public extension UIImage {
         return finalImage!
     }
     
-    func getMixed3Img(image1: UIImage, image2: UIImage, image3: UIImage) -> UIImage {
+    class func getMixed3Img(image1: UIImage, image2: UIImage, image3: UIImage) -> UIImage {
         
         let size = CGSize(width:(image1.size.width + image2.size.width), height:(image2.size.height + image3.size.height))
         
@@ -40,7 +40,7 @@ public extension UIImage {
         return finalImage!
     }
     
-    func getMixed4Img(image1: UIImage, image2: UIImage, image3: UIImage, image4: UIImage) -> UIImage {
+    class func getMixed4Img(image1: UIImage, image2: UIImage, image3: UIImage, image4: UIImage) -> UIImage {
         
         let size = CGSize(width:(image1.size.width + image2.size.width), height:(image1.size.height + image3.size.height))
         
