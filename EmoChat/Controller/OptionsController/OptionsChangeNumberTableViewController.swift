@@ -42,6 +42,8 @@ class OptionsChangeNumberTableViewController: UITableViewController, UITextField
         //Get counntry code
         changeNumberTextField.placeholder = getCountryCode()
         
+        //Create manager
+        manager = ManagerFirebase.shared
     }
     
     func getCountryCode()->String {

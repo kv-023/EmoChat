@@ -118,7 +118,6 @@ class ManagerFirebase {
         })
 
     }
-    
 
     // MARK: - Add additional info
     //Add email, uid, username and additional info to database. Call this method after succefull sign up.
