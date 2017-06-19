@@ -1,0 +1,17 @@
+//  Created by Nikolay Dementiev on 14.06.17.
+
+
+//first sign-up screen
+"ssign-up-error.aapp.regex-check.user-name" = "User name should contain minimum 5 characters and be without spec. symbols!";
+"ssign-up-error.aapp.regex-check.email" = "e-mail should be correct!";
+"ssign-up-error.aapp.regex-check.password" = "Password should contain minimum 6 characters!";
+"ssign-up-error.aapp.regex-check.password-confirmation" = "Password confirmation should match with password!";
+
+//second sign-up screen
+"ssign-up-error.aapp.regex-check.name" = "Name should contain max. 18 characters and only 'a-z/(A-Z)' symbols!";
+"ssign-up-error.aapp.regex-check.last-name" = "Last name should contain max. 18 characters and only 'a-z/(A-Z)' symbols!";
+"ssign-up-error.aapp.regex-check.phone" = "Phone should contain max. 13 characters and only '+' and '0-9' symbols!";
+
+//test string
+"bla-bla-bla" = "pam-tam-param";
+

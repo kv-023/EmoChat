@@ -386,16 +386,10 @@
                             <outlet property="delegate" destination="kBM-hl-kZF" id="CJz-oB-X5x"/>
                         </connections>
                     </tableView>
-                    <connections>
-                        <outlet property="nameTextField" destination="Aoe-Lr-vZC" id="WA5-Bd-fBT"/>
-                        <outlet property="secondNameTextField" destination="Wry-yp-yhp" id="Mck-OO-r0y"/>
-                        <outlet property="setUserPhotoButton" destination="yUq-e6-V2W" id="GZU-zb-BVS"/>
-                        <outlet property="userPhotoView" destination="q3a-Uf-o0d" id="gFG-jo-rXV"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kdA-Ft-LfL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3548" y="-541"/>
+            <point key="canvasLocation" x="3390" y="-439"/>
         </scene>
         <!--Options Change Number Table View Controller-->
         <scene sceneID="sRi-pU-4p3">
@@ -406,27 +400,55 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
-                            <tableViewSection headerTitle="Change your number" footerTitle="Some info about changing phone number." id="sdk-aa-gA7">
+                            <tableViewSection headerTitle="Change your number" id="sdk-aa-gA7">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="58" id="bnY-Kb-je5">
-                                        <rect key="frame" x="0.0" y="56" width="375" height="58"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="bnY-Kb-je5">
+                                        <rect key="frame" x="0.0" y="56" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bnY-Kb-je5" id="yVi-eH-eRE">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="57"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="+38 (095) 088 26 03" placeholder="Number Phone" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lqs-L4-NsD">
-                                                    <rect key="frame" x="15" y="8" width="360" height="42"/>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Number Phone" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lqs-L4-NsD">
+                                                    <rect key="frame" x="15" y="8" width="352" height="27.5"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                                                    <connections>
+                                                        <action selector="phoneNumberChanged:" destination="mZU-ok-4pv" eventType="editingChanged" id="UaO-4F-7zB"/>
+                                                        <action selector="phoneNumberEditingDidBegin:" destination="mZU-ok-4pv" eventType="editingDidBegin" id="v8h-ne-IIR"/>
+                                                        <action selector="phoneNumberEditingDidEnd:" destination="mZU-ok-4pv" eventType="editingDidEnd" id="8nW-DY-nyH"/>
+                                                        <outlet property="delegate" destination="mZU-ok-4pv" id="zDG-vv-KBB"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="lqs-L4-NsD" firstAttribute="top" secondItem="yVi-eH-eRE" secondAttribute="top" constant="8" id="OV6-qG-dEL"/>
                                                 <constraint firstItem="lqs-L4-NsD" firstAttribute="leading" secondItem="yVi-eH-eRE" secondAttribute="leading" constant="15" id="VfM-mE-6t3"/>
-                                                <constraint firstAttribute="trailing" secondItem="lqs-L4-NsD" secondAttribute="trailing" id="rCN-el-JEg"/>
+                                                <constraint firstAttribute="trailing" secondItem="lqs-L4-NsD" secondAttribute="trailing" constant="8" id="rCN-el-JEg"/>
                                                 <constraint firstAttribute="bottom" secondItem="lqs-L4-NsD" secondAttribute="bottom" constant="8" id="ywQ-xR-c4x"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="XLL-5U-ywF">
+                                        <rect key="frame" x="0.0" y="100" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XLL-5U-ywF" id="nYo-xe-v6u">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Some info about changing phone number." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gl5-Ms-faS">
+                                                    <rect key="frame" x="15" y="8" width="352" height="27.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="gl5-Ms-faS" secondAttribute="bottom" constant="8" id="2BC-pe-wKM"/>
+                                                <constraint firstItem="gl5-Ms-faS" firstAttribute="leading" secondItem="nYo-xe-v6u" secondAttribute="leading" constant="15" id="IwG-Vi-MiW"/>
+                                                <constraint firstItem="gl5-Ms-faS" firstAttribute="top" secondItem="nYo-xe-v6u" secondAttribute="top" constant="8" id="UMt-dw-bUq"/>
+                                                <constraint firstAttribute="trailing" secondItem="gl5-Ms-faS" secondAttribute="trailing" constant="8" id="WX4-4D-Tzg"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -440,11 +462,12 @@
                     </tableView>
                     <connections>
                         <outlet property="changeNumberTextField" destination="lqs-L4-NsD" id="rB3-Do-ldz"/>
+                        <outlet property="footerLabel" destination="gl5-Ms-faS" id="lQk-pK-z93"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8h4-V3-S5W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4385" y="-113"/>
+            <point key="canvasLocation" x="4104.8000000000002" y="-145.27736131934034"/>
         </scene>
         <!--Options Change User Name Table View Controller-->
         <scene sceneID="xx3-9S-SF7">
@@ -465,18 +488,44 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="57"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="@username" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hWM-bm-EKQ">
-                                                    <rect key="frame" x="15" y="8" width="360" height="42"/>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hWM-bm-EKQ">
+                                                    <rect key="frame" x="15" y="8" width="352" height="42"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="usernameEdited:" destination="pBm-Yw-aSi" eventType="editingChanged" id="1XB-wL-1SF"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="hWM-bm-EKQ" firstAttribute="leading" secondItem="4sI-Id-9PA" secondAttribute="leading" constant="15" id="4Ze-jD-OiB"/>
                                                 <constraint firstAttribute="bottom" secondItem="hWM-bm-EKQ" secondAttribute="bottom" constant="8" id="HhW-NL-V4A"/>
-                                                <constraint firstAttribute="trailing" secondItem="hWM-bm-EKQ" secondAttribute="trailing" id="jmH-ZZ-S82"/>
+                                                <constraint firstAttribute="trailing" secondItem="hWM-bm-EKQ" secondAttribute="trailing" constant="8" id="jmH-ZZ-S82"/>
                                                 <constraint firstItem="hWM-bm-EKQ" firstAttribute="top" secondItem="4sI-Id-9PA" secondAttribute="top" constant="8" id="vfa-5G-RyN"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="58" id="tcS-WV-B9S">
+                                        <rect key="frame" x="0.0" y="114" width="375" height="58"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tcS-WV-B9S" id="r9M-CC-Mf2">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="57"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gU3-u7-vTq">
+                                                    <rect key="frame" x="15" y="8" width="352" height="41.5"/>
+                                                    <string key="text">You can choose a username on Emochat. If you do, other people will be able to find you by this username and contact you without knowing your phone number. You can use a-z, 0-9 and underscores.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="gU3-u7-vTq" firstAttribute="leading" secondItem="r9M-CC-Mf2" secondAttribute="leading" constant="15" id="BnA-8a-qAb"/>
+                                                <constraint firstAttribute="trailing" secondItem="gU3-u7-vTq" secondAttribute="trailing" constant="8" id="DKs-IB-XCx"/>
+                                                <constraint firstItem="gU3-u7-vTq" firstAttribute="top" secondItem="r9M-CC-Mf2" secondAttribute="top" constant="8" id="NLq-LX-KZ8"/>
+                                                <constraint firstAttribute="bottom" secondItem="gU3-u7-vTq" secondAttribute="bottom" constant="8" id="Qy9-kA-WQW"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -490,11 +539,12 @@
                     </tableView>
                     <connections>
                         <outlet property="changeUserNameTextField" destination="hWM-bm-EKQ" id="Mkw-Me-5Pt"/>
+                        <outlet property="footerLabel" destination="gU3-u7-vTq" id="3nr-o6-arz"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vr9-q1-hEN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4367" y="656"/>
+            <point key="canvasLocation" x="4105" y="519"/>
         </scene>
         <!--Options Change Email Table View Controller-->
         <scene sceneID="6Jk-2M-eQk">
@@ -538,7 +588,7 @@
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1iz-ve-iDY">
                                                     <rect key="frame" x="23" y="8" width="344" height="41.5"/>
-                                                    <state key="normal" title="Button"/>
+                                                    <state key="normal" title="Change email"/>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -566,7 +616,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3lO-Li-Sa6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3249" y="1173"/>
+            <point key="canvasLocation" x="3350" y="897"/>
         </scene>
         <!--Confirmation-->
         <scene sceneID="8BD-0D-Fya">
