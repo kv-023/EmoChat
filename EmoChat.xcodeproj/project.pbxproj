@@ -31,6 +31,7 @@
 		E7352C3A1EE81CB60095264E /* RegexCheckProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C391EE81CB60095264E /* RegexCheckProtocol.swift */; };
 		E7883F381EF1611F00E876CC /* Localize.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7883F371EF1611F00E876CC /* Localize.swift */; };
 		E7883F3B1EF1C2DA00E876CC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E7883F3D1EF1C2DA00E876CC /* Localizable.strings */; };
+		E7883F431EF7DA6600E876CC /* RestUIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7883F421EF7DA6600E876CC /* RestUIController.swift */; };
 		E7B926EF1EF1487B0018F5FF /* CustomTextFieldWithPopOverInfoBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B926E91EF1487B0018F5FF /* CustomTextFieldWithPopOverInfoBox.swift */; };
 		E7B926F01EF1487B0018F5FF /* EmoChatUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B926EA1EF1487B0018F5FF /* EmoChatUIViewController.swift */; };
 		E7B926F11EF1487B0018F5FF /* PopOverHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B926EB1EF1487B0018F5FF /* PopOverHelper.swift */; };
@@ -84,6 +85,7 @@
 		E7352C391EE81CB60095264E /* RegexCheckProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegexCheckProtocol.swift; sourceTree = "<group>"; };
 		E7883F371EF1611F00E876CC /* Localize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localize.swift; sourceTree = "<group>"; };
 		E7883F3C1EF1C2DA00E876CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		E7883F421EF7DA6600E876CC /* RestUIController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestUIController.swift; sourceTree = "<group>"; };
 		E7B926E91EF1487B0018F5FF /* CustomTextFieldWithPopOverInfoBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextFieldWithPopOverInfoBox.swift; sourceTree = "<group>"; };
 		E7B926EA1EF1487B0018F5FF /* EmoChatUIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmoChatUIViewController.swift; sourceTree = "<group>"; };
 		E7B926EB1EF1487B0018F5FF /* PopOverHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopOverHelper.swift; sourceTree = "<group>"; };
@@ -218,6 +220,14 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
+		E7883F411EF7DA6600E876CC /* RestUI */ = {
+			isa = PBXGroup;
+			children = (
+				E7883F421EF7DA6600E876CC /* RestUIController.swift */,
+			);
+			path = RestUI;
+			sourceTree = "<group>";
+		};
 		E7B926E71EF1487B0018F5FF /* Additional */ = {
 			isa = PBXGroup;
 			children = (
@@ -288,6 +298,7 @@
 		FB982DDE1EE156B700AC2FCD /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				E7883F411EF7DA6600E876CC /* RestUI */,
 				FBAC197F1EF13E000027AF9D /* ConfirmationController */,
 				A3E7E7CF1EEFD864006D24BC /* OptionsController */,
 				FB4317741EE6C2AC00770338 /* Helper */,
@@ -459,6 +470,7 @@
 				E7B926F01EF1487B0018F5FF /* EmoChatUIViewController.swift in Sources */,
 				84247A391EE9CDA6009E8167 /* GlobalUserCell.swift in Sources */,
 				E7B926F11EF1487B0018F5FF /* PopOverHelper.swift in Sources */,
+				E7883F431EF7DA6600E876CC /* RestUIController.swift in Sources */,
 				A3E7E7D11EEFD893006D24BC /* OptionsMainPageTableViewController.swift in Sources */,
 				A309F3761EEFED6000DF6449 /* OptionsChangeNumberTableViewController.swift in Sources */,
 				E7B926EF1EF1487B0018F5FF /* CustomTextFieldWithPopOverInfoBox.swift in Sources */,
