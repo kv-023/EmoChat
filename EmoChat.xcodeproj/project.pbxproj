@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		35C9507D1EF7D791006FA7E6 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C9507C1EF7D791006FA7E6 /* UIImageExtension.swift */; };
 		3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3938C26F1EDC27C700D69F88 /* AppDelegate.swift */; };
 		3938C2721EDC27C700D69F88 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3938C2711EDC27C700D69F88 /* ViewController.swift */; };
 		3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2731EDC27C700D69F88 /* Main.storyboard */; };
@@ -48,6 +49,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		35C9507C1EF7D791006FA7E6 /* UIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 		3938C26C1EDC27C700D69F88 /* EmoChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmoChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3938C26F1EDC27C700D69F88 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3938C2711EDC27C700D69F88 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -105,6 +107,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		35C9507B1EF7D733006FA7E6 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				35C9507C1EF7D791006FA7E6 /* UIImageExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		3938C2631EDC27C700D69F88 = {
 			isa = PBXGroup;
 			children = (
@@ -256,6 +266,7 @@
 		FB982DDE1EE156B700AC2FCD /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				35C9507B1EF7D733006FA7E6 /* Extensions */,
 				F508422D1EF427A600C24EDE /* ChatSettingsTableViewController */,
 				A3E7E7CF1EEFD864006D24BC /* OptionsController */,
 				FB4317741EE6C2AC00770338 /* Helper */,
@@ -422,6 +433,7 @@
 				E7352C271EDED52B0095264E /* Auxiliary.swift in Sources */,
 				84312F961EE9507E00FAC4D1 /* ContactCell.swift in Sources */,
 				FB982DE11EE156B700AC2FCD /* LoginViewController.swift in Sources */,
+				35C9507D1EF7D791006FA7E6 /* UIImageExtension.swift in Sources */,
 				E7352C291EDED52B0095264E /* User.swift in Sources */,
 				E7352C2B1EE0139E0095264E /* ModelGenericHelper.swift in Sources */,
 				FB4317731EE6C24400770338 /* SignUpFirstViewController.swift in Sources */,
