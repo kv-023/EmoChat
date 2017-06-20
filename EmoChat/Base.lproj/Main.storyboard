@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Jh4-fT-Hrp">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X1i-hG-Fe9">
-                                <rect key="frame" x="143" y="86" width="88" height="30"/>
+                                <rect key="frame" x="143" y="130" width="88" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="88" id="bT7-cJ-s8d"/>
                                 </constraints>
@@ -123,6 +123,7 @@
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Mi1-dC-9Tl" secondAttribute="bottom" constant="20" id="xtv-O5-Iyy"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="kbv-GS-5Vl"/>
                     <connections>
                         <outlet property="buttonLogin" destination="lub-3F-K7Q" id="cgx-Gl-yhx"/>
                         <outlet property="emailTextField" destination="i4o-Rv-s4o" id="nv2-QL-bS6"/>
@@ -130,9 +131,36 @@
                         <outlet property="label" destination="WY2-Za-UTY" id="9OZ-Zp-zmV"/>
                         <outlet property="passwordTextField" destination="VzJ-rg-Sab" id="2z9-md-8cP"/>
                         <outlet property="segmentControl" destination="8Qk-yj-eaD" id="ToJ-7r-fFP"/>
+                        <segue destination="XJf-ea-Jr6" kind="show" identifier="singleConversation" id="20F-4l-Fwz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="972" y="38.23088455772114"/>
+        </scene>
+        <!--SingleConversation-->
+        <scene sceneID="McD-9b-BqT">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="singleConversation" storyboardName="SingleConversation" id="XJf-ea-Jr6" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lxS-2o-OJ2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1510.4000000000001" y="132.23388305847078"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="c3b-nr-7Hw">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Jh4-fT-Hrp" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="4UA-Kt-oKV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="J6P-tp-94B"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9bF-U1-mTF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="32.799999999999997" y="38.23088455772114"/>
         </scene>
