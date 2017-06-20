@@ -9,8 +9,11 @@
 
 protocol RestUIStrategy {
     var strategyType: UrlParserResourseType {get}
+    var apiKey:String {get}
+    var httpAdress:String {get}
 
     func showData(_ string: String) -> String
+    func getLinkForResponse(forUrl urlResource:String) -> String
 }
 
 //MARK: data type

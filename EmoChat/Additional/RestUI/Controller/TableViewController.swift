@@ -62,20 +62,10 @@ class TableViewController: UITableViewController {
 
     //MARK:- Get Jddd
 
-let urlToRequest: String = "https://urlembed.com/json/WDYyREZLSlU2TUk0Qlk2V0xMUklYM01JS0M1VUxJREZXVDZMUU1IQ0tXREhCN0s1TURGQT09PT0=/https://9gag.com/gag/aoOmXeA"
+    let urlToRequest: String = "https://urlembed.com/json/WDYyREZLSlU2TUk0Qlk2V0xMUklYM01JS0M1VUxJREZXVDZMUU1IQ0tXREhCN0s1TURGQT09PT0=/https://9gag.com/gag/aoOmXeA"
 
-    func getJsonData() {
-
-
-
-
-
-    }
 
     func dataRequest() {
-
-
-
 
         //---------------
         let url = URL(string: urlToRequest)
@@ -86,25 +76,26 @@ let urlToRequest: String = "https://urlembed.com/json/WDYyREZLSlU2TUk0Qlk2V0xMUk
             let sharedSession = URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
 
             let task = sharedSession.dataTask(with: request, completionHandler: { (data, response, error) in
-                
-                    if let content = data {
-                        do {
-                            let myJson = try JSONSerialization.jsonObject(with: content, options: JSONSerialization.ReadingOptions.mutableContainers) as AnyObject
-                            
-                            if let type = myJson["type"] as? NSDictionary {
-                                print (type)
-                                
-                            }
+
+                if let content = data {
+                    do {
+                        let myJson = try JSONSerialization.jsonObject(with: content, options: JSONSerialization.ReadingOptions.mutableContainers) as AnyObject
+
+                        if let type = myJson["type"] as? NSDictionary {
+                            print (type)
+
                         }
-                        catch {
-                            
-                        }
-                        
                     }
+                    catch {
+
+                    }
+
+                }
                 if error != nil {
                     print (error?.localizedDescription ?? "sm. error occured")
                 }
             })
+
             task.resume()
         }
 
@@ -115,9 +106,9 @@ extension TableViewController: URLSessionDelegate {
 
 
     func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-
+        
         completionHandler(.useCredential, URLCredential(trust: challenge.protectionSpace.serverTrust!))
-
+        
     }
-
+    
 }

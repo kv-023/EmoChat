@@ -10,13 +10,21 @@ import Foundation
 
 final class RestIU500px : RestUIStrategy {
     var strategyType: UrlParserResourseType
+    var httpAdress:String
+    var apiKey:String
 
     init() {
         self.strategyType = UrlParserResourseType.s500px
+        self.httpAdress = ""
+        self.apiKey = ""
     }
 
     //RestUIStrategy's protocol implementation
     func showData(_ string: String) -> String {
         return ""
+    }
+
+    func getLinkForResponse(forUrl urlResource:String) -> String {
+        return "<null data>"
     }
 }

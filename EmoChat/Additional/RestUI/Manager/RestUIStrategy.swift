@@ -48,7 +48,7 @@ enum UrlParserFactory {
     static func urlparser(for perserType:UrlParserResourseType) -> RestUIStrategy {
         switch perserType {
         case .urlembed :
-            return RestIUUrlembed()
+            return RestUIUrlembed()
         case .s500px :
             return RestIU500px()
             //        default:
