@@ -29,7 +29,6 @@
 		E712BCBA1EF7E79100D7DACA /* RestUIStrategyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E712BCB91EF7E79100D7DACA /* RestUIStrategyProtocol.swift */; };
 		E712BCBF1EF7E7D800D7DACA /* RestUIStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E712BCBC1EF7E7D800D7DACA /* RestUIStrategy.swift */; };
 		E712BCC01EF7E7D800D7DACA /* RestUIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E712BCBE1EF7E7D800D7DACA /* RestUIController.swift */; };
-		E712BCC21EF7E97700D7DACA /* RestIUUrlembed.swift in Sources */ = {isa = PBXBuildFile; fileRef = E712BCC11EF7E97700D7DACA /* RestIUUrlembed.swift */; };
 		E7352C261EDED52B0095264E /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C211EDED52B0095264E /* Conversation.swift */; };
 		E7352C271EDED52B0095264E /* Auxiliary.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C231EDED52B0095264E /* Auxiliary.swift */; };
 		E7352C281EDED52B0095264E /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C241EDED52B0095264E /* Message.swift */; };
@@ -39,7 +38,9 @@
 		E7352C3A1EE81CB60095264E /* RegexCheckProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C391EE81CB60095264E /* RegexCheckProtocol.swift */; };
 		E7883F381EF1611F00E876CC /* Localize.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7883F371EF1611F00E876CC /* Localize.swift */; };
 		E7883F3B1EF1C2DA00E876CC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E7883F3D1EF1C2DA00E876CC /* Localizable.strings */; };
-		E7AC7C331EF7EE9E004506EA /* RestIU500px.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AC7C321EF7EE9E004506EA /* RestIU500px.swift */; };
+		E7AC7C351EF9128F004506EA /* ConversationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AC7C341EF9128F004506EA /* ConversationModel.swift */; };
+		E7AC7C391EF917D9004506EA /* RestIU500px.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AC7C371EF917D9004506EA /* RestIU500px.swift */; };
+		E7AC7C3A1EF917D9004506EA /* RestIUUrlembed.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AC7C381EF917D9004506EA /* RestIUUrlembed.swift */; };
 		E7B926EF1EF1487B0018F5FF /* CustomTextFieldWithPopOverInfoBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B926E91EF1487B0018F5FF /* CustomTextFieldWithPopOverInfoBox.swift */; };
 		E7B926F01EF1487B0018F5FF /* EmoChatUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B926EA1EF1487B0018F5FF /* EmoChatUIViewController.swift */; };
 		E7B926F11EF1487B0018F5FF /* PopOverHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B926EB1EF1487B0018F5FF /* PopOverHelper.swift */; };
@@ -91,7 +92,6 @@
 		E712BCB91EF7E79100D7DACA /* RestUIStrategyProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestUIStrategyProtocol.swift; sourceTree = "<group>"; };
 		E712BCBC1EF7E7D800D7DACA /* RestUIStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestUIStrategy.swift; sourceTree = "<group>"; };
 		E712BCBE1EF7E7D800D7DACA /* RestUIController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestUIController.swift; sourceTree = "<group>"; };
-		E712BCC11EF7E97700D7DACA /* RestIUUrlembed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestIUUrlembed.swift; sourceTree = "<group>"; };
 		E7352C211EDED52B0095264E /* Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		E7352C231EDED52B0095264E /* Auxiliary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auxiliary.swift; sourceTree = "<group>"; };
 		E7352C241EDED52B0095264E /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -101,7 +101,9 @@
 		E7352C391EE81CB60095264E /* RegexCheckProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegexCheckProtocol.swift; sourceTree = "<group>"; };
 		E7883F371EF1611F00E876CC /* Localize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localize.swift; sourceTree = "<group>"; };
 		E7883F3C1EF1C2DA00E876CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
-		E7AC7C321EF7EE9E004506EA /* RestIU500px.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestIU500px.swift; sourceTree = "<group>"; };
+		E7AC7C341EF9128F004506EA /* ConversationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationModel.swift; sourceTree = "<group>"; };
+		E7AC7C371EF917D9004506EA /* RestIU500px.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestIU500px.swift; sourceTree = "<group>"; };
+		E7AC7C381EF917D9004506EA /* RestIUUrlembed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestIUUrlembed.swift; sourceTree = "<group>"; };
 		E7B926E91EF1487B0018F5FF /* CustomTextFieldWithPopOverInfoBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextFieldWithPopOverInfoBox.swift; sourceTree = "<group>"; };
 		E7B926EA1EF1487B0018F5FF /* EmoChatUIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmoChatUIViewController.swift; sourceTree = "<group>"; };
 		E7B926EB1EF1487B0018F5FF /* PopOverHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopOverHelper.swift; sourceTree = "<group>"; };
@@ -230,8 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				E712BCB91EF7E79100D7DACA /* RestUIStrategyProtocol.swift */,
-				E712BCC11EF7E97700D7DACA /* RestIUUrlembed.swift */,
-				E7AC7C321EF7EE9E004506EA /* RestIU500px.swift */,
+				E7AC7C341EF9128F004506EA /* ConversationModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -239,6 +240,7 @@
 		E712BCBB1EF7E7D800D7DACA /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				E7AC7C361EF917A6004506EA /* Strategys */,
 				E712BCBC1EF7E7D800D7DACA /* RestUIStrategy.swift */,
 			);
 			path = Manager;
@@ -258,7 +260,6 @@
 		E7352C201EDED52B0095264E /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				E7883F441EF7DF4300E876CC /* RestUI */,
 				E7352C221EDED52B0095264E /* Helper */,
 				E7352C211EDED52B0095264E /* Conversation.swift */,
 				E7352C241EDED52B0095264E /* Message.swift */,
@@ -277,11 +278,13 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
-		E7883F441EF7DF4300E876CC /* RestUI */ = {
+		E7AC7C361EF917A6004506EA /* Strategys */ = {
 			isa = PBXGroup;
 			children = (
+				E7AC7C371EF917D9004506EA /* RestIU500px.swift */,
+				E7AC7C381EF917D9004506EA /* RestIUUrlembed.swift */,
 			);
-			path = RestUI;
+			path = Strategys;
 			sourceTree = "<group>";
 		};
 		E7B926E71EF1487B0018F5FF /* Additional */ = {
@@ -532,7 +535,7 @@
 				A3E7E7D11EEFD893006D24BC /* OptionsMainPageTableViewController.swift in Sources */,
 				A309F3761EEFED6000DF6449 /* OptionsChangeNumberTableViewController.swift in Sources */,
 				E712BCC01EF7E7D800D7DACA /* RestUIController.swift in Sources */,
-				E7AC7C331EF7EE9E004506EA /* RestIU500px.swift in Sources */,
+				E7AC7C391EF917D9004506EA /* RestIU500px.swift in Sources */,
 				E7B926EF1EF1487B0018F5FF /* CustomTextFieldWithPopOverInfoBox.swift in Sources */,
 				FBF7A9CA1EF012E600ABADF5 /* SignUpChooseYourPhotoViewController.swift in Sources */,
 				84312F931EE94FB600FAC4D1 /* SearchUsersViewController.swift in Sources */,
@@ -543,14 +546,15 @@
 				84312F961EE9507E00FAC4D1 /* ContactCell.swift in Sources */,
 				FB982DE11EE156B700AC2FCD /* LoginViewController.swift in Sources */,
 				E7352C291EDED52B0095264E /* User.swift in Sources */,
+				E7AC7C3A1EF917D9004506EA /* RestIUUrlembed.swift in Sources */,
 				E7352C2B1EE0139E0095264E /* ModelGenericHelper.swift in Sources */,
 				FB4317731EE6C24400770338 /* SignUpFirstViewController.swift in Sources */,
 				45F370C31EF81CF7008217D9 /* TableViewController.swift in Sources */,
 				E7352C3A1EE81CB60095264E /* RegexCheckProtocol.swift in Sources */,
 				3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */,
 				E7352C381EE81B790095264E /* ControllerHelper.swift in Sources */,
-				E712BCC21EF7E97700D7DACA /* RestIUUrlembed.swift in Sources */,
 				E712BCBF1EF7E7D800D7DACA /* RestUIStrategy.swift in Sources */,
+				E7AC7C351EF9128F004506EA /* ConversationModel.swift in Sources */,
 				E7B926F41EF1487B0018F5FF /* UIColorHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -29,7 +29,7 @@ class User: NSCoding {
         
     }
     
-    init (email: String, username: String, phoneNumber: String?, firstName: String?, secondName: String?, photoURL: String?) {
+    init(email: String, username: String, phoneNumber: String?, firstName: String?, secondName: String?, photoURL: String?) {
         self.email = email
         self.username = username
         self.phoneNumber = phoneNumber
@@ -38,20 +38,27 @@ class User: NSCoding {
         self.photoURL = photoURL
     }
     
-    init (email: String, username: String, phoneNumber: String?, firstName: String?, secondName: String?, photoURL: String?, uid: String!) {
-        self.email = email
-        self.username = username
-        self.phoneNumber = phoneNumber
-        self.firstName = firstName
-        self.secondName = secondName
-        self.photoURL = photoURL
+    convenience init(email: String, username: String, phoneNumber: String?, firstName: String?, secondName: String?, photoURL: String?, uid: String!) {
+//        self.email = email
+//        self.username = username
+//        self.phoneNumber = phoneNumber
+//        self.firstName = firstName
+//        self.secondName = secondName
+//        self.photoURL = photoURL
+        self.init(email: email,
+                  username: username,
+                  phoneNumber: phoneNumber,
+                  firstName: firstName,
+                  secondName: secondName,
+                  photoURL: photoURL)
+
         self.uid = uid
     }
     
     /*
      Function generates User from snapshot
      */
-    init (data: NSDictionary?, uid: String?) {
+    init(data: NSDictionary?, uid: String?) {
         
         self.username = data?["username"] as! String
         self.firstName = data?["firstName"] as! String?
@@ -62,7 +69,7 @@ class User: NSCoding {
         self.uid = uid
     }
     
-    func getNameOrUsername () -> String {
+    func getNameOrUsername() -> String {
         var result = ""
         if let firstName = self.firstName {
             result += firstName
@@ -129,7 +136,7 @@ class User: NSCoding {
 }
 
 extension User: Equatable {
-    static func ==(lhs:User, rhs:User) -> Bool { // Implement Equatable
+    static func == (lhs:User, rhs:User) -> Bool { // Implement Equatable
         return lhs.username == rhs.username
     }
 }
