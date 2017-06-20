@@ -10,12 +10,14 @@ import Foundation
 
 class RestUIStrategyManager {
     static var instance = RestUIStrategyManager()
-    private var urlembedStrategy: RestUIStrategy
+    private lazy var urlembedStrategy: RestUIStrategy = {
+        return UrlParserFactory.urlparser(for: .urlembed)
+    }()
 
 //    private var currentOrderId: Int
 
     private init() {
-        urlembedStrategy = UrlParserFactory.urlparser(for: .urlembed)
+//        urlembedStrategy = UrlParserFactory.urlparser(for: .urlembed)
 
 //        self.currentOrderId = 0001
     }
@@ -31,11 +33,26 @@ class RestUIStrategyManager {
     func showData(dataForParse parsersData: RestUIStrategy) -> Bool {
         switch parsersData.strategyType {
         case .urlembed:
-            return false//acmeStrategy.fulfillOrder(order)
+            return false//urlembedStrategy.fulfillOrder(order)
         case .s500px:
             return false//partsnstuffStrategy.fulfillOrder(order)
 //        case .European:
 //            return autopartsStrategy.fulfillOrder(order)
+        }
+    }
+}
+
+
+//MARK: Factory method
+enum UrlParserFactory {
+    static func urlparser(for perserType:UrlParserResourseType) -> RestUIStrategy {
+        switch perserType {
+        case .urlembed :
+            return RestIUUrlembed()
+        case .s500px :
+            return RestIU500px()
+            //        default:
+            //            return nil
         }
     }
 }

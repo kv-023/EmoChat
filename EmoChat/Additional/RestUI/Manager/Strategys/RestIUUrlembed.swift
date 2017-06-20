@@ -8,14 +8,14 @@
 
 import Foundation
 
-class RestIUUrlembed: RestUIStrategy {
+final class RestIUUrlembed: RestUIStrategy {
     var strategyType: UrlParserResourseType
 
     init() {
         self.strategyType = UrlParserResourseType.s500px
     }
 
-    //protocol data
+    //RestUIStrategy's protocol implementation
     func showData(_ string: String) -> String {
         return ""
     }
