@@ -546,28 +546,25 @@ class ManagerFirebase {
     // MARK: - Messages
     func createMessage(conversation: Conversation, sender: User, content:(type: MessageContentType, content: String)) -> MessageOperationResult {
         
-        let timeStamp = Int((Date().timeIntervalSince1970 * 1000.0))
+        let timeStamp = NSNumber(value:Date().timeIntervalSince1970 * 1000.0)
         let key = ref?.child("conversations/").childByAutoId().key
         
         let message = Message(uid: key!,
             senderId: sender.uid,
-            time: Date(timeIntervalSince1970: TimeInterval(timeStamp / 1000)),
+            time: Date(timeIntervalSince1970: TimeInterval(timeStamp.int64Value / 1000)),
             content: (type: content.type, content: content.content))
         
         if let messageRef = ref?.child("conversations/\(conversation.uuid)/messagesInConversation/\(message.uid!)") {
             
             var childUpdates = [String: Any] ()
             childUpdates.updateValue(message.senderId!, forKey: "senderId")
-            childUpdates.updateValue(timeStamp, forKey: "time")
+            childUpdates.updateValue(timeStamp.intValue, forKey: "time")
             childUpdates.updateValue(message.content.content, forKey: "content/\(message.content.type)")
             
             
             
             messageRef.updateChildValues(childUpdates)
-            
-//            messageRef.child("senderId").setValue(message.senderId!)
-//            messageRef.child("time").setValue(timeStamp)
-//            messageRef.child("content/\(message.content.type)").setValue(message.content.content)
+
             ref?.child("conversations/\(conversation.uuid)/lastMessage").setValue(timeStamp)
             return .successSingleMessage(message)
         } else {
@@ -615,6 +612,7 @@ class ManagerFirebase {
             self.ref?.child("conversations/\(eachConv.uuid)/messagesInConversation").observe(.childAdded, with: {(snapshot) in
                 print(snapshot.value)
                 print(snapshot.key)
+                print(eachConv.uuid)
                 let uidMessage = snapshot.key
                 let messageSnapshot = snapshot.value as? NSDictionary
                 let message = Message(data: messageSnapshot, uid: uidMessage)
