@@ -12,6 +12,9 @@
 		3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2731EDC27C700D69F88 /* Main.storyboard */; };
 		3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2761EDC27C700D69F88 /* Assets.xcassets */; };
 		3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */; };
+		45F370BF1EF81B3D008217D9 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45F370BE1EF81B3D008217D9 /* Storyboard.storyboard */; };
+		45F370C31EF81CF7008217D9 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F370C21EF81CF7008217D9 /* TableViewController.swift */; };
+		45F370C71EF828C6008217D9 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F370C61EF828C6008217D9 /* TableViewCell.swift */; };
 		746478FA29F53658399EE02D /* Pods_EmoChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */; };
 		84247A391EE9CDA6009E8167 /* GlobalUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84247A381EE9CDA6009E8167 /* GlobalUserCell.swift */; };
 		84312F931EE94FB600FAC4D1 /* SearchUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84312F921EE94FB600FAC4D1 /* SearchUsersViewController.swift */; };
@@ -68,6 +71,9 @@
 		3938C2761EDC27C700D69F88 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3938C2791EDC27C700D69F88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3938C27B1EDC27C700D69F88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		45F370BE1EF81B3D008217D9 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Storyboard.storyboard; path = EmoChat/Additional/RestUI/View/Storyboard.storyboard; sourceTree = SOURCE_ROOT; };
+		45F370C21EF81CF7008217D9 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		45F370C61EF828C6008217D9 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		5E5B970584D3FF3821DB6225 /* Pods-EmoChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmoChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmoChat/Pods-EmoChat.release.xcconfig"; sourceTree = "<group>"; };
 		6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmoChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84247A381EE9CDA6009E8167 /* GlobalUserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalUserCell.swift; sourceTree = "<group>"; };
@@ -210,6 +216,7 @@
 		E712BCB11EF7E56600D7DACA /* RestUI */ = {
 			isa = PBXGroup;
 			children = (
+				45F370BE1EF81B3D008217D9 /* Storyboard.storyboard */,
 				E712BCBB1EF7E7D800D7DACA /* Manager */,
 				E712BCBD1EF7E7D800D7DACA /* Controller */,
 				E712BCB81EF7E79100D7DACA /* Model */,
@@ -239,6 +246,8 @@
 			isa = PBXGroup;
 			children = (
 				E712BCBE1EF7E7D800D7DACA /* RestUIController.swift */,
+				45F370C21EF81CF7008217D9 /* TableViewController.swift */,
+				45F370C61EF828C6008217D9 /* TableViewCell.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -433,6 +442,7 @@
 				3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */,
 				FB982DDB1EE1569700AC2FCD /* SignUp.storyboard in Resources */,
 				ED1E2D941EDD75B20058B6A6 /* GoogleService-Info.plist in Resources */,
+				45F370BF1EF81B3D008217D9 /* Storyboard.storyboard in Resources */,
 				FB982DDD1EE1569700AC2FCD /* UserInfo.storyboard in Resources */,
 				FB982DDC1EE1569700AC2FCD /* SingleConversation.storyboard in Resources */,
 				FB982DD71EE1569700AC2FCD /* Conversations.storyboard in Resources */,
@@ -523,6 +533,7 @@
 				FBF7A9CA1EF012E600ABADF5 /* SignUpChooseYourPhotoViewController.swift in Sources */,
 				84312F931EE94FB600FAC4D1 /* SearchUsersViewController.swift in Sources */,
 				E7352C281EDED52B0095264E /* Message.swift in Sources */,
+				45F370C71EF828C6008217D9 /* TableViewCell.swift in Sources */,
 				A39232881EEFFF8F00E70CD9 /* OptionsChangePhotoNameSecondNameTableViewController.swift in Sources */,
 				E7352C271EDED52B0095264E /* Auxiliary.swift in Sources */,
 				84312F961EE9507E00FAC4D1 /* ContactCell.swift in Sources */,
@@ -530,6 +541,7 @@
 				E7352C291EDED52B0095264E /* User.swift in Sources */,
 				E7352C2B1EE0139E0095264E /* ModelGenericHelper.swift in Sources */,
 				FB4317731EE6C24400770338 /* SignUpFirstViewController.swift in Sources */,
+				45F370C31EF81CF7008217D9 /* TableViewController.swift in Sources */,
 				E7352C3A1EE81CB60095264E /* RegexCheckProtocol.swift in Sources */,
 				3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */,
 				E7352C381EE81B790095264E /* ControllerHelper.swift in Sources */,
