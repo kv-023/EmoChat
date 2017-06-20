@@ -67,3 +67,11 @@ extension UILabel {
         self.text = NSLocalizedString(okText, comment: "ok text")
     }
 }
+
+//MARK:- String localization
+
+extension String {
+    var localized: String {
+        return NSLocalizedString(self, tableName: nil, bundle: Bundle.main, value: "", comment: "")
+    }
+}

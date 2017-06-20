@@ -7,10 +7,6 @@
 //
 
 protocol RegexCheckProtocol {
-
-//    func usernameIsValid() -> Bool
-//    func emailIsValid() -> Bool
-//    func passwordIsValid() -> Bool
 }
 
 extension RegexCheckProtocol {
@@ -101,5 +97,25 @@ extension RegexCheckProtocol {
             print("An error occurred")
         }
     }
+}
 
+//MARK:- regex error explanation
+
+enum regexErrorText: String, Localizable {
+    case Title = "app.title"
+
+    static let parent: LocalizeParent = nil
+
+    enum SignUpError: String, Localizable {
+        static let parent: LocalizeParent = nil
+        
+        case userName = "app.regexCheck.userName"
+        case name = "app.regexCheck.name"
+        case lastName = "app.regexCheck.lastName"
+        case phone = "app.regexCheck.phone"
+        case email = "app.regexCheck.email"
+        case password = "app.regexCheck.password"
+        case passwordConfirmation = "app.regexCheck.passwordConfirmation"
+
+    }
 }
