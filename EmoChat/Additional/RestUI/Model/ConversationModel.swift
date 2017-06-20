@@ -28,7 +28,7 @@ struct MessageModel {
     //prepare data for conversation cell
     func getParseDataFromResource() {
 
-        RestUIStrategyManager.instance.showData(dataForParse: RestUIStrategy)
+//        RestUIStrategyManager.instance.showData(dataForParse: RestUIStrategy)
     }
 
 }
