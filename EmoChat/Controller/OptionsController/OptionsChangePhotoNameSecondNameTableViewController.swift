@@ -72,6 +72,9 @@ class OptionsChangePhotoNameSecondNameTableViewController: UITableViewController
         //Add image to firebase
         
         
+        
+        
+        
         manager?.addPhoto(chosenImage, previous: nil) {
             result in
             switch result {

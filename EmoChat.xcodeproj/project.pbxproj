@@ -18,7 +18,7 @@
 		84312F931EE94FB600FAC4D1 /* SearchUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84312F921EE94FB600FAC4D1 /* SearchUsersViewController.swift */; };
 		84312F961EE9507E00FAC4D1 /* ContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84312F951EE9507E00FAC4D1 /* ContactCell.swift */; };
 		A309F3761EEFED6000DF6449 /* OptionsChangeNumberTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A309F3751EEFED6000DF6449 /* OptionsChangeNumberTableViewController.swift */; };
-		A39232841EEFF58E00E70CD9 /* OptionsChangeUserNameTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39232831EEFF58E00E70CD9 /* OptionsChangeUserNameTableViewController.swift */; };
+		A39232841EEFF58E00E70CD9 /* OptionsChangeUsernameTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39232831EEFF58E00E70CD9 /* OptionsChangeUsernameTableViewController.swift */; };
 		A39232861EEFF77200E70CD9 /* OptionsChangeEmailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39232851EEFF77200E70CD9 /* OptionsChangeEmailTableViewController.swift */; };
 		A39232881EEFFF8F00E70CD9 /* OptionsChangePhotoNameSecondNameTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39232871EEFFF8F00E70CD9 /* OptionsChangePhotoNameSecondNameTableViewController.swift */; };
 		A3E7E7D11EEFD893006D24BC /* OptionsMainPageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E7E7D01EEFD893006D24BC /* OptionsMainPageTableViewController.swift */; };
@@ -73,7 +73,7 @@
 		84312F921EE94FB600FAC4D1 /* SearchUsersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchUsersViewController.swift; sourceTree = "<group>"; };
 		84312F951EE9507E00FAC4D1 /* ContactCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCell.swift; sourceTree = "<group>"; };
 		A309F3751EEFED6000DF6449 /* OptionsChangeNumberTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OptionsChangeNumberTableViewController.swift; path = EmoChat/Controller/OptionsController/OptionsChangeNumberTableViewController.swift; sourceTree = SOURCE_ROOT; };
-		A39232831EEFF58E00E70CD9 /* OptionsChangeUserNameTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OptionsChangeUserNameTableViewController.swift; path = OptionsController/OptionsChangeUserNameTableViewController.swift; sourceTree = "<group>"; };
+		A39232831EEFF58E00E70CD9 /* OptionsChangeUsernameTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OptionsChangeUsernameTableViewController.swift; path = OptionsController/OptionsChangeUsernameTableViewController.swift; sourceTree = "<group>"; };
 		A39232851EEFF77200E70CD9 /* OptionsChangeEmailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OptionsChangeEmailTableViewController.swift; path = OptionsController/OptionsChangeEmailTableViewController.swift; sourceTree = "<group>"; };
 		A39232871EEFFF8F00E70CD9 /* OptionsChangePhotoNameSecondNameTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OptionsChangePhotoNameSecondNameTableViewController.swift; path = OptionsController/OptionsChangePhotoNameSecondNameTableViewController.swift; sourceTree = "<group>"; };
 		A3E7E7D01EEFD893006D24BC /* OptionsMainPageTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OptionsMainPageTableViewController.swift; path = OptionsController/OptionsMainPageTableViewController.swift; sourceTree = "<group>"; };
@@ -204,7 +204,7 @@
 			children = (
 				A309F3751EEFED6000DF6449 /* OptionsChangeNumberTableViewController.swift */,
 				A3E7E7D01EEFD893006D24BC /* OptionsMainPageTableViewController.swift */,
-				A39232831EEFF58E00E70CD9 /* OptionsChangeUserNameTableViewController.swift */,
+				A39232831EEFF58E00E70CD9 /* OptionsChangeUsernameTableViewController.swift */,
 				A39232851EEFF77200E70CD9 /* OptionsChangeEmailTableViewController.swift */,
 				A39232871EEFFF8F00E70CD9 /* OptionsChangePhotoNameSecondNameTableViewController.swift */,
 			);
@@ -477,7 +477,7 @@
 				E7B926F31EF1487B0018F5FF /* PopOverViewController.swift in Sources */,
 				F54D21761EE7130600B0B177 /* Regex.swift in Sources */,
 				3938C2721EDC27C700D69F88 /* ViewController.swift in Sources */,
-				A39232841EEFF58E00E70CD9 /* OptionsChangeUserNameTableViewController.swift in Sources */,
+				A39232841EEFF58E00E70CD9 /* OptionsChangeUsernameTableViewController.swift in Sources */,
 				A39232861EEFF77200E70CD9 /* OptionsChangeEmailTableViewController.swift in Sources */,
 				FBAC19811EF13E1A0027AF9D /* ConfirmationViewController.swift in Sources */,
 				E7883F381EF1611F00E876CC /* Localize.swift in Sources */,

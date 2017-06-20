@@ -149,7 +149,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="pBm-Yw-aSi" kind="show" id="64f-ah-vi3"/>
+                                            <segue destination="pBm-Yw-aSi" kind="show" identifier="showUsername" id="64f-ah-vi3"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="Ajk-Bb-XdE">

@@ -8,13 +8,12 @@
 
 import UIKit
 
-class OptionsChangeUserNameTableViewController: UITableViewController, UITextFieldDelegate, RegexCheckProtocol  {
+class OptionsChangeUsernameTableViewController: UITableViewController, UITextFieldDelegate, RegexCheckProtocol  {
     
-    @IBOutlet weak var changeUserNameTextField: UITextField!
-    
+    @IBOutlet weak var changeUsernameTextField: UITextField!
     @IBOutlet weak var infoLabel: UILabel!
-    
-    var manager: ManagerFirebase?
+    var currentUser: User!
+    var manager: ManagerFirebase!
     
     var usernameValid = false {
         didSet {
@@ -30,15 +29,12 @@ class OptionsChangeUserNameTableViewController: UITableViewController, UITextFie
         super.viewDidLoad()
         
         
+        //Init mamager firebase
+        manager = ManagerFirebase.shared
+        
         //Create a right save button and add it to vc
         let rightButtonItem = UIBarButtonItem.init(barButtonSystemItem: .save, target: self, action: #selector(saveUserName))
         self.navigationItem.rightBarButtonItem = rightButtonItem
-        
-        //Hide keyboard by tap
-        
-        
-        //Create manager
-        manager = ManagerFirebase.shared
     }
     
     // MARK: - Actions
