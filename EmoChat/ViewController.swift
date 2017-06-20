@@ -314,15 +314,19 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var buttonLogin: UIButton!
     @IBAction func buttonSignUp(_ sender: UIButton) {
-        
+        if Auth.auth().currentUser != nil {
+            self.performSegue(withIdentifier: "singleConversation", sender: self)
+        }
         if emailTextField.text != "" && passwordTextField.text != "" {
             if segmentControl.selectedSegmentIndex == 0 {    // login
                 
+               
                 Auth.auth().signIn(withEmail: emailTextField.text!,
                                    password: passwordTextField.text!,
                                    completion: { (user, error) in
                                     if user != nil && (user?.isEmailVerified)! {
                                         self.hintsLabel.text = ("success! you are in")
+                                        
                                                 ManagerFirebase.shared.getCurrentUser { result in
                                                     switch (result) {
                                                     case .successSingleUser(let user):
@@ -334,6 +338,7 @@ class ViewController: UIViewController {
                                                         break
                                                     }
                                                 }
+                                        self.performSegue(withIdentifier: "singleConversation", sender: self)
                                         
                                     } else {
                                         if let myError = error?.localizedDescription {

@@ -547,16 +547,27 @@ class ManagerFirebase {
     func createMessage(conversation: Conversation, sender: User, content:(type: MessageContentType, content: String)) -> MessageOperationResult {
         
         let timeStamp = Int((Date().timeIntervalSince1970 * 1000.0))
+        let key = ref?.child("conversations/").childByAutoId().key
         
-        let message = Message(uid: "\(timeStamp)\(sender.uid!)",
+        let message = Message(uid: key!,
             senderId: sender.uid,
             time: Date(timeIntervalSince1970: TimeInterval(timeStamp / 1000)),
             content: (type: content.type, content: content.content))
         
         if let messageRef = ref?.child("conversations/\(conversation.uuid)/messagesInConversation/\(message.uid!)") {
-            messageRef.child("content/\(message.content.type)").setValue(message.content.content)
-            messageRef.child("senderId").setValue(message.senderId!)
-            messageRef.child("time").setValue(timeStamp)
+            
+            var childUpdates = [String: Any] ()
+            childUpdates.updateValue(message.senderId!, forKey: "senderId")
+            childUpdates.updateValue(timeStamp, forKey: "time")
+            childUpdates.updateValue(message.content.content, forKey: "content/\(message.content.type)")
+            
+            
+            
+            messageRef.updateChildValues(childUpdates)
+            
+//            messageRef.child("senderId").setValue(message.senderId!)
+//            messageRef.child("time").setValue(timeStamp)
+//            messageRef.child("content/\(message.content.type)").setValue(message.content.content)
             ref?.child("conversations/\(conversation.uuid)/lastMessage").setValue(timeStamp)
             return .successSingleMessage(message)
         } else {
@@ -602,6 +613,8 @@ class ManagerFirebase {
     func getMessageFromConversation (_ allConversations: [Conversation], result: @escaping (Conversation, Message) -> Void) {
         for eachConv in allConversations{
             self.ref?.child("conversations/\(eachConv.uuid)/messagesInConversation").observe(.childAdded, with: {(snapshot) in
+                print(snapshot.value)
+                print(snapshot.key)
                 let uidMessage = snapshot.key
                 let messageSnapshot = snapshot.value as? NSDictionary
                 let message = Message(data: messageSnapshot, uid: uidMessage)
