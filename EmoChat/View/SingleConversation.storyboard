@@ -120,6 +120,9 @@
                                             <constraint firstAttribute="width" secondItem="1ze-E8-Yj2" secondAttribute="height" multiplier="1:1" id="35V-rO-czA"/>
                                         </constraints>
                                         <state key="normal" image="sendMessage"/>
+                                        <connections>
+                                            <action selector="sendMessage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yoK-8e-uNL"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -150,6 +153,9 @@
                             <constraint firstItem="vGN-hh-QGI" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="x10-ON-S0W"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="textMessage" destination="6Zs-2n-ZAE" id="qd2-x3-wmJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
