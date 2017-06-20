@@ -540,8 +540,9 @@ class ManagerFirebase {
     func createMessage(conversation: Conversation, sender: User, content:(type: MessageContentType, content: String)) -> MessageOperationResult {
         
         let timeStamp = Int((Date().timeIntervalSince1970 * 1000.0))
+        let key = ref?.child("conversations/").childByAutoId().key
         
-        let message = Message(uid: "\(timeStamp)\(sender.uid!)",
+        let message = Message(uid: key!,
             senderId: sender.uid,
             time: Date(timeIntervalSince1970: TimeInterval(timeStamp / 1000)),
             content: (type: content.type, content: content.content))
