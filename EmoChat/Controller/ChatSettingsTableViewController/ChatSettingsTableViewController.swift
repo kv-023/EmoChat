@@ -63,7 +63,6 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
             
             logoCell.imageView?.layer.cornerRadius = 30
             logoCell.imageView?.image = UIImage.init(named: "1.png")
-            
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(loadNewLogo))
             logoCell.imageView?.isUserInteractionEnabled = true
             logoCell.imageView?.addGestureRecognizer(tapGestureRecognizer)
