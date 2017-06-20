@@ -621,8 +621,42 @@ class ManagerFirebase {
         }
     }
     
-    //MARK: - tuple array
+    // MARK: - func for ConversationsViewController
     
+    private func getConversationsFor(conversatinsIDs: [String : AnyObject],
+                                     completionHandler: @escaping ([conversationTuple]) -> Void) {
+        
+        var conversationsIDs: [conversationTuple] = []
+        
+        ManagerFirebase.shared.ref?.child("conversations").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            for key in conversatinsIDs {
+                let conversationSnapshot = snapshot.childSnapshot(forPath: "\(key.key)")
+                let conversationDict = conversationSnapshot.value as? [String : AnyObject]
+                if let timeStamp = conversationDict?["lastMessage"] as? NSNumber {
+                    let convTuple = conversationTuple(conversationId: "\(conversationSnapshot.key)",
+                                                            timestamp: Date(milliseconds: timeStamp.intValue))
+                    conversationsIDs.append(convTuple)
+                }
+            }
+            completionHandler(conversationsIDs)
+        })
+    }
+   
+    func getSortedConversations(of user: User, completionHandler: @escaping ([conversationTuple]) ->  Void) {
+        
+        var sortedConversationsArray: [conversationTuple] = []
+
+        ref?.child("users/\(user.uid!)/conversations").observeSingleEvent(of: .value, with: { [weak self] (conversationIDs) in
+            
+            let conversationsDict = conversationIDs.value as? [String : AnyObject] ?? [:]
+            
+            self?.getConversationsFor(conversatinsIDs: conversationsDict) { (conversationsIDs) in
+                sortedConversationsArray = conversationsIDs.sorted(by: { $0.timestamp > $1.timestamp })
+                completionHandler(sortedConversationsArray)
+            }
+        })
+    }
     
     
 }

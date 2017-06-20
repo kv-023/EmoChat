@@ -8,44 +8,36 @@
 
 import UIKit
 
+typealias conversationTuple = (conversationId: String, timestamp: Date)
+
 class ConversationsDataSource: NSObject, UITableViewDataSource {
     
-    typealias conversationTuple = (conversationId: String, timestamp: Date)
     
     // MARK: - variables
     var tupleArray: [conversationTuple] = []
     var currentUser: User!
     
+    // MARK: - constants
+    var managerFirebase: ManagerFirebase!// = ManagerFirebase.shared
     
     // MARK: - tupleArray operations
-    
     func tmp() {
+        
+        managerFirebase = ManagerFirebase.shared
+        
         ManagerFirebase.shared.getCurrentUser { (result) in
             switch result {
             case let .successSingleUser(user):
                 self.currentUser = user
                 self.currentUser.userConversations = nil
-                self.createTupleArray()
+                self.managerFirebase.getSortedConversations(of: self.currentUser, completionHandler: { (sortedConversations) in
+                    self.tupleArray = sortedConversations
+                    print(self.tupleArray)
+                })
             default:
                 print("SOMETHING WRONG")
             }
         }
-    }
-    // completion: @escaping ([conversationTuple]) -> Void
-    func createTupleArray() {
-        ManagerFirebase.shared.ref?.child("users/\(self.currentUser.uid!)/conversations").observeSingleEvent(of: .value, with: { (conversationIDs) in
-            
-            let conversationsDict = conversationIDs.value as? [String : AnyObject] ?? [:]
-            for key in conversationsDict {
-                ManagerFirebase.shared.ref?.child("conversations/\(key.key)").observe(.childChanged, with: { (conversationSnapshot) in
-                    print(conversationSnapshot.ref.parent?.key)
-                    print(conversationSnapshot.value)
-                    print(conversationSnapshot.key)
-                    let timestamp = conversationSnapshot.value as! TimeInterval
-                    self.tupleArray.append(conversationTuple(key.key, Date(milliseconds: timestamp)))
-                })
-            }
-        })
     }
     
     // MARK: - UITableViewDataSource
