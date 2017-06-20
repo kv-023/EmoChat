@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+
 
 class ChatSettingsTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -14,6 +16,10 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
     var addUserCell = UITableViewCell()
     var leaveChatCell = UITableViewCell()
     var userCell = UITableViewCell()
+    
+    
+    var storageRef: StorageReference!
+    var manager: ManagerFirebase!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +31,7 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -60,9 +67,13 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
             logoCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
             
             logoCell.textLabel?.text = "Conversation title"
-            
+            logoCell.imageView?.contentMode = .scaleAspectFit
             logoCell.imageView?.layer.cornerRadius = 30
-            logoCell.imageView?.image = UIImage.init(named: "1.png")
+           // logoCell.imageView?.image = UIImage.init(named: "1.png")
+            
+            let arrray = [UIImage.init(named: "1.png"), UIImage.init(named: "2.png")/*, UIImage.init(named: "3.png"), UIImage.init(named: "4.png"), UIImage.init(named: "5.png"), UIImage.init(named: "6.png")*/ ]
+            
+            logoCell.imageView?.image = UIImage.createFinalImg(logoImages: arrray as! Array<UIImage>)
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(loadNewLogo))
             logoCell.imageView?.isUserInteractionEnabled = true
             logoCell.imageView?.addGestureRecognizer(tapGestureRecognizer)
