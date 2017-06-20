@@ -12,6 +12,7 @@
 		3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2731EDC27C700D69F88 /* Main.storyboard */; };
 		3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2761EDC27C700D69F88 /* Assets.xcassets */; };
 		3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */; };
+		4508E5CE1EF92817002FACF0 /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4508E5CD1EF92817002FACF0 /* JSONParser.swift */; };
 		45F370BF1EF81B3D008217D9 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45F370BE1EF81B3D008217D9 /* Storyboard.storyboard */; };
 		45F370C31EF81CF7008217D9 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F370C21EF81CF7008217D9 /* TableViewController.swift */; };
 		45F370C71EF828C6008217D9 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F370C61EF828C6008217D9 /* TableViewCell.swift */; };
@@ -72,6 +73,7 @@
 		3938C2761EDC27C700D69F88 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3938C2791EDC27C700D69F88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3938C27B1EDC27C700D69F88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4508E5CD1EF92817002FACF0 /* JSONParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONParser.swift; path = EmoChat/Additional/RestUI/Manager/JSONParser.swift; sourceTree = SOURCE_ROOT; };
 		45F370BE1EF81B3D008217D9 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Storyboard.storyboard; path = EmoChat/Additional/RestUI/View/Storyboard.storyboard; sourceTree = SOURCE_ROOT; };
 		45F370C21EF81CF7008217D9 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		45F370C61EF828C6008217D9 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 			isa = PBXGroup;
 			children = (
 				E712BCBE1EF7E7D800D7DACA /* RestUIController.swift */,
+				4508E5CD1EF92817002FACF0 /* JSONParser.swift */,
 				45F370C21EF81CF7008217D9 /* TableViewController.swift */,
 				45F370C61EF828C6008217D9 /* TableViewCell.swift */,
 			);
@@ -514,6 +517,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4508E5CE1EF92817002FACF0 /* JSONParser.swift in Sources */,
 				E7352C261EDED52B0095264E /* Conversation.swift in Sources */,
 				F54D21781EE7149100B0B177 /* AdditionalViewController.swift in Sources */,
 				E7B926F31EF1487B0018F5FF /* PopOverViewController.swift in Sources */,
