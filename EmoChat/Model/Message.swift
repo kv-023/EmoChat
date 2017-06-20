@@ -35,8 +35,8 @@ class Message {
     init (data: NSDictionary?, uid: String?) {
         self.uid = uid
         self.senderId = data?["senderId"] as! String?
-        let time = data?["time"] as? TimeInterval
-        self.time = (Date(timeIntervalSince1970: time!/1000))
+        let time = data?["time"] as? NSNumber
+        self.time = Date(milliseconds: (time?.intValue)!) //(Date(timeIntervalSince1970: time!/1000))
         let media = data?["media"] as? NSDictionary
         if let photo = media?.value(forKey: "photo") {
             self.content = (type: MessageContentType.photo, content: photo as! String)

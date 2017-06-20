@@ -34,29 +34,22 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         
-        /*
+        
         m = ManagerFirebase.shared
         
         m?.getCurrentUser(){ (result) in
             switch result {
             case let .successSingleUser(user):
                 self.user = user
-//                self.m?.getMessageFromConversation(user.userConversations!, result: {
-//                    (conv, message) in
-//                    print("Message \(message.content) from  \(conv.name!)")
-//                })
-                for conv in user.userConversations! {
-                    self.m?.ref?.child("conversations/\(conv.uuid)").child("lastMessage").observe(.value, with: { (snapshot) in
-                        print(snapshot.ref.parent?.key)
-                        print(snapshot.value)
-                        print(snapshot.key)
-                    })
-                }
+                self.m?.getMessageFromConversation(user.userConversations!, result: {
+                    (conv, message) in
+                    print("Message \(message.content) from  \(conv.name!)")
+                })
             default:
                 print("NONONO")
             }
         }
-        */
+        
         //        m?.valueChanged() {
         //            newValue in
         //            self.label.text = newValue

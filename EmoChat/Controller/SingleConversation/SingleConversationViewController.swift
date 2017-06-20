@@ -15,7 +15,6 @@ class SingleConversationViewController: UIViewController {
     @IBAction func sendMessage(_ sender: UIButton) {
 
         let result:MessageOperationResult? = manager?.createMessage(conversation: currentConversation!, sender: currentUser, content: (.text, textMessage.text))
-
         switch (result!) {
         case .successSingleMessage(let message):
             print(message.content)
@@ -44,6 +43,7 @@ class SingleConversationViewController: UIViewController {
             case .successSingleUser(let user):
                 self.currentUser = user
                 self.currentConversation = user.userConversations?.first!
+                print(self.currentConversation.uuid)
             case .failure(let error):
                 print(error)
             default:
