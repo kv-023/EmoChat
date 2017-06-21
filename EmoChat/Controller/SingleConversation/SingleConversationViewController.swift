@@ -8,7 +8,12 @@
 
 import UIKit
 
-class SingleConversationViewController: UIViewController, UITextViewDelegate {
+enum UserType {
+    case left
+    case right
+}
+
+class SingleConversationViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var inputSubView: UIView!
     
@@ -20,6 +25,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate {
         switch (result!) {
         case .successSingleMessage(let message):
             print(message.content)
+            messagesArray.append((message, .right))
         case .failure(let string):
             print(string)
         default:
@@ -32,6 +38,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate {
     var currentUser: User!
     
     var currentConversation: Conversation! { didSet { updateUI() } }
+    
+    var messagesArray: [(Message, UserType)]!
     
     func updateUI() {
         //download 20 last messages
@@ -59,6 +67,34 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate {
         
         setupKeyboardObservers()
 
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return messagesArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let message = messagesArray[indexPath.row]
+        var back: UITableViewCell!
+        switch message.1 {
+        case .left:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "Left", for: indexPath) as? LeftCell else {
+                fatalError("Cell was not casted!")
+            }
+            cell.message.text = message.0.content.0.rawValue
+            back = cell
+        case .right:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "Left", for: indexPath) as? RightCell else {
+                fatalError("Cell was not casted!")
+            }
+            cell.message.text = message.0.content.0.rawValue
+            back = cell
+        }
+        return back
     }
 
     //MARK: - text view

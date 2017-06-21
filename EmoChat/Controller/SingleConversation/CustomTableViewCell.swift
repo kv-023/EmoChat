@@ -8,8 +8,12 @@
 
 import UIKit
 
-class SenderCell: UITableViewCell {
+class LeftCell: UITableViewCell {
 
+    @IBOutlet weak var userPic: UIImageView!
+    @IBOutlet weak var time: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var message: UITextView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -23,8 +27,12 @@ class SenderCell: UITableViewCell {
 
 }
 
-class ReceiverCell: UITableViewCell {
+class RightCell: UITableViewCell {
     
+    @IBOutlet weak var userPic: UIImageView!
+    @IBOutlet weak var time: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var message: UITextView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
