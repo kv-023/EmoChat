@@ -42,7 +42,7 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
                     print(conversationSnapshot.value)
                     print(conversationSnapshot.key)
                     let timestamp = conversationSnapshot.value as! TimeInterval
-                    self.tupleArray.append(conversationTuple(key.key, Date(milliseconds: timestamp)))
+                    self.tupleArray.append(conversationTuple(key.key, Date(milliseconds: Int(timestamp))))
                 })
             }
         })
