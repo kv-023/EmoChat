@@ -23,7 +23,7 @@ class ViewController: UIViewController {
         regexTest()
     }
     
-    // var user: User!
+    var user: User!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -40,18 +40,11 @@ class ViewController: UIViewController {
         m?.getCurrentUser(){ (result) in
             switch result {
             case let .successSingleUser(user):
-                //self.user = user
-                print(user.username)
-                print(user.userConversations!)
+                self.user = user
                 self.m?.getMessageFromConversation(user.userConversations!, result: {
                     (conv, message) in
                     print("Message \(message.content) from  \(conv.name!)")
                 })
-                //                for conv in user.userConversations! {
-                //                    self.m?.ref?.child("conversations/\(conv.uuid)/messagesInConversation").observe(.childAdded, with: { (snapshot) in
-                //                        print("CHILD ADDED")
-                //                    })
-            //                }
             default:
                 print("NONONO")
             }
@@ -212,7 +205,41 @@ class ViewController: UIViewController {
     
     @IBAction func DADADA(_ sender: Any) {
         
-        
+        /*
+        m?.getCurrentUser(getUser: { (result) in
+            switch result {
+            case let .successSingleUser(user):
+                for conv in user.userConversations! {
+                    print(conv.uuid)
+                    self.m?.ref?.child("conversations/\(conv.uuid)").observe(.childAdded, with: { (snapshot) in
+                        print(snapshot.value)
+                        print(snapshot.key)
+                        let snapshotDict = snapshot.value as? [String : AnyObject]
+                        print(snapshotDict)
+                    })
+                }
+            default:
+                print("NONONO")
+            }
+        })
+        */
+ 
+        /*
+        m?.getCurrentUser(getUser: { (result) in
+            switch result {
+            case let .successSingleUser(user):
+                for conv in user.userConversations! {
+                    print(conv.uuid)
+                    self.m?.ref?.child("conversations/\(conv.uuid)").observeSingleEvent(of: .value, with: { (snapshot) in
+                        let snapshotDict = snapshot.value as? [String : AnyObject]
+                        print(snapshotDict!)
+                    })
+                }
+            default:
+                print("NONONO")
+            }
+        })
+        */
         /*
          self.m?.addInfoUser(username: "golubovskiy", phoneNumber: "0", firstName: "Dtima", secondName: "Gol", photoURL: nil, result: { (updResult) in
          switch updResult {
@@ -228,20 +255,30 @@ class ViewController: UIViewController {
          let user = User(email: "dadada", username: "dadada", phoneNumber: nil, firstName: nil, secondName: nil, photoURL: nil, uid: "userUID")
          let user1 = User(email: "netnet", username: "netnet", phoneNumber: nil, firstName: nil, secondName: nil, photoURL: nil, uid: "user1UID")
          let user2 = User(email: "user2", username: "user2", phoneNumber: nil, firstName: nil, secondName: nil, photoURL: nil, uid: "user2UID")
-         
-         
-         //m?.createConversation([user, user1, user2], withName: "firstConversation")
-         
+        
+        let arrayUsers = [user, user1, user2, self.user!]
+        
+        for index in 1...20 {
+            switch m!.createConversation(arrayUsers, withName: "\(index)-Conversation") {
+            case let .successSingleConversation(conversation):
+                m?.createMessage(conversation: conversation, sender: arrayUsers[Int(arc4random_uniform(UInt32(arrayUsers.count)))], content: (type: .text, content: "Hello from for loop"))
+            default:
+                print("ERROR")
+            }
+        }
+        */
+        /*
+        
          //m?.createConversation([user1, user2])
          var conv: Conversation!
          
-         switch m!.createConversation([user, user1, user2], withName: "firstConversation") {
-         case let .successSingleConversation(conversation):
-         conv = conversation
-         m?.createMessage(conversation: conversation, sender: conversation.usersInConversation[0], content: (type: .text, content: "Hello dadada"))
-         default:
-         return
-         }
+        switch m!.createConversation([user, user1, user2], withName: "firstConversation") {
+        case let .successSingleConversation(conversation):
+            conv = conversation
+            m?.createMessage(conversation: conversation, sender: conversation.usersInConversation[0], content: (type: .text, content: "Hello dadada"))
+        default:
+            return
+        }
          
          
          

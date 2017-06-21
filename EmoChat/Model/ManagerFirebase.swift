@@ -210,8 +210,6 @@ class ManagerFirebase {
                 //generate array of conversations
                 if let conversationsArrayId = conversationsID?.allKeys {
                     user.userConversations = self.sortListOfConversations(self.getConversetionsFromSnapshot(value, accordingTo: conversationsArrayId as! [String], currentUserEmail: email))
-                    //getting array of contacts
-                    //user.contacts = self.getContacts(from: user.userConversations!)
                 }
                 
                 //return result
@@ -264,7 +262,13 @@ class ManagerFirebase {
             //members in conversation
             let users = self.getUsersFromIDs(ids: conversationSnapshot?["usersInConversation"] as! NSDictionary,value: value)
             
-            let conversation = Conversation(conversationId: eachConv, usersInConversation: users, messagesInConversation: nil, lastMessage: lastMessage)
+            let time = conversationSnapshot?["lastMessage"] as? TimeInterval
+            let date = (Date(timeIntervalSince1970: time!/1000))
+            let conversation = Conversation(conversationId: eachConv,
+                                            usersInConversation: users,
+                                            messagesInConversation: nil,
+                                            lastMessage: lastMessage,
+                                            lastMessageTimeStamp: date)
             
             //define the name of conversation
             var result = ""
@@ -283,8 +287,11 @@ class ManagerFirebase {
     
     //to sort list of conversation
     private func sortListOfConversations (_ array: [Conversation]) -> [Conversation]{
-        let sortedArray = array.sorted { (cv1, cv2) -> Bool in
+        /*let sortedArray = array.sorted { (cv1, cv2) -> Bool in
             return ((cv1.lastMessage?.time.compare((cv2.lastMessage?.time)!)) != nil)
+        }*/
+        let sortedArray = array.sorted { (cv1, cv2) -> Bool in
+            return ((cv1.lastMessageTimeStamp?.compare(cv2.lastMessageTimeStamp!)) != nil)
         }
         return sortedArray
     }
@@ -487,7 +494,6 @@ class ManagerFirebase {
             }
             result(.successArrayOfUsers(users))
         })
-        
     }
 
     
@@ -513,6 +519,9 @@ class ManagerFirebase {
         
         if let refConv = ref?.child("conversations").childByAutoId() {
             
+            let timeStamp = Int((Date().timeIntervalSince1970 * 1000.0))
+            refConv.child("lastMessage").setValue(timeStamp)
+            
             let uid: String = (refConv.key)
             
             for member in members {
@@ -521,8 +530,6 @@ class ManagerFirebase {
             
             if members.count > 2 {
                 refConv.child("name").setValue(name)
-            } else {
-                ref?.child("u")
             }
         
             let conversation = Conversation(conversationId: uid,
@@ -536,20 +543,28 @@ class ManagerFirebase {
         
     }
     
-        // MARK: - Messages
+    // MARK: - Messages
     func createMessage(conversation: Conversation, sender: User, content:(type: MessageContentType, content: String)) -> MessageOperationResult {
         
-        let timeStamp = Int((Date().timeIntervalSince1970 * 1000.0))
+        let timeStamp = NSNumber(value:Date().timeIntervalSince1970 * 1000.0)
+        let key = ref?.child("conversations/").childByAutoId().key
         
-        let message = Message(uid: "\(timeStamp)\(sender.uid!)",
+        let message = Message(uid: key!,
             senderId: sender.uid,
-            time: Date(timeIntervalSince1970: TimeInterval(timeStamp / 1000)),
+            time: Date(timeIntervalSince1970: TimeInterval(timeStamp.int64Value / 1000)),
             content: (type: content.type, content: content.content))
         
         if let messageRef = ref?.child("conversations/\(conversation.uuid)/messagesInConversation/\(message.uid!)") {
-            messageRef.child("content/\(message.content.type)").setValue(message.content.content)
-            messageRef.child("senderId").setValue(message.senderId!)
-            messageRef.child("time").setValue(timeStamp)
+            
+            var childUpdates = [String: Any] ()
+            childUpdates.updateValue(message.senderId!, forKey: "senderId")
+            childUpdates.updateValue(timeStamp.intValue, forKey: "time")
+            childUpdates.updateValue(message.content.content, forKey: "content/\(message.content.type)")
+            
+            
+            
+            messageRef.updateChildValues(childUpdates)
+
             ref?.child("conversations/\(conversation.uuid)/lastMessage").setValue(timeStamp)
             return .successSingleMessage(message)
         } else {
@@ -558,6 +573,7 @@ class ManagerFirebase {
     }
     
     //MARK: - test
+    //some uesr's info was changed
     func valueChanged (action: @escaping (String) -> Void) {
         if let uid = Auth.auth().currentUser?.uid {
             let namePath = self.ref?.child("users/\(uid)")
@@ -594,35 +610,19 @@ class ManagerFirebase {
     func getMessageFromConversation (_ allConversations: [Conversation], result: @escaping (Conversation, Message) -> Void) {
         for eachConv in allConversations{
             self.ref?.child("conversations/\(eachConv.uuid)/messagesInConversation").observe(.childAdded, with: {(snapshot) in
+                print(snapshot.value)
+                print(snapshot.key)
+                print(eachConv.uuid)
                 let uidMessage = snapshot.key
                 let messageSnapshot = snapshot.value as? NSDictionary
                 let message = Message(data: messageSnapshot, uid: uidMessage)
                 result(eachConv, message)
             })
         }
-        
-//            let namePath = self.ref?.child("users/\(uid)/conversations")
-//            namePath?.observe(.childAdded, with: { (snapshot) in
-//                let idConv = snapshot.key
-//                self.ref?.observeSingleEvent(of: .value, with: { (snapshot) in
-//                    //let users = snapshot.childSnapshot(forPath: "users").value as? NSDictionary
-//                    let conversation = snapshot.childSnapshot(forPath: "conversations/\(idConv)").value as! NSDictionary
-//                    
-//                })
-//                //action((snapshot.value as? String)!)
-//                
-//                
-//            })
-            
-        
-
-        
-//        let namePath = self.ref?.child("conversations/conversationId-456")
-//        namePath?.observe(.childChanged, with: { (snapshot) in
-//            let changedSnap = snapshot.value
-//            
-//        })
     }
+    
+    //MARK: - tuple array
+    
     
     
 }

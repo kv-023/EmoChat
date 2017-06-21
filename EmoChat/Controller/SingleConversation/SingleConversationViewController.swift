@@ -9,10 +9,48 @@
 import UIKit
 
 class SingleConversationViewController: UIViewController {
+    
+    @IBOutlet weak var textMessage: UITextView!
+    
+    @IBAction func sendMessage(_ sender: UIButton) {
 
+        let result:MessageOperationResult? = manager?.createMessage(conversation: currentConversation!, sender: currentUser, content: (.text, textMessage.text))
+        switch (result!) {
+        case .successSingleMessage(let message):
+            print(message.content)
+        case .failure(let string):
+            print(string)
+        default:
+            break
+        }
+    }
+    
+    var manager: ManagerFirebase?
+    
+    var currentUser: User!
+    
+    var currentConversation: Conversation! { didSet { updateUI() } }
+    
+    func updateUI() {
+        //download 20 last messages
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        manager = ManagerFirebase.shared
+        manager?.getCurrentUser { (result) in
+            switch (result) {
+            case .successSingleUser(let user):
+                self.currentUser = user
+                self.currentConversation = user.userConversations?.first!
+                print(self.currentConversation.uuid)
+            case .failure(let error):
+                print(error)
+            default:
+                break
+            }
+            
+        }
         // Do any additional setup after loading the view.
     }
 
