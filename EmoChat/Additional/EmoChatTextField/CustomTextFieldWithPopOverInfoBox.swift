@@ -168,32 +168,31 @@ class CustomTextFieldWithPopOverInfoBox: UITextField {
     override func redBorder() {
         super.redBorder()
 
-        //shake()
+       // shake()
     }
 
-    //MARK: Shake animation inplementation
-
-    func shake() {
+	//MARK: Shake animation inplementation
+	
+	func shake() {
 		shake(count: 1, for: 0.05, withTranslation: 15, delay: 0)
-    }
+	}
 	
 	func shake(myDelay: Double) {
 		shake(count: 1, for: 0.05, withTranslation: 15, delay: myDelay)
 	}
-
-    func shake(count : Float? = nil,
-               for duration : TimeInterval? = nil,
-               withTranslation translation : Float? = nil, delay: Double) {
-        let animation : CABasicAnimation = CABasicAnimation(keyPath: "transform.translation.x")
+	
+	func shake(count : Float? = nil,
+	           for duration : TimeInterval? = nil,
+	           withTranslation translation : Float? = nil, delay: Double) {
+		let animation : CABasicAnimation = CABasicAnimation(keyPath: "transform.translation.x")
 		animation.beginTime = CACurrentMediaTime() + delay
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
-        animation.repeatCount = count ?? 2
-        animation.duration = (duration ?? 0.5)/TimeInterval(animation.repeatCount)
-        animation.autoreverses = true
-        animation.byValue = translation ?? -5
-        layer.add(animation, forKey: "shake")
-    }
-
+		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+		animation.repeatCount = count ?? 2
+		animation.duration = (duration ?? 0.5)/TimeInterval(animation.repeatCount)
+		animation.autoreverses = true
+		animation.byValue = translation ?? -5
+		layer.add(animation, forKey: "shake")
+	}
 }
 
 //MARK: data structure

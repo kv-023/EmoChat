@@ -121,8 +121,9 @@ enum regexErrorText: String, Localizable {
 	
 	enum LogInError: String, Localizable {
 		static let parent: LocalizeParent = nil
-
+		
 		case email = "app.regexCheck.email"
 		case password = "app.regexCheck.password"
 	}
+
 }

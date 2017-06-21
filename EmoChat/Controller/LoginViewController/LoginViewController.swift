@@ -10,10 +10,7 @@ import UIKit
 import FirebaseDatabase
 import FirebaseAuth
 
-class LoginViewController:
-//UIViewController
-    EmoChatUIViewController
-{
+class LoginViewController: EmoChatUIViewController, UITextFieldDelegate {
 	
 	// MARK: - IBOutlets
 	
@@ -21,69 +18,55 @@ class LoginViewController:
 	@IBOutlet weak var logIn: UIButton!
 	@IBOutlet weak var emailField: CustomTextFieldWithPopOverInfoBox!
 	@IBOutlet weak var passwordField: CustomTextFieldWithPopOverInfoBox!
-	@IBOutlet weak var hintsLabel: UILabel!
-	@IBOutlet weak var transition: UIImageView!
+	@IBOutlet weak var errorLabel: UILabel!
 	
 	var manager: ManagerFirebase? = nil
 	
-	var currentEmailIsValid: Bool = false {
-		
-		didSet {
-			
-			setButton(button: logIn, duration: 0.4, delay: 0, active: true, setAlpha: 1)
-			
-		}
-
-	}
-	var currentPasswordIsValid: Bool = false {
-		
-		didSet {
-			
-			setButton(button: logIn, duration: 0.4, delay: 0, active: true, setAlpha: 1)
-			
-		}
-
-	}
+	var currentEmailIsValid: Bool = false
+	var currentPasswordIsValid: Bool = false
 	
 	// MARK: - ViewController lifecycle
 	
 	override func viewDidLoad() {
 		
-	// Load varw and set animated background
+		// Load varw and set animated background
 		super.viewDidLoad()
 		backgroundAnimated.loadGif(name: "giphy")
 		
-	// Circular Get Started Button
+		// TextField Delegate
+		emailField.delegate = self
+		passwordField.delegate = self
+		
+		// Circular Get Started Button
 		logIn.layer.cornerRadius = 15
 		logIn.layer.masksToBounds = true
 		
-	// Setting textFields and LogIn button styles
+		// Setting textFields and LogIn button styles
 		emailField.backgroundColor = UIColor.white.withAlphaComponent(0.9)
 		passwordField.backgroundColor = UIColor.white.withAlphaComponent(0.9)
 		logIn.backgroundColor = UIColor.black.withAlphaComponent(0.9)
 		logIn.layer.cornerRadius = 7
 		logIn.layer.borderWidth = 1
 		logIn.layer.borderColor = UIColor.black.cgColor
-		setButton(button: logIn, duration: 0, delay: 0, active: true, setAlpha: 1)
 		
-	// MARK: - Gesture recognizer
+		// MARK: - Gesture recognizer
 		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
 		view.addGestureRecognizer(tap)
 		
-	// MARK: - Create Firebase manager
-		manager = ManagerFirebase()
+		// MARK: - Create Firebase manager
+		manager = ManagerFirebase.shared
 	}
 	
 	override func didReceiveMemoryWarning()	{
 		
-	// MARK: - Dispose of any resources that can be recreated.
+		// MARK: - Dispose of any resources that can be recreated.
 		super.didReceiveMemoryWarning()
 		
 	}
-
+	
 	override func dismissKeyboard() {
 		
-	// MARK: - Causes the view (or one of its embedded text fields) to resign the first responder status.
+		// MARK: - Causes the view (or one of its embedded text fields) to resign the first responder status.
 		
 		view.endEditing(true)
 		
@@ -93,10 +76,8 @@ class LoginViewController:
 		
 		if segue.identifier == "showSignUp"
 		{
-			let destinationVC = segue.destination as? SignUpFirstViewController
-
-			destinationVC?.posX = backgroundAnimated.frame.origin.x
-			destinationVC?.posY = backgroundAnimated.frame.origin.y
+			//let destinationVC = segue.destination as? SignUpFirstViewController
+			
 			
 		}
 		
@@ -116,57 +97,16 @@ class LoginViewController:
 	
 	// MARK: - Disable or Enable Button
 	
-	func setButton(button: UIButton, duration: Double, delay: Double, active: Bool, setAlpha: CGFloat) {
-		
-		if active {
-			
-			let isActive = currentEmailIsValid && currentPasswordIsValid
-			
-			let isAlpha: CGFloat = isActive ? 1.0 : 0.6
-			animateButton(button, duration, delay, isAlpha)
-			logIn.isEnabled = isActive
-		
-		} else {
-			
-			animateButton(button, duration, delay, setAlpha)
-			logIn.isEnabled = setAlpha == 1 ? true : false
-		
-		}
-	}
-	
-	/* @Deprecated
+	func setButton(button: UIButton, duration: Double, delay: Double, enable: Bool) {
 
-	func checkColor(textField: CustomTextFieldWithPopOverInfoBox) -> Bool	{
-		
-	// MARK: - Checks if color is red
-		
-		if (textField.textColor == UIColor.red) {
-			return true
-		} else {
-			return false
-		}
-		
+		let isAlpha: CGFloat = enable ? 1.0 : 0.6
+		animateButton(button, duration, delay, isAlpha)
+		logIn.isEnabled = enable
 	}
-	
-	
-	func checkToCleanError(email: CustomTextFieldWithPopOverInfoBox, password: CustomTextFieldWithPopOverInfoBox) {
-		
-	// MARK: - Check by color if login button had ended in error and needs to clean error text
-		
-		if checkColor(textField: email) {
-			emailField.text = nil
-		}
-		if checkColor(textField: password) {
-			passwordField.text = nil;
-		}
-		
-	}
-	
-	@Deprecated */
 	
 	func isValidEmail(_ email: String) -> Bool {
 		
-	// MARK: - Checks if email is valid by RegExp
+		// MARK: - Checks if email is valid by RegExp
 		
 		let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
 		let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
@@ -174,47 +114,30 @@ class LoginViewController:
 	}
 	
 	func isValidPassword(_ password: String) -> Bool {
-	
-	// MARK: - Checks if password is valid by RegExp
-
+		
+		// MARK: - Checks if password is valid by RegExp
+		
 		let passwordRegEx = "^.{6,}$"
 		let passwordTest = NSPredicate(format: "SELF MATCHES %@", passwordRegEx)
 		return passwordTest.evaluate(with: password)
 	}
 	
-	@IBAction func textFieldDidBeginEditing(_ textField: CustomTextFieldWithPopOverInfoBox) {
+	@IBAction func textFieldDidBeginEditing(_ textField: UITextField) {
 
-	/* @Deprecated
-
-		// MARK: - By tapping one of text fields the function captures events described below:
-		
-		// MARK: - Check if need to clear previous error placed in textField placeholder
-		
-			checkToCleanError(email: emailField, password: passwordField)
-		
-		// MARK: - Set color of text typing
-		
-			emailField.textColor = UIColor.black
-			passwordField.textColor = UIColor.black
-		
-		// MARK: - Previous errors may be unencrypted to present it in ASCII. Following action will encrypt input again
-
-			if passwordField.isSecureTextEntry == false {
-				passwordField.isSecureTextEntry = true;
-			}
-		
-			// MARK: - Capture textField input and create Responder
-		@Deprecated */
+		errorLabel.text = nil
+		self.setButton(button: self.logIn, duration: 0, delay: 0, enable: true)
 		
 		switch textField {
 			
 		case self.emailField:
 			
 			emailField.becomeFirstResponder()
+			emailField.imageQuestionShowed = false
 			
 		case self.passwordField:
 			
 			passwordField.becomeFirstResponder()
+			passwordField.imageQuestionShowed = false
 			
 		default:
 			
@@ -223,159 +146,158 @@ class LoginViewController:
 			
 		}
 	}
-
-	// MARK: - Capture any changes of input to invoke real-time alerts of error
-
-	@IBAction func textFieldDidChange(_ textField: CustomTextFieldWithPopOverInfoBox) {
 	
+	// MARK: - Capture any changes of input to invoke real-time alerts of error
+	
+	@IBAction func textFieldDidChange(_ textField: CustomTextFieldWithPopOverInfoBox) {
+
 		if (emailField.isEditing) {
 			
-			if (passwordField.imageQuestionShowed) {
-				passwordField.shake(myDelay: 0.5)
-			}
-			
 			currentEmailIsValid = isValidEmail(emailField.text!)
-
-			emailField.imageQuestionShowed = !currentEmailIsValid
+			
+			emailField.imageQuestionShowed = emailField.text != "" ? !currentEmailIsValid : false
 			emailField.textInfoForQuestionLabel = regexErrorText.LogInError.email.localized
-
+			
 		} else if (passwordField.isEditing) {
-
-			if (emailField.imageQuestionShowed) {
-				emailField.shake(myDelay: 0.5)
-			}
-
+			
 			currentPasswordIsValid = isValidPassword(passwordField.text!)
-
-			passwordField.imageQuestionShowed = !currentPasswordIsValid
+			
+			passwordField.imageQuestionShowed = passwordField.text != "" ? !currentPasswordIsValid : false
 			passwordField.textInfoForQuestionLabel = regexErrorText.LogInError.password.localized
-
 		}
-
+		
 	}
+	
+	
 	
 	// MARK: - Capture action of login button
 	
 	@IBAction func loginAction(_ sender: UIButton)	{
 		
-		/* @Deprecated
 		// Capture error again , to clear if login button was pressed again
 		
-		checkToCleanError(email: emailField, password: passwordField)
+		let textFields = (emailField, passwordField)
 		
-		let textFields = (emailField.text, passwordField.text)
-		
-			// Check textFields on empty input in case of login button pressed
+		// Check textFields on empty input in case of login button pressed
 		
 		switch textFields {
 			
-		case let(email, password) where email == "" && password == "" :
+		case let(email, password) where (email.imageQuestionShowed || email.text == "") && (password.imageQuestionShowed || password.text == "") :
 			
-			// Alert to user of email and password inputs
-			
-			passwordField.isSecureTextEntry = false;
-			emailField.text = ("Input your email")
-			emailField.textColor = UIColor.red
-			passwordField.text = ("Input your password")
-			passwordField.textColor = UIColor.red
+			// Alert to user of email and password input
+			if emailField.text == "" {
+	
+				emailField.imageQuestionShowed = true
+				emailField.textInfoForQuestionLabel = "Email must not be empty"
+
+			}
+
+			if passwordField.text == "" {
+
+				passwordField.imageQuestionShowed = true
+				passwordField.textInfoForQuestionLabel = "Password must not be empty"
+
+			}
+
 			emailField.shake(count: 1, for: 0.05, withTranslation: 15, delay: 0)
 			passwordField.shake(count: 1, for: 0.05, withTranslation: 15, delay: 0)
 			
-		case let(email, password) where email != "" && password == "" :
+		case let(email, password) where (email.imageQuestionShowed || email.text == "") && !password.imageQuestionShowed :
 			
 			// Alert user of empty password and add shake animation
 			
-			passwordField.isSecureTextEntry = false;
-			passwordField.text = ("Input your password")
-			passwordField.textColor = UIColor.red
-			passwordField.shake(count: 1, for: 0.05, withTranslation: 15, delay: 0)
+			if emailField.text == "" {
+
+				emailField.imageQuestionShowed = true
+				emailField.textInfoForQuestionLabel = "Email must not be empty"
+
+			}
+
+			emailField.shake(count: 1, for: 0.05, withTranslation: 15, delay: 0)
 			
-		case let(email, password) where email == "" && password != "" :
+		case let(email, password) where !email.imageQuestionShowed && (password.imageQuestionShowed || password.text == "") :
 			
 			// Alert user of empty email and add shake animation
 			
-			emailField.text = ("Input your email")
-			emailField.textColor = UIColor.red
-			emailField.shake(count: 1, for: 0.05, withTranslation: 15, delay: 0)
+			if passwordField.text == "" {
+
+				passwordField.imageQuestionShowed = true
+				passwordField.textInfoForQuestionLabel = "Password must not be empty"
+	
+			}
+			
+			passwordField.shake(count: 1, for: 0.05, withTranslation: 15, delay: 0)
 			
 		default:
 			
-				// When both fields are not empty - advance to a stage of verification
-	
-				// Disable logIn button for prevention of additional invokation of the press-button scenario
-		
-		@Deprecated	*/
-		
-		
-		self.logIn.isEnabled = false;
+			// When both fields are not empty - advance to a stage of verification
 			
-		// Firebase authentication, get both textFields initialized
+			// Disable logIn button for prevention of additional invokation of the press-button scenari
 			
-		Auth.auth().signIn(withEmail: self.emailField.text!, password: self.passwordField.text!, completion: { (user, error) in
-				
-			// Completion closure. Check if user is exist and if his email is verified.
-				
-			if user != nil && (user?.isEmailVerified)! {
-					
-				self.hintsLabel.text = ("You have succesfuly logged in")
-				self.hintsLabel.textColor = UIColor.green
-				self.setButton(button: self.logIn, duration: 0, delay: 0, active: false, setAlpha: 0)
-				self.transition.loadGif(name: "transition")
+			// Firebase authentication, get both textFields initialized
+			setButton(button: logIn, duration: 0, delay: 0, enable: false)
 			
-			// Slow delay between transition to conversations. Go to conversation through Segue
+			Auth.auth().signIn(withEmail: self.emailField.text!, password: self.passwordField.text!, completion: { (user, error) in
 				
-				let when = DispatchTime.now() + 2.5
-				DispatchQueue.main.asyncAfter(deadline: when) {
+				// Completion closure. Check if user is exist and if his email is verified.
+				
+				if user != nil && (user?.isEmailVerified)! {
+		
+					self.errorLabel.text = ("You have succesfuly logged in")
+					self.errorLabel.textColor = UIColor.green
 					
-					self.performSegue(withIdentifier: "showConversations", sender: self)
+					// Slow delay between transition to conversations. Go to conversation through Segue
+					
+					let when = DispatchTime.now() + 1.5
+					DispatchQueue.main.asyncAfter(deadline: when) {
+						
+						self.performSegue(withIdentifier: "showConversations", sender: self)
+						
+					}
+					
+				} else	{
+					
+					// Enable logIn button again to allow making amends
+					
+					self.setButton(button: self.logIn, duration: 0, delay: 0, enable: true)
 
-				}
-					
-			} else	{
-					
-			// Enable logIn button again to allow making amends
-					
-				self.logIn.isEnabled = true;
-					
-				if let myError = error?.localizedDescription {
-					
-					self.hintsLabel.text = myError
-					self.hintsLabel.textColor = UIColor.red
-
-				} else {
-
-					self.hintsLabel.text = ("Please confirm your e-mail")
-					self.hintsLabel.textColor = UIColor.red
-
-				}
+					if let myError = error?.localizedDescription {
+						
+						self.errorLabel.text = myError
+						self.errorLabel.textColor = UIColor.red
+						
+					} else {
+						
+						self.errorLabel.text = ("Please confirm your e-mail")
+						self.errorLabel.textColor = UIColor.red
+						
+					}
 					
 				}
 			});
-		
-	// MARK: - In case of button press all previous actions on edit will cease
-		
-		if self.emailField.isEditing {
-			self.emailField.endEditing(true)
 		}
-
-		if self.passwordField.isEditing {
+			// MARK: - In case of button press all previous actions on edit will cease
+			self.emailField.endEditing(true)
 			self.passwordField.endEditing(true)
 		}
-	}
-	
-	// MARK: - By return button transits to password if currently on email field, and makes password field inactive if pressed in password field
-	
-	func textFieldShouldReturn(_ textField: CustomTextFieldWithPopOverInfoBox) -> Bool {
 		
-		if textField == emailField {
-			passwordField.becomeFirstResponder()
-		} else if textField == passwordField {
-			passwordField.resignFirstResponder()
+		// MARK: - By return button transits to password if currently on email field, and makes password field inactive if pressed in password field
+		
+		func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+			
+			if textField == emailField {
+				
+				passwordField.becomeFirstResponder()
+				
+			} else if textField == passwordField {
+				
+				passwordField.resignFirstResponder()
+				
+			}
+			
+			return true
+			
 		}
 		
-		return true
-		
-	}
-	
 }
 

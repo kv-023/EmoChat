@@ -15,6 +15,3 @@
 //log-in screen
 "llog-in-error.aapp.regex-check.email" = "Correct email form is 'name@email.com'";
 "llog-in-error.aapp.regex-check.password" = "Password should contain minimum 6 characters!";
-
-//test string
-"bla-bla-bla" = "pam-tam-param";

@@ -8,90 +8,99 @@
 
 import UIKit
 
-class OptionsChangeEmailTableViewController: UITableViewController {
+class OptionsChangeEmailTableViewController: UITableViewController, RegexCheckProtocol {
     
     @IBOutlet weak var changeEmailTextField: UITextField!
-
+    
+    @IBOutlet weak var infoLabel: UILabel!
+    
+    var manager: ManagerFirebase?
+    
+    
+    var emailValid = false {
+        didSet {
+            if !emailValid {
+                infoLabel.printError(errorText: NSLocalizedString("Enter valid email", comment: "Valid email warning"))
+            } else {
+                infoLabel.printOK(okText: NSLocalizedString("Email", comment: "Email without warning"))
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        
+        
+        //create a right save button and add it to vc
+        
+        
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    func saveEmail(sender: UIBarButtonItem) {
+        
+        //ad some action
+        
+        
+        //back to previous vc
+        
+        if let navController = self.navigationController {
+            navController.popViewController(animated: true)
+        }
     }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+    
+    @IBAction func changeEmailAction(_ sender: Any) {
+        print ("nihao chiba email")
+        
+        
+        
+        
+        
+        
+        
+        
+        var success = true, unique = true
+        
+        if changeEmailTextField.text == "" {
+            infoLabel.printError(errorText: NSLocalizedString("Enter email", comment: "Empty email"))
+            changeEmailTextField.redBorder()
+            success = false
+        }
+        if success
+            && emailValid {
+            
+            
+            print("Vdalo vdalo vdalo")
+            
+//            manager?.changeUsersEmail(email: changeEmailTextField.text!){
+//                result in
+//                switch result {
+//                case .success:
+//                    print("Vdalo")
+//                case .failure(let error):
+//                    self.infoLabel.text = error
+//                default:
+//                    break
+//            }
+            
+        }
+        
+        
+            
+            
+            
+            
     }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
-    }
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    
+    
 
 }
+
+
+
+
+
+
+
+
+
