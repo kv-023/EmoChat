@@ -28,7 +28,10 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
         
         manager = ManagerFirebase.shared
         
-        
+        let  iii = UIImage.init(named: "background.png")
+        let s = iii?.size.height
+        print(s)
+
         manager.getUserPicFullResolution(from: "userPics/ihn570HNGkY600i6ZUICS6YrqkQ2/519124722475.jpg") {
             result in
             switch result {
@@ -85,10 +88,10 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
             logoCell.conversTitle.text = "Conversation title"
             logoCell.conversLogo.clipsToBounds = true
             logoCell.conversLogo.layer.cornerRadius =  logoCell.conversLogo.frame.size.height / 2
-            //logoCell.conversLogo.contentMode = .scaleAspectFit
+            logoCell.conversLogo.contentMode = .scaleAspectFill
          //   logoCell.conversLogo.image = UIImage.init(named: "1.png")
             
-            let arrray: [UIImage] = [UIImage.init(named: "111.jpg")!, UIImage.init(named: "111.jpg")!, UIImage.init(named: "111.jpg")!/*, UIImage.init(named: "1.png")!, UIImage.init(named: "5.png")!, UIImage.init(named: "6.png")!*/]
+            let arrray: [UIImage] = [UIImage.init(named: "111.jpg")!, UIImage.init(named: "111.jpg")!/*, UIImage.init(named: "111.jpg")!, UIImage.init(named: "111.jpg")!, UIImage.init(named: "5.png")!, UIImage.init(named: "6.png")!*/]
         
             
             
@@ -269,51 +272,26 @@ func loadNewLogo(tapGestureRecognizer: UITapGestureRecognizer) {
 func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
     
     guard let chosenImage = info[UIImagePickerControllerEditedImage] as? UIImage else { return }
+    UIGraphicsBeginImageContext(CGSize(width: 100, height: 100))
     
-   
+   chosenImage.draw(in: CGRect(x: 0, y: 0, width: 100, height: 100))
+    let imgg = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    
+    
     logoCell.conversLogo.clipsToBounds = true
-    logoCell.conversLogo.image = chosenImage
-    
-    //add image to firebase
+    logoCell.conversLogo.image = imgg
     
     
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    /*
-     guard let chosenImageData = UIImageJPEGRepresentation(chosenImage, 1) else { return }
-     
-     //create reference
-     
-     let imagePath = Auth.auth().currentUser!.uid + "/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
-     
-     let metaData = StorageMetadata()
-     metaData.contentType = "image/jpeg"
-     
-     //add to firebase
-     
-     self.storageRef.child(imagePath).putData(chosenImageData, metadata: metaData) { (metaData, error) in
-     
-     if let error = error {
-     print("Error uploading: \(error)")
-     return
-     }
-     
-     
-     
-     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-     
-     
-     
-     //            dissmiss image picker
-     */
-    self.dismiss(animated:true, completion: nil)
+    var imageHeight = imgg?.size.height
+    var imageWidth = imgg?.size.width
+    
+    print ("QQQQQQQQQQQQ ======= \(imageHeight)")
+    //print (imageWidth)
+    
+    print(imgg as Any)
+    
+       self.dismiss(animated:true, completion: nil)
 }
 
 
