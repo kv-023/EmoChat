@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		35C9507D1EF7D791006FA7E6 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C9507C1EF7D791006FA7E6 /* UIImageExtension.swift */; };
+		35E79C561EFA71F1006E98C9 /* LogoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E79C551EFA71F1006E98C9 /* LogoTableViewCell.swift */; };
+		35E79C581EFA8AC3006E98C9 /* 111.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 35E79C571EFA8AC3006E98C9 /* 111.jpg */; };
 		3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3938C26F1EDC27C700D69F88 /* AppDelegate.swift */; };
 		3938C2721EDC27C700D69F88 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3938C2711EDC27C700D69F88 /* ViewController.swift */; };
 		3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2731EDC27C700D69F88 /* Main.storyboard */; };
@@ -60,6 +62,8 @@
 
 /* Begin PBXFileReference section */
 		35C9507C1EF7D791006FA7E6 /* UIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
+		35E79C551EFA71F1006E98C9 /* LogoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoTableViewCell.swift; sourceTree = "<group>"; };
+		35E79C571EFA8AC3006E98C9 /* 111.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 111.jpg; path = ../../../../Desktop/111.jpg; sourceTree = "<group>"; };
 		3938C26C1EDC27C700D69F88 /* EmoChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmoChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3938C26F1EDC27C700D69F88 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3938C2711EDC27C700D69F88 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -135,6 +139,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		35E79C541EFA71D7006E98C9 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				35E79C551EFA71F1006E98C9 /* LogoTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		3938C2631EDC27C700D69F88 = {
 			isa = PBXGroup;
 			children = (
@@ -165,6 +177,7 @@
 				3938C2711EDC27C700D69F88 /* ViewController.swift */,
 				3938C2731EDC27C700D69F88 /* Main.storyboard */,
 				3938C2761EDC27C700D69F88 /* Assets.xcassets */,
+				35E79C571EFA8AC3006E98C9 /* 111.jpg */,
 				3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */,
 				3938C27B1EDC27C700D69F88 /* Info.plist */,
 				ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */,
@@ -267,6 +280,7 @@
 		F508422D1EF427A600C24EDE /* ChatSettingsTableViewController */ = {
 			isa = PBXGroup;
 			children = (
+				35E79C541EFA71D7006E98C9 /* Cell */,
 				F5E3393F1EF6DA5500D224BF /* ChatSettingsTableViewController.swift */,
 			);
 			path = ChatSettingsTableViewController;
@@ -407,6 +421,7 @@
 				FB982DDC1EE1569700AC2FCD /* SingleConversation.storyboard in Resources */,
 				FB982DD71EE1569700AC2FCD /* Conversations.storyboard in Resources */,
 				E7B926F21EF1487B0018F5FF /* PopOverVC.xib in Resources */,
+				35E79C581EFA8AC3006E98C9 /* 111.jpg in Resources */,
 				FB982DD91EE1569700AC2FCD /* Options.storyboard in Resources */,
 				E7883F3B1EF1C2DA00E876CC /* Localizable.strings in Resources */,
 				3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */,
@@ -503,6 +518,7 @@
 				E7352C3A1EE81CB60095264E /* RegexCheckProtocol.swift in Sources */,
 				3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */,
 				E7352C381EE81B790095264E /* ControllerHelper.swift in Sources */,
+				35E79C561EFA71F1006E98C9 /* LogoTableViewCell.swift in Sources */,
 				E7B926F41EF1487B0018F5FF /* UIColorHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

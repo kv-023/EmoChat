@@ -243,7 +243,7 @@ class ManagerFirebase {
     /*
      Generate array of conversation without messages from snapshot
      */
-    private func getConversetionsFromSnapshot (_ value: NSDictionary?, accordingTo arrayID: [String], currentUserEmail email: String) -> [Conversation] {
+    func getConversetionsFromSnapshot (_ value: NSDictionary?, accordingTo arrayID: [String], currentUserEmail email: String) -> [Conversation] {
         var conversations = [Conversation]()
         
         for eachConv in arrayID {
