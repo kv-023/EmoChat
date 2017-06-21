@@ -73,7 +73,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="kBM-hl-kZF" kind="show" id="NLX-Ug-SmY"/>
+                                            <segue destination="kBM-hl-kZF" kind="show" identifier="showPhotoAndName" id="NLX-Ug-SmY"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -185,7 +185,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="Ne3-0g-hLd" kind="show" id="709-9D-iif"/>
+                                            <segue destination="Ne3-0g-hLd" kind="show" identifier="showEmail" id="709-9D-iif"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -302,11 +302,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OTd-Z7-RXc">
-                            <rect key="frame" x="0.0" y="229" width="375" height="44"/>
+                        <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Information about name and photo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OTd-Z7-RXc">
+                            <rect key="frame" x="0.0" y="229" width="375" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <sections>
@@ -329,6 +329,7 @@
                                                             <textInputTraits key="textInputTraits"/>
                                                             <connections>
                                                                 <action selector="firstNameChanged:" destination="kBM-hl-kZF" eventType="editingChanged" id="MpJ-XJ-vyX"/>
+                                                                <outlet property="delegate" destination="kBM-hl-kZF" id="jkj-Sq-pkK"/>
                                                             </connections>
                                                         </textField>
                                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Second Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wry-yp-yhp">
@@ -338,6 +339,7 @@
                                                             <textInputTraits key="textInputTraits"/>
                                                             <connections>
                                                                 <action selector="lastNameChanged:" destination="kBM-hl-kZF" eventType="editingChanged" id="wBP-To-chm"/>
+                                                                <outlet property="delegate" destination="kBM-hl-kZF" id="s1Z-zl-IVJ"/>
                                                             </connections>
                                                         </textField>
                                                     </subviews>
@@ -428,11 +430,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Info about phone number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="POu-vl-Tl4">
-                            <rect key="frame" x="0.0" y="117.5" width="375" height="44"/>
+                        <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Info about phone number" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="POu-vl-Tl4">
+                            <rect key="frame" x="0.0" y="117.5" width="375" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <sections>
@@ -451,9 +453,9 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                                     <connections>
-                                                        <action selector="phoneNumberChanged:" destination="mZU-ok-4pv" eventType="editingChanged" id="UaO-4F-7zB"/>
-                                                        <action selector="phoneNumberEditingDidBegin:" destination="mZU-ok-4pv" eventType="editingDidBegin" id="v8h-ne-IIR"/>
-                                                        <action selector="phoneNumberEditingDidEnd:" destination="mZU-ok-4pv" eventType="editingDidEnd" id="8nW-DY-nyH"/>
+                                                        <action selector="phoneNumberEdited:" destination="mZU-ok-4pv" eventType="editingChanged" id="uJz-4Y-bvz"/>
+                                                        <action selector="phoneNumberEditingDidBegin:" destination="mZU-ok-4pv" eventType="editingDidBegin" id="CCA-zY-0U9"/>
+                                                        <action selector="phoneNumberEditingDidEnd:" destination="mZU-ok-4pv" eventType="editingDidEnd" id="7yH-JQ-E50"/>
                                                         <outlet property="delegate" destination="mZU-ok-4pv" id="zDG-vv-KBB"/>
                                                     </connections>
                                                 </textField>
@@ -475,7 +477,7 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <outlet property="changeNumberTextField" destination="lqs-L4-NsD" id="rB3-Do-ldz"/>
+                        <outlet property="changeNumberTextField" destination="lqs-L4-NsD" id="7bv-J9-lIV"/>
                         <outlet property="infoLabel" destination="POu-vl-Tl4" id="6Jd-jZ-pSi"/>
                     </connections>
                 </tableViewController>
@@ -483,25 +485,23 @@
             </objects>
             <point key="canvasLocation" x="4104.8000000000002" y="-145.27736131934034"/>
         </scene>
-        <!--Options Change User Name Table View Controller-->
+        <!--Options Change Username Table View Controller-->
         <scene sceneID="xx3-9S-SF7">
             <objects>
-                <tableViewController id="pBm-Yw-aSi" customClass="OptionsChangeUserNameTableViewController" customModule="EmoChat" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="pBm-Yw-aSi" customClass="OptionsChangeUsernameTableViewController" customModule="EmoChat" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="k0k-F7-Fk8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Tdq-WK-Kic">
-                            <rect key="frame" x="0.0" y="191.5" width="375" height="159"/>
+                        <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Info about username" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Tdq-WK-Kic">
+                            <rect key="frame" x="0.0" y="131.5" width="375" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <string key="text">You can choose a username on Emochat. If you do, other people will be able to find you by this username and contact you without knowing your phone number. You can use a-z, 0-9 and underscores.</string>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <sections>
                             <tableViewSection headerTitle="Change your username" id="M7E-As-08f">
-                                <string key="footerTitle">You can choose a username on Emochat. If you do, other people will be able to find you by this username and contact you without knowing your phone number. You can use a-z, 0-9 and underscores.</string>
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="58" id="k2m-0n-tTk">
                                         <rect key="frame" x="0.0" y="56" width="375" height="58"/>
@@ -516,7 +516,8 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
-                                                        <action selector="usernameEdited:" destination="pBm-Yw-aSi" eventType="editingChanged" id="1XB-wL-1SF"/>
+                                                        <action selector="usernameEdited:" destination="pBm-Yw-aSi" eventType="editingChanged" id="HqP-Uw-0HI"/>
+                                                        <outlet property="delegate" destination="pBm-Yw-aSi" id="sNJ-Y2-ykz"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -537,13 +538,13 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <outlet property="changeUserNameTextField" destination="hWM-bm-EKQ" id="Mkw-Me-5Pt"/>
-                        <outlet property="infoLabel" destination="Tdq-WK-Kic" id="cmi-SK-VQn"/>
+                        <outlet property="changeUsernameTextField" destination="hWM-bm-EKQ" id="8N6-Mx-Pmz"/>
+                        <outlet property="infoLabel" destination="Tdq-WK-Kic" id="wBj-rw-SgL"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vr9-q1-hEN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4104.8000000000002" y="518.59070464767615"/>
+            <point key="canvasLocation" x="4104.8000000000002" y="517.6911544227886"/>
         </scene>
         <!--Options Change Email Table View Controller-->
         <scene sceneID="6Jk-2M-eQk">
@@ -553,15 +554,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="biU-5h-oqz">
-                            <rect key="frame" x="0.0" y="217.5" width="375" height="44"/>
+                        <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Information about email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="biU-5h-oqz">
+                            <rect key="frame" x="0.0" y="131.5" width="375" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <sections>
-                            <tableViewSection headerTitle="Enter your email address" footerTitle="Your email address will be changed if you verify your new email by entering the pass-code." id="emi-rF-uy2">
+                            <tableViewSection headerTitle="Enter your email address" id="emi-rF-uy2">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="58" id="bgz-DR-aOd">
                                         <rect key="frame" x="0.0" y="56" width="375" height="58"/>
@@ -570,11 +571,15 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="57"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="olai.white.1996@gmail.com" placeholder="Email Address" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CUU-vZ-7Mh">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email Address" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CUU-vZ-7Mh">
                                                     <rect key="frame" x="15" y="8" width="360" height="42"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="emailEdited:" destination="Ne3-0g-hLd" eventType="editingChanged" id="TnE-k4-2Cj"/>
+                                                        <outlet property="delegate" destination="Ne3-0g-hLd" id="B7J-6m-Et4"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -585,32 +590,6 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="58" id="lJ2-0W-5xq">
-                                        <rect key="frame" x="0.0" y="114" width="375" height="58"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lJ2-0W-5xq" id="m8F-th-blV">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="57"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1iz-ve-iDY">
-                                                    <rect key="frame" x="23" y="8" width="344" height="41.5"/>
-                                                    <state key="normal" title="Change email"/>
-                                                    <connections>
-                                                        <action selector="changeEmailAction:" destination="Ne3-0g-hLd" eventType="touchUpInside" id="jK6-ft-MPW"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="1iz-ve-iDY" firstAttribute="leading" secondItem="m8F-th-blV" secondAttribute="leadingMargin" constant="15" id="7OS-cX-zcS"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="1iz-ve-iDY" secondAttribute="trailing" id="S1x-bP-EKb"/>
-                                                <constraint firstItem="1iz-ve-iDY" firstAttribute="top" secondItem="m8F-th-blV" secondAttribute="topMargin" id="Urr-vY-jt7"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="1iz-ve-iDY" secondAttribute="bottom" id="VvX-BN-sFg"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="NNJ-U7-dzq" kind="show" id="p51-yo-pfB"/>
-                                        </connections>
-                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -620,7 +599,7 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <outlet property="changeEmailTextField" destination="CUU-vZ-7Mh" id="qUZ-BB-fcD"/>
+                        <outlet property="changeEmailTextField" destination="CUU-vZ-7Mh" id="fqX-nD-dRE"/>
                         <outlet property="infoLabel" destination="biU-5h-oqz" id="Hbe-7V-4aM"/>
                     </connections>
                 </tableViewController>
