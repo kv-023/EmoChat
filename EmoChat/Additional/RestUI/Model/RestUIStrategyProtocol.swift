@@ -12,7 +12,7 @@ protocol RestUIStrategy {
     var apiKey:String {get}
     var httpAdress:String {get}
 
-    func showData(_ string: String) -> String
+    func getData(forUrl urlResource:String) -> String
     func getLinkForResponse(forUrl urlResource:String) -> String
 }
 

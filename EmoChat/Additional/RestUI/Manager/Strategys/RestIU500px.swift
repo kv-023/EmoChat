@@ -20,7 +20,7 @@ final class RestIU500px : RestUIStrategy {
     }
 
     //RestUIStrategy's protocol implementation
-    func showData(_ string: String) -> String {
+    func getData(forUrl urlResource:String) -> String {
         return ""
     }
 

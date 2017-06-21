@@ -47,7 +47,8 @@ class TableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "prototypeCell", for: indexPath) as! TableViewCell
 
 
-        dataRequest()
+        //dataRequest()
+        testDadaRequest()
 
 
         return cell
@@ -59,47 +60,52 @@ class TableViewController: UITableViewController {
 
     }
 
-
-    //MARK:- Get Jddd
-
-    let urlToRequest: String = "https://urlembed.com/json/WDYyREZLSlU2TUk0Qlk2V0xMUklYM01JS0M1VUxJREZXVDZMUU1IQ0tXREhCN0s1TURGQT09PT0=/https://9gag.com/gag/aoOmXeA"
-
-
-    func dataRequest() {
-
-        //---------------
-        let url = URL(string: urlToRequest)
-        if let usableUrl = url {
-            let request = URLRequest(url: usableUrl)
-
-            let configuration = URLSessionConfiguration.default
-            let sharedSession = URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
-
-            let task = sharedSession.dataTask(with: request, completionHandler: { (data, response, error) in
-
-                if let content = data {
-                    do {
-                        let myJson = try JSONSerialization.jsonObject(with: content, options: JSONSerialization.ReadingOptions.mutableContainers) as AnyObject
-
-                        if let type = myJson["type"] as? NSDictionary {
-                            print (type)
-
-                        }
-                    }
-                    catch {
-
-                    }
-
-                }
-                if error != nil {
-                    print (error?.localizedDescription ?? "sm. error occured")
-                }
-            })
-
-            task.resume()
-        }
-
+    func testDadaRequest() {
+         RestUIStrategyManager.instance.getDataFromURL(dataForParse: RestUIUrlembed(),
+                                                       forUrl: "https://9gag.com/gag/aoOmXeA")
     }
+
+
+//    //MARK:- Get Jddd
+//
+//    let urlToRequest: String = "https://urlembed.com/json/WDYyREZLSlU2TUk0Qlk2V0xMUklYM01JS0M1VUxJREZXVDZMUU1IQ0tXREhCN0s1TURGQT09PT0=/https://9gag.com/gag/aoOmXeA"
+//
+//
+//    func dataRequest() {
+//
+//        //---------------
+//        let url = URL(string: urlToRequest)
+//        if let usableUrl = url {
+//            let request = URLRequest(url: usableUrl)
+//
+//            let configuration = URLSessionConfiguration.default
+//            let sharedSession = URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
+//
+//            let task = sharedSession.dataTask(with: request, completionHandler: { (data, response, error) in
+//
+//                if let content = data {
+//                    do {
+//                        let myJson = try JSONSerialization.jsonObject(with: content, options: JSONSerialization.ReadingOptions.mutableContainers) as AnyObject
+//
+//                        if let type = myJson["type"] as? NSDictionary {
+//                            print (type)
+//
+//                        }
+//                    }
+//                    catch {
+//
+//                    }
+//
+//                }
+//                if error != nil {
+//                    print (error?.localizedDescription ?? "sm. error occured")
+//                }
+//            })
+//
+//            task.resume()
+//        }
+//
+//    }
 }
 
 extension TableViewController: URLSessionDelegate {

@@ -10,9 +10,9 @@ import Foundation
 
 class RestUIStrategyManager {
     static var instance = RestUIStrategyManager()
-    private lazy var urlembedStrategy: RestUIStrategy = {
-        return UrlParserFactory.urlparser(for: .urlembed)
-    }()
+//    private lazy var urlembedStrategy: RestUIStrategy = {
+//        return UrlParserFactory.urlparser(for: .urlembed)
+//    }()
 
 //    private var currentOrderId: Int
 
@@ -30,10 +30,12 @@ class RestUIStrategyManager {
 //        return order
 //    }
 
-    func showData(dataForParse parsersData: RestUIStrategy) -> Bool {
+    func getDataFromURL(dataForParse parsersData: RestUIStrategy,
+                        forUrl urlForRequest:String) -> Bool {
         switch parsersData.strategyType {
         case .urlembed:
-            return false//urlembedStrategy.fulfillOrder(order)
+            let RRR = parsersData.getData(forUrl: urlForRequest)
+            return false
         case .s500px:
             return false//partsnstuffStrategy.fulfillOrder(order)
 //        case .European:
@@ -43,16 +45,16 @@ class RestUIStrategyManager {
 }
 
 
-//MARK: Factory method
-enum UrlParserFactory {
-    static func urlparser(for perserType:UrlParserResourseType) -> RestUIStrategy {
-        switch perserType {
-        case .urlembed :
-            return RestUIUrlembed()
-        case .s500px :
-            return RestIU500px()
-            //        default:
-            //            return nil
-        }
-    }
-}
+////MARK: Factory method
+//enum UrlParserFactory {
+//    static func urlparser(for perserType:UrlParserResourseType) -> RestUIStrategy {
+//        switch perserType {
+//        case .urlembed :
+//            return RestUIUrlembed()
+//        case .s500px :
+//            return RestIU500px()
+//            //        default:
+//            //            return nil
+//        }
+//    }
+//}
