@@ -309,55 +309,56 @@ class ViewController: UIViewController {
     @IBAction func buttonSignUp(_ sender: UIButton) {
         if Auth.auth().currentUser != nil {
             self.performSegue(withIdentifier: "singleConversation", sender: self)
-        }
-        if emailTextField.text != "" && passwordTextField.text != "" {
-            if segmentControl.selectedSegmentIndex == 0 {    // login
-                
-               
-                Auth.auth().signIn(withEmail: emailTextField.text!,
-                                   password: passwordTextField.text!,
-                                   completion: { (user, error) in
-                                    if user != nil && (user?.isEmailVerified)! {
-                                        self.hintsLabel.text = ("success! you are in")
-                                        
-                                                ManagerFirebase.shared.getCurrentUser { result in
-                                                    switch (result) {
-                                                    case .successSingleUser(let user):
-                                                        ArchiverManager.shared.saveData(user: user)
-                                                    case .failure(let error):
-                                                        print(error)
-                                                        break
-                                                    default:
-                                                        break
-                                                    }
-                                                }
-                                        self.performSegue(withIdentifier: "singleConversation", sender: self)
-                                        
-                                    } else {
-                                        if let myError = error?.localizedDescription {
-                                            self.hintsLabel.text = myError
-                                        } else {
-                                            self.hintsLabel.text = ("confirm your e-mail")
-                                        }
-                                    }
-                })
-                
-            } else {    // sign up
-                Auth.auth().createUser(withEmail: emailTextField.text!,
+        } else {
+            if emailTextField.text != "" && passwordTextField.text != "" {
+                if segmentControl.selectedSegmentIndex == 0 {    // login
+                    
+                    
+                    Auth.auth().signIn(withEmail: emailTextField.text!,
                                        password: passwordTextField.text!,
                                        completion: { (user, error) in
-                                        
-                                        if user != nil {
-                                            user?.sendEmailVerification(completion: nil) // send verification email
-                                            self.hintsLabel.text = ("success")
+                                        if user != nil && (user?.isEmailVerified)! {
+                                            self.hintsLabel.text = ("success! you are in")
+                                            
+                                            ManagerFirebase.shared.getCurrentUser { result in
+                                                switch (result) {
+                                                case .successSingleUser(let user):
+                                                    ArchiverManager.shared.saveData(user: user)
+                                                case .failure(let error):
+                                                    print(error)
+                                                    break
+                                                default:
+                                                    break
+                                                }
+                                            }
+                                            self.performSegue(withIdentifier: "singleConversation", sender: self)
+                                            
                                         } else {
                                             if let myError = error?.localizedDescription {
                                                 self.hintsLabel.text = myError
                                             } else {
-                                                self.hintsLabel.text = ("Something went wrong")
+                                                self.hintsLabel.text = ("confirm your e-mail")
                                             }
                                         }
-                })
+                    })
+                    
+                } else {    // sign up
+                    Auth.auth().createUser(withEmail: emailTextField.text!,
+                                           password: passwordTextField.text!,
+                                           completion: { (user, error) in
+                                            
+                                            if user != nil {
+                                                user?.sendEmailVerification(completion: nil) // send verification email
+                                                self.hintsLabel.text = ("success")
+                                            } else {
+                                                if let myError = error?.localizedDescription {
+                                                    self.hintsLabel.text = myError
+                                                } else {
+                                                    self.hintsLabel.text = ("Something went wrong")
+                                                }
+                                            }
+                    })
+                }
             }
         }
     }
