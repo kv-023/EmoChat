@@ -375,8 +375,7 @@ class ManagerFirebase {
 
         
     //MARK: Create conversation logo
-        
-        func createLogo (selectedUsers: [User]) -> UIImage {
+   func createLogo (selectedUsers: [User]) -> UIImage {
             var array = [UIImage]()
             
             for user in selectedUsers {
