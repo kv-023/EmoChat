@@ -8,7 +8,19 @@
 
 import UIKit
 
-class SenderCell: UITableViewCell {
+class LeftCell: UITableViewCell {
+
+    @IBOutlet weak var userPic: UIImageView!
+    @IBOutlet weak var time: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var message: UITextView!
+    @IBOutlet weak var background: UIImageView!
+    
+    var messageEntity: Message? {
+        didSet {
+            message.text = messageEntity!.content!.content
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,7 +35,18 @@ class SenderCell: UITableViewCell {
 
 }
 
-class ReceiverCell: UITableViewCell {
+class RightCell: UITableViewCell {
+    
+    @IBOutlet weak var userPic: UIImageView!
+    @IBOutlet weak var time: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var message: UITextView!
+    
+    var messageEntity: Message? {
+        didSet {
+            message.text = messageEntity!.content!.content
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
