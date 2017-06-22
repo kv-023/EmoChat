@@ -23,3 +23,9 @@ enum UrlParserResourseType: Int {
     case urlembed = 0//, s500px
 }
 
+//MARK:- Strategy data model
+protocol ParserDataModel {
+
+}
+
+

@@ -6,5 +6,6 @@
 //  Copyright © 2017 SoftServe. All rights reserved.
 //
 
-typealias CompletionModel = (_ urlModel: UrlembedModel?) -> Void
+typealias CompletionModel = (_ urlModel: ParserDataModel?) -> Void
 typealias JsonDataType = [String: AnyObject]
+typealias MessageURLDataType = [String: ParserDataModel?]

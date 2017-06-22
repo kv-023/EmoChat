@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class UrlembedModel {
+final class UrlembedModel: ParserDataModel {
 
     var type: String?
     var language: String?
@@ -16,7 +16,7 @@ final class UrlembedModel {
     var provider_name: String?
     var title: String?
     var description: String?
-    var url: String? //{get {return self.url}}
+    var url: String?
     var height: Int?
     var width: Int?
     var html: String?
@@ -28,25 +28,25 @@ final class UrlembedModel {
     var version: Float?
 
     init(json jsonData: JsonDataType) {
-         type = jsonData["type"] as? String
-         language = jsonData["language"] as? String
-         favicon = jsonData["favicon"] as? String
-         provider_name = jsonData["provider_name"] as? String
-         title = jsonData["title"] as? String
-         description = jsonData["description"] as? String
-         url = jsonData["url"] as? String
-         height = jsonData["height"] as? Int
-         width = jsonData["width"] as? Int
-         html = jsonData["html"] as? String
-         content = jsonData["content"] as? String
-         text = jsonData["text"] as? String
-         keywords = getaJsonDataFromArray(data: jsonData["keywords"] as? [String])
-         links = getaJsonDataFromArray(data: jsonData["links"] as? [String])
-         date = jsonData["date"] as? Float
-         version = jsonData["version"] as? Float
+        type = jsonData["type"] as? String
+        language = jsonData["language"] as? String
+        favicon = jsonData["favicon"] as? String
+        provider_name = jsonData["provider_name"] as? String
+        title = jsonData["title"] as? String
+        description = jsonData["description"] as? String
+        url = jsonData["url"] as? String
+        height = jsonData["height"] as? Int
+        width = jsonData["width"] as? Int
+        html = jsonData["html"] as? String
+        content = jsonData["content"] as? String
+        text = jsonData["text"] as? String
+        keywords = getJsonDataFromArray(data: jsonData["keywords"] as? [String])
+        links = getJsonDataFromArray(data: jsonData["links"] as? [String])
+        date = jsonData["date"] as? Float
+        version = jsonData["version"] as? Float
     }
 
-    private func getaJsonDataFromArray(data jsonData: [String]?) -> [String]? {
+    private func getJsonDataFromArray(data jsonData: [String]?) -> [String]? {
         var arrayForReturn: [String] = []
 
         if let notNullJsonData = jsonData {

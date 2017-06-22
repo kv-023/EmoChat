@@ -53,7 +53,7 @@ final class RestUIUrlembed: RestUIStrategy {
                  completion:@escaping CompletionModel) {
 
         _ = getJsonData(forUrl: urlResource) {
-            (urlModel: UrlembedModel?) in
+            (urlModel: ParserDataModel?) in
 
             completion(urlModel)
         }

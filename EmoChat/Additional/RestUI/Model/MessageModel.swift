@@ -9,15 +9,16 @@
 import Foundation
 
 class MessageModel: RegexCheckProtocol {
-    typealias MessageURLDataType = [String:UrlembedModel?]
 
     var message:Message?
-    var messageURLData: MessageURLDataType
+    var messageURLData: MessageURLDataType {
+        didSet {
+            for (key3, value3) in messageURLData {
+                print("key: \(key3), value:\(String(describing: value3))")
+            }
+        }
+    }
 
-    //    fileprivate let concurrentMessageQueue =
-    //        DispatchQueue(
-    //            label: "com.softserve.EmoChat.messageModelQueue",
-    //            attributes: .concurrent)
 
     //get data from model
     var senderId: String {
@@ -48,26 +49,33 @@ class MessageModel: RegexCheckProtocol {
 
     //prepare data for conversation cell
     func getParseDataFromResource() {
-        let queue = DispatchQueue(label: "com.softserve.EmoChat.messageModelQueue",attributes: .concurrent)
 
-        queue.sync {
+        DispatchQueue.global(qos: .userInitiated).async {
+
             var tempMessageURLData: MessageURLDataType = [:]
+            let downloadGroup = DispatchGroup()
+
             let arrayOfLinks = self.getArrayOfRegexMatchesForURLInText(text: self.messageText)
 
             for urlLink in arrayOfLinks {
-
+                downloadGroup.enter()
                 RestUIStrategyManager.instance.getDataFromURL(dataType: .urlembed,
                                                               forUrl: urlLink)
                 { (urlModel) in
                     tempMessageURLData.updateValue(urlModel,
-                                                    forKey: urlLink)
+                                                   forKey: urlLink)
+
+                    downloadGroup.leave()
                 }
             }
+
+            downloadGroup.wait()
 
             DispatchQueue.main.async {
                 self.messageURLData = tempMessageURLData
             }
-        } //queue.sync
+            
+        }
         
     }
     
