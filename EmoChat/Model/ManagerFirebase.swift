@@ -372,22 +372,27 @@ class ManagerFirebase {
         }
     }
     
-    
-    func createConversationLogo (selectedUsers: [User]) -> UIImage {
+
         
-        var avatarArray = [UIImage]()
+    //MARK: Create conversation logo
         
-        for user in selectedUsers {
-            avatarArray.append(UIImage.imageFromURL(stringImageUrl: user.photoURL!))
+        func createLogo (selectedUsers: [User]) -> UIImage {
+            var array = [UIImage]()
+            
+            for user in selectedUsers {
+                self.getUserPic(from: user.photoURL!, result: { (result) in
+                    switch result {
+                    case let .successUserPic(img):
+                        array.append(img)
+                    default: print("Error")
+                    }
+                })
+            }
+            let finalImage = UIImage.createFinalImg(logoImages: array)
+            
+            return finalImage
         }
         
-        let finalImage = UIImage.createFinalImg(logoImages: avatarArray)
-        
-        
-        
-        return finalImage
-    }
-    
     
     //MARK: Update profile
     func changeInfo (phoneNumber: String?, firstName: String?, secondName: String?, result: @escaping (UserOperationResult) -> Void) {
