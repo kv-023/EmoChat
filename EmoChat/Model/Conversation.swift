@@ -26,12 +26,13 @@ class Conversation {
         
     }
     
-    init(conversationId: String, usersInConversation: [User], messagesInConversation: [Message]?, lastMessage: Message?, lastMessageTimeStamp: Date) {
+    init(conversationId: String, usersInConversation: [User], messagesInConversation: [Message]?, lastMessage: Message?, lastMessageTimeStamp: Date, name: String?) {
         self.lastMessage = lastMessage
         self.uuid = conversationId
         self.usersInConversation = usersInConversation
         self.messagesInConversation = messagesInConversation
         self.lastMessageTimeStamp = lastMessageTimeStamp
+        self.name = name
     }
     
 //    init?(conversationId: String, usersInConversation: [User], messagesInConversation: [Message]?, lastMessage: Message?) {
