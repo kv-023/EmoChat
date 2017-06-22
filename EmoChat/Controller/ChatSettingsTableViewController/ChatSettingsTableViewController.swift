@@ -86,8 +86,8 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
             
             logoCell.conversTitle.text = "Conversation title"
             logoCell.conversLogo.clipsToBounds = true
-            logoCell.conversLogo.layer.cornerRadius =  logoCell.conversLogo.frame.size.height / 2
-            logoCell.conversLogo.contentMode = .scaleAspectFill
+            //logoCell.conversLogo.layer.cornerRadius =  logoCell.conversLogo.frame.size.height / 2
+            logoCell.conversLogo.contentMode = .scaleAspectFit
          //   logoCell.conversLogo.image = UIImage.init(named: "1.png")
             
             let arrray: [UIImage] = [UIImage.init(named: "1.png")!, UIImage.init(named: "1.png")!/*, UIImage.init(named: "111.jpg")!, UIImage.init(named: "111.jpg")!, UIImage.init(named: "5.png")!, UIImage.init(named: "6.png")!*/]
