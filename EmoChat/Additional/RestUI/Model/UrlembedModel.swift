@@ -16,7 +16,7 @@ final class UrlembedModel {
     var provider_name: String?
     var title: String?
     var description: String?
-    var url: String?
+    var url: String? //{get {return self.url}}
     var height: Int?
     var width: Int?
     var html: String?
@@ -40,18 +40,18 @@ final class UrlembedModel {
          html = jsonData["html"] as? String
          content = jsonData["content"] as? String
          text = jsonData["text"] as? String
-         keywords = getaJsonDataFromArray(data: jsonData["keywords"] as? [JsonDataType])
-         links = getaJsonDataFromArray(data: jsonData["links"] as? [JsonDataType])
+         keywords = getaJsonDataFromArray(data: jsonData["keywords"] as? [String])
+         links = getaJsonDataFromArray(data: jsonData["links"] as? [String])
          date = jsonData["date"] as? Float
          version = jsonData["version"] as? Float
     }
 
-    private func getaJsonDataFromArray(data jsonData: [JsonDataType]?) -> [String]? {
+    private func getaJsonDataFromArray(data jsonData: [String]?) -> [String]? {
         var arrayForReturn: [String] = []
 
         if let notNullJsonData = jsonData {
             for itemInArray in notNullJsonData {
-                //arrayForReturn.append((itemInArray ?? "") as? String)
+                arrayForReturn.append(itemInArray)
             }
         }
 
