@@ -11,17 +11,31 @@ import UIKit
 class ConversationsController: UITableViewController {
         
     // MARK: - properties
-    let conversationDataSource = ConversationsDataSource()
+    let conversationsDataSource = ConversationsDataSource()
     
     // MARK: - ViewController lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        tableView.dataSource = conversationsDataSource
         
+        conversationsDataSource.updateTableView {
+            print(self.conversationsDataSource.currentUser.userConversations?.count)
+            self.tableView.reloadData()
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
+        //download conversations ???
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         
-        tableView.dataSource = conversationDataSource
-        conversationDataSource.tmp()
-    }    
+        //change conversations size to 20
+    }
 }
 
 

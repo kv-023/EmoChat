@@ -53,7 +53,7 @@ class SearchUsersViewController: UITableViewController {
             }
         }
         
-        let createConversationButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createConversationAction(_:)))
+        let createConversationButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(createConversationAction(_:)))
         
         self.navigationItem.rightBarButtonItem = createConversationButton
         createConversationButton.isEnabled = false
@@ -206,7 +206,6 @@ extension SearchUsersViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         if let searchText = searchController.searchBar.text {
             filterContent(for: searchText, scope: searchType)
-            //tableView.reloadData()
         }
     }
 }
