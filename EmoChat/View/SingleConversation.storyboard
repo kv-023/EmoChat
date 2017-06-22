@@ -136,17 +136,16 @@
                                 <rect key="frame" x="0.0" y="624" width="375" height="43"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" scrollEnabled="NO" keyboardDismissMode="interactive" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="6Zs-2n-ZAE">
-                                        <rect key="frame" x="9" y="5" width="324" height="33"/>
+                                        <rect key="frame" x="9" y="5" width="319" height="33"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="yes"/>
                                         <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
                                     </textView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ze-E8-Yj2">
-                                        <rect key="frame" x="341" y="9" width="26" height="26"/>
+                                        <rect key="frame" x="336" y="9" width="26" height="26"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="1ze-E8-Yj2" secondAttribute="height" multiplier="1:1" id="35V-rO-czA"/>
-                                            <constraint firstAttribute="width" constant="26" id="EHq-9g-WZL"/>
                                             <constraint firstAttribute="height" constant="26" id="dEs-VQ-iTb"/>
                                         </constraints>
                                         <state key="normal" image="sendMessage"/>
@@ -157,14 +156,20 @@
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="9mE-6g-V9t"/>
                                     <constraint firstAttribute="bottom" secondItem="1ze-E8-Yj2" secondAttribute="bottom" constant="8" id="Jkb-Y7-YvZ"/>
-                                    <constraint firstAttribute="trailing" secondItem="1ze-E8-Yj2" secondAttribute="trailing" constant="8" id="MtB-qw-BLO"/>
                                     <constraint firstItem="6Zs-2n-ZAE" firstAttribute="top" secondItem="guk-1E-8hU" secondAttribute="top" constant="5" id="NWP-hi-RfN"/>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="110" id="Oku-CM-bai"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="43" id="UhG-ts-bW0"/>
+                                    <constraint firstAttribute="height" constant="110" id="Vt9-Mo-bkX"/>
                                     <constraint firstAttribute="bottom" secondItem="6Zs-2n-ZAE" secondAttribute="bottom" constant="5" id="euq-hg-ADP"/>
                                     <constraint firstItem="1ze-E8-Yj2" firstAttribute="leading" secondItem="6Zs-2n-ZAE" secondAttribute="trailing" constant="8" id="ogi-wh-XV5"/>
                                     <constraint firstItem="6Zs-2n-ZAE" firstAttribute="leading" secondItem="guk-1E-8hU" secondAttribute="leading" constant="9" id="pDF-73-Zn7"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Vt9-Mo-bkX"/>
+                                    </mask>
+                                </variation>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -172,6 +177,7 @@
                             <constraint firstItem="vGN-hh-QGI" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="9XJ-Gf-hak"/>
                             <constraint firstItem="guk-1E-8hU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="A04-1T-244"/>
                             <constraint firstAttribute="trailing" secondItem="vGN-hh-QGI" secondAttribute="trailing" id="FQa-Eb-mdi"/>
+                            <constraint firstItem="6Zs-2n-ZAE" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.85" id="aKs-1c-vU0"/>
                             <constraint firstItem="guk-1E-8hU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="eG3-tI-2NV"/>
                             <constraint firstItem="guk-1E-8hU" firstAttribute="top" secondItem="vGN-hh-QGI" secondAttribute="bottom" id="g6a-KX-dji"/>
                             <constraint firstAttribute="trailing" secondItem="guk-1E-8hU" secondAttribute="trailing" id="wXu-lA-SIc"/>
@@ -183,6 +189,7 @@
                         <outlet property="bottomConstraint" destination="wcy-A5-FQ0" id="YHg-y3-QWv"/>
                         <outlet property="inputSubView" destination="guk-1E-8hU" id="l5T-s4-E2H"/>
                         <outlet property="textMessage" destination="6Zs-2n-ZAE" id="qd2-x3-wmJ"/>
+                        <outlet property="textViewMaxHeightConstraint" destination="Vt9-Mo-bkX" id="dhu-ey-aLi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

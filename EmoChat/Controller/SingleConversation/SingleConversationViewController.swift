@@ -72,7 +72,27 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate {
         textMessage.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
         textMessage.layer.borderWidth = 0.5
         textMessage.clipsToBounds = true
+
     }
+    
+    @IBOutlet weak var textViewMaxHeightConstraint: NSLayoutConstraint!
+    func textViewDidChange(_ textView: UITextView) {
+        
+        //разм
+        let size = textView.bounds.size
+       //change the height of UITextView depending of a fixed width
+        let newSize = textView.sizeThatFits( CGSize(width: size.width, height: CGFloat.greatestFiniteMagnitude))
+        
+        if (newSize.height >= self.textViewMaxHeightConstraint.constant && !textView.isScrollEnabled) {
+            textView.isScrollEnabled = true;
+            self.textViewMaxHeightConstraint.isActive = true;
+        } else if (newSize.height < self.textViewMaxHeightConstraint.constant && textView.isScrollEnabled) {
+            textView.isScrollEnabled = false;
+            self.textViewMaxHeightConstraint.isActive = false;
+        }
+        
+        
+}
     
     func textViewDidBeginEditing(_ textView: UITextView)
     {

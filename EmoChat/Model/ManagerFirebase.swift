@@ -565,7 +565,7 @@ class ManagerFirebase {
             
             messageRef.updateChildValues(childUpdates)
 
-            ref?.child("conversations/\(conversation.uuid)/lastMessage").setValue(timeStamp)
+            ref?.child("conversations/\(conversation.uuid)/lastMessage").setValue(timeStamp.intValue)
             return .successSingleMessage(message)
         } else {
             return .failure(NSLocalizedString("Something went wrong", comment: ""))
