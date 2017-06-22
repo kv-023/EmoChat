@@ -8,8 +8,6 @@
 
 import Foundation
 
-typealias JsonDataType = [String: AnyObject]
-
 class JSONParser: NSObject {
 
     static let sharedInstance = JSONParser()
@@ -31,18 +29,11 @@ class JSONParser: NSObject {
 
                 if let content = data {
                     do {
-//                        let myJson = try JSONSerialization.jsonObject(with: content, options: JSONSerialization.ReadingOptions.mutableContainers) as AnyObject
-//
-//                        if let type = myJson["type"] as? NSDictionary {
-//                            print (type)
-//
-//                        }
-
                         guard let myJson = try JSONSerialization.jsonObject(with: content,
                                                                             options: JSONSerialization.ReadingOptions.mutableContainers) as? JsonDataType else {
-                            let errorMsg = "error trying to convert data to JSON"
-                            print(errorMsg)
-                            return
+                                                                                let errorMsg = "error trying to convert data to JSON"
+                                                                                print(errorMsg)
+                                                                                return
                         }
 
                         completion(myJson)
@@ -70,29 +61,3 @@ extension JSONParser: URLSessionDelegate {
         completionHandler(.useCredential, URLCredential(trust: challenge.protectionSpace.serverTrust!))
     }
 }
-
-
-//func GetJson(jsonString: String) {
-//
-//    let url = URL(string: jsonString)
-//
-//    let task = URLSession.shared.dataTask(with: url!) { (data, response, error) in
-//        if error != nil {
-//            print ("Error")
-//        } else {
-//            if let content = data {
-//                do {
-//                    let myJson = try JSONSerialization.jsonObject(with: content, options: JSONSerialization.ReadingOptions.mutableContainers) as AnyObject
-//
-//                    if let type = myJson["query"] as? NSDictionary {
-//                        print (type)
-//                    }
-//                }
-//                catch {
-//
-//                }
-//            }
-//        }
-//    }
-//    task.resume()
-//}

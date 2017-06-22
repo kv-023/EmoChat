@@ -23,28 +23,45 @@ final class RestUIUrlembed: RestUIStrategy {
 //
 //    }
 
-    func getJsonData(forUrl urlResource:String) {
+    func getJsonData(forUrl urlResource:String,
+                     completion:@escaping CompletionModel) {
         let urlForConnect = getLinkForResponse(forUrl: urlResource)
         JSONParser.sharedInstance.getJSONDataFromURL(forUrl: urlForConnect) {
             (jsonData: JsonDataType?) in
             if let notNullJsonData = jsonData {
                 let urlModel = UrlembedModel(json: notNullJsonData)
+
+                completion(urlModel)
             }
         }
     }
 
     //RestUIStrategy's protocol implementation
-    func getData(forUrl urlResource:String) -> String {
-        getJsonData(forUrl: urlResource)
+//    func getData(forUrl urlResource:String) -> UrlembedModel? {
+////        let urlModel = getJsonData(forUrl: urlResource,
+////                                   completion: (UrlembedModel?) -> Void)
+//
+//        let urlModelData = getJsonData(forUrl: urlResource) {
+//            (urlModel: UrlembedModel?) in
+//            //return urlModel
+//        }
+//
+//        return nil
+//    }
 
-        return ""
+    func getData(forUrl urlResource:String,
+                 completion:@escaping CompletionModel) {
+
+        _ = getJsonData(forUrl: urlResource) {
+            (urlModel: UrlembedModel?) in
+
+            completion(urlModel)
+        }
     }
 
     func getLinkForResponse(forUrl urlResource:String) -> String {
         let backSlashString = "/"
 
-
-//        return "\(httpAdress+backSlashString)\(apiKey+backSlashString)\(urlResource)"
         return String(httpAdress+backSlashString+apiKey+backSlashString+urlResource)
     }
 }

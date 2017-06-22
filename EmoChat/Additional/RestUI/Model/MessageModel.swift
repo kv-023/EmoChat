@@ -8,27 +8,67 @@
 
 import Foundation
 
-struct MessageModel {
-    var message:Message
+class MessageModel: RegexCheckProtocol {
+    typealias MessageURLDataType = [String:UrlembedModel?]
+
+    var message:Message?
+    var messageURLData: MessageURLDataType
+
+    //    fileprivate let concurrentMessageQueue =
+    //        DispatchQueue(
+    //            label: "com.softserve.EmoChat.messageModelQueue",
+    //            attributes: .concurrent)
 
     //get data from model
     var senderId: String {
-        return message.senderId
+        return message?.senderId ?? ""
     }
     var uid: String? {
-        return message.uid
+        return message?.uid
     }
-    var time: Date {
-        return message.time
+    var time: Date? {
+        return message?.time
     }
-    var content:MessageContentDataType {
-        return message.content
+    var content:MessageContentDataType? {
+        return message?.content
     }
+    var messageText: String {
+        return content?.content ?? ""
+    }
+
+    init() {
+        messageURLData = [:]
+    }
+
+    convenience init(message: Message) {
+        self.init()
+        self.message = message
+    }
+
 
     //prepare data for conversation cell
     func getParseDataFromResource() {
+        let queue = DispatchQueue(label: "com.softserve.EmoChat.messageModelQueue",attributes: .concurrent)
 
-//        RestUIStrategyManager.instance.showData(dataForParse: RestUIStrategy)
+        queue.sync {
+            var tempMessageURLData: MessageURLDataType = [:]
+            let arrayOfLinks = self.getArrayOfRegexMatchesForURLInText(text: self.messageText)
+
+            for urlLink in arrayOfLinks {
+
+                RestUIStrategyManager.instance.getDataFromURL(dataType: .urlembed,
+                                                              forUrl: urlLink)
+                { (urlModel) in
+                    tempMessageURLData.updateValue(urlModel,
+                                                    forKey: urlLink)
+                }
+            }
+
+            DispatchQueue.main.async {
+                self.messageURLData = tempMessageURLData
+            }
+        } //queue.sync
+        
     }
-
+    
 }

@@ -9,52 +9,41 @@
 import Foundation
 
 class RestUIStrategyManager {
-    static var instance = RestUIStrategyManager()
-//    private lazy var urlembedStrategy: RestUIStrategy = {
-//        return UrlParserFactory.urlparser(for: .urlembed)
-//    }()
 
-//    private var currentOrderId: Int
+    static var instance = RestUIStrategyManager()
+
+    private lazy var urlembedStrategy: RestUIStrategy = {
+        return UrlParserFactory.urlparser(for: .urlembed)
+    }()
 
     private init() {
-//        urlembedStrategy = UrlParserFactory.urlparser(for: .urlembed)
-
-//        self.currentOrderId = 0001
     }
 
-//    func generateOrderForMechanic(mechanic: Mechanic, parts: [Part], carType: CarType) -> Order {
-//        let orderId = currentOrderId + 1
-//        let order = Order(orderId: orderId, parts: parts, carType: carType)
-//        MechanicOrderDataProvider.instace.addMechanicOrder(order, mechanic: mechanic)
-//        currentOrderId = orderId
-//        return order
-//    }
-
-    func getDataFromURL(dataForParse parsersData: RestUIStrategy,
-                        forUrl urlForRequest:String) -> Bool {
-        switch parsersData.strategyType {
+    func getDataFromURL(dataType parsersDataType: UrlParserResourseType,
+                        forUrl urlForRequest:String,
+                        completion:@escaping CompletionModel) {
+        switch parsersDataType {
         case .urlembed:
-            let RRR = parsersData.getData(forUrl: urlForRequest)
-            return false
-        case .s500px:
-            return false//partsnstuffStrategy.fulfillOrder(order)
-//        case .European:
-//            return autopartsStrategy.fulfillOrder(order)
+            urlembedStrategy.getData(forUrl: urlForRequest) {
+                (urlModel) in
+
+                completion(urlModel)
+            }
+            //return false
+
+//        default:
+//            return false
         }
     }
 }
 
 
-////MARK: Factory method
-//enum UrlParserFactory {
-//    static func urlparser(for perserType:UrlParserResourseType) -> RestUIStrategy {
-//        switch perserType {
-//        case .urlembed :
-//            return RestUIUrlembed()
-//        case .s500px :
-//            return RestIU500px()
-//            //        default:
-//            //            return nil
-//        }
-//    }
-//}
+//MARK: Factory method
+private enum UrlParserFactory {
+    static func urlparser(for parserType:UrlParserResourseType) -> RestUIStrategy {
+        switch parserType {
+        case .urlembed :
+            return RestUIUrlembed()
+        }
+    }
+}

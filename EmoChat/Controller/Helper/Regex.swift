@@ -15,11 +15,13 @@ struct Regex {
     private static func matches(for regex: String, in text: String) -> [String] {
 
         do {
-            let regex = try NSRegularExpression(pattern: regex)
+            let regex = try NSRegularExpression(pattern: regex,
+                                                options:[.caseInsensitive])
             let nsString = text as NSString
-            let results = regex.matches(in: text, range: NSRange(location: 0, length: nsString.length))
+            let results = regex.matches(in: text,
+                                        range: NSRange(location: 0, length: nsString.length))
 
-            return results.map { nsString.substring(with: $0.range)}
+            return results.map { nsString.substring(with: $0.range) }
         } catch let error {
             print("invalid regex: \(error.localizedDescription)")
 
@@ -30,6 +32,11 @@ struct Regex {
     static func isMatchInString(for regex: String, in text: String) -> Bool {
 
         return  Regex.matches(for: regex, in: text).count > 0
+    }
+
+    static func getMatchesInString(for regex: String, in text: String) -> [String] {
+
+        return  Regex.matches(for: regex, in: text)
     }
     
 }

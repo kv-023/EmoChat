@@ -48,7 +48,7 @@ class TableViewController: UITableViewController {
 
 
         //dataRequest()
-        testDadaRequest()
+        testDataRequest()
 
 
         return cell
@@ -60,9 +60,11 @@ class TableViewController: UITableViewController {
 
     }
 
-    func testDadaRequest() {
-         RestUIStrategyManager.instance.getDataFromURL(dataForParse: RestUIUrlembed(),
-                                                       forUrl: "https://9gag.com/gag/aoOmXeA")
+    func testDataRequest() {
+
+        RestUIController.sharedInstance.testDataFirst()
+//         RestUIStrategyManager.instance.getDataFromURL(dataForParse: RestUIUrlembed(),
+//                                                       forUrl: "https://9gag.com/gag/aoOmXeA")
     }
 
 
@@ -108,13 +110,13 @@ class TableViewController: UITableViewController {
 //    }
 }
 
-extension TableViewController: URLSessionDelegate {
-
-
-    func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-        
-        completionHandler(.useCredential, URLCredential(trust: challenge.protectionSpace.serverTrust!))
-        
-    }
-    
-}
+//extension TableViewController: URLSessionDelegate {
+//
+//
+//    func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+//        
+//        completionHandler(.useCredential, URLCredential(trust: challenge.protectionSpace.serverTrust!))
+//        
+//    }
+//    
+//}

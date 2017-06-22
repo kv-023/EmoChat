@@ -97,6 +97,24 @@ extension RegexCheckProtocol {
             print("An error occurred")
         }
     }
+
+
+    //MARK: RestAPI data
+    func getArrayOfRegexMatchesForURLInText(text textForAnalyze: String?) -> [String] {
+        var valueForReturn:[String] = []
+
+        if let notNullText = textForAnalyze {
+            let regexLoginPattern = "(?:(?:https?|ftp|file):\\/\\/|www\\.|ftp\\.)(?:\\([-A-Z0-9+&@#\\/%=~_|$?!:,.]*\\)|[-A-Z0-9+&@#\\/%=~_|$?!:,.])*(?:\\([-A-Z0-9+&@#\\/%=~_|$?!:,.]*\\)|[A-Z0-9+&@#\\/%=~_|$])"
+            //
+            //"(?i)\\b((?:[a-z][\\w-]+:(?:\\/{1,3}|[a-z0-9%])|www\\d{0,3}[.]|[a-z0-9.\\-]+[.][a-z]{2,4}\\/)(?:[^\\s()<>]+|\\(([^\\s()<>]+|(\\([^\\s()<>]+\\)))*\\))+(?:\\(([^\\s()<>]+|(\\([^\\s()<>]+\\)))*\\)|[^\\s`!()\\[\\]\\{};:'\".,<>?«»“”‘’]))"
+
+            valueForReturn = Regex.getMatchesInString(for: regexLoginPattern,
+                                                      in: notNullText)
+        }
+
+        return valueForReturn
+    }
+
 }
 
 //MARK:- regex error explanation
