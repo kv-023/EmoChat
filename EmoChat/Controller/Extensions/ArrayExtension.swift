@@ -11,8 +11,12 @@ import Foundation
 extension Array {
     
     mutating func rearrange(from: Int, to: Int) {
+        if from == to {
+            return
+        }
         precondition(from != to && indices.contains(from) && indices.contains(to), "invalid indexes")
         insert(remove(at: from), at: to)
+        
     }
     
     

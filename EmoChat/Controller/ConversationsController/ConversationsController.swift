@@ -19,10 +19,13 @@ class ConversationsController: UITableViewController {
 
         tableView.dataSource = conversationsDataSource
         
-        conversationsDataSource.updateTableView {
+        conversationsDataSource.updateTableView(self.tableView) { 
             print(self.conversationsDataSource.currentUser.userConversations?.count)
             self.tableView.reloadData()
         }
+        /*conversationsDataSource.updateTableView {
+
+        }*/
     }
     
     override func viewWillAppear(_ animated: Bool) {
