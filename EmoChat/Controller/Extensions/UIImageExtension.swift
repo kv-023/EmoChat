@@ -11,6 +11,18 @@ import UIKit
 
 extension UIImage {
     
+    class func imageFromURL(stringImageUrl url: String) -> UIImage {
+        
+        var imageFromURL = UIImage()
+        if let url = NSURL(string: url) {
+            if let data = NSData(contentsOf: url as URL) {
+                imageFromURL = UIImage(data: data as Data)!
+            }
+        }
+        return imageFromURL
+    }
+    
+    
     class func createFinalImg(logoImages: Array<UIImage>)  -> UIImage {
 
         var finalMixedImage = UIImage()

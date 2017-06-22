@@ -123,7 +123,7 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
                 
             } else {
             
-                logoCell.conversLogo.image = UIImage.createFinalImg(logoImages: arrray)
+               // logoCell.conversLogo.image = UIImage.createFinalImg(logoImages: arrray)
             
             }
             

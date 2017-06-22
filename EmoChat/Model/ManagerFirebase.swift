@@ -373,7 +373,20 @@ class ManagerFirebase {
     }
     
     
-
+    func createConversationLogo (selectedUsers: [User]) -> UIImage {
+        
+        var avatarArray = [UIImage]()
+        
+        for user in selectedUsers {
+            avatarArray.append(UIImage.imageFromURL(stringImageUrl: user.photoURL!))
+        }
+        
+        let finalImage = UIImage.createFinalImg(logoImages: avatarArray)
+        
+        
+        
+        return finalImage
+    }
     
     
     //MARK: Update profile
