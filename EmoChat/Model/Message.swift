@@ -37,7 +37,7 @@ class Message {
         self.senderId = data?["senderId"] as! String?
         let time = data?["time"] as? NSNumber
         self.time = Date(milliseconds: (time?.intValue)!) //(Date(timeIntervalSince1970: time!/1000))
-        let media = data?["media"] as? NSDictionary
+        let media = data?["content"] as? NSDictionary
         if let photo = media?.value(forKey: "photo") {
             self.content = (type: MessageContentType.photo, content: photo as! String)
         } else if let video = media?.value(forKey: "video") {

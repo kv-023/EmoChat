@@ -19,6 +19,11 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     @IBOutlet weak var textMessage: UITextView!
     
+    // MARK: -TODO
+    func recieveMessage() {
+        
+    }
+    
     @IBAction func sendMessage(_ sender: UIButton) {
 
         let result:MessageOperationResult? = manager?.createMessage(conversation: currentConversation!, sender: currentUser, content: (.text, textMessage.text))
@@ -42,7 +47,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     var currentConversation: Conversation! { didSet { updateUI() } }
     
-    var messagesArray: [(Message, UserType)] = [(Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HEi")), .left), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right)]
+    var messagesArray: [(Message, UserType)] = [(Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HEi")), .left), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "last")), .right)]
     
     @IBOutlet weak var table: UITableView!
     
@@ -50,14 +55,23 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         //download 20 last messages
     }
     
+   /* func insertRows(_ newMessages: [Message]) {
+        table.beginUpdates()
+        table.insertRows(at: [IndexPath(row: messagesArray.count - 1, section: 0)], with: .automatic)
+        table.endUpdates()
+    }*/
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         table.dataSource = self
         table.delegate = self
         table.estimatedRowHeight = table.rowHeight
         table.rowHeight = UITableViewAutomaticDimension
+        /*table.contentInset.bottom = 20
+        table.scrollIndicatorInsets.bottom = 20*/
+        table.reloadData()
+        table.scrollToRow(at: IndexPath.init(row: messagesArray.count - 1, section: 0), at: .top, animated: false)
         self.setUpTextView()
-        
         manager = ManagerFirebase.shared
         manager?.getCurrentUser { (result) in
             switch (result) {
@@ -75,6 +89,15 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         
         setupKeyboardObservers()
 
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if tableView.isDragging {
+            cell.transform = CGAffineTransform.init(scaleX: 0.5, y: 0.5)
+            UIView.animate(withDuration: 0.3, animations: {
+                cell.transform = CGAffineTransform.identity
+            })
+        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
