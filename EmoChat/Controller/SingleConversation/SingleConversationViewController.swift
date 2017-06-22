@@ -26,6 +26,9 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         case .successSingleMessage(let message):
             print(message.content)
             messagesArray.append((message, .right))
+            table.beginUpdates()
+            table.insertRows(at: [IndexPath(row: messagesArray.count - 1, section: 0)], with: .automatic)
+            table.endUpdates()
         case .failure(let string):
             print(string)
         default:
@@ -39,7 +42,9 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     var currentConversation: Conversation! { didSet { updateUI() } }
     
-    var messagesArray: [(Message, UserType)]!
+    var messagesArray: [(Message, UserType)] = [(Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HEi")), .left), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right)]
+    
+    @IBOutlet weak var table: UITableView!
     
     func updateUI() {
         //download 20 last messages
@@ -47,7 +52,10 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        table.dataSource = self
+        table.delegate = self
+        table.estimatedRowHeight = table.rowHeight
+        table.rowHeight = UITableViewAutomaticDimension
         self.setUpTextView()
         
         manager = ManagerFirebase.shared
@@ -79,22 +87,20 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let message = messagesArray[indexPath.row]
-        var back: UITableViewCell!
         switch message.1 {
         case .left:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "Left", for: indexPath) as? LeftCell else {
                 fatalError("Cell was not casted!")
             }
-            cell.message.text = message.0.content.0.rawValue
-            back = cell
+            cell.messageEntity = message.0
+            return cell
         case .right:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "Left", for: indexPath) as? RightCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "Right", for: indexPath) as? RightCell else {
                 fatalError("Cell was not casted!")
             }
-            cell.message.text = message.0.content.0.rawValue
-            back = cell
+            cell.messageEntity = message.0
+            return cell
         }
-        return back
     }
 
     //MARK: - text view
