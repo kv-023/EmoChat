@@ -13,9 +13,9 @@ class MessageModel: RegexCheckProtocol {
     var message:Message?
     var messageURLData: MessageURLDataType {
         didSet {
-            for (key3, value3) in messageURLData {
-                print("key: \(key3), value:\(String(describing: value3))")
-            }
+//            for (key3, value3) in messageURLData {
+//                print("key: \(key3), value:\(String(describing: value3))")
+//            }
         }
     }
 
@@ -47,9 +47,9 @@ class MessageModel: RegexCheckProtocol {
     }
 
 
-    //prepare data for conversation cell
-    func getParseDataFromResource() {
-
+    //prepare data for conversation's cell
+    func getParseDataFromResource(completion: @escaping(_ allDone: Bool) -> Void) {
+        //https://www.raywenderlich.com/148515/grand-central-dispatch-tutorial-swift-3-part-2
         DispatchQueue.global(qos: .userInitiated).async {
 
             var tempMessageURLData: MessageURLDataType = [:]
@@ -73,10 +73,9 @@ class MessageModel: RegexCheckProtocol {
 
             DispatchQueue.main.async {
                 self.messageURLData = tempMessageURLData
+                completion(true)
             }
-            
         }
-        
     }
     
 }
