@@ -10,9 +10,9 @@ import UIKit
 
 class GlobalUserCell: UITableViewCell {
     
-    @IBOutlet var userPhoto: UIImageView!
-    @IBOutlet var userUsernameLabel: UILabel!
-    @IBOutlet var userNameSurnameLabel: UILabel!
+    @IBOutlet weak var userPhoto: UIImageView!
+    @IBOutlet weak var userUsernameLabel: UILabel!
+    @IBOutlet weak var userNameSurnameLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()

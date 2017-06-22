@@ -16,14 +16,20 @@
 		3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */; };
 		746478FA29F53658399EE02D /* Pods_EmoChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */; };
 		84247A391EE9CDA6009E8167 /* GlobalUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84247A381EE9CDA6009E8167 /* GlobalUserCell.swift */; };
+		842E8B6C1EF931C900CA3BF2 /* ConversationsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E8B6B1EF931C900CA3BF2 /* ConversationsDataSource.swift */; };
+		842E8B6E1EF9330700CA3BF2 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E8B6D1EF9330700CA3BF2 /* DateExtension.swift */; };
 		84312F931EE94FB600FAC4D1 /* SearchUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84312F921EE94FB600FAC4D1 /* SearchUsersViewController.swift */; };
 		84312F961EE9507E00FAC4D1 /* ContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84312F951EE9507E00FAC4D1 /* ContactCell.swift */; };
+		84A3C8D11EF8790F001A9A19 /* ConversationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A3C8D01EF8790F001A9A19 /* ConversationsController.swift */; };
+		84A3C8D51EF89538001A9A19 /* MessageConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A3C8D41EF89538001A9A19 /* MessageConversationCell.swift */; };
 		A309F3761EEFED6000DF6449 /* OptionsChangeNumberTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A309F3751EEFED6000DF6449 /* OptionsChangeNumberTableViewController.swift */; };
 		A39232841EEFF58E00E70CD9 /* OptionsChangeUserNameTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39232831EEFF58E00E70CD9 /* OptionsChangeUserNameTableViewController.swift */; };
 		A39232861EEFF77200E70CD9 /* OptionsChangeEmailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39232851EEFF77200E70CD9 /* OptionsChangeEmailTableViewController.swift */; };
 		A39232881EEFFF8F00E70CD9 /* OptionsChangePhotoNameSecondNameTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39232871EEFFF8F00E70CD9 /* OptionsChangePhotoNameSecondNameTableViewController.swift */; };
 		A3E7E7D11EEFD893006D24BC /* OptionsMainPageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E7E7D01EEFD893006D24BC /* OptionsMainPageTableViewController.swift */; };
 		CC13C5D51EF4092900B38E59 /* ArchiverManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC13C5D41EF4092900B38E59 /* ArchiverManager.swift */; };
+		CC13C5EB1EF9227F00B38E59 /* SingleConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC13C5EA1EF9227F00B38E59 /* SingleConversationViewController.swift */; };
+		CC13C5ED1EF929AF00B38E59 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC13C5EC1EF929AF00B38E59 /* CustomTableViewCell.swift */; };
 		CC45A7571EE6D40E00FF13AE /* ManagerFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC45A7561EE6D40E00FF13AE /* ManagerFirebase.swift */; };
 		E7352C261EDED52B0095264E /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C211EDED52B0095264E /* Conversation.swift */; };
 		E7352C271EDED52B0095264E /* Auxiliary.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C231EDED52B0095264E /* Auxiliary.swift */; };
@@ -72,14 +78,20 @@
 		5E5B970584D3FF3821DB6225 /* Pods-EmoChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmoChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmoChat/Pods-EmoChat.release.xcconfig"; sourceTree = "<group>"; };
 		6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmoChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84247A381EE9CDA6009E8167 /* GlobalUserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalUserCell.swift; sourceTree = "<group>"; };
+		842E8B6B1EF931C900CA3BF2 /* ConversationsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationsDataSource.swift; sourceTree = "<group>"; };
+		842E8B6D1EF9330700CA3BF2 /* DateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		84312F921EE94FB600FAC4D1 /* SearchUsersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchUsersViewController.swift; sourceTree = "<group>"; };
 		84312F951EE9507E00FAC4D1 /* ContactCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCell.swift; sourceTree = "<group>"; };
+		84A3C8D01EF8790F001A9A19 /* ConversationsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationsController.swift; sourceTree = "<group>"; };
+		84A3C8D41EF89538001A9A19 /* MessageConversationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageConversationCell.swift; sourceTree = "<group>"; };
 		A309F3751EEFED6000DF6449 /* OptionsChangeNumberTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OptionsChangeNumberTableViewController.swift; path = EmoChat/Controller/OptionsController/OptionsChangeNumberTableViewController.swift; sourceTree = SOURCE_ROOT; };
 		A39232831EEFF58E00E70CD9 /* OptionsChangeUserNameTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OptionsChangeUserNameTableViewController.swift; path = OptionsController/OptionsChangeUserNameTableViewController.swift; sourceTree = "<group>"; };
 		A39232851EEFF77200E70CD9 /* OptionsChangeEmailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OptionsChangeEmailTableViewController.swift; path = OptionsController/OptionsChangeEmailTableViewController.swift; sourceTree = "<group>"; };
 		A39232871EEFFF8F00E70CD9 /* OptionsChangePhotoNameSecondNameTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OptionsChangePhotoNameSecondNameTableViewController.swift; path = OptionsController/OptionsChangePhotoNameSecondNameTableViewController.swift; sourceTree = "<group>"; };
 		A3E7E7D01EEFD893006D24BC /* OptionsMainPageTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OptionsMainPageTableViewController.swift; path = OptionsController/OptionsMainPageTableViewController.swift; sourceTree = "<group>"; };
 		CC13C5D41EF4092900B38E59 /* ArchiverManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArchiverManager.swift; sourceTree = "<group>"; };
+		CC13C5EA1EF9227F00B38E59 /* SingleConversationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleConversationViewController.swift; sourceTree = "<group>"; };
+		CC13C5EC1EF929AF00B38E59 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		CC45A7561EE6D40E00FF13AE /* ManagerFirebase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerFirebase.swift; sourceTree = "<group>"; };
 		E701EB98A17F8F7EB9DF59EA /* Pods-EmoChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmoChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EmoChat/Pods-EmoChat.debug.xcconfig"; sourceTree = "<group>"; };
 		E7352C211EDED52B0095264E /* Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
@@ -133,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				35C9507C1EF7D791006FA7E6 /* UIImageExtension.swift */,
+				842E8B6D1EF9330700CA3BF2 /* DateExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -209,6 +222,24 @@
 			path = CustomCells;
 			sourceTree = "<group>";
 		};
+		84A3C8CE1EF878AA001A9A19 /* ConversationsController */ = {
+			isa = PBXGroup;
+			children = (
+				84A3C8CF1EF878AA001A9A19 /* CustomCells */,
+				84A3C8D01EF8790F001A9A19 /* ConversationsController.swift */,
+				842E8B6B1EF931C900CA3BF2 /* ConversationsDataSource.swift */,
+			);
+			path = ConversationsController;
+			sourceTree = "<group>";
+		};
+		84A3C8CF1EF878AA001A9A19 /* CustomCells */ = {
+			isa = PBXGroup;
+			children = (
+				84A3C8D41EF89538001A9A19 /* MessageConversationCell.swift */,
+			);
+			path = CustomCells;
+			sourceTree = "<group>";
+		};
 		A3E7E7CF1EEFD864006D24BC /* OptionsController */ = {
 			isa = PBXGroup;
 			children = (
@@ -219,6 +250,15 @@
 				A39232871EEFFF8F00E70CD9 /* OptionsChangePhotoNameSecondNameTableViewController.swift */,
 			);
 			name = OptionsController;
+			sourceTree = "<group>";
+		};
+		CC13C5E91EF9225600B38E59 /* SingleConversation */ = {
+			isa = PBXGroup;
+			children = (
+				CC13C5EA1EF9227F00B38E59 /* SingleConversationViewController.swift */,
+				CC13C5EC1EF929AF00B38E59 /* CustomTableViewCell.swift */,
+			);
+			path = SingleConversation;
 			sourceTree = "<group>";
 		};
 		E7352C201EDED52B0095264E /* Model */ = {
@@ -322,6 +362,8 @@
 		FB982DDE1EE156B700AC2FCD /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				84A3C8CE1EF878AA001A9A19 /* ConversationsController */,
+				CC13C5E91EF9225600B38E59 /* SingleConversation */,
 				35C9507B1EF7D733006FA7E6 /* Extensions */,
 				F508422D1EF427A600C24EDE /* ChatSettingsTableViewController */,
 				FBAC197F1EF13E000027AF9D /* ConfirmationController */,
@@ -483,7 +525,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E7352C261EDED52B0095264E /* Conversation.swift in Sources */,
+				842E8B6C1EF931C900CA3BF2 /* ConversationsDataSource.swift in Sources */,
 				F5E339401EF6DA5500D224BF /* ChatSettingsTableViewController.swift in Sources */,
+				84A3C8D11EF8790F001A9A19 /* ConversationsController.swift in Sources */,
 				F54D21781EE7149100B0B177 /* AdditionalViewController.swift in Sources */,
 				E7B926F31EF1487B0018F5FF /* PopOverViewController.swift in Sources */,
 				F54D21761EE7130600B0B177 /* Regex.swift in Sources */,
@@ -493,6 +537,7 @@
 				FBAC19811EF13E1A0027AF9D /* ConfirmationViewController.swift in Sources */,
 				E7883F381EF1611F00E876CC /* Localize.swift in Sources */,
 				CC45A7571EE6D40E00FF13AE /* ManagerFirebase.swift in Sources */,
+				CC13C5EB1EF9227F00B38E59 /* SingleConversationViewController.swift in Sources */,
 				CC13C5D51EF4092900B38E59 /* ArchiverManager.swift in Sources */,
 				E7B926F01EF1487B0018F5FF /* EmoChatUIViewController.swift in Sources */,
 				84247A391EE9CDA6009E8167 /* GlobalUserCell.swift in Sources */,
@@ -512,9 +557,12 @@
 				E7352C2B1EE0139E0095264E /* ModelGenericHelper.swift in Sources */,
 				FB4317731EE6C24400770338 /* SignUpFirstViewController.swift in Sources */,
 				E7352C3A1EE81CB60095264E /* RegexCheckProtocol.swift in Sources */,
+				CC13C5ED1EF929AF00B38E59 /* CustomTableViewCell.swift in Sources */,
+				84A3C8D51EF89538001A9A19 /* MessageConversationCell.swift in Sources */,
 				3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */,
 				E7352C381EE81B790095264E /* ControllerHelper.swift in Sources */,
 				35E79C561EFA71F1006E98C9 /* LogoTableViewCell.swift in Sources */,
+				842E8B6E1EF9330700CA3BF2 /* DateExtension.swift in Sources */,
 				E7B926F41EF1487B0018F5FF /* UIColorHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -13,13 +13,13 @@
         <!--Conversations-->
         <scene sceneID="nfT-aP-fJ0">
             <objects>
-                <tableViewController storyboardIdentifier="conversations" id="nvU-Z9-twn" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="conversations" id="nvU-Z9-twn" customClass="ConversationsController" customModule="EmoChat" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="77" sectionHeaderHeight="28" sectionFooterHeight="28" id="x95-HY-wlk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MessageCellIdentifier" rowHeight="77" id="A8c-ue-4H4">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MessageCellIdentifier" rowHeight="77" id="A8c-ue-4H4" customClass="MessageConversationCell" customModule="EmoChat" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="77"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="A8c-ue-4H4" id="g9f-NM-atA">
@@ -68,6 +68,10 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="conversationImageView" destination="Lzv-R3-Lep" id="x3u-qJ-aus"/>
+                                    <outlet property="conversationNameLabel" destination="HMO-f7-ZWC" id="VS8-FX-hev"/>
+                                    <outlet property="conversationTimeLabel" destination="WJQ-VX-wu9" id="gJD-Cd-r5K"/>
+                                    <outlet property="lastMessageLabel" destination="aon-ed-H52" id="Pb0-xH-1rf"/>
                                     <segue destination="pZt-PA-0jh" kind="show" id="jIy-KA-Lnq"/>
                                 </connections>
                             </tableViewCell>
@@ -177,7 +181,6 @@
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="nvU-Z9-twn" id="D9T-Yt-I9I"/>
                             <outlet property="delegate" destination="nvU-Z9-twn" id="SPM-AA-Clp"/>
                         </connections>
                     </tableView>
