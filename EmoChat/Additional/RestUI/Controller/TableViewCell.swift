@@ -18,8 +18,9 @@ class TableViewCell: UITableViewCell {
         }
     }
 
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var myImageInCell: UIImageView!
-   
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var myLabel: UILabel!
 
     override func awakeFromNib() {
@@ -43,15 +44,39 @@ class TableViewCell: UITableViewCell {
 
     private func updateUI() {
 
-//        spinner.startAnimating()
+        spinner.startAnimating()
+        
+        
+        
+        
+        
+        if let messageURLData = messageModel?.messageURLData {
+        
+            for (key, value) in messageURLData {
+                
+                myLabel.text = key
+               
+                if let valueModel:UrlembedModel = value as? UrlembedModel {
+                        titleLabel.text = valueModel.title
+                    
+                        JSONParser.sharedInstance.downloadImage(url: valueModel.url!) { (image) in
+                            DispatchQueue.main.async  {
+                                self.myImageInCell.image = image
+                                self.spinner.stopAnimating()
+                            }
+                        }
+        
+                    }
+                
+        
+            }
 
+        
+        }
+        
 
-//        JSONParser.sharedInstance.downloadImage(url: <#T##String#>) { (image) in
-//            DispatchQueue.main.async  {
-//              // self.Image = image
-//        self.spinner.stopAnimating()
-//           }
-//        }
+        
+        
     }
  
 }
