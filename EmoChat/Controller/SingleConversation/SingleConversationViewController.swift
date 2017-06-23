@@ -200,21 +200,21 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         
     }
     
+    override func viewDidLayoutSubviews() {
+        if let rect = self.navigationController?.navigationBar.frame {
+            let y = rect.size.height + rect.origin.y
+            self.table.contentInset = UIEdgeInsetsMake( y, 0, 0, 0)
+        }
+    }
+    
     func handleKeyboardWillShow (notification: Notification) {
         if let keyboardSize = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? CGRect, let keyboardDuration = (notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue {
-    
-            self.bottomConstraint.constant = keyboardSize.height
+                self.bottomConstraint.constant = keyboardSize.height
             UIView.animate(withDuration: keyboardDuration, animations: {
                 self.view.layoutIfNeeded()
             })
-            
-
-
-            
+            table.scrollToRow(at: IndexPath.init(row: messagesArray.count - 1, section: 0), at: .top, animated: false)
         }
-        
-        
-        
     }
     
     @IBAction func hideKeyboard(_ sender: Any) {
