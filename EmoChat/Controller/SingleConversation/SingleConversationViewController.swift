@@ -134,7 +134,27 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         textMessage.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
         textMessage.layer.borderWidth = 0.5
         textMessage.clipsToBounds = true
+
     }
+    
+    @IBOutlet weak var textViewMaxHeightConstraint: NSLayoutConstraint!
+    func textViewDidChange(_ textView: UITextView) {
+        
+        //разм
+        let size = textView.bounds.size
+       //change the height of UITextView depending of a fixed width
+        let newSize = textView.sizeThatFits( CGSize(width: size.width, height: CGFloat.greatestFiniteMagnitude))
+        
+        if (newSize.height >= self.textViewMaxHeightConstraint.constant && !textView.isScrollEnabled) {
+            textView.isScrollEnabled = true;
+            self.textViewMaxHeightConstraint.isActive = true;
+        } else if (newSize.height < self.textViewMaxHeightConstraint.constant && textView.isScrollEnabled) {
+            textView.isScrollEnabled = false;
+            self.textViewMaxHeightConstraint.isActive = false;
+        }
+        
+        
+}
     
     func textViewDidBeginEditing(_ textView: UITextView)
     {
@@ -160,6 +180,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var viewOnTable: UIView!
+    
     func setupKeyboardObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: .UIKeyboardWillHide, object: nil)
@@ -172,22 +194,29 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             UIView.animate(withDuration: keyboardDuration, animations: {
                 self.view.layoutIfNeeded()
             })
+            
         }
+        
+        
     }
     
     func handleKeyboardWillShow (notification: Notification) {
         if let keyboardSize = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? CGRect, let keyboardDuration = (notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue {
-            
-
+    
             self.bottomConstraint.constant = keyboardSize.height
             UIView.animate(withDuration: keyboardDuration, animations: {
                 self.view.layoutIfNeeded()
             })
-//            subViewBottomAnchor?.constant = keyboardSize.height
-//            inputSubView.bottomAnchor.constraint(equalTo: subViewBottomAnchor)
-//            subViewBottomAnchor?.isActive = true
+            
+
+
+            
         }
+        
+        
+        
     }
+    
     @IBAction func hideKeyboard(_ sender: Any) {
         self.view.endEditing(true)
     }
