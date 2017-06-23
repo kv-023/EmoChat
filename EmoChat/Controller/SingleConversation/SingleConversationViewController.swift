@@ -19,18 +19,17 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     @IBOutlet weak var textMessage: UITextView!
     
-    // MARK: -TODO
-    func recieveMessage() {
-        
-    }
-    
     @IBAction func sendMessage(_ sender: UIButton) {
 
         let result:MessageOperationResult? = manager?.createMessage(conversation: currentConversation!, sender: currentUser, content: (.text, textMessage.text))
+        textMessage.text = ""
+        textViewDidEndEditing(textMessage)
         switch (result!) {
         case .successSingleMessage(let message):
-            print(message.content)
             insertRow((message, .right))
+            if !messagesArray.isEmpty {
+                self.table.scrollToRow(at: IndexPath.init(row: messagesArray.count - 1, section: 0), at: .top, animated: false)
+            }
         case .failure(let string):
             print(string)
         default:
@@ -86,11 +85,19 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 self.manager?.getMessageFromConversation([self.currentConversation], result: { (conv, newMessage) in
                     if let res = self.manager?.isMessageFromCurrentUser(newMessage) {
                         if res == true {
-                            (self.table.cellForRow(at: IndexPath.init(row: self.messagesArray.count - 1, section: 0)) as? RightCell)?.isReceived = true
+                            if let item = (self.table.cellForRow(at: IndexPath.init(row: self.messagesArray.count - 1, section: 0)) as? RightCell) {
+                                item.isReceived = true
+                            } else {
+                                self.insertRow((newMessage, .right))
+                            }
+                            
                         } else {
                             self.insertRow((newMessage, .left))
                         }
 
+                    }
+                    if !self.messagesArray.isEmpty {
+                        self.table.scrollToRow(at: IndexPath.init(row: self.messagesArray.count - 1, section: 0), at: .top, animated: false)
                     }
                 })
                 print(self.currentConversation.uuid)
@@ -135,7 +142,9 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             manager?.getUserPic(from: currentUser.photoURL!, result: { (result) in
                 switch result {
                 case .successUserPic(let image):
+                    self.table.beginUpdates()
                     cell.userPic.image = image
+                    self.table.endUpdates()
                 default:
                     break
                 }
@@ -156,7 +165,9 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             manager?.getUserPic(from: companion.first!.photoURL!, result: { (result) in
                 switch result {
                 case .successUserPic(let image):
+                    self.table.beginUpdates()
                     cell.userPic.image = image
+                    self.table.endUpdates()
                 default:
                     break
                 }
