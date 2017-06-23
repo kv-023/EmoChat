@@ -56,6 +56,7 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
         
     }
     
+   
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -115,6 +116,16 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
     
     }
 
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+       
+        switch section {
+        case 0:
+            return 5
+        default:
+            return 0
+        }
+        
+    }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     
