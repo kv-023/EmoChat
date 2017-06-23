@@ -512,32 +512,34 @@ class ManagerFirebase {
         }
         return result
     }
-
-    
-    
     
     // MARK: - Conversations
     func createConversation(_ members: [User], withName name: String? = nil) -> ConversationOperationResult {
         
-        if let refConv = ref?.child("conversations").childByAutoId() {
+        let timeStamp = NSNumber(value:Date().timeIntervalSince1970 * 1000.0)
+        let key = ref?.child("conversations").childByAutoId().key
+        
+        let conversation = Conversation(conversationId: key!,
+                                        usersInConversation: members,
+                                        messagesInConversation: nil,
+                                        lastMessage: nil,
+                                        lastMessageTimeStamp: Date(timeIntervalSince1970: TimeInterval(timeStamp.int64Value / 1000)),
+                                        name: name)
+        
+        if let refConv = ref?.child("conversations/\(conversation.uuid)") {
             
-            let timeStamp = Int((Date().timeIntervalSince1970 * 1000.0))
-            refConv.child("lastMessage").setValue(timeStamp)
-            
-            let uid: String = (refConv.key)
+            var childUpdates = [String : Any] ()
+            childUpdates.updateValue(timeStamp.intValue, forKey: "lastMessage")
+            if members.count > 2 {
+                childUpdates.updateValue(conversation.name!, forKey: "name")
+            }
+            refConv.updateChildValues(childUpdates)
             
             for member in members {
                 refConv.child("usersInConversation/\(member.uid!)").setValue(true)
-            }
-            
-            if members.count > 2 {
-                refConv.child("name").setValue(name)
+                ref?.child("users/\(member.uid)/(conversations)/\(conversation.uuid)").setValue(true)
             }
         
-            let conversation = Conversation(conversationId: uid,
-                                            usersInConversation: members,
-                                            messagesInConversation: [],
-                                            lastMessage: nil)
             return .successSingleConversation(conversation)
         } else {
             return .failure(NSLocalizedString("Something went wrong", comment: "Undefined error"))
@@ -562,12 +564,11 @@ class ManagerFirebase {
             childUpdates.updateValue(message.senderId!, forKey: "senderId")
             childUpdates.updateValue(timeStamp.intValue, forKey: "time")
             childUpdates.updateValue(message.content.content, forKey: "content/\(message.content.type)")
-            
-            
-            
+
             messageRef.updateChildValues(childUpdates)
 
             ref?.child("conversations/\(conversation.uuid)/lastMessage").setValue(timeStamp.intValue)
+            
             return .successSingleMessage(message)
         } else {
             return .failure(NSLocalizedString("Something went wrong", comment: ""))
@@ -654,7 +655,9 @@ class ManagerFirebase {
             let conversationsDict = conversationIDs.value as? [String : AnyObject] ?? [:]
             
             self?.getConversationsIDs(conversatinsIDs: conversationsDict) { (conversationsIDs) in
-                sortedConversationsArray = conversationsIDs.sorted(by: { $0.timestamp > $1.timestamp })
+                sortedConversationsArray = conversationsIDs.sorted(by: { $0.timestamp.timeIntervalSince1970 > $1.timestamp.timeIntervalSince1970 })
+                //{ $0.timestamp.compare($1.timestamp) == .orderedDescending }
+                //{ $0.timestamp > $1.timestamp }
                 completionHandler(sortedConversationsArray)
             }
         })

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 typealias conversationTuple = (conversationId: String, timestamp: Date)
 
@@ -41,7 +42,9 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
                         switch result {
                         case let .successArrayOfConversations(conversations):
                             self?.currentUser.userConversations = conversations
-                            print(self?.currentUser.userConversations?.count)
+                            for conv in (self?.currentUser.userConversations)! {
+                                print("\(conv.name ?? "NONAME") \(conv.uuid) \(conv.lastMessageTimeStamp!)")
+                            }
                             completionHandler()
                         default:
                             print("NONONONO")
@@ -59,6 +62,7 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
     // MARK: - SetObservers
     
     private func observeConversationTimeStamp(tableView: UITableView) {
+        
         for object in tupleArray {
             
             managerFirebase.ref?.child("conversations/\(object.conversationId)").observe(.childChanged, with: { [weak self] (conversationSnapshot) in
@@ -76,9 +80,12 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
                         self?.tupleArray[oldIndex].timestamp = newTimeStamp
                         
                         //Change index
-                        let newIndex = self!.tupleArray.insertionIndexOf(elem: self!.tupleArray[oldIndex], isOrderedBefore: { $0.timestamp.timeIntervalSinceReferenceDate > $1.timestamp .timeIntervalSinceReferenceDate})
-                        self?.tupleArray.rearrange(from: oldIndex, to: newIndex)
+                        let changedTuple = self?.tupleArray[oldIndex]
+                        self?.tupleArray.remove(at: oldIndex)
                         
+                        let newIndex = self!.tupleArray.insertionIndexOf(elem: changedTuple!, isOrderedBefore: { $0.timestamp.timeIntervalSince1970 > $1.timestamp.timeIntervalSince1970 })
+                        //self?.tupleArray.rearrange(from: oldIndex, to: newIndex)
+                        self?.tupleArray.insert(changedTuple!, at: newIndex)
                         //make changes in conversations array
                         
                         if ((newIndex <= (self?.currentUser.userConversations?.count)! - 1) && (oldIndex <= (self?.currentUser.userConversations?.count)! - 1)) {
@@ -86,17 +93,17 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
                             //redraw TableView
                             
                             for conv in (self?.currentUser.userConversations)! {
-                                print("\(conv.name ?? "NONAME") \(conv.uuid) \(conv.lastMessageTimeStamp)")
+                                print("\(conv.name ?? "NONAME") \(conv.uuid) \(conv.lastMessageTimeStamp!)")
                             }
                             
                             self?.currentUser.userConversations?.rearrange(from: oldIndex, to: newIndex)
-                        
+                            
                             for conv in (self?.currentUser.userConversations)! {
-                                print("\(conv.name ?? "NONAME") \(conv.uuid) \(conv.lastMessageTimeStamp)")
+                                print("\(conv.name ?? "NONAME") \(conv.uuid) \(conv.lastMessageTimeStamp!)")
                             }
                             
                             tableView.moveRow(at: IndexPath(row: oldIndex, section: 0),
-                                              to: IndexPath(row: newIndex, section: 0))
+                                              to: IndexPath(row: newIndex , section: 0))
                             
                         } else if newIndex < (self?.currentUser.userConversations?.count)! {
                             
