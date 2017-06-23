@@ -307,9 +307,9 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var buttonLogin: UIButton!
     @IBAction func buttonSignUp(_ sender: UIButton) {
-        if Auth.auth().currentUser != nil {
-            self.performSegue(withIdentifier: "singleConversation", sender: self)
-        } else {
+//        if Auth.auth().currentUser != nil {
+//            self.performSegue(withIdentifier: "singleConversation", sender: self)
+//        } else {
             if emailTextField.text != "" && passwordTextField.text != "" {
                 if segmentControl.selectedSegmentIndex == 0 {    // login
                     
@@ -360,7 +360,7 @@ class ViewController: UIViewController {
                     })
                 }
             }
-        }
+//        }
     }
     ////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////
