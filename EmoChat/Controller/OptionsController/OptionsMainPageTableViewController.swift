@@ -19,8 +19,8 @@ class OptionsMainPageTableViewController:  UITableViewController, UIImagePickerC
     
     var manager: ManagerFirebase!
     
-    var currentUserVC: User!
-    
+    var currentUserVC: User? = nil
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 		
@@ -28,18 +28,21 @@ class OptionsMainPageTableViewController:  UITableViewController, UIImagePickerC
         
         tempLogIn()
         tempGetCurrentUser()
-        
-        
-        
-        
-        
-        
-        
+		
+		manager.getCurrentUser { [weak self] (result) in
+			switch result {
+			case let .successSingleUser(user):
+				self?.currentUserVC = user
+			default:
+				return
+			}
+		}
     }
-    
+	
+	
     func tempLogIn() {
 		
-        manager.logIn(email: "idemche@gmail.com", password: "123456") {
+        manager.logIn(email: "idemche@gmail.com" , password: "123456") {
             result in
             switch result {
             case .success:

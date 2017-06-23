@@ -19,6 +19,7 @@ class LoginViewController: EmoChatUIViewController, UITextFieldDelegate {
 	@IBOutlet weak var emailField: CustomTextFieldWithPopOverInfoBox!
 	@IBOutlet weak var passwordField: CustomTextFieldWithPopOverInfoBox!
 	@IBOutlet weak var errorLabel: UILabel!
+	@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 	
 	var manager: ManagerFirebase? = nil
 	
@@ -29,9 +30,10 @@ class LoginViewController: EmoChatUIViewController, UITextFieldDelegate {
 	
 	override func viewDidLoad() {
 		
-		// Load varw and set animated background
+		// Set animated background
 		super.viewDidLoad()
 		backgroundAnimated.loadGif(name: "giphy")
+		activityIndicator.isHidden = true
 		
 		// TextField Delegate
 		emailField.delegate = self
@@ -49,37 +51,27 @@ class LoginViewController: EmoChatUIViewController, UITextFieldDelegate {
 		logIn.layer.borderWidth = 1
 		logIn.layer.borderColor = UIColor.black.cgColor
 		
-		// MARK: - Gesture recognizer
+		// Gesture recognizer for tap capture
 		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
 		view.addGestureRecognizer(tap)
 		
-		// MARK: - Create Firebase manager
+		//Set Firebase manager
 		manager = ManagerFirebase.shared
 	}
 	
+	// MARK: - Dispose of any resources that can be recreated.
+	
 	override func didReceiveMemoryWarning()	{
-		
-		// MARK: - Dispose of any resources that can be recreated.
+
 		super.didReceiveMemoryWarning()
 		
 	}
 	
+	// MARK: - Causes the view (or one of its embedded text fields) to resign the first responder status.
+	
 	override func dismissKeyboard() {
 		
-		// MARK: - Causes the view (or one of its embedded text fields) to resign the first responder status.
-		
 		view.endEditing(true)
-		
-	}
-	
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		
-		if segue.identifier == "showSignUp"
-		{
-			//let destinationVC = segue.destination as? SignUpFirstViewController
-			
-			
-		}
 		
 	}
 	
@@ -87,12 +79,14 @@ class LoginViewController: EmoChatUIViewController, UITextFieldDelegate {
 	
 	func animateButton(_ button: UIButton, _ duration: Double, _ delay: Double, _ alpha: CGFloat)
 	{
+
 		UIView.animate(withDuration: duration,
 		               delay: delay,
 		               options: UIViewAnimationOptions.curveLinear,
 		               animations: {
 						button.alpha = alpha
 		}, completion: nil)
+
 	}
 	
 	// MARK: - Disable or Enable Button
@@ -103,7 +97,7 @@ class LoginViewController: EmoChatUIViewController, UITextFieldDelegate {
 		animateButton(button, duration, delay, isAlpha)
 		logIn.isEnabled = enable
 	}
-	
+
 	func isValidEmail(_ email: String) -> Bool {
 		
 		// MARK: - Checks if email is valid by RegExp
@@ -111,6 +105,7 @@ class LoginViewController: EmoChatUIViewController, UITextFieldDelegate {
 		let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
 		let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
 		return emailTest.evaluate(with: email)
+
 	}
 	
 	func isValidPassword(_ password: String) -> Bool {
@@ -119,12 +114,14 @@ class LoginViewController: EmoChatUIViewController, UITextFieldDelegate {
 		
 		let passwordRegEx = "^.{6,}$"
 		let passwordTest = NSPredicate(format: "SELF MATCHES %@", passwordRegEx)
+		
 		return passwordTest.evaluate(with: password)
 	}
 	
 	@IBAction func textFieldDidBeginEditing(_ textField: UITextField) {
 
 		errorLabel.text = nil
+
 		self.setButton(button: self.logIn, duration: 0, delay: 0, enable: true)
 		
 		switch textField {
@@ -185,6 +182,7 @@ class LoginViewController: EmoChatUIViewController, UITextFieldDelegate {
 		case let(email, password) where (email.imageQuestionShowed || email.text == "") && (password.imageQuestionShowed || password.text == "") :
 			
 			// Alert to user of email and password input
+
 			if emailField.text == "" {
 	
 				emailField.imageQuestionShowed = true
@@ -236,13 +234,16 @@ class LoginViewController: EmoChatUIViewController, UITextFieldDelegate {
 			
 			// Firebase authentication, get both textFields initialized
 			setButton(button: logIn, duration: 0, delay: 0, enable: false)
-			
+			activityIndicator.isHidden = false
+			activityIndicator.startAnimating()
+
 			Auth.auth().signIn(withEmail: self.emailField.text!, password: self.passwordField.text!, completion: { (user, error) in
 				
 				// Completion closure. Check if user is exist and if his email is verified.
 				
 				if user != nil && (user?.isEmailVerified)! {
-		
+					
+					self.activityIndicator.startAnimating()
 					self.errorLabel.text = ("You have succesfuly logged in")
 					self.errorLabel.textColor = UIColor.green
 					
@@ -260,7 +261,8 @@ class LoginViewController: EmoChatUIViewController, UITextFieldDelegate {
 					// Enable logIn button again to allow making amends
 					
 					self.setButton(button: self.logIn, duration: 0, delay: 0, enable: true)
-
+					self.activityIndicator.stopAnimating()
+					self.activityIndicator.isHidden = true
 					if let myError = error?.localizedDescription {
 						
 						self.errorLabel.text = myError

@@ -95,30 +95,30 @@ RegexCheckProtocol {
     // MARK: - Actions
     
     @IBAction func firstNameChanged(_ sender: UITextField) {
-        let currentNameIsValid = nameIsValid(uname: sender.text)
 
-        if currentNameIsValid {
-            firstNameLabel.text = NSLocalizedString("First Name", comment: "First Name")
-            firstNameLabel.textColor = UIColor.white
-        } else {
-            firstNameLabel.printError(errorText: "Enter valid name")
-        }
-        firstNameField.imageQuestionShowed = !currentNameIsValid
+		if sender.text == "" {
+			(sender as! CustomTextFieldWithPopOverInfoBox).imageQuestionShowed = false;
+		}
+
+		let currentNameIsValid = nameIsValid(uname: sender.text)
+
+        firstNameField.imageQuestionShowed = !currentNameIsValid && firstNameField.text != ""
         firstNameField.textInfoForQuestionLabel = regexErrorText.SignUpError.name.localized
     }
 
     
     @IBAction func lastNameChanged(_ sender: UITextField) {
-        let currentLastNameIsValid = lastNameIsValid(uname: sender.text)
+		
+		let currentLastNameIsValid = lastNameIsValid(uname: sender.text)
+		
+		if sender.text == "" {
+			(sender as! CustomTextFieldWithPopOverInfoBox).imageQuestionShowed = false;
+		}
 
-        if currentLastNameIsValid {
-            lastNameLabel.text = NSLocalizedString("Last Name", comment: "Last Name")
-            lastNameLabel.textColor = UIColor.white
-        } else {
-            lastNameLabel.printError(errorText: "Enter valid last name")
-        }
-        lastNameField.imageQuestionShowed = !currentLastNameIsValid
+        lastNameField.imageQuestionShowed = !currentLastNameIsValid &&
+			lastNameField.text != ""
         lastNameField.textInfoForQuestionLabel = regexErrorText.SignUpError.lastName.localized
+
     }
     
     @IBAction func phoneNumberChanged(_ sender: UITextField) {
@@ -128,41 +128,50 @@ RegexCheckProtocol {
         }
 
         let currentphoneIsValid = phoneIsValid(uname: sender.text)
-        if currentphoneIsValid {
+		
+		if currentphoneIsValid {
             phoneField.text = sender.text
         }
-        phoneField.imageQuestionShowed = !currentphoneIsValid
+
+        phoneField.imageQuestionShowed = !currentphoneIsValid && phoneField.text != ""
         phoneField.textInfoForQuestionLabel = regexErrorText.SignUpError.phone.localized
     }
 
     @IBAction func phoneNumberEditingDidBegin(_ sender: UITextField) {
-        let code = getCountryCode()
-        if (phoneField.text?.characters.count)! < code.characters.count {
+		
+		let code = getCountryCode()
+
+		if (phoneField.text?.characters.count)! < code.characters.count {
             phoneField.text = code
-        }
+			
+		}
     }
     
     @IBAction func phoneNumberEditingDidEnd(_ sender: UITextField) {
-        let code = getCountryCode()
+		
+		let code = getCountryCode()
 
         if (phoneField.text?.characters.count)! <= code.characters.count {
             phoneField.text = ""
         }
+
     }
     
     @IBAction func nextPressed(_ sender: UIButton) {
-        if nameIsValid(uname: firstNameField.text!) &&
-            lastNameIsValid(uname: lastNameField.text!) &&
-            phoneIsValid(uname: phoneField.text!) {
+		
+		if nameIsValid(uname: firstNameField.text!)
+			&& lastNameIsValid(uname: lastNameField.text!)
+			&& phoneIsValid(uname: phoneField.text!) {
+		
             activityIndicator.isHidden = false
             activityIndicator.startAnimating()
             manager.addInfoUser(username: username,
                                 phoneNumber: (phoneField.text != "" ? phoneField.text : nil),
                                 firstName: (firstNameField.text != "" ? firstNameField.text : nil),
                                 secondName: (lastNameField.text != "" ? lastNameField.text : nil),
-                                photoURL: nil) {
-                                    result in
-                                    switch result {
+                                photoURL: nil) { result in
+									
+									switch result {
                                     case .success:
                                         self.performSegue(withIdentifier: "choosePhoto", sender: self)
                                     case .failure(let error):
@@ -174,8 +183,11 @@ RegexCheckProtocol {
                                         break
                                     }
             }
+
         } else {
+			
             performSegue(withIdentifier: "choosePhoto", sender: self)
+			
         }
     }
     
@@ -203,7 +215,9 @@ RegexCheckProtocol {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
         if segue.identifier == "choosePhoto" {
+
             let destination:SignUpChooseYourPhotoViewController = segue.destination as! SignUpChooseYourPhotoViewController
             destination.username = username
             destination.email = email
@@ -212,8 +226,10 @@ RegexCheckProtocol {
             destination.lastName = lastNameField.text
             destination.phoneNumber = phoneField.text
             destination.image = image
+
         }
         if segue.identifier == "necessary" {
+
             let destination: SignUpFirstViewController = segue.destination as! SignUpFirstViewController
             destination.enteredEmail = email
             destination.enteredUsername = username
@@ -223,6 +239,8 @@ RegexCheckProtocol {
             destination.lastName = lastNameField.text
             destination.phoneNumber = phoneField.text
             destination.image = image
+
         }
+
     }
 }

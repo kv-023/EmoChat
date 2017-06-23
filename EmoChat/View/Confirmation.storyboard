@@ -29,7 +29,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="confirm" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="9bh-VC-Oor">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="confirm" image="giphy.gif" translatesAutoresizingMaskIntoConstraints="NO" id="9bh-VC-Oor">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="znv-sb-zhb">
@@ -69,13 +69,13 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirmation" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zI2-4o-tHD">
                                                         <rect key="frame" x="71.5" y="0.0" width="132.5" height="27.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We have sent you a letter of confirmation for:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zTG-uj-xo5">
                                                         <rect key="frame" x="29" y="37.5" width="217" height="41"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fU1-KX-10y">
@@ -87,7 +87,7 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Follow the link you have got in order to proceed." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aIE-km-gss">
                                                         <rect key="frame" x="0.0" y="122.5" width="275" height="41"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
@@ -128,6 +128,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backgroundAnimated" destination="9bh-VC-Oor" id="y2i-c5-Pa8"/>
                         <outlet property="emailLabel" destination="fU1-KX-10y" id="cAe-iR-YT6"/>
                         <segue destination="Fz1-2n-Ud1" kind="presentation" identifier="conversations" modalTransitionStyle="crossDissolve" id="Y1f-gZ-qlJ"/>
                         <segue destination="k6j-9t-SLN" kind="presentation" identifier="login" modalTransitionStyle="crossDissolve" id="FGC-sL-Sqz"/>
@@ -155,6 +156,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="background" width="375" height="667"/>
+        <image name="giphy.gif" width="500" height="708"/>
     </resources>
 </document>

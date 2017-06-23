@@ -10,6 +10,7 @@ import UIKit
 
 class ConfirmationViewController: UIViewController {
 
+	@IBOutlet weak var backgroundAnimated: UIImageView!
     @IBOutlet weak var emailLabel: UILabel!
     var manager: ManagerFirebase?
     var username: String?
@@ -22,6 +23,7 @@ class ConfirmationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+		backgroundAnimated.loadGif(name: "giphy")
         manager = ManagerFirebase.shared
         emailLabel.text = email
         // Do any additional setup after loading the view.

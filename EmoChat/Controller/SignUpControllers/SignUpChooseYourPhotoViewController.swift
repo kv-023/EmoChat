@@ -32,7 +32,9 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
     
     override func viewWillAppear(_ animated: Bool) {
         userPhotoView.clipsToBounds = true
-        userPhotoView.layer.cornerRadius = userPhotoView.frame.width/2
+		userPhotoView.layer.cornerRadius = 7
+		userPhotoView.layer.borderWidth = 1
+		userPhotoView.layer.borderColor = UIColor.black.cgColor
         activityIndicator.isHidden = true
         if let picture = image {
             userImage = picture

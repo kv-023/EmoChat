@@ -20,79 +20,67 @@ class SignUpFirstViewController: EmoChatUIViewController, UITextFieldDelegate, R
     @IBOutlet weak var passwordLabel: UILabel!
     @IBOutlet weak var confirmationLabel: UILabel!
     @IBOutlet weak var theScrollView: UIScrollView!
-    var manager: ManagerFirebase?
-    var enteredEmail: String?
-    var enteredUsername: String?
-    var enteredPassword: String?
-    var firstName: String?
-    var lastName: String?
-    var phoneNumber: String?
-    var image: UIImage?
-    var returned: Bool?
-    var edited = false
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
+	var manager: ManagerFirebase?
+	var enteredEmail: String?
+	var enteredUsername: String?
+	var enteredPassword: String?
+	var firstName: String?
+	var lastName: String?
+	var phoneNumber: String?
+	var image: UIImage?
+	var returned: Bool?
+	var edited = false
+	
     var usernameValid = false {
-        didSet {
-            if !usernameValid {
-                usernameLabel.printError(errorText: NSLocalizedString("Enter valid name", comment: "Valid name warning"))
-
-            } else {
-                usernameLabel.printOK(okText: NSLocalizedString("Username", comment: "Username without warning"))
-            }
-
-            username.imageQuestionShowed = !usernameValid
+		
+		didSet {
+	
+            username.imageQuestionShowed = !usernameValid && username.text != ""
             username.textInfoForQuestionLabel = regexErrorText.SignUpError.userName.localized
         }
+
     }
 
     var emailValid = false {
+		
         didSet {
-            if !emailValid {
-                emailLabel.printError(errorText: NSLocalizedString("Enter valid email", comment: "Valid email warning"))
-            } else {
-                emailLabel.printOK(okText: NSLocalizedString("Email", comment: "Email without warning"))
-            }
-
-            email.imageQuestionShowed = !emailValid
+            email.imageQuestionShowed = !emailValid && email.text != ""
             email.textInfoForQuestionLabel = regexErrorText.SignUpError.email.localized
         }
+	
     }
     var passwordValid = false {
+		
         didSet {
-            if !passwordValid {
-                passwordLabel.printError(errorText: NSLocalizedString("Enter valid password", comment: "Valid password warning"))
-            } else {
-                passwordLabel.printOK(okText: NSLocalizedString("Password", comment: "Password without warning"))
-            }
 
-            password.imageQuestionShowed = !passwordValid
+            password.imageQuestionShowed = !passwordValid && password.text != ""
             password.textInfoForQuestionLabel = regexErrorText.SignUpError.password.localized
         }
+	
     }
     var passwordConfirmationValid = false {
-        didSet {
-            if !passwordConfirmationValid {
-                confirmationLabel.printError(errorText: NSLocalizedString("Enter valid confirmation", comment: "Valid confirmation warning"))
-            } else {
-                confirmationLabel.printOK(okText: NSLocalizedString("Confirmation", comment: "Confirmation without warning"))
-            }
-
-            confirmation.imageQuestionShowed = !passwordConfirmationValid
+		
+		didSet {
+            confirmation.imageQuestionShowed = !passwordConfirmationValid && confirmation.text != ""
             confirmation.textInfoForQuestionLabel = regexErrorText.SignUpError.passwordConfirmation.localized
         }
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        activityIndicator.isHidden = true
+		
+		activityIndicator.isHidden = true
         email.text = enteredEmail
         password.text = enteredPassword
         confirmation.text = enteredPassword
         username.text = enteredUsername
+
     }
 
     override func viewDidLoad() {
-        super.viewDidLoad()
+		
+		super.viewDidLoad()
 		backgroundAnimated.loadGif(name: "giphy")
         
         //Hide keyboard by tap
@@ -104,6 +92,7 @@ class SignUpFirstViewController: EmoChatUIViewController, UITextFieldDelegate, R
         
         //Create Firebase manager
         manager = ManagerFirebase.shared
+
     }
     
     func keyboardWillShow(notification:NSNotification){
@@ -125,98 +114,101 @@ class SignUpFirstViewController: EmoChatUIViewController, UITextFieldDelegate, R
         super.didReceiveMemoryWarning()
     }
 
-	@objc(textFieldDidBeginEditing:) @IBAction func textFieldDidBeginEditing(_ textField: UITextField) {
+	@IBAction func textFieldDidBeginEditing(_ textField: UITextField) {
 		
-//		switch textField {
-//			
-//		case username:
-//			
-//			username.becomeFirstResponder()
-//			username.imageQuestionShowed = false
-//			
-//		case email:
-//			
-//			email.becomeFirstResponder()
-//			email.imageQuestionShowed = false
-//			
-//		case password:
-//			
-//			password.becomeFirstResponder()
-//			password.imageQuestionShowed = false
-//			
-//		case confirmation:
-//			
-//			confirmation.becomeFirstResponder()
-//			confirmation.imageQuestionShowed = false
-//			
-//		default:
-//			
-//			username.resignFirstResponder()
-//			email.resignFirstResponder()
-//			password.resignFirstResponder()
-//			confirmation.resignFirstResponder()
-//			
-//		}
-
+		if textField.text == "" {
+			(textField as! CustomTextFieldWithPopOverInfoBox).imageQuestionShowed = false;
+		}
 	}
 
     @IBAction func usernameEdited(_ sender: UITextField) {
-        usernameValid = usernameIsValid(userName: sender.text)
+
+		usernameValid = sender.text != "" ? usernameIsValid(userName: sender.text) : true;
         edited = true
+
     }
 
     @IBAction func emailEdited(_ sender: UITextField) {
-        emailValid = emailIsValid(userEmail: sender.text)
+		
+		emailValid = sender.text != "" ? emailIsValid(userEmail: sender.text) : true;
         edited = true
+		
     }
 
     @IBAction func passwordEdited(_ sender: UITextField) {
-        passwordValid = passwordIsValid(userPassword: sender.text)
+
+		passwordValid = sender.text != "" ? passwordIsValid(userPassword: sender.text) : true;
         edited = true
+
     }
 
     @IBAction func confirmationEdited(_ sender: UITextField) {
-        passwordConfirmationValid = passwordIsValid(userPassword: sender.text)
+
+		passwordConfirmationValid = sender.text != "" ? passwordIsValid(userPassword: sender.text): true
         edited = true
+
     }
 
     @IBAction func nextIsPressed(_ sender: UIButton) {
+
         usernameValid = usernameIsValid(userName: username.text)
         emailValid = emailIsValid(userEmail: email.text)
         passwordValid = passwordIsValid(userPassword: password.text)
         passwordConfirmationValid = passwordIsValid(userPassword: confirmation.text)
+		username.resignFirstResponder()
+		email.resignFirstResponder()
+		password.resignFirstResponder()
+		confirmation.resignFirstResponder()
+
         var success = true
-        if username.text == "" {
-            usernameLabel.printError(errorText: NSLocalizedString("Enter username", comment: "Empty username"))
-            username.redBorder()
+		
+		if username.text == "" {
+			username.imageQuestionShowed = true
+			username.textInfoForQuestionLabel = "Username field must not be empty!"
+			username.shake(count: 1, for: 0.05, withTranslation: 15, delay: 0)
             success = false
         }
-        if email.text == "" {
-            emailLabel.printError(errorText: NSLocalizedString("Enter email", comment: "Empty email"))
-            email.redBorder()
+		
+		if email.text == "" {
+			email.imageQuestionShowed = true
+			email.textInfoForQuestionLabel = "Email field must not be empty!"
+			email.shake(count: 1, for: 0.05, withTranslation: 15, delay: 0)
             success = false
         }
-        if password.text != confirmation.text {
-            confirmationLabel.printError(errorText: NSLocalizedString("Passwords do not match", comment: "Confirmation is not as password"))
-            confirmation.redBorder()
+		
+		if confirmation.text == "" {
+			confirmation.imageQuestionShowed = true
+			confirmation.textInfoForQuestionLabel = "Confirmation field must not be empty!"
+		} else if password.text != confirmation.text {
+			confirmation.imageQuestionShowed = true
+			confirmation.textInfoForQuestionLabel = "Password doesn't match with your previous input"
+			confirmation.shake(count: 1, for: 0.05, withTranslation: 15, delay: 0)
             success = false
         }
-        if password.text == "" {
-            passwordLabel.printError(errorText: NSLocalizedString("Enter password", comment: "Empty password"))
-            password.redBorder()
+
+		if password.text == "" {
+			password.imageQuestionShowed = true
+			password.textInfoForQuestionLabel = "Password field must not be empty!"
+			password.shake(count: 1, for: 0.05, withTranslation: 15, delay: 0)
             success = false
         }
+
         if success
-            && (usernameValid
-                && emailValid
-                && passwordValid
-                && passwordConfirmationValid) {
+			&& usernameValid
+			&& emailValid
+			&& passwordValid
+			&& passwordConfirmationValid {
+
             var reuse = false
+
             if let check = returned {
+				
                 if check {
                     reuse = true
                 }
-                if check && edited {
+				
+				if check && edited {
+
                     manager?.deleteAccount {
                         result in
                         switch result {
@@ -225,48 +217,82 @@ class SignUpFirstViewController: EmoChatUIViewController, UITextFieldDelegate, R
                         }
                     }
                     returned = false
+
                 }
             }
-            if reuse && (!edited) {
+			
+			if reuse && !edited {
+				
                 performSegue(withIdentifier: "additional", sender: self)
+	
             } else {
+	
                 activityIndicator.isHidden = false
                 activityIndicator.startAnimating()
-                manager?.checkUserNameUniqness(self.username.text!) {
-                    result in
+                manager?.checkUserNameUniqness(self.username.text!) { result in
+
                     switch result {
-                    case .success:
-                        self.manager?.signUp(email: self.email.text!, password: self.password.text!) {
-                            result in
-                            switch result {
-                            case .success:
-                                self.performSegue(withIdentifier: "additional", sender: self)
+						
+					case .success:
+
+                        self.manager?.signUp(email: self.email.text!, password: self.password.text!) { result in
+							
+							switch result {
+								
+							case .success:
+								
+								self.performSegue(withIdentifier: "additional", sender: self)
+								
                             case .failure(let error):
+								
                                 self.email.imageQuestionShowed = true
                                 self.email.textInfoForQuestionLabel = error
                                 self.email.redBorder()
                                 self.activityIndicator.isHidden = true
                                 self.activityIndicator.stopAnimating()
+								
                             default:
                                 break
+	
                             }
                         }
                     case .failure(let error):
+
                         self.username.redBorder()
                         self.username.imageQuestionShowed = true
                         self.username.textInfoForQuestionLabel = error
                         self.activityIndicator.isHidden = true
                         self.activityIndicator.stopAnimating()
+
                     default:
                         break
                     }
                 }
             }
-        }
+	
+		} else {
+
+			let textFields: [CustomTextFieldWithPopOverInfoBox : Bool] = [username: usernameValid, email: emailValid, password: passwordValid, confirmation: passwordConfirmationValid]
+			
+			for (key, value) in textFields {
+			
+				switch value {
+				
+				case false:
+					
+					key.shake()
+					
+				default:
+					break;
+				}
+		}
+			
+		}
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == username {
+		
+		if textField == username {
             email.becomeFirstResponder()
         } else if textField == email {
             password.becomeFirstResponder()
@@ -276,10 +302,13 @@ class SignUpFirstViewController: EmoChatUIViewController, UITextFieldDelegate, R
             confirmation.resignFirstResponder()
         }
         return true
+
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "additional" {
+		
+		if segue.identifier == "additional" {
+	
             let destination:AdditionalViewController = segue.destination as! AdditionalViewController
             destination.username = username.text
             destination.email = email.text
@@ -288,7 +317,9 @@ class SignUpFirstViewController: EmoChatUIViewController, UITextFieldDelegate, R
             destination.lastName = lastName
             destination.phoneNumber = phoneNumber
             destination.image = image
+	
         }
+
     }
     
 }

@@ -12,7 +12,8 @@ protocol RegexCheckProtocol {
 extension RegexCheckProtocol {
 
     func usernameIsValid(userName textForAnalyze: String?) -> Bool {
-        var flagForReturn = true
+		
+		var flagForReturn = true
 
         if let notNullText = textForAnalyze {
             let regexLoginPattern = "^[a-z0-9-]{5,}$"
@@ -25,7 +26,8 @@ extension RegexCheckProtocol {
     }
 
     func nameIsValid(uname textForAnalyze: String?) -> Bool {
-        var flagForReturn = true
+		
+		var flagForReturn = true
 
         if let notNullText = textForAnalyze {
             let regexNamePattern = "^[a-zA-Z-']{0,18}$"
@@ -38,7 +40,8 @@ extension RegexCheckProtocol {
     }
     
     func lastNameIsValid(uname textForAnalyze: String?) -> Bool {
-        var flagForReturn = true
+		
+		var flagForReturn = true
         
         if let notNullText = textForAnalyze {
             let regexNamePattern = "^[a-zA-Z-']{0,18}$"
@@ -51,7 +54,8 @@ extension RegexCheckProtocol {
     }
     
     func phoneIsValid(uname textForAnalyze: String?) -> Bool {
-        var flagForReturn = true
+		
+		var flagForReturn = true
         
         if let notNullText = textForAnalyze {
             let regexPhonePattern = "^[+0-9]{0,13}$"
@@ -65,7 +69,8 @@ extension RegexCheckProtocol {
     
 
     func emailIsValid(userEmail textForAnalyze: String?) -> Bool {
-        var flagForReturn = true
+		
+		var flagForReturn = true
 
         if let notNullText = textForAnalyze {
             let regexLoginPattern = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
@@ -78,7 +83,8 @@ extension RegexCheckProtocol {
     }
 
     func passwordIsValid(userPassword textForAnalyze: String?) -> Bool {
-        var flagForReturn = true
+		
+		var flagForReturn = true
 
         if let notNullText = textForAnalyze {
             let regexLoginPattern = "^.{6,}$"
@@ -102,12 +108,14 @@ extension RegexCheckProtocol {
 //MARK:- regex error explanation
 
 enum regexErrorText: String, Localizable {
-    case Title = "app.title"
+	
+	case Title = "app.title"
 
     static let parent: LocalizeParent = nil
 
     enum SignUpError: String, Localizable {
-        static let parent: LocalizeParent = nil
+		
+		static let parent: LocalizeParent = nil
         
         case userName = "app.regexCheck.userName"
         case name = "app.regexCheck.name"
