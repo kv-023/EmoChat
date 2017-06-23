@@ -67,9 +67,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         table.delegate = self
         table.estimatedRowHeight = table.rowHeight
         table.rowHeight = UITableViewAutomaticDimension
-        /*table.contentInset.bottom = 20
-        table.scrollIndicatorInsets.bottom = 20*/
-        table.reloadData()
         table.scrollToRow(at: IndexPath.init(row: messagesArray.count - 1, section: 0), at: .top, animated: false)
         self.setUpTextView()
         manager = ManagerFirebase.shared
