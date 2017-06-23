@@ -7,10 +7,28 @@
 //
 
 import Foundation
+import UIKit
 
 class JSONParser: NSObject {
 
     static let sharedInstance = JSONParser()
+    
+    //MARK - downloadImage
+    
+    func downloadImage(url: String, result: @escaping (UIImage) -> Void) {
+        
+        let imageURL: URL = URL(string: (url))!
+        
+        let task = URLSession.shared.dataTask(with: imageURL) {(data, responce, error) in
+            if let imageData = data {
+                result(UIImage(data: imageData)!)
+            }
+        }
+        task.resume()
+    }
+    
+    
+    
 
     func getJSONDataFromURL(forUrl urlForRequest:String,
                             completion: @escaping (_ jsonData:JsonDataType?) -> Void) {
