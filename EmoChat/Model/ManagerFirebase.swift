@@ -338,8 +338,7 @@ class ManagerFirebase {
             result(.failure(NSLocalizedString("User isn't authenticated", comment: "")))
         }
     }
-    
-    
+
     //MARK: Return userPic
     func getUserPic (from userURL: String, result: @escaping (UserOperationResult) -> Void) {
         let photoRef = storageRef.child(userURL)
@@ -375,9 +374,14 @@ class ManagerFirebase {
 
         
     //MARK: Create conversation logo
-   func createLogo (selectedUsers: [User]) -> UIImage {
+    func createLogo (selectedUsers: [User], conversation: String) -> String {
             var array = [UIImage]()
-            
+        
+            //create reference
+            let imagePath = "conversLogos/\(conversation)/\(conversation)-logo.jpg"
+            let metaData = StorageMetadata()
+            metaData.contentType = "image/jpeg"
+        
             for user in selectedUsers {
                 self.getUserPic(from: user.photoURL!, result: { (result) in
                     switch result {
@@ -387,11 +391,16 @@ class ManagerFirebase {
                     }
                 })
             }
-            let finalImage = UIImage.createFinalImg(logoImages: array)
-            
-            return finalImage
-        }
+
         
+            let finalImage = UIImage.createFinalImg(logoImages: array)
+            let imageData = UIImageJPEGRepresentation(finalImage, 1)
+ 
+            self.storageRef.child(imagePath).putData(imageData!, metadata: metaData)
+        
+            return imagePath
+        }
+    
     
     //MARK: Update profile
     func changeInfo (phoneNumber: String?, firstName: String?, secondName: String?, result: @escaping (UserOperationResult) -> Void) {

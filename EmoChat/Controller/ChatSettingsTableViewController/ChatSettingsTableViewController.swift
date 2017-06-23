@@ -29,29 +29,9 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        manager = ManagerFirebase.shared
-        
-        manager.getUserPicFullResolution(from: "userPics/ihn570HNGkY600i6ZUICS6YrqkQ2/519124722475.jpg") {
-            result in
-            switch result {
-            case .successUserPic (let image):
-                print(image.description)
-            case .failure(let error):
-                print(error)
-            default:
-                break
-            }
-        }
-
-        //        manager.ref?.child("conversations").observeSingleEvent(of: .value, with: { (snapshot) in
-        //            let value = snapshot.value as? NSDictionary
-        //            self.conversations = self.manager.getConversetionsFromSnapshot(value, accordingTo: ["77777"], currentUserEmail: "blabla@mail.ru")
-        //
-        //        })
-        
-        
     }
     
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -86,36 +66,9 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
             
             logoCell.conversTitle.text = "Conversation title"
             logoCell.conversLogo.clipsToBounds = true
-            //logoCell.conversLogo.layer.cornerRadius =  logoCell.conversLogo.frame.size.height / 2
+            logoCell.conversLogo.layer.cornerRadius =  logoCell.conversLogo.frame.size.height / 2
             logoCell.conversLogo.contentMode = .scaleAspectFit
-         //   logoCell.conversLogo.image = UIImage.init(named: "1.png")
             
-            let arrray: [UIImage] = [UIImage.init(named: "1.png")!, UIImage.init(named: "1.png")!/*, UIImage.init(named: "111.jpg")!, UIImage.init(named: "111.jpg")!, UIImage.init(named: "5.png")!, UIImage.init(named: "6.png")!*/]
-            
-            //let convers = Conversation(conversationId: <#T##String#>, usersInConversation: <#T##[User]#>, messagesInConversation: <#T##[Message]?#>, lastMessage: <#T##Message?#>)
-            var urlsArray = ["userPics/ihn570HNGkY600i6ZUICS6YrqkQ2/519124722475.jpg",
-                             "userPics/17zGv3T6C4gzNZllnoDzkIxZxO42/519554976099.jpg"]//manager.getURLsFromConversation((self.conversations?.first!)!)
-            
-            
-            let url = NSURL.fileURL(withPath: "userPics/ihn570HNGkY600i6ZUICS6YrqkQ2/519124722475.jpg")
-            let loadedImageData = NSData(contentsOf: url)
-           // let imgg = UIImage(data: loadedImageData! as Data)!
-           // let ar = [imgg]
-        
-        //            for index in 0...1 {
-        //                manager.getUserPicFullResolution(from: urlsArray[index], result: { (result) in
-        //                    switch result {
-        //                    case let .successUserPic(image):
-        //                        arrray.append(image)
-        //                        tableView.reloadData()
-        //                    default:
-        //                        print("error")
-        //
-        //                    }
-        //
-        //                })
-        //            }
-        
             if let imageData = userDefaults.value(forKey: kDefaultsCellLogo),
                 let image = UIImage(data: imageData  as! Data) {
                 
@@ -123,7 +76,7 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
                 
             } else {
             
-               // logoCell.conversLogo.image = UIImage.createFinalImg(logoImages: arrray)
+              //  logoCell.conversLogo.image =
             
             }
             
@@ -190,53 +143,7 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
     }
 
 
-/*
- // Override to support conditional editing of the table view.
- override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
- // Return false if you do not want the specified item to be editable.
- return true
- }
- */
-
-/*
- // Override to support editing the table view.
- override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
- if editingStyle == .delete {
- // Delete the row from the data source
- tableView.deleteRows(at: [indexPath], with: .fade)
- } else if editingStyle == .insert {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
-
-/*
- // Override to support rearranging the table view.
- override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
- 
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
- // Return false if you do not want the item to be re-orderable.
- return true
- }
- */
-
-/*
- // MARK: - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
- // Get the new view controller using segue.destinationViewController.
- // Pass the selected object to the new view controller.
- }
- */
-
-
-// MARK: Loading New Photo
+    // MARK: Loading New Photo
     func loadNewLogo(tapGestureRecognizer: UITapGestureRecognizer) {
     
         let imagePicker = UIImagePickerController()
@@ -264,6 +171,7 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
     }
     
 
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
     
         guard let chosenImage = info[UIImagePickerControllerEditedImage] as? UIImage else { return }
