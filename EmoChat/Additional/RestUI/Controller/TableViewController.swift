@@ -46,9 +46,19 @@ class TableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "prototypeCell", for: indexPath) as! TableViewCell
 
+//        testDataRequest()
 
-        //dataRequest()
-        testDataRequest()
+        // TEST @@@@@@@@@@@@ +++
+        let textDataForTest = "bla-bla bla https://9gag.com/gag/aRjwVVG bla-bla bla"
+
+
+        let testFireBaseMessage = Message(uid: "0099887766545433",
+                                          senderId: "id2222222Id",
+                                          time: Date(),
+                                          content: (type: MessageContentType.text, content: textDataForTest))
+        cell.message = testFireBaseMessage
+
+        // TEST @@@@@@@@@@@@ ---
 
 
         return cell
@@ -60,63 +70,9 @@ class TableViewController: UITableViewController {
 
     }
 
-    func testDataRequest() {
+    private func testDataRequest() {
 
         RestUIController.sharedInstance.testDataFirst()
-//         RestUIStrategyManager.instance.getDataFromURL(dataForParse: RestUIUrlembed(),
-//                                                       forUrl: "https://9gag.com/gag/aoOmXeA")
     }
 
-
-//    //MARK:- Get Jddd
-//
-//    let urlToRequest: String = "https://urlembed.com/json/WDYyREZLSlU2TUk0Qlk2V0xMUklYM01JS0M1VUxJREZXVDZMUU1IQ0tXREhCN0s1TURGQT09PT0=/https://9gag.com/gag/aoOmXeA"
-//
-//
-//    func dataRequest() {
-//
-//        //---------------
-//        let url = URL(string: urlToRequest)
-//        if let usableUrl = url {
-//            let request = URLRequest(url: usableUrl)
-//
-//            let configuration = URLSessionConfiguration.default
-//            let sharedSession = URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
-//
-//            let task = sharedSession.dataTask(with: request, completionHandler: { (data, response, error) in
-//
-//                if let content = data {
-//                    do {
-//                        let myJson = try JSONSerialization.jsonObject(with: content, options: JSONSerialization.ReadingOptions.mutableContainers) as AnyObject
-//
-//                        if let type = myJson["type"] as? NSDictionary {
-//                            print (type)
-//
-//                        }
-//                    }
-//                    catch {
-//
-//                    }
-//
-//                }
-//                if error != nil {
-//                    print (error?.localizedDescription ?? "sm. error occured")
-//                }
-//            })
-//
-//            task.resume()
-//        }
-//
-//    }
 }
-
-//extension TableViewController: URLSessionDelegate {
-//
-//
-//    func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-//        
-//        completionHandler(.useCredential, URLCredential(trust: challenge.protectionSpace.serverTrust!))
-//        
-//    }
-//    
-//}

@@ -19,6 +19,7 @@ class MessageModel: RegexCheckProtocol {
         }
     }
 
+    var messageURLDataIsReady:Bool = false
 
     //get data from model
     var senderId: String {
@@ -49,6 +50,8 @@ class MessageModel: RegexCheckProtocol {
 
     //prepare data for conversation's cell
     func getParseDataFromResource(completion: @escaping(_ allDone: Bool) -> Void) {
+        self.messageURLDataIsReady = false
+
         //https://www.raywenderlich.com/148515/grand-central-dispatch-tutorial-swift-3-part-2
         DispatchQueue.global(qos: .userInitiated).async {
 
@@ -73,6 +76,8 @@ class MessageModel: RegexCheckProtocol {
 
             DispatchQueue.main.async {
                 self.messageURLData = tempMessageURLData
+                self.messageURLDataIsReady = true
+
                 completion(true)
             }
         }
