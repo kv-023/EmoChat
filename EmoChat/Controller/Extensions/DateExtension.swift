@@ -16,4 +16,11 @@ extension Date {
     init(milliseconds:Int) {
         self = Date(timeIntervalSince1970: TimeInterval(milliseconds / 1000))
     }
+    
+    func formatDate() -> String {
+        let dataformatter = DateFormatter.init()
+        dataformatter.timeStyle = .short
+        let date = dataformatter.string(from: self)
+        return date
+    }
 }

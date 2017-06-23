@@ -30,10 +30,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         switch (result!) {
         case .successSingleMessage(let message):
             print(message.content)
-            messagesArray.append((message, .right))
-            table.beginUpdates()
-            table.insertRows(at: [IndexPath(row: messagesArray.count - 1, section: 0)], with: .automatic)
-            table.endUpdates()
+            insertRow((message, .right))
         case .failure(let string):
             print(string)
         default:
@@ -47,7 +44,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     var currentConversation: Conversation! { didSet { updateUI() } }
     
-    var messagesArray: [(Message, UserType)] = [(Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HEi")), .left), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "last")), .right)]
+    var messagesArray: [(Message, UserType)] = [/*(Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HEi")), .left), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "last")), .right)*/]
     
     @IBOutlet weak var table: UITableView!
     
@@ -55,11 +52,20 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         //download 20 last messages
     }
     
-   /* func insertRows(_ newMessages: [Message]) {
+    func insertRow(_ newMessage: (Message, UserType)) {
+        messagesArray.append((newMessage.0, newMessage.1))
         table.beginUpdates()
         table.insertRows(at: [IndexPath(row: messagesArray.count - 1, section: 0)], with: .automatic)
         table.endUpdates()
-    }*/
+    }
+
+//    func insertRows(_ newMessages: [(Message, UserType)]) {
+//        table.beginUpdates()
+//        for item in newMessages {
+//            table.insertRows(at: [IndexPath(row: messagesArray.count - 1, section: 0)], with: .automatic)
+//        }
+//        table.endUpdates()
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,7 +73,9 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         table.delegate = self
         table.estimatedRowHeight = table.rowHeight
         table.rowHeight = UITableViewAutomaticDimension
-        table.scrollToRow(at: IndexPath.init(row: messagesArray.count - 1, section: 0), at: .top, animated: false)
+        if !messagesArray.isEmpty {
+            table.scrollToRow(at: IndexPath.init(row: messagesArray.count - 1, section: 0), at: .top, animated: false)
+        }
         self.setUpTextView()
         manager = ManagerFirebase.shared
         manager?.getCurrentUser { (result) in
@@ -75,6 +83,16 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             case .successSingleUser(let user):
                 self.currentUser = user
                 self.currentConversation = user.userConversations?.first!
+                self.manager?.getMessageFromConversation([self.currentConversation], result: { (conv, newMessage) in
+                    if let res = self.manager?.isMessageFromCurrentUser(newMessage) {
+                        if res == true {
+                            (self.table.cellForRow(at: IndexPath.init(row: self.messagesArray.count - 1, section: 0)) as? RightCell)?.isReceived = true
+                        } else {
+                            self.insertRow((newMessage, .left))
+                        }
+
+                    }
+                })
                 print(self.currentConversation.uuid)
             case .failure(let error):
                 print(error)
@@ -84,8 +102,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             
         }
         
+        
         setupKeyboardObservers()
-
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -113,12 +131,36 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 fatalError("Cell was not casted!")
             }
             cell.messageEntity = message.0
+            cell.time.text = message.0.time.formatDate()
+            manager?.getUserPic(from: currentUser.photoURL!, result: { (result) in
+                switch result {
+                case .successUserPic(let image):
+                    cell.userPic.image = image
+                default:
+                    break
+                }
+            })
             return cell
         case .right:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "Right", for: indexPath) as? RightCell else {
                 fatalError("Cell was not casted!")
             }
             cell.messageEntity = message.0
+            if cell.time.text == "" {
+                cell.time.isHidden = true
+            }
+            cell.activityIndicator.startAnimating()
+            let companion = currentConversation.usersInConversation.filter(){
+                $0.uid == message.0.senderId
+            }
+            manager?.getUserPic(from: companion.first!.photoURL!, result: { (result) in
+                switch result {
+                case .successUserPic(let image):
+                    cell.userPic.image = image
+                default:
+                    break
+                }
+            })
             return cell
         }
     }
@@ -139,8 +181,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     @IBOutlet weak var textViewMaxHeightConstraint: NSLayoutConstraint!
     func textViewDidChange(_ textView: UITextView) {
-        
-        //разм
+
         let size = textView.bounds.size
        //change the height of UITextView depending of a fixed width
         let newSize = textView.sizeThatFits( CGSize(width: size.width, height: CGFloat.greatestFiniteMagnitude))
@@ -148,13 +189,16 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         if (newSize.height >= self.textViewMaxHeightConstraint.constant && !textView.isScrollEnabled) {
             textView.isScrollEnabled = true;
             self.textViewMaxHeightConstraint.isActive = true;
+            
         } else if (newSize.height < self.textViewMaxHeightConstraint.constant && textView.isScrollEnabled) {
             textView.isScrollEnabled = false;
             self.textViewMaxHeightConstraint.isActive = false;
+            
         }
         
+     
         
-}
+    }
     
     func textViewDidBeginEditing(_ textView: UITextView)
     {
@@ -213,7 +257,9 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             UIView.animate(withDuration: keyboardDuration, animations: {
                 self.view.layoutIfNeeded()
             })
-            table.scrollToRow(at: IndexPath.init(row: messagesArray.count - 1, section: 0), at: .top, animated: false)
+            if !messagesArray.isEmpty {
+                table.scrollToRow(at: IndexPath.init(row: messagesArray.count - 1, section: 0), at: .top, animated: false)
+            }
         }
     }
     

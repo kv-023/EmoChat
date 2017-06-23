@@ -12,7 +12,6 @@ class LeftCell: UITableViewCell {
 
     @IBOutlet weak var userPic: UIImageView!
     @IBOutlet weak var time: UILabel!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var message: UITextView!
     @IBOutlet weak var background: UIImageView!
     
@@ -41,6 +40,18 @@ class RightCell: UITableViewCell {
     @IBOutlet weak var time: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var message: UITextView!
+    var isReceived = false {
+        didSet {
+            if isReceived {
+                activityIndicator.stopAnimating()
+                activityIndicator.isHidden = true
+                time.isHidden = false
+                //time.text = messageEntity?.time
+
+                time.text = messageEntity?.time.formatDate()
+            }
+        }
+    }
     
     var messageEntity: Message? {
         didSet {

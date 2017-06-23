@@ -618,6 +618,14 @@ class ManagerFirebase {
         }
     }
     
+    func isMessageFromCurrentUser (_ message: Message) -> Bool {
+        var result = false
+        if let uid = Auth.auth().currentUser?.uid {
+            result = message.senderId == uid
+        }
+        return result
+    }
+    
     //MARK: - tuple array
     
     
