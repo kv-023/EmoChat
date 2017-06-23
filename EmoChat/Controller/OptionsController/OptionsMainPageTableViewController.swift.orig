@@ -16,6 +16,17 @@ class OptionsMainPageTableViewController:  UITableViewController, UIImagePickerC
     @IBOutlet weak var phoneNumberLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
+<<<<<<< HEAD
+    
+    var manager: ManagerFirebase!
+    
+    var currentUserVC: User? = nil
+	
+    override func viewDidLoad() {
+        super.viewDidLoad()
+		
+		manager = ManagerFirebase.shared
+=======
     var currentUserVC: User!
     var manager: ManagerFirebase!
     
@@ -24,15 +35,30 @@ class OptionsMainPageTableViewController:  UITableViewController, UIImagePickerC
         
         //Manager firebase
         manager = ManagerFirebase.shared
+>>>>>>> origin/Develop
         
         //Temporaru login and get current user
         tempLogIn()
         tempGetCurrentUser()
+<<<<<<< HEAD
+		
+		manager.getCurrentUser { [weak self] (result) in
+			switch result {
+			case let .successSingleUser(user):
+				self?.currentUserVC = user
+			default:
+				return
+			}
+		}
+=======
         
+>>>>>>> origin/Develop
     }
-    
+	
+	
     func tempLogIn() {
-        manager.logIn(email: "zellensky@gmail.com", password: "qwerty") {
+		
+        manager.logIn(email: "idemche@gmail.com" , password: "123456") {
             result in
             switch result {
             case .success:
@@ -45,6 +71,7 @@ class OptionsMainPageTableViewController:  UITableViewController, UIImagePickerC
                 break
             }
         }
+
     }
     
     func tempGetCurrentUser() {
