@@ -537,7 +537,8 @@ class ManagerFirebase {
             
             for member in members {
                 refConv.child("usersInConversation/\(member.uid!)").setValue(true)
-                ref?.child("users/\(member.uid)/(conversations)/\(conversation.uuid)").setValue(true)
+                
+                ref?.child("users/\(member.uid!)/conversations/\(conversation.uuid)").setValue(true)
             }
         
             return .successSingleConversation(conversation)
@@ -665,7 +666,7 @@ class ManagerFirebase {
     
     private func getConversation(from conversationDict:[String : AnyObject],
                                  conversationID: String,
-                                 withLastMessage message: Message,
+                                 withLastMessage message: Message?,
                                  owner user: User) -> Conversation {
         //create conversation's fields
         let timeStamp = conversationDict["lastMessage"] as! NSNumber
@@ -715,35 +716,46 @@ class ManagerFirebase {
                     break
                 }
                 
-                conversationsDispatchGroup.enter()
-                
-                self?.getLastMessageOf(conversationID: element.conversationId,
-                                       from: snapshot,
-                                       completionHandler: { (result) in
-                    switch result {
-                    case let .successSingleMessage(message):
-                        
-                        let conversationDict = snapshot.childSnapshot(forPath: "\(element.conversationId)").value as? [String : AnyObject] ?? [:]
-                        
-                        if let conversation = self?.getConversation(from: conversationDict,
-                                                                 conversationID: element.conversationId,
-                                                                 withLastMessage: message,
-                                                                 owner: user) {
-                            conversations.append(conversation)
+                if snapshot.childSnapshot(forPath: "\(element.conversationId)/messagesInConversation").exists() {
+                    
+                    conversationsDispatchGroup.enter()
+
+                    self?.getLastMessageOf(conversationID: element.conversationId,
+                                           from: snapshot,
+                                           completionHandler: { (result) in
+                        switch result {
+                        case let .successSingleMessage(message):
+                            
+                            let conversationDict = snapshot.childSnapshot(forPath: "\(element.conversationId)").value as? [String : AnyObject] ?? [:]
+                            
+                            if let conversation = self?.getConversation(
+                                                    from: conversationDict,
+                                                    conversationID: element.conversationId,
+                                                    withLastMessage: message,
+                                                    owner: user) {
+                                conversations.append(conversation)
+                            }
+                            conversationsDispatchGroup.leave()
+                        default:
+                            return
                         }
-                        
-                        conversationsDispatchGroup.leave()
-                    default:
-                        return
+                    })
+                } else {
+                    let conversationDict = snapshot.childSnapshot(forPath: "\(element.conversationId)").value as? [String : AnyObject] ?? [:]
+                    
+                    if let conversation = self?.getConversation(
+                        from: conversationDict,
+                        conversationID: element.conversationId,
+                        withLastMessage: nil,
+                        owner: user) {
+                        conversations.append(conversation)
                     }
-                })
-                
+
+                }
             }
-            
             conversationsDispatchGroup.notify(queue: DispatchQueue.main, execute: {
                 completionHandler(.successArrayOfConversations(conversations))
             })
-            
         }, withCancel: { (error) in
             completionHandler(.failure(error.localizedDescription))
         })
@@ -759,21 +771,21 @@ class ManagerFirebase {
             self?.getLastMessageOf(conversationID: tuple.conversationId,
                                    from: snapshot,
                                    completionHandler: { (result) in
-                                    switch result {
-                                    case let .successSingleMessage(message):
-                                        
-                                        let conversationDict = snapshot.value as? [String : AnyObject] ?? [:]
-                                        
-                                        if let conversation = self?.getConversation(from: conversationDict,
-                                                                                    conversationID: tuple.conversationId,
-                                                                                    withLastMessage: message,
-                                                                                    owner: user) {
-                                            
-                                            completionHandler(.successSingleConversation(conversation))
-                                        }
-                                    default:
-                                        return
-                                    }
+                switch result {
+                case let .successSingleMessage(message):
+                    
+                    let conversationDict = snapshot.value as? [String : AnyObject] ?? [:]
+                    
+                    if let conversation = self?.getConversation(from: conversationDict,
+                                                                conversationID: tuple.conversationId,
+                                                                withLastMessage: message,
+                                                                owner: user) {
+                        
+                        completionHandler(.successSingleConversation(conversation))
+                    }
+                default:
+                    return
+                }
             })
         }, withCancel: { (error) in
             completionHandler(.failure(error.localizedDescription))
@@ -781,10 +793,18 @@ class ManagerFirebase {
     }
     
     private func getLastMessageOf(conversationID: String,
-                                  from snapshot: DataSnapshot,
+                                  from snapshot: DataSnapshot?,
                                   completionHandler: @escaping (MessageOperationResult) -> Void) {
         
-        snapshot.childSnapshot(forPath: "\(conversationID)/messagesInConversation").ref.queryLimited(toLast: 1).observeSingleEvent(of: .value, with: { (messagesSnapshot) in
+        let messageRef: DatabaseReference!
+        
+        if snapshot != nil {
+            messageRef = snapshot!.childSnapshot(forPath: "\(conversationID)/messagesInConversation").ref
+        } else {
+            messageRef = ref?.child("conversations/\(conversationID)/messagesInConversation")
+        }
+            
+        messageRef.queryLimited(toLast: 1).observeSingleEvent(of: .value, with: { (messagesSnapshot) in
             
             //get last message snapshot
             let messageSnapshot = messagesSnapshot.children.allObjects[0] as! DataSnapshot
@@ -811,6 +831,18 @@ class ManagerFirebase {
         }, withCancel: { (error) in
             completionHandler(.failure(error.localizedDescription))
         })
+    }
+    
+    func updateLastMessageOf(_ conversation: Conversation,
+                             completionHandler: @escaping (MessageOperationResult) -> Void) {
+        self.getLastMessageOf(conversationID: conversation.uuid, from: nil) { (result) in
+            switch result {
+            case let .successSingleMessage(message):
+                completionHandler(.successSingleMessage(message))
+            default:
+                print("message not received")
+            }
+        }
     }
     
 }

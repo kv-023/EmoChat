@@ -41,20 +41,24 @@ class SearchUsersViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        managerFirebase.getCurrentUser { (result) in
+        managerFirebase.getCurrentUser { [weak self] (result) in
             switch result {
             case let .successSingleUser(user):
                 print(user.username)
                 print(user.contacts)
-                self.currentUser = user
-                self.friends = user.contacts
+                self?.currentUser = user
+                self?.friends = user.contacts
+                self?.tableView.reloadData()
             default:
-                print("NONONO")
+                print("USER NOT FOUND")
             }
         }
         
-        let createConversationButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(createConversationAction(_:)))
-        
+        let createConversationButton = UIBarButtonItem(title: NSLocalizedString("Create Conversation",
+                                                                                comment: ""),
+                                                       style: .plain,
+                                                       target: self,
+                                                       action: #selector(createConversationAction(_:)))
         self.navigationItem.rightBarButtonItem = createConversationButton
         createConversationButton.isEnabled = false
         
@@ -172,22 +176,41 @@ class SearchUsersViewController: UITableViewController {
     func createConversationAction(_ sender: UIBarButtonItem) {
         var usernames = ""
         
-        for u in checkmarkedFriends {
-            usernames = "\(usernames) \(u.username!), "
+        for (index, user) in checkmarkedFriends.enumerated() {
+            if index == checkmarkedFriends.count - 1 {
+                usernames = "\(usernames) \(user.username!)"
+            } else {
+                usernames = "\(usernames) \(user.username!), "
+            }
         }
         
-        let title = NSLocalizedString("New Conversation", comment: "Create new conversation")
-        let message =  NSLocalizedString("Create conversation with \(usernames) ?", comment: "Usernames")
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-        
-        let yesAction = UIAlertAction(title: "Yes", style: .default) { (action) in
-            
+        let title = NSLocalizedString("New Conversation",
+                                      comment: "Create new conversation")
+        let message =  NSLocalizedString("Create conversation with \(usernames) ?",
+                                         comment: "Usernames")
+        let alertController = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: UIAlertControllerStyle.alert)
+        let yesAction = UIAlertAction(title: "Yes", style: .default) { [weak self] (action) in
+            let textField = alertController.textFields?.first!
+            if textField?.text != "" {
+                self?.checkmarkedFriends.append(self!.currentUser)
+                self?.managerFirebase.createConversation(self!.checkmarkedFriends,
+                                                         withName: textField?.text)
+                self?.checkmarkedFriends.removeLast()
+                self?.navigationController?.popViewController(animated: true)
+            }
         }
         let noAction = UIAlertAction(title: "No", style: .destructive, handler: nil)
-        alert.addAction(yesAction)
-        alert.addAction(noAction)
         
-        self.present(alert, animated: true, completion: nil)
+        alertController.addAction(yesAction)
+        alertController.addAction(noAction)
+        alertController.addTextField { (textField) in
+            textField.placeholder = NSLocalizedString("Enter conversation name",
+                                                      comment: "")
+        }
+        
+        self.present(alertController, animated: true, completion: nil)
     }
     
     // MARK: - Navigation
@@ -216,8 +239,6 @@ extension SearchUsersViewController: UISearchBarDelegate {
         searchType = SearchType(rawValue: selectedScope)!
         tableView.reloadData()
         filterContent(for: searchBar.text!, scope: searchType)
-        print(self.currentUser.contacts)
-        print(self.friends)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

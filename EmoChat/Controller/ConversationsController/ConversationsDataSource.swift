@@ -84,26 +84,33 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
                         self?.tupleArray.remove(at: oldIndex)
                         
                         let newIndex = self!.tupleArray.insertionIndexOf(elem: changedTuple!, isOrderedBefore: { $0.timestamp.timeIntervalSince1970 > $1.timestamp.timeIntervalSince1970 })
-                        //self?.tupleArray.rearrange(from: oldIndex, to: newIndex)
                         self?.tupleArray.insert(changedTuple!, at: newIndex)
                         //make changes in conversations array
                         
                         if ((newIndex <= (self?.currentUser.userConversations?.count)! - 1) && (oldIndex <= (self?.currentUser.userConversations?.count)! - 1)) {
                             //swap cell from oldIndex to newIndex
                             //redraw TableView
-                            
-                            for conv in (self?.currentUser.userConversations)! {
-                                print("\(conv.name ?? "NONAME") \(conv.uuid) \(conv.lastMessageTimeStamp!)")
-                            }
-                            
-                            self?.currentUser.userConversations?.rearrange(from: oldIndex, to: newIndex)
-                            
-                            for conv in (self?.currentUser.userConversations)! {
-                                print("\(conv.name ?? "NONAME") \(conv.uuid) \(conv.lastMessageTimeStamp!)")
+                            /*
+                            self?.currentUser.userConversations?.rearrange(from: oldIndex,
+                                                                     to: newIndex)
+                            let conversation = self?.currentUser.userConversations![newIndex]
+                            self?.managerFirebase.updateLastMessageOf(conversation!) { [weak self] (result) in
+                                switch result {
+                                case let .successSingleMessage(message):
+                                    self?.currentUser.userConversations![newIndex].lastMessage = message
+                                    
+                                    tableView.reloadRows(at: [IndexPath(row: newIndex, section: 0)], with: .none)
+                                default:
+                                    print("Error: message not received")
+                                }
                             }
                             
                             tableView.moveRow(at: IndexPath(row: oldIndex, section: 0),
                                               to: IndexPath(row: newIndex , section: 0))
+                            */
+                            self?.tableView(tableView,
+                                            moveRowAt: IndexPath(row: oldIndex, section: 0),
+                                            to: IndexPath(row: newIndex , section: 0))
                             
                         } else if newIndex < (self?.currentUser.userConversations?.count)! {
                             
@@ -142,8 +149,18 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
         let conversation = currentUser.userConversations![indexPath.row]
         
         cell.conversationNameLabel.text = conversation.name
-        cell.lastMessageLabel.text = conversation.lastMessage?.content.content
-        
+        cell.conversationTimeLabel.text = self.getFormattedDate(date: conversation.lastMessageTimeStamp!)
+
+        if let lastMessageText = conversation.lastMessage?.content.content {
+            cell.lastMessageLabel.text = lastMessageText
+        } else {
+            let defaultMessage = NSLocalizedString("No messages yet",
+                                                   comment: "")
+            let attributedString = NSAttributedString(string: defaultMessage,
+                                            attributes: [NSFontAttributeName : UIFont.italicSystemFont(ofSize: cell.lastMessageLabel.font.pointSize)])
+            cell.lastMessageLabel.attributedText = attributedString
+        }
+
         return cell
     }
     
@@ -152,7 +169,37 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+
+        //change index
+        currentUser.userConversations?.rearrange(from: sourceIndexPath.row,
+                                                 to: destinationIndexPath.row)
+        //move row
+        tableView.moveRow(at: sourceIndexPath, to: destinationIndexPath)
         
+        //update last message
+        let conversation = currentUser.userConversations![destinationIndexPath.row]
+        managerFirebase.updateLastMessageOf(conversation) { [weak self] (result) in
+            switch result {
+            case let .successSingleMessage(message):
+                self?.currentUser.userConversations![destinationIndexPath.row].lastMessage = message
+                self?.currentUser.userConversations![destinationIndexPath.row].lastMessageTimeStamp = message.time
+                tableView.reloadRows(at: [destinationIndexPath], with: .none)
+            default:
+                print("Error: message not received")
+            }
+        }
+
     }
     
+    // MARK: - help functions
+    
+    func getFormattedDate(date: Date) -> String {
+        if Calendar.current.isDateInToday(date) {
+            return date.formatDate()
+        } else if Calendar.current.isDateInYesterday(date){
+            return NSLocalizedString("Yesterday", comment: "")
+        } else {
+            return date.dayFormatStyle()
+        }
+    }
 }
