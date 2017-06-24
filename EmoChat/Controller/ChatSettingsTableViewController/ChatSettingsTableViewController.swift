@@ -25,17 +25,13 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
     let userDefaults = UserDefaults.standard
     let kDefaultsCellLogo = "conversationLogo"
     
+    var usersInConversation = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        usersInConversation = ["Ivan Ivanych", "Stepan Stepanov", "bigboss", "Vasya Vasilkov"]
     }
     
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     // MARK: - Table view data source
     
@@ -51,13 +47,12 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
         case 1:
             return 2
         default:
-            return 5
+            return usersInConversation.count
         }
         
     }
     
-   
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         switch indexPath.section {
@@ -104,6 +99,7 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
         }
     }
 
+    
     //MARK: - UITableViewDelegate
 
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -116,17 +112,6 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
     
     }
 
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-       
-        switch section {
-        case 0:
-            return 5
-        default:
-            return 0
-        }
-        
-    }
-    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     
         switch indexPath.section {
@@ -193,9 +178,24 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
         let imgData = UIImageJPEGRepresentation(chosenImage, 1)
         
         userDefaults.set(imgData, forKey: kDefaultsCellLogo)
+        
+        
+        //Add image to firebase
+        
+        manager?.loadLogo(chosenImage, conversation: logoCell.conversTitle.text!, result: { (result) in
+            switch result {
+            case .success:
+                print("photo save normal")
+                break
+            case .failure(let error):
+                print("\(error) fail saving photo")
+            default:
+                break
+            }
+
+        })
+        
         self.dismiss(animated:true, completion: nil)
     }
-
-
 
 }

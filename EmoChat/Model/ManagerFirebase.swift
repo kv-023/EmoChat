@@ -338,7 +338,8 @@ class ManagerFirebase {
             result(.failure(NSLocalizedString("User isn't authenticated", comment: "")))
         }
     }
-
+    
+    
     //MARK: Return userPic
     func getUserPic (from userURL: String, result: @escaping (UserOperationResult) -> Void) {
         let photoRef = storageRef.child(userURL)
@@ -373,7 +374,7 @@ class ManagerFirebase {
     
 
         
-    //MARK: Create conversation logo
+    //MARK: - Conversation logo
     func createLogo (selectedUsers: [User], conversation: String) -> String {
             var array = [UIImage]()
         
@@ -402,7 +403,37 @@ class ManagerFirebase {
         }
     
     
-    //MARK: Update profile
+    func loadLogo (_ image: UIImage, conversation: String, result: @escaping (UserOperationResult) -> Void) {
+        if (Auth.auth().currentUser?.uid) != nil {
+            guard let chosenImageData = UIImageJPEGRepresentation(image, 1) else {
+                result(.failure(NSLocalizedString("Something went wrong", comment: "Undefined error")))
+                return
+            }
+            
+            //create reference
+            let imagePath = "conversLogos/\(conversation)/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
+            
+            let metaData = StorageMetadata()
+            metaData.contentType = "image/jpeg"
+            
+            //add to firebase
+            
+            self.storageRef.child(imagePath).putData(chosenImageData, metadata: metaData) { (metaData, error) in
+                
+                if error != nil {
+                    result(.failure((error?.localizedDescription)!))
+                } else {
+                    //self.ref?.child("users/\(uid)/photoURL").setValue(imagePath)
+                    result(.success)
+                    
+                }
+            }
+        } else {
+            result(.failure(NSLocalizedString("User isn't authenticated", comment: "")))
+        }
+    }
+    
+    //MARK: - Update profile
     func changeInfo (phoneNumber: String?, firstName: String?, secondName: String?, result: @escaping (UserOperationResult) -> Void) {
         if let uid = Auth.auth().currentUser?.uid{
             var childUpdates = [String: String] ()
