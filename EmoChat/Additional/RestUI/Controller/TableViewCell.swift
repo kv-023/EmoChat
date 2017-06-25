@@ -10,6 +10,8 @@ import UIKit
 
 class TableViewCell: UITableViewCell {
 
+    var testRDeledate:TestResizeCell?
+
     var messageModel: MessageModel?
 
     var message: Message? {
@@ -18,6 +20,8 @@ class TableViewCell: UITableViewCell {
         }
     }
 
+    @IBOutlet weak var subViewREstHeight: NSLayoutConstraint!
+    @IBOutlet weak var subViewRest: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var myImageInCell: UIImageView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
@@ -45,11 +49,18 @@ class TableViewCell: UITableViewCell {
     private func updateUI() {
         spinner.startAnimating()
 
+//        defer {
+//            spinner.stopAnimating()
+//        }
+
+        let downloadGroup = DispatchGroup()
+
         guard let messageURLData = messageModel?.messageURLData else {
             return
         }
 
         for (key, value) in messageURLData {
+            downloadGroup.enter()
 
             myLabel.text = key
 
@@ -63,11 +74,79 @@ class TableViewCell: UITableViewCell {
                 JSONParser.sharedInstance.downloadImage(url: notNullUrl) { (image) in
                     DispatchQueue.main.async  {
                         self.myImageInCell.image = image
-                        self.spinner.stopAnimating()
+
+//                        let ccView = Bundle.main.loadNibNamed("RestUIInfo", owner: self, options: nil)?.first as! UITableViewCell
+//                            //).contentView as! RestUIInfoView
+//
+//                        ccView.frame = CGRect(x: 0, y: self.contentView.frame.height - 30, width: self.contentView.frame.width, height: ccView.contentView.frame.height)
+//                        self.contentView.addSubview(ccView)
+//
+//                        self.testRDeledate?.resizeMyCell(cell: self)
+
+//                        self.translatesAutoresizingMaskIntoConstraints = false
+//                        let views = ["deviceView" : ccView.contentView]
+//
+//                        self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[deviceView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+//                        self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[deviceView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views))
+
+
                     }
+
+                    downloadGroup.leave()
                 }
             }
         }
+
+        downloadGroup.notify(queue: DispatchQueue.main) { // 2
+            DispatchQueue.main.async  {
+
+                let ccView = Bundle.main.loadNibNamed("RestUIInfo", owner: self, options: nil)?.first as! UITableViewCell
+                //).contentView as! RestUIInfoView
+
+//                ccView.frame = CGRect(x: 0, y: self.contentView.frame.height - 30, width: self.contentView.frame.width, height: ccView.contentView.frame.height)
+//                self.contentView.addSubview(ccView)
+//
+//                self.testRDeledate?.resizeMyCell(cell: self)
+//                self.subViewRest.frame.height = 300
+                self.subViewREstHeight.constant = 300
+                self.subViewRest = ccView
+                
+
+                self.spinner.stopAnimating()
+            }
+        }
     }
+
+//    func xibSetup() {
+//        let myView = loadViewFromNib()
+//
+//        myView.translatesAutoresizingMaskIntoConstraints = false
+//
+//        self.addSubview(myView)
+//
+//        let leading = NSLayoutConstraint(item: myView, attribute: NSLayoutAttribute.leading, relatedBy: NSLayoutRelation.equal, toItem: myView.superview, attribute: NSLayoutAttribute.leading, multiplier: 1, constant: 0)
+//        self.addConstraint(leading)
+//
+//        let bottom = NSLayoutConstraint(item: myView, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: myView.superview, attribute: NSLayoutAttribute.bottom, multiplier: 1, constant: 0)
+//        self.addConstraint(bottom)
+//
+//        let trailing = NSLayoutConstraint(item: myView, attribute: NSLayoutAttribute.trailing, relatedBy: NSLayoutRelation.equal, toItem: myView.superview, attribute: NSLayoutAttribute.trailing, multiplier: 1, constant: 0)
+//        self.addConstraint(trailing)
+//
+//        let top = NSLayoutConstraint(item: myView, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: myView.superview, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 0)
+//        self.addConstraint(top)
+//        
+//    }
+//
+//    //I load the xib file
+//    func loadViewFromNib() -> UIView {
+//
+////        let bundle = NSBundle(forClass: self.dynamicType)
+////        let nib = UINib(nibName: "View", bundle: bundle)
+////        let view = nib.instantiateWithOwner(self, options: nil)[0] as! UIView
+//        let ccView = Bundle.main.loadNibNamed("RestUIInfo", owner: self, options: nil)?.first as! UITableViewCell
+//
+//        return ccView.contentView
+//    }
 
 }

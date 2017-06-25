@@ -8,14 +8,21 @@
 
 import UIKit
 
-class TableViewController: UITableViewController {
+protocol TestResizeCell {
+    func resizeMyCell(cell: UITableViewCell)
+}
 
+class TableViewController: UITableViewController,TestResizeCell {
+
+    var cellResized = Set<IndexPath>()
     var stringURL: String?
     var imageData: Data?
 
     override func viewDidLoad() {
         super .viewDidLoad()
 
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 140
     }
 
     // MARK: - Table view data source
@@ -41,12 +48,33 @@ class TableViewController: UITableViewController {
                                           senderId: "id2222222Id",
                                           time: Date(),
                                           content: (type: MessageContentType.text, content: textDataForTest))
+        cell.testRDeledate = self
         cell.message = testFireBaseMessage
+
+//        let ccView = Bundle.main.loadNibNamed("RestUIInfo", owner: self, options: nil)?.first as! UITableViewCell
+//        //).contentView as! RestUIInfoView
+//
+//        cell.contentView.addSubview(ccView)
 
         // TEST @@@@@@@@@@@@ ---
 
 
         return cell
+    }
+
+    func resizeMyCell(cell: UITableViewCell) {
+        let indexPath = tableView.indexPath(for: cell)
+        cellResized.insert(indexPath!)
+        self.tableView.reloadRows(at: [indexPath!], with: UITableViewRowAnimation.none)
+    }
+
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+
+        if cellResized.contains(indexPath) {
+            return 500
+        } else {
+            return  UITableViewAutomaticDimension//auto
+        }
     }
 
 }
