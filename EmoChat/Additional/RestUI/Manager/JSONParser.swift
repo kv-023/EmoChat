@@ -15,7 +15,8 @@ class JSONParser: NSObject {
     
     //MARK - downloadImage
     
-    func downloadImage(url: String, result: @escaping (UIImage) -> Void) {
+    func downloadImage(url: String,
+                       result: @escaping (UIImage) -> Void) {
         
         let imageURL: URL = URL(string: (url))!
         
@@ -26,9 +27,6 @@ class JSONParser: NSObject {
         }
         task.resume()
     }
-    
-    
-    
 
     func getJSONDataFromURL(forUrl urlForRequest:String,
                             completion: @escaping (_ jsonData:JsonDataType?) -> Void) {

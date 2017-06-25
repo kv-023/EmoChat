@@ -12,7 +12,6 @@ protocol RestUIStrategy {
     var apiKey:String {get}
     var httpAdress:String {get}
 
-//    func getData(forUrl urlResource:String) -> UrlembedModel?
     func getLinkForResponse(forUrl urlResource:String) -> String
     func getData(forUrl urlResource:String,
                  completion:@escaping CompletionModel)

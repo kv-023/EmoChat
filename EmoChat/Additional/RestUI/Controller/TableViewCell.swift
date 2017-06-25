@@ -33,7 +33,7 @@ class TableViewCell: UITableViewCell {
             newModel.getParseDataFromResource { (allDone) in
                 if allDone {
                     self.messageModel = newModel
-                    
+
                     DispatchQueue.main.async {
                         self.updateUI()
                     }
@@ -43,40 +43,31 @@ class TableViewCell: UITableViewCell {
     }
 
     private func updateUI() {
-
         spinner.startAnimating()
-        
-        
-        
-        
-        
-        if let messageURLData = messageModel?.messageURLData {
-        
-            for (key, value) in messageURLData {
-                
-                myLabel.text = key
-               
-                if let valueModel:UrlembedModel = value as? UrlembedModel {
-                        titleLabel.text = valueModel.title
-                    
-                        JSONParser.sharedInstance.downloadImage(url: valueModel.url!) { (image) in
-                            DispatchQueue.main.async  {
-                                self.myImageInCell.image = image
-                                self.spinner.stopAnimating()
-                            }
-                        }
-        
-                    }
-                
-        
-            }
 
-        
+        guard let messageURLData = messageModel?.messageURLData else {
+            return
         }
-        
 
-        
-        
+        for (key, value) in messageURLData {
+
+            myLabel.text = key
+
+            if let valueModel = value as? UrlembedModel {
+                titleLabel.text = valueModel.title
+
+                guard let notNullUrl = valueModel.url else {
+                    continue
+                }
+
+                JSONParser.sharedInstance.downloadImage(url: notNullUrl) { (image) in
+                    DispatchQueue.main.async  {
+                        self.myImageInCell.image = image
+                        self.spinner.stopAnimating()
+                    }
+                }
+            }
+        }
     }
- 
+
 }

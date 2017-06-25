@@ -19,10 +19,6 @@ final class RestUIUrlembed: RestUIStrategy {
         self.httpAdress = "https://urlembed.com/json"
     }
 
-//    convenience init(forUrl urlResource:String) {
-//
-//    }
-
     func getJsonData(forUrl urlResource:String,
                      completion:@escaping CompletionModel) {
         let urlForConnect = getLinkForResponse(forUrl: urlResource)
@@ -36,23 +32,10 @@ final class RestUIUrlembed: RestUIStrategy {
         }
     }
 
-    //RestUIStrategy's protocol implementation
-//    func getData(forUrl urlResource:String) -> UrlembedModel? {
-////        let urlModel = getJsonData(forUrl: urlResource,
-////                                   completion: (UrlembedModel?) -> Void)
-//
-//        let urlModelData = getJsonData(forUrl: urlResource) {
-//            (urlModel: UrlembedModel?) in
-//            //return urlModel
-//        }
-//
-//        return nil
-//    }
-
     func getData(forUrl urlResource:String,
                  completion:@escaping CompletionModel) {
 
-        _ = getJsonData(forUrl: urlResource) {
+        getJsonData(forUrl: urlResource) {
             (urlModel: ParserDataModel?) in
 
             completion(urlModel)

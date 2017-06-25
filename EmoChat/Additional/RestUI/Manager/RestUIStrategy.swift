@@ -29,10 +29,6 @@ class RestUIStrategyManager {
 
                 completion(urlModel)
             }
-            //return false
-
-//        default:
-//            return false
         }
     }
 }

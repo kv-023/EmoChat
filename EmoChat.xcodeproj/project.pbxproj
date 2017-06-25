@@ -12,7 +12,6 @@
 		3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2731EDC27C700D69F88 /* Main.storyboard */; };
 		3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2761EDC27C700D69F88 /* Assets.xcassets */; };
 		3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */; };
-		4508E5CE1EF92817002FACF0 /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4508E5CD1EF92817002FACF0 /* JSONParser.swift */; };
 		45F370BF1EF81B3D008217D9 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45F370BE1EF81B3D008217D9 /* Storyboard.storyboard */; };
 		45F370C31EF81CF7008217D9 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F370C21EF81CF7008217D9 /* TableViewController.swift */; };
 		45F370C71EF828C6008217D9 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F370C61EF828C6008217D9 /* TableViewCell.swift */; };
@@ -28,7 +27,6 @@
 		CC45A7571EE6D40E00FF13AE /* ManagerFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC45A7561EE6D40E00FF13AE /* ManagerFirebase.swift */; };
 		E712BCBA1EF7E79100D7DACA /* RestUIStrategyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E712BCB91EF7E79100D7DACA /* RestUIStrategyProtocol.swift */; };
 		E712BCBF1EF7E7D800D7DACA /* RestUIStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E712BCBC1EF7E7D800D7DACA /* RestUIStrategy.swift */; };
-		E712BCC01EF7E7D800D7DACA /* RestUIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E712BCBE1EF7E7D800D7DACA /* RestUIController.swift */; };
 		E7352C261EDED52B0095264E /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C211EDED52B0095264E /* Conversation.swift */; };
 		E7352C271EDED52B0095264E /* Auxiliary.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C231EDED52B0095264E /* Auxiliary.swift */; };
 		E7352C281EDED52B0095264E /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C241EDED52B0095264E /* Message.swift */; };
@@ -49,6 +47,7 @@
 		E7B926F21EF1487B0018F5FF /* PopOverVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7B926EC1EF1487B0018F5FF /* PopOverVC.xib */; };
 		E7B926F31EF1487B0018F5FF /* PopOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B926ED1EF1487B0018F5FF /* PopOverViewController.swift */; };
 		E7B926F41EF1487B0018F5FF /* UIColorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B926EE1EF1487B0018F5FF /* UIColorHelper.swift */; };
+		E7ED8E741F0037DB005D3106 /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ED8E731F0037DB005D3106 /* JSONParser.swift */; };
 		ED1E2D941EDD75B20058B6A6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */; };
 		F54D21761EE7130600B0B177 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54D21751EE7130600B0B177 /* Regex.swift */; };
 		F54D21781EE7149100B0B177 /* AdditionalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54D21771EE7149000B0B177 /* AdditionalViewController.swift */; };
@@ -75,7 +74,6 @@
 		3938C2761EDC27C700D69F88 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3938C2791EDC27C700D69F88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3938C27B1EDC27C700D69F88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4508E5CD1EF92817002FACF0 /* JSONParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONParser.swift; path = EmoChat/Additional/RestUI/Manager/JSONParser.swift; sourceTree = SOURCE_ROOT; };
 		45F370BE1EF81B3D008217D9 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Storyboard.storyboard; path = EmoChat/Additional/RestUI/View/Storyboard.storyboard; sourceTree = SOURCE_ROOT; };
 		45F370C21EF81CF7008217D9 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		45F370C61EF828C6008217D9 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
@@ -93,7 +91,6 @@
 		E701EB98A17F8F7EB9DF59EA /* Pods-EmoChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmoChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EmoChat/Pods-EmoChat.debug.xcconfig"; sourceTree = "<group>"; };
 		E712BCB91EF7E79100D7DACA /* RestUIStrategyProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestUIStrategyProtocol.swift; sourceTree = "<group>"; };
 		E712BCBC1EF7E7D800D7DACA /* RestUIStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestUIStrategy.swift; sourceTree = "<group>"; };
-		E712BCBE1EF7E7D800D7DACA /* RestUIController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestUIController.swift; sourceTree = "<group>"; };
 		E7352C211EDED52B0095264E /* Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		E7352C231EDED52B0095264E /* Auxiliary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auxiliary.swift; sourceTree = "<group>"; };
 		E7352C241EDED52B0095264E /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -114,6 +111,7 @@
 		E7B926EC1EF1487B0018F5FF /* PopOverVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopOverVC.xib; sourceTree = "<group>"; };
 		E7B926ED1EF1487B0018F5FF /* PopOverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopOverViewController.swift; sourceTree = "<group>"; };
 		E7B926EE1EF1487B0018F5FF /* UIColorHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorHelper.swift; sourceTree = "<group>"; };
+		E7ED8E731F0037DB005D3106 /* JSONParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParser.swift; sourceTree = "<group>"; };
 		ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ED5291B01EE16F24008F8174 /* EmoChat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EmoChat.entitlements; sourceTree = "<group>"; };
 		F54D21751EE7130600B0B177 /* Regex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
@@ -248,6 +246,7 @@
 				E7AC7C361EF917A6004506EA /* Strategys */,
 				E712BCBC1EF7E7D800D7DACA /* RestUIStrategy.swift */,
 				E75E46101EFBD99D00A0409E /* RestUIHelper.swift */,
+				E7ED8E731F0037DB005D3106 /* JSONParser.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -255,8 +254,6 @@
 		E712BCBD1EF7E7D800D7DACA /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				E712BCBE1EF7E7D800D7DACA /* RestUIController.swift */,
-				4508E5CD1EF92817002FACF0 /* JSONParser.swift */,
 				45F370C21EF81CF7008217D9 /* TableViewController.swift */,
 				45F370C61EF828C6008217D9 /* TableViewCell.swift */,
 			);
@@ -523,7 +520,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4508E5CE1EF92817002FACF0 /* JSONParser.swift in Sources */,
 				E7352C261EDED52B0095264E /* Conversation.swift in Sources */,
 				F54D21781EE7149100B0B177 /* AdditionalViewController.swift in Sources */,
 				E75E46111EFBD99D00A0409E /* RestUIHelper.swift in Sources */,
@@ -542,7 +538,6 @@
 				E712BCBA1EF7E79100D7DACA /* RestUIStrategyProtocol.swift in Sources */,
 				A3E7E7D11EEFD893006D24BC /* OptionsMainPageTableViewController.swift in Sources */,
 				A309F3761EEFED6000DF6449 /* OptionsChangeNumberTableViewController.swift in Sources */,
-				E712BCC01EF7E7D800D7DACA /* RestUIController.swift in Sources */,
 				E7AC7C391EF917D9004506EA /* RestIU500px.swift in Sources */,
 				E7B926EF1EF1487B0018F5FF /* CustomTextFieldWithPopOverInfoBox.swift in Sources */,
 				FBF7A9CA1EF012E600ABADF5 /* SignUpChooseYourPhotoViewController.swift in Sources */,
@@ -562,6 +557,7 @@
 				3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */,
 				E7352C381EE81B790095264E /* ControllerHelper.swift in Sources */,
 				E712BCBF1EF7E7D800D7DACA /* RestUIStrategy.swift in Sources */,
+				E7ED8E741F0037DB005D3106 /* JSONParser.swift in Sources */,
 				E7AC7C351EF9128F004506EA /* MessageModel.swift in Sources */,
 				E7B926F41EF1487B0018F5FF /* UIColorHelper.swift in Sources */,
 			);

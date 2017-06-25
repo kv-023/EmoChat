@@ -13,7 +13,10 @@ class TableViewController: UITableViewController {
     var stringURL: String?
     var imageData: Data?
 
+    override func viewDidLoad() {
+        super .viewDidLoad()
 
+    }
 
     // MARK: - Table view data source
 
@@ -27,26 +30,8 @@ class TableViewController: UITableViewController {
         return 1
     }
 
-    func getImage(info: String) {
-        stringURL = info
-        let task = URLSession.shared.dataTask(with: (URL(string: info))!) {(data, responce, error) in
-
-            if error != nil {
-                print("error")
-            }
-
-            else {
-                self.imageData = data
-            }
-        }
-        task.resume()
-
-    }
-
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "prototypeCell", for: indexPath) as! TableViewCell
-
-//        testDataRequest()
 
         // TEST @@@@@@@@@@@@ +++
         let textDataForTest = "bla-bla bla https://9gag.com/gag/aRjwVVG bla-bla bla"
@@ -62,17 +47,6 @@ class TableViewController: UITableViewController {
 
 
         return cell
-    }
-
-
-    override func viewDidLoad() {
-        super .viewDidLoad()
-
-    }
-
-    private func testDataRequest() {
-
-        RestUIController.sharedInstance.testDataFirst()
     }
 
 }
