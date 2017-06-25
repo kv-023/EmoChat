@@ -81,7 +81,7 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
                         let newTimeStamp = Date(milliseconds: timestamp.intValue)
                         self?.tupleArray[oldIndex].timestamp = newTimeStamp
                         
-                        //Change index
+                        //Change index in tupleArray
                         let changedTuple = self?.tupleArray[oldIndex]
                         self?.tupleArray.remove(at: oldIndex)
                         
@@ -96,10 +96,18 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
                                             moveRowAt: IndexPath(row: oldIndex, section: 0),
                                             to: IndexPath(row: newIndex , section: 0))
                         } else if newIndex < (self?.currentUser.userConversations?.count)! {
-                            //insert this element to userConversations
+                            //insert this element to userConversations and delete the last one
                             //redraw TableView
-                            print("userConversations insert this element")
                             
+                            let deleteIndexPath = IndexPath(row: self!.currentUser.userConversations!.count - 1, section: 0)
+                            self?.tableView(self!.tableView,
+                                            commit: .delete,
+                                            forRowAt: deleteIndexPath)
+                            
+                            let insertIndexPath = IndexPath(row: newIndex, section: 0)
+                            self?.tableView(self!.tableView,
+                                            commit: .insert,
+                                            forRowAt: insertIndexPath)
                             
                         } else if oldIndex < (self!.currentUser.userConversations?.count)! {
                             //userConversations delete this element
@@ -189,10 +197,6 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
 
         //change index
@@ -213,6 +217,34 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
                 print("Error: message not received")
             }
         }
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+        switch editingStyle {
+        case .delete:
+            currentUser.userConversations?.removeLast()
+            tableView.beginUpdates()
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            tableView.endUpdates()
+        case .insert:
+            managerFirebase.getSingleConversation(of: currentUser,
+                                                  tuple: tupleArray[indexPath.row],
+                                                  completionHandler: { [weak self] (result) in
+                switch result {
+                case let .successSingleConversation(conversation):
+                    self?.currentUser.userConversations?.insert(conversation, at: indexPath.row)
+                    self?.tableView.beginUpdates()
+                    self?.tableView.insertRows(at: [indexPath], with: .top)
+                    self?.tableView.endUpdates()
+                default:
+                    return
+                }
+            })
+        case .none:
+            print("none")
+        }
+        
     }
     
     // MARK: - help functions

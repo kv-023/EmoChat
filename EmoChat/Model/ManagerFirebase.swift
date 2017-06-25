@@ -722,8 +722,6 @@ class ManagerFirebase {
             let range = offset..<upperBound
             for conversationTuple in IDs[range] {
                 
-                print("\(conversationTuple.conversationId) \(conversationTuple.timestamp)")
-                
                 if snapshot.childSnapshot(forPath: "\(conversationTuple.conversationId)/messagesInConversation").exists() {
                     
                     conversationsDispatchGroup.enter()
@@ -780,9 +778,11 @@ class ManagerFirebase {
                                 completionHandler: @escaping (ConversationOperationResult) -> Void){
         
         ref?.child("conversations/\(tuple.conversationId)").observeSingleEvent(of: .value, with: { [weak self] (snapshot) in
+            print(tuple.conversationId)
             
             self?.getLastMessageOf(conversationID: tuple.conversationId,
-                                   from: snapshot,
+                                   from: nil,
+                                   conversationSnapshot: snapshot,
                                    completionHandler: { (result) in
                 switch result {
                 case let .successSingleMessage(message):
@@ -800,25 +800,29 @@ class ManagerFirebase {
                     return
                 }
             })
+            
+            
         }, withCancel: { (error) in
             completionHandler(.failure(error.localizedDescription))
         })
     }
     
     private func getLastMessageOf(conversationID: String,
-                                  from snapshot: DataSnapshot?,
+                                  from snapshot: DataSnapshot? = nil,
+                                  conversationSnapshot: DataSnapshot? = nil,
                                   completionHandler: @escaping (MessageOperationResult) -> Void) {
-        
+
         let messageRef: DatabaseReference!
         
-        if snapshot != nil {
+        if conversationSnapshot != nil {
+            messageRef = conversationSnapshot?.childSnapshot(forPath: "messagesInConversation").ref
+        } else if snapshot != nil {
             messageRef = snapshot!.childSnapshot(forPath: "\(conversationID)/messagesInConversation").ref
         } else {
             messageRef = ref?.child("conversations/\(conversationID)/messagesInConversation")
         }
-            
+        
         messageRef.queryLimited(toLast: 1).observeSingleEvent(of: .value, with: { (messagesSnapshot) in
-            
             //get last message snapshot
             let messageSnapshot = messagesSnapshot.children.allObjects[0] as! DataSnapshot
             
