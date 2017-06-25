@@ -32,7 +32,7 @@ class OptionsMainPageTableViewController:  UITableViewController, UIImagePickerC
     }
     
     func tempLogIn() {
-        manager.logIn(email: "zellensky@gmail.com", password: "qwerty") {
+        manager.logIn(email: "idemche@gmail.com", password: "123456") {
             result in
             switch result {
             case .success:
