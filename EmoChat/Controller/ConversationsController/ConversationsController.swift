@@ -40,6 +40,13 @@ class ConversationsController: UITableViewController {
         
         //change conversations size to 20
     }
+    
+    // MARK: - UITableViewDelegate
+    
+    override func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
+        print(#function)
+        return proposedDestinationIndexPath
+    }
 }
 
 

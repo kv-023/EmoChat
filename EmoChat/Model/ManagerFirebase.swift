@@ -196,7 +196,7 @@ class ManagerFirebase {
                 let phonenumber = userSnapshot?["phoneNumber"] as! String?
                 let photoURL = userSnapshot?["photoURL"] as! String?
                 //getting array of conversation ids
-                let conversationsID = userSnapshot?["conversations"] as? NSDictionary
+                //let conversationsID = userSnapshot?["conversations"] as? NSDictionary
                 
                 //create user without conversations and contacts
                 
@@ -209,9 +209,9 @@ class ManagerFirebase {
                 }
                 
                 //generate array of conversations
-                if let conversationsArrayId = conversationsID?.allKeys {
-                    user.userConversations = self.sortListOfConversations(self.getConversetionsFromSnapshot(value, accordingTo: conversationsArrayId as! [String], currentUserEmail: email))
-                }
+//                if let conversationsArrayId = conversationsID?.allKeys {
+//                    user.userConversations = self.sortListOfConversations(self.getConversetionsFromSnapshot(value, accordingTo: conversationsArrayId as! [String], currentUserEmail: email))
+//                }
                 
                 //return result
                 getUser(.successSingleUser(user))
@@ -718,14 +718,25 @@ class ManagerFirebase {
             } else {
                 upperBound = IDs.count
             }
-            //upperBound = min(count, IDs.count)
             
             let range = offset..<upperBound
             for conversationTuple in IDs[range] {
-
+                
+                print("\(conversationTuple.conversationId) \(conversationTuple.timestamp)")
+                
                 if snapshot.childSnapshot(forPath: "\(conversationTuple.conversationId)/messagesInConversation").exists() {
                     
                     conversationsDispatchGroup.enter()
+                    
+                    let conversationDict = snapshot.childSnapshot(forPath: "\(conversationTuple.conversationId)").value as? [String : AnyObject] ?? [:]
+                    
+                    if let conversation = self?.getConversation(
+                        from: conversationDict,
+                        conversationID: conversationTuple.conversationId,
+                        withLastMessage: nil,
+                        owner: user) {
+                        conversations.append(conversation)
+                    }
 
                     self?.getLastMessageOf(conversationID: conversationTuple.conversationId,
                                            from: snapshot,
@@ -733,15 +744,12 @@ class ManagerFirebase {
                         switch result {
                         case let .successSingleMessage(message):
                             
-                            let conversationDict = snapshot.childSnapshot(forPath: "\(conversationTuple.conversationId)").value as? [String : AnyObject] ?? [:]
+                            let index = conversations.index(where: { (conversation) -> Bool in
+                                conversation.uuid == conversationTuple.conversationId
+                            })
                             
-                            if let conversation = self?.getConversation(
-                                                    from: conversationDict,
-                                                    conversationID: conversationTuple.conversationId,
-                                                    withLastMessage: message,
-                                                    owner: user) {
-                                conversations.append(conversation)
-                            }
+                            conversations[index!].lastMessage = message
+                            
                             conversationsDispatchGroup.leave()
                         default:
                             return

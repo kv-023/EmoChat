@@ -195,7 +195,7 @@ class SearchUsersViewController: UITableViewController {
             let textField = alertController.textFields?.first!
             if textField?.text != "" {
                 self?.checkmarkedFriends.append(self!.currentUser)
-                self?.managerFirebase.createConversation(self!.checkmarkedFriends,
+                _ = self?.managerFirebase.createConversation(self!.checkmarkedFriends,
                                                          withName: textField?.text)
                 self?.checkmarkedFriends.removeLast()
                 self?.navigationController?.popViewController(animated: true)

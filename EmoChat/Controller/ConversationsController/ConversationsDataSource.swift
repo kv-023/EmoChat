@@ -213,7 +213,6 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
                 print("Error: message not received")
             }
         }
-
     }
     
     // MARK: - help functions
