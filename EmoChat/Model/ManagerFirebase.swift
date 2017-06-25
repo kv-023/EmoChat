@@ -701,6 +701,7 @@ class ManagerFirebase {
     
     func getConversations(of user: User ,
                           IDs: [conversationTuple],
+                          withOffset offset: Int,
                           count: Int,
                           completionHandler: @escaping (ConversationOperationResult) -> Void) {
         
@@ -710,27 +711,33 @@ class ManagerFirebase {
         
         ref?.child("conversations").observeSingleEvent(of: .value, with: { [weak self] (snapshot) in
             
-            for (index, element) in IDs.enumerated() {
-                
-                if index == count {
-                    break
-                }
-                
-                if snapshot.childSnapshot(forPath: "\(element.conversationId)/messagesInConversation").exists() {
+            let upperBound: Int!
+            
+            if (count + offset) < IDs.count {
+                upperBound = count + offset
+            } else {
+                upperBound = IDs.count
+            }
+            //upperBound = min(count, IDs.count)
+            
+            let range = offset..<upperBound
+            for conversationTuple in IDs[range] {
+
+                if snapshot.childSnapshot(forPath: "\(conversationTuple.conversationId)/messagesInConversation").exists() {
                     
                     conversationsDispatchGroup.enter()
 
-                    self?.getLastMessageOf(conversationID: element.conversationId,
+                    self?.getLastMessageOf(conversationID: conversationTuple.conversationId,
                                            from: snapshot,
                                            completionHandler: { (result) in
                         switch result {
                         case let .successSingleMessage(message):
                             
-                            let conversationDict = snapshot.childSnapshot(forPath: "\(element.conversationId)").value as? [String : AnyObject] ?? [:]
+                            let conversationDict = snapshot.childSnapshot(forPath: "\(conversationTuple.conversationId)").value as? [String : AnyObject] ?? [:]
                             
                             if let conversation = self?.getConversation(
                                                     from: conversationDict,
-                                                    conversationID: element.conversationId,
+                                                    conversationID: conversationTuple.conversationId,
                                                     withLastMessage: message,
                                                     owner: user) {
                                 conversations.append(conversation)
@@ -741,16 +748,15 @@ class ManagerFirebase {
                         }
                     })
                 } else {
-                    let conversationDict = snapshot.childSnapshot(forPath: "\(element.conversationId)").value as? [String : AnyObject] ?? [:]
+                    let conversationDict = snapshot.childSnapshot(forPath: "\(conversationTuple.conversationId)").value as? [String : AnyObject] ?? [:]
                     
                     if let conversation = self?.getConversation(
                         from: conversationDict,
-                        conversationID: element.conversationId,
+                        conversationID: conversationTuple.conversationId,
                         withLastMessage: nil,
                         owner: user) {
                         conversations.append(conversation)
                     }
-
                 }
             }
             conversationsDispatchGroup.notify(queue: DispatchQueue.main, execute: {
@@ -759,7 +765,6 @@ class ManagerFirebase {
         }, withCancel: { (error) in
             completionHandler(.failure(error.localizedDescription))
         })
-        
     }
     
     func getSingleConversation(of user: User,

@@ -21,6 +21,7 @@ class ConversationsController: UITableViewController {
         tableView.estimatedRowHeight = 100
         
         tableView.dataSource = conversationsDataSource
+        conversationsDataSource.tableView = tableView
         
         conversationsDataSource.updateTableView(self.tableView) { 
             print(self.conversationsDataSource.currentUser.userConversations!.count)
