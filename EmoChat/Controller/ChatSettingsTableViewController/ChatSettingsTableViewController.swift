@@ -20,16 +20,56 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
     
     var storageRef: StorageReference!
     var manager: ManagerFirebase!
+    var conversation: Conversation!
     var conversations: [Conversation]?
     
     let userDefaults = UserDefaults.standard
     let kDefaultsCellLogo = "conversationLogo"
-    
+   
+    var avatar = [UIImage]()
     var usersInConversation = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        usersInConversation = ["Ivan Ivanych", "Stepan Stepanov", "bigboss", "Vasya Vasilkov"]
+        tableView.contentInset = UIEdgeInsetsMake(28, 0, 0, 0)
+        usersInConversation = ["Ivan Ivanych", "Stepan Stepanov", "Vasya Vasilkov", "realman"]
+        let im = UIImage.init(named: "111.png")
+        let im2 = UIImage.init(named: "222.png")
+        let im3 = UIImage.init(named: "333.png")
+        let im4 = UIImage.init(named: "444.png")
+        
+        avatar = [im!, im2!, im3!, im4!]
+    
+    
+        
+        manager = ManagerFirebase.shared
+        manager?.getCurrentUser { (result) in
+            switch (result) {
+            case .successSingleUser(let _):
+                print("dadadadadadadadadad")
+                //self.currentUser = user
+               // self.currentConversation = user.userConversations?.first!
+               // print(self.currentConversation.uuid)
+            case .failure(let error):
+                print(error)
+            default:
+                break
+            }
+            
+        }
+
+    
+    manager.logIn(email: "zellensky@gmail.com", password: "qwerty") { (result) in
+        switch (result) {
+            
+        case .successSingleUser(let _):
+            print("111111111111111")
+        case .failure(let error):
+            print(error)
+        default: break
+        }
+        }
+    
     }
     
     
@@ -63,18 +103,19 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
             logoCell.conversTitle.text = "Conversation title"
             logoCell.conversLogo.clipsToBounds = true
             logoCell.conversLogo.layer.cornerRadius =  logoCell.conversLogo.frame.size.height / 2
-            logoCell.conversLogo.contentMode = .scaleAspectFit
+          //  logoCell.conversLogo.contentMode = .scaleAspectFill
             
-            if let imageData = userDefaults.value(forKey: kDefaultsCellLogo),
-                let image = UIImage(data: imageData  as! Data) {
+           // if let imageData = userDefaults.value(forKey: kDefaultsCellLogo),
+           //     let image = UIImage(data: imageData  as! Data) {
+            
+            
+                logoCell.conversLogo.image = UIImage.createFinalImg(logoImages: avatar )
                 
-                logoCell.conversLogo.image = image
-                
-            } else {
+          //  } else {
             
               //  logoCell.conversLogo.image =
             
-            }
+          //  }
             
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(loadNewLogo))
             logoCell.conversLogo.isUserInteractionEnabled = true
@@ -93,8 +134,12 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
             
         default:
             userCell = tableView.dequeueReusableCell(withIdentifier: "user", for: indexPath)
-            userCell.imageView?.image = UIImage.init(named: "male.png")
-            userCell.textLabel?.text = "Name LastName"
+            //userCell.imageView?.image = UIImage.init(named: "male.png")
+            //userCell.textLabel?.text = "Name LastName"
+            userCell.imageView?.clipsToBounds = true
+            userCell.imageView?.layer.cornerRadius =  25
+            userCell.imageView?.image = avatar[indexPath.row]
+            userCell.textLabel?.text = usersInConversation[indexPath.row]
             return userCell
         }
     }
@@ -104,14 +149,22 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
 
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
     
-        if section == 1 {
-            return 20
-        } else {
-            return 0
-        }
+       return 5
     
     }
 
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 1:
+            return "CHAT SETTINGS"
+        case 2:
+            return "\(usersInConversation.count) USERS IN CONVERSATION"
+        default:
+            return ""
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     
         switch indexPath.section {
@@ -181,11 +234,11 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
         
         
         //Add image to firebase
-        
-        manager?.loadLogo(chosenImage, conversation: logoCell.conversTitle.text!, result: { (result) in
+     
+        manager?.loadLogo(chosenImage, conversationID: "AndrewAndOlga", result: { (result) in
             switch result {
             case .success:
-                print("photo save normal")
+                print("photo save")
                 break
             case .failure(let error):
                 print("\(error) fail saving photo")
@@ -194,7 +247,7 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
             }
 
         })
-        
+ 
         self.dismiss(animated:true, completion: nil)
     }
 
