@@ -37,18 +37,18 @@ class ViewController: UIViewController {
         
         m = ManagerFirebase.shared
         
-        m?.getCurrentUser(){ (result) in
-            switch result {
-            case let .successSingleUser(user):
-                self.user = user
-                self.m?.getMessageFromConversation(user.userConversations!, result: {
-                    (conv, message) in
-                    print("Message \(message.content) from  \(conv.name!)")
-                })
-            default:
-                print("NONONO")
-            }
-        }
+//        m?.getCurrentUser(){ (result) in
+//            switch result {
+//            case let .successSingleUser(user):
+//                self.user = user
+//                self.m?.getMessageFromConversation(user.userConversations!, result: {
+//                    (conv, message) in
+//                    print("Message \(message.content) from  \(conv.name!)")
+//                })
+//            default:
+//                print("NONONO")
+//            }
+//        }
         
         //        m?.valueChanged() {
         //            newValue in

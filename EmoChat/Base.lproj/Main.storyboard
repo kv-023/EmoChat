@@ -102,10 +102,10 @@
             </objects>
             <point key="canvasLocation" x="972" y="38.23088455772114"/>
         </scene>
-        <!--SingleConversation-->
+        <!--Conversations-->
         <scene sceneID="McD-9b-BqT">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="singleConversation" storyboardName="SingleConversation" id="XJf-ea-Jr6" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardIdentifier="conversations" storyboardName="Conversations" id="XJf-ea-Jr6" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lxS-2o-OJ2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1510.4000000000001" y="132.23388305847078"/>

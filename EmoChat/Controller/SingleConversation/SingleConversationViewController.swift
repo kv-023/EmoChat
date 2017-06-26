@@ -85,6 +85,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     var photosArray: [String: UIImage] = [:]
     
     func downloadPhotos () {
+        
         for member in currentConversation.usersInConversation{
         manager?.getUserPic(from: member.photoURL!, result: { (result) in
             switch result {
@@ -101,6 +102,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         table.dataSource = self
         table.delegate = self
         table.estimatedRowHeight = table.rowHeight
@@ -110,13 +112,21 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         }
         self.setUpTextView()
         manager = ManagerFirebase.shared
-        manager?.getCurrentUser { (result) in
-            switch (result) {
-            case .successSingleUser(let user):
-                self.currentUser = user
-                self.currentConversation = user.userConversations?.first!
-                
-                self.downloadPhotos()
+        
+//        manager?.getUsersInConversation(conversation: self.currentConversation, completion: { (users) in
+//            self.currentConversation.usersInConversation = users
+//            self.downloadPhotos()
+//            self.table.reloadData()
+//        })
+ 
+        
+//        manager?.getCurrentUser { (result) in
+//            switch (result) {
+//            case .successSingleUser(let user):
+//                self.currentUser = user
+//                self.currentConversation = user.userConversations?.first!
+        
+        
                 
                 
                 
@@ -146,13 +156,13 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 })
                 
                 print(self.currentConversation.uuid)
-            case .failure(let error):
-                print(error)
-            default:
-                break
-            }
-            
-        }
+//            case .failure(let error):
+//                print(error)
+//            default:
+//                break
+//            }
+//            
+//        }
         
         
         setupKeyboardObservers()

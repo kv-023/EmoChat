@@ -12,6 +12,7 @@ class ConversationsController: UITableViewController {
         
     // MARK: - properties
     let conversationsDataSource = ConversationsDataSource()
+    var selectedConversation: Conversation!
     
     // MARK: - ViewController lifecycle
     override func viewDidLoad() {
@@ -41,11 +42,26 @@ class ConversationsController: UITableViewController {
         //change conversations size to 20
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.selectedConversation = conversationsDataSource.currentUser.userConversations![indexPath.row]
+        
+        self.performSegue(withIdentifier: "showSingleConversation", sender: self)
+    }
+    
     // MARK: - UITableViewDelegate
     
     override func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
         print(#function)
         return proposedDestinationIndexPath
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showSingleConversation" {
+            let vc = segue.destination as! SingleConversationViewController
+            vc.currentConversation = self.selectedConversation
+            vc.currentUser = conversationsDataSource.currentUser
+        }
+        
     }
 }
 

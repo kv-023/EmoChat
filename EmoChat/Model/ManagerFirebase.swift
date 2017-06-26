@@ -46,12 +46,14 @@ class ManagerFirebase {
     let ref: DatabaseReference?
     let storageRef: StorageReference
     let conversationsRef: DatabaseReference?
+    let newRef: DatabaseReference?
     public static let shared = ManagerFirebase()
     
     private init () {
         self.ref = Database.database().reference()
         self.storageRef = Storage.storage().reference()
         self.conversationsRef = Database.database().reference()
+        self.newRef = Database.database().reference()
     }
     
     //MARK: - Return URLs of members photos
@@ -696,6 +698,23 @@ class ManagerFirebase {
                             lastMessage: message,
                             lastMessageTimeStamp: date,
                             name: conversationName)
+    }
+    
+    func getUsersInConversation(conversation: Conversation,completion: @escaping ([User]) -> Void)  {
+        //let contactsIDs = conversationDict["usersInConversation"] as! NSDictionary
+        
+        newRef?.child("conversations/\(conversation.uuid)/usersInConversation").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            let contactsIDs = snapshot.value as? [String : AnyObject] ?? [:]
+            
+            self.newRef?.observeSingleEvent(of: .value, with: { (snapshot) in
+                
+                let users = self.getUsersFromIDs(ids: contactsIDs as NSDictionary, value: self.ref as! NSDictionary)
+                completion(users)
+            })
+            
+        })
+        
     }
     
     func getConversations(of user: User ,
