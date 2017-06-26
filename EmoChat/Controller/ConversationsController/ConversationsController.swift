@@ -18,7 +18,7 @@ class ConversationsController: UITableViewController {
         super.viewDidLoad()
 
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 100
+        tableView.estimatedRowHeight = 77
         
         tableView.dataSource = conversationsDataSource
         conversationsDataSource.tableView = tableView

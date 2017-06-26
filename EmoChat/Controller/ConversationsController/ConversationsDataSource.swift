@@ -83,7 +83,7 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
                 self?.currentUser.userConversations?.append(contentsOf: conversations)
                 
                 self?.tableView.beginUpdates()
-                self?.tableView.insertRows(at: newPaths, with: .top)
+                self?.tableView.insertRows(at: newPaths, with: .none)
                 self?.tableView.endUpdates()
                 
                 print("\(self!.currentUser.userConversations!.count)")
@@ -277,7 +277,7 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
                 case let .successSingleConversation(conversation):
                     self?.currentUser.userConversations?.insert(conversation, at: indexPath.row)
                     self?.tableView.beginUpdates()
-                    self?.tableView.insertRows(at: [indexPath], with: .top)
+                    self?.tableView.insertRows(at: [indexPath], with: .none)
                     self?.tableView.endUpdates()
                 default:
                     return
