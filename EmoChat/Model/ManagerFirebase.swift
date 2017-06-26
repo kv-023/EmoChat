@@ -45,11 +45,13 @@ class ManagerFirebase {
     
     let ref: DatabaseReference?
     let storageRef: StorageReference
+    let conversationsRef: DatabaseReference?
     public static let shared = ManagerFirebase()
     
     private init () {
         self.ref = Database.database().reference()
         self.storageRef = Storage.storage().reference()
+        self.conversationsRef = Database.database().reference()
     }
     
     
@@ -677,7 +679,6 @@ class ManagerFirebase {
         if let name = conversationDict["name"] as? String {
             conversationName = name
         } else {
-            //conversationName = "DADADA"
             let contactsIDs = conversationDict["usersInConversation"] as? [String : AnyObject] ?? [:]
             for user in user.contacts {
                 if contactsIDs.keys.contains(user.uid) {
@@ -780,28 +781,33 @@ class ManagerFirebase {
         ref?.child("conversations/\(tuple.conversationId)").observeSingleEvent(of: .value, with: { [weak self] (snapshot) in
             print(tuple.conversationId)
             
-            self?.getLastMessageOf(conversationID: tuple.conversationId,
-                                   from: nil,
-                                   conversationSnapshot: snapshot,
-                                   completionHandler: { (result) in
-                switch result {
-                case let .successSingleMessage(message):
+            if snapshot.childSnapshot(forPath: "messagesInConversation").exists() {
+                
+                self?.getLastMessageOf(conversationID: tuple.conversationId, from: nil, conversationSnapshot: snapshot, completionHandler: { (result) in
                     
-                    let conversationDict = snapshot.value as? [String : AnyObject] ?? [:]
-                    
-                    if let conversation = self?.getConversation(from: conversationDict,
-                                                                conversationID: tuple.conversationId,
-                                                                withLastMessage: message,
-                                                                owner: user) {
-                        
-                        completionHandler(.successSingleConversation(conversation))
+                    switch result {
+                    case let .successSingleMessage(message):
+                        let conversationDict = snapshot.value as? [String : AnyObject] ?? [:]
+                        if let conversation = self?.getConversation(from: conversationDict,
+                                                                    conversationID: tuple.conversationId,
+                                                                    withLastMessage: message,
+                                                                    owner: user) {
+                            completionHandler(.successSingleConversation(conversation))
+                        }
+                    default:
+                        return
                     }
-                default:
-                    return
+                })
+            } else {
+                
+                let conversationDict = snapshot.value as? [String : AnyObject] ?? [:]
+                if let conversation = self?.getConversation(from: conversationDict,
+                                                         conversationID: tuple.conversationId,
+                                                         withLastMessage: nil,
+                                                         owner: user) {
+                    completionHandler(.successSingleConversation(conversation))
                 }
-            })
-            
-            
+            }
         }, withCancel: { (error) in
             completionHandler(.failure(error.localizedDescription))
         })

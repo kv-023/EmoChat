@@ -14,7 +14,7 @@ typealias conversationTuple = (conversationId: String, timestamp: Date)
 class ConversationsDataSource: NSObject, UITableViewDataSource {
     
     // MARK: - constants
-    let conversationsInRequest = 5
+    let conversationsInRequest = 15
     
     // MARK: - variables
     private var tupleArray: [conversationTuple] = []
@@ -25,16 +25,19 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
     // MARK: - tupleArray operations
     func updateTableView(_ tableView: UITableView,
                          completionHandler: @escaping() -> Void) {
+        
         managerFirebase = ManagerFirebase.shared
-
+        
         ManagerFirebase.shared.getCurrentUser { [weak self] (result) in
             switch result {
             case let .successSingleUser(user):
                 self?.currentUser = user
+
                 self?.currentUser.userConversations = []
                 self?.managerFirebase.getSortedConversationsIDs(of: user,
                                                                 completionHandler: { (sortedConversationsIDs) in
                     self?.tupleArray = sortedConversationsIDs
+                    self?.observeAddingConversation()
                     self?.observeConversationTimeStamp()
                     self?.managerFirebase.getConversations(of: self!.currentUser,
                                         IDs: sortedConversationsIDs,
@@ -58,10 +61,83 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
 
     }
     
-    
-    
-    
+    func getConversationsFromFirebase() {
+        managerFirebase.getConversations(of: currentUser,
+                                         IDs: tupleArray,
+                                         withOffset: currentUser.userConversations?.count ?? 0,
+                                         count: conversationsInRequest) { [weak self] (result) in
+            switch result {
+            case let .successArrayOfConversations(conversations):
+                print(conversations.count)
+                
+                var newPaths: [IndexPath] = []
+                
+                let lowerBound = self?.currentUser.userConversations?.count ?? 0
+                let upperBound = lowerBound + conversations.count
+                let range = lowerBound..<upperBound
+                
+                for index in range {
+                    newPaths.append(IndexPath(row: index, section: 0))
+                }
+                
+                self?.currentUser.userConversations?.append(contentsOf: conversations)
+                
+                self?.tableView.beginUpdates()
+                self?.tableView.insertRows(at: newPaths, with: .top)
+                self?.tableView.endUpdates()
+                
+                print("\(self!.currentUser.userConversations!.count)")
+                
+            case let .failure(errorString):
+                print(errorString)
+            default:
+                return
+            }
+        }
+    }
+
     // MARK: - SetObservers
+    
+    private func observeAddingConversation() {
+
+        managerFirebase.conversationsRef?.child("users/\(self.currentUser.uid ?? "")/conversations").queryLimited(toLast: 1).observe(.childAdded, with: { [weak self] (snapshot) in
+            
+            guard self?.tupleArray.contains(where: { (tuple) -> Bool in
+                return tuple.conversationId == snapshot.key
+            }) == false else {
+                return
+            }
+            
+            let tuple = conversationTuple(conversationId: snapshot.key, timestamp: Date())
+            
+            self?.managerFirebase.getSingleConversation(of: self!.currentUser, tuple: tuple, completionHandler: { (result) in
+                
+                switch result {
+                case let .successSingleConversation(conversation):
+                    
+                    let tuple = conversationTuple(conversationId: conversation.uuid,
+                                                  timestamp: conversation.lastMessageTimeStamp!)
+                    let insertIndex = self!.tupleArray.insertionIndexOf(elem: tuple, isOrderedBefore: { $0.timestamp.timeIntervalSince1970 > $1.timestamp.timeIntervalSince1970 })
+                    
+                    self?.tupleArray.insert(tuple, at: insertIndex)
+                    
+                    self?.currentUser.userConversations?.insert(conversation, at: insertIndex)
+                    
+                    let insertIndexPath = IndexPath(row: insertIndex, section: 0)
+                    self?.tableView.beginUpdates()
+                    self?.tableView.insertRows(at: [insertIndexPath], with: .top)
+                    self?.tableView.endUpdates()
+                    
+                default:
+                    return
+                }
+            })
+ 
+            
+        }, withCancel: { (error) in
+            print(error.localizedDescription)
+        })
+    }
     
     private func observeConversationTimeStamp() {
         
@@ -123,40 +199,6 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
         }
     }
     
-    func getConversationsFromFirebase() {
-        managerFirebase.getConversations(of: currentUser,
-                                         IDs: tupleArray,
-                                         withOffset: currentUser.userConversations?.count ?? 0,
-                                         count: conversationsInRequest) { [weak self] (result) in
-            switch result {
-            case let .successArrayOfConversations(conversations):
-                print(conversations.count)
-                
-                var newPaths: [IndexPath] = []
-                
-                let lowerBound = self?.currentUser.userConversations?.count ?? 0
-                let upperBound = lowerBound + conversations.count
-                let range = lowerBound..<upperBound
-                
-                for index in range {
-                    newPaths.append(IndexPath(row: index, section: 0))
-                }
-                
-                self?.currentUser.userConversations?.append(contentsOf: conversations)
-                
-                self?.tableView.beginUpdates()
-                self?.tableView.insertRows(at: newPaths, with: .top)
-                self?.tableView.endUpdates()
-                
-                print("\(self!.currentUser.userConversations!.count)")
-                
-            case let .failure(errorString):
-                print(errorString)
-            default:
-                return
-            }
-        }
-    }
     
     // MARK: - UITableViewDataSource
     
