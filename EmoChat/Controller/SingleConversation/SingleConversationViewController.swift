@@ -8,9 +8,14 @@
 
 import UIKit
 
+enum RightType {
+    case sent
+    case sending
+}
+
 enum UserType {
     case left
-    case right
+    case right (RightType)
 }
 
 class SingleConversationViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate {
@@ -22,11 +27,10 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     @IBAction func sendMessage(_ sender: UIButton) {
 
         let result:MessageOperationResult? = manager?.createMessage(conversation: currentConversation!, sender: currentUser, content: (.text, textMessage.text))
-        textMessage.text = ""
-        textViewDidEndEditing(textMessage)
+        
         switch (result!) {
         case .successSingleMessage(let message):
-            insertRow((message, .right))
+            insertRow((message, .right(.sending)))
             if !messagesArray.isEmpty {
                 self.table.scrollToRow(at: IndexPath.init(row: messagesArray.count - 1, section: 0), at: .top, animated: false)
             }
@@ -35,6 +39,15 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         default:
             break
         }
+        
+        //clean textView
+       
+        textMessage.text = "Type message..."
+        textMessage.textColor = .lightGray
+        
+        textMessage.isScrollEnabled = false;
+        self.textViewMaxHeightConstraint.isActive = false
+        
     }
     
     var manager: ManagerFirebase?
@@ -66,6 +79,26 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
 //        table.endUpdates()
 //    }
     
+    
+    //MARK: - photos
+    
+    var photosArray: [String: UIImage] = [:]
+    
+    func downloadPhotos () {
+        for member in currentConversation.usersInConversation{
+        manager?.getUserPic(from: member.photoURL!, result: { (result) in
+            switch result {
+            case .successUserPic(let image):
+                self.photosArray.updateValue(image, forKey: member.uid)
+            case .failure(let error) :
+                print(error)
+            default:
+                break
+            }
+        })
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         table.dataSource = self
@@ -82,13 +115,24 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             case .successSingleUser(let user):
                 self.currentUser = user
                 self.currentConversation = user.userConversations?.first!
+                
+                self.downloadPhotos()
+                
+                
+                
                 self.manager?.getMessageFromConversation([self.currentConversation], result: { (conv, newMessage) in
                     if let res = self.manager?.isMessageFromCurrentUser(newMessage) {
                         if res == true {
-                            if let item = (self.table.cellForRow(at: IndexPath.init(row: self.messagesArray.count - 1, section: 0)) as? RightCell) {
+                            
+                            let index = self.messagesArray.index(where: { (message, typeRight) -> Bool in
+                                message.uid == newMessage.uid
+                                })
+                            
+                            if let i = index, let item = (self.table.cellForRow(at: IndexPath.init(row: i, section: 0)) as? RightCell) {
                                 item.isReceived = true
+                                self.messagesArray[i].1 = .right(.sent)
                             } else {
-                                self.insertRow((newMessage, .right))
+                                self.insertRow((newMessage, .right(.sent)))
                             }
                             
                         } else {
@@ -100,6 +144,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                         self.table.scrollToRow(at: IndexPath.init(row: self.messagesArray.count - 1, section: 0), at: .top, animated: false)
                     }
                 })
+                
                 print(self.currentConversation.uuid)
             case .failure(let error):
                 print(error)
@@ -115,7 +160,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if tableView.isDragging {
-            cell.transform = CGAffineTransform.init(scaleX: 0.5, y: 0.5)
+            cell.transform = CGAffineTransform.init(scaleX: 0.8, y: 0.8)
             UIView.animate(withDuration: 0.3, animations: {
                 cell.transform = CGAffineTransform.identity
             })
@@ -139,39 +184,30 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             }
             cell.messageEntity = message.0
             cell.time.text = message.0.time.formatDate()
-            manager?.getUserPic(from: currentUser.photoURL!, result: { (result) in
-                switch result {
-                case .successUserPic(let image):
-                    self.table.beginUpdates()
-                    cell.userPic.image = image
-                    self.table.endUpdates()
-                default:
-                    break
-                }
-            })
+            
+            cell.userPic.image = self.photosArray[message.0.senderId]
+            
             return cell
         case .right:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "Right", for: indexPath) as? RightCell else {
                 fatalError("Cell was not casted!")
             }
             cell.messageEntity = message.0
-            if cell.time.text == "" {
-                cell.time.isHidden = true
+            //cell.time.text = message.0.time.formatDate()
+            
+            cell.userPic.image = self.photosArray[message.0.senderId]
+            
+            switch message.1 {
+            case .right(.sent) :
+                cell.isReceived = true
+            case .right(.sending):
+                cell.isReceived = false
+                //cell.activityIndicator.startAnimating()
+            default:
+                break
             }
-            cell.activityIndicator.startAnimating()
-            let companion = currentConversation.usersInConversation.filter(){
-                $0.uid == message.0.senderId
-            }
-            manager?.getUserPic(from: companion.first!.photoURL!, result: { (result) in
-                switch result {
-                case .successUserPic(let image):
-                    self.table.beginUpdates()
-                    cell.userPic.image = image
-                    self.table.endUpdates()
-                default:
-                    break
-                }
-            })
+//
+           
             return cell
         }
     }
@@ -198,12 +234,12 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         let newSize = textView.sizeThatFits( CGSize(width: size.width, height: CGFloat.greatestFiniteMagnitude))
         
         if (newSize.height >= self.textViewMaxHeightConstraint.constant && !textView.isScrollEnabled) {
-            textView.isScrollEnabled = true;
-            self.textViewMaxHeightConstraint.isActive = true;
+            textView.isScrollEnabled = true
+            self.textViewMaxHeightConstraint.isActive = true
             
         } else if (newSize.height < self.textViewMaxHeightConstraint.constant && textView.isScrollEnabled) {
-            textView.isScrollEnabled = false;
-            self.textViewMaxHeightConstraint.isActive = false;
+            textView.isScrollEnabled = false
+            self.textViewMaxHeightConstraint.isActive = false
             
         }
         
@@ -228,6 +264,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             textView.text = "Type message..."
             textView.textColor = .lightGray
         }
+        textView.isScrollEnabled = false;
+        self.textViewMaxHeightConstraint.isActive = false
         textView.resignFirstResponder()
     }
     

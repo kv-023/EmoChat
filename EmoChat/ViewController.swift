@@ -68,11 +68,15 @@ class ViewController: UIViewController {
     
     
     @IBAction func hello(_ sender: UIButton) {
-        do {
-            try Auth.auth().signOut()
-        } catch let signOutError as NSError {
-            print ("Error signing out: %@", signOutError)
-        }
+        
+        if Auth.auth().currentUser != nil {
+                        self.performSegue(withIdentifier: "singleConversation", sender: self)
+                    }
+//        do {
+//            try Auth.auth().signOut()
+//        } catch let signOutError as NSError {
+//            print ("Error signing out: %@", signOutError)
+//        }
     }
     
     

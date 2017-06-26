@@ -49,6 +49,12 @@ class RightCell: UITableViewCell {
                 //time.text = messageEntity?.time
 
                 time.text = messageEntity?.time.formatDate()
+
+            } else {
+                time.isHidden = true
+                activityIndicator.isHidden = false
+                activityIndicator.startAnimating()
+
             }
         }
     }
@@ -56,6 +62,8 @@ class RightCell: UITableViewCell {
     var messageEntity: Message? {
         didSet {
             message.text = messageEntity!.content!.content
+            
+            
         }
     }
     

@@ -44,6 +44,7 @@ class ManagerFirebase {
     
     let ref: DatabaseReference?
     let storageRef: StorageReference
+    
     public static let shared = ManagerFirebase()
     
     private init () {
@@ -51,7 +52,7 @@ class ManagerFirebase {
         self.storageRef = Storage.storage().reference()
     }
     
-    
+    //MARK: - Return URLs of members photos
     func getURLsFromConversation(_ conversation: Conversation) -> [String] {
         var arrayOfURLs = [String]()
         for member in conversation.usersInConversation {
@@ -343,7 +344,7 @@ class ManagerFirebase {
         let photoRef = storageRef.child(userURL)
         
         // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
-        photoRef.getData(maxSize: 1 * 200 * 200) { data, error in
+        photoRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
             if let error = error {
                 result(.failure(error.localizedDescription))
                 // Uh-oh, an error occurred!
@@ -403,6 +404,7 @@ class ManagerFirebase {
         self.ref?.updateChildValues(childUpdates)
     }
     
+    
     func changeUsername (newUsername: String, result: @escaping (UserOperationResult) -> Void) {
         if let uid = Auth.auth().currentUser?.uid {
             self.checkUserNameUniqness(newUsername) { param in
@@ -447,14 +449,7 @@ class ManagerFirebase {
             }
         }
     }
-    
-
-//    func updateUserProfilePhoto(_ photoUrl: String) {
-//        if let uid = Auth.auth().currentUser?.uid {
-//            self.ref?.child("users/\(uid)/photoURL").setValue(photoUrl)
-//        }
-//    }
-    
+     
     
     //MARK: To check if username is unique
     func checkUserNameUniqness(_ userName: String, result : @escaping (UserOperationResult)->Void) {
