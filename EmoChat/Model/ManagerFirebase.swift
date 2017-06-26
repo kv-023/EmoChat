@@ -709,7 +709,7 @@ class ManagerFirebase {
         var conversations: [Conversation] = []
         
         let conversationsDispatchGroup = DispatchGroup()
-        
+
         ref?.child("conversations").observeSingleEvent(of: .value, with: { [weak self] (snapshot) in
             
             let upperBound: Int!
@@ -829,6 +829,8 @@ class ManagerFirebase {
         }
         
         messageRef.queryLimited(toLast: 1).observeSingleEvent(of: .value, with: { (messagesSnapshot) in
+            
+            guard messagesSnapshot.exists() else { return }
             //get last message snapshot
             let messageSnapshot = messagesSnapshot.children.allObjects[0] as! DataSnapshot
             

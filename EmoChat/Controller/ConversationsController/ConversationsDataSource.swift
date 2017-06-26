@@ -162,6 +162,7 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
                         self?.tupleArray.remove(at: oldIndex)
                         
                         let newIndex = self!.tupleArray.insertionIndexOf(elem: changedTuple!, isOrderedBefore: { $0.timestamp.timeIntervalSince1970 > $1.timestamp.timeIntervalSince1970 })
+                        
                         self?.tupleArray.insert(changedTuple!, at: newIndex)
                         
                         //make changes in conversations array
@@ -245,20 +246,27 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
         currentUser.userConversations?.rearrange(from: sourceIndexPath.row,
                                                  to: destinationIndexPath.row)
         //move row
-        tableView.moveRow(at: sourceIndexPath, to: destinationIndexPath)
-        
-        //update last message
-        let conversation = currentUser.userConversations![destinationIndexPath.row]
-        managerFirebase.updateLastMessageOf(conversation) { [weak self] (result) in
-            switch result {
-            case let .successSingleMessage(message):
-                self?.currentUser.userConversations![destinationIndexPath.row].lastMessage = message
-                self?.currentUser.userConversations![destinationIndexPath.row].lastMessageTimeStamp = message.time
-                tableView.reloadRows(at: [destinationIndexPath], with: .none)
-            default:
-                print("Error: message not received")
+        CATransaction.begin()
+        CATransaction.setCompletionBlock {
+            //update last message
+            let conversation = self.currentUser.userConversations![destinationIndexPath.row]
+            self.managerFirebase.updateLastMessageOf(conversation) { [weak self] (result) in
+                switch result {
+                case let .successSingleMessage(message):
+                    self?.currentUser.userConversations![destinationIndexPath.row].lastMessage = message
+                    self?.currentUser.userConversations![destinationIndexPath.row].lastMessageTimeStamp = message.time
+                    tableView.reloadRows(at: [destinationIndexPath], with: .none)
+                default:
+                    print("Error: message not received")
+                }
             }
         }
+        
+        tableView.beginUpdates()
+        tableView.moveRow(at: sourceIndexPath, to: destinationIndexPath)
+        tableView.endUpdates()
+        
+        CATransaction.commit()
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
