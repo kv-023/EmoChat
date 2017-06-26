@@ -72,7 +72,7 @@ class ChatSettingsTableViewControllerUITests: XCTestCase {
     
     func testLoginCell() {
         //getting element by its accessibility identifier set in storyboard
-        let tableElement = app.tables.element
+        let tableElement = app.tables.element[0]
         let cell = tableElement.cells["logoCell"]
         XCTAssertTrue(cell.exists)
     }
