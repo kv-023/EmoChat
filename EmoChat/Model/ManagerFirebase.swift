@@ -46,12 +46,14 @@ class ManagerFirebase {
     let ref: DatabaseReference?
     let storageRef: StorageReference
     let conversationsRef: DatabaseReference?
+    let observerTuplesRef: DatabaseReference?
     public static let shared = ManagerFirebase()
     
     private init () {
         self.ref = Database.database().reference()
         self.storageRef = Storage.storage().reference()
         self.conversationsRef = Database.database().reference()
+        self.observerTuplesRef = Database.database().reference()
     }
     
     

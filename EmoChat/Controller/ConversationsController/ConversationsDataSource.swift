@@ -143,7 +143,7 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
         
         for object in tupleArray {
             
-            managerFirebase.ref?.child("conversations/\(object.conversationId)").observe(.childChanged, with: { [weak self] (conversationSnapshot) in
+            managerFirebase.observerTuplesRef?.child("conversations/\(object.conversationId)").observe(.childChanged, with: { [weak self] (conversationSnapshot) in
                 
                 //check if timeStamp has been changed
                 if let timestamp = conversationSnapshot.value as? NSNumber {
