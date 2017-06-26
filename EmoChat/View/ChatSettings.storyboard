@@ -55,6 +55,9 @@
                                         <constraint firstItem="usa-Dh-LlS" firstAttribute="top" secondItem="ZYc-TG-9hD" secondAttribute="topMargin" constant="6" id="dEG-q2-WP0"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <accessibility key="accessibilityConfiguration" identifier="logoCell">
+                                    <bool key="isElement" value="YES"/>
+                                </accessibility>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="qWT-Eg-dys" secondAttribute="bottom" constant="5" id="0R9-rE-tMj"/>
                                     <constraint firstItem="qWT-Eg-dys" firstAttribute="top" secondItem="BYK-JN-YbZ" secondAttribute="top" constant="5" id="Pmd-u3-coS"/>

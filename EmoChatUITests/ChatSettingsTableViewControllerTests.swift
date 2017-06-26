@@ -69,6 +69,13 @@ class ChatSettingsTableViewControllerUITests: XCTestCase {
         device.orientation = .portrait
         XCTAssertTrue(window.frame.contains(tableElement.frame))
     }
+    
+    func testLoginCell() {
+        //getting element by its accessibility identifier set in storyboard
+        let tableElement = app.tables.element
+        let cell = tableElement.cells["logoCell"]
+        XCTAssertTrue(cell.exists)
+    }
 }
 
 //MARK - auxiliary methods
