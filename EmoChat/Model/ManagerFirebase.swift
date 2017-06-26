@@ -200,7 +200,7 @@ class ManagerFirebase {
                 let phonenumber = userSnapshot?["phoneNumber"] as! String?
                 let photoURL = userSnapshot?["photoURL"] as! String?
                 //getting array of conversation ids
-                //let conversationsID = userSnapshot?["conversations"] as? NSDictionary
+                let conversationsID = userSnapshot?["conversations"] as? NSDictionary
                 
                 //create user without conversations and contacts
                 
@@ -213,9 +213,9 @@ class ManagerFirebase {
                 }
                 
                 //generate array of conversations
-//                if let conversationsArrayId = conversationsID?.allKeys {
-//                    user.userConversations = self.sortListOfConversations(self.getConversetionsFromSnapshot(value, accordingTo: conversationsArrayId as! [String], currentUserEmail: email))
-//                }
+                if let conversationsArrayId = conversationsID?.allKeys {
+                    user.userConversations = self.sortListOfConversations(self.getConversetionsFromSnapshot(value, accordingTo: conversationsArrayId as! [String], currentUserEmail: email))
+                }
                 
                 //return result
                 getUser(.successSingleUser(user))
@@ -610,7 +610,7 @@ class ManagerFirebase {
     
     func getMessageFromConversation (_ allConversations: [Conversation], result: @escaping (Conversation, Message) -> Void) {
         for eachConv in allConversations{
-            self.ref?.child("conversations/\(eachConv.uuid)/messagesInConversation").observe(.childAdded, with: {(snapshot) in
+            self.ref?.child("conversations/\(eachConv.uuid)/messagesInConversation").queryLimited(toLast: 10).observe(.childAdded, with: {(snapshot) in
                 let uidMessage = snapshot.key
                 let messageSnapshot = snapshot.value as? NSDictionary
                 let message = Message(data: messageSnapshot, uid: uidMessage)

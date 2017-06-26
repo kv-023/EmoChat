@@ -42,8 +42,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         
         //clean textView
        
-        textMessage.text = "Type message..."
-        textMessage.textColor = .lightGray
+        textMessage.text = ""
         
         textMessage.isScrollEnabled = false;
         self.textViewMaxHeightConstraint.isActive = false
