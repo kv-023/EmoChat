@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		35C9507D1EF7D791006FA7E6 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C9507C1EF7D791006FA7E6 /* UIImageExtension.swift */; };
 		35E79C561EFA71F1006E98C9 /* LogoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E79C551EFA71F1006E98C9 /* LogoTableViewCell.swift */; };
+		35F8943A1F00FFE000862BAC /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F894391F00FFE000862BAC /* UserTableViewCell.swift */; };
 		3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3938C26F1EDC27C700D69F88 /* AppDelegate.swift */; };
 		3938C2721EDC27C700D69F88 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3938C2711EDC27C700D69F88 /* ViewController.swift */; };
 		3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2731EDC27C700D69F88 /* Main.storyboard */; };
@@ -73,6 +74,7 @@
 /* Begin PBXFileReference section */
 		35C9507C1EF7D791006FA7E6 /* UIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 		35E79C551EFA71F1006E98C9 /* LogoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoTableViewCell.swift; sourceTree = "<group>"; };
+		35F894391F00FFE000862BAC /* UserTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		3938C26C1EDC27C700D69F88 /* EmoChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmoChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3938C26F1EDC27C700D69F88 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3938C2711EDC27C700D69F88 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				35E79C551EFA71F1006E98C9 /* LogoTableViewCell.swift */,
+				35F894391F00FFE000862BAC /* UserTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -559,6 +562,7 @@
 				CC13C5EB1EF9227F00B38E59 /* SingleConversationViewController.swift in Sources */,
 				CC13C5D51EF4092900B38E59 /* ArchiverManager.swift in Sources */,
 				E7B926F01EF1487B0018F5FF /* EmoChatUIViewController.swift in Sources */,
+				35F8943A1F00FFE000862BAC /* UserTableViewCell.swift in Sources */,
 				84247A391EE9CDA6009E8167 /* GlobalUserCell.swift in Sources */,
 				E7B926F11EF1487B0018F5FF /* PopOverHelper.swift in Sources */,
 				A3E7E7D11EEFD893006D24BC /* OptionsMainPageTableViewController.swift in Sources */,

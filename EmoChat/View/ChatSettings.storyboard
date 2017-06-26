@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="a3v-gZ-Ph8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16C68" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="a3v-gZ-Ph8">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -132,23 +132,39 @@
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="user" textLabel="KI9-r8-nJg" rowHeight="40" style="IBUITableViewCellStyleDefault" id="jhR-XP-3I8">
-                                <rect key="frame" x="0.0" y="211" width="320" height="40"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="user" rowHeight="50" id="jhR-XP-3I8" customClass="UserTableViewCell" customModule="EmoChat" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="211" width="320" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jhR-XP-3I8" id="XWN-5M-YRz">
-                                    <rect key="frame" x="0.0" y="0.0" width="287" height="39.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KI9-r8-nJg">
-                                            <rect key="frame" x="15" y="0.0" width="270" height="39.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nUn-vm-OR9">
+                                            <rect key="frame" x="80" y="8" width="199" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dO4-3B-Jpu">
+                                            <rect key="frame" x="19" y="3" width="44" height="44"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="44" id="LW8-56-7bH"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="dO4-3B-Jpu" firstAttribute="centerY" secondItem="XWN-5M-YRz" secondAttribute="centerY" id="5lh-Sp-oCo"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="nUn-vm-OR9" secondAttribute="bottom" constant="12.5" id="YxB-LU-gFl"/>
+                                        <constraint firstItem="nUn-vm-OR9" firstAttribute="top" secondItem="XWN-5M-YRz" secondAttribute="topMargin" id="gJH-Q7-3mE"/>
+                                        <constraint firstItem="dO4-3B-Jpu" firstAttribute="leading" secondItem="XWN-5M-YRz" secondAttribute="leadingMargin" constant="11" id="kdZ-Q9-srD"/>
+                                        <constraint firstItem="nUn-vm-OR9" firstAttribute="trailing" secondItem="XWN-5M-YRz" secondAttribute="trailingMargin" id="mGJ-ml-ARa"/>
+                                        <constraint firstItem="nUn-vm-OR9" firstAttribute="leading" secondItem="dO4-3B-Jpu" secondAttribute="trailing" constant="17" id="sPF-F1-NPJ"/>
+                                        <constraint firstItem="dO4-3B-Jpu" firstAttribute="top" secondItem="XWN-5M-YRz" secondAttribute="topMargin" constant="-5" id="w5z-Hh-C0u"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="userName" destination="nUn-vm-OR9" id="c4G-uv-f1l"/>
+                                    <outlet property="userPic" destination="dO4-3B-Jpu" id="SFM-9L-e6I"/>
                                     <segue destination="bgU-9T-H2b" kind="show" id="juw-fW-Tjm"/>
                                 </connections>
                             </tableViewCell>

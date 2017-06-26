@@ -15,7 +15,7 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
     var logoCell = LogoTableViewCell()
     var addUserCell = UITableViewCell()
     var leaveChatCell = UITableViewCell()
-    var userCell = UITableViewCell()
+    var userCell = UserTableViewCell()
     
     
     var storageRef: StorageReference!
@@ -32,7 +32,7 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.contentInset = UIEdgeInsetsMake(28, 0, 0, 0)
-        usersInConversation = ["Ivan Ivanych", "Stepan Stepanov", "Vasya Vasilkov", "realman"]
+        usersInConversation = ["Ivan Ivanych", "Valentin", "Stepan Stepanov", "realman"]
         let im = UIImage.init(named: "111.png")
         let im2 = UIImage.init(named: "222.png")
         let im3 = UIImage.init(named: "333.png")
@@ -41,8 +41,21 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
         avatar = [im!, im2!, im3!, im4!]
     
     
+         manager = ManagerFirebase.shared
         
-        manager = ManagerFirebase.shared
+        manager?.logIn(email: "zellensky@gmail.com", password: "qwerty") { (result) in
+            switch (result) {
+                
+            case .successSingleUser(let uuu):
+                print("111111111111111")
+            case .failure(let error):
+                print(error)
+            default: break
+            }
+        }
+        
+        /*
+       
         manager?.getCurrentUser { (result) in
             switch (result) {
             case .successSingleUser(let _):
@@ -57,21 +70,12 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
             }
             
         }
-
+*/
     
-    manager.logIn(email: "zellensky@gmail.com", password: "qwerty") { (result) in
-        switch (result) {
-            
-        case .successSingleUser(let _):
-            print("111111111111111")
-        case .failure(let error):
-            print(error)
-        default: break
-        }
-        }
     
+ 
     }
-    
+ 
     
     // MARK: - Table view data source
     
@@ -133,13 +137,14 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
             }
             
         default:
-            userCell = tableView.dequeueReusableCell(withIdentifier: "user", for: indexPath)
+            userCell = tableView.dequeueReusableCell(withIdentifier: "user", for: indexPath) as! UserTableViewCell
             //userCell.imageView?.image = UIImage.init(named: "male.png")
             //userCell.textLabel?.text = "Name LastName"
-            userCell.imageView?.clipsToBounds = true
-            userCell.imageView?.layer.cornerRadius =  25
-            userCell.imageView?.image = avatar[indexPath.row]
-            userCell.textLabel?.text = usersInConversation[indexPath.row]
+            userCell.userPic.clipsToBounds = true
+            userCell.userPic.layer.cornerRadius =  22
+            userCell.userPic.image = avatar[indexPath.row]
+            userCell.userName.text = usersInConversation[indexPath.row]
+            
             return userCell
         }
     }
@@ -150,7 +155,6 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
     
        return 5
-    
     }
 
     
@@ -235,7 +239,7 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
         
         //Add image to firebase
      
-        manager?.loadLogo(chosenImage, conversationID: "AndrewAndOlga", result: { (result) in
+        manager?.loadLogo(chosenImage, conversationID: "77777", result: { (result) in
             switch result {
             case .success:
                 print("photo save")
