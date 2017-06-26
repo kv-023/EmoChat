@@ -14,7 +14,6 @@
 		3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2731EDC27C700D69F88 /* Main.storyboard */; };
 		3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2761EDC27C700D69F88 /* Assets.xcassets */; };
 		3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */; };
-		59FE34B41F003C910043B9A7 /* ChatSettingsTableViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59FE34B31F003C910043B9A7 /* ChatSettingsTableViewControllerTests.swift */; };
 		746478FA29F53658399EE02D /* Pods_EmoChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */; };
 		84247A391EE9CDA6009E8167 /* GlobalUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84247A381EE9CDA6009E8167 /* GlobalUserCell.swift */; };
 		842E8B6C1EF931C900CA3BF2 /* ConversationsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E8B6B1EF931C900CA3BF2 /* ConversationsDataSource.swift */; };
@@ -654,7 +653,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				59FE34B41F003C910043B9A7 /* ChatSettingsTableViewControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
