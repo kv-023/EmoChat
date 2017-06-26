@@ -10,7 +10,7 @@ import Foundation
 
 extension Date {
     var millisecondsSince1970:Int {
-        return Int((self.timeIntervalSince1970 * 1000.0).rounded())
+        return Int((self.timeIntervalSince1970 * 1000).rounded())
     }
     
     init(milliseconds:Int) {
@@ -23,4 +23,12 @@ extension Date {
         let date = dataformatter.string(from: self)
         return date
     }
-}
+    
+    func dayFormatStyle() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "d.MM"
+        let date = dateFormatter.string(from: self)
+        return date
+    }
+    
+}   
