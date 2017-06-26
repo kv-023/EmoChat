@@ -17,7 +17,7 @@
             <rect key="frame" x="0.0" y="0.0" width="421" height="116"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="RestUIInfoCell" tableViewCell="apo-zu-P0r" id="ARy-td-aXw" customClass="RestUIInfoView" customModule="EmoChat" customModuleProvider="target">
-                <rect key="frame" x="0.0" y="0.0" width="421" height="115.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="421" height="116"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1Aw-jm-sKx">

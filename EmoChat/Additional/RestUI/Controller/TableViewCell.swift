@@ -110,7 +110,7 @@ class TableViewCell: UITableViewCell {
 //                self.subViewRest.frame.height = 300
                 self.subViewREstHeight.constant = 300
                 self.subViewRest = ccView
-                
+
 
                 self.spinner.stopAnimating()
             }

@@ -65,7 +65,7 @@ class TableViewController: UITableViewController,TestResizeCell {
     func resizeMyCell(cell: UITableViewCell) {
         let indexPath = tableView.indexPath(for: cell)
         cellResized.insert(indexPath!)
-        self.tableView.reloadRows(at: [indexPath!], with: UITableViewRowAnimation.none)
+        self.tableView.reloadRows(at: [indexPath!], with: UITableViewRowAnimation.automatic)
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
