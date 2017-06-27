@@ -61,10 +61,12 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     var messagesArray: [(Message, UserType)] = []
     
+    var load = false
+    
     @IBOutlet weak var table: UITableView!
     
     func updateUI() {
-        manager?.getBunchOfMessages(in: currentConversation, startingFrom: (firstMessage?.uid)!, count: 20, result: { (result) in
+        manager?.getBunchOfMessages(in: currentConversation, startingFrom: (firstMessage?.uid)!, count: 25, result: { (result) in
             var arrayOfMessagesAndTypes = [(Message, UserType)] ()
             for each in result {
                 if (self.manager?.isMessageFromCurrentUser(each))! {
@@ -95,7 +97,11 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         }
         messagesArray = newMessages + messagesArray
         table.insertRows(at: indexPaths, with: .automatic)
+        
         self.table.endUpdates()
+        //table.scrollToRow(at: indexPaths.last!, at: .top, animated: true)
+        
+        //load = false
     }
     
     
@@ -131,8 +137,10 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         table.delegate = self
         table.estimatedRowHeight = table.rowHeight
         table.rowHeight = UITableViewAutomaticDimension
+        
         if !messagesArray.isEmpty {
             table.scrollToRow(at: IndexPath.init(row: messagesArray.count - 1, section: 0), at: .top, animated: false)
+            load = true
         }
         self.setUpTextView()
         manager = ManagerFirebase.shared
@@ -170,7 +178,9 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 }
                 if !self.messagesArray.isEmpty {
                     self.table.scrollToRow(at: IndexPath.init(row: self.messagesArray.count - 1, section: 0), at: .top, animated: false)
+//                    self.load = true
                 }
+                self.load = true
             })
         })
     
@@ -187,6 +197,11 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             UIView.animate(withDuration: 0.3, animations: {
                 cell.transform = CGAffineTransform.identity
             })
+        }
+        if indexPath.row == 0 && load {
+            firstMessage = messagesArray[0].0
+    
+            load = false
         }
     }
     
@@ -331,6 +346,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             })
             if !messagesArray.isEmpty {
                 table.scrollToRow(at: IndexPath.init(row: messagesArray.count - 1, section: 0), at: .top, animated: false)
+//                load = true
             }
         }
     }
