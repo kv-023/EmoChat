@@ -145,9 +145,9 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 }
             })
         })
-        
+    
         print(self.currentConversation.uuid)
-       }
+       
         
         
         setupKeyboardObservers()
