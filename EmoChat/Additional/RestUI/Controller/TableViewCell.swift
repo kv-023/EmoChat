@@ -107,18 +107,27 @@ class TableViewCell: UITableViewCell {
                                                       options: nil)?.first as! UITableViewCell
                 //).contentView as! RestUIInfoView
 
-                ccView.frame = CGRect(x: 0, y: 0,
+                let contentViewCell = ccView.contentView
+                contentViewCell.frame = CGRect(x: 0, y: 0,
                                       width: self.subViewRest.frame.width,
                                       height: self.subViewRest.frame.height)
+
 
 //                self.contentView.addSubview(ccView)
 //
 //                self.testRDelegate?.resizeMyCell(cell: self)
 //                self.subViewRest.frame.height = 300
 
-                self.subViewREstHeight.constant = 200//ccView.frame.height
+                self.subViewREstHeight.constant = ccView.bounds.height//200//ccView.frame.height
 //                self.subViewRest = ccView
-//                self.subViewRest.addSubview(ccView)
+                self.subViewRest.addSubview(contentViewCell)
+
+                self.subViewRest.layoutIfNeeded()
+
+                self.subViewRest.frame = CGRect(x: self.subViewRest.frame.origin.x,
+                                                y: self.subViewRest.frame.origin.y,
+                                                width: self.subViewRest.frame.width,
+                                                height: contentViewCell.frame.height)
 
                 self.spinner.stopAnimating()
             }
