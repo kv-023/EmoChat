@@ -38,7 +38,7 @@
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gUr-HP-DZc">
                                                     <rect key="frame" x="58" y="11" width="80" height="38"/>
-                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" red="0.13857942819595337" green="0.71949177980422974" blue="0.08602016419172287" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                             <integer key="value" value="10"/>
@@ -60,16 +60,32 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Some text" translatesAutoresizingMaskIntoConstraints="NO" id="saX-Im-Te1">
-                                                    <rect key="frame" x="58" y="11" width="79.5" height="38"/>
+                                                    <rect key="frame" x="58" y="11" width="80" height="38"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2BW-ck-jBa">
-                                                    <rect key="frame" x="147.5" y="35.5" width="26" height="13.5"/>
+                                                    <rect key="frame" x="148" y="35" width="26" height="14"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5pu-Th-OzO">
+                                                    <rect key="frame" x="58" y="11" width="80" height="38"/>
+                                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="center" id="qc0-vs-zHJ">
+                                                        <rect key="frame" x="0.0" y="0.0" width="80" height="38"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <color key="backgroundColor" red="0.13857942819595337" green="0.71949177980422974" blue="0.08602016419172287" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </view>
+                                                    <color key="backgroundColor" red="0.13021529179999999" green="0.521669877" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <blurEffect style="light"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="10"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </visualEffectView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="saX-Im-Te1" firstAttribute="width" relation="lessThanOrEqual" secondItem="BTd-Kg-2eo" secondAttribute="width" multiplier="0.5" id="1cg-QT-YPW"/>
@@ -77,10 +93,14 @@
                                                 <constraint firstItem="gUr-HP-DZc" firstAttribute="centerX" secondItem="saX-Im-Te1" secondAttribute="centerX" id="BIW-Vs-ePC"/>
                                                 <constraint firstItem="saX-Im-Te1" firstAttribute="leading" secondItem="0NN-eU-7Ai" secondAttribute="trailing" constant="10" id="HCM-R2-10W"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="2BW-ck-jBa" secondAttribute="bottom" constant="3" id="Icu-Do-1mt"/>
+                                                <constraint firstItem="5pu-Th-OzO" firstAttribute="trailing" secondItem="saX-Im-Te1" secondAttribute="trailing" id="OD7-bF-RM8"/>
                                                 <constraint firstItem="2BW-ck-jBa" firstAttribute="leading" secondItem="saX-Im-Te1" secondAttribute="trailing" constant="10" id="Oeb-ik-Oeq"/>
                                                 <constraint firstItem="gUr-HP-DZc" firstAttribute="height" secondItem="saX-Im-Te1" secondAttribute="height" id="Pv9-bQ-7Qe"/>
+                                                <constraint firstItem="5pu-Th-OzO" firstAttribute="leading" secondItem="gUr-HP-DZc" secondAttribute="leading" id="UxG-6j-6hh"/>
                                                 <constraint firstItem="saX-Im-Te1" firstAttribute="top" secondItem="BTd-Kg-2eo" secondAttribute="topMargin" constant="3" id="dIW-6i-UX5"/>
+                                                <constraint firstItem="5pu-Th-OzO" firstAttribute="bottom" secondItem="saX-Im-Te1" secondAttribute="bottom" id="dyH-E3-QSR"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="0NN-eU-7Ai" secondAttribute="bottom" constant="3" id="p5f-as-ej9"/>
+                                                <constraint firstItem="5pu-Th-OzO" firstAttribute="top" secondItem="gUr-HP-DZc" secondAttribute="top" id="rYV-sL-PnU"/>
                                                 <constraint firstItem="gUr-HP-DZc" firstAttribute="centerY" secondItem="saX-Im-Te1" secondAttribute="centerY" id="xgH-U9-bVx"/>
                                                 <constraint firstItem="gUr-HP-DZc" firstAttribute="width" secondItem="saX-Im-Te1" secondAttribute="width" id="ymN-ls-Bqs"/>
                                                 <constraint firstItem="0NN-eU-7Ai" firstAttribute="leading" secondItem="BTd-Kg-2eo" secondAttribute="leadingMargin" id="zcH-AO-ibT"/>
@@ -88,6 +108,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="background" destination="gUr-HP-DZc" id="lc8-22-fVl"/>
+                                            <outlet property="blur" destination="5pu-Th-OzO" id="dX1-vA-zbA"/>
                                             <outlet property="message" destination="saX-Im-Te1" id="zsc-su-htU"/>
                                             <outlet property="time" destination="2BW-ck-jBa" id="fHo-xR-bVY"/>
                                             <outlet property="userPic" destination="0NN-eU-7Ai" id="VHP-fV-8gj"/>
@@ -102,7 +123,7 @@
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qN7-ND-9M4">
                                                     <rect key="frame" x="238" y="11" width="79" height="38"/>
-                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" red="0.080734275281429291" green="0.51267910003662109" blue="0.77935230731964111" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                             <integer key="value" value="10"/>
@@ -125,6 +146,7 @@
                                                 </imageView>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Some text" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="mHH-T8-Hcd">
                                                     <rect key="frame" x="237.5" y="11" width="79.5" height="38"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>

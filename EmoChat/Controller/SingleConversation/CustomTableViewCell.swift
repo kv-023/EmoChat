@@ -10,6 +10,7 @@ import UIKit
 
 class LeftCell: UITableViewCell {
 
+    @IBOutlet weak var blur: UIVisualEffectView!
     @IBOutlet weak var userPic: UIImageView!
     @IBOutlet weak var time: UILabel!
     @IBOutlet weak var message: UITextView!

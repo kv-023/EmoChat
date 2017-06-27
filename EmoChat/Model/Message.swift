@@ -12,6 +12,7 @@ enum MessageContentType: String {
     case photo
     case video
     case text
+    case emotion
 }
 
 class Message {
@@ -40,10 +41,16 @@ class Message {
         let media = data?["content"] as? NSDictionary
         if let photo = media?.value(forKey: "photo") {
             self.content = (type: MessageContentType.photo, content: photo as! String)
+            
         } else if let video = media?.value(forKey: "video") {
             self.content = (type: MessageContentType.video, content: video as! String)
+            
         } else if let text = media?.value(forKey: "text") {
             self.content = (type: MessageContentType.text, content: text as! String)
+            
+        } else if let emotion = media?.value(forKey: "emotion") {
+            self.content = (type: MessageContentType.emotion, content: emotion as! String)
+            
         }
         
     }

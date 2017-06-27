@@ -18,7 +18,7 @@ enum UserType {
     case right (RightType)
 }
 
-class SingleConversationViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate {
+class SingleConversationViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var inputSubView: UIView!
     
@@ -33,6 +33,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             insertRow((message, .right(.sending)))
             if !messagesArray.isEmpty {
                 self.table.scrollToRow(at: IndexPath.init(row: messagesArray.count - 1, section: 0), at: .top, animated: false)
+               // message.content.type = MessageContentType.emotion
             }
         case .failure(let string):
             print(string)
@@ -71,6 +72,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             for each in result {
                 if (self.manager?.isMessageFromCurrentUser(each))! {
                     arrayOfMessagesAndTypes.append((each, .right(.sent)))
+                    
+                    
                 } else {
                     arrayOfMessagesAndTypes.append((each, .left))
                 }
@@ -215,17 +218,28 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let message = messagesArray[indexPath.row]
+        
         switch message.1 {
+            
         case .left:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "Left", for: indexPath) as? LeftCell else {
                 fatalError("Cell was not casted!")
             }
             cell.messageEntity = message.0
             cell.time.text = message.0.time.formatDate()
-            
             cell.userPic.image = self.photosArray[message.0.senderId]
             
+            if message.0.content.type == MessageContentType.emotion   {
+                cell.blur.alpha = 0.8
+                let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(recordEmotion))
+                cell.isUserInteractionEnabled = true
+                cell.addGestureRecognizer(tapGestureRecognizer)
+            } else {
+                cell.blur.alpha = 0
+            }
+            
             return cell
+            
         case .right:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "Right", for: indexPath) as? RightCell else {
                 fatalError("Cell was not casted!")
@@ -376,5 +390,14 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
      // Pass the selected object to the new view controller.
      }
      */
+    
+    func recordEmotion(tapGestureRecognizer: UITapGestureRecognizer) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true, completion: nil)
+
+    }
     
 }
