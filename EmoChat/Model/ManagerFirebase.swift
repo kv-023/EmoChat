@@ -46,6 +46,7 @@ class ManagerFirebase {
     let ref: DatabaseReference?
     let storageRef: StorageReference
     let conversationsRef: DatabaseReference?
+    let messageRef: DatabaseReference?
     
     public static let shared = ManagerFirebase()
     
@@ -53,7 +54,7 @@ class ManagerFirebase {
         self.ref = Database.database().reference()
         self.storageRef = Storage.storage().reference()
         self.conversationsRef = Database.database().reference()
-        //self.newRef = Database.database().reference()
+        self.messageRef = Database.database().reference()
     }
     
     //MARK: - Return URLs of members photos
@@ -611,7 +612,7 @@ class ManagerFirebase {
     
     func getMessageFromConversation (_ allConversations: [Conversation], result: @escaping (Conversation, Message) -> Void) {
         for eachConv in allConversations{
-            self.ref?.child("conversations/\(eachConv.uuid)/messagesInConversation").queryLimited(toLast: 10).observe(.childAdded, with: {(snapshot) in
+            self.messageRef?.child("conversations/\(eachConv.uuid)/messagesInConversation").queryLimited(toLast: 1).observe(.childAdded, with: {(snapshot) in
                 let uidMessage = snapshot.key
                 let messageSnapshot = snapshot.value as? NSDictionary
                 let message = Message(data: messageSnapshot, uid: uidMessage)
@@ -621,12 +622,12 @@ class ManagerFirebase {
     }
     
     func getBunchOfMessages (in conversation: Conversation, startingFrom uid: String, count: Int, result: @escaping ([Message]) -> Void) {
-        let newRef = self.ref?.child("conversations/\(conversation.uuid)/messagesInConversation").queryOrderedByKey().queryStarting(atValue: uid).queryLimited(toLast: UInt(count))
-        newRef?.observeSingleEvent(of: .value, with: { (snapshot) in
-            let value = snapshot.value as? [String : AnyObject]
-            print(uid)
+//        let newRef = self.ref?.child("conversations/\(conversation.uuid)/messagesInConversation").queryOrderedByKey().queryStarting(atValue: uid).queryLimited(toLast: UInt(count))
+//        newRef?.observeSingleEvent(of: .value, with: { (snapshot) in
+//            let value = snapshot.value as? [String : AnyObject]
+//            print(uid)
             result([])
-        })
+//        })
         
     }
     
