@@ -66,10 +66,12 @@ class SearchUsersViewController: UITableViewController {
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = NSLocalizedString("Search users...", comment: "")
-        searchController.searchBar.searchBarStyle = .minimal
+        searchController.searchBar.searchBarStyle = .default
+        //searchController.searchBar.backgroundColor = UIColor.white
         searchController.searchBar.delegate = self
-        searchController.searchBar.scopeBarBackgroundImage = UIImage(color: UIColor.white)
+        //searchController.searchBar.scopeBarBackgroundImage = UIImage(color: UIColor.white)
         searchController.searchBar.setValue(NSLocalizedString("Done", comment: ""), forKey: "_cancelButtonText")
+        
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
     }
@@ -255,4 +257,9 @@ extension SearchUsersViewController: UISearchBarDelegate {
         
         return true
     }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+
+    }
+
 }
