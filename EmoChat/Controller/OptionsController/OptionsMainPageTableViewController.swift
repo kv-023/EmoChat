@@ -18,12 +18,14 @@ class OptionsMainPageTableViewController:  UITableViewController, UIImagePickerC
     @IBOutlet weak var emailLabel: UILabel!
     var currentUserVC: User!
     var manager: ManagerFirebase!
+//    var currentUser: CurrentUser!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //Manager firebase
         manager = ManagerFirebase.shared
+//        currentUser = CurrentUser.shared
         
         //Temporaru login and get current user
         tempLogIn()

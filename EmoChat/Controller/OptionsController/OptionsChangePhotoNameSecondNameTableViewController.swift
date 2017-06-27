@@ -127,7 +127,7 @@ func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMe
     let picker = UIImagePickerController()
     picker.delegate = self
     picker.allowsEditing = true
-    
+
     //Handling image picker sourse type
     let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
     
