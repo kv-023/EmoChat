@@ -200,7 +200,7 @@ class ManagerFirebase {
                 let phonenumber = userSnapshot?["phoneNumber"] as! String?
                 let photoURL = userSnapshot?["photoURL"] as! String?
                 //getting array of conversation ids
-                let conversationsID = userSnapshot?["conversations"] as? NSDictionary
+                //let conversationsID = userSnapshot?["conversations"] as? NSDictionary
                 
                 //create user without conversations and contacts
                 
@@ -213,9 +213,9 @@ class ManagerFirebase {
                 }
                 
                 //generate array of conversations
-                if let conversationsArrayId = conversationsID?.allKeys {
-                    user.userConversations = self.sortListOfConversations(self.getConversetionsFromSnapshot(value, accordingTo: conversationsArrayId as! [String], currentUserEmail: email))
-                }
+//                if let conversationsArrayId = conversationsID?.allKeys {
+//                    user.userConversations = self.sortListOfConversations(self.getConversetionsFromSnapshot(value, accordingTo: conversationsArrayId as! [String], currentUserEmail: email))
+//                }
                 
                 //return result
                 getUser(.successSingleUser(user))
@@ -270,7 +270,7 @@ class ManagerFirebase {
             let time = conversationSnapshot?["lastMessage"] as? TimeInterval
             let date = (Date(timeIntervalSince1970: time!/1000))
             let conversation = Conversation(conversationId: eachConv,
-                                            usersInConversation: users,
+                                            usersInConversation: [],
                                             messagesInConversation: nil,
                                             lastMessage: lastMessage,
                                             lastMessageTimeStamp: date,
@@ -700,18 +700,14 @@ class ManagerFirebase {
                             name: conversationName)
     }
     
+    
     func getUsersInConversation(conversation: Conversation,completion: @escaping ([User]) -> Void)  {
-        //let contactsIDs = conversationDict["usersInConversation"] as! NSDictionary
         
-        newRef?.child("conversations/\(conversation.uuid)/usersInConversation").observeSingleEvent(of: .value, with: { (snapshot) in
-            
-            let contactsIDs = snapshot.value as? [String : AnyObject] ?? [:]
-            
-            self.newRef?.observeSingleEvent(of: .value, with: { (snapshot) in
-                
-                let users = self.getUsersFromIDs(ids: contactsIDs as NSDictionary, value: self.ref as! NSDictionary)
-                completion(users)
-            })
+        self.ref?.observeSingleEvent(of: .value, with: { (snapshot) in
+            let value = snapshot.value as? NSDictionary
+            let conversationSnapshot = (value?["conversations"] as? NSDictionary)?[conversation.uuid] as? NSDictionary
+            let users = self.getUsersFromIDs(ids: conversationSnapshot?["usersInConversation"] as! NSDictionary, value: value)
+            completion(users)
             
         })
         

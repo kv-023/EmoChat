@@ -83,9 +83,12 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     var photosArray: [String: UIImage] = [:]
     
+    var group = DispatchGroup()
+    
     func downloadPhotos () {
         
         for member in currentConversation.usersInConversation{
+            group.enter()
         manager?.getUserPic(from: member.photoURL!, result: { (result) in
             switch result {
             case .successUserPic(let image):
@@ -95,7 +98,9 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             default:
                 break
             }
+            self.group.leave()
         })
+            
         }
     }
     
@@ -112,11 +117,13 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         self.setUpTextView()
         manager = ManagerFirebase.shared
         
-//        manager?.getUsersInConversation(conversation: self.currentConversation, completion: { (users) in
-//            self.currentConversation.usersInConversation = users
-//            self.downloadPhotos()
-//            self.table.reloadData()
-//        })
+        
+        group.enter()
+        manager?.getUsersInConversation(conversation: self.currentConversation, completion: { (users) in
+            self.currentConversation.usersInConversation = users
+            self.downloadPhotos()
+            self.group.leave()
+        })
  
         
 //        manager?.getCurrentUser { (result) in
@@ -128,7 +135,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         
                 
                 
-                
+        group.notify(queue: DispatchQueue.main, execute: {
                 self.manager?.getMessageFromConversation([self.currentConversation], result: { (conv, newMessage) in
                     if let res = self.manager?.isMessageFromCurrentUser(newMessage) {
                         if res == true {
@@ -153,7 +160,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                         self.table.scrollToRow(at: IndexPath.init(row: self.messagesArray.count - 1, section: 0), at: .top, animated: false)
                     }
                 })
-                
+        })
+        
                 print(self.currentConversation.uuid)
 //            case .failure(let error):
 //                print(error)
