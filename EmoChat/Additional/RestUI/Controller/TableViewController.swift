@@ -18,11 +18,14 @@ class TableViewController: UITableViewController,TestResizeCell {
     var stringURL: String?
     var imageData: Data?
 
+    weak var testR2Delegate: TestResizeCellInCell?
+
     override func viewDidLoad() {
         super .viewDidLoad()
 
+
+        tableView.estimatedRowHeight = tableView.rowHeight//240
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 240
     }
 
     // MARK: - Table view data source
@@ -32,18 +35,24 @@ class TableViewController: UITableViewController,TestResizeCell {
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView,
+                            numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "prototypeCell", for: indexPath) as! TableViewCell
+    override func tableView(_ tableView: UITableView,
+                            cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        guard !cellResized.contains(indexPath) else {
-            cellResized.remove(indexPath)
-            return cell
-        }
+
+//        guard !cellResized.contains(indexPath) else {
+//            cellResized.remove(indexPath)
+//
+//            return testR2Delegate as! TableViewCell
+//        }
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: "prototypeCell",
+                                                 for: indexPath) as! TableViewCell
 
         // TEST @@@@@@@@@@@@ +++
         let textDataForTest = "bla-bla bla https://9gag.com/gag/aRjwVVG bla-bla bla"
@@ -52,34 +61,42 @@ class TableViewController: UITableViewController,TestResizeCell {
         let testFireBaseMessage = Message(uid: "0099887766545433",
                                           senderId: "id2222222Id",
                                           time: Date(),
-                                          content: (type: MessageContentType.text, content: textDataForTest))
+                                          content: (type: MessageContentType.text,
+                                                    content: textDataForTest))
         cell.testRDelegate = self
+        testR2Delegate = cell
+
         cell.message = testFireBaseMessage
 
-//        let ccView = Bundle.main.loadNibNamed("RestUIInfo", owner: self, options: nil)?.first as! UITableViewCell
-//        //).contentView as! RestUIInfoView
-//
-//        cell.contentView.addSubview(ccView)
-
         // TEST @@@@@@@@@@@@ ---
-
 
         return cell
     }
 
     func resizeMyCell(cell: UITableViewCell) {
-        let indexPath = tableView.indexPath(for: cell)
-        cellResized.insert(indexPath!)
-        self.tableView.reloadRows(at: [indexPath!], with: UITableViewRowAnimation.automatic)
+        if let indexPath = tableView.indexPath(for: cell) {
+            cellResized.insert(indexPath)
+
+            tableView.beginUpdates()
+//            self.tableView.reloadRows(at: [indexPath],
+//                                      with: UITableViewRowAnimation.automatic)
+//            self.tableView.moveRow(at: indexPath, to: indexPath)
+            cell.updateConstraints()
+            tableView.endUpdates()
+
+        }
     }
 
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-
-        //if cellResized.contains(indexPath) {
-            return 500
-//        } else {
-//            return UITableViewAutomaticDimension//auto//tableView.rectForRow(at: indexPath).height
-//        }
+    override func tableView(_ tableView: UITableView,
+                            heightForRowAt indexPath: IndexPath) -> CGFloat {
+//
+        if cellResized.contains(indexPath) {
+            return 400
+        } else {
+            return UITableViewAutomaticDimension//auto//tableView.rectForRow(at: indexPath).height
+        }
     }
+
+
 
 }
