@@ -25,7 +25,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     @IBOutlet weak var textMessage: UITextView!
     
     @IBAction func sendMessage(_ sender: UIButton) {
-
+        
         let result:MessageOperationResult? = manager?.createMessage(conversation: currentConversation!, sender: currentUser, content: (.text, textMessage.text))
         
         switch (result!) {
@@ -41,7 +41,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         }
         
         //clean textView
-       
+        
         textMessage.text = ""
         
         textMessage.isScrollEnabled = false;
@@ -55,7 +55,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     var currentConversation: Conversation! { didSet { updateUI() } }
     
-    var messagesArray: [(Message, UserType)] = [/*(Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HEi")), .left), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "HELLOk.zdjxvl;dfjsldfjkgvdfi")), .right), (Message(uid: "123", senderId: "123", time: Date.init(milliseconds: 100), content: (type: .text, content: "last")), .right)*/]
+    var messagesArray: [(Message, UserType)] = []
     
     @IBOutlet weak var table: UITableView!
     
@@ -69,14 +69,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         table.insertRows(at: [IndexPath(row: messagesArray.count - 1, section: 0)], with: .automatic)
         table.endUpdates()
     }
-
-//    func insertRows(_ newMessages: [(Message, UserType)]) {
-//        table.beginUpdates()
-//        for item in newMessages {
-//            table.insertRows(at: [IndexPath(row: messagesArray.count - 1, section: 0)], with: .automatic)
-//        }
-//        table.endUpdates()
-//    }
     
     
     //MARK: - photos
@@ -89,17 +81,17 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         
         for member in currentConversation.usersInConversation{
             group.enter()
-        manager?.getUserPic(from: member.photoURL!, result: { (result) in
-            switch result {
-            case .successUserPic(let image):
-                self.photosArray.updateValue(image, forKey: member.uid)
-            case .failure(let error) :
-                print(error)
-            default:
-                break
-            }
-            self.group.leave()
-        })
+            manager?.getUserPic(from: member.photoURL!, result: { (result) in
+                switch result {
+                case .successUserPic(let image):
+                    self.photosArray.updateValue(image, forKey: member.uid)
+                case .failure(let error) :
+                    print(error)
+                default:
+                    break
+                }
+                self.group.leave()
+            })
             
         }
     }
@@ -124,52 +116,38 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             self.downloadPhotos()
             self.group.leave()
         })
- 
-        
-//        manager?.getCurrentUser { (result) in
-//            switch (result) {
-//            case .successSingleUser(let user):
-//                self.currentUser = user
-//                self.currentConversation = user.userConversations?.first!
         
         
-                
-                
+        
         group.notify(queue: DispatchQueue.main, execute: {
-                self.manager?.getMessageFromConversation([self.currentConversation], result: { (conv, newMessage) in
-                    if let res = self.manager?.isMessageFromCurrentUser(newMessage) {
-                        if res == true {
-                            
-                            let index = self.messagesArray.index(where: { (message, typeRight) -> Bool in
-                                message.uid == newMessage.uid
-                                })
-                            
-                            if let i = index, let item = (self.table.cellForRow(at: IndexPath.init(row: i, section: 0)) as? RightCell) {
-                                item.isReceived = true
-                                self.messagesArray[i].1 = .right(.sent)
-                            } else {
-                                self.insertRow((newMessage, .right(.sent)))
-                            }
-                            
+            self.manager?.getMessageFromConversation([self.currentConversation], result: { (conv, newMessage) in
+                if let res = self.manager?.isMessageFromCurrentUser(newMessage) {
+                    if res == true {
+                        
+                        let index = self.messagesArray.index(where: { (message, typeRight) -> Bool in
+                            message.uid == newMessage.uid
+                        })
+                        
+                        if let i = index, let item = (self.table.cellForRow(at: IndexPath.init(row: i, section: 0)) as? RightCell) {
+                            item.isReceived = true
+                            self.messagesArray[i].1 = .right(.sent)
                         } else {
-                            self.insertRow((newMessage, .left))
+                            self.insertRow((newMessage, .right(.sent)))
                         }
-
+                        
+                    } else {
+                        self.insertRow((newMessage, .left))
                     }
-                    if !self.messagesArray.isEmpty {
-                        self.table.scrollToRow(at: IndexPath.init(row: self.messagesArray.count - 1, section: 0), at: .top, animated: false)
-                    }
-                })
+                    
+                }
+                if !self.messagesArray.isEmpty {
+                    self.table.scrollToRow(at: IndexPath.init(row: self.messagesArray.count - 1, section: 0), at: .top, animated: false)
+                }
+            })
         })
         
-                print(self.currentConversation.uuid)
-//            case .failure(let error):
-//                print(error)
-//            default:
-//                break
-//            }
-//            
-//        }
+        print(self.currentConversation.uuid)
+       }
         
         
         setupKeyboardObservers()
@@ -219,16 +197,16 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 cell.isReceived = true
             case .right(.sending):
                 cell.isReceived = false
-                //cell.activityIndicator.startAnimating()
+            //cell.activityIndicator.startAnimating()
             default:
                 break
             }
-//
-           
+            //
+            
             return cell
         }
     }
-
+    
     //MARK: - text view
     
     func setUpTextView () {
@@ -240,14 +218,14 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         textMessage.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
         textMessage.layer.borderWidth = 0.5
         textMessage.clipsToBounds = true
-
+        
     }
     
     @IBOutlet weak var textViewMaxHeightConstraint: NSLayoutConstraint!
     func textViewDidChange(_ textView: UITextView) {
-
+        
         let size = textView.bounds.size
-       //change the height of UITextView depending of a fixed width
+        //change the height of UITextView depending of a fixed width
         let newSize = textView.sizeThatFits( CGSize(width: size.width, height: CGFloat.greatestFiniteMagnitude))
         
         if (newSize.height >= self.textViewMaxHeightConstraint.constant && !textView.isScrollEnabled) {
@@ -260,7 +238,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             
         }
         
-     
+        
         
     }
     
@@ -319,7 +297,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     func handleKeyboardWillShow (notification: Notification) {
         if let keyboardSize = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? CGRect, let keyboardDuration = (notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue {
-                self.bottomConstraint.constant = keyboardSize.height
+            self.bottomConstraint.constant = keyboardSize.height
             UIView.animate(withDuration: keyboardDuration, animations: {
                 self.view.layoutIfNeeded()
             })
@@ -338,21 +316,21 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         // Dispose of any resources that can be recreated.
     }
     
-     
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         NotificationCenter.default.removeObserver(self)
     }
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
