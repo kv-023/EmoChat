@@ -46,14 +46,14 @@ class ManagerFirebase {
     let ref: DatabaseReference?
     let storageRef: StorageReference
     let conversationsRef: DatabaseReference?
-    let newRef: DatabaseReference?
+    
     public static let shared = ManagerFirebase()
     
     private init () {
         self.ref = Database.database().reference()
         self.storageRef = Storage.storage().reference()
         self.conversationsRef = Database.database().reference()
-        self.newRef = Database.database().reference()
+        //self.newRef = Database.database().reference()
     }
     
     //MARK: - Return URLs of members photos
@@ -200,7 +200,7 @@ class ManagerFirebase {
                 let phonenumber = userSnapshot?["phoneNumber"] as! String?
                 let photoURL = userSnapshot?["photoURL"] as! String?
                 //getting array of conversation ids
-                let conversationsID = userSnapshot?["conversations"] as? NSDictionary
+                //let conversationsID = userSnapshot?["conversations"] as? NSDictionary
                 
                 //create user without conversations and contacts
                 
@@ -213,9 +213,9 @@ class ManagerFirebase {
                 }
                 
                 //generate array of conversations
-                if let conversationsArrayId = conversationsID?.allKeys {
-                    user.userConversations = self.sortListOfConversations(self.getConversetionsFromSnapshot(value, accordingTo: conversationsArrayId as! [String], currentUserEmail: email))
-                }
+//                if let conversationsArrayId = conversationsID?.allKeys {
+//                    user.userConversations = self.sortListOfConversations(self.getConversetionsFromSnapshot(value, accordingTo: conversationsArrayId as! [String], currentUserEmail: email))
+//                }
                 
                 //return result
                 getUser(.successSingleUser(user))
@@ -267,10 +267,11 @@ class ManagerFirebase {
             //members in conversation
             let users = self.getUsersFromIDs(ids: conversationSnapshot?["usersInConversation"] as! NSDictionary,value: value)
             
+            
             let time = conversationSnapshot?["lastMessage"] as? TimeInterval
             let date = (Date(timeIntervalSince1970: time!/1000))
             let conversation = Conversation(conversationId: eachConv,
-                                            usersInConversation: users,
+                                            usersInConversation: [],
                                             messagesInConversation: nil,
                                             lastMessage: lastMessage,
                                             lastMessageTimeStamp: date,
@@ -619,6 +620,16 @@ class ManagerFirebase {
         }
     }
     
+    func getBunchOfMessages (in conversation: Conversation, startingFrom uid: String, count: Int, result: @escaping ([Message]) -> Void) {
+        let newRef = self.ref?.child("conversations/\(conversation.uuid)/messagesInConversation").queryOrderedByKey().queryStarting(atValue: uid).queryLimited(toLast: UInt(count))
+        newRef?.observeSingleEvent(of: .value, with: { (snapshot) in
+            let value = snapshot.value as? [String : AnyObject]
+            print(uid)
+            result([])
+        })
+        
+    }
+    
     func isMessageFromCurrentUser (_ message: Message) -> Bool {
         var result = false
         if let uid = Auth.auth().currentUser?.uid {
@@ -700,19 +711,16 @@ class ManagerFirebase {
                             name: conversationName)
     }
     
+    
+    
     func getUsersInConversation(conversation: Conversation,completion: @escaping ([User]) -> Void)  {
-        //let contactsIDs = conversationDict["usersInConversation"] as! NSDictionary
-        
-        newRef?.child("conversations/\(conversation.uuid)/usersInConversation").observeSingleEvent(of: .value, with: { (snapshot) in
-            
-            let contactsIDs = snapshot.value as? [String : AnyObject] ?? [:]
-            
-            self.newRef?.observeSingleEvent(of: .value, with: { (snapshot) in
-                
-                let users = self.getUsersFromIDs(ids: contactsIDs as NSDictionary, value: self.ref as! NSDictionary)
-                completion(users)
-            })
-            
+  
+        self.ref?.observeSingleEvent(of: .value, with: { (snapshot) in
+            let value = snapshot.value as? NSDictionary
+            let conversationSnapshot = (value?["conversations"] as? NSDictionary)?[conversation.uuid] as? NSDictionary
+            let users = self.getUsersFromIDs(ids: conversationSnapshot?["usersInConversation"] as! NSDictionary, value: value)
+            completion(users)
+
         })
         
     }
