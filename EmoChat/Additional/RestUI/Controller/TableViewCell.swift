@@ -10,7 +10,7 @@ import UIKit
 
 class TableViewCell: UITableViewCell {
 
-    var testRDeledate:TestResizeCell?
+    var testRDelegate:TestResizeCell?
 
     var messageModel: MessageModel?
 
@@ -29,6 +29,8 @@ class TableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+
+        subViewREstHeight.constant = 0
     }
 
     private func parseDataFromMessageText() {
@@ -81,7 +83,7 @@ class TableViewCell: UITableViewCell {
 //                        ccView.frame = CGRect(x: 0, y: self.contentView.frame.height - 30, width: self.contentView.frame.width, height: ccView.contentView.frame.height)
 //                        self.contentView.addSubview(ccView)
 //
-//                        self.testRDeledate?.resizeMyCell(cell: self)
+//                        self.testRDelegate?.resizeMyCell(cell: self)
 
 //                        self.translatesAutoresizingMaskIntoConstraints = false
 //                        let views = ["deviceView" : ccView.contentView]
@@ -100,17 +102,23 @@ class TableViewCell: UITableViewCell {
         downloadGroup.notify(queue: DispatchQueue.main) { // 2
             DispatchQueue.main.async  {
 
-                let ccView = Bundle.main.loadNibNamed("RestUIInfo", owner: self, options: nil)?.first as! UITableViewCell
+                let ccView = Bundle.main.loadNibNamed("RestUIInfo",
+                                                      owner: self,
+                                                      options: nil)?.first as! UITableViewCell
                 //).contentView as! RestUIInfoView
 
-//                ccView.frame = CGRect(x: 0, y: self.contentView.frame.height - 30, width: self.contentView.frame.width, height: ccView.contentView.frame.height)
+                ccView.frame = CGRect(x: 0, y: 0,
+                                      width: self.subViewRest.frame.width,
+                                      height: self.subViewRest.frame.height)
+
 //                self.contentView.addSubview(ccView)
 //
-//                self.testRDeledate?.resizeMyCell(cell: self)
+//                self.testRDelegate?.resizeMyCell(cell: self)
 //                self.subViewRest.frame.height = 300
-                self.subViewREstHeight.constant = 300
-                self.subViewRest = ccView
 
+                self.subViewREstHeight.constant = 200//ccView.frame.height
+//                self.subViewRest = ccView
+//                self.subViewRest.addSubview(ccView)
 
                 self.spinner.stopAnimating()
             }

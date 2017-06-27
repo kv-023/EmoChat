@@ -33,7 +33,7 @@
                                             <rect key="frame" x="8" y="8" width="359" height="239.5"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oM5-uM-AZK">
-                                                    <rect key="frame" x="0.0" y="0.0" width="359" height="24"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="359" height="27"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="lessThanOrEqual" constant="40" id="dbe-Yx-rrO"/>
                                                     </constraints>
@@ -42,10 +42,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0Pn-Gq-y9L">
-                                                    <rect key="frame" x="0.0" y="24" width="359" height="197"/>
+                                                    <rect key="frame" x="0.0" y="27" width="359" height="192.5"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="URL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="roa-sI-WWg">
-                                                    <rect key="frame" x="0.0" y="221" width="359" height="18.5"/>
+                                                    <rect key="frame" x="0.0" y="219.5" width="359" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="lessThanOrEqual" constant="20" id="s4v-TM-JYc"/>
                                                     </constraints>

@@ -22,7 +22,7 @@ class TableViewController: UITableViewController,TestResizeCell {
         super .viewDidLoad()
 
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 140
+        tableView.estimatedRowHeight = 240
     }
 
     // MARK: - Table view data source
@@ -40,6 +40,11 @@ class TableViewController: UITableViewController,TestResizeCell {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "prototypeCell", for: indexPath) as! TableViewCell
 
+        guard !cellResized.contains(indexPath) else {
+            cellResized.remove(indexPath)
+            return cell
+        }
+
         // TEST @@@@@@@@@@@@ +++
         let textDataForTest = "bla-bla bla https://9gag.com/gag/aRjwVVG bla-bla bla"
 
@@ -48,7 +53,7 @@ class TableViewController: UITableViewController,TestResizeCell {
                                           senderId: "id2222222Id",
                                           time: Date(),
                                           content: (type: MessageContentType.text, content: textDataForTest))
-        cell.testRDeledate = self
+        cell.testRDelegate = self
         cell.message = testFireBaseMessage
 
 //        let ccView = Bundle.main.loadNibNamed("RestUIInfo", owner: self, options: nil)?.first as! UITableViewCell
@@ -70,11 +75,11 @@ class TableViewController: UITableViewController,TestResizeCell {
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
-        if cellResized.contains(indexPath) {
+        //if cellResized.contains(indexPath) {
             return 500
-        } else {
-            return  UITableViewAutomaticDimension//auto
-        }
+//        } else {
+//            return UITableViewAutomaticDimension//auto//tableView.rectForRow(at: indexPath).height
+//        }
     }
 
 }
