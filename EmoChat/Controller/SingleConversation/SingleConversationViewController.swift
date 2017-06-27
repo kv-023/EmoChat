@@ -138,23 +138,23 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         
         //serialQueue.sync {
         group.enter()
-            self.manager?.getUsersInConversation(conversation: self.currentConversation, completion: { (users) in
-                self.currentConversation.usersInConversation = users
-                self.downloadPhotos()
-                self.group.leave()
-                //self.table.reloadData()
-            })
+        self.manager?.getUsersInConversation(conversation: self.currentConversation, completion: { (users) in
+            self.currentConversation.usersInConversation = users
+            self.downloadPhotos()
+            self.group.leave()
+            //self.table.reloadData()
+        })
         
         
         //serialQueue.sync {
-    group.notify(queue: DispatchQueue.main, execute: {
-        self.manager?.getMessageFromConversation([self.currentConversation], result: { (conv, newMessage) in
-            if let res = self.manager?.isMessageFromCurrentUser(newMessage) {
-                if res == true {
-                    
-                    let index = self.messagesArray.index(where: { (message, typeRight) -> Bool in
-                        message.uid == newMessage.uid
-                    })
+        group.notify(queue: DispatchQueue.main, execute: {
+            self.manager?.getMessageFromConversation([self.currentConversation], result: { (conv, newMessage) in
+                if let res = self.manager?.isMessageFromCurrentUser(newMessage) {
+                    if res == true {
+                        
+                        let index = self.messagesArray.index(where: { (message, typeRight) -> Bool in
+                            message.uid == newMessage.uid
+                        })
                         if let i = index, let item = (self.table.cellForRow(at: IndexPath.init(row: i, section: 0)) as? RightCell) {
                             item.isReceived = true
                             self.messagesArray[i].1 = .right(.sent)
@@ -163,19 +163,19 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                         }
                     }
                 } else {
-                        self.insertRow((newMessage, .left))
+                    self.insertRow((newMessage, .left))
                 }
-            
-            if !self.messagesArray.isEmpty {
-                //DispatchQueue.main.async {
+                
+                if !self.messagesArray.isEmpty {
+                    //DispatchQueue.main.async {
                     //self.table.reloadData()
                     self.table.scrollToRow(at: IndexPath.init(row: self.messagesArray.count - 1, section: 0), at: .top, animated: false)
-                //}
-                //self.group.leave()
-            }
-            
+                    //}
+                    //self.group.leave()
+                }
+                
+            })
         })
-    })
         
         
         //                print(self.currentConversation.uuid)
@@ -190,7 +190,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         
         setupKeyboardObservers()
     }
-    
+
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if tableView.isDragging {
             cell.transform = CGAffineTransform.init(scaleX: 0.8, y: 0.8)
