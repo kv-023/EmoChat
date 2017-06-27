@@ -47,19 +47,36 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         textMessage.isScrollEnabled = false;
         self.textViewMaxHeightConstraint.isActive = false
         
+        firstMessage = messagesArray[0].0
+        
     }
     
     var manager: ManagerFirebase?
     
     var currentUser: User!
     
-    var currentConversation: Conversation! { didSet { updateUI() } }
+    var currentConversation: Conversation!
+    
+    var firstMessage : Message? {didSet {updateUI()}}
     
     var messagesArray: [(Message, UserType)] = []
     
     @IBOutlet weak var table: UITableView!
     
     func updateUI() {
+        manager?.getBunchOfMessages(in: currentConversation, startingFrom: (firstMessage?.uid)!, count: 20, result: { (result) in
+            var arrayOfMessagesAndTypes = [(Message, UserType)] ()
+            for each in result {
+                if (self.manager?.isMessageFromCurrentUser(each))! {
+                    arrayOfMessagesAndTypes.append((each, .right(.sent)))
+                } else {
+                    arrayOfMessagesAndTypes.append((each, .left))
+                }
+            }
+            
+            self.insertRows(arrayOfMessagesAndTypes)
+            
+        })
         //download 20 last messages
     }
     
@@ -68,6 +85,17 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         table.beginUpdates()
         table.insertRows(at: [IndexPath(row: messagesArray.count - 1, section: 0)], with: .automatic)
         table.endUpdates()
+    }
+    
+    func insertRows (_ newMessages: [(Message, UserType)]) {
+        self.table.beginUpdates()
+        var indexPaths: [IndexPath] = []
+        for i in 0..<newMessages.count {
+            indexPaths.append(IndexPath(row: i, section: 0))
+        }
+        messagesArray = newMessages + messagesArray
+        table.insertRows(at: indexPaths, with: .automatic)
+        self.table.endUpdates()
     }
     
     

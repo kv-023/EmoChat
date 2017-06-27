@@ -619,6 +619,28 @@ class ManagerFirebase {
         }
     }
     
+    func getBunchOfMessages (in conversation: Conversation, startingFrom uid: String, count: Int, result: @escaping ([Message]) -> Void) {
+        let newRef = self.ref?.child("conversations/\(conversation.uuid)/messagesInConversation")
+            newRef?.queryEnding(atValue: uid).queryLimited(toLast: UInt(count)).queryOrderedByKey().observeSingleEvent(of: .value, with: { (snapshot) in
+            //let value = snapshot.value as? [String : AnyObject]
+                var messages = [Message]()
+                for each in snapshot.children {
+                    
+                    let messageDict = (each as! DataSnapshot).value as? NSDictionary
+                    let message = Message(data: messageDict, uid: (each as AnyObject).key)
+                    
+                    guard message.uid! != uid else{
+                        continue
+                    }
+                    messages.append(message)
+                }
+                
+     //       print(uid)
+            result(messages)
+        })
+        
+    }
+    
     func isMessageFromCurrentUser (_ message: Message) -> Bool {
         var result = false
         if let uid = Auth.auth().currentUser?.uid {
