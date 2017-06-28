@@ -20,7 +20,7 @@ enum UserType {
 
 class SingleConversationViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    let cell = CustomTableViewCell()
+    var leftCell = LeftCell()
 
     @IBOutlet weak var inputSubView: UIView!
     
@@ -267,6 +267,16 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         }
     }
     
+    // MARK: - UITableViewDelegate
+    
+     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        
+        leftCell = table.cellForRow(at: indexPath) as! LeftCell
+  
+    }
+    
+    
     //MARK: - text view
     
     func setUpTextView () {
@@ -396,7 +406,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     func recordEmotion(tapGestureRecognizer: UITapGestureRecognizer) {
         let imagePicker = UIImagePickerController()
-    
+        leftCell.blur.alpha = 0
+        
         imagePicker.delegate = self
         //imagePicker.allowsEditing = false
         imagePicker.sourceType = .camera

@@ -877,7 +877,7 @@ class ManagerFirebase {
             //content
             let contentDict = messageDict["content"] as! [String : String]
             let type = MessageContentType(rawValue: contentDict.first!.key) //(contentDict.first?.key)
-            let content = contentDict["text"]
+            let content = contentDict["emotion"]
             
             let message = Message(uid: messageSnapshot.key,
                                   senderId: senderId!,
