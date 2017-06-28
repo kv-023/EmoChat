@@ -20,11 +20,14 @@ enum UserType {
 
 class SingleConversationViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    let cell = CustomTableViewCell()
+
     @IBOutlet weak var inputSubView: UIView!
     
     @IBOutlet weak var textMessage: UITextView!
     
     @IBAction func sendMessage(_ sender: UIButton) {
+    
         
         let result:MessageOperationResult? = manager?.createMessage(conversation: currentConversation!, sender: currentUser, content: (.text, textMessage.text))
         
@@ -393,11 +396,19 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     func recordEmotion(tapGestureRecognizer: UITapGestureRecognizer) {
         let imagePicker = UIImagePickerController()
+    
         imagePicker.delegate = self
-        imagePicker.allowsEditing = true
-        imagePicker.sourceType = .photoLibrary
-        present(imagePicker, animated: true, completion: nil)
+        //imagePicker.allowsEditing = false
+        imagePicker.sourceType = .camera
+        //present(imagePicker, animated: true, completion: nil)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            
+            
+            //imagePicker.sourceType = .camera
+        self.present(imagePicker, animated: true, completion: nil)
 
+        }
     }
     
 }
