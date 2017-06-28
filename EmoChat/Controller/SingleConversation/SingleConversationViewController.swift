@@ -143,7 +143,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         table.delegate = self
         table.estimatedRowHeight = table.rowHeight
         table.rowHeight = UITableViewAutomaticDimension
-        
+        table.allowsSelection = true
         if !messagesArray.isEmpty {
             table.scrollToRow(at: IndexPath.init(row: messagesArray.count - 1, section: 0), at: .top, animated: false)
             load = true
@@ -159,8 +159,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             self.group.leave()
         })
         
-        
-        
+ 
         group.notify(queue: DispatchQueue.main, execute: {
             self.manager?.getMessageFromConversation([self.currentConversation], result: { (conv, newMessage) in
                 if let res = self.manager?.isMessageFromCurrentUser(newMessage) {
@@ -233,7 +232,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             cell.userPic.image = self.photosArray[message.0.senderId]
             
             if message.0.content.type == MessageContentType.emotion   {
-                cell.blur.alpha = 0.8
+                cell.blur.alpha = 0.35
+                
                 let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(recordEmotion))
                 cell.isUserInteractionEnabled = true
                 cell.addGestureRecognizer(tapGestureRecognizer)
@@ -269,11 +269,16 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     // MARK: - UITableViewDelegate
     
-     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+   
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         
+        let s = table.indexPath(for: leftCell)
         
-        leftCell = table.cellForRow(at: indexPath) as! LeftCell
-  
+        if indexPath == s {
+            print("12222")
+        }
+        
     }
     
     
@@ -406,20 +411,32 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     func recordEmotion(tapGestureRecognizer: UITapGestureRecognizer) {
         let imagePicker = UIImagePickerController()
-        leftCell.blur.alpha = 0
-        
+        //leftCell.blur.alpha = 0
+        print("RECORD EMO")
         imagePicker.delegate = self
         //imagePicker.allowsEditing = false
         imagePicker.sourceType = .camera
-        //present(imagePicker, animated: true, completion: nil)
-        
+        imagePicker.cameraCaptureMode = .video
+        imagePicker.cameraDevice = .front
+        imagePicker.startVideoCapture()
+        present(imagePicker, animated: true, completion: nil)
+       
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             
-            
-            //imagePicker.sourceType = .camera
-        self.present(imagePicker, animated: true, completion: nil)
+            imagePicker.stopVideoCapture()
+            self.dismiss(animated:true, completion: nil)
 
         }
     }
     
+    private func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        print("FINISH PROSTO FINISH IMAGEPICKER")
+        let tempImage = info[UIImagePickerControllerMediaURL] as! NSURL!
+        let pathString = tempImage?.relativePath
+        
+        self.dismiss(animated: true, completion: nil)
+        
+        UISaveVideoAtPathToSavedPhotosAlbum(pathString!, self, nil, nil)
+        print(pathString!)
+    }
 }
