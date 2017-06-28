@@ -18,7 +18,7 @@ enum UserType {
     case right (RightType)
 }
 
-class SingleConversationViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate {
+class SingleConversationViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate, tableDelegate {
     
     @IBOutlet weak var inputSubView: UIView!
     
@@ -64,6 +64,17 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     var refresher: UIRefreshControl!
     
     @IBOutlet weak var table: UITableView!
+    
+    func tableDelegate(_ sender: UITableViewCell, inView view: UIView) {
+        view.becomeFirstResponder()
+        let menu = UIMenuController.shared
+        if let cell = sender as? LeftCell {
+            menu.setTargetRect(cell.message.frame, in: view)
+        } else if let cell = sender as? RightCell {
+           menu.setTargetRect(cell.message.frame, in: view)
+        }
+        menu.setMenuVisible(true, animated: true)
+    }
     
     func updateUI() {
         firstMessage = messagesArray.first?.0
@@ -219,6 +230,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             
             cell.userPic.image = self.photosArray[message.0.senderId]
             
+            cell.delegate = self
+            
             return cell
         case .right:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "Right", for: indexPath) as? RightCell else {
@@ -234,9 +247,25 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             default:
                 break
             }
+            cell.delegate = self
             return cell
         }
     }
+    
+    // MARK: - Context Menu
+    
+//    func tableView(_ tableView: UITableView, shouldShowMenuForRowAt indexPath: IndexPath) -> Bool {
+//        return true
+//    }
+//    
+//    func tableView(_ tableView: UITableView, canPerformAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+//        let check = sender as? UITextView
+//        return true
+//    }
+//    
+//    func tableView(_ tableView: UITableView, performAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) {
+//        print("Work")
+//    }
     
     //MARK: - text view
     
