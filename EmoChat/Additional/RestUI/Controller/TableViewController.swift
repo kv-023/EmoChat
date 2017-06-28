@@ -81,7 +81,7 @@ class TableViewController: UITableViewController,TestResizeCell {
 //            self.tableView.reloadRows(at: [indexPath],
 //                                      with: UITableViewRowAnimation.automatic)
 //            self.tableView.moveRow(at: indexPath, to: indexPath)
-            cell.updateConstraints()
+            //cell.updateConstraints()
             tableView.endUpdates()
 
         }
@@ -93,7 +93,7 @@ class TableViewController: UITableViewController,TestResizeCell {
         if cellResized.contains(indexPath) {
             return 400
         } else {
-            return UITableViewAutomaticDimension//auto//tableView.rectForRow(at: indexPath).height
+            return 200//UITableViewAutomaticDimension//auto//tableView.rectForRow(at: indexPath).height
         }
     }
 

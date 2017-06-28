@@ -16,7 +16,7 @@
         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="116" id="apo-zu-P0r">
             <rect key="frame" x="0.0" y="0.0" width="421" height="116"/>
             <autoresizingMask key="autoresizingMask"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="RestUIInfoCell" tableViewCell="apo-zu-P0r" id="ARy-td-aXw" customClass="RestUIInfoView" customModule="EmoChat" customModuleProvider="target">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="RestUIInfoView2" tableViewCell="apo-zu-P0r" id="ARy-td-aXw">
                 <rect key="frame" x="0.0" y="0.0" width="421" height="116"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>

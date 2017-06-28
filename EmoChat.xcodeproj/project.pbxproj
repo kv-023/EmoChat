@@ -50,6 +50,7 @@
 		E7ED8E771F0046E3005D3106 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7ED8E761F0046E3005D3106 /* Storyboard.storyboard */; };
 		E7ED8E791F004822005D3106 /* RestUIInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7ED8E781F004822005D3106 /* RestUIInfo.xib */; };
 		E7ED8E7B1F004C9A005D3106 /* RestUIInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ED8E7A1F004C9A005D3106 /* RestUIInfoView.swift */; };
+		E7ED8E7D1F03BD6C005D3106 /* RestUIInfo2.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7ED8E7C1F03BD6C005D3106 /* RestUIInfo2.xib */; };
 		ED1E2D941EDD75B20058B6A6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */; };
 		F54D21761EE7130600B0B177 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54D21751EE7130600B0B177 /* Regex.swift */; };
 		F54D21781EE7149100B0B177 /* AdditionalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54D21771EE7149000B0B177 /* AdditionalViewController.swift */; };
@@ -116,6 +117,7 @@
 		E7ED8E761F0046E3005D3106 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		E7ED8E781F004822005D3106 /* RestUIInfo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestUIInfo.xib; sourceTree = "<group>"; };
 		E7ED8E7A1F004C9A005D3106 /* RestUIInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestUIInfoView.swift; sourceTree = "<group>"; };
+		E7ED8E7C1F03BD6C005D3106 /* RestUIInfo2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestUIInfo2.xib; sourceTree = "<group>"; };
 		ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ED5291B01EE16F24008F8174 /* EmoChat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EmoChat.entitlements; sourceTree = "<group>"; };
 		F54D21751EE7130600B0B177 /* Regex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
@@ -320,6 +322,7 @@
 		E7ED8E751F0046E3005D3106 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E7ED8E7C1F03BD6C005D3106 /* RestUIInfo2.xib */,
 				E7ED8E761F0046E3005D3106 /* Storyboard.storyboard */,
 				E7ED8E781F004822005D3106 /* RestUIInfo.xib */,
 				E7ED8E7A1F004C9A005D3106 /* RestUIInfoView.swift */,
@@ -462,6 +465,7 @@
 			files = (
 				FB982DD81EE1569700AC2FCD /* Login.storyboard in Resources */,
 				FB982DDA1EE1569700AC2FCD /* SearchUsers.storyboard in Resources */,
+				E7ED8E7D1F03BD6C005D3106 /* RestUIInfo2.xib in Resources */,
 				3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */,
 				FB982DDB1EE1569700AC2FCD /* SignUp.storyboard in Resources */,
 				ED1E2D941EDD75B20058B6A6 /* GoogleService-Info.plist in Resources */,
