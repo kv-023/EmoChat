@@ -31,15 +31,15 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         switch (result!) {
         case .successSingleMessage(let message):
             insertRow((message, .right(.sending)))
-            if !messagesArray.isEmpty {
-                self.table.scrollToRow(at: IndexPath.init(row: messagesArray.count - 1, section: 0), at: .top, animated: false)
-            }
         case .failure(let string):
             print(string)
         default:
             break
         }
         
+        if !messagesArray.isEmpty {
+            self.table.scrollToRow(at: IndexPath.init(row: messagesArray.count - 1, section: 0), at: .top, animated: false)
+        }
         //clean textView
         
         textMessage.text = ""
@@ -62,6 +62,9 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     var messagesArray: [(Message, UserType)] = []
     
     @IBOutlet weak var table: UITableView!
+    
+    
+    
     
     func updateUI() {
         manager?.getBunchOfMessages(in: currentConversation, startingFrom: (firstMessage?.uid)!, count: 20, result: { (result) in
@@ -176,11 +179,11 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
         print(self.currentConversation.uuid)
        
-        
-        
+ 
         setupKeyboardObservers()
     }
     
+
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if tableView.isDragging {
             cell.transform = CGAffineTransform.init(scaleX: 0.8, y: 0.8)

@@ -59,7 +59,7 @@
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Some text" translatesAutoresizingMaskIntoConstraints="NO" id="saX-Im-Te1">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Some text" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="saX-Im-Te1">
                                                     <rect key="frame" x="58" y="11" width="79.5" height="38"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -103,6 +103,7 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qN7-ND-9M4">
                                                     <rect key="frame" x="238" y="11" width="79" height="38"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <gestureRecognizers/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                             <integer key="value" value="10"/>
@@ -112,6 +113,7 @@
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="D9q-6u-sJ8">
                                                     <rect key="frame" x="327" y="9" width="40" height="40"/>
+                                                    <gestureRecognizers/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="40" id="ERP-vc-mzn"/>
                                                         <constraint firstAttribute="height" constant="40" id="UI3-C8-cTw"/>
@@ -123,10 +125,14 @@
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Some text" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="mHH-T8-Hcd">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Some text" textAlignment="right" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mHH-T8-Hcd">
                                                     <rect key="frame" x="237.5" y="11" width="79.5" height="38"/>
+                                                    <gestureRecognizers/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <connections>
+                                                        <outletCollection property="gestureRecognizers" destination="2OZ-sN-023" appends="YES" id="Epr-fB-zKL"/>
+                                                    </connections>
                                                 </textView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ulI-98-iYs">
                                                     <rect key="frame" x="201.5" y="35.5" width="26" height="13.5"/>
@@ -142,6 +148,7 @@
                                                     </constraints>
                                                 </activityIndicatorView>
                                             </subviews>
+                                            <gestureRecognizers/>
                                             <constraints>
                                                 <constraint firstItem="D9q-6u-sJ8" firstAttribute="leading" secondItem="mHH-T8-Hcd" secondAttribute="trailing" constant="10" id="34y-8L-vYI"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="mHH-T8-Hcd" secondAttribute="bottom" constant="3" id="5tM-GW-VKd"/>
@@ -158,6 +165,9 @@
                                                 <constraint firstItem="mHH-T8-Hcd" firstAttribute="leading" secondItem="ulI-98-iYs" secondAttribute="trailing" constant="10" id="tdp-j6-tUx"/>
                                                 <constraint firstItem="qN7-ND-9M4" firstAttribute="centerY" secondItem="mHH-T8-Hcd" secondAttribute="centerY" id="ulo-H9-BC3"/>
                                             </constraints>
+                                            <connections>
+                                                <outletCollection property="gestureRecognizers" destination="2OZ-sN-023" appends="YES" id="QXY-pc-jfC"/>
+                                            </connections>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="activityIndicator" destination="mSK-UU-5O8" id="FmC-Ld-So9"/>
@@ -183,6 +193,7 @@
                                     </textView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ze-E8-Yj2">
                                         <rect key="frame" x="341" y="9" width="26" height="26"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="1ze-E8-Yj2" secondAttribute="height" multiplier="1:1" id="35V-rO-czA"/>
                                             <constraint firstAttribute="height" constant="26" id="dEs-VQ-iTb"/>
@@ -238,6 +249,7 @@
                         <action selector="hideKeyboard:" destination="BYZ-38-t0r" id="xmO-l7-uP5"/>
                     </connections>
                 </tapGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="2OZ-sN-023"/>
             </objects>
             <point key="canvasLocation" x="-836" y="4.9475262368815596"/>
         </scene>
