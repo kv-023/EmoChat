@@ -18,7 +18,7 @@ enum UserType {
     case right (RightType)
 }
 
-class SingleConversationViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate {
+class SingleConversationViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate, tableDelegate {
     
     @IBOutlet weak var inputSubView: UIView!
     
@@ -57,21 +57,27 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     var currentConversation: Conversation!
     
-    var firstMessage : Message? {didSet {updateUI()}}
+    var firstMessage : Message?
     
     var messagesArray: [(Message, UserType)] = []
     
+    var refresher: UIRefreshControl!
+    
     @IBOutlet weak var table: UITableView!
     
-    
-    
-//    func copyAction (_ cell: RightCell) {
-//        print("it works from view")
-//    }
-//    
-
+    func tableDelegate(_ sender: UITableViewCell, inView view: UIView) {
+        view.becomeFirstResponder()
+        let menu = UIMenuController.shared
+        if let cell = sender as? LeftCell {
+            menu.setTargetRect(cell.message.frame, in: view)
+        } else if let cell = sender as? RightCell {
+           menu.setTargetRect(cell.message.frame, in: view)
+        }
+        menu.setMenuVisible(true, animated: true)
+    }
     
     func updateUI() {
+        firstMessage = messagesArray.first?.0
         manager?.getBunchOfMessages(in: currentConversation, startingFrom: (firstMessage?.uid)!, count: 20, result: { (result) in
             var arrayOfMessagesAndTypes = [(Message, UserType)] ()
             for each in result {
@@ -81,10 +87,10 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                     arrayOfMessagesAndTypes.append((each, .left))
                 }
             }
-            
             self.insertRows(arrayOfMessagesAndTypes)
-            
+            self.table.scrollToRow(at: IndexPath.init(row: 19, section: 0), at: .top, animated: false)
         })
+        refresher.endRefreshing()
         //download 20 last messages
     }
     
@@ -103,6 +109,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         }
         messagesArray = newMessages + messagesArray
         table.insertRows(at: indexPaths, with: .automatic)
+        
         self.table.endUpdates()
     }
     
@@ -139,6 +146,11 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         table.delegate = self
         table.estimatedRowHeight = table.rowHeight
         table.rowHeight = UITableViewAutomaticDimension
+        table.alwaysBounceVertical = false
+        refresher = UIRefreshControl()
+        refresher.addTarget(self, action: #selector(updateUI), for: UIControlEvents.valueChanged)
+        table.addSubview(refresher)
+        
         if !messagesArray.isEmpty {
             table.scrollToRow(at: IndexPath.init(row: messagesArray.count - 1, section: 0), at: .top, animated: false)
         }
@@ -313,6 +325,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             cell.message.addGestureRecognizer(longPress)
             cell.userPic.image = self.photosArray[message.0.senderId]
             
+            cell.delegate = self
             
             return cell
         case .right:
@@ -320,24 +333,34 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 fatalError("Cell was not casted!")
             }
             cell.messageEntity = message.0
-            //cell.time.text = message.0.time.formatDate()
-//            cell.message.tag = indexPath.row
             cell.userPic.image = self.photosArray[message.0.senderId]
-            
             switch message.1 {
             case .right(.sent) :
                 cell.isReceived = true
             case .right(.sending):
                 cell.isReceived = false
-            //cell.activityIndicator.startAnimating()
             default:
                 break
             }
-            //
-            
+            cell.delegate = self
             return cell
         }
     }
+    
+    // MARK: - Context Menu
+    
+//    func tableView(_ tableView: UITableView, shouldShowMenuForRowAt indexPath: IndexPath) -> Bool {
+//        return true
+//    }
+//    
+//    func tableView(_ tableView: UITableView, canPerformAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+//        let check = sender as? UITextView
+//        return true
+//    }
+//    
+//    func tableView(_ tableView: UITableView, performAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) {
+//        print("Work")
+//    }
     
     //MARK: - text view
     
@@ -423,7 +446,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     override func viewDidLayoutSubviews() {
         if let rect = self.navigationController?.navigationBar.frame {
             let y = rect.size.height + rect.origin.y
-            self.table.contentInset = UIEdgeInsetsMake( y, 0, 0, 0)
+            table.frame = CGRect(x: table.frame.minX, y: table.frame.minY + y, width: table.frame.width, height: table.frame.height - y)
         }
     }
     

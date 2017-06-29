@@ -8,13 +8,40 @@
 
 import UIKit
 
+protocol tableDelegate {
+    func tableDelegate(_ sender: UITableViewCell, inView view: UIView)
+}
 
-class LeftCell: UITableViewCell {
+class SpecialTextView: UITextView, UITextViewDelegate {
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        switch action {
+        case #selector(copy(_:)):
+            return true
+        case #selector(delete(_:)):
+            return true
+        default:
+            return false
+        }
+    }
+    
+    override func copy(_ sender: Any?) {
+        print("Copy")
+    }
+    
+    override func delete(_ sender: Any?) {
+        print("Delete")
+    }
+}
+
+
+class LeftCell: UITableViewCell, UITextViewDelegate {
 
     @IBOutlet weak var userPic: UIImageView!
     @IBOutlet weak var time: UILabel!
-    @IBOutlet weak var message: UITextView!
+    @IBOutlet weak var message: SpecialTextView!
     @IBOutlet weak var background: UIImageView!
+    
+    var delegate: tableDelegate?
     
     var messageEntity: Message? {
         didSet {
@@ -78,15 +105,19 @@ class LeftCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(handler))
+        message.addGestureRecognizer(recognizer)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
-
+    
+    func handler(_ sender: UILongPressGestureRecognizer) {
+        if sender.state == UIGestureRecognizerState.ended {
+            delegate?.tableDelegate(self, inView: sender.view!)
+        }
+    }
 }
 
 class RightCell: UITableViewCell {
@@ -94,7 +125,9 @@ class RightCell: UITableViewCell {
     @IBOutlet weak var userPic: UIImageView!
     @IBOutlet weak var time: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var message: UITextView!
+    @IBOutlet weak var message: SpecialTextView!
+    
+    var delegate: tableDelegate?
     
     var isReceived = false {
         didSet {
@@ -102,8 +135,6 @@ class RightCell: UITableViewCell {
                 activityIndicator.stopAnimating()
                 activityIndicator.isHidden = true
                 time.isHidden = false
-                //time.text = messageEntity?.time
-
                 time.text = messageEntity?.time.formatDate()
 
             } else {
@@ -117,22 +148,24 @@ class RightCell: UITableViewCell {
     
     var messageEntity: Message? {
         didSet {
-            message.text = messageEntity!.content!.content
-            
-            
+            message.text = messageEntity!.content!.content            
         }
     }
     
 
     override func awakeFromNib() {
         super.awakeFromNib()
-
+        let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(handler))
+        message.addGestureRecognizer(recognizer)
     }
     
       override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
     }
     
+    func handler(_ sender: UILongPressGestureRecognizer) {
+        if sender.state == UIGestureRecognizerState.ended {
+            delegate?.tableDelegate(self, inView: sender.view!)
+        }
+    }
 }
