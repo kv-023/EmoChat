@@ -426,7 +426,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             imagePicker.startVideoCapture()
         
            
-                Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { _ in
+                Timer.scheduledTimer(withTimeInterval: 4, repeats: false) { _ in
                     imagePicker.stopVideoCapture()
                     self.dismiss(animated:true, completion: {
                     print("COMPLITE")})
@@ -440,21 +440,23 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         
         print("FINISH PROSTO FINISH IMAGEPICKER")
         
-        let tempImage = info[UIImagePickerControllerMediaURL] as! NSURL!
-        
+        //let tempImage = info[UIImagePickerControllerMediaURL] as! NSURL!
+
         if let tempImage = info[UIImagePickerControllerMediaURL] as? NSURL {
-            
-            var videoFileURL = tempImage.filePathURL
+            do {
+            let videoFileURL = tempImage.filePathURL
             let videoPath = tempImage.path
-            let video = NSData(contentsOfMappedFile: videoPath!)
             
-            let video1 = NSData.init(contentsOf: videoFileURL!, options: .NSDataReadingMappedAlways)
+            let video1 = try Data.init(contentsOf: videoFileURL!, options: Data.ReadingOptions.alwaysMapped)
             
-            print("VIDEO \(String(describing: video))")
+            print("VIDEO \(String(describing: video1))")
             print("VIDEO PATH \(videoPath!)")
             //print("VIDEO FILE URL \(videoFileURL!)")
             UISaveVideoAtPathToSavedPhotosAlbum(videoPath!, self, nil, nil)
-
+            
+            } catch  {
+                
+            }
         }
         
       //  let pathString = tempImage?.relativePath
