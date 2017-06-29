@@ -903,6 +903,17 @@ class ManagerFirebase {
         }
     }
     
+    func deleteMessage (_ uid: String, from conversation: Conversation) {
+        self.ref?.child("conversations/\(conversation.uuid)/messagesInConversation/\(uid)").removeValue()
+    }
+    
+    func observeDeletionOfMessages (in conversation: Conversation, result: @escaping (String) -> Void) {
+        let newRef = self.ref?.child("conversations/\(conversation.uuid)/messagesInConversation")
+        newRef?.observe(.childRemoved, with: { (snapshot) in
+            result(snapshot.key)
+        })
+    }
+    
 }
 
 

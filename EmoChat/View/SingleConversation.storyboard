@@ -130,9 +130,6 @@
                                                     <gestureRecognizers/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                    <connections>
-                                                        <outletCollection property="gestureRecognizers" destination="2OZ-sN-023" appends="YES" id="Epr-fB-zKL"/>
-                                                    </connections>
                                                 </textView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ulI-98-iYs">
                                                     <rect key="frame" x="201.5" y="35.5" width="26" height="13.5"/>
@@ -165,9 +162,6 @@
                                                 <constraint firstItem="mHH-T8-Hcd" firstAttribute="leading" secondItem="ulI-98-iYs" secondAttribute="trailing" constant="10" id="tdp-j6-tUx"/>
                                                 <constraint firstItem="qN7-ND-9M4" firstAttribute="centerY" secondItem="mHH-T8-Hcd" secondAttribute="centerY" id="ulo-H9-BC3"/>
                                             </constraints>
-                                            <connections>
-                                                <outletCollection property="gestureRecognizers" destination="2OZ-sN-023" appends="YES" id="QXY-pc-jfC"/>
-                                            </connections>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="activityIndicator" destination="mSK-UU-5O8" id="FmC-Ld-So9"/>
@@ -249,7 +243,6 @@
                         <action selector="hideKeyboard:" destination="BYZ-38-t0r" id="xmO-l7-uP5"/>
                     </connections>
                 </tapGestureRecognizer>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="2OZ-sN-023"/>
             </objects>
             <point key="canvasLocation" x="-836" y="4.9475262368815596"/>
         </scene>

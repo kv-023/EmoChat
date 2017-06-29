@@ -65,6 +65,11 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     
     
+//    func copyAction (_ cell: RightCell) {
+//        print("it works from view")
+//    }
+//    
+
     
     func updateUI() {
         manager?.getBunchOfMessages(in: currentConversation, startingFrom: (firstMessage?.uid)!, count: 20, result: { (result) in
@@ -178,12 +183,101 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         })
     
         print(self.currentConversation.uuid)
-       
- 
+       //------
+//        let menuItem = UIMenuItem(title: "Test", action: #selector(LeftCell.test))
+//        let menuController = UIMenuController.shared
+//        menuController.menuItems = [menuItem]
+//        menuController.update()
+        
+//        NotificationCenter.default.addObserver(self, selector: #selector(menuControllerWillShow), name: .UIMenuControllerWillShowMenu , object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(menuControllerWillHide), name: .UIMenuControllerWillHideMenu, object: nil)
+
+        //----
         setupKeyboardObservers()
     }
     
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+//        if action == #selector(LeftCell.test) {
+//            return true
+//        }
+        return false
+    }
+    
+//    func tableView(_ tableView: UITableView, shouldShowMenuForRowAt indexPath: IndexPath) -> Bool {
+//        return true
+//    }
+//    
+//    func tableView(_ tableView: UITableView, canPerformAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+//        return false
+//    }
+//
+//    func tableView(_ tableView: UITableView, performAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) {
+//        
+//    }
+    
+    /*UIMenuController* menuController = [UIMenuController sharedMenuController];
+     CGSize size = menuController.menuFrame.size;
+     CGRect menuFrame;
+     menuFrame.origin.x = self.tableView.frame.origin.x;
+     menuFrame.size = size;
+     [menuController setMenuVisible:NO animated:NO];
+     
+     //Modify its target rect and show it again to prevent glitchy appearance
+     [menuController setTargetRect:menuFrame inView:cell];
+     [menuController setMenuVisible:YES animated:YES];
+     }
+     
+     -(void)menuControllerWillHide:(NSNotification *)notification{
+     //re-register menuControllerWillShow
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(menuControllerWillShow:)
+     name:UIMenuControllerWillShowMenuNotification object:nil];
+     }*/
+    
+//    func longPress(_ sender: UILongPressGestureRecognizer) {
+//        let menuController = UIMenuController.shared
+//        let size = menuController.menuFrame.size
+//        var menuFrame = CGRect()
+//        menuFrame.origin.x = self.table.frame.origin.x
+//        menuFrame.size = size
+//        
+//        menuController.setMenuVisible(true, animated: true)
+//        
+//        let menuOrigin = self.view.convert(menuController.menuFrame.origin, to: self.table)
+//        var indexPath = table.indexPathForRow(at: menuOrigin)
+//        let cell = table.cellForRow(at: indexPath!) as! UITableViewCell
+//        menuFrame.origin.y += cell.frame.size.height
+//        
+//        menuController.setTargetRect(menuFrame, in: cell)
+//    }
+    
+//    func menuControllerWillShow (notification: NSNotification) {
+//        NotificationCenter.default.removeObserver(self, name: .UIMenuControllerWillShowMenu, object: nil)
+//        let menuController = UIMenuController.shared
+//        let size = menuController.menuFrame.size
+//        var menuFrame = CGRect()
+//        menuFrame.origin.x = self.table.frame.origin.x
+//        menuFrame.size = size
+//        
+//        menuController.setMenuVisible(true, animated: true)
+//        
+//        let menuOrigin = self.view.convert(menuController.menuFrame.origin, to: self.table)
+//        var indexPath = table.indexPathForRow(at: menuOrigin)
+//        let cell = table.cellForRow(at: indexPath!) as! LeftCell
+//        menuFrame.origin.y += cell.frame.size.height
+//        
+//        menuController.setTargetRect(menuFrame, in: cell)
+//        
+//        
+//    }
+//    
+//    func menuControllerWillHide (notification: NSNotification) {
+//        NotificationCenter.default.addObserver(self, selector: #selector(menuControllerWillShow), name: .UIMenuControllerWillShowMenu, object: nil)
+//    }
 
+    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if tableView.isDragging {
             cell.transform = CGAffineTransform.init(scaleX: 0.8, y: 0.8)
@@ -192,6 +286,9 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             })
         }
     }
+    
+    
+    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -202,16 +299,20 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+       
+
         let message = messagesArray[indexPath.row]
         switch message.1 {
         case .left:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "Left", for: indexPath) as? LeftCell else {
                 fatalError("Cell was not casted!")
             }
+             let longPress = UILongPressGestureRecognizer.init(target: cell, action: #selector(LeftCell.longPress (_:)))
             cell.messageEntity = message.0
             cell.time.text = message.0.time.formatDate()
-            
+            cell.message.addGestureRecognizer(longPress)
             cell.userPic.image = self.photosArray[message.0.senderId]
+            
             
             return cell
         case .right:
@@ -220,7 +321,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             }
             cell.messageEntity = message.0
             //cell.time.text = message.0.time.formatDate()
-            
+//            cell.message.tag = indexPath.row
             cell.userPic.image = self.photosArray[message.0.senderId]
             
             switch message.1 {
