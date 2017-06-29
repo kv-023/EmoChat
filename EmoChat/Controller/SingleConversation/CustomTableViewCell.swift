@@ -21,7 +21,7 @@ class SpecialTextView: UITextView, UITextViewDelegate {
     }
     
     override func copy(_ sender: Any?) {
-        print("Copy")
+        UIPasteboard.general.setValue(self.text, forPasteboardType: "TEXT")
     }
     
     override func delete(_ sender: Any?) {
