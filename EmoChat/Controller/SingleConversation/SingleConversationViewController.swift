@@ -22,6 +22,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     // MARK: - constants
     let leadingConstraintConstant: CGFloat = 8.0
+    let topConstraintConstant: CGFloat = 8.0
     
     // MARK: - IBOutlets
     @IBOutlet weak var emoRequestButton: UIButton!
@@ -29,8 +30,9 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     @IBOutlet weak var textMessageLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var inputSubView: UIView!
     @IBOutlet weak var textMessage: UITextView!
+    @IBOutlet weak var additionalBottomBarView: ConversationBottomBarView!
+    @IBOutlet weak var textMessageBottomConstraint: NSLayoutConstraint!
     
-
     @IBAction func sendMessage(_ sender: UIButton) {
         
         let result:MessageOperationResult? = manager?.createMessage(conversation: currentConversation!, sender: currentUser, content: (.text, textMessage.text))
@@ -115,14 +117,16 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         }
         self.setUpTextView()
         manager = ManagerFirebase.shared
-        
-        
-        group.enter()
-        manager?.getUsersInConversation(conversation: self.currentConversation, completion: { (users) in
-            self.currentConversation.usersInConversation = users
-            //self.downloadPhotos()
-            self.group.leave()
-        })
+        /*
+        if self.currentConversation != nil {
+            group.enter()
+            manager?.getUsersInConversation(conversation: self.currentConversation, completion: { (users) in
+                self.currentConversation.usersInConversation = users
+                //self.downloadPhotos()
+                self.group.leave()
+            })
+        }
+
         
         
         
@@ -153,9 +157,9 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             })
         })
     
-        print(self.currentConversation.uuid)
+        //print(self.currentConversation.uuid)
        
-        
+        */
         
         setupKeyboardObservers()
     }
@@ -259,6 +263,11 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         textView.becomeFirstResponder() //Optional
         
         self.animateTextViewTransitions(becomeFirstResponder: true)
+        if plusButton.isSelected {
+            plusButton.isSelected = false
+            animateBottomBar(plusIsSelected: plusButton.isSelected)
+        }
+        
     }
     
     func textViewDidEndEditing(_ textView: UITextView)
@@ -271,6 +280,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         textView.isScrollEnabled = false;
         self.textViewMaxHeightConstraint.isActive = false
         textView.resignFirstResponder()
+        
         self.animateTextViewTransitions(becomeFirstResponder: false)
     }
     
@@ -360,10 +370,41 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         } else {
             plusButton.isSelected = true
         }
-        
+        self.animateBottomBar(plusIsSelected: plusButton.isSelected)
     }
     
     // MARK: - BottomBarAnimations
+    
+    func animateBottomBar(plusIsSelected: Bool) {
+        
+        view.layoutIfNeeded()
+        
+        let height = additionalBottomBarView.frame.height
+        
+        if plusIsSelected {
+            textMessageBottomConstraint.constant += height + topConstraintConstant
+            self.additionalBottomBarView.isHidden = !plusIsSelected
+        } else {
+            textMessageBottomConstraint.constant -= height + topConstraintConstant
+        }
+        
+        UIView.animate(withDuration: 0.5,
+                       delay: 0.0,
+                       usingSpringWithDamping: 0,
+                       initialSpringVelocity: 0,
+                       options: [.curveLinear],
+                       animations: {
+                        self.view.layoutIfNeeded()
+                        if plusIsSelected {
+                            self.additionalBottomBarView.alpha = 1.0
+                        } else {
+                            self.additionalBottomBarView.alpha = 0.0
+                        }
+        },
+                       completion: { _ in
+                        self.additionalBottomBarView.isHidden = !plusIsSelected
+        })
+    }
     
     func animateTextViewTransitions(becomeFirstResponder: Bool) {
         
@@ -375,6 +416,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             textMessageLeadingConstraint.constant -= width
         } else {
             textMessageLeadingConstraint.constant += width
+            self.plusButton.isHidden = becomeFirstResponder
         }
         
         UIView.animate(withDuration: 0.5,
@@ -383,10 +425,15 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                        initialSpringVelocity: 0,
                        options: [.curveLinear],
                        animations: {
-                        self.plusButton.isHidden = becomeFirstResponder
                         self.view.layoutIfNeeded()
+                        if becomeFirstResponder {
+                            self.plusButton.alpha = 0.0
+                        } else {
+                            self.plusButton.alpha = 1.0
+                        }
         },
                        completion: { (_) in
+                        self.plusButton.isHidden = becomeFirstResponder
         })
     }
     
