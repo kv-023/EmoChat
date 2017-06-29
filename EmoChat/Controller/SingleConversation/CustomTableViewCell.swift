@@ -36,6 +36,9 @@ class LeftCell: UITableViewCell, UITextViewDelegate {
     @IBOutlet weak var time: UILabel!
     @IBOutlet weak var message: SpecialTextView!
     @IBOutlet weak var background: UIImageView!
+    @IBOutlet weak var previewContainer: UIView!
+    @IBOutlet weak var heightOfPreviewContainer: NSLayoutConstraint!
+
     
     var messageEntity: Message? {
         didSet {
@@ -45,8 +48,14 @@ class LeftCell: UITableViewCell, UITextViewDelegate {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        setInitData()
+    }
+
+    private func setInitData() {
         let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(handler))
         message.addGestureRecognizer(recognizer)
+
+        heightOfPreviewContainer.constant = 0 // hide when show first time
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -69,6 +78,8 @@ class RightCell: UITableViewCell {
     @IBOutlet weak var time: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var message: SpecialTextView!
+    @IBOutlet weak var previewContainer: UIView!
+    @IBOutlet weak var heightOfPreviewContainer: NSLayoutConstraint!
     
     var isReceived = false {
         didSet {
@@ -96,8 +107,14 @@ class RightCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        setInitData()
+    }
+
+    private func setInitData() {
         let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(handler))
         message.addGestureRecognizer(recognizer)
+
+        heightOfPreviewContainer.constant = 0 // hide when show first time
     }
     
       override func setSelected(_ selected: Bool, animated: Bool) {
