@@ -53,15 +53,19 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         menu.setMenuVisible(true, animated: true)
     }
     
-    func deleteMessage(_ target: Message) {
+    func removeAtUid(_ uid: String) {
         let indexOfMessage: Int = messagesArray.index(where: {tuple in
-            if tuple.0.uid == target.uid {
+            if tuple.0.uid == uid {
                 return true
             } else {
                 return false
             }
         })!
         messagesArray.remove(at: indexOfMessage)
+    }
+    
+    func deleteMessage(_ target: Message) {
+        removeAtUid(target.uid!)
         table.reloadData()
         manager?.deleteMessage(target.uid!, from: currentConversation)
     }
@@ -84,8 +88,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     override func delete(_ sender: Any?) {
         deleteMessage(messageRecognized)
     }
-
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -149,6 +151,10 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         if let rect = self.navigationController?.navigationBar.frame {
             let y = rect.size.height + rect.origin.y
             table.frame = CGRect(x: table.frame.minX, y: table.frame.minY + y, width: table.frame.width, height: table.frame.height - y)
+        }
+        
+        manager?.observeDeletionOfMessages(in: currentConversation) { uid in
+            self.removeAtUid(uid)
         }
     }
     
