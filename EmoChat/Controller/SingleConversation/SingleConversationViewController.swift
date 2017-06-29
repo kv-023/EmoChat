@@ -18,7 +18,7 @@ enum UserType {
     case right (RightType)
 }
 
-class SingleConversationViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate {
+class SingleConversationViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate, tableDelegate {
     
     @IBOutlet weak var inputSubView: UIView!
     
@@ -37,6 +37,54 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     var messagesArray: [(Message, UserType)] = []
     
     var refresher: UIRefreshControl!
+    
+    var messageRecognized: Message!
+    
+    func tableDelegate(_ sender: UITableViewCell, withRecognizer recognizer: UILongPressGestureRecognizer) {
+        recognizer.view!.becomeFirstResponder()
+        let menu = UIMenuController.shared
+        if let cell = sender as? LeftCell {
+            menu.setTargetRect(cell.message.frame, in: cell)
+            messageRecognized = cell.messageEntity
+        } else if let cell = sender as? RightCell {
+            menu.setTargetRect(cell.message.frame, in: cell)
+            messageRecognized = cell.messageEntity
+        }
+        menu.setMenuVisible(true, animated: true)
+    }
+    
+    func deleteMessage(_ target: Message) {
+        let indexOfMessage: Int = messagesArray.index(where: {tuple in
+            if tuple.0.uid == target.uid {
+                return true
+            } else {
+                return false
+            }
+        })!
+        messagesArray.remove(at: indexOfMessage)
+        table.reloadData()
+        manager?.deleteMessage(target.uid!, from: currentConversation)
+    }
+    
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        switch action {
+        case #selector(copy(_:)):
+            return true
+        case #selector(delete(_:)):
+            return true
+        default:
+            return false
+        }
+    }
+    
+    override func copy(_ sender: Any?) {
+        UIPasteboard.general.setValue(messageRecognized.content!.content, forPasteboardType: "TEXT")
+    }
+    
+    override func delete(_ sender: Any?) {
+        deleteMessage(messageRecognized)
+    }
+
     
     
     override func viewDidLoad() {
@@ -234,6 +282,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             cell.time.text = message.0.time.formatDate()
             cell.userPic.image = self.photosArray[message.0.senderId]
             
+            cell.delegate = self
+            
             return cell
         case .right:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "Right", for: indexPath) as? RightCell else {
@@ -249,6 +299,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             default:
                 break
             }
+            cell.delegate = self
             return cell
         }
     }
