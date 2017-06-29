@@ -48,7 +48,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         table.rowHeight = UITableViewAutomaticDimension
         table.alwaysBounceVertical = false
         refresher = UIRefreshControl()
-        refresher.addTarget(self, action: #selector(updateUI), for: UIControlEvents.valueChanged)
+        table.backgroundView = refresher
+        refresher.addTarget(self, action: #selector(updateUI), for: UIControlEvents.editingDidEnd)
         table.addSubview(refresher)
         
         if !messagesArray.isEmpty {
@@ -98,12 +99,9 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         
         setupKeyboardObservers()
         
-        if let rect = self.navigationController?.navigationBar.frame {
-            let y = rect.size.height + rect.origin.y
-            table.frame = CGRect(x: table.frame.minX, y: table.frame.minY + y, width: table.frame.width, height: table.frame.height - y)
-        }
     }
     
+
     
     @IBAction func sendMessage(_ sender: UIButton) {
         
@@ -134,7 +132,11 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     //download 20 last messages
     func updateUI() {
+        //self.table.isScrollEnabled = false
         if let firstMessage = messagesArray.first?.0 {
+            self.refresher.endRefreshing()
+            var initialOffset = self.table.contentOffset.y
+            //var contentOffset = self.table.contentOffset
             manager?.getBunchOfMessages(in: currentConversation, startingFrom: firstMessage.uid!, count: 20, result: { (result) in
                 var arrayOfMessagesAndTypes = [(Message, UserType)] ()
                 for each in result {
@@ -145,9 +147,19 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                     }
                 }
                 self.insertRows(arrayOfMessagesAndTypes)
-                self.table.scrollToRow(at: IndexPath.init(row: 19, section: 0), at: .top, animated: false)
+                
+                
+                //self.table.reloadData()
+                //@numberOfCellsAdded: number of items added at top of the table
+                self.table.scrollToRow(at: IndexPath.init(row: arrayOfMessagesAndTypes.count, section: 0), at: .top, animated: false)
+                //self.table.contentOffset.y += initialOffset
+                //contentOffset = self.table.contentOffset
+                //self.table.scrollToRow(at: IndexPath.init(row: 19, section: 0), at: .top, animated: false)
             })
-            refresher.endRefreshing()
+            
+            
+            //self.reloadTableView(contentOffset)
+            //self.table.scrollToRow(at: IndexPath.init(row: 19, section: 0), at: .top, animated: false)
         }
     }
     
@@ -159,13 +171,14 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     }
     
     func insertRows (_ newMessages: [(Message, UserType)]) {
+        
         self.table.beginUpdates()
         var indexPaths: [IndexPath] = []
         for i in 0..<newMessages.count {
             indexPaths.append(IndexPath(row: i, section: 0))
         }
         messagesArray = newMessages + messagesArray
-        table.insertRows(at: indexPaths, with: .automatic)
+        table.insertRows(at: indexPaths, with: .none)
         
         self.table.endUpdates()
     }
@@ -334,12 +347,12 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         
     }
     
-//    override func viewWillLayoutSubviews() {
-//        if let rect = self.navigationController?.navigationBar.frame {
-//            let y = rect.size.height + rect.origin.y
-//            table.frame = CGRect(x: table.frame.minX, y: table.frame.minY + y, width: table.frame.width, height: table.frame.height - y)
-//        }
-//    }
+    override func viewWillLayoutSubviews() {
+        if let rect = self.navigationController?.navigationBar.frame {
+            let y = rect.size.height + rect.origin.y
+            table.frame = CGRect(x: table.frame.minX, y: table.frame.minY + y, width: table.frame.width, height: table.frame.height - y)
+        }
+    }
     
     func handleKeyboardWillShow (notification: Notification) {
         if let keyboardSize = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? CGRect, let keyboardDuration = (notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue {
