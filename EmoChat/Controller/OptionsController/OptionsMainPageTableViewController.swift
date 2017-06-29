@@ -18,18 +18,24 @@ class OptionsMainPageTableViewController:  UITableViewController, UIImagePickerC
     @IBOutlet weak var emailLabel: UILabel!
     var currentUserVC: User!
     var manager: ManagerFirebase!
-//    var currentUser: CurrentUser!
+    var currentUser: CurrentUser!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //Manager firebase
         manager = ManagerFirebase.shared
-//        currentUser = CurrentUser.shared
+        
+        //Current user
+        currentUser = CurrentUser.shared
         
         //Temporaru login and get current user
         tempLogIn()
         tempGetCurrentUser()
+        
+        
+        currentUser.phoneNumber = "+123475678765434567898765434567898765456789568"
+        print(currentUser.phoneNumber!)
         
     }
     
@@ -68,7 +74,6 @@ class OptionsMainPageTableViewController:  UITableViewController, UIImagePickerC
         
     }
     
-    
     func addInfoOnView (user: User) {
         
         manager.getUserPicFullResolution(from: user.photoURL!) {
@@ -96,7 +101,7 @@ class OptionsMainPageTableViewController:  UITableViewController, UIImagePickerC
             switch segueIdentifier {
             case "showPhone":
                 let destinationVC = segue.destination as! OptionsChangeNumberTableViewController
-                destinationVC.currentUser = currentUserVC
+                destinationVC.currUser = currentUserVC
             case "showUsername":
                 let destinationVC = segue.destination as! OptionsChangeUsernameTableViewController
                 destinationVC.currentUser = currentUserVC
