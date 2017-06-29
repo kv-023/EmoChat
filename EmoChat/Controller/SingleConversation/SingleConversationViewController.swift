@@ -18,7 +18,7 @@ enum UserType {
     case right (RightType)
 }
 
-class SingleConversationViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate {
+class SingleConversationViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate, tableDelegate {
     
     @IBOutlet weak var inputSubView: UIView!
     
@@ -38,6 +38,57 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     var refresher: UIRefreshControl!
     
+    var messageRecognized: Message!
+    
+    func tableDelegate(_ sender: UITableViewCell, withRecognizer recognizer: UILongPressGestureRecognizer) {
+        recognizer.view!.becomeFirstResponder()
+        let menu = UIMenuController.shared
+        if let cell = sender as? LeftCell {
+            menu.setTargetRect(cell.message.frame, in: cell)
+            messageRecognized = cell.messageEntity
+        } else if let cell = sender as? RightCell {
+            menu.setTargetRect(cell.message.frame, in: cell)
+            messageRecognized = cell.messageEntity
+        }
+        menu.setMenuVisible(true, animated: true)
+    }
+    
+    func removeAtUid(_ uid: String) {
+        let indexOfMessage: Int = messagesArray.index(where: {tuple in
+            if tuple.0.uid == uid {
+                return true
+            } else {
+                return false
+            }
+        })!
+        messagesArray.remove(at: indexOfMessage)
+        table.reloadData()
+    }
+    
+    func deleteMessage(_ target: Message) {
+        //removeAtUid(target.uid!)
+        //table.reloadData()
+        manager?.deleteMessage(target.uid!, from: currentConversation)
+    }
+    
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        switch action {
+        case #selector(copy(_:)):
+            return true
+        case #selector(delete(_:)):
+            return true
+        default:
+            return false
+        }
+    }
+    
+    override func copy(_ sender: Any?) {
+        UIPasteboard.general.setValue(messageRecognized.content!.content, forPasteboardType: "TEXT")
+    }
+    
+    override func delete(_ sender: Any?) {
+        deleteMessage(messageRecognized)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +100,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         table.alwaysBounceVertical = false
         refresher = UIRefreshControl()
         table.backgroundView = refresher
-        refresher.addTarget(self, action: #selector(updateUI), for: UIControlEvents.editingDidEnd)
+        refresher.addTarget(self, action: #selector(updateUI), for: UIControlEvents.valueChanged)
         table.addSubview(refresher)
         
         if !messagesArray.isEmpty {
@@ -70,6 +121,11 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         
         group.notify(queue: DispatchQueue.main, execute: {
             self.manager?.getMessageFromConversation([self.currentConversation], result: { (conv, newMessage) in
+                if let lastMessageTime = self.messagesArray.last?.0.time {
+                    if lastMessageTime > newMessage.time {
+                        return
+                    }
+                }
                 if let res = self.manager?.isMessageFromCurrentUser(newMessage) {
                     if res == true {
                         
@@ -99,9 +155,19 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         
         setupKeyboardObservers()
         
+        self.setUpFrame()
+        
+        manager?.observeDeletionOfMessages(in: currentConversation) { uid in
+            self.removeAtUid(uid)
+        }
     }
     
-
+    func setUpFrame() {
+        if let rect = self.navigationController?.navigationBar.frame {
+            let y = rect.size.height + rect.origin.y
+            table.frame = CGRect(x: table.frame.minX, y: table.frame.minY + y, width: table.frame.width, height: table.frame.height - y)
+        }
+    }
     
     @IBAction func sendMessage(_ sender: UIButton) {
         
@@ -149,10 +215,10 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 self.insertRows(arrayOfMessagesAndTypes)
                 
                 
-                //self.table.reloadData()
+                self.table.reloadData()
                 //@numberOfCellsAdded: number of items added at top of the table
-                self.table.scrollToRow(at: IndexPath.init(row: arrayOfMessagesAndTypes.count, section: 0), at: .top, animated: false)
-                //self.table.contentOffset.y += initialOffset
+                self.table.scrollToRow(at: IndexPath.init(row: arrayOfMessagesAndTypes.count+1, section: 0), at: .top, animated: false)
+                self.table.contentOffset.y += initialOffset
                 //contentOffset = self.table.contentOffset
                 //self.table.scrollToRow(at: IndexPath.init(row: 19, section: 0), at: .top, animated: false)
             })
@@ -163,6 +229,10 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         }
     }
     
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        self.table.bounces = (self.table.contentOffset > 100)
+//    }
+    
     func insertRow(_ newMessage: (Message, UserType)) {
         messagesArray.append((newMessage.0, newMessage.1))
         table.beginUpdates()
@@ -172,15 +242,15 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     func insertRows (_ newMessages: [(Message, UserType)]) {
         
-        self.table.beginUpdates()
-        var indexPaths: [IndexPath] = []
-        for i in 0..<newMessages.count {
-            indexPaths.append(IndexPath(row: i, section: 0))
-        }
+        //self.table.beginUpdates()
+//        var indexPaths: [IndexPath] = []
+//        for i in 0..<newMessages.count {
+//            indexPaths.append(IndexPath(row: i, section: 0))
+//        }
         messagesArray = newMessages + messagesArray
-        table.insertRows(at: indexPaths, with: .none)
-        
-        self.table.endUpdates()
+//        table.insertRows(at: indexPaths, with: .none)
+//        
+//        self.table.endUpdates()
     }
     
     
@@ -247,6 +317,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             cell.time.text = message.0.time.formatDate()
             cell.userPic.image = self.photosArray[message.0.senderId]
             
+            cell.delegate = self
+            
             return cell
         case .right:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "Right", for: indexPath) as? RightCell else {
@@ -262,6 +334,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             default:
                 break
             }
+            cell.delegate = self
             return cell
         }
     }
@@ -347,12 +420,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         
     }
     
-    override func viewWillLayoutSubviews() {
-        if let rect = self.navigationController?.navigationBar.frame {
-            let y = rect.size.height + rect.origin.y
-            table.frame = CGRect(x: table.frame.minX, y: table.frame.minY + y, width: table.frame.width, height: table.frame.height - y)
-        }
-    }
+
     
     func handleKeyboardWillShow (notification: Notification) {
         if let keyboardSize = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? CGRect, let keyboardDuration = (notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue {

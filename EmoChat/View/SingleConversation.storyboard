@@ -59,7 +59,7 @@
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Some text" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="saX-Im-Te1" customClass="SpecialTextView" customModule="EmoChat" customModuleProvider="target">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Some text" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="saX-Im-Te1">
                                                     <rect key="frame" x="58" y="11" width="79.5" height="38"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -125,7 +125,7 @@
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Some text" textAlignment="right" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mHH-T8-Hcd" customClass="SpecialTextView" customModule="EmoChat" customModuleProvider="target">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Some text" textAlignment="right" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mHH-T8-Hcd">
                                                     <rect key="frame" x="237.5" y="11" width="79.5" height="38"/>
                                                     <gestureRecognizers/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -245,7 +245,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-1199" y="-17"/>
+            <point key="canvasLocation" x="-1441" y="-21"/>
         </scene>
     </scenes>
     <resources>
