@@ -97,6 +97,11 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         print(self.currentConversation.uuid)
         
         setupKeyboardObservers()
+        
+        if let rect = self.navigationController?.navigationBar.frame {
+            let y = rect.size.height + rect.origin.y
+            table.frame = CGRect(x: table.frame.minX, y: table.frame.minY + y, width: table.frame.width, height: table.frame.height - y)
+        }
     }
     
     
@@ -329,12 +334,12 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         
     }
     
-    override func viewDidLayoutSubviews() {
-        if let rect = self.navigationController?.navigationBar.frame {
-            let y = rect.size.height + rect.origin.y
-            table.frame = CGRect(x: table.frame.minX, y: table.frame.minY + y, width: table.frame.width, height: table.frame.height - y)
-        }
-    }
+//    override func viewWillLayoutSubviews() {
+//        if let rect = self.navigationController?.navigationBar.frame {
+//            let y = rect.size.height + rect.origin.y
+//            table.frame = CGRect(x: table.frame.minX, y: table.frame.minY + y, width: table.frame.width, height: table.frame.height - y)
+//        }
+//    }
     
     func handleKeyboardWillShow (notification: Notification) {
         if let keyboardSize = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? CGRect, let keyboardDuration = (notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue {
