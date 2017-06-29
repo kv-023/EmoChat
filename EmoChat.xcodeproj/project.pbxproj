@@ -31,6 +31,19 @@
 		CC13C5EB1EF9227F00B38E59 /* SingleConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC13C5EA1EF9227F00B38E59 /* SingleConversationViewController.swift */; };
 		CC13C5ED1EF929AF00B38E59 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC13C5EC1EF929AF00B38E59 /* CustomTableViewCell.swift */; };
 		CC45A7571EE6D40E00FF13AE /* ManagerFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC45A7561EE6D40E00FF13AE /* ManagerFirebase.swift */; };
+		E70F3DAA1F0507D900617235 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70F3D971F0507D900617235 /* TableViewCell.swift */; };
+		E70F3DAB1F0507D900617235 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70F3D981F0507D900617235 /* TableViewController.swift */; };
+		E70F3DAD1F0507D900617235 /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70F3D9B1F0507D900617235 /* JSONParser.swift */; };
+		E70F3DAE1F0507D900617235 /* RestUIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70F3D9C1F0507D900617235 /* RestUIHelper.swift */; };
+		E70F3DAF1F0507D900617235 /* RestUIStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70F3D9D1F0507D900617235 /* RestUIStrategy.swift */; };
+		E70F3DB01F0507D900617235 /* RestIU500px.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70F3D9F1F0507D900617235 /* RestIU500px.swift */; };
+		E70F3DB11F0507D900617235 /* RestUIUrlembed.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70F3DA01F0507D900617235 /* RestUIUrlembed.swift */; };
+		E70F3DB21F0507D900617235 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70F3DA21F0507D900617235 /* MessageModel.swift */; };
+		E70F3DB31F0507D900617235 /* RestUIStrategyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70F3DA31F0507D900617235 /* RestUIStrategyProtocol.swift */; };
+		E70F3DB41F0507D900617235 /* UrlembedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70F3DA41F0507D900617235 /* UrlembedModel.swift */; };
+		E70F3DB61F0507D900617235 /* RestUIInfo2.xib in Resources */ = {isa = PBXBuildFile; fileRef = E70F3DA71F0507D900617235 /* RestUIInfo2.xib */; };
+		E70F3DB71F0507D900617235 /* RestUIInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70F3DA81F0507D900617235 /* RestUIInfoView.swift */; };
+		E70F3DB81F0507D900617235 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E70F3DA91F0507D900617235 /* Storyboard.storyboard */; };
 		E7352C261EDED52B0095264E /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C211EDED52B0095264E /* Conversation.swift */; };
 		E7352C271EDED52B0095264E /* Auxiliary.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C231EDED52B0095264E /* Auxiliary.swift */; };
 		E7352C281EDED52B0095264E /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C241EDED52B0095264E /* Message.swift */; };
@@ -94,6 +107,19 @@
 		CC13C5EC1EF929AF00B38E59 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		CC45A7561EE6D40E00FF13AE /* ManagerFirebase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerFirebase.swift; sourceTree = "<group>"; };
 		E701EB98A17F8F7EB9DF59EA /* Pods-EmoChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmoChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EmoChat/Pods-EmoChat.debug.xcconfig"; sourceTree = "<group>"; };
+		E70F3D971F0507D900617235 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		E70F3D981F0507D900617235 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		E70F3D9B1F0507D900617235 /* JSONParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParser.swift; sourceTree = "<group>"; };
+		E70F3D9C1F0507D900617235 /* RestUIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestUIHelper.swift; sourceTree = "<group>"; };
+		E70F3D9D1F0507D900617235 /* RestUIStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestUIStrategy.swift; sourceTree = "<group>"; };
+		E70F3D9F1F0507D900617235 /* RestIU500px.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestIU500px.swift; sourceTree = "<group>"; };
+		E70F3DA01F0507D900617235 /* RestUIUrlembed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestUIUrlembed.swift; sourceTree = "<group>"; };
+		E70F3DA21F0507D900617235 /* MessageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
+		E70F3DA31F0507D900617235 /* RestUIStrategyProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestUIStrategyProtocol.swift; sourceTree = "<group>"; };
+		E70F3DA41F0507D900617235 /* UrlembedModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UrlembedModel.swift; sourceTree = "<group>"; };
+		E70F3DA71F0507D900617235 /* RestUIInfo2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestUIInfo2.xib; sourceTree = "<group>"; };
+		E70F3DA81F0507D900617235 /* RestUIInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestUIInfoView.swift; sourceTree = "<group>"; };
+		E70F3DA91F0507D900617235 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		E7352C211EDED52B0095264E /* Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		E7352C231EDED52B0095264E /* Auxiliary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auxiliary.swift; sourceTree = "<group>"; };
 		E7352C241EDED52B0095264E /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -254,6 +280,66 @@
 			path = SingleConversation;
 			sourceTree = "<group>";
 		};
+		E70F3D951F0507D900617235 /* RestUI */ = {
+			isa = PBXGroup;
+			children = (
+				E70F3D9A1F0507D900617235 /* Manager */,
+				E70F3DA11F0507D900617235 /* Model */,
+				E70F3DA51F0507D900617235 /* View */,
+				E70F3D961F0507D900617235 /* Controller */,
+			);
+			path = RestUI;
+			sourceTree = "<group>";
+		};
+		E70F3D961F0507D900617235 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E70F3D971F0507D900617235 /* TableViewCell.swift */,
+				E70F3D981F0507D900617235 /* TableViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E70F3D9A1F0507D900617235 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				E70F3D9E1F0507D900617235 /* Strategys */,
+				E70F3D9B1F0507D900617235 /* JSONParser.swift */,
+				E70F3D9C1F0507D900617235 /* RestUIHelper.swift */,
+				E70F3D9D1F0507D900617235 /* RestUIStrategy.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		E70F3D9E1F0507D900617235 /* Strategys */ = {
+			isa = PBXGroup;
+			children = (
+				E70F3D9F1F0507D900617235 /* RestIU500px.swift */,
+				E70F3DA01F0507D900617235 /* RestUIUrlembed.swift */,
+			);
+			path = Strategys;
+			sourceTree = "<group>";
+		};
+		E70F3DA11F0507D900617235 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E70F3DA21F0507D900617235 /* MessageModel.swift */,
+				E70F3DA31F0507D900617235 /* RestUIStrategyProtocol.swift */,
+				E70F3DA41F0507D900617235 /* UrlembedModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E70F3DA51F0507D900617235 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E70F3DA71F0507D900617235 /* RestUIInfo2.xib */,
+				E70F3DA81F0507D900617235 /* RestUIInfoView.swift */,
+				E70F3DA91F0507D900617235 /* Storyboard.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		E7352C201EDED52B0095264E /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -279,6 +365,7 @@
 		E7B926E71EF1487B0018F5FF /* Additional */ = {
 			isa = PBXGroup;
 			children = (
+				E70F3D951F0507D900617235 /* RestUI */,
 				E7883F371EF1611F00E876CC /* Localize.swift */,
 				E7B926E81EF1487B0018F5FF /* EmoChatTextField */,
 			);
@@ -446,6 +533,8 @@
 			files = (
 				FB982DD81EE1569700AC2FCD /* Login.storyboard in Resources */,
 				FB982DDA1EE1569700AC2FCD /* SearchUsers.storyboard in Resources */,
+				E70F3DB61F0507D900617235 /* RestUIInfo2.xib in Resources */,
+				E70F3DB81F0507D900617235 /* Storyboard.storyboard in Resources */,
 				3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */,
 				FB982DDB1EE1569700AC2FCD /* SignUp.storyboard in Resources */,
 				ED1E2D941EDD75B20058B6A6 /* GoogleService-Info.plist in Resources */,
@@ -518,10 +607,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				E7352C261EDED52B0095264E /* Conversation.swift in Sources */,
+				E70F3DAB1F0507D900617235 /* TableViewController.swift in Sources */,
 				842E8B6C1EF931C900CA3BF2 /* ConversationsDataSource.swift in Sources */,
 				F5E339401EF6DA5500D224BF /* ChatSettingsTableViewController.swift in Sources */,
 				84A3C8D11EF8790F001A9A19 /* ConversationsController.swift in Sources */,
 				F54D21781EE7149100B0B177 /* AdditionalViewController.swift in Sources */,
+				E70F3DAD1F0507D900617235 /* JSONParser.swift in Sources */,
+				E70F3DB01F0507D900617235 /* RestIU500px.swift in Sources */,
 				E7B926F31EF1487B0018F5FF /* PopOverViewController.swift in Sources */,
 				F54D21761EE7130600B0B177 /* Regex.swift in Sources */,
 				3938C2721EDC27C700D69F88 /* ViewController.swift in Sources */,
@@ -530,14 +622,19 @@
 				FBAC19811EF13E1A0027AF9D /* ConfirmationViewController.swift in Sources */,
 				E7883F381EF1611F00E876CC /* Localize.swift in Sources */,
 				CC45A7571EE6D40E00FF13AE /* ManagerFirebase.swift in Sources */,
+				E70F3DAA1F0507D900617235 /* TableViewCell.swift in Sources */,
+				E70F3DB41F0507D900617235 /* UrlembedModel.swift in Sources */,
 				CC13C5EB1EF9227F00B38E59 /* SingleConversationViewController.swift in Sources */,
+				E70F3DB71F0507D900617235 /* RestUIInfoView.swift in Sources */,
 				CC13C5D51EF4092900B38E59 /* ArchiverManager.swift in Sources */,
+				E70F3DB21F0507D900617235 /* MessageModel.swift in Sources */,
 				E7B926F01EF1487B0018F5FF /* EmoChatUIViewController.swift in Sources */,
 				84247A391EE9CDA6009E8167 /* GlobalUserCell.swift in Sources */,
 				E7B926F11EF1487B0018F5FF /* PopOverHelper.swift in Sources */,
 				A3E7E7D11EEFD893006D24BC /* OptionsMainPageTableViewController.swift in Sources */,
 				A309F3761EEFED6000DF6449 /* OptionsChangeNumberTableViewController.swift in Sources */,
 				E7B926EF1EF1487B0018F5FF /* CustomTextFieldWithPopOverInfoBox.swift in Sources */,
+				E70F3DB11F0507D900617235 /* RestUIUrlembed.swift in Sources */,
 				FBF7A9CA1EF012E600ABADF5 /* SignUpChooseYourPhotoViewController.swift in Sources */,
 				84312F931EE94FB600FAC4D1 /* SearchUsersViewController.swift in Sources */,
 				E7352C281EDED52B0095264E /* Message.swift in Sources */,
@@ -547,12 +644,15 @@
 				FB982DE11EE156B700AC2FCD /* LoginViewController.swift in Sources */,
 				35C9507D1EF7D791006FA7E6 /* UIImageExtension.swift in Sources */,
 				E7352C291EDED52B0095264E /* User.swift in Sources */,
+				E70F3DAF1F0507D900617235 /* RestUIStrategy.swift in Sources */,
 				E7352C2B1EE0139E0095264E /* ModelGenericHelper.swift in Sources */,
 				FB4317731EE6C24400770338 /* SignUpFirstViewController.swift in Sources */,
 				E7352C3A1EE81CB60095264E /* RegexCheckProtocol.swift in Sources */,
 				CC13C5ED1EF929AF00B38E59 /* CustomTableViewCell.swift in Sources */,
+				E70F3DAE1F0507D900617235 /* RestUIHelper.swift in Sources */,
 				84A3C8D51EF89538001A9A19 /* MessageConversationCell.swift in Sources */,
 				842E8B701EF9DDB100CA3BF2 /* ArrayExtension.swift in Sources */,
+				E70F3DB31F0507D900617235 /* RestUIStrategyProtocol.swift in Sources */,
 				3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */,
 				E7352C381EE81B790095264E /* ControllerHelper.swift in Sources */,
 				842E8B6E1EF9330700CA3BF2 /* DateExtension.swift in Sources */,
