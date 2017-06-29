@@ -49,60 +49,6 @@ class LeftCell: UITableViewCell, UITextViewDelegate {
         }
     }
     
-    override var canBecomeFirstResponder: Bool {
-        return true
-    }
-    
-    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        if action == #selector(test) {
-            return true
-        }
-        return false
-    }
-    
-    func test () {
-        print(message.text)
-    }
-
-//    override func layoutSubviews() {
-//        let longPress = UILongPressGestureRecognizer.init(target: self, action: #selector(longPress (_:)))
-//        self.message?.addGestureRecognizer(longPress)
-//        
-//        longPress.delegate = self
-//        
-//    }
-
-    func longPress(_ sender: UILongPressGestureRecognizer) {
-        if sender.state == UIGestureRecognizerState.began {
-            //let location = sender.location(in: sender.view)
-            let menuController = UIMenuController.shared
-            let item1 = UIMenuItem(title: "Test1", action: #selector(test))
-            menuController.menuItems = [item1]
-            menuController.update()
-            menuController.setTargetRect(CGRect(x: self.message.frame.size.width/2, y: message.frame.origin.y - 10, width: 0.0, height: 0.0), in: self)
-            
-            menuController.setMenuVisible(true, animated: true)
-            
-        }
-    }
-//
-//    func copyAction (_ cell: UITableViewCell) {
-//        print ("here i am")
-//        UIPasteboard.general.string = message.text
-//    }
-//    
-//    override var canBecomeFirstResponder: Bool {
-//        return true
-//    }
-//    
-//    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-//        if action == #selector(copyAction) {
-//            return true
-//        }
-//        return false
-//    }
-//    
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(handler))
@@ -114,7 +60,7 @@ class LeftCell: UITableViewCell, UITextViewDelegate {
     }
     
     func handler(_ sender: UILongPressGestureRecognizer) {
-        if sender.state == UIGestureRecognizerState.ended {
+        if sender.state == UIGestureRecognizerState.began {
             delegate?.tableDelegate(self, inView: sender.view!)
         }
     }
@@ -164,7 +110,7 @@ class RightCell: UITableViewCell {
     }
     
     func handler(_ sender: UILongPressGestureRecognizer) {
-        if sender.state == UIGestureRecognizerState.ended {
+        if sender.state == UIGestureRecognizerState.began {
             delegate?.tableDelegate(self, inView: sender.view!)
         }
     }
