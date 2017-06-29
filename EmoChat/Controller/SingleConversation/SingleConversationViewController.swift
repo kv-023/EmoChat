@@ -20,10 +20,17 @@ enum UserType {
 
 class SingleConversationViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate {
     
-    @IBOutlet weak var inputSubView: UIView!
+    // MARK: - constants
+    let leadingConstraintConstant: CGFloat = 8.0
     
+    // MARK: - IBOutlets
+    @IBOutlet weak var emoRequestButton: UIButton!
+    @IBOutlet weak var plusButton: UIButton!
+    @IBOutlet weak var textMessageLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var inputSubView: UIView!
     @IBOutlet weak var textMessage: UITextView!
     
+
     @IBAction func sendMessage(_ sender: UIButton) {
         
         let result:MessageOperationResult? = manager?.createMessage(conversation: currentConversation!, sender: currentUser, content: (.text, textMessage.text))
@@ -113,7 +120,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         group.enter()
         manager?.getUsersInConversation(conversation: self.currentConversation, completion: { (users) in
             self.currentConversation.usersInConversation = users
-            self.downloadPhotos()
+            //self.downloadPhotos()
             self.group.leave()
         })
         
@@ -250,6 +257,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             textView.textColor = .black
         }
         textView.becomeFirstResponder() //Optional
+        
+        self.animateTextViewTransitions(becomeFirstResponder: true)
     }
     
     func textViewDidEndEditing(_ textView: UITextView)
@@ -262,6 +271,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         textView.isScrollEnabled = false;
         self.textViewMaxHeightConstraint.isActive = false
         textView.resignFirstResponder()
+        self.animateTextViewTransitions(becomeFirstResponder: false)
     }
     
     //MARK: - subview to text and send message
@@ -332,5 +342,52 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
      // Pass the selected object to the new view controller.
      }
      */
+    
+    // MARK: - Actions
+    
+    @IBAction func actionEmoRequestButton(_ sender: UIButton) {
+        if emoRequestButton.isSelected {
+            emoRequestButton.isSelected = false
+        } else {
+            emoRequestButton.isSelected = true
+        }
+    }
+    
+    @IBAction func actionPlusButton(_ sender: UIButton) {
+        
+        if plusButton.isSelected {
+            plusButton.isSelected = false
+        } else {
+            plusButton.isSelected = true
+        }
+        
+    }
+    
+    // MARK: - BottomBarAnimations
+    
+    func animateTextViewTransitions(becomeFirstResponder: Bool) {
+        
+        view.layoutIfNeeded()
+    
+        let width = plusButton.frame.width + leadingConstraintConstant
+        
+        if becomeFirstResponder {
+            textMessageLeadingConstraint.constant -= width
+        } else {
+            textMessageLeadingConstraint.constant += width
+        }
+        
+        UIView.animate(withDuration: 0.5,
+                       delay: 0.0,
+                       usingSpringWithDamping: 0,
+                       initialSpringVelocity: 0,
+                       options: [.curveLinear],
+                       animations: {
+                        self.plusButton.isHidden = becomeFirstResponder
+                        self.view.layoutIfNeeded()
+        },
+                       completion: { (_) in
+        })
+    }
     
 }

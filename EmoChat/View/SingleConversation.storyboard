@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -175,8 +175,8 @@
                                 <rect key="frame" x="0.0" y="624" width="375" height="43"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" scrollEnabled="NO" keyboardDismissMode="interactive" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="6Zs-2n-ZAE">
-                                        <rect key="frame" x="9" y="5" width="324" height="33"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <rect key="frame" x="76" y="5" width="257" height="33"/>
+                                        <color key="backgroundColor" red="0.88235294119999996" green="0.34509803919999998" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="yes"/>
                                         <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
@@ -192,18 +192,46 @@
                                             <action selector="sendMessage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yoK-8e-uNL"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ecr-vb-acB">
+                                        <rect key="frame" x="8" y="9" width="26" height="26"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="26" id="Lkn-qT-zL0"/>
+                                            <constraint firstAttribute="width" secondItem="Ecr-vb-acB" secondAttribute="height" multiplier="1:1" id="cek-3D-eWa"/>
+                                        </constraints>
+                                        <state key="normal" image="emoRequest"/>
+                                        <state key="selected" image="emoRequestFilled"/>
+                                        <connections>
+                                            <action selector="actionEmoRequestButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bgN-bO-cHG"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wVa-ek-TzA">
+                                        <rect key="frame" x="42" y="9" width="26" height="26"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="wVa-ek-TzA" secondAttribute="height" multiplier="1:1" id="BSz-fj-xQ0"/>
+                                            <constraint firstAttribute="height" constant="26" id="YbQ-qk-xtY"/>
+                                        </constraints>
+                                        <state key="normal" image="plusImage"/>
+                                        <state key="selected" image="plusImageFilled"/>
+                                        <connections>
+                                            <action selector="actionPlusButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Pdp-qb-8rU"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="wVa-ek-TzA" firstAttribute="leading" secondItem="Ecr-vb-acB" secondAttribute="trailing" constant="8" id="IUL-hQ-b96"/>
+                                    <constraint firstAttribute="bottom" secondItem="wVa-ek-TzA" secondAttribute="bottom" constant="8" id="J1w-zE-AiL"/>
                                     <constraint firstAttribute="bottom" secondItem="1ze-E8-Yj2" secondAttribute="bottom" constant="8" id="Jkb-Y7-YvZ"/>
                                     <constraint firstItem="6Zs-2n-ZAE" firstAttribute="top" secondItem="guk-1E-8hU" secondAttribute="top" constant="5" id="NWP-hi-RfN"/>
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="110" id="Oku-CM-bai"/>
+                                    <constraint firstAttribute="bottom" secondItem="Ecr-vb-acB" secondAttribute="bottom" constant="8" id="QYp-VJ-9bM"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="43" id="UhG-ts-bW0"/>
                                     <constraint firstAttribute="height" constant="110" id="Vt9-Mo-bkX"/>
                                     <constraint firstItem="1ze-E8-Yj2" firstAttribute="leading" secondItem="6Zs-2n-ZAE" secondAttribute="trailing" constant="8" id="cIk-Yl-8ZS"/>
                                     <constraint firstAttribute="bottom" secondItem="6Zs-2n-ZAE" secondAttribute="bottom" constant="5" id="euq-hg-ADP"/>
-                                    <constraint firstItem="6Zs-2n-ZAE" firstAttribute="leading" secondItem="guk-1E-8hU" secondAttribute="leading" constant="9" id="pDF-73-Zn7"/>
+                                    <constraint firstItem="6Zs-2n-ZAE" firstAttribute="leading" secondItem="wVa-ek-TzA" secondAttribute="trailing" constant="8" id="th9-uk-1R2"/>
                                     <constraint firstAttribute="trailing" secondItem="1ze-E8-Yj2" secondAttribute="trailing" constant="8" id="tv0-K8-GjI"/>
+                                    <constraint firstItem="Ecr-vb-acB" firstAttribute="leading" secondItem="guk-1E-8hU" secondAttribute="leading" constant="8" id="zIa-hW-C0x"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -226,9 +254,12 @@
                     </view>
                     <connections>
                         <outlet property="bottomConstraint" destination="wcy-A5-FQ0" id="YHg-y3-QWv"/>
+                        <outlet property="emoRequestButton" destination="Ecr-vb-acB" id="vLQ-6J-qZO"/>
                         <outlet property="inputSubView" destination="guk-1E-8hU" id="l5T-s4-E2H"/>
+                        <outlet property="plusButton" destination="wVa-ek-TzA" id="O4I-bK-Abv"/>
                         <outlet property="table" destination="vGN-hh-QGI" id="r2b-u7-c3Q"/>
                         <outlet property="textMessage" destination="6Zs-2n-ZAE" id="qd2-x3-wmJ"/>
+                        <outlet property="textMessageLeadingConstraint" destination="th9-uk-1R2" id="pBh-cA-IZP"/>
                         <outlet property="textViewMaxHeightConstraint" destination="Vt9-Mo-bkX" id="dhu-ey-aLi"/>
                     </connections>
                 </viewController>
@@ -241,8 +272,82 @@
             </objects>
             <point key="canvasLocation" x="-836" y="4.9475262368815596"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="2ae-pZ-l3o">
+            <objects>
+                <viewController id="PYU-Sr-AyU" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="f6A-GM-z0p"/>
+                        <viewControllerLayoutGuide type="bottom" id="H4g-ui-phh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="HqB-iP-umK">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EuH-0J-Ucd">
+                                <rect key="frame" x="49" y="74" width="290" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N56-WC-DiL">
+                                        <rect key="frame" x="8" y="7" width="26" height="26"/>
+                                        <state key="normal" image="emoRequest"/>
+                                        <state key="selected" image="emoRequestFilled"/>
+                                        <connections>
+                                            <action selector="actionEmoRequestButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gTl-iw-2MA"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Icd-sg-EZx">
+                                        <rect key="frame" x="97" y="8" width="26" height="26"/>
+                                        <state key="normal" image="emoRequest"/>
+                                        <state key="selected" image="emoRequestFilled"/>
+                                        <connections>
+                                            <action selector="actionEmoRequestButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Yee-c8-j2X"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AKd-fc-nUx">
+                                        <rect key="frame" x="172" y="7" width="26" height="26"/>
+                                        <state key="normal" image="emoRequest"/>
+                                        <state key="selected" image="emoRequestFilled"/>
+                                        <connections>
+                                            <action selector="actionEmoRequestButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1B6-vd-cy6"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r0T-R5-ShA">
+                                        <rect key="frame" x="256" y="8" width="26" height="26"/>
+                                        <state key="normal" image="emoRequest"/>
+                                        <state key="selected" image="emoRequestFilled"/>
+                                        <connections>
+                                            <action selector="actionEmoRequestButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2mI-aF-G7x"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="AKd-fc-nUx" firstAttribute="width" secondItem="AKd-fc-nUx" secondAttribute="height" multiplier="1:1" id="7da-MZ-xRc"/>
+                                    <constraint firstItem="Icd-sg-EZx" firstAttribute="width" secondItem="Icd-sg-EZx" secondAttribute="height" multiplier="1:1" id="Fge-yN-gJo"/>
+                                    <constraint firstItem="r0T-R5-ShA" firstAttribute="width" secondItem="r0T-R5-ShA" secondAttribute="height" multiplier="1:1" id="aia-GW-Tz2"/>
+                                    <constraint firstItem="N56-WC-DiL" firstAttribute="width" secondItem="N56-WC-DiL" secondAttribute="height" multiplier="1:1" id="mqY-6J-Zfy"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fEJ-Dr-Nuf">
+                                <rect key="frame" x="56" y="444" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2v1-gg-Byj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-66" y="352"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="emoRequest" width="66" height="66"/>
+        <image name="emoRequestFilled" width="66" height="66"/>
+        <image name="plusImage" width="66" height="66"/>
+        <image name="plusImageFilled" width="66" height="66"/>
         <image name="sendMessage" width="60" height="60"/>
     </resources>
 </document>
