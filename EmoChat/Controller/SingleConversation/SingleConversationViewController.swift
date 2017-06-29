@@ -5,7 +5,7 @@
 //  Created by Olga Saliy on 20.06.17.
 //  Copyright © 2017 SoftServe. All rights reserved.
 //
-
+import Foundation
 import UIKit
 
 enum RightType {
@@ -138,7 +138,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         table.dataSource = self
         table.delegate = self
         table.estimatedRowHeight = table.rowHeight
@@ -414,29 +413,56 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         //leftCell.blur.alpha = 0
         print("RECORD EMO")
         imagePicker.delegate = self
-        //imagePicker.allowsEditing = false
+        imagePicker.allowsEditing = false
         imagePicker.sourceType = .camera
+     // imagePicker.mediaTypes = [[NSArray alloc] initWithObjects: kUTTypeMovie, nil];
+        imagePicker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .camera)!
+        //imagePicker.mediaTypes = ["kUTTypeMovie"]
         imagePicker.cameraCaptureMode = .video
         imagePicker.cameraDevice = .front
-        imagePicker.startVideoCapture()
-        present(imagePicker, animated: true, completion: nil)
-       
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            
-            imagePicker.stopVideoCapture()
-            self.dismiss(animated:true, completion: nil)
+        //imagePicker.startVideoCapture()
+         imagePicker.showsCameraControls = false
+        self.present(imagePicker, animated: true, completion: {
+            imagePicker.startVideoCapture()
+        
+           
+                Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { _ in
+                    imagePicker.stopVideoCapture()
+                    self.dismiss(animated:true, completion: {
+                    print("COMPLITE")})
+                    
+            }})
 
-        }
+
     }
     
-    private func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
         print("FINISH PROSTO FINISH IMAGEPICKER")
+        
         let tempImage = info[UIImagePickerControllerMediaURL] as! NSURL!
-        let pathString = tempImage?.relativePath
         
-        self.dismiss(animated: true, completion: nil)
+        if let tempImage = info[UIImagePickerControllerMediaURL] as? NSURL {
+            
+            var videoFileURL = tempImage.filePathURL
+            let videoPath = tempImage.path
+            let video = NSData(contentsOfMappedFile: videoPath!)
+            
+            let video1 = NSData.init(contentsOf: videoFileURL!, options: .NSDataReadingMappedAlways)
+            
+            print("VIDEO \(String(describing: video))")
+            print("VIDEO PATH \(videoPath!)")
+            //print("VIDEO FILE URL \(videoFileURL!)")
+            UISaveVideoAtPathToSavedPhotosAlbum(videoPath!, self, nil, nil)
+
+        }
         
-        UISaveVideoAtPathToSavedPhotosAlbum(pathString!, self, nil, nil)
-        print(pathString!)
+      //  let pathString = tempImage?.relativePath
+        
+        //UISaveVideoAtPathToSavedPhotosAlbum(vid!, self, nil, nil)
+
+      //  print("PATH STRING \(pathString!)")
+
     }
-}
+
+    }
