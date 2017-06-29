@@ -117,7 +117,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         }
         self.setUpTextView()
         manager = ManagerFirebase.shared
-        /*
+        
         if self.currentConversation != nil {
             group.enter()
             manager?.getUsersInConversation(conversation: self.currentConversation, completion: { (users) in
@@ -157,9 +157,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             })
         })
     
-        //print(self.currentConversation.uuid)
-       
-        */
+        print(self.currentConversation.uuid)
         
         setupKeyboardObservers()
     }

@@ -32,15 +32,17 @@
                                 <constraint firstAttribute="width" secondItem="uN0-fV-4QV" secondAttribute="height" multiplier="1:1" id="KBE-do-vwA"/>
                             </constraints>
                             <state key="normal" image="cameraImage"/>
+                            <state key="selected" image="cameraFilled"/>
                             <state key="highlighted" image="cameraFilled"/>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ff2-ck-JM3">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o4Z-5K-Pbs">
                             <rect key="frame" x="72.5" y="0.0" width="40" height="40"/>
                             <constraints>
-                                <constraint firstAttribute="width" secondItem="ff2-ck-JM3" secondAttribute="height" multiplier="1:1" id="ebx-ov-mgH"/>
+                                <constraint firstAttribute="width" secondItem="o4Z-5K-Pbs" secondAttribute="height" multiplier="1:1" id="Clc-K4-4pE"/>
                             </constraints>
-                            <state key="normal" image="geolocationImage"/>
-                            <state key="highlighted" image="geoLocationFilled"/>
+                            <state key="normal" image="pictureImage"/>
+                            <state key="selected" image="pictureFilled"/>
+                            <state key="highlighted" image="pictureFilled"/>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pnh-CD-xPm">
                             <rect key="frame" x="144.5" y="0.0" width="40" height="40"/>
@@ -48,15 +50,17 @@
                                 <constraint firstAttribute="width" secondItem="pnh-CD-xPm" secondAttribute="height" multiplier="1:1" id="Nfp-mB-Fsg"/>
                             </constraints>
                             <state key="normal" image="attachImage"/>
+                            <state key="selected" image="attachFilled"/>
                             <state key="highlighted" image="attachFilled"/>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o4Z-5K-Pbs">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ff2-ck-JM3">
                             <rect key="frame" x="217" y="0.0" width="40" height="40"/>
                             <constraints>
-                                <constraint firstAttribute="width" secondItem="o4Z-5K-Pbs" secondAttribute="height" multiplier="1:1" id="Clc-K4-4pE"/>
+                                <constraint firstAttribute="width" secondItem="ff2-ck-JM3" secondAttribute="height" multiplier="1:1" id="ebx-ov-mgH"/>
                             </constraints>
-                            <state key="normal" image="pictureImage"/>
-                            <state key="highlighted" image="pictureFilled"/>
+                            <state key="normal" image="geolocationImage"/>
+                            <state key="selected" image="geoLocationFilled"/>
+                            <state key="highlighted" image="geoLocationFilled"/>
                         </button>
                     </subviews>
                 </stackView>
