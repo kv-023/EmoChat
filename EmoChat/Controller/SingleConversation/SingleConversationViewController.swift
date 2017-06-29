@@ -24,32 +24,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     @IBOutlet weak var textMessage: UITextView!
     
-    @IBAction func sendMessage(_ sender: UIButton) {
-        
-        let result:MessageOperationResult? = manager?.createMessage(conversation: currentConversation!, sender: currentUser, content: (.text, textMessage.text))
-        
-        switch (result!) {
-        case .successSingleMessage(let message):
-            insertRow((message, .right(.sending)))
-        case .failure(let string):
-            print(string)
-        default:
-            break
-        }
-        
-        if !messagesArray.isEmpty {
-            self.table.scrollToRow(at: IndexPath.init(row: messagesArray.count - 1, section: 0), at: .top, animated: false)
-        }
-        //clean textView
-        
-        textMessage.text = ""
-        
-        textMessage.isScrollEnabled = false;
-        self.textViewMaxHeightConstraint.isActive = false
-        
-        firstMessage = messagesArray[0].0
-        
-    }
+    @IBOutlet weak var table: UITableView!
     
     var manager: ManagerFirebase?
     
@@ -63,70 +38,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     var refresher: UIRefreshControl!
     
-    @IBOutlet weak var table: UITableView!
-    
-    func updateUI() {
-        firstMessage = messagesArray.first?.0
-        manager?.getBunchOfMessages(in: currentConversation, startingFrom: (firstMessage?.uid)!, count: 20, result: { (result) in
-            var arrayOfMessagesAndTypes = [(Message, UserType)] ()
-            for each in result {
-                if (self.manager?.isMessageFromCurrentUser(each))! {
-                    arrayOfMessagesAndTypes.append((each, .right(.sent)))
-                } else {
-                    arrayOfMessagesAndTypes.append((each, .left))
-                }
-            }
-            self.insertRows(arrayOfMessagesAndTypes)
-            self.table.scrollToRow(at: IndexPath.init(row: 19, section: 0), at: .top, animated: false)
-        })
-        refresher.endRefreshing()
-        //download 20 last messages
-    }
-    
-    func insertRow(_ newMessage: (Message, UserType)) {
-        messagesArray.append((newMessage.0, newMessage.1))
-        table.beginUpdates()
-        table.insertRows(at: [IndexPath(row: messagesArray.count - 1, section: 0)], with: .automatic)
-        table.endUpdates()
-    }
-    
-    func insertRows (_ newMessages: [(Message, UserType)]) {
-        self.table.beginUpdates()
-        var indexPaths: [IndexPath] = []
-        for i in 0..<newMessages.count {
-            indexPaths.append(IndexPath(row: i, section: 0))
-        }
-        messagesArray = newMessages + messagesArray
-        table.insertRows(at: indexPaths, with: .automatic)
-        
-        self.table.endUpdates()
-    }
-    
-    
-    //MARK: - photos
-    
-    var photosArray: [String: UIImage] = [:]
-    
-    var group = DispatchGroup()
-    
-    func downloadPhotos () {
-        
-        for member in currentConversation.usersInConversation{
-            group.enter()
-            manager?.getUserPic(from: member.photoURL!, result: { (result) in
-                switch result {
-                case .successUserPic(let image):
-                    self.photosArray.updateValue(image, forKey: member.uid)
-                case .failure(let error) :
-                    print(error)
-                default:
-                    break
-                }
-                self.group.leave()
-            })
-            
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -182,20 +93,117 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 }
             })
         })
-    
+        
         print(self.currentConversation.uuid)
-
+        
         setupKeyboardObservers()
     }
-
+    
+    
+    @IBAction func sendMessage(_ sender: UIButton) {
+        
+        let result:MessageOperationResult? = manager?.createMessage(conversation: currentConversation!, sender: currentUser, content: (.text, textMessage.text))
+        
+        switch (result!) {
+        case .successSingleMessage(let message):
+            insertRow((message, .right(.sending)))
+        case .failure(let string):
+            print(string)
+        default:
+            break
+        }
+        
+        if !messagesArray.isEmpty {
+            self.table.scrollToRow(at: IndexPath.init(row: messagesArray.count - 1, section: 0), at: .top, animated: false)
+        }
+        //clean textView
+        
+        textMessage.text = ""
+        
+        textMessage.isScrollEnabled = false;
+        self.textViewMaxHeightConstraint.isActive = false
+        
+        firstMessage = messagesArray[0].0
+        
+    }
+    
+    //download 20 last messages
+    func updateUI() {
+        if let firstMessage = messagesArray.first?.0 {
+            manager?.getBunchOfMessages(in: currentConversation, startingFrom: firstMessage.uid!, count: 20, result: { (result) in
+                var arrayOfMessagesAndTypes = [(Message, UserType)] ()
+                for each in result {
+                    if (self.manager?.isMessageFromCurrentUser(each))! {
+                        arrayOfMessagesAndTypes.append((each, .right(.sent)))
+                    } else {
+                        arrayOfMessagesAndTypes.append((each, .left))
+                    }
+                }
+                self.insertRows(arrayOfMessagesAndTypes)
+                self.table.scrollToRow(at: IndexPath.init(row: 19, section: 0), at: .top, animated: false)
+            })
+            refresher.endRefreshing()
+        }
+    }
+    
+    func insertRow(_ newMessage: (Message, UserType)) {
+        messagesArray.append((newMessage.0, newMessage.1))
+        table.beginUpdates()
+        table.insertRows(at: [IndexPath(row: messagesArray.count - 1, section: 0)], with: .automatic)
+        table.endUpdates()
+    }
+    
+    func insertRows (_ newMessages: [(Message, UserType)]) {
+        self.table.beginUpdates()
+        var indexPaths: [IndexPath] = []
+        for i in 0..<newMessages.count {
+            indexPaths.append(IndexPath(row: i, section: 0))
+        }
+        messagesArray = newMessages + messagesArray
+        table.insertRows(at: indexPaths, with: .automatic)
+        
+        self.table.endUpdates()
+    }
+    
+    
+    //MARK: - photos
+    
+    var photosArray: [String: UIImage] = [:]
+    
+    var group = DispatchGroup()
+    
+    func downloadPhotos () {
+        
+        for member in currentConversation.usersInConversation{
+            group.enter()
+            if let photoURL = member.photoURL {
+                manager?.getUserPic(from: photoURL, result: { (result) in
+                    switch result {
+                    case .successUserPic(let image):
+                        self.photosArray.updateValue(image, forKey: member.uid)
+                    case .failure(let error) :
+                        print(error)
+                    default:
+                        break
+                    }
+                    self.group.leave()
+                })
+            }
+            else {
+                self.photosArray.updateValue(UIImage(named: "question_mark")!, forKey: member.uid)
+                self.group.leave()
+            }
+        }
+    }
+    
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        if tableView.isDragging {
-//            cell.transform = CGAffineTransform.init(scaleX: 0.8, y: 0.8)
-//            UIView.animate(withDuration: 0.3, animations: {
-//                cell.transform = CGAffineTransform.identity
-//            })
-//        }
+        if tableView.isDragging {
+            cell.transform = CGAffineTransform.init(scaleX: 0.8, y: 0.8)
+            UIView.animate(withDuration: 0.3, animations: {
+                cell.transform = CGAffineTransform.identity
+            })
+        }
     }
     
     
@@ -210,8 +218,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-       
-
+        
         let message = messagesArray[indexPath.row]
         switch message.1 {
         case .left:
@@ -241,7 +248,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         }
     }
     
-    // MARK: - Context Menu
+    
     
     //MARK: - text view
     
@@ -304,8 +311,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var viewOnTable: UIView!
-    
     func setupKeyboardObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: .UIKeyboardWillHide, object: nil)
@@ -359,14 +364,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         NotificationCenter.default.removeObserver(self)
     }
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    
     
 }
