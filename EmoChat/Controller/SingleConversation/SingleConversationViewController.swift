@@ -18,7 +18,7 @@ enum UserType {
     case right (RightType)
 }
 
-class SingleConversationViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate, tableDelegate {
+class SingleConversationViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var inputSubView: UIView!
     
@@ -64,17 +64,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     var refresher: UIRefreshControl!
     
     @IBOutlet weak var table: UITableView!
-    
-    func tableDelegate(_ sender: UITableViewCell, inView view: UIView) {
-        view.becomeFirstResponder()
-        let menu = UIMenuController.shared
-        if let cell = sender as? LeftCell {
-            menu.setTargetRect(cell.message.frame, in: view)
-        } else if let cell = sender as? RightCell {
-           menu.setTargetRect(cell.message.frame, in: view)
-        }
-        menu.setMenuVisible(true, animated: true)
-    }
     
     func updateUI() {
         firstMessage = messagesArray.first?.0
@@ -233,8 +222,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             cell.time.text = message.0.time.formatDate()
             cell.userPic.image = self.photosArray[message.0.senderId]
             
-            cell.delegate = self
-            
             return cell
         case .right:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "Right", for: indexPath) as? RightCell else {
@@ -250,7 +237,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             default:
                 break
             }
-            cell.delegate = self
             return cell
         }
     }

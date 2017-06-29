@@ -8,10 +8,6 @@
 
 import UIKit
 
-protocol tableDelegate {
-    func tableDelegate(_ sender: UITableViewCell, inView view: UIView)
-}
-
 class SpecialTextView: UITextView, UITextViewDelegate {
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         switch action {
@@ -41,8 +37,6 @@ class LeftCell: UITableViewCell, UITextViewDelegate {
     @IBOutlet weak var message: SpecialTextView!
     @IBOutlet weak var background: UIImageView!
     
-    var delegate: tableDelegate?
-    
     var messageEntity: Message? {
         didSet {
             message.text = messageEntity!.content!.content
@@ -61,7 +55,10 @@ class LeftCell: UITableViewCell, UITextViewDelegate {
     
     func handler(_ sender: UILongPressGestureRecognizer) {
         if sender.state == UIGestureRecognizerState.began {
-            delegate?.tableDelegate(self, inView: sender.view!)
+            sender.view!.becomeFirstResponder()
+            let menu = UIMenuController.shared
+            menu.setTargetRect(message.frame, in: self)
+            menu.setMenuVisible(true, animated: true)
         }
     }
 }
@@ -72,8 +69,6 @@ class RightCell: UITableViewCell {
     @IBOutlet weak var time: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var message: SpecialTextView!
-    
-    var delegate: tableDelegate?
     
     var isReceived = false {
         didSet {
@@ -110,8 +105,11 @@ class RightCell: UITableViewCell {
     }
     
     func handler(_ sender: UILongPressGestureRecognizer) {
-        if sender.state == UIGestureRecognizerState.began {
-            delegate?.tableDelegate(self, inView: sender.view!)
+        if sender.state == UIGestureRecognizerState.ended {
+            sender.view!.becomeFirstResponder()
+            let menu = UIMenuController.shared
+            menu.setTargetRect(message.frame, in: self)
+            menu.setMenuVisible(true, animated: true)
         }
     }
 }
