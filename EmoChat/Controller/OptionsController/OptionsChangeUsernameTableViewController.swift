@@ -47,7 +47,9 @@ RegexCheckProtocol {
     // MARK: - Save to firebase
     func saveUserName(sender: UIBarButtonItem) {
         if  usernameIsValid(userName: changeUsernameTextField.text){
-            currentUser.changeUsername(newUsername: changeUsernameTextField.text!)
+//            currentUser.changeUsername(newUsername: changeUsernameTextField.text!)
+//            currentUser.cha(phoneNumber: changeNumberTextField.text)
+
         }
         
         //Back to previous vc

@@ -33,8 +33,9 @@ class OptionsChangePhotoNameSecondNameTableViewController: UITableViewController
         firstNameTextField.text = currentUser.currentUser?.firstName
         lastNaneTexField.text = currentUser.currentUser?.secondName
         
-//        manager.getUserPicFullResolution(from: currentUser.photoURL!) {
-//            result in
+        
+        //        manager.getUserPicFullRes(olution((from: currentUser.photoU)!RL!) {
+        //)!            result in
 //            switch result {
 //            case .successUserPic(let image):
 //                self.userPhotoView.image = image

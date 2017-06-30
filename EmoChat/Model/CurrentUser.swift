@@ -15,7 +15,8 @@ class CurrentUser {
     var currentUser: User?
     var manager: ManagerFirebase!
     
-    private init(){}
+    
+    private init() {}
     
     // MARK: -  Temporary functions
     func tempLogIn() {
@@ -117,32 +118,10 @@ class CurrentUser {
         }
     }
     
-//    getUserPicFullResolution
-    
-    
-    // MARK: - Change username
-    func changeUsername(newUsername: String) {
-        manager = ManagerFirebase.shared
-        manager.changeUsername(newUsername: newUsername) {
-            result in
-            switch result {
-            case .success:
-                print ("success change username in firebase")
-                
-                //Save new username to singleton current user
-                self.currentUser?.username = newUsername
-                print("success change username in singleton current user")
-                
-            case .failure(let error):
-                print(error)
-            default:
-                break
-            }
-        }
-    }
     
     // MARK: - Change email
     func changeEmail(newEmail: String) {
+        manager = ManagerFirebase.shared
         manager.changeUsersEmail(email: newEmail) {
             result in
             switch result {
@@ -160,11 +139,14 @@ class CurrentUser {
             }
         }
     }
-
     
-
-
-
-
-
+    
+    // MARK: - Change username
+    
+    
+    
+    
+    
+    
+    
 }
