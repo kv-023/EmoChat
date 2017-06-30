@@ -13,6 +13,8 @@
 		3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2731EDC27C700D69F88 /* Main.storyboard */; };
 		3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2761EDC27C700D69F88 /* Assets.xcassets */; };
 		3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */; };
+		45F3C0D61F06555000467C4F /* AudioMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F3C0D51F06555000467C4F /* AudioMessageViewController.swift */; };
+		45F3C0DA1F06559C00467C4F /* testAudioMessage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45F3C0D91F06559C00467C4F /* testAudioMessage.storyboard */; };
 		746478FA29F53658399EE02D /* Pods_EmoChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */; };
 		84247A391EE9CDA6009E8167 /* GlobalUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84247A381EE9CDA6009E8167 /* GlobalUserCell.swift */; };
 		842E8B6C1EF931C900CA3BF2 /* ConversationsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E8B6B1EF931C900CA3BF2 /* ConversationsDataSource.swift */; };
@@ -74,6 +76,8 @@
 		3938C2761EDC27C700D69F88 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3938C2791EDC27C700D69F88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3938C27B1EDC27C700D69F88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		45F3C0D51F06555000467C4F /* AudioMessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioMessageViewController.swift; path = AudioMessage/AudioMessageViewController.swift; sourceTree = "<group>"; };
+		45F3C0D91F06559C00467C4F /* testAudioMessage.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = testAudioMessage.storyboard; path = AudioMessage/testAudioMessage.storyboard; sourceTree = "<group>"; };
 		5E5B970584D3FF3821DB6225 /* Pods-EmoChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmoChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmoChat/Pods-EmoChat.release.xcconfig"; sourceTree = "<group>"; };
 		6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmoChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84247A381EE9CDA6009E8167 /* GlobalUserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalUserCell.swift; sourceTree = "<group>"; };
@@ -195,6 +199,15 @@
 				6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		45F3C0D81F06556800467C4F /* AudioMessage */ = {
+			isa = PBXGroup;
+			children = (
+				45F3C0D51F06555000467C4F /* AudioMessageViewController.swift */,
+				45F3C0D91F06559C00467C4F /* testAudioMessage.storyboard */,
+			);
+			name = AudioMessage;
 			sourceTree = "<group>";
 		};
 		84312F911EE94F9F00FAC4D1 /* SearchUsersController */ = {
@@ -354,6 +367,7 @@
 		FB982DDE1EE156B700AC2FCD /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				45F3C0D81F06556800467C4F /* AudioMessage */,
 				84A3C8CE1EF878AA001A9A19 /* ConversationsController */,
 				CC13C5E91EF9225600B38E59 /* SingleConversation */,
 				35C9507B1EF7D733006FA7E6 /* Extensions */,
@@ -449,6 +463,7 @@
 				3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */,
 				FB982DDB1EE1569700AC2FCD /* SignUp.storyboard in Resources */,
 				ED1E2D941EDD75B20058B6A6 /* GoogleService-Info.plist in Resources */,
+				45F3C0DA1F06559C00467C4F /* testAudioMessage.storyboard in Resources */,
 				FB982DDD1EE1569700AC2FCD /* UserInfo.storyboard in Resources */,
 				FB982DDC1EE1569700AC2FCD /* SingleConversation.storyboard in Resources */,
 				FB982DD71EE1569700AC2FCD /* Conversations.storyboard in Resources */,
@@ -549,6 +564,7 @@
 				E7352C291EDED52B0095264E /* User.swift in Sources */,
 				E7352C2B1EE0139E0095264E /* ModelGenericHelper.swift in Sources */,
 				FB4317731EE6C24400770338 /* SignUpFirstViewController.swift in Sources */,
+				45F3C0D61F06555000467C4F /* AudioMessageViewController.swift in Sources */,
 				E7352C3A1EE81CB60095264E /* RegexCheckProtocol.swift in Sources */,
 				CC13C5ED1EF929AF00B38E59 /* CustomTableViewCell.swift in Sources */,
 				84A3C8D51EF89538001A9A19 /* MessageConversationCell.swift in Sources */,
