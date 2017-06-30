@@ -30,24 +30,55 @@ import UIKit
 //    }
 //}
 
-protocol tableDelegate {
-    func tableDelegate(_ sender: UITableViewCell, withRecognizer recognizer: UILongPressGestureRecognizer)
-}
 
-class LeftCell: UITableViewCell, UITextViewDelegate {
-
+class CustomTableViewCell: UITableViewCell {
+    
     @IBOutlet weak var userPic: UIImageView!
     @IBOutlet weak var time: UILabel!
     @IBOutlet weak var message: UITextView!
     @IBOutlet weak var background: UIImageView!
     
-    var delegate: tableDelegate!
+    var delegate: CellDelegate!
     
-    var messageEntity: Message? {
-        didSet {
-            message.text = messageEntity!.content!.content
+    var messageEntity: Message {
+        get {
+            return _messageEntity
+        }
+        
+        set {
+            _messageEntity = newValue
+            //TODO: check type of content
+            message.text = newValue.content!.content
         }
     }
+    
+    var contentRect: CGRect {
+        get {
+            return message.frame
+        }
+    }
+    
+    func handler(_ recognizer: UILongPressGestureRecognizer) {
+        if recognizer.state == .began {
+            delegate.cellDelegate(self, didHandle: .longPress)
+        }
+    }
+    
+    private var _messageEntity: Message!
+}
+
+// MARK: - Actions
+
+enum Action {
+    case longPress
+    // Other actions
+}
+
+protocol CellDelegate {
+    func cellDelegate(_ sender: UITableViewCell, didHandle action: Action)
+}
+
+class LeftCell: CustomTableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -59,29 +90,20 @@ class LeftCell: UITableViewCell, UITextViewDelegate {
         super.setSelected(selected, animated: animated)
     }
     
-    func handler(_ sender: UILongPressGestureRecognizer) {
-        if sender.state == UIGestureRecognizerState.began {
-            delegate.tableDelegate(self, withRecognizer: sender)
-        }
-    }
+
 }
 
-class RightCell: UITableViewCell {
+class RightCell: CustomTableViewCell {
     
-    @IBOutlet weak var userPic: UIImageView!
-    @IBOutlet weak var time: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var message: UITextView!
-    
-    var delegate: tableDelegate!
-    
+
     var isReceived = false {
         didSet {
             if isReceived {
                 activityIndicator.stopAnimating()
                 activityIndicator.isHidden = true
                 time.isHidden = false
-                time.text = messageEntity?.time.formatDate()
+                time.text = messageEntity.time.formatDate()
 
             } else {
                 time.isHidden = true
@@ -89,12 +111,6 @@ class RightCell: UITableViewCell {
                 activityIndicator.startAnimating()
 
             }
-        }
-    }
-    
-    var messageEntity: Message? {
-        didSet {
-            message.text = messageEntity!.content!.content            
         }
     }
     
@@ -109,9 +125,4 @@ class RightCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func handler(_ sender: UILongPressGestureRecognizer) {
-        if sender.state == UIGestureRecognizerState.began {
-            delegate.tableDelegate(self, withRecognizer: sender)
-        }
-    }
 }

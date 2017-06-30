@@ -18,7 +18,25 @@ enum UserType {
     case right (RightType)
 }
 
-class SingleConversationViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate, tableDelegate {
+extension SingleConversationViewController : CellDelegate {
+    func cellDelegate(_ sender: UITableViewCell, didHandle action: Action) {
+        if action == .longPress {
+        //recognizer.view!.becomeFirstResponder()
+        let menu = UIMenuController.shared
+        
+        if let cell = sender as? LeftCell {
+            menu.setTargetRect(cell.message.frame, in: cell)
+            messageRecognized = cell.messageEntity
+        } else if let cell = sender as? RightCell {
+            menu.setTargetRect(cell.message.frame, in: cell)
+            messageRecognized = cell.messageEntity
+        }
+        menu.setMenuVisible(true, animated: true)
+    }
+    }
+}
+
+class SingleConversationViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate{
     
     @IBOutlet weak var inputSubView: UIView!
     
@@ -40,17 +58,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     var messageRecognized: Message!
     
-    func tableDelegate(_ sender: UITableViewCell, withRecognizer recognizer: UILongPressGestureRecognizer) {
-        recognizer.view!.becomeFirstResponder()
-        let menu = UIMenuController.shared
-        if let cell = sender as? LeftCell {
-            menu.setTargetRect(cell.message.frame, in: cell)
-            messageRecognized = cell.messageEntity
-        } else if let cell = sender as? RightCell {
-            menu.setTargetRect(cell.message.frame, in: cell)
-            messageRecognized = cell.messageEntity
-        }
-        menu.setMenuVisible(true, animated: true)
+    override var canBecomeFirstResponder: Bool {
+        return true
     }
     
     func removeAtUid(_ uid: String) {
