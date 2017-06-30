@@ -12,14 +12,12 @@ class OptionsChangeEmailTableViewController: UITableViewController, UITextFieldD
     
     @IBOutlet weak var changeEmailTextField: UITextField!
     @IBOutlet weak var infoLabel: UILabel!
-    var currentUser: User!
-    var manager: ManagerFirebase!
-    
+    var currentUser: CurrentUser!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //Manager firebase
-        manager = ManagerFirebase.shared
+        currentUser = CurrentUser.shared
         
         //Add right button item "Save"
         let rightButtonItem = UIBarButtonItem.init(barButtonSystemItem: .save, target: self, action: #selector(saveEmail))
@@ -30,7 +28,7 @@ class OptionsChangeEmailTableViewController: UITableViewController, UITextFieldD
         self.hideKeyboard()
         
         //Add current user email in textfield
-        changeEmailTextField.text = currentUser.email
+        changeEmailTextField.text = currentUser.currentUser?.email
     }
     
     // MARK: - Action
@@ -46,22 +44,12 @@ class OptionsChangeEmailTableViewController: UITableViewController, UITextFieldD
     // MARK: - Save to firebase
     func saveEmail(sender: UIBarButtonItem) {
         if emailIsValid(userEmail: changeEmailTextField.text){
-            manager.changeUsersEmail(email: changeEmailTextField.text!) {
-                result in
-                switch result {
-                case .success:
-                    print ("success change email")
-                    //back to previous vc
-                    if let navController = self.navigationController {
-                        navController.popViewController(animated: true)
-                    }
-                case .failure(let error):
-                    print(error)
-                    self.infoLabel.text = error
-                default:
-                    break
-                }
-            }
+            currentUser.changeEmail(newEmail: changeEmailTextField.text!)
+        }
+        
+        //Back to previous vc
+        if let navController = self.navigationController {
+            navController.popViewController(animated: true)
         }
     }
 }

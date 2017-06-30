@@ -14,15 +14,14 @@ class OptionsChangePhotoNameSecondNameTableViewController: UITableViewController
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNaneTexField: UITextField!
     @IBOutlet weak var infoLabel: UILabel!
-    var currentUser: User!
-    var manager: ManagerFirebase!
+    var currentUser: CurrentUser!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //Manager firebase
-        manager = ManagerFirebase.shared
-        
+        currentUser = CurrentUser.shared
+
         //Add rigth button item
         let rightButtonItem = UIBarButtonItem.init(barButtonSystemItem: .save, target: self, action: #selector(saveInformation))
         self.navigationItem.rightBarButtonItem = rightButtonItem
@@ -31,44 +30,26 @@ class OptionsChangePhotoNameSecondNameTableViewController: UITableViewController
         self.hideKeyboard()
         
         //Add info in view controller
-        firstNameTextField.text = currentUser.firstName
-        lastNaneTexField.text = currentUser.secondName
+        firstNameTextField.text = currentUser.currentUser?.firstName
+        lastNaneTexField.text = currentUser.currentUser?.secondName
         
-        manager.getUserPicFullResolution(from: currentUser.photoURL!) {
-            result in
-            switch result {
-            case .successUserPic(let image):
-                self.userPhotoView.image = image
-            case . failure(let error):
-                print(error)
-            default:
-                break
-            }
-        }
+//        manager.getUserPicFullResolution(from: currentUser.photoURL!) {
+//            result in
+//            switch result {
+//            case .successUserPic(let image):
+//                self.userPhotoView.image = image
+//            case . failure(let error):
+//                print(error)
+//            default:
+//                break
+//            }
+//        }
     }
     
     func saveInformation(sender: UIBarButtonItem) {
         if nameIsValid(uname: firstNameTextField.text!) &&
             lastNameIsValid(uname: lastNaneTexField.text!){
-            manager?.changeInfo(phoneNumber: nil,
-                                firstName: firstNameTextField.text,
-                                secondName:lastNaneTexField.text) {
-                                    result in
-                                    switch result {
-                                    case .success:
-                                        print("success change name and lastname")
-                                        //Back to previous VC
-                                        if let navController = self.navigationController {
-                                            navController.popViewController(animated: true)
-                                        }
-                                    case .failure(let error):
-                                        print(error)
-                                        self.infoLabel.text = error
-                                    default:
-                                        break
-                                    }
             
-        }
     }
 }
 
@@ -85,18 +66,18 @@ func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMe
     userPhotoView.image = chosenImage
     
     //Add image to firebase
-    manager?.addPhoto(chosenImage, previous: nil) {
-        result in
-        switch result {
-        case .success:
-            print("photo save normal")
-            break
-        case .failure(let error):
-            print("\(error) fail saving photo")
-        default:
-            break
-        }
-    }
+//    manager?.addPhoto(chosenImage, previous: nil) {
+//        result in
+//        switch result {
+//        case .success:
+//            print("photo save normal")
+//            break
+//        case .failure(let error):
+//            print("\(error) fail saving photo")
+//        default:
+//            break
+//        }
+//    }
     //Dissmiss image picker
     self.dismiss(animated:true, completion: nil)
 }

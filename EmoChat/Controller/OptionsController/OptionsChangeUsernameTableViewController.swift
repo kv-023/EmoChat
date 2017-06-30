@@ -13,15 +13,13 @@ RegexCheckProtocol {
     
     @IBOutlet weak var changeUsernameTextField: UITextField!
     @IBOutlet weak var infoLabel: UILabel!
-    var currentUser: User!
-    var manager: ManagerFirebase!
+    var currentUser: CurrentUser!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //Manager firebase
-        manager = ManagerFirebase.shared
-        
+        currentUser = CurrentUser.shared
         
         //Init rigth button item
         let rightButtonItem = UIBarButtonItem.init(barButtonSystemItem: .save, target: self, action: #selector(saveUserName))
@@ -30,9 +28,8 @@ RegexCheckProtocol {
         //Hide keybord ot tap
         self.hideKeyboard()
         
-        
         //Show current username in textfield
-        changeUsernameTextField.text = currentUser.username
+        changeUsernameTextField.text = currentUser.currentUser?.username
     }
     
     // MARK: - Actions
@@ -50,22 +47,13 @@ RegexCheckProtocol {
     // MARK: - Save to firebase
     func saveUserName(sender: UIBarButtonItem) {
         if  usernameIsValid(userName: changeUsernameTextField.text){
-            manager.changeUsername(newUsername: changeUsernameTextField.text!) {
-                result in
-                switch result {
-                case .success:
-                    print ("success change username")
-                    //back to previous vc
-                    if let navController = self.navigationController {
-                        navController.popViewController(animated: true)
-                    }
-                case .failure(let error):
-                    print(error)
-                    self.infoLabel.text = error
-                default:
-                    break
-                }
-            }
+            currentUser.changeUsername(newUsername: changeUsernameTextField.text!)
+        }
+        
+        //Back to previous vc
+        if let navController = self.navigationController {
+            navController.popViewController(animated: true)
+            
         }
     }
 }
