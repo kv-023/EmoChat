@@ -66,8 +66,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     }
     
     func deleteMessage(_ target: Message) {
-        //removeAtUid(target.uid!)
-        //table.reloadData()
         manager?.deleteMessage(target.uid!, from: currentConversation)
     }
     
@@ -83,7 +81,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     }
     
     override func copy(_ sender: Any?) {
-        UIPasteboard.general.setValue(messageRecognized.content!.content, forPasteboardType: "TEXT")
+        UIPasteboard.general.string = messageRecognized.content!.content
+            //.setValue(messageRecognized.content!.content, forPasteboardType: "TEXT")
     }
     
     override func delete(_ sender: Any?) {
@@ -118,38 +117,11 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         })
         
         
-        
         group.notify(queue: DispatchQueue.main, execute: {
-            self.manager?.getMessageFromConversation([self.currentConversation], result: { (conv, newMessage) in
-                if let lastMessageTime = self.messagesArray.last?.0.time {
-                    if lastMessageTime > newMessage.time {
-                        return
-                    }
-                }
-                if let res = self.manager?.isMessageFromCurrentUser(newMessage) {
-                    if res == true {
-                        
-                        let index = self.messagesArray.index(where: { (message, typeRight) -> Bool in
-                            message.uid == newMessage.uid
-                        })
-                        
-                        if let i = index, let item = (self.table.cellForRow(at: IndexPath.init(row: i, section: 0)) as? RightCell) {
-                            item.isReceived = true
-                            self.messagesArray[i].1 = .right(.sent)
-                        } else {
-                            self.insertRow((newMessage, .right(.sent)))
-                        }
-                        
-                    } else {
-                        self.insertRow((newMessage, .left))
-                    }
-                    
-                }
-                if !self.messagesArray.isEmpty {
-                    self.table.scrollToRow(at: IndexPath.init(row: self.messagesArray.count - 1, section: 0), at: .top, animated: false)
-                }
-            })
+            self.observeNewMessage()
         })
+        
+        self.observeDeletion()
         
         print(self.currentConversation.uuid)
         
@@ -157,16 +129,47 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         
         self.setUpFrame()
         
+        
+    }
+    
+    
+    //functionality
+    func observeDeletion () {
         manager?.observeDeletionOfMessages(in: currentConversation) { uid in
             self.removeAtUid(uid)
         }
     }
     
-    func setUpFrame() {
-        if let rect = self.navigationController?.navigationBar.frame {
-            let y = rect.size.height + rect.origin.y
-            table.frame = CGRect(x: table.frame.minX, y: table.frame.minY + y, width: table.frame.width, height: table.frame.height - y)
-        }
+    func observeNewMessage () {
+        self.manager?.getMessageFromConversation([self.currentConversation], result: { (conv, newMessage) in
+            if let lastMessageTime = self.messagesArray.last?.0.time {
+                if lastMessageTime > newMessage.time {
+                    return
+                }
+            }
+            if let res = self.manager?.isMessageFromCurrentUser(newMessage) {
+                if res == true {
+                    
+                    let index = self.messagesArray.index(where: { (message, typeRight) -> Bool in
+                        message.uid == newMessage.uid
+                    })
+                    
+                    if let i = index, let item = (self.table.cellForRow(at: IndexPath.init(row: i, section: 0)) as? RightCell) {
+                        item.isReceived = true
+                        self.messagesArray[i].1 = .right(.sent)
+                    } else {
+                        self.insertRow((newMessage, .right(.sent)))
+                    }
+                    
+                } else {
+                    self.insertRow((newMessage, .left))
+                }
+                
+            }
+            if !self.messagesArray.isEmpty {
+                self.table.scrollToRow(at: IndexPath.init(row: self.messagesArray.count - 1, section: 0), at: .top, animated: false)
+            }
+        })
     }
     
     @IBAction func sendMessage(_ sender: UIButton) {
@@ -198,11 +201,10 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     //download 20 last messages
     func updateUI() {
-        //self.table.isScrollEnabled = false
         if let firstMessage = messagesArray.first?.0 {
             self.refresher.endRefreshing()
-            var initialOffset = self.table.contentOffset.y
-            //var contentOffset = self.table.contentOffset
+            let initialOffset = self.table.contentOffset.y
+            
             manager?.getBunchOfMessages(in: currentConversation, startingFrom: firstMessage.uid!, count: 20, result: { (result) in
                 var arrayOfMessagesAndTypes = [(Message, UserType)] ()
                 for each in result {
@@ -213,45 +215,14 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                     }
                 }
                 self.insertRows(arrayOfMessagesAndTypes)
-                
-                
                 self.table.reloadData()
-                //@numberOfCellsAdded: number of items added at top of the table
                 self.table.scrollToRow(at: IndexPath.init(row: arrayOfMessagesAndTypes.count+1, section: 0), at: .top, animated: false)
                 self.table.contentOffset.y += initialOffset
-                //contentOffset = self.table.contentOffset
-                //self.table.scrollToRow(at: IndexPath.init(row: 19, section: 0), at: .top, animated: false)
             })
-            
-            
-            //self.reloadTableView(contentOffset)
-            //self.table.scrollToRow(at: IndexPath.init(row: 19, section: 0), at: .top, animated: false)
         }
     }
-    
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        self.table.bounces = (self.table.contentOffset > 100)
-//    }
-    
-    func insertRow(_ newMessage: (Message, UserType)) {
-        messagesArray.append((newMessage.0, newMessage.1))
-        table.beginUpdates()
-        table.insertRows(at: [IndexPath(row: messagesArray.count - 1, section: 0)], with: .automatic)
-        table.endUpdates()
-    }
-    
-    func insertRows (_ newMessages: [(Message, UserType)]) {
-        
-        //self.table.beginUpdates()
-//        var indexPaths: [IndexPath] = []
-//        for i in 0..<newMessages.count {
-//            indexPaths.append(IndexPath(row: i, section: 0))
-//        }
-        messagesArray = newMessages + messagesArray
-//        table.insertRows(at: indexPaths, with: .none)
-//        
-//        self.table.endUpdates()
-    }
+
+
     
     
     //MARK: - photos
@@ -340,6 +311,24 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     }
     
     
+    func setUpFrame() {
+        if let rect = self.navigationController?.navigationBar.frame {
+            let y = rect.size.height + rect.origin.y
+            table.frame = CGRect(x: table.frame.minX, y: table.frame.minY + y, width: table.frame.width, height: table.frame.height - y)
+        }
+    }
+    
+    
+    func insertRow(_ newMessage: (Message, UserType)) {
+        messagesArray.append((newMessage.0, newMessage.1))
+        table.beginUpdates()
+        table.insertRows(at: [IndexPath(row: messagesArray.count - 1, section: 0)], with: .automatic)
+        table.endUpdates()
+    }
+    
+    func insertRows (_ newMessages: [(Message, UserType)]) {
+        messagesArray = newMessages + messagesArray
+    }
     
     //MARK: - text view
     
@@ -405,7 +394,11 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     func setupKeyboardObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: .UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: .UIKeyboardWillChangeFrame, object: nil)
+        
     }
+    
+
     
     func handleKeyboardWillHide (notification: Notification) {
         if let keyboardDuration = (notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue{
@@ -414,16 +407,13 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             UIView.animate(withDuration: keyboardDuration, animations: {
                 self.view.layoutIfNeeded()
             })
-            
         }
-        
-        
     }
     
 
     
     func handleKeyboardWillShow (notification: Notification) {
-        if let keyboardSize = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? CGRect, let keyboardDuration = (notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue {
+        if let keyboardSize = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect, let keyboardDuration = (notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue {
             self.bottomConstraint.constant = keyboardSize.height
             UIView.animate(withDuration: keyboardDuration, animations: {
                 self.view.layoutIfNeeded()
@@ -446,8 +436,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
         NotificationCenter.default.removeObserver(self)
+        //TODO: remove observers
     }
     
     
