@@ -72,6 +72,10 @@ class SearchUsersViewController: UITableViewController {
         //searchController.searchBar.scopeBarBackgroundImage = UIImage(color: UIColor.white)
         searchController.searchBar.setValue(NSLocalizedString("Done", comment: ""), forKey: "_cancelButtonText")
         
+        let contactsScope = NSLocalizedString("Contacts", comment: "Contacts search section")
+        let globalScope = NSLocalizedString("Global search", comment: "Global search section")
+        searchController.searchBar.scopeButtonTitles = [contactsScope, globalScope]
+        
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
     }
@@ -125,25 +129,51 @@ class SearchUsersViewController: UITableViewController {
         
         switch searchType {
         case .contacts:
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: "ContactCellIdentifier", for: indexPath) as! ContactCell
             let user = (searchController.isActive) ? filteredFriends[indexPath.row] : friends[indexPath.row]
             cell.contactNameLabel.text = "\(user.firstName ?? "") \(user.secondName ?? "")"
             cell.contactUsernameLabel.text = user.username
+            cell.contactPhoto.image = #imageLiteral(resourceName: "male")
+            weak var weakCell = cell
+            if let photoURL = user.photoURL {
+                managerFirebase.getUserPicFullResolution(from: photoURL, result: { (result) in
+                    switch result {
+                    case let .successUserPic(userImage):
+                        weakCell?.contactPhoto.image = userImage
+                    default:
+                        return
+                    }
+                })
+            }
             
             if checkmarkedFriends.contains(user) {
                 cell.accessoryType = .checkmark
             } else {
                 cell.accessoryType = .none
             }
-            
             return cell
+            
         case .globalUsers:
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: "UserCellIdentifier", for: indexPath) as! GlobalUserCell
             let user = filteredUsers[indexPath.row]
             cell.userNameSurnameLabel.text = "\(user.firstName ?? "") \(user.secondName ?? "")"
             cell.userUsernameLabel.text = user.username
-            
+            cell.userPhoto.image = #imageLiteral(resourceName: "male")
+            weak var weakCell = cell
+            if let photoURL = user.photoURL {
+                managerFirebase.getUserPicFullResolution(from: photoURL, result: { (result) in
+                    switch result {
+                    case let .successUserPic(userImage):
+                        weakCell?.userPhoto.image = userImage
+                    default:
+                        return
+                    }
+                })
+            }
             return cell
+            
         }
     }
     
@@ -251,15 +281,10 @@ extension SearchUsersViewController: UISearchBarDelegate {
     }
 
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        let contactsScope = NSLocalizedString("Contacts", comment: "Contacts search section")
-        let globalScope = NSLocalizedString("Global search", comment: "Global search section")
-        searchController.searchBar.scopeButtonTitles = [contactsScope, globalScope]
+
         
         return true
     }
     
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-
-    }
 
 }

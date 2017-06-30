@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Ve4-XD-0jU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16C68" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Ve4-XD-0jU">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,10 +23,10 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="71"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5qh-pp-t4Y" id="dAY-64-EOL">
-                                    <rect key="frame" x="0.0" y="0.0" width="336" height="71"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="336" height="70.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user-50" translatesAutoresizingMaskIntoConstraints="NO" id="EdF-bW-pKZ">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="male" translatesAutoresizingMaskIntoConstraints="NO" id="EdF-bW-pKZ">
                                             <rect key="frame" x="8" y="8" width="50" height="50"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="50" id="Km4-yD-nE6"/>
@@ -34,13 +34,13 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="userName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qA3-Zz-Bq7">
-                                            <rect key="frame" x="66" y="8" width="79" height="21"/>
+                                            <rect key="frame" x="66" y="8" width="79" height="29"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name Surname" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iXd-bY-oeR">
-                                            <rect key="frame" x="66" y="36.5" width="262" height="18"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Name Surname" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iXd-bY-oeR">
+                                            <rect key="frame" x="66" y="44.5" width="262" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -50,8 +50,8 @@
                                         <constraint firstAttribute="bottom" secondItem="iXd-bY-oeR" secondAttribute="bottom" constant="8" id="4ut-AJ-oMz"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="iXd-bY-oeR" secondAttribute="trailing" id="6MJ-sm-5zT"/>
                                         <constraint firstItem="iXd-bY-oeR" firstAttribute="top" secondItem="qA3-Zz-Bq7" secondAttribute="bottom" constant="8" id="7fm-c2-NFy"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="EdF-bW-pKZ" secondAttribute="bottom" constant="31.5" id="LSC-be-rbX"/>
                                         <constraint firstItem="iXd-bY-oeR" firstAttribute="leading" secondItem="EdF-bW-pKZ" secondAttribute="trailing" constant="8" id="gXB-iQ-Y2l"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="EdF-bW-pKZ" secondAttribute="bottom" constant="4.5" id="kS8-8V-tad"/>
                                         <constraint firstItem="EdF-bW-pKZ" firstAttribute="top" secondItem="dAY-64-EOL" secondAttribute="topMargin" id="n6N-eK-Qm8"/>
                                         <constraint firstItem="EdF-bW-pKZ" firstAttribute="leading" secondItem="dAY-64-EOL" secondAttribute="leadingMargin" id="q3i-yY-OPQ"/>
                                         <constraint firstItem="qA3-Zz-Bq7" firstAttribute="top" secondItem="dAY-64-EOL" secondAttribute="topMargin" id="rF0-1B-3Rx"/>
@@ -68,24 +68,24 @@
                                 <rect key="frame" x="0.0" y="99" width="375" height="71"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eIk-C1-ZQ0" id="QsT-en-F2p">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="71"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="70.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user-50" translatesAutoresizingMaskIntoConstraints="NO" id="IxX-a1-4EV">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="male" translatesAutoresizingMaskIntoConstraints="NO" id="IxX-a1-4EV">
                                             <rect key="frame" x="8" y="8" width="50" height="50"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="50" id="HNI-fB-NtG"/>
                                                 <constraint firstAttribute="height" constant="50" id="qnd-BW-uRu"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="userName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="27A-wL-HbE">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="252" text="userName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="27A-wL-HbE">
                                             <rect key="frame" x="66" y="8" width="79" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name Surname" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ogb-ue-4Wb">
-                                            <rect key="frame" x="66" y="36.5" width="268" height="18"/>
+                                            <rect key="frame" x="66" y="36.5" width="268" height="26"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -97,8 +97,8 @@
                                         <constraint firstItem="IxX-a1-4EV" firstAttribute="top" secondItem="QsT-en-F2p" secondAttribute="topMargin" id="AA2-UF-nzz"/>
                                         <constraint firstAttribute="bottom" secondItem="Ogb-ue-4Wb" secondAttribute="bottom" constant="8" id="W40-FX-ktp"/>
                                         <constraint firstItem="IxX-a1-4EV" firstAttribute="leading" secondItem="QsT-en-F2p" secondAttribute="leadingMargin" id="XaS-zR-EGf"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="IxX-a1-4EV" secondAttribute="bottom" constant="4.5" id="b1S-cV-xvU"/>
                                         <constraint firstItem="27A-wL-HbE" firstAttribute="top" secondItem="QsT-en-F2p" secondAttribute="topMargin" id="c9i-hS-w9C"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="IxX-a1-4EV" secondAttribute="bottom" constant="31.5" id="fDK-K0-d6x"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="Ogb-ue-4Wb" secondAttribute="trailing" id="lFK-5Q-pAm"/>
                                         <constraint firstItem="Ogb-ue-4Wb" firstAttribute="leading" secondItem="IxX-a1-4EV" secondAttribute="trailing" constant="8" id="upH-0A-ufU"/>
                                     </constraints>
@@ -132,6 +132,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="user-50" width="33" height="33"/>
+        <image name="male" width="40" height="40"/>
     </resources>
 </document>
