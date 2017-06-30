@@ -246,7 +246,7 @@ class ManagerFirebase {
     /*
      Generate array of conversation without messages from snapshot
      */
-    private func getConversetionsFromSnapshot (_ value: NSDictionary?, accordingTo arrayID: [String], currentUserEmail email: String) -> [Conversation] {
+    func getConversetionsFromSnapshot (_ value: NSDictionary?, accordingTo arrayID: [String], currentUserEmail email: String) -> [Conversation] {
         var conversations = [Conversation]()
         
         for eachConv in arrayID {
@@ -376,11 +376,68 @@ class ManagerFirebase {
         }
     }
     
-    
 
+        
+    //MARK: - Conversation logo
+    func createLogo (selectedUsers: [User], conversationID: String) -> String {
+            var array = [UIImage]()
+        
+            //create reference
+            let imagePath = "conversLogos/\(conversationID)/logo.jpg"
+            let metaData = StorageMetadata()
+            metaData.contentType = "image/jpeg"
+        
+            for user in selectedUsers {
+                self.getUserPic(from: user.photoURL!, result: { (result) in
+                    switch result {
+                    case let .successUserPic(img):
+                        array.append(img)
+                    default: print("Error")
+                    }
+                })
+            }
+    
+            let finalImage = UIImage.createFinalImg(logoImages: array)
+            let imageData = UIImageJPEGRepresentation(finalImage, 1)
+ 
+            self.storageRef.child(imagePath).putData(imageData!, metadata: metaData)
+            self.ref?.child("conversations/\(conversationID)/logoURL").setValue(imagePath)
+        
+            return imagePath
+        }
     
     
-    //MARK: Update profile
+    func loadLogo (_ image: UIImage, conversationID: String, result: @escaping (UserOperationResult) -> Void) {
+        if (Auth.auth().currentUser?.uid) != nil {
+            guard let chosenImageData = UIImageJPEGRepresentation(image, 1) else {
+                result(.failure(NSLocalizedString("Something went wrong", comment: "Undefined error")))
+                return
+            }
+            
+            //create reference
+            let imagePath = "conversLogos/\(conversationID)/logo.jpg"
+            
+            let metaData = StorageMetadata()
+            metaData.contentType = "image/jpeg"
+            
+            //add to firebase
+            
+            self.storageRef.child(imagePath).putData(chosenImageData, metadata: metaData) { (metaData, error) in
+                
+                if error != nil {
+                    result(.failure((error?.localizedDescription)!))
+                } else {
+                    self.ref?.child("conversations/\(conversationID)/logoURL").setValue(imagePath)
+                    result(.success)
+                    
+                }
+            }
+        } else {
+            result(.failure(NSLocalizedString("User isn't authenticated", comment: "")))
+        }
+    }
+    
+    //MARK: - Update profile
     func changeInfo (phoneNumber: String?, firstName: String?, secondName: String?, result: @escaping (UserOperationResult) -> Void) {
         if let uid = Auth.auth().currentUser?.uid{
             var childUpdates = [String: String] ()

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		35C9507D1EF7D791006FA7E6 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C9507C1EF7D791006FA7E6 /* UIImageExtension.swift */; };
+		35E79C561EFA71F1006E98C9 /* LogoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E79C551EFA71F1006E98C9 /* LogoTableViewCell.swift */; };
+		35F8943A1F00FFE000862BAC /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F894391F00FFE000862BAC /* UserTableViewCell.swift */; };
 		3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3938C26F1EDC27C700D69F88 /* AppDelegate.swift */; };
 		3938C2721EDC27C700D69F88 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3938C2711EDC27C700D69F88 /* ViewController.swift */; };
 		3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2731EDC27C700D69F88 /* Main.storyboard */; };
@@ -47,6 +49,10 @@
 		E7B926F31EF1487B0018F5FF /* PopOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B926ED1EF1487B0018F5FF /* PopOverViewController.swift */; };
 		E7B926F41EF1487B0018F5FF /* UIColorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B926EE1EF1487B0018F5FF /* UIColorHelper.swift */; };
 		ED1E2D941EDD75B20058B6A6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */; };
+		F53219D71EFEC77600B1F7E9 /* 111.png in Resources */ = {isa = PBXBuildFile; fileRef = F53219D31EFEC77600B1F7E9 /* 111.png */; };
+		F53219D81EFEC77600B1F7E9 /* 222.png in Resources */ = {isa = PBXBuildFile; fileRef = F53219D41EFEC77600B1F7E9 /* 222.png */; };
+		F53219D91EFEC77600B1F7E9 /* 333.png in Resources */ = {isa = PBXBuildFile; fileRef = F53219D51EFEC77600B1F7E9 /* 333.png */; };
+		F53219DE1EFEE4B200B1F7E9 /* 444.png in Resources */ = {isa = PBXBuildFile; fileRef = F53219DD1EFEE4B200B1F7E9 /* 444.png */; };
 		F54D21761EE7130600B0B177 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54D21751EE7130600B0B177 /* Regex.swift */; };
 		F54D21781EE7149100B0B177 /* AdditionalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54D21771EE7149000B0B177 /* AdditionalViewController.swift */; };
 		F5E339401EF6DA5500D224BF /* ChatSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3393F1EF6DA5500D224BF /* ChatSettingsTableViewController.swift */; };
@@ -67,6 +73,8 @@
 
 /* Begin PBXFileReference section */
 		35C9507C1EF7D791006FA7E6 /* UIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
+		35E79C551EFA71F1006E98C9 /* LogoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoTableViewCell.swift; sourceTree = "<group>"; };
+		35F894391F00FFE000862BAC /* UserTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		3938C26C1EDC27C700D69F88 /* EmoChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmoChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3938C26F1EDC27C700D69F88 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3938C2711EDC27C700D69F88 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -111,6 +119,10 @@
 		E7B926EE1EF1487B0018F5FF /* UIColorHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorHelper.swift; sourceTree = "<group>"; };
 		ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ED5291B01EE16F24008F8174 /* EmoChat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EmoChat.entitlements; sourceTree = "<group>"; };
+		F53219D31EFEC77600B1F7E9 /* 111.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 111.png; sourceTree = "<group>"; };
+		F53219D41EFEC77600B1F7E9 /* 222.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 222.png; sourceTree = "<group>"; };
+		F53219D51EFEC77600B1F7E9 /* 333.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 333.png; sourceTree = "<group>"; };
+		F53219DD1EFEE4B200B1F7E9 /* 444.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 444.png; sourceTree = "<group>"; };
 		F54D21751EE7130600B0B177 /* Regex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
 		F54D21771EE7149000B0B177 /* AdditionalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdditionalViewController.swift; sourceTree = "<group>"; };
 		F5E3393F1EF6DA5500D224BF /* ChatSettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatSettingsTableViewController.swift; sourceTree = "<group>"; };
@@ -151,6 +163,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		35E79C541EFA71D7006E98C9 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				35E79C551EFA71F1006E98C9 /* LogoTableViewCell.swift */,
+				35F894391F00FFE000862BAC /* UserTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		3938C2631EDC27C700D69F88 = {
 			isa = PBXGroup;
 			children = (
@@ -182,6 +203,10 @@
 				3938C2731EDC27C700D69F88 /* Main.storyboard */,
 				3938C2761EDC27C700D69F88 /* Assets.xcassets */,
 				3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */,
+				F53219D31EFEC77600B1F7E9 /* 111.png */,
+				F53219D41EFEC77600B1F7E9 /* 222.png */,
+				F53219D51EFEC77600B1F7E9 /* 333.png */,
+				F53219DD1EFEE4B200B1F7E9 /* 444.png */,
 				3938C27B1EDC27C700D69F88 /* Info.plist */,
 				ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */,
 				E7883F3D1EF1C2DA00E876CC /* Localizable.strings */,
@@ -310,6 +335,7 @@
 		F508422D1EF427A600C24EDE /* ChatSettingsTableViewController */ = {
 			isa = PBXGroup;
 			children = (
+				35E79C541EFA71D7006E98C9 /* Cell */,
 				F5E3393F1EF6DA5500D224BF /* ChatSettingsTableViewController.swift */,
 			);
 			path = ChatSettingsTableViewController;
@@ -449,15 +475,19 @@
 				3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */,
 				FB982DDB1EE1569700AC2FCD /* SignUp.storyboard in Resources */,
 				ED1E2D941EDD75B20058B6A6 /* GoogleService-Info.plist in Resources */,
+				F53219D71EFEC77600B1F7E9 /* 111.png in Resources */,
 				FB982DDD1EE1569700AC2FCD /* UserInfo.storyboard in Resources */,
 				FB982DDC1EE1569700AC2FCD /* SingleConversation.storyboard in Resources */,
 				FB982DD71EE1569700AC2FCD /* Conversations.storyboard in Resources */,
 				E7B926F21EF1487B0018F5FF /* PopOverVC.xib in Resources */,
 				FB982DD91EE1569700AC2FCD /* Options.storyboard in Resources */,
+				F53219D81EFEC77600B1F7E9 /* 222.png in Resources */,
 				E7883F3B1EF1C2DA00E876CC /* Localizable.strings in Resources */,
+				F53219DE1EFEE4B200B1F7E9 /* 444.png in Resources */,
 				3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */,
 				FB982DD61EE1569700AC2FCD /* Confirmation.storyboard in Resources */,
 				FB982DD51EE1569700AC2FCD /* ChatSettings.storyboard in Resources */,
+				F53219D91EFEC77600B1F7E9 /* 333.png in Resources */,
 				3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -533,6 +563,7 @@
 				CC13C5EB1EF9227F00B38E59 /* SingleConversationViewController.swift in Sources */,
 				CC13C5D51EF4092900B38E59 /* ArchiverManager.swift in Sources */,
 				E7B926F01EF1487B0018F5FF /* EmoChatUIViewController.swift in Sources */,
+				35F8943A1F00FFE000862BAC /* UserTableViewCell.swift in Sources */,
 				84247A391EE9CDA6009E8167 /* GlobalUserCell.swift in Sources */,
 				E7B926F11EF1487B0018F5FF /* PopOverHelper.swift in Sources */,
 				A3E7E7D11EEFD893006D24BC /* OptionsMainPageTableViewController.swift in Sources */,
@@ -555,6 +586,7 @@
 				842E8B701EF9DDB100CA3BF2 /* ArrayExtension.swift in Sources */,
 				3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */,
 				E7352C381EE81B790095264E /* ControllerHelper.swift in Sources */,
+				35E79C561EFA71F1006E98C9 /* LogoTableViewCell.swift in Sources */,
 				842E8B6E1EF9330700CA3BF2 /* DateExtension.swift in Sources */,
 				E7B926F41EF1487B0018F5FF /* UIColorHelper.swift in Sources */,
 			);

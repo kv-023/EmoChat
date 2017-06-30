@@ -11,7 +11,52 @@ import UIKit
 
 extension UIImage {
     
-    func getMixed2Img(image1: UIImage, image2: UIImage) -> UIImage {
+    class func imageFromURL(url: String) -> UIImage {
+        
+        var imageFromURL = UIImage()
+        if let url = NSURL(string: url) {
+            if let data = NSData(contentsOf: url as URL) {
+                imageFromURL = UIImage(data: data as Data)!
+            }
+        }
+        return imageFromURL
+    }
+    
+    
+    class func createFinalImg(logoImages: Array<UIImage>)  -> UIImage {
+
+        var finalMixedImage = UIImage()
+        
+        if (logoImages.count == 1) {
+            finalMixedImage = logoImages[0]
+        } else if (logoImages.count == 2) {
+            finalMixedImage = getMixed2Img(image1: logoImages[0], image2: logoImages[1])
+        } else if (logoImages.count == 3) {
+            finalMixedImage = getMixed3Img(image1: logoImages[0], image2: logoImages[1], image3: logoImages[2])
+        } else if (logoImages.count == 4) {
+            finalMixedImage = getMixed4Img(image1: logoImages[0], image2: logoImages[1], image3: logoImages[2], image4: logoImages[3])
+        } else if (logoImages.count > 4) {
+            var tempArray = logoImages
+            
+            let randomIndex1 = Int(arc4random_uniform(UInt32(tempArray.count)))
+            let image1 = tempArray[randomIndex1]
+            tempArray.remove(at: randomIndex1)
+            let randomIndex2 = Int(arc4random_uniform(UInt32(tempArray.count)))
+            let image2 = tempArray[randomIndex2]
+            tempArray.remove(at: randomIndex2)
+            let randomIndex3 = Int(arc4random_uniform(UInt32(tempArray.count)))
+            let image3 = tempArray[randomIndex3]
+            tempArray.remove(at: randomIndex3)
+            let randomIndex4 = Int(arc4random_uniform(UInt32(tempArray.count)))
+            let image4 = tempArray[randomIndex4]
+            tempArray.remove(at: randomIndex4)
+            finalMixedImage = getMixed4Img(image1: image1, image2: image2, image3: image3, image4: image4)
+        }
+        
+        return finalMixedImage
+    }
+    
+    class func getMixed2Img(image1: UIImage, image2: UIImage) -> UIImage {
         
         let size = CGSize(width:(image1.size.width + image2.size.width), height:image1.size.height)
         
@@ -25,7 +70,7 @@ extension UIImage {
         return finalImage!
     }
     
-    func getMixed3Img(image1: UIImage, image2: UIImage, image3: UIImage) -> UIImage {
+    class func getMixed3Img(image1: UIImage, image2: UIImage, image3: UIImage) -> UIImage {
         
         let size = CGSize(width:(image1.size.width + image2.size.width), height:(image2.size.height + image3.size.height))
         
@@ -40,7 +85,7 @@ extension UIImage {
         return finalImage!
     }
     
-    func getMixed4Img(image1: UIImage, image2: UIImage, image3: UIImage, image4: UIImage) -> UIImage {
+    class func getMixed4Img(image1: UIImage, image2: UIImage, image3: UIImage, image4: UIImage) -> UIImage {
         
         let size = CGSize(width:(image1.size.width + image2.size.width), height:(image1.size.height + image3.size.height))
         
