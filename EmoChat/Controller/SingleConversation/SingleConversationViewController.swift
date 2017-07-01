@@ -21,18 +21,24 @@ enum UserType {
 extension SingleConversationViewController : CellDelegate {
     func cellDelegate(_ sender: UITableViewCell, didHandle action: Action) {
         if action == .longPress {
-        //recognizer.view!.becomeFirstResponder()
-        let menu = UIMenuController.shared
-        
-        if let cell = sender as? LeftCell {
-            menu.setTargetRect(cell.message.frame, in: cell)
-            messageRecognized = cell.messageEntity
-        } else if let cell = sender as? RightCell {
-            menu.setTargetRect(cell.message.frame, in: cell)
-            messageRecognized = cell.messageEntity
+            //recognizer.view!.becomeFirstResponder()
+            //let menu = UIMenuController.shared
+            
+            if let cell = sender as? CustomTableViewCell {
+                //menu.setTargetRect(cell.message.frame, in: cell)
+                showMenu(forCell: cell)
+                //messageRecognized = cell.messageEntity
+            }
+            
+            //        if let cell = sender as? LeftCell {
+            //            menu.setTargetRect(cell.message.frame, in: cell)
+            //            messageRecognized = cell.messageEntity
+            //        } else if let cell = sender as? RightCell {
+            //            menu.setTargetRect(cell.message.frame, in: cell)
+            //            messageRecognized = cell.messageEntity
+            //        }
+            //menu.setMenuVisible(true, animated: true)
         }
-        menu.setMenuVisible(true, animated: true)
-    }
     }
 }
 
@@ -43,6 +49,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     @IBOutlet weak var textMessage: UITextView!
     
     @IBOutlet weak var table: UITableView!
+    
+    @IBOutlet weak var textViewMaxHeightConstraint: NSLayoutConstraint!
     
     var manager: ManagerFirebase?
     
@@ -58,44 +66,9 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     var messageRecognized: Message!
     
+    
     override var canBecomeFirstResponder: Bool {
         return true
-    }
-    
-    func removeAtUid(_ uid: String) {
-        let indexOfMessage: Int = messagesArray.index(where: {tuple in
-            if tuple.0.uid == uid {
-                return true
-            } else {
-                return false
-            }
-        })!
-        messagesArray.remove(at: indexOfMessage)
-        table.reloadData()
-    }
-    
-    func deleteMessage(_ target: Message) {
-        manager?.deleteMessage(target.uid!, from: currentConversation)
-    }
-    
-    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        switch action {
-        case #selector(copy(_:)):
-            return true
-        case #selector(delete(_:)):
-            return true
-        default:
-            return false
-        }
-    }
-    
-    override func copy(_ sender: Any?) {
-        UIPasteboard.general.string = messageRecognized.content!.content
-            //.setValue(messageRecognized.content!.content, forPasteboardType: "TEXT")
-    }
-    
-    override func delete(_ sender: Any?) {
-        deleteMessage(messageRecognized)
     }
     
     override func viewDidLoad() {
@@ -142,7 +115,62 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     }
     
     
+    func showMenu(forCell cell: CustomTableViewCell) {
+        guard table.indexPath(for: cell) != nil else {
+            return
+        }
+        
+        let menu = UIMenuController.shared
+        menu.setTargetRect(cell.contentRect, in: cell.contentView)
+        let item = UIMenuItem(title: "Copy", action: #selector(copyAction(_:)))
+        menu.menuItems = [item]
+        
+        if cell is RightCell {
+            menu.menuItems?.append(UIMenuItem(title: "Delete", action: #selector(deleteAction(_:))))
+        }
+        menu.setMenuVisible(true, animated: true)
+        
+        messageRecognized = cell.messageEntity
+    }
+    
     //functionality
+    
+    func removeAtUid(_ uid: String) {
+        let indexOfMessage: Int = messagesArray.index(where: {tuple in
+            if tuple.0.uid == uid {
+                return true
+            } else {
+                return false
+            }
+        })!
+        messagesArray.remove(at: indexOfMessage)
+        table.reloadData()
+    }
+    
+    func deleteMessage(_ target: Message) {
+        manager?.deleteMessage(target.uid!, from: currentConversation)
+    }
+    
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        switch action {
+        case #selector(copyAction(_:)):
+            return true
+        case #selector(deleteAction(_:)):
+            return true
+        default:
+            return false
+        }
+    }
+    
+    func copyAction(_ sender: Any?) {
+        UIPasteboard.general.string = messageRecognized.content!.content
+        //.setValue(messageRecognized.content!.content, forPasteboardType: "TEXT")
+    }
+    
+    func deleteAction(_ sender: Any?) {
+        deleteMessage(messageRecognized)
+    }
+    
     func observeDeletion () {
         manager?.observeDeletionOfMessages(in: currentConversation) { uid in
             self.removeAtUid(uid)
@@ -264,6 +292,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         }
     }
     
+    //MARK: - UITableViewDataSource
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if tableView.isDragging {
@@ -273,9 +302,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             })
         }
     }
-    
-    
-    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -353,9 +379,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         
     }
     
-    @IBOutlet weak var textViewMaxHeightConstraint: NSLayoutConstraint!
     func textViewDidChange(_ textView: UITextView) {
-        
         let size = textView.bounds.size
         //change the height of UITextView depending of a fixed width
         let newSize = textView.sizeThatFits( CGSize(width: size.width, height: CGFloat.greatestFiniteMagnitude))
@@ -367,27 +391,19 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         } else if (newSize.height < self.textViewMaxHeightConstraint.constant && textView.isScrollEnabled) {
             textView.isScrollEnabled = false
             self.textViewMaxHeightConstraint.isActive = false
-            
         }
-        
-        
-        
     }
     
-    func textViewDidBeginEditing(_ textView: UITextView)
-    {
-        if (textView.textColor == .lightGray)
-        {
+    func textViewDidBeginEditing(_ textView: UITextView){
+        if (textView.textColor == .lightGray){
             textView.text = ""
             textView.textColor = .black
         }
         textView.becomeFirstResponder() //Optional
     }
     
-    func textViewDidEndEditing(_ textView: UITextView)
-    {
-        if (textView.text == "")
-        {
+    func textViewDidEndEditing(_ textView: UITextView){
+        if (textView.text == ""){
             textView.text = "Type message..."
             textView.textColor = .lightGray
         }
@@ -404,10 +420,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: .UIKeyboardWillHide, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: .UIKeyboardWillChangeFrame, object: nil)
-        
     }
-    
-
     
     func handleKeyboardWillHide (notification: Notification) {
         if let keyboardDuration = (notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue{
@@ -418,8 +431,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             })
         }
     }
-    
-
     
     func handleKeyboardWillShow (notification: Notification) {
         if let keyboardSize = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect, let keyboardDuration = (notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue {

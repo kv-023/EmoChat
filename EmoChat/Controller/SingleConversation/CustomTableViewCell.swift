@@ -8,28 +8,6 @@
 
 import UIKit
 
-//class SpecialTextView: UITextView, UITextViewDelegate {
-//    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-//        switch action {
-//        case #selector(copy(_:)):
-//            return true
-//        case #selector(delete(_:)):
-//            return true
-//        default:
-//            return false
-//        }
-//    }
-//    
-//    override func copy(_ sender: Any?) {
-//        UIPasteboard.general.setValue(self.text, forPasteboardType: "TEXT")
-//    }
-//    
-//    override func delete(_ sender: Any?) {
-//        let manager = ManagerFirebase.shared
-//        
-//    }
-//}
-
 
 class CustomTableViewCell: UITableViewCell {
     
