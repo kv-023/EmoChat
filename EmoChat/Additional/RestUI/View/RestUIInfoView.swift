@@ -9,10 +9,20 @@
 import UIKit
 
 class RestUIInfoView: UIView {
-    @IBOutlet weak var mainImage: UIImageView!
 
+    @IBOutlet weak var mainImage: UIImageView!
     @IBOutlet weak var captionLabel: UILabel!
     @IBOutlet weak var detailLabel: UILabel!
     @IBOutlet weak var urlImageIco: UIImageView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
+
+    var url: String?
+    weak var dataModel: UrlembedModel?
+
+    func eraseAllFields() {
+        captionLabel.text = ""
+        detailLabel.text = ""
+        urlImageIco.image = UIImage()
+        mainImage.image = UIImage()
+    }
 }

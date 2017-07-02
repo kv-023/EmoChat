@@ -20,18 +20,18 @@ protocol SingleConversationControllerProtocol: class {
 extension SingleConversationUITableViewCell {
 
     func parseDataFromMessageText() {
-        let notNullDataCell = self
-        guard let notNullMessage = notNullDataCell.messageEntity else {
+
+        guard let notNullMessage = self.messageEntity else {
             return
         }
 
-        notNullDataCell.messageModel = nil
+        self.messageModel = nil
 
         let newModel = MessageModel(message: notNullMessage)
         newModel.getParseDataFromResource { (allDone) in
 
             if allDone {
-                notNullDataCell.messageModel = newModel
+                self.messageModel = newModel
 
                 guard newModel.messageURLDataIsReady
                     && newModel.messageURLData.count > 0 else {
@@ -40,24 +40,36 @@ extension SingleConversationUITableViewCell {
                 }
 
                 DispatchQueue.main.async {
-                    
-                    self.messageModel = newModel
-                    
-                    self.updateUI()
+
+                    if self.itIsRightModelWithMessage(model: newModel) {
+                        self.messageModel = newModel
+                        self.updateUI()
+                    }
                 }
             }
         }
     }
 
+    private func itIsRightModelWithMessage() -> Bool {
+
+        return self.messageModel?.uid == self.messageEntity?.uid
+    }
+    private func itIsRightModelWithMessage(model tMessageModel:MessageModel?) -> Bool {
+
+        return tMessageModel?.uid == self.messageEntity?.uid
+    }
+    private func itIsRightModelWithMessage(modelUID uid:String?) -> Bool {
+
+        return uid == self.messageEntity?.uid
+    }
 
     private func updateUI() {
 
-        weak var contentViewCell:RestUIInfoView?
-//        spinner.startAnimating()
+        guard itIsRightModelWithMessage() else {
+            return
+        }
 
-        //        defer {
-        //            spinner.stopAnimating()
-        //        }
+        weak var contentViewCell:RestUIInfoView?
 
         guard let messageURLData = messageModel?.messageURLData else {
             return
@@ -69,38 +81,54 @@ extension SingleConversationUITableViewCell {
         }
 
         let downloadGroup = DispatchGroup()
-        for (key, value) in messageURLData {
-            downloadGroup.enter()
+        var dicTemData: [String: Any?] = [:]
 
-//            myLabel.text = key
+        for (key, value) in messageURLData {
+
+            contentViewCell?.url = key
 
             if let valueModel = value as? UrlembedModel {
-//                titleLabel.text = valueModel.title
 
-                guard let notNullUrl = valueModel.url else {
-                    continue
-                }
+                contentViewCell?.dataModel = valueModel
 
-                JSONParser.sharedInstance.downloadImage(url: notNullUrl) { (image) in
-                    DispatchQueue.main.async  {
-//                        self.myImageInCell.image = image
+                let arrayOfURL: [(String,String?)] = [("mainImage", valueModel.url),
+                                                       ("urlImageIco", valueModel.favicon)]
+
+                let _ = DispatchQueue.global(qos: .userInitiated)
+                DispatchQueue.concurrentPerform(iterations: arrayOfURL.count) { i in
+                    let index = Int(i)
+                    let (dataField, urlAdress) = arrayOfURL[index]
+
+                    downloadGroup.enter()
+
+                    dicTemData.updateValue(valueModel.title, forKey: "captionLabel")
+                    dicTemData.updateValue(valueModel.text, forKey: "detailLabel")
+
+                    if let notNullUrl = urlAdress {
+                        JSONParser.sharedInstance.downloadImage(url: notNullUrl) { (image) in
+
+                            dicTemData.updateValue(image, forKey: dataField)
+                            downloadGroup.leave()
+                        }
                     }
-
-                    downloadGroup.leave()
                 }
             }
+
+            break // only one cycle needed
         }
 
         downloadGroup.notify(queue: DispatchQueue.main) { // 2
             DispatchQueue.main.async  {
-//                self.xibToFrameSetup()
 
-//                self.spinner.stopAnimating()
+                contentViewCell?.captionLabel.text = dicTemData["captionLabel"] as? String ?? ""
+                contentViewCell?.detailLabel.text = dicTemData["detailLabel"] as? String ?? ""
+                contentViewCell?.urlImageIco.image = dicTemData["urlImageIco"] as? UIImage ?? nil
+                contentViewCell?.mainImage.image =  dicTemData["mainImage"] as? UIImage ?? nil
+
                 contentViewCell?.spinner.stopAnimating()
             }
         }
     }
-
 
     private func xibToFrameSetup() -> RestUIInfoView {
 
@@ -108,11 +136,8 @@ extension SingleConversationUITableViewCell {
                                               owner: self.previewContainer,
                                               options: nil)?.first as! RestUIInfoView
 
-        //INITIAL DATA SET
-
-//        contentViewCell.captionLabel.text = "caption dsdsdsd "
-//        contentViewCell.detailLabel.text = "detail dsadsdd"
-//        contentViewCell.urlImageIco.image = UIImage(named: "mail-sent")
+        contentViewCell.eraseAllFields()
+        contentViewCell.captionLabel.text = "url preview loading ..."
 
         let ccViewHeight = contentViewCell.bounds.height
         contentViewCell.translatesAutoresizingMaskIntoConstraints = false
@@ -132,6 +157,9 @@ extension SingleConversationUITableViewCell {
 
 
         self.singleConversationControllerDelegate?.resizeSingleConversationCell(cell: self)
+
+        contentViewCell.layer.cornerRadius = 10
+        contentViewCell.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
 
         return contentViewCell
     }

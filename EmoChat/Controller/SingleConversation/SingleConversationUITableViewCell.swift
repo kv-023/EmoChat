@@ -28,7 +28,7 @@ class SingleConversationUITableViewCell: UITableViewCell {
         didSet {
             message.text = messageEntity?.content?.content
 
-            parseDataFromMessageText()
+            self.parseDataFromMessageText()
         }
     }
 
@@ -49,7 +49,15 @@ class SingleConversationUITableViewCell: UITableViewCell {
     private func setInitDataForUI() {
         addRecognizerForMessage()
 
+        previewContainer.backgroundColor = UIColor.clear
         heightOfPreviewContainer.constant = 0
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.contentView.layoutIfNeeded()
+        self.layoutIfNeeded()
+        self.previewContainer.layoutIfNeeded()
     }
 
     private func addRecognizerForMessage() {

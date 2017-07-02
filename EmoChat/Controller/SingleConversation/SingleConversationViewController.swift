@@ -34,7 +34,7 @@ UITableViewDelegate {
     var firstMessage : Message?
     var messagesArray: [(Message, UserType)] = []
     var refresher: UIRefreshControl!
-    var cellResized = Set<IndexPath>()
+    var cellResized = Set<SingleConversationUITableViewCell>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -229,7 +229,9 @@ UITableViewDelegate {
             cell.messageEntity = message.0
             cell.time.text = message.0.time.formatDate()
             cell.userPic.image = self.photosArray[message.0.senderId]
-            
+
+            cell.layoutIfNeeded()
+
             return cell
         case .right:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "Right", for: indexPath) as? RightCell else {
@@ -246,27 +248,29 @@ UITableViewDelegate {
             default:
                 break
             }
+
+            cell.layoutIfNeeded()
             return cell
         }
     }
 
     func tableView(_ tableView: UITableView,
                    heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if cellResized.contains(indexPath) {
-            let cellInstance = table.cellForRow(at: indexPath) as? SingleConversationUITableViewCell
 
-            var cellHeightForReturn:CGFloat = table.estimatedRowHeight
+//        var cellHeightForReturn:CGFloat = UITableViewAutomaticDimension
 
-            if let currentCellHeight = cellInstance?.temporaryCellHeight,
-                let currentExtraCellHeiht = cellInstance?.extraCellHeiht {
+//        if let cellInstance = table.cellForRow(at: indexPath) as? SingleConversationUITableViewCell {
+//            if cellResized.contains(cellInstance) {
+//
+//                cellHeightForReturn = cellInstance.temporaryCellHeight + cellInstance.extraCellHeiht
+//            }
+//
+//            return cellHeightForReturn
+//        } else {
+//            return UITableViewAutomaticDimension
+//        }
 
-                cellHeightForReturn = currentCellHeight + currentExtraCellHeiht
-            }
-
-            return cellHeightForReturn
-        } else {
-            return UITableViewAutomaticDimension
-        }
+        return UITableViewAutomaticDimension
     }
 
     //MARK: - text view
@@ -385,7 +389,8 @@ extension SingleConversationViewController: SingleConversationControllerProtocol
 
     func resizeSingleConversationCell(cell: SingleConversationUITableViewCell) {
         if let indexPath = table.indexPath(for: cell) {
-            cellResized.insert(indexPath)
+
+            cellResized.insert(cell)
 
             table.beginUpdates()
             table.rectForRow(at: indexPath)
@@ -395,7 +400,7 @@ extension SingleConversationViewController: SingleConversationControllerProtocol
             //self.tableView.reloadRows(at: [indexPath],
             //                          with: UITableViewRowAnimation.automatic)
             // self.tableView.moveRow(at: indexPath, to: indexPath)
-            //cell.updateConstraints()
+            cell.updateConstraints()
             table.endUpdates()
             
         }
