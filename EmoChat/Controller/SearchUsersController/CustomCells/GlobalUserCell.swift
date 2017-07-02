@@ -10,6 +10,7 @@ import UIKit
 
 class GlobalUserCell: UITableViewCell {
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var userPhoto: UIImageView!
     @IBOutlet weak var userUsernameLabel: UILabel!
     @IBOutlet weak var userNameSurnameLabel: UILabel!

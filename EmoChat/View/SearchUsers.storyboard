@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16C68" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Ve4-XD-0jU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Ve4-XD-0jU">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,15 +18,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="CPZ-dw-SuH">
+                            <rect key="frame" x="0.0" y="170" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="ContactCellIdentifier" rowHeight="71" id="5qh-pp-t4Y" customClass="ContactCell" customModule="EmoChat" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="71"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5qh-pp-t4Y" id="dAY-64-EOL">
-                                    <rect key="frame" x="0.0" y="0.0" width="336" height="70.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="336" height="71"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="male" translatesAutoresizingMaskIntoConstraints="NO" id="EdF-bW-pKZ">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EdF-bW-pKZ">
                                             <rect key="frame" x="8" y="8" width="50" height="50"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="50" id="Km4-yD-nE6"/>
@@ -45,11 +50,16 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="gz8-hN-TSX">
+                                            <rect key="frame" x="23" y="23" width="20" height="20"/>
+                                        </activityIndicatorView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="iXd-bY-oeR" secondAttribute="bottom" constant="8" id="4ut-AJ-oMz"/>
+                                        <constraint firstItem="gz8-hN-TSX" firstAttribute="centerX" secondItem="EdF-bW-pKZ" secondAttribute="centerX" id="53I-ef-bJ6"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="iXd-bY-oeR" secondAttribute="trailing" id="6MJ-sm-5zT"/>
                                         <constraint firstItem="iXd-bY-oeR" firstAttribute="top" secondItem="qA3-Zz-Bq7" secondAttribute="bottom" constant="8" id="7fm-c2-NFy"/>
+                                        <constraint firstItem="gz8-hN-TSX" firstAttribute="centerY" secondItem="EdF-bW-pKZ" secondAttribute="centerY" id="UxT-BQ-Eaf"/>
                                         <constraint firstItem="iXd-bY-oeR" firstAttribute="leading" secondItem="EdF-bW-pKZ" secondAttribute="trailing" constant="8" id="gXB-iQ-Y2l"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="EdF-bW-pKZ" secondAttribute="bottom" constant="4.5" id="kS8-8V-tad"/>
                                         <constraint firstItem="EdF-bW-pKZ" firstAttribute="top" secondItem="dAY-64-EOL" secondAttribute="topMargin" id="n6N-eK-Qm8"/>
@@ -59,6 +69,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="activityIndicator" destination="gz8-hN-TSX" id="tgH-NE-yAT"/>
                                     <outlet property="contactNameLabel" destination="iXd-bY-oeR" id="p9O-Nq-dwl"/>
                                     <outlet property="contactPhoto" destination="EdF-bW-pKZ" id="PlI-S1-8Wt"/>
                                     <outlet property="contactUsernameLabel" destination="qA3-Zz-Bq7" id="aut-wW-mIF"/>
@@ -68,10 +79,10 @@
                                 <rect key="frame" x="0.0" y="99" width="375" height="71"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eIk-C1-ZQ0" id="QsT-en-F2p">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="70.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="71"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="male" translatesAutoresizingMaskIntoConstraints="NO" id="IxX-a1-4EV">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IxX-a1-4EV">
                                             <rect key="frame" x="8" y="8" width="50" height="50"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="50" id="HNI-fB-NtG"/>
@@ -90,6 +101,9 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="LtD-LY-YJp">
+                                            <rect key="frame" x="23" y="23" width="20" height="20"/>
+                                        </activityIndicatorView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="Ogb-ue-4Wb" firstAttribute="top" secondItem="27A-wL-HbE" secondAttribute="bottom" constant="8" id="092-Sn-H7C"/>
@@ -99,11 +113,14 @@
                                         <constraint firstItem="IxX-a1-4EV" firstAttribute="leading" secondItem="QsT-en-F2p" secondAttribute="leadingMargin" id="XaS-zR-EGf"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="IxX-a1-4EV" secondAttribute="bottom" constant="4.5" id="b1S-cV-xvU"/>
                                         <constraint firstItem="27A-wL-HbE" firstAttribute="top" secondItem="QsT-en-F2p" secondAttribute="topMargin" id="c9i-hS-w9C"/>
+                                        <constraint firstItem="LtD-LY-YJp" firstAttribute="centerY" secondItem="IxX-a1-4EV" secondAttribute="centerY" id="cxn-hr-kfR"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="Ogb-ue-4Wb" secondAttribute="trailing" id="lFK-5Q-pAm"/>
+                                        <constraint firstItem="LtD-LY-YJp" firstAttribute="centerX" secondItem="IxX-a1-4EV" secondAttribute="centerX" id="qAs-yf-8cU"/>
                                         <constraint firstItem="Ogb-ue-4Wb" firstAttribute="leading" secondItem="IxX-a1-4EV" secondAttribute="trailing" constant="8" id="upH-0A-ufU"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="activityIndicator" destination="LtD-LY-YJp" id="4Hi-ha-Ctj"/>
                                     <outlet property="userNameSurnameLabel" destination="Ogb-ue-4Wb" id="Ncy-pW-UeI"/>
                                     <outlet property="userPhoto" destination="IxX-a1-4EV" id="V6t-ww-EeQ"/>
                                     <outlet property="userUsernameLabel" destination="27A-wL-HbE" id="pod-Fj-Gdx"/>
@@ -131,7 +148,4 @@
             <point key="canvasLocation" x="1668" y="-231"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="male" width="40" height="40"/>
-    </resources>
 </document>

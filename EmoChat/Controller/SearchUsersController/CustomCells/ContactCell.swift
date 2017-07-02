@@ -10,6 +10,7 @@ import UIKit
 
 class ContactCell: UITableViewCell {
 
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var contactPhoto: UIImageView!
     @IBOutlet weak var contactNameLabel: UILabel!
     @IBOutlet weak var contactUsernameLabel: UILabel!
