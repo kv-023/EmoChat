@@ -16,7 +16,9 @@ class SingleConversationUITableViewCell: UITableViewCell {
     @IBOutlet weak var previewContainer: UIView!
     @IBOutlet weak var heightOfPreviewContainer: NSLayoutConstraint!
 
-    var messageModel: MessageModel?
+    weak var singleConversationControllerDelegate: SingleConversationControllerProtocol?
+
+    var messageModel: MessageModel? //be careful! - don't set observers like "willSet" & "didSet" ,... !
 
     var messageEntity: Message? {
         didSet {
@@ -26,20 +28,30 @@ class SingleConversationUITableViewCell: UITableViewCell {
         }
     }
 
+    deinit {
+
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        setInitData()
+        setInitDataForUI()
     }
 
-    private func setInitData() {
-        //superClass's initial data
+    private func setInitDataForUI() {
+        addRecognizerForMessage()
 
+        heightOfPreviewContainer.constant = 0
+    }
+
+    private func addRecognizerForMessage() {
 
         let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(handler))
         message.addGestureRecognizer(recognizer)
-
-        heightOfPreviewContainer.constant = 0 // hide when show first time
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -53,25 +65,6 @@ class SingleConversationUITableViewCell: UITableViewCell {
             let menu = UIMenuController.shared
             menu.setTargetRect(message.frame, in: self)
             menu.setMenuVisible(true, animated: true)
-        }
-    }
-
-
-    //MARK: REST-UI parser
-    private func parseDataFromMessageText() {
-        if let notNullMessage = messageEntity {
-            messageModel = nil
-
-            let newModel = MessageModel(message: notNullMessage)
-            newModel.getParseDataFromResource { (allDone) in
-                if allDone {
-                    self.messageModel = newModel
-
-                    DispatchQueue.main.async {
-                        //self.updateUI()
-                    }
-                }
-            }
         }
     }
 

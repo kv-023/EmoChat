@@ -47,6 +47,7 @@
 		E70F3DBA1F052D1700617235 /* SingleConversationUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70F3DB91F052D1700617235 /* SingleConversationUITableViewCell.swift */; };
 		E70F3DBC1F063EC000617235 /* LeftSingleConversationUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70F3DBB1F063EC000617235 /* LeftSingleConversationUITableViewCell.swift */; };
 		E70F3DBE1F0644F300617235 /* RirgtSingleConversationUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70F3DBD1F0644F300617235 /* RirgtSingleConversationUITableViewCell.swift */; };
+		E70F3DC01F0648D500617235 /* RestUISingleConversationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70F3DBF1F0648D500617235 /* RestUISingleConversationController.swift */; };
 		E7352C261EDED52B0095264E /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C211EDED52B0095264E /* Conversation.swift */; };
 		E7352C271EDED52B0095264E /* Auxiliary.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C231EDED52B0095264E /* Auxiliary.swift */; };
 		E7352C281EDED52B0095264E /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C241EDED52B0095264E /* Message.swift */; };
@@ -126,6 +127,7 @@
 		E70F3DB91F052D1700617235 /* SingleConversationUITableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleConversationUITableViewCell.swift; sourceTree = "<group>"; };
 		E70F3DBB1F063EC000617235 /* LeftSingleConversationUITableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftSingleConversationUITableViewCell.swift; sourceTree = "<group>"; };
 		E70F3DBD1F0644F300617235 /* RirgtSingleConversationUITableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RirgtSingleConversationUITableViewCell.swift; sourceTree = "<group>"; };
+		E70F3DBF1F0648D500617235 /* RestUISingleConversationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestUISingleConversationController.swift; sourceTree = "<group>"; };
 		E7352C211EDED52B0095264E /* Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		E7352C231EDED52B0095264E /* Auxiliary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auxiliary.swift; sourceTree = "<group>"; };
 		E7352C241EDED52B0095264E /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -282,6 +284,7 @@
 			children = (
 				CC13C5EA1EF9227F00B38E59 /* SingleConversationViewController.swift */,
 				E70F3DB91F052D1700617235 /* SingleConversationUITableViewCell.swift */,
+				E70F3DBF1F0648D500617235 /* RestUISingleConversationController.swift */,
 				CC13C5EC1EF929AF00B38E59 /* SpecialTextView.swift */,
 				E70F3DBB1F063EC000617235 /* LeftSingleConversationUITableViewCell.swift */,
 				E70F3DBD1F0644F300617235 /* RirgtSingleConversationUITableViewCell.swift */,
@@ -635,6 +638,7 @@
 				E70F3DAA1F0507D900617235 /* TableViewCell.swift in Sources */,
 				E70F3DB41F0507D900617235 /* UrlembedModel.swift in Sources */,
 				CC13C5EB1EF9227F00B38E59 /* SingleConversationViewController.swift in Sources */,
+				E70F3DC01F0648D500617235 /* RestUISingleConversationController.swift in Sources */,
 				E70F3DB71F0507D900617235 /* RestUIInfoView.swift in Sources */,
 				CC13C5D51EF4092900B38E59 /* ArchiverManager.swift in Sources */,
 				E70F3DB21F0507D900617235 /* MessageModel.swift in Sources */,

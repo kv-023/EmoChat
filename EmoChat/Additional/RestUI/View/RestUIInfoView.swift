@@ -14,5 +14,5 @@ class RestUIInfoView: UIView {
     @IBOutlet weak var captionLabel: UILabel!
     @IBOutlet weak var detailLabel: UILabel!
     @IBOutlet weak var urlImageIco: UIImageView!
-//    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
 }

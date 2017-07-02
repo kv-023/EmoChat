@@ -16,6 +16,10 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="97"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="64H-OD-NMX">
+                    <rect key="frame" x="177" y="38" width="20" height="20"/>
+                    <color key="color" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                </activityIndicatorView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1Aw-jm-sKx" userLabel="mainImage">
                     <rect key="frame" x="0.0" y="0.0" width="97" height="97"/>
                     <constraints>
@@ -48,6 +52,8 @@
                 <constraint firstItem="axS-1V-bkM" firstAttribute="top" secondItem="G0P-a4-yVG" secondAttribute="top" id="1CW-hD-TOM"/>
                 <constraint firstItem="zYr-p6-GlE" firstAttribute="top" secondItem="G0P-a4-yVG" secondAttribute="top" id="88b-gF-khP"/>
                 <constraint firstAttribute="trailing" secondItem="zYr-p6-GlE" secondAttribute="trailing" id="9V0-vb-b6X"/>
+                <constraint firstItem="64H-OD-NMX" firstAttribute="centerX" secondItem="G0P-a4-yVG" secondAttribute="centerX" id="D6k-AD-gQ0"/>
+                <constraint firstItem="64H-OD-NMX" firstAttribute="centerY" secondItem="G0P-a4-yVG" secondAttribute="centerY" id="RwJ-h3-Hus"/>
                 <constraint firstItem="axS-1V-bkM" firstAttribute="leading" secondItem="1Aw-jm-sKx" secondAttribute="trailing" constant="1" id="TXK-0N-NOv"/>
                 <constraint firstAttribute="bottom" secondItem="9v5-pd-Srg" secondAttribute="bottom" id="VHy-ig-VVL"/>
                 <constraint firstItem="zYr-p6-GlE" firstAttribute="leading" secondItem="axS-1V-bkM" secondAttribute="trailing" constant="2" id="XW1-RB-8uh"/>
@@ -66,6 +72,7 @@
                 <outlet property="captionLabel" destination="axS-1V-bkM" id="kNa-MH-b9t"/>
                 <outlet property="detailLabel" destination="9v5-pd-Srg" id="5Wq-eN-xRO"/>
                 <outlet property="mainImage" destination="1Aw-jm-sKx" id="VjT-qN-bE5"/>
+                <outlet property="spinner" destination="64H-OD-NMX" id="Jta-8K-vuY"/>
                 <outlet property="urlImageIco" destination="zYr-p6-GlE" id="ab3-b0-WFB"/>
             </connections>
             <point key="canvasLocation" x="32.5" y="-288.5"/>
