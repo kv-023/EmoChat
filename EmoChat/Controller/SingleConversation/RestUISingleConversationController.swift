@@ -12,7 +12,7 @@ import UIKit
 
 protocol SingleConversationControllerProtocol: class {
 
-    func resizeSingleConversationCell(cell: UITableViewCell)
+    func resizeSingleConversationCell(cell: SingleConversationUITableViewCell)
 }
 
 //MARK:- Controller for RestUI
@@ -51,18 +51,24 @@ extension SingleConversationUITableViewCell {
 
 
     private func updateUI() {
+
+        weak var contentViewCell:RestUIInfoView?
 //        spinner.startAnimating()
 
         //        defer {
         //            spinner.stopAnimating()
         //        }
 
-        let downloadGroup = DispatchGroup()
-
         guard let messageURLData = messageModel?.messageURLData else {
             return
         }
 
+        DispatchQueue.main.async  {
+            contentViewCell = self.xibToFrameSetup()
+            contentViewCell?.spinner.startAnimating()
+        }
+
+        let downloadGroup = DispatchGroup()
         for (key, value) in messageURLData {
             downloadGroup.enter()
 
@@ -87,18 +93,19 @@ extension SingleConversationUITableViewCell {
 
         downloadGroup.notify(queue: DispatchQueue.main) { // 2
             DispatchQueue.main.async  {
-                self.xibToFrameSetup()
+//                self.xibToFrameSetup()
 
 //                self.spinner.stopAnimating()
+                contentViewCell?.spinner.stopAnimating()
             }
         }
     }
 
 
-    private func xibToFrameSetup() {
+    private func xibToFrameSetup() -> RestUIInfoView {
 
         let contentViewCell = Bundle.main.loadNibNamed("RestUIInfo2",
-                                              owner: self,
+                                              owner: self.previewContainer,
                                               options: nil)?.first as! RestUIInfoView
 
         //INITIAL DATA SET
@@ -125,6 +132,8 @@ extension SingleConversationUITableViewCell {
 
 
         self.singleConversationControllerDelegate?.resizeSingleConversationCell(cell: self)
+
+        return contentViewCell
     }
 
     private func setConstrainInSubView(embeddedView myView: UIView,

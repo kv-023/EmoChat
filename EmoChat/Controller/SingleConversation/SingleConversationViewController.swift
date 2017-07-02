@@ -225,6 +225,7 @@ UITableViewDelegate {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "Left", for: indexPath) as? LeftCell else {
                 fatalError("Cell was not casted!")
             }
+            cell.singleConversationControllerDelegate = self
             cell.messageEntity = message.0
             cell.time.text = message.0.time.formatDate()
             cell.userPic.image = self.photosArray[message.0.senderId]
@@ -234,6 +235,7 @@ UITableViewDelegate {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "Right", for: indexPath) as? RightCell else {
                 fatalError("Cell was not casted!")
             }
+            cell.singleConversationControllerDelegate = self
             cell.messageEntity = message.0
             cell.userPic.image = self.photosArray[message.0.senderId]
             switch message.1 {
@@ -251,7 +253,17 @@ UITableViewDelegate {
     func tableView(_ tableView: UITableView,
                    heightForRowAt indexPath: IndexPath) -> CGFloat {
         if cellResized.contains(indexPath) {
-            return 400
+            let cellInstance = table.cellForRow(at: indexPath) as? SingleConversationUITableViewCell
+
+            var cellHeightForReturn:CGFloat = table.estimatedRowHeight
+
+            if let currentCellHeight = cellInstance?.temporaryCellHeight,
+                let currentExtraCellHeiht = cellInstance?.extraCellHeiht {
+
+                cellHeightForReturn = currentCellHeight + currentExtraCellHeiht
+            }
+
+            return cellHeightForReturn
         } else {
             return UITableViewAutomaticDimension
         }
@@ -371,11 +383,15 @@ UITableViewDelegate {
 //MARK:- SingleConversationCellProtocol
 extension SingleConversationViewController: SingleConversationControllerProtocol {
 
-    func resizeSingleConversationCell(cell: UITableViewCell) {
+    func resizeSingleConversationCell(cell: SingleConversationUITableViewCell) {
         if let indexPath = table.indexPath(for: cell) {
             cellResized.insert(indexPath)
 
             table.beginUpdates()
+            table.rectForRow(at: indexPath)
+
+            cell.temporaryCellHeight = table.rectForRow(at: indexPath).height// - cell.extraCellHeiht
+
             //self.tableView.reloadRows(at: [indexPath],
             //                          with: UITableViewRowAnimation.automatic)
             // self.tableView.moveRow(at: indexPath, to: indexPath)

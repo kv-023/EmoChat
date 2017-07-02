@@ -17,6 +17,10 @@ class SingleConversationUITableViewCell: UITableViewCell {
     @IBOutlet weak var heightOfPreviewContainer: NSLayoutConstraint!
 
     weak var singleConversationControllerDelegate: SingleConversationControllerProtocol?
+    var temporaryCellHeight:CGFloat = 0
+    var extraCellHeiht:CGFloat {
+        return heightOfPreviewContainer.constant
+    }
 
     var messageModel: MessageModel? //be careful! - don't set observers like "willSet" & "didSet" ,... !
 
