@@ -239,12 +239,21 @@ class SearchUsersViewController: UITableViewController {
             let textField = alertController.textFields?.first!
             if textField?.text != "" {
                 self?.checkmarkedFriends.append(self!.currentUser)
-                _ = self?.managerFirebase.createConversation(self!.checkmarkedFriends,
-                                                         withName: textField?.text)
+                self?.managerFirebase.createConversation(self!.checkmarkedFriends,
+                                                         withName: textField?.text,
+                                                         completion: { (result) in
+                    switch result {
+                    case let .successSingleConversation(conversation):
+                        _ = self!.managerFirebase.createLogo(selectedUsers: self!.checkmarkedFriends, conversationID: conversation.uuid)
+                    default:
+                        print("Conversation was not created")
+                    }
+                })
                 self?.checkmarkedFriends.removeLast()
                 self?.navigationController?.popViewController(animated: true)
             }
         }
+        
         let noAction = UIAlertAction(title: "No", style: .destructive, handler: nil)
         
         alertController.addAction(yesAction)

@@ -575,7 +575,7 @@ class ManagerFirebase {
     }
     
     // MARK: - Conversations
-    func createConversation(_ members: [User], withName name: String? = nil) -> ConversationOperationResult {
+    func createConversation(_ members: [User], withName name: String? = nil, completion: @escaping (ConversationOperationResult) -> Void) {
         
         let timeStamp = NSNumber(value:Date().timeIntervalSince1970 * 1000.0)
         let key = ref?.child("conversations").childByAutoId().key
@@ -601,10 +601,9 @@ class ManagerFirebase {
                 
                 ref?.child("users/\(member.uid!)/conversations/\(conversation.uuid)").setValue(true)
             }
-        
-            return .successSingleConversation(conversation)
+            completion(.successSingleConversation(conversation))
         } else {
-            return .failure(NSLocalizedString("Something went wrong", comment: "Undefined error"))
+            completion(.failure(NSLocalizedString("Conversation was not created", comment: "")))
         }
         
     }
