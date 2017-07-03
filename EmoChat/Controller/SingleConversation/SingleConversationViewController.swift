@@ -447,13 +447,25 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             let videoFileURL = tempImage.filePathURL
             let videoPath = tempImage.path
             
-            let video1 = try Data.init(contentsOf: videoFileURL!, options: Data.ReadingOptions.alwaysMapped)
+            let video = try Data.init(contentsOf: videoFileURL!, options: Data.ReadingOptions.alwaysMapped)
             
-            print("VIDEO \(String(describing: video1))")
+          //  print("VIDEO \(String(describing: video))")
             print("VIDEO PATH \(videoPath!)")
             //print("VIDEO FILE URL \(videoFileURL!)")
-            UISaveVideoAtPathToSavedPhotosAlbum(videoPath!, self, nil, nil)
+         //   UISaveVideoAtPathToSavedPhotosAlbum(videoPath!, self, nil, nil)
             
+                manager?.uploadVideo(video, conversationID: "77777", result: { (result) in
+                    switch result {
+                    case .success:
+                        print("UPLOAD HOROSHO")
+                    case .failure(let error):
+                        print("\(error) fail error")
+                    default:
+                        break
+
+                    }
+                })
+                
             } catch  {
                 
             }

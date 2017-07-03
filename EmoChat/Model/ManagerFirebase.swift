@@ -903,6 +903,28 @@ class ManagerFirebase {
         }
     }
     
+    func uploadVideo (_ videoData: Data, conversationID: String, result: @escaping (UserOperationResult) -> Void) {
+
+            //create reference
+            let path = "attachments/\(conversationID)/video_messages/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).mov"
+            
+            let metaData = StorageMetadata()
+            metaData.contentType = "video/mov"
+            
+            //add to firebase
+            
+            self.storageRef.child(path).putData(videoData, metadata: metaData) { (metaData, error) in
+                
+                if error != nil {
+                    result(.failure((error?.localizedDescription)!))
+                } else {
+                    self.ref?.child("conversations/\(conversationID)/video_messages").setValue(path)
+                    result(.success)
+                    
+                }
+        }
+    }
+
 }
 
 
