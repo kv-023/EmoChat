@@ -22,13 +22,14 @@ class SingleConversationUITableViewCell: UITableViewCell {
         return heightOfPreviewContainer.constant
     }
 
-    var messageModel: MessageModel? //be careful! - don't set observers like "willSet" & "didSet" ,... !
+    weak var messageModel: MessageModel? //be careful! - don't set observers like "willSet" & "didSet" ,... !
 
     var messageEntity: Message? {
         didSet {
             message.text = messageEntity?.content?.content
 
-            self.parseDataFromMessageText()
+            setNullableDataInPreviewContainer()
+            parseDataFromMessageText(delaySeconds: 1)
         }
     }
 
@@ -50,14 +51,24 @@ class SingleConversationUITableViewCell: UITableViewCell {
         addRecognizerForMessage()
 
         previewContainer.backgroundColor = UIColor.clear
+        setNullableHeightOfPreviewContainer()
+    }
+
+    func setNullableDataInPreviewContainer() {
+        messageModel = nil
+        removeRestUIInfoViewFromView(view: previewContainer)
+        setNullableHeightOfPreviewContainer()
+    }
+
+    func setNullableHeightOfPreviewContainer() {
         heightOfPreviewContainer.constant = 0
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.contentView.layoutIfNeeded()
-        self.layoutIfNeeded()
-        self.previewContainer.layoutIfNeeded()
+//        self.contentView.layoutIfNeeded()
+//        self.layoutIfNeeded()
+//        self.previewContainer.layoutIfNeeded()
     }
 
     private func addRecognizerForMessage() {

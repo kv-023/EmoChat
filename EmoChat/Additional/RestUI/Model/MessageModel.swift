@@ -49,11 +49,13 @@ class MessageModel: RegexCheckProtocol {
 
 
     //prepare data for conversation's cell
-    func getParseDataFromResource(completion: @escaping(_ allDone: Bool) -> Void) {
+    func getParseDataFromResource(delaySeconds delay: Int = 0,
+                                  completion: @escaping(_ allDone: Bool) -> Void) {
         self.messageURLDataIsReady = false
 
         //https://www.raywenderlich.com/148515/grand-central-dispatch-tutorial-swift-3-part-2
-        DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue.global(qos: .userInitiated).asyncAfter(
+            deadline: .now() + .seconds(delay), execute: {
 
             var tempMessageURLData: MessageURLDataType = [:]
             let downloadGroup = DispatchGroup()
@@ -80,7 +82,7 @@ class MessageModel: RegexCheckProtocol {
 
                 completion(true)
             }
-        }
+        })
     }
     
 }

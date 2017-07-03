@@ -19,19 +19,21 @@ protocol SingleConversationControllerProtocol: class {
 
 extension SingleConversationUITableViewCell {
 
-    func parseDataFromMessageText() {
+    func parseDataFromMessageText(delaySeconds delay: Int = 0) {
 
         guard let notNullMessage = self.messageEntity else {
             return
         }
 
-        self.messageModel = nil
+//        self.messageModel = nil
 
         let newModel = MessageModel(message: notNullMessage)
-        newModel.getParseDataFromResource { (allDone) in
+        newModel.getParseDataFromResource(delaySeconds: delay, completion: {
+            (allDone) in
+
 
             if allDone {
-                self.messageModel = newModel
+//                self.messageModel = newModel
 
                 guard newModel.messageURLDataIsReady
                     && newModel.messageURLData.count > 0 else {
@@ -47,7 +49,7 @@ extension SingleConversationUITableViewCell {
                     }
                 }
             }
-        }
+        })
     }
 
     private func itIsRightModelWithMessage() -> Bool {
@@ -178,6 +180,19 @@ extension SingleConversationUITableViewCell {
         let top = NSLayoutConstraint(item: myView, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: hostView, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 0)
         
         self.addConstraint(top)
+    }
+
+    func removeRestUIInfoViewFromView(view masterView: UIView) {
+        let subviews = masterView.subviews
+
+        for currentSubview in subviews {
+
+            guard currentSubview is RestUIInfoView else {
+                continue
+            }
+
+            currentSubview.removeFromSuperview()
+        }
     }
 
 }
