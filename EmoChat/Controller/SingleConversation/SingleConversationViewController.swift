@@ -258,7 +258,7 @@ UITableViewDelegate {
                    heightForRowAt indexPath: IndexPath) -> CGFloat {
 
 //        var cellHeightForReturn:CGFloat = UITableViewAutomaticDimension
-
+//
 //        if let cellInstance = table.cellForRow(at: indexPath) as? SingleConversationUITableViewCell {
 //            if cellResized.contains(cellInstance) {
 //
@@ -400,7 +400,8 @@ extension SingleConversationViewController: SingleConversationControllerProtocol
             //self.tableView.reloadRows(at: [indexPath],
             //                          with: UITableViewRowAnimation.automatic)
             // self.tableView.moveRow(at: indexPath, to: indexPath)
-            cell.updateConstraints()
+            cell.updateConstraintsIfNeeded()
+            cell.previewContainer.updateConstraintsIfNeeded()
             table.endUpdates()
             
         }

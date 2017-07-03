@@ -16,13 +16,22 @@ class JSONParser: NSObject {
     //MARK - downloadImage
     
     func downloadImage(url: String,
-                       result: @escaping (UIImage) -> Void) {
+                       result: @escaping (UIImage?) -> Void) {
         
-        let imageURL: URL = URL(string: (url))!
+        guard let imageURL: URL = URL(string: (url)) else {
+            result(nil)
+            return
+        }
         
         let task = URLSession.shared.dataTask(with: imageURL) {(data, responce, error) in
             if let imageData = data {
-                result(UIImage(data: imageData)!)
+                var imageForReturn = UIImage(named: "urlError")
+                if let notNullImage = UIImage(data: imageData) {
+                    imageForReturn = notNullImage
+                }
+                result(imageForReturn)
+            } else { // need this to avoid everlasting loop
+                result(nil)
             }
         }
         task.resume()

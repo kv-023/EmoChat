@@ -25,24 +25,17 @@ extension SingleConversationUITableViewCell {
             return
         }
 
-//        self.messageModel = nil
-
         let newModel = MessageModel(message: notNullMessage)
         newModel.getParseDataFromResource(delaySeconds: delay, completion: {
             (allDone) in
 
-
             if allDone {
-//                self.messageModel = newModel
-
                 guard newModel.messageURLDataIsReady
                     && newModel.messageURLData.count > 0 else {
-
                         return
                 }
 
                 DispatchQueue.main.async {
-
                     if self.itIsRightModelWithMessage(model: newModel) {
                         self.messageModel = newModel
                         self.updateUI()
@@ -53,18 +46,16 @@ extension SingleConversationUITableViewCell {
     }
 
     private func itIsRightModelWithMessage() -> Bool {
-
         return self.messageModel?.uid == self.messageEntity?.uid
     }
     private func itIsRightModelWithMessage(model tMessageModel:MessageModel?) -> Bool {
-
         return tMessageModel?.uid == self.messageEntity?.uid
     }
     private func itIsRightModelWithMessage(modelUID uid:String?) -> Bool {
-
         return uid == self.messageEntity?.uid
     }
 
+    //MARK: load detail & update UI
     private func updateUI() {
 
         guard itIsRightModelWithMessage() else {
@@ -106,12 +97,15 @@ extension SingleConversationUITableViewCell {
                     dicTemData.updateValue(valueModel.title, forKey: "captionLabel")
                     dicTemData.updateValue(valueModel.text, forKey: "detailLabel")
 
-                    if let notNullUrl = urlAdress {
+                    if let notNullUrl = urlAdress,
+                        notNullUrl.characters.count > 0 {
                         JSONParser.sharedInstance.downloadImage(url: notNullUrl) { (image) in
 
                             dicTemData.updateValue(image, forKey: dataField)
                             downloadGroup.leave()
                         }
+                    } else {
+                        downloadGroup.leave()
                     }
                 }
             }
@@ -132,6 +126,7 @@ extension SingleConversationUITableViewCell {
         }
     }
 
+    //MARK:- UIView creation
     private func xibToFrameSetup() -> RestUIInfoView {
 
         let contentViewCell = Bundle.main.loadNibNamed("RestUIInfo2",
@@ -139,7 +134,7 @@ extension SingleConversationUITableViewCell {
                                               options: nil)?.first as! RestUIInfoView
 
         contentViewCell.eraseAllFields()
-        contentViewCell.captionLabel.text = "url preview loading ..."
+        contentViewCell.captionLabel.text = "loading ..."
 
         let ccViewHeight = contentViewCell.bounds.height
         contentViewCell.translatesAutoresizingMaskIntoConstraints = false
@@ -149,20 +144,23 @@ extension SingleConversationUITableViewCell {
                                        width: self.previewContainer.frame.width,
                                        height: ccViewHeight)
 
-
         self.heightOfPreviewContainer.constant = ccViewHeight
         self.previewContainer.addSubview(contentViewCell)
-
 
         setConstrainInSubView(embeddedView: contentViewCell, parrentView: self.previewContainer)
         self.previewContainer.layoutIfNeeded()
 
-
         self.singleConversationControllerDelegate?.resizeSingleConversationCell(cell: self)
 
-        contentViewCell.layer.cornerRadius = 10
-        contentViewCell.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
+        let radiuR:CGFloat = 10
+        self.previewContainer.layer.cornerRadius = radiuR
+        contentViewCell.layer.cornerRadius = radiuR
+        contentViewCell.mainImage.layer.cornerRadius = radiuR
+        contentViewCell.mainImage.layer.masksToBounds = true
+        contentViewCell.layer.masksToBounds = true
 
+        contentViewCell.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
+        
         return contentViewCell
     }
 

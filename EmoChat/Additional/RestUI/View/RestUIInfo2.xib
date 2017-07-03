@@ -42,13 +42,13 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zYr-p6-GlE" userLabel="siteIcoImage">
                     <rect key="frame" x="352" y="3" width="20" height="20"/>
                     <constraints>
-                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="20" id="5yE-Eg-XTD"/>
+                        <constraint firstAttribute="width" constant="20" id="5yE-Eg-XTD"/>
                         <constraint firstAttribute="width" secondItem="zYr-p6-GlE" secondAttribute="height" multiplier="1:1" id="ETi-gz-DCE"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="detail" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="9v5-pd-Srg">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="detail" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="9v5-pd-Srg">
                     <rect key="frame" x="76" y="32" width="299" height="43"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>

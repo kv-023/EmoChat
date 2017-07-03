@@ -10,6 +10,9 @@ import Foundation
 
 final class UrlembedModel: ParserDataModel {
 
+    var originUrl: String?
+    var requestUrl: String?
+
     var type: String?
     var language: String?
     var favicon: String?
@@ -46,6 +49,25 @@ final class UrlembedModel: ParserDataModel {
         version = jsonData["version"] as? Float
     }
 
+    convenience init (json jsonData: JsonDataType,
+                      originUrl: String?,
+                      requestUrl: String?) {
+        self.init(json: jsonData)
+
+        //additional work
+        self.originUrl = originUrl
+        self.requestUrl = requestUrl
+
+        //try to download photo as usual
+        if type?.lowercased() == typeOfData.photo.description
+            && (url?.characters.count ?? 0) == 0 {
+
+            url = originUrl
+            text = originUrl
+            title = provider_name
+        }
+    }
+
     private func getJsonDataFromArray(data jsonData: [String]?) -> [String]? {
         var arrayForReturn: [String] = []
 
@@ -56,5 +78,14 @@ final class UrlembedModel: ParserDataModel {
         }
 
         return arrayForReturn
+    }
+
+    enum typeOfData: String {
+        case photo = "photo"
+
+        var description: String {
+            return self.rawValue
+        }
+
     }
 }

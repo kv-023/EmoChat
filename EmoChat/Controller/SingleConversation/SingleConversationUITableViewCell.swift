@@ -30,6 +30,7 @@ class SingleConversationUITableViewCell: UITableViewCell {
 
             setNullableDataInPreviewContainer()
             parseDataFromMessageText(delaySeconds: 1)
+            //heightOfPreviewContainer.constant = 50 // for test only!
         }
     }
 

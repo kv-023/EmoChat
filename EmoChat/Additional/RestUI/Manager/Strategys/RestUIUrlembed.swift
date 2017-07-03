@@ -25,7 +25,9 @@ final class RestUIUrlembed: RestUIStrategy {
         JSONParser.sharedInstance.getJSONDataFromURL(forUrl: urlForConnect) {
             (jsonData: JsonDataType?) in
             if let notNullJsonData = jsonData {
-                let urlModel = UrlembedModel(json: notNullJsonData)
+                let urlModel = UrlembedModel(json: notNullJsonData,
+                                             originUrl: urlResource,
+                                             requestUrl: urlForConnect)
 
                 completion(urlModel)
             }
