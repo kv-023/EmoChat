@@ -32,6 +32,10 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     @IBOutlet weak var textViewMaxHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var loadingView: UIView!
+    
+    @IBOutlet weak var loadingGif: UIImageView!
+    
     var manager: ManagerFirebase?
     var currentUser: User!
     var currentConversation: Conversation!
@@ -39,7 +43,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     var messagesArray: [(Message, UserType)] = []
     var refresher: UIRefreshControl!
     var cellResized = Set<CustomTableViewCell>()
-    
+    var messageRestModel: [Message: MessageModel?] = [:]
+
     var messageRecognized: Message!
     
     override func viewDidLoad() {
@@ -55,6 +60,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         refresher.addTarget(self, action: #selector(updateUI), for: UIControlEvents.valueChanged)
         table.addSubview(refresher)
         table.alwaysBounceVertical = true
+        
         
         if !messagesArray.isEmpty {
             table.scrollToRow(at: IndexPath(row: messagesArray.count - 1, section: 0),
@@ -82,7 +88,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         setupKeyboardObservers()
         
         self.setUpFrame()
-        
         
     }
     
@@ -123,7 +128,13 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 return false
             }
         })!
+
+        //nik
+        let notNullMessageInArray = messagesArray[indexOfMessage].0
+        messageRestModel.removeValue(forKey: notNullMessageInArray)
+
         messagesArray.remove(at: indexOfMessage)
+
         table.reloadData()
     }
     
@@ -166,6 +177,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             if !self.messagesArray.isEmpty {
                 self.table.scrollToRow(at: IndexPath.init(row: self.messagesArray.count - 1, section: 0), at: .top, animated: false)
             }
+            self.loadingView.isHidden = true
         })
     }
     
@@ -287,6 +299,9 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             }
             cell.singleConversationControllerDelegate = self
             cell.messageEntity = message.0
+
+            setMessageModelInCell(currentCell: cell, message: cell.messageEntity)
+
             cell.time.text = message.0.time.formatDate()
             cell.userPic.image = self.photosArray[message.0.senderId]
             cell.delegate = self
@@ -297,6 +312,9 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             }
             cell.singleConversationControllerDelegate = self
             cell.messageEntity = message.0
+
+            setMessageModelInCell(currentCell: cell, message: cell.messageEntity)
+
             cell.userPic.image = self.photosArray[message.0.senderId]
             switch message.1 {
             case .right(.sent) :
@@ -310,8 +328,19 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             return cell
         }
     }
-    
-    
+
+    //nik
+    private func setMessageModelInCell(currentCell cell: CustomTableViewCell,
+                                       message messageEntity: Message?) {
+        if let notNullMessageEntity = messageEntity,
+            let messageModelInDictionary = messageRestModel[notNullMessageEntity],
+            messageModelInDictionary != nil {
+            cell.messageModel = messageModelInDictionary
+        } else {
+            cell.parseDataFromMessageTextForCell()
+        }
+    }
+
     func setUpFrame() {
         if let rect = self.navigationController?.navigationBar.frame {
             let y = rect.size.height + rect.origin.y
@@ -322,6 +351,10 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     func insertRow(_ newMessage: (Message, UserType)) {
         messagesArray.append((newMessage.0, newMessage.1))
+
+        //nik
+        messageRestModel.updateValue(nil, forKey: newMessage.0)
+
         table.beginUpdates()
         table.insertRows(at: [IndexPath(row: messagesArray.count - 1, section: 0)], with: .automatic)
         table.endUpdates()
@@ -470,6 +503,12 @@ extension SingleConversationViewController: SingleConversationControllerProtocol
             table.endUpdates()
             
         }
+    }
+
+    func addMessageModelInSingleConversationDictionary(message: Message,
+                                                       model: MessageModel?) {
+
+        messageRestModel.updateValue(model, forKey: message)
     }
     
 }

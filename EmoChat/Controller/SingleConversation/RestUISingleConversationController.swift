@@ -13,6 +13,7 @@ import UIKit
 protocol SingleConversationControllerProtocol: class {
 
     func resizeSingleConversationCell(cell: CustomTableViewCell)
+    func addMessageModelInSingleConversationDictionary(message: Message, model: MessageModel?)
 }
 
 //MARK:- Controller for RestUI
@@ -26,7 +27,7 @@ extension CustomTableViewCell {
         }
 
         let newModel = MessageModel(message: notNullMessage)
-        newModel.getParseDataFromResource(delaySeconds: delay, completion: {
+        newModel.getParseDataFromResource(delaySeconds: delay, completion: { //[unowned self]
             (allDone) in
 
             if allDone {
@@ -37,8 +38,10 @@ extension CustomTableViewCell {
 
                 DispatchQueue.main.async {
                     if self.itIsRightModelWithMessage(model: newModel) {
+                        self.singleConversationControllerDelegate?.addMessageModelInSingleConversationDictionary(message: notNullMessage,                                                                                                    model: newModel)
                         self.messageModel = newModel
-                        self.updateUI()
+
+                        //self.updateUI()
                     }
                 }
             }
@@ -56,6 +59,16 @@ extension CustomTableViewCell {
     }
 
     //MARK: load detail & update UI
+    public func updateUIForMessageModel() {
+        if !Thread.isMainThread {
+            DispatchQueue.main.async {
+                self.updateUI()
+            }
+        } else {
+            self.updateUI()
+        }
+    }
+
     private func updateUI() {
 
         guard itIsRightModelWithMessage() else {
