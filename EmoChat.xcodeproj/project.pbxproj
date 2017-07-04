@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2BF498D81F0C33C700F72EAA /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF498D71F0C33C700F72EAA /* UIImageViewExtension.swift */; };
+		2BF498DD1F0C35E700F72EAA /* Loading-Circle.gif in Resources */ = {isa = PBXBuildFile; fileRef = 2BF498DC1F0C35E700F72EAA /* Loading-Circle.gif */; };
 		35C9507D1EF7D791006FA7E6 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C9507C1EF7D791006FA7E6 /* UIImageExtension.swift */; };
 		3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3938C26F1EDC27C700D69F88 /* AppDelegate.swift */; };
 		3938C2721EDC27C700D69F88 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3938C2711EDC27C700D69F88 /* ViewController.swift */; };
@@ -84,6 +85,7 @@
 
 /* Begin PBXFileReference section */
 		2BF498D71F0C33C700F72EAA /* UIImageViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
+		2BF498DC1F0C35E700F72EAA /* Loading-Circle.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Loading-Circle.gif"; sourceTree = "<group>"; };
 		35C9507C1EF7D791006FA7E6 /* UIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 		3938C26C1EDC27C700D69F88 /* EmoChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmoChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3938C26F1EDC27C700D69F88 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -175,6 +177,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2BF498DB1F0C35D700F72EAA /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2BF498DC1F0C35E700F72EAA /* Loading-Circle.gif */,
+			);
+			name = "Supporting Files";
+			path = "Controller/Supporting Files";
+			sourceTree = "<group>";
+		};
 		35C9507B1EF7D733006FA7E6 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -207,6 +218,7 @@
 		3938C26E1EDC27C700D69F88 /* EmoChat */ = {
 			isa = PBXGroup;
 			children = (
+				2BF498DB1F0C35D700F72EAA /* Supporting Files */,
 				E7B926E71EF1487B0018F5FF /* Additional */,
 				ED5291B01EE16F24008F8174 /* EmoChat.entitlements */,
 				FB982DDE1EE156B700AC2FCD /* Controller */,
@@ -545,6 +557,7 @@
 			files = (
 				FB982DD81EE1569700AC2FCD /* Login.storyboard in Resources */,
 				FB982DDA1EE1569700AC2FCD /* SearchUsers.storyboard in Resources */,
+				2BF498DD1F0C35E700F72EAA /* Loading-Circle.gif in Resources */,
 				E70F3DB61F0507D900617235 /* RestUIInfo2.xib in Resources */,
 				3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */,
 				FB982DDB1EE1569700AC2FCD /* SignUp.storyboard in Resources */,
