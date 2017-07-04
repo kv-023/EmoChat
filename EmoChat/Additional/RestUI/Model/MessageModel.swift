@@ -84,5 +84,16 @@ class MessageModel: RegexCheckProtocol {
             }
         })
     }
-    
+}
+
+//MARK:- MessageModel Hashable
+
+extension MessageModel: Hashable {
+    var hashValue: Int {
+        return self.uid?.hashValue ?? 0
+    }
+}
+
+func == (lhs: MessageModel, rhs: MessageModel) -> Bool {
+    return lhs.uid == rhs.uid
 }

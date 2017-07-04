@@ -26,22 +26,32 @@ class CustomTableViewCell: UITableViewCell {
         return heightOfPreviewContainer.constant
     }
 
-    weak var messageModel: MessageModel?
+    weak var messageModel: MessageModel? {
+        didSet {
+            if messageModel != nil {
+                self.updateUIForMessageModel()
+            }
+        }
+    }
     
     var messageEntity: Message? {
         get {
             return _messageEntity
         }
-        
+
         set {
             _messageEntity = newValue
             //TODO: check type of content
             message.text = newValue?.content!.content
             setNullableDataInPreviewContainer()
-            parseDataFromMessageText(delaySeconds: 1)
+//            parseDataFromMessageText(delaySeconds: 1)
         }
     }
-    
+
+    func parseDataFromMessageTextForCell() {
+        parseDataFromMessageText(delaySeconds: 1)
+    }
+
     var contentRect: CGRect {
         get {
             return message.frame
