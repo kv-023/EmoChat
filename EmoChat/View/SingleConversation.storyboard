@@ -59,7 +59,7 @@
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Some text" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="saX-Im-Te1">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Some text" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="saX-Im-Te1" customClass="SpecialTextView" customModule="EmoChat" customModuleProvider="target">
                                                     <rect key="frame" x="58" y="11" width="79.5" height="38"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -125,7 +125,7 @@
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Some text" textAlignment="right" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mHH-T8-Hcd">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Some text" textAlignment="right" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mHH-T8-Hcd" customClass="SpecialTextView" customModule="EmoChat" customModuleProvider="target">
                                                     <rect key="frame" x="237.5" y="11" width="79.5" height="38"/>
                                                     <gestureRecognizers/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -178,7 +178,7 @@
                             <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="guk-1E-8hU">
                                 <rect key="frame" x="0.0" y="624" width="375" height="43"/>
                                 <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" scrollEnabled="NO" keyboardDismissMode="interactive" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="6Zs-2n-ZAE">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="249" scrollEnabled="NO" keyboardDismissMode="interactive" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="6Zs-2n-ZAE" customClass="CustomTextView" customModule="EmoChat" customModuleProvider="target">
                                         <rect key="frame" x="9" y="5" width="324" height="33"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>

@@ -21,32 +21,25 @@ enum UserType {
 extension SingleConversationViewController : CellDelegate {
     func cellDelegate(_ sender: UITableViewCell, didHandle action: Action) {
         if action == .longPress {
-            //recognizer.view!.becomeFirstResponder()
-            //let menu = UIMenuController.shared
             
             if let cell = sender as? CustomTableViewCell {
-                //menu.setTargetRect(cell.message.frame, in: cell)
+                cell.message.becomeFirstResponder()
+                SingleConversationViewController.selectedCell = cell
                 showMenu(forCell: cell)
-                //messageRecognized = cell.messageEntity
             }
-            
-            //        if let cell = sender as? LeftCell {
-            //            menu.setTargetRect(cell.message.frame, in: cell)
-            //            messageRecognized = cell.messageEntity
-            //        } else if let cell = sender as? RightCell {
-            //            menu.setTargetRect(cell.message.frame, in: cell)
-            //            messageRecognized = cell.messageEntity
-            //        }
-            //menu.setMenuVisible(true, animated: true)
         }
     }
+    
+    
 }
 
 class SingleConversationViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate{
     
+    static var selectedCell: CustomTableViewCell?
+    
     @IBOutlet weak var inputSubView: UIView!
     
-    @IBOutlet weak var textMessage: UITextView!
+    @IBOutlet weak var textMessage: CustomTextView!
     
     @IBOutlet weak var table: UITableView!
     
@@ -65,11 +58,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     var refresher: UIRefreshControl!
     
     var messageRecognized: Message!
-    
-    
-    override var canBecomeFirstResponder: Bool {
-        return true
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,7 +102,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         
     }
     
-    
     func showMenu(forCell cell: CustomTableViewCell) {
         guard table.indexPath(for: cell) != nil else {
             return
@@ -124,6 +111,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         menu.setTargetRect(cell.contentRect, in: cell.contentView)
         let item = UIMenuItem(title: "Copy", action: #selector(copyAction(_:)))
         menu.menuItems = [item]
+        menu.update()
         
         if cell is RightCell {
             menu.menuItems?.append(UIMenuItem(title: "Delete", action: #selector(deleteAction(_:))))
@@ -134,6 +122,14 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     }
     
     //functionality
+    
+    func copyAction(_ sender: Any?) {
+        UIPasteboard.general.string = messageRecognized.content!.content
+    }
+    
+    func deleteAction(_ sender: Any?) {
+        deleteMessage(messageRecognized)
+    }
     
     func removeAtUid(_ uid: String) {
         let indexOfMessage: Int = messagesArray.index(where: {tuple in
@@ -149,26 +145,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     func deleteMessage(_ target: Message) {
         manager?.deleteMessage(target.uid!, from: currentConversation)
-    }
-    
-    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        switch action {
-        case #selector(copyAction(_:)):
-            return true
-        case #selector(deleteAction(_:)):
-            return true
-        default:
-            return false
-        }
-    }
-    
-    func copyAction(_ sender: Any?) {
-        UIPasteboard.general.string = messageRecognized.content!.content
-        //.setValue(messageRecognized.content!.content, forPasteboardType: "TEXT")
-    }
-    
-    func deleteAction(_ sender: Any?) {
-        deleteMessage(messageRecognized)
     }
     
     func observeDeletion () {
@@ -314,6 +290,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let message = messagesArray[indexPath.row]
+        
+        
         switch message.1 {
         case .left:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "Left", for: indexPath) as? LeftCell else {

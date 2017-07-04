@@ -13,7 +13,7 @@ class CustomTableViewCell: UITableViewCell {
     
     @IBOutlet weak var userPic: UIImageView!
     @IBOutlet weak var time: UILabel!
-    @IBOutlet weak var message: UITextView!
+    @IBOutlet weak var message: SpecialTextView!
     @IBOutlet weak var background: UIImageView!
     
     var delegate: CellDelegate!
@@ -41,6 +41,7 @@ class CustomTableViewCell: UITableViewCell {
             delegate.cellDelegate(self, didHandle: .longPress)
         }
     }
+    
     
     private var _messageEntity: Message!
 }
