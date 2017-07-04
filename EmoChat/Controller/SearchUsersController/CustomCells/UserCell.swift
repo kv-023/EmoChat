@@ -1,19 +1,19 @@
 //
-//  GlobalUserCell.swift
+//  UserCell.swift
 //  EmoChat
 //
-//  Created by Admin on 08.06.17.
+//  Created by Admin on 04.07.17.
 //  Copyright © 2017 SoftServe. All rights reserved.
 //
 
 import UIKit
 
-class GlobalUserCell: UITableViewCell {
+class UserCell: UITableViewCell {
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var userPhoto: UIImageView!
+    @IBOutlet weak var userImageView: UIImageView!
+    @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var userUsernameLabel: UILabel!
-    @IBOutlet weak var userNameSurnameLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()

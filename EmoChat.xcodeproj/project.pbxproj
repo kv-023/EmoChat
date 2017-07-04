@@ -16,12 +16,12 @@
 		3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2761EDC27C700D69F88 /* Assets.xcassets */; };
 		3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */; };
 		746478FA29F53658399EE02D /* Pods_EmoChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */; };
-		84247A391EE9CDA6009E8167 /* GlobalUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84247A381EE9CDA6009E8167 /* GlobalUserCell.swift */; };
 		842E8B6C1EF931C900CA3BF2 /* ConversationsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E8B6B1EF931C900CA3BF2 /* ConversationsDataSource.swift */; };
 		842E8B6E1EF9330700CA3BF2 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E8B6D1EF9330700CA3BF2 /* DateExtension.swift */; };
 		842E8B701EF9DDB100CA3BF2 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E8B6F1EF9DDB100CA3BF2 /* ArrayExtension.swift */; };
 		84312F931EE94FB600FAC4D1 /* SearchUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84312F921EE94FB600FAC4D1 /* SearchUsersViewController.swift */; };
-		84312F961EE9507E00FAC4D1 /* ContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84312F951EE9507E00FAC4D1 /* ContactCell.swift */; };
+		84530F371F0C1E8300EBFCEB /* ImageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84530F361F0C1E8300EBFCEB /* ImageStore.swift */; };
+		84530F391F0C35DD00EBFCEB /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84530F381F0C35DD00EBFCEB /* UserCell.swift */; };
 		84A3C8D11EF8790F001A9A19 /* ConversationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A3C8D01EF8790F001A9A19 /* ConversationsController.swift */; };
 		84A3C8D51EF89538001A9A19 /* MessageConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A3C8D41EF89538001A9A19 /* MessageConversationCell.swift */; };
 		A309F3761EEFED6000DF6449 /* OptionsChangeNumberTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A309F3751EEFED6000DF6449 /* OptionsChangeNumberTableViewController.swift */; };
@@ -80,12 +80,12 @@
 		3938C27B1EDC27C700D69F88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5E5B970584D3FF3821DB6225 /* Pods-EmoChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmoChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmoChat/Pods-EmoChat.release.xcconfig"; sourceTree = "<group>"; };
 		6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmoChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		84247A381EE9CDA6009E8167 /* GlobalUserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalUserCell.swift; sourceTree = "<group>"; };
 		842E8B6B1EF931C900CA3BF2 /* ConversationsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationsDataSource.swift; sourceTree = "<group>"; };
 		842E8B6D1EF9330700CA3BF2 /* DateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		842E8B6F1EF9DDB100CA3BF2 /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		84312F921EE94FB600FAC4D1 /* SearchUsersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchUsersViewController.swift; sourceTree = "<group>"; };
-		84312F951EE9507E00FAC4D1 /* ContactCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCell.swift; sourceTree = "<group>"; };
+		84530F361F0C1E8300EBFCEB /* ImageStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageStore.swift; sourceTree = "<group>"; };
+		84530F381F0C35DD00EBFCEB /* UserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		84A3C8D01EF8790F001A9A19 /* ConversationsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationsController.swift; sourceTree = "<group>"; };
 		84A3C8D41EF89538001A9A19 /* MessageConversationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageConversationCell.swift; sourceTree = "<group>"; };
 		A309F3751EEFED6000DF6449 /* OptionsChangeNumberTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OptionsChangeNumberTableViewController.swift; path = EmoChat/Controller/OptionsController/OptionsChangeNumberTableViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -222,8 +222,7 @@
 		84312F941EE9503A00FAC4D1 /* CustomCells */ = {
 			isa = PBXGroup;
 			children = (
-				84312F951EE9507E00FAC4D1 /* ContactCell.swift */,
-				84247A381EE9CDA6009E8167 /* GlobalUserCell.swift */,
+				84530F381F0C35DD00EBFCEB /* UserCell.swift */,
 			);
 			path = CustomCells;
 			sourceTree = "<group>";
@@ -270,6 +269,7 @@
 		E7352C201EDED52B0095264E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				84530F361F0C1E8300EBFCEB /* ImageStore.swift */,
 				E7352C221EDED52B0095264E /* Helper */,
 				E7352C211EDED52B0095264E /* Conversation.swift */,
 				E7352C241EDED52B0095264E /* Message.swift */,
@@ -547,9 +547,9 @@
 				CC13C5D51EF4092900B38E59 /* ArchiverManager.swift in Sources */,
 				E7B926F01EF1487B0018F5FF /* EmoChatUIViewController.swift in Sources */,
 				35F8943A1F00FFE000862BAC /* UserTableViewCell.swift in Sources */,
-				84247A391EE9CDA6009E8167 /* GlobalUserCell.swift in Sources */,
 				E7B926F11EF1487B0018F5FF /* PopOverHelper.swift in Sources */,
 				A3E7E7D11EEFD893006D24BC /* OptionsMainPageTableViewController.swift in Sources */,
+				84530F391F0C35DD00EBFCEB /* UserCell.swift in Sources */,
 				A309F3761EEFED6000DF6449 /* OptionsChangeNumberTableViewController.swift in Sources */,
 				E7B926EF1EF1487B0018F5FF /* CustomTextFieldWithPopOverInfoBox.swift in Sources */,
 				FBF7A9CA1EF012E600ABADF5 /* SignUpChooseYourPhotoViewController.swift in Sources */,
@@ -557,7 +557,6 @@
 				E7352C281EDED52B0095264E /* Message.swift in Sources */,
 				A39232881EEFFF8F00E70CD9 /* OptionsChangePhotoNameSecondNameTableViewController.swift in Sources */,
 				E7352C271EDED52B0095264E /* Auxiliary.swift in Sources */,
-				84312F961EE9507E00FAC4D1 /* ContactCell.swift in Sources */,
 				FB982DE11EE156B700AC2FCD /* LoginViewController.swift in Sources */,
 				35C9507D1EF7D791006FA7E6 /* UIImageExtension.swift in Sources */,
 				E7352C291EDED52B0095264E /* User.swift in Sources */,
@@ -569,6 +568,7 @@
 				842E8B701EF9DDB100CA3BF2 /* ArrayExtension.swift in Sources */,
 				3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */,
 				E7352C381EE81B790095264E /* ControllerHelper.swift in Sources */,
+				84530F371F0C1E8300EBFCEB /* ImageStore.swift in Sources */,
 				35E79C561EFA71F1006E98C9 /* LogoTableViewCell.swift in Sources */,
 				842E8B6E1EF9330700CA3BF2 /* DateExtension.swift in Sources */,
 				E7B926F41EF1487B0018F5FF /* UIColorHelper.swift in Sources */,
