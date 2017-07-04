@@ -304,6 +304,7 @@ extension SearchUsersViewController: UISearchBarDelegate {
         if searchType == .globalUsers && searchBar.text == "" || filteredUsers.isEmpty {
             searchType = .contacts
             searchBar.selectedScopeButtonIndex = searchType.rawValue
+            filterContent(for: "")
         }
     }
 
