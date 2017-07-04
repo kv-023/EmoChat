@@ -9,9 +9,8 @@
 
 import UIKit
 
-class LeftCell: SingleConversationUITableViewCell, UITextViewDelegate {
+class LeftCell: CustomTableViewCell {
 
-    @IBOutlet weak var background: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()

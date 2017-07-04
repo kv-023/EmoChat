@@ -12,12 +12,12 @@ import UIKit
 
 protocol SingleConversationControllerProtocol: class {
 
-    func resizeSingleConversationCell(cell: SingleConversationUITableViewCell)
+    func resizeSingleConversationCell(cell: CustomTableViewCell)
 }
 
 //MARK:- Controller for RestUI
 
-extension SingleConversationUITableViewCell {
+extension CustomTableViewCell {
 
     func parseDataFromMessageText(delaySeconds delay: Int = 0) {
 

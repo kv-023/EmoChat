@@ -18,20 +18,7 @@ enum UserType {
     case right (RightType)
 }
 
-extension SingleConversationViewController : CellDelegate {
-    func cellDelegate(_ sender: UITableViewCell, didHandle action: Action) {
-        if action == .longPress {
-            
-            if let cell = sender as? CustomTableViewCell {
-                cell.message.becomeFirstResponder()
-                SingleConversationViewController.selectedCell = cell
-                showMenu(forCell: cell)
-            }
-        }
-    }
-    
-    
-}
+
 
 class SingleConversationViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate{
     
@@ -51,7 +38,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     var firstMessage : Message?
     var messagesArray: [(Message, UserType)] = []
     var refresher: UIRefreshControl!
-    var cellResized = Set<SingleConversationUITableViewCell>()
+    var cellResized = Set<CustomTableViewCell>()
     
     var messageRecognized: Message!
     
@@ -464,7 +451,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
 //MARK:- SingleConversationCellProtocol
 extension SingleConversationViewController: SingleConversationControllerProtocol {
 
-    func resizeSingleConversationCell(cell: SingleConversationUITableViewCell) {
+    func resizeSingleConversationCell(cell: CustomTableViewCell) {
         if let indexPath = table.indexPath(for: cell) {
 
             cellResized.insert(cell)
@@ -483,4 +470,19 @@ extension SingleConversationViewController: SingleConversationControllerProtocol
             
         }
     }
+    
+}
+extension SingleConversationViewController : CellDelegate {
+    func cellDelegate(_ sender: UITableViewCell, didHandle action: Action) {
+        if action == .longPress {
+            
+            if let cell = sender as? CustomTableViewCell {
+                cell.message.becomeFirstResponder()
+                SingleConversationViewController.selectedCell = cell
+                showMenu(forCell: cell)
+            }
+        }
+    }
+    
+    
 }

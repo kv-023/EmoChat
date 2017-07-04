@@ -15,10 +15,20 @@ class CustomTableViewCell: UITableViewCell {
     @IBOutlet weak var time: UILabel!
     @IBOutlet weak var message: SpecialTextView!
     @IBOutlet weak var background: UIImageView!
+    @IBOutlet weak var previewContainer: UIView!
+    @IBOutlet weak var heightOfPreviewContainer: NSLayoutConstraint!
     
-    var delegate: CellDelegate!
+    weak var delegate: CellDelegate!
+    weak var singleConversationControllerDelegate: SingleConversationControllerProtocol?
     
-    var messageEntity: Message {
+    var temporaryCellHeight:CGFloat = 0
+    var extraCellHeiht:CGFloat {
+        return heightOfPreviewContainer.constant
+    }
+
+    weak var messageModel: MessageModel?
+    
+    var messageEntity: Message? {
         get {
             return _messageEntity
         }
@@ -26,7 +36,9 @@ class CustomTableViewCell: UITableViewCell {
         set {
             _messageEntity = newValue
             //TODO: check type of content
-            message.text = newValue.content!.content
+            message.text = newValue?.content!.content
+            setNullableDataInPreviewContainer()
+            parseDataFromMessageText(delaySeconds: 1)
         }
     }
     
@@ -44,6 +56,36 @@ class CustomTableViewCell: UITableViewCell {
     
     
     private var _messageEntity: Message!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        setInitDataForUI()
+    }
+    
+    private func setInitDataForUI() {
+        addRecognizerForMessage()
+        
+        previewContainer.backgroundColor = UIColor.clear
+        setNullableHeightOfPreviewContainer()
+    }
+    
+    func setNullableDataInPreviewContainer() {
+        messageModel = nil
+        removeRestUIInfoViewFromView(view: previewContainer)
+        setNullableHeightOfPreviewContainer()
+    }
+    
+    func setNullableHeightOfPreviewContainer() {
+        heightOfPreviewContainer.constant = 0
+    }
+    
+    private func addRecognizerForMessage() {
+        
+        let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(handler))
+        message.addGestureRecognizer(recognizer)
+    }
+
 }
 
 // MARK: - Actions
@@ -53,55 +95,8 @@ enum Action {
     // Other actions
 }
 
-protocol CellDelegate {
+protocol CellDelegate: class {
     func cellDelegate(_ sender: UITableViewCell, didHandle action: Action)
 }
 
-class LeftCell: CustomTableViewCell {
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(handler))
-        message.addGestureRecognizer(recognizer)
-    }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-    
-
-}
-
-class RightCell: CustomTableViewCell {
-    
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-
-    var isReceived = false {
-        didSet {
-            if isReceived {
-                activityIndicator.stopAnimating()
-                activityIndicator.isHidden = true
-                time.isHidden = false
-                time.text = messageEntity.time.formatDate()
-
-            } else {
-                time.isHidden = true
-                activityIndicator.isHidden = false
-                activityIndicator.startAnimating()
-
-            }
-        }
-    }
-    
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(handler))
-        message.addGestureRecognizer(recognizer)
-    }
-    
-      override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-    
-}
