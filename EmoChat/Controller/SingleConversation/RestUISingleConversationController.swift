@@ -27,7 +27,7 @@ extension CustomTableViewCell {
         }
 
         let newModel = MessageModel(message: notNullMessage)
-        newModel.getParseDataFromResource(delaySeconds: delay, completion: {
+        newModel.getParseDataFromResource(delaySeconds: delay, completion: { //[unowned self]
             (allDone) in
 
             if allDone {

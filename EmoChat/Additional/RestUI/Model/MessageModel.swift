@@ -10,7 +10,7 @@ import Foundation
 
 class MessageModel: RegexCheckProtocol {
 
-    var message:Message?
+    weak var message:Message?
     var messageURLData: MessageURLDataType {
         didSet {
 //            for (key3, value3) in messageURLData {
@@ -42,6 +42,11 @@ class MessageModel: RegexCheckProtocol {
         messageURLData = [:]
     }
 
+    deinit {
+        messageURLData = [:]
+        message = nil
+    }
+
     convenience init(message: Message) {
         self.init()
         self.message = message
@@ -55,7 +60,7 @@ class MessageModel: RegexCheckProtocol {
 
         //https://www.raywenderlich.com/148515/grand-central-dispatch-tutorial-swift-3-part-2
         DispatchQueue.global(qos: .userInitiated).asyncAfter(
-            deadline: .now() + .seconds(delay), execute: {
+            deadline: .now() + .seconds(delay), execute: {[unowned self] in
 
             var tempMessageURLData: MessageURLDataType = [:]
             let downloadGroup = DispatchGroup()
