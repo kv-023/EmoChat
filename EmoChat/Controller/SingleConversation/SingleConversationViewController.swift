@@ -46,16 +46,12 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     @IBOutlet weak var textViewMaxHeightConstraint: NSLayoutConstraint!
     
     var manager: ManagerFirebase?
-    
     var currentUser: User!
-    
     var currentConversation: Conversation!
-    
     var firstMessage : Message?
-    
     var messagesArray: [(Message, UserType)] = []
-    
     var refresher: UIRefreshControl!
+    var cellResized = Set<SingleConversationUITableViewCell>()
     
     var messageRecognized: Message!
     
@@ -73,20 +69,20 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         table.addSubview(refresher)
         
         if !messagesArray.isEmpty {
-            table.scrollToRow(at: IndexPath.init(row: messagesArray.count - 1, section: 0), at: .top, animated: false)
+            table.scrollToRow(at: IndexPath(row: messagesArray.count - 1, section: 0),
+                              at: .top, animated: false)
         }
         self.setUpTextView()
         manager = ManagerFirebase.shared
         
-        
         group.enter()
-        manager?.getUsersInConversation(conversation: self.currentConversation, completion: { (users) in
+        manager?.getUsersInConversation(conversation: self.currentConversation,
+                                        completion: { (users) in
             self.currentConversation.usersInConversation = users
             self.downloadPhotos()
             self.group.leave()
         })
-        
-        
+
         group.notify(queue: DispatchQueue.main, execute: {
             self.observeNewMessage()
         })
@@ -187,8 +183,11 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     @IBAction func sendMessage(_ sender: UIButton) {
         
-        let result:MessageOperationResult? = manager?.createMessage(conversation: currentConversation!, sender: currentUser, content: (.text, textMessage.text))
-        
+        let result:MessageOperationResult? = manager?.createMessage(
+            conversation: currentConversation!,
+            sender: currentUser,
+            content: (.text, textMessage.text))
+
         switch (result!) {
         case .successSingleMessage(let message):
             insertRow((message, .right(.sending)))
@@ -199,17 +198,18 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         }
         
         if !messagesArray.isEmpty {
-            self.table.scrollToRow(at: IndexPath.init(row: messagesArray.count - 1, section: 0), at: .top, animated: false)
+            self.table.scrollToRow(at: IndexPath(row: messagesArray.count - 1, section: 0),
+                                   at: .top,
+                                   animated: false)
         }
+
         //clean textView
-        
         textMessage.text = ""
-        
         textMessage.isScrollEnabled = false;
+
         self.textViewMaxHeightConstraint.isActive = false
         
-        firstMessage = messagesArray[0].0
-        
+        firstMessage = messagesArray.first?.0 //messagesArray[0].0
     }
     
     //download 20 last messages
@@ -297,17 +297,17 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "Left", for: indexPath) as? LeftCell else {
                 fatalError("Cell was not casted!")
             }
+            cell.singleConversationControllerDelegate = self
             cell.messageEntity = message.0
             cell.time.text = message.0.time.formatDate()
             cell.userPic.image = self.photosArray[message.0.senderId]
-            
             cell.delegate = self
-            
             return cell
         case .right:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "Right", for: indexPath) as? RightCell else {
                 fatalError("Cell was not casted!")
             }
+            cell.singleConversationControllerDelegate = self
             cell.messageEntity = message.0
             cell.userPic.image = self.photosArray[message.0.senderId]
             switch message.1 {
@@ -343,6 +343,26 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         messagesArray = newMessages + messagesArray
     }
     
+
+    func tableView(_ tableView: UITableView,
+                   heightForRowAt indexPath: IndexPath) -> CGFloat {
+
+//        var cellHeightForReturn:CGFloat = UITableViewAutomaticDimension
+//
+//        if let cellInstance = table.cellForRow(at: indexPath) as? SingleConversationUITableViewCell {
+//            if cellResized.contains(cellInstance) {
+//
+//                cellHeightForReturn = cellInstance.temporaryCellHeight + cellInstance.extraCellHeiht
+//            }
+//
+//            return cellHeightForReturn
+//        } else {
+//            return UITableViewAutomaticDimension
+//        }
+
+        return UITableViewAutomaticDimension
+    }
+
     //MARK: - text view
     
     func setUpTextView () {
@@ -401,7 +421,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     }
     
     func handleKeyboardWillHide (notification: Notification) {
-        if let keyboardDuration = (notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue{
+        if let keyboardDuration = (notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue {
             
             self.bottomConstraint.constant = 0
             UIView.animate(withDuration: keyboardDuration, animations: {
@@ -413,11 +433,14 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     func handleKeyboardWillShow (notification: Notification) {
         if let keyboardSize = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect, let keyboardDuration = (notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue {
             self.bottomConstraint.constant = keyboardSize.height
-            UIView.animate(withDuration: keyboardDuration, animations: {
+            UIView.animate(withDuration: keyboardDuration,
+                           animations: {
                 self.view.layoutIfNeeded()
             })
+
             if !messagesArray.isEmpty {
-                table.scrollToRow(at: IndexPath.init(row: messagesArray.count - 1, section: 0), at: .top, animated: false)
+                table.scrollToRow(at: IndexPath(row: messagesArray.count - 1,
+                                                     section: 0), at: .top, animated: false)
             }
         }
     }
@@ -430,14 +453,34 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
         //TODO: remove observers
     }
-    
-    
-    
+}
+
+//MARK:- SingleConversationCellProtocol
+extension SingleConversationViewController: SingleConversationControllerProtocol {
+
+    func resizeSingleConversationCell(cell: SingleConversationUITableViewCell) {
+        if let indexPath = table.indexPath(for: cell) {
+
+            cellResized.insert(cell)
+
+            table.beginUpdates()
+            table.rectForRow(at: indexPath)
+
+            cell.temporaryCellHeight = table.rectForRow(at: indexPath).height// - cell.extraCellHeiht
+
+            //self.tableView.reloadRows(at: [indexPath],
+            //                          with: UITableViewRowAnimation.automatic)
+            // self.tableView.moveRow(at: indexPath, to: indexPath)
+            cell.updateConstraintsIfNeeded()
+            cell.previewContainer.updateConstraintsIfNeeded()
+            table.endUpdates()
+            
+        }
+    }
 }

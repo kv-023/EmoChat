@@ -8,6 +8,9 @@
 
 import Foundation
 
+//nik, 2017-06-29
+typealias MessageContentDataType = (type: MessageContentType, content: String)
+
 enum MessageContentType: String {
     case photo
     case video
@@ -18,10 +21,10 @@ class Message {
     let uid: String?
     let senderId: String!
     let time: Date!
-    var content: (type: MessageContentType, content: String)!
+    var content: MessageContentDataType!
 
 
-    init (uid: String, senderId: String, time: Date, content: (type: MessageContentType, content: String))
+    init (uid: String, senderId: String, time: Date, content: MessageContentDataType)
     {
         self.uid = uid
         self.senderId = senderId
