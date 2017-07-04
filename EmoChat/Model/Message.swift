@@ -12,6 +12,7 @@ enum MessageContentType: String {
     case photo
     case video
     case text
+    case audio
 }
 
 class Message {

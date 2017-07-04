@@ -914,6 +914,35 @@ class ManagerFirebase {
         })
     }
     
+
+
+    
+    func handleAudioSendWith(url: URL) {
+  //      if let uid = Auth.auth().currentUser?.uid {
+            let fileUrl = url
+            let fileName = NSUUID().uuidString + ".m4a"
+        
+        self.storageRef.storage.reference().child("message_voice").child(fileName).putFile(from: fileUrl, metadata: nil) { (metadata, error) in
+            if error != nil {
+                print(error?.localizedDescription ?? "Error")
+            }
+            if let downloadUrl = metadata?.downloadURL()?.absoluteString {
+                
+                let values: [String : Any] = ["audioUrl": downloadUrl]
+              
+                }
+            }
+     //   }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
 
 
