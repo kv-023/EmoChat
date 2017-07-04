@@ -28,7 +28,7 @@ class OptionsChangeEmailTableViewController: UITableViewController, UITextFieldD
         self.hideKeyboard()
         
         //Add current user email in textfield
-        changeEmailTextField.text = currentUser.currentUser?.email
+        changeEmailTextField.text = currentUser.email
     }
     
     // MARK: - Action

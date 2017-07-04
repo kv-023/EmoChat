@@ -30,7 +30,7 @@ class OptionsChangeNumberTableViewController: UITableViewController, UITextField
         self.navigationItem.rightBarButtonItem = rightButtonItem
         
         //Show current phone number in text field
-        changeNumberTextField.text = currentUser.currentUser?.phoneNumber
+        changeNumberTextField.text = currentUser.phoneNumber
         
         //Hide keyboard by tap
         self.hideKeyboard()
