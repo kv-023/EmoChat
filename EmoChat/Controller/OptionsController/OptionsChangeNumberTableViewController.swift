@@ -21,7 +21,6 @@ class OptionsChangeNumberTableViewController: UITableViewController, UITextField
     private var inputError = false
     
     override func viewDidLoad() {
-
         super.viewDidLoad()
         
         

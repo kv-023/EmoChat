@@ -142,6 +142,7 @@ extension UIImage {
 		var b = b
 		
 		// Check if one of them is nil
+		
 		if b == nil || a == nil {
 			
 			if b != nil {
@@ -239,6 +240,7 @@ extension UIImage {
 			return sum
 		}()
 		
+
 		// Get frames
 		
 		let gcd = gcdForArray(delays)
@@ -256,6 +258,7 @@ extension UIImage {
 			}
 			
 		}
+		
 		
 		// Animate image with array of images
 		let animation = UIImage.animatedImage(with: frames,

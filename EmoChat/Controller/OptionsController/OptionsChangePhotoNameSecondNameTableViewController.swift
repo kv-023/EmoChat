@@ -33,7 +33,7 @@ class OptionsChangePhotoNameSecondNameTableViewController: UITableViewController
         //Add info in view controller
         firstNameTextField.text = currentUser.firstName
         lastNaneTexField.text = currentUser.secondName
-        
+		
         manager.getUserPicFullResolution(from: currentUser.photoURL!) {
             result in
             switch result {

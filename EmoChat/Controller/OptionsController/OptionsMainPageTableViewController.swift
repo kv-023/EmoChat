@@ -25,14 +25,14 @@ class OptionsMainPageTableViewController:  UITableViewController, UIImagePickerC
         //Manager firebase
         manager = ManagerFirebase.shared
         
-        //Temporaru login and get current user
+        //Temporary login and get current user
         tempLogIn()
         tempGetCurrentUser()
         
     }
     
     func tempLogIn() {
-        manager.logIn(email: "idemche@gmail.com", password: "123456") {
+        manager.logIn(email: "zellensky@gmail.com", password: "qwerty") {
             result in
             switch result {
             case .success:
@@ -68,10 +68,12 @@ class OptionsMainPageTableViewController:  UITableViewController, UIImagePickerC
     
     
     func addInfoOnView (user: User) {
-        
-        manager.getUserPicFullResolution(from: user.photoURL!) {
-            result in
-            switch result {
+		
+		if user.photoURL != nil {
+			
+			manager.getUserPicFullResolution(from: user.photoURL!) { result in
+			
+			switch result {
             case .successUserPic(let image):
                 self.userImageView.image = image
             case . failure(let error):
@@ -79,8 +81,11 @@ class OptionsMainPageTableViewController:  UITableViewController, UIImagePickerC
             default:
                 break
             }
+	
         }
-        
+			
+		}
+		
         let nameAndSecondName = "\(user.firstName ?? "Name") \(user.secondName ?? "Lastname")"
         nameAndLastNameLabel.text = nameAndSecondName
         usernameLabel.text = user.username

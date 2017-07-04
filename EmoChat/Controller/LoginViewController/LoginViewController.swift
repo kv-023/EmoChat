@@ -251,7 +251,8 @@ class LoginViewController: EmoChatUIViewController, UITextFieldDelegate {
 					
 					let when = DispatchTime.now() + 1.5
 					DispatchQueue.main.asyncAfter(deadline: when) {
-						
+
+						self.backgroundAnimated = nil
 						self.performSegue(withIdentifier: "showConversations", sender: self)
 						
 					}

@@ -414,7 +414,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="3120.8000000000002" y="-146.17691154422789"/>
+            <point key="canvasLocation" x="3216" y="-148"/>
         </scene>
         <!--Confirmation-->
         <scene sceneID="hA7-rs-DLq">
@@ -641,6 +641,6 @@
         <image name="question_mark" width="980" height="980"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="dDN-nd-M7X"/>
+        <segue reference="6op-yY-Gih"/>
     </inferredMetricsTieBreakers>
 </document>
