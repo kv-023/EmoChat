@@ -9,7 +9,7 @@
 
 import UIKit
 
-class RightCell: SingleConversationUITableViewCell {
+class RightCell: CustomTableViewCell {
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
