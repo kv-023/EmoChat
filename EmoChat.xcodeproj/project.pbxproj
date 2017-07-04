@@ -45,7 +45,7 @@
 		E70F3DB71F0507D900617235 /* RestUIInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70F3DA81F0507D900617235 /* RestUIInfoView.swift */; };
 		E70F3DBA1F052D1700617235 /* SingleConversationUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70F3DB91F052D1700617235 /* SingleConversationUITableViewCell.swift */; };
 		E70F3DBC1F063EC000617235 /* LeftSingleConversationUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70F3DBB1F063EC000617235 /* LeftSingleConversationUITableViewCell.swift */; };
-		E70F3DBE1F0644F300617235 /* RirgtSingleConversationUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70F3DBD1F0644F300617235 /* RirgtSingleConversationUITableViewCell.swift */; };
+		E70F3DBE1F0644F300617235 /* RightSingleConversationUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70F3DBD1F0644F300617235 /* RightSingleConversationUITableViewCell.swift */; };
 		E70F3DC01F0648D500617235 /* RestUISingleConversationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70F3DBF1F0648D500617235 /* RestUISingleConversationController.swift */; };
 		E7352C261EDED52B0095264E /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C211EDED52B0095264E /* Conversation.swift */; };
 		E7352C271EDED52B0095264E /* Auxiliary.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7352C231EDED52B0095264E /* Auxiliary.swift */; };
@@ -124,7 +124,7 @@
 		E70F3DA81F0507D900617235 /* RestUIInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestUIInfoView.swift; sourceTree = "<group>"; };
 		E70F3DB91F052D1700617235 /* SingleConversationUITableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleConversationUITableViewCell.swift; sourceTree = "<group>"; };
 		E70F3DBB1F063EC000617235 /* LeftSingleConversationUITableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftSingleConversationUITableViewCell.swift; sourceTree = "<group>"; };
-		E70F3DBD1F0644F300617235 /* RirgtSingleConversationUITableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RirgtSingleConversationUITableViewCell.swift; sourceTree = "<group>"; };
+		E70F3DBD1F0644F300617235 /* RightSingleConversationUITableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightSingleConversationUITableViewCell.swift; sourceTree = "<group>"; };
 		E70F3DBF1F0648D500617235 /* RestUISingleConversationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestUISingleConversationController.swift; sourceTree = "<group>"; };
 		E7352C211EDED52B0095264E /* Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		E7352C231EDED52B0095264E /* Auxiliary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auxiliary.swift; sourceTree = "<group>"; };
@@ -285,7 +285,7 @@
 				E70F3DB91F052D1700617235 /* SingleConversationUITableViewCell.swift */,
 				E70F3DBF1F0648D500617235 /* RestUISingleConversationController.swift */,
 				E70F3DBB1F063EC000617235 /* LeftSingleConversationUITableViewCell.swift */,
-				E70F3DBD1F0644F300617235 /* RirgtSingleConversationUITableViewCell.swift */,
+				E70F3DBD1F0644F300617235 /* RightSingleConversationUITableViewCell.swift */,
 				CC13C5EC1EF929AF00B38E59 /* SpecialTextView.swift */,
 				CCF540001F0AB64200F50EE6 /* CustomTextView.swift */,
 			);
@@ -649,7 +649,7 @@
 				E7352C281EDED52B0095264E /* Message.swift in Sources */,
 				A39232881EEFFF8F00E70CD9 /* OptionsChangePhotoNameSecondNameTableViewController.swift in Sources */,
 				E7352C271EDED52B0095264E /* Auxiliary.swift in Sources */,
-				E70F3DBE1F0644F300617235 /* RirgtSingleConversationUITableViewCell.swift in Sources */,
+				E70F3DBE1F0644F300617235 /* RightSingleConversationUITableViewCell.swift in Sources */,
 				84312F961EE9507E00FAC4D1 /* ContactCell.swift in Sources */,
 				FB982DE11EE156B700AC2FCD /* LoginViewController.swift in Sources */,
 				35C9507D1EF7D791006FA7E6 /* UIImageExtension.swift in Sources */,

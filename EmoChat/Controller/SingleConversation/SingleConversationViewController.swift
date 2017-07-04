@@ -54,6 +54,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         table.backgroundView = refresher
         refresher.addTarget(self, action: #selector(updateUI), for: UIControlEvents.valueChanged)
         table.addSubview(refresher)
+        table.alwaysBounceVertical = true
         
         if !messagesArray.isEmpty {
             table.scrollToRow(at: IndexPath(row: messagesArray.count - 1, section: 0),
