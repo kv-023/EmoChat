@@ -917,7 +917,7 @@ class ManagerFirebase {
 
 
     
-    func handleAudioSendWith(url: URL) {
+    func handleAudioSendWith(url: URL, result: @escaping (URL) -> Void) {
   //      if let uid = Auth.auth().currentUser?.uid {
             let fileUrl = url
             let fileName = NSUUID().uuidString + ".m4a"
@@ -926,10 +926,8 @@ class ManagerFirebase {
             if error != nil {
                 print(error?.localizedDescription ?? "Error")
             }
-            if let downloadUrl = metadata?.downloadURL()?.absoluteString {
-                
-                let values: [String : Any] = ["audioUrl": downloadUrl]
-              
+            if let downloadUrl = metadata?.downloadURL() {
+                result(downloadUrl)
                 }
             }
      //   }

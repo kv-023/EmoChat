@@ -91,27 +91,12 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
         audioRecorder.stop()
         if success {
             print(success)
-            showAudioMessage(url: audioRecorder.url) //???????
+           // showAudioMessage(url: audioRecorder.url) //???????
         } else {
             audioRecorder = nil
             print("Somthing Wrong.")
         }
     }
-    
-    //MARK - button to play file
-    
-    @IBAction func doPlay(_ sender: Any) {
-        if !audioRecorder.isRecording {
-            self.audioPlayer = try! AVAudioPlayer(contentsOf: audioRecorder.url)
-            self.audioPlayer.prepareToPlay()
-            self.audioPlayer.delegate = self as? AVAudioPlayerDelegate
-            self.audioPlayer.play()
-        
-          self.audioRecorder = nil
-        }
-    }
-    
-    
     
     
     //MARK - button to star/stop recording
@@ -128,7 +113,11 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
             self.finishRecording(success: true)
             
             manager = ManagerFirebase.shared
-            manager?.handleAudioSendWith(url: audioRecorder.url)
+            manager?.handleAudioSendWith(url: audioRecorder.url, result:{ (urlFromFireBase) in
+                self.showAudioMessage(url: urlFromFireBase)
+            })
+                
+            
         }
     }
     
@@ -140,19 +129,11 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
         }
     }
     
-    //MARK - Play button
+    //MARK - func showAudioMessage
     
- 
-    
-    
-    func getURLOfAudioFile() -> URL {
-        var filePath: URL? = nil
-        filePath = audioRecorder.url
-        return filePath!
-    }
-    
+
     func showAudioMessage(url: URL) {
-        if url.absoluteString.hasSuffix("m4a") {
+    //    if url.absoluteString.hasSuffix("m4a") {
 
             let button = UIButton(frame: CGRect(x: 0, y: 0, width: 32, height: 32))
             
@@ -164,8 +145,11 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
             button.addTarget(self, action: #selector(playAudioMessage), for: .touchUpInside)
             
             self.testView.addSubview(button)
-        }
+       // }
     }
+    
+    
+    //MARK - func playAudioMessage
     
     func playAudioMessage(sender: UIButton!) {
         if !audioRecorder.isRecording {
