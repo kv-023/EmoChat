@@ -15,7 +15,7 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
     var recordingSession : AVAudioSession!
     var audioRecorder    :AVAudioRecorder!
     var settings         = [String : Int]()
-    var audioPlayer : AVAudioPlayer!
+    var player = AVPlayer()
     var manager: ManagerFirebase?
     
     
@@ -106,15 +106,20 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
         
         if audioRecorder == nil {
         self.btnAudioRecord.setTitle("◼︎", for: UIControlState.normal)
-
-            self.startRecording()
+            self.btnAudioRecord.setTitleColor(UIColor.blue, for: .normal)
+            DispatchQueue.main.async {
+                self.startRecording()
+            }
+            
         } else {
             self.btnAudioRecord.setTitle("●", for: UIControlState.normal)
+            self.btnAudioRecord.setTitleColor(UIColor.red, for: .normal)
             self.finishRecording(success: true)
             
             manager = ManagerFirebase.shared
             manager?.handleAudioSendWith(url: audioRecorder.url, result:{ (urlFromFireBase) in
-                self.showAudioMessage(url: urlFromFireBase)
+               // self.showAudioMessage(url: urlFromFireBase)
+                self.play(url: urlFromFireBase)
             })
                 
             
@@ -132,36 +137,45 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
     //MARK - func showAudioMessage
     
 
-    func showAudioMessage(url: URL) {
-    //    if url.absoluteString.hasSuffix("m4a") {
-
-            let button = UIButton(frame: CGRect(x: 0, y: 0, width: 32, height: 32))
-            
-            button.layer.cornerRadius = 0.5 * button.bounds.size.width
-            button.clipsToBounds = true
-            
-            button.backgroundColor = .black
-            button.setTitle("▶︎", for: .normal)
-            button.addTarget(self, action: #selector(playAudioMessage), for: .touchUpInside)
-            
-            self.testView.addSubview(button)
-       // }
-    }
+//    func showAudioMessage(url: URL) {
+//    //    if url.absoluteString.hasSuffix("m4a") {
+//
+//            let button = UIButton(frame: CGRect(x: 0, y: 0, width: 32, height: 32))
+//            
+//            button.layer.cornerRadius = 0.5 * button.bounds.size.width
+//            button.clipsToBounds = true
+//            
+//            button.backgroundColor = .black
+//            button.setTitle("▶︎", for: .normal)
+//            button.addTarget(self, action: #selector(playAudioMessage), for: .touchUpInside)
+//            
+//            self.testView.addSubview(button)
+//       // }
+//    }
     
     
     //MARK - func playAudioMessage
     
-    func playAudioMessage(sender: UIButton!) {
-        if !audioRecorder.isRecording {
-            self.audioPlayer = try! AVAudioPlayer(contentsOf: audioRecorder.url)
-            self.audioPlayer.prepareToPlay()
-            self.audioPlayer.delegate = self as? AVAudioPlayerDelegate
-            self.audioPlayer.play()
-
-            self.audioRecorder = nil
-        }
-    }
+//    func playAudioMessage(sender: UIButton!) {
+//        if !audioRecorder.isRecording {
+//            self.audioPlayer = try! AVAudioPlayer(contentsOf: audioRecorder.url)
+//            self.audioPlayer.prepareToPlay()
+//            self.audioPlayer.delegate = self as? AVAudioPlayerDelegate
+//            self.audioPlayer.play()
+//
+//            self.audioRecorder = nil
+//        }
+//    }
     
+    
+    
+    func play (url: URL) {
+ 
+        self.player = AVPlayer(url: url) // WORKS!!!!
+        self.player.volume = 1.0
+        self.player.play()
+        self.audioRecorder = nil
+    }
     
     
 }

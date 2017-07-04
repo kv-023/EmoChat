@@ -29,7 +29,9 @@
                                     <constraint firstAttribute="width" constant="72" id="bR6-Wq-9Rr"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="●"/>
+                                <state key="normal" title="●">
+                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="click_AudioRecord:" destination="K5g-mc-1sb" eventType="touchUpInside" id="YJv-4K-okn"/>
                                 </connections>
