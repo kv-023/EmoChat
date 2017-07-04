@@ -36,6 +36,7 @@ class SearchUsersViewController: UITableViewController {
     var searchController: UISearchController!
     var searchType = SearchType.contacts
     var selectedUser: User!
+    let imageStore = ImageStore.shared
     
     // MARK: - ViewController lifecycle
     override func viewDidLoad() {
@@ -103,6 +104,7 @@ class SearchUsersViewController: UITableViewController {
             }
         case .globalUsers:
             selectedUser = filteredUsers[indexPath.row]
+            self.performSegue(withIdentifier: "showUserInfo", sender: self)
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
@@ -129,60 +131,48 @@ class SearchUsersViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        switch searchType {
-        case .contacts:
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ContactCellIdentifier", for: indexPath) as! ContactCell
-            let user = (searchController.isActive) ? filteredFriends[indexPath.row] : friends[indexPath.row]
-            cell.contactNameLabel.text = "\(user.firstName ?? "") \(user.secondName ?? "")"
-            cell.contactUsernameLabel.text = user.username
-            if let photoURL = user.photoURL, photoURL != "" {
-                cell.contactPhoto.image = nil
-                cell.activityIndicator.startAnimating()
-                managerFirebase.getUserPicFullResolution(from: photoURL, result: { (result) in
-                    switch result {
-                    case let .successUserPic(userImage):
-                        cell.contactPhoto.image = userImage
-                        cell.activityIndicator.stopAnimating()
-                    default:
-                        return
-                    }
-                })
-            } else {
-                cell.contactPhoto.image = #imageLiteral(resourceName: "male")
-            }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "UserCellIdentifier", for: indexPath) as! UserCell
+        cell.userImageView.image = nil
+        let user: User!
+        
+        if searchType == .contacts {
+            user = (searchController.isActive) ? filteredFriends[indexPath.row] : friends[indexPath.row]
+            cell.userNameLabel.text = "\(user.firstName ?? "") \(user.secondName ?? "")"
+            cell.userUsernameLabel.text = user.username
             
             if checkmarkedFriends.contains(user) {
                 cell.accessoryType = .checkmark
             } else {
                 cell.accessoryType = .none
             }
-            return cell
-            
-        case .globalUsers:
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "UserCellIdentifier", for: indexPath) as! GlobalUserCell
-            let user = filteredUsers[indexPath.row]
-            cell.userNameSurnameLabel.text = "\(user.firstName ?? "") \(user.secondName ?? "")"
+        } else {
+            user = filteredUsers[indexPath.row]
+            cell.userNameLabel.text = "\(user.firstName ?? "") \(user.secondName ?? "")"
             cell.userUsernameLabel.text = user.username
-            if let photoURL = user.photoURL, photoURL != "" {
-                cell.userPhoto.image = nil
+            cell.accessoryType = .disclosureIndicator
+        }
+        
+        if let photoURL = user.photoURL, photoURL != "" {
+            if let image = imageStore.image(forKey: photoURL) {
+                cell.userImageView.image = image
+            } else {
                 cell.activityIndicator.startAnimating()
-                managerFirebase.getUserPicFullResolution(from: photoURL, result: { (result) in
+                managerFirebase.getUserPicFullResolution(from: photoURL, result: { [weak self] (result) in
                     switch result {
                     case let .successUserPic(userImage):
-                        cell.userPhoto.image = userImage
+                        cell.userImageView.image = userImage
                         cell.activityIndicator.stopAnimating()
+                        self?.imageStore.setImage(userImage, forKey: photoURL)
                     default:
                         return
                     }
                 })
-            } else {
-                cell.userPhoto.image = #imageLiteral(resourceName: "male")
             }
-            return cell
-            
+        } else {
+            cell.userImageView.image = #imageLiteral(resourceName: "male")
         }
+        
+        return cell
     }
     
     // MARK: - Searching
