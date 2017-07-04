@@ -77,6 +77,7 @@ class User: NSObject, NSCoding {
         self.uid = uid
     }
     
+    
     func getNameOrUsername () -> String {
         var result = ""
         if let firstName = self.firstName {

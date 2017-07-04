@@ -10,9 +10,10 @@ import UIKit
 
 class ContactCell: UITableViewCell {
 
-    @IBOutlet var contactPhoto: UIImageView!
-    @IBOutlet var contactNameLabel: UILabel!
-    @IBOutlet var contactUsernameLabel: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var contactPhoto: UIImageView!
+    @IBOutlet weak var contactNameLabel: UILabel!
+    @IBOutlet weak var contactUsernameLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

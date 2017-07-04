@@ -1,20 +1,20 @@
 //
-//  GlobalUserCell.swift
+//  MessageConversationCell.swift
 //  EmoChat
 //
-//  Created by Admin on 08.06.17.
+//  Created by Admin on 20.06.17.
 //  Copyright © 2017 SoftServe. All rights reserved.
 //
 
 import UIKit
 
-class GlobalUserCell: UITableViewCell {
+class MessageConversationCell: UITableViewCell {
     
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var userPhoto: UIImageView!
-    @IBOutlet weak var userUsernameLabel: UILabel!
-    @IBOutlet weak var userNameSurnameLabel: UILabel!
-
+    @IBOutlet weak var conversationImageView: UIImageView!
+    @IBOutlet weak var conversationNameLabel: UILabel!
+    @IBOutlet weak var conversationTimeLabel: UILabel!
+    @IBOutlet weak var lastMessageLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
