@@ -48,7 +48,11 @@ extension CustomTableViewCell {
     private func itIsRightModelWithMessage() -> Bool {
         return self.messageModel?.uid == self.messageEntity?.uid
     }
+<<<<<<< HEAD
     private func itIsRightModelWithMessage(model tMessageModel: MessageModel?) -> Bool {
+=======
+    private func itIsRightModelWithMessage(model tMessageModel:MessageModel?) -> Bool {
+>>>>>>> origin/SingleConversationDevelop
         return tMessageModel?.uid == self.messageEntity?.uid
     }
     private func itIsRightModelWithMessage(modelUID uid:String?) -> Bool {
@@ -62,7 +66,11 @@ extension CustomTableViewCell {
             return
         }
 
+<<<<<<< HEAD
         weak var contentViewCell: RestUIInfoView?
+=======
+        weak var contentViewCell:RestUIInfoView?
+>>>>>>> origin/SingleConversationDevelop
 
         guard let messageURLData = messageModel?.messageURLData else {
             return

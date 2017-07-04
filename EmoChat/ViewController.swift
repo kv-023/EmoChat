@@ -23,7 +23,7 @@ class ViewController: UIViewController {
         regexTest()
     }
     
-    // var user: User!
+    var user: User!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -37,25 +37,18 @@ class ViewController: UIViewController {
         
         m = ManagerFirebase.shared
         
-        m?.getCurrentUser(){ (result) in
-            switch result {
-            case let .successSingleUser(user):
-                //self.user = user
-                print(user.username)
-                print(user.userConversations!)
-                self.m?.getMessageFromConversation(user.userConversations!, result: {
-                    (conv, message) in
-                    print("Message \(message.content) from  \(conv.name!)")
-                })
-                //                for conv in user.userConversations! {
-                //                    self.m?.ref?.child("conversations/\(conv.uuid)/messagesInConversation").observe(.childAdded, with: { (snapshot) in
-                //                        print("CHILD ADDED")
-                //                    })
-            //                }
-            default:
-                print("NONONO")
-            }
-        }
+//        m?.getCurrentUser(){ (result) in
+//            switch result {
+//            case let .successSingleUser(user):
+//                self.user = user
+//                self.m?.getMessageFromConversation(user.userConversations!, result: {
+//                    (conv, message) in
+//                    print("Message \(message.content) from  \(conv.name!)")
+//                })
+//            default:
+//                print("NONONO")
+//            }
+//        }
         
         //        m?.valueChanged() {
         //            newValue in
@@ -70,16 +63,24 @@ class ViewController: UIViewController {
         //            print(newConv)
         //        }
         // Do any additional setup after loading the view, typically from a nib.
+
+        emailTextField.text = "rlms@dfg6.kozow.com"
+        passwordTextField.text = "123456"
+
     }
     
     
     
     @IBAction func hello(_ sender: UIButton) {
-        do {
-            try Auth.auth().signOut()
-        } catch let signOutError as NSError {
-            print ("Error signing out: %@", signOutError)
-        }
+        
+        if Auth.auth().currentUser != nil {
+                        self.performSegue(withIdentifier: "singleConversation", sender: self)
+                    }
+//        do {
+//            try Auth.auth().signOut()
+//        } catch let signOutError as NSError {
+//            print ("Error signing out: %@", signOutError)
+//        }
     }
     
     
@@ -212,7 +213,41 @@ class ViewController: UIViewController {
     
     @IBAction func DADADA(_ sender: Any) {
         
-        
+        /*
+        m?.getCurrentUser(getUser: { (result) in
+            switch result {
+            case let .successSingleUser(user):
+                for conv in user.userConversations! {
+                    print(conv.uuid)
+                    self.m?.ref?.child("conversations/\(conv.uuid)").observe(.childAdded, with: { (snapshot) in
+                        print(snapshot.value)
+                        print(snapshot.key)
+                        let snapshotDict = snapshot.value as? [String : AnyObject]
+                        print(snapshotDict)
+                    })
+                }
+            default:
+                print("NONONO")
+            }
+        })
+        */
+ 
+        /*
+        m?.getCurrentUser(getUser: { (result) in
+            switch result {
+            case let .successSingleUser(user):
+                for conv in user.userConversations! {
+                    print(conv.uuid)
+                    self.m?.ref?.child("conversations/\(conv.uuid)").observeSingleEvent(of: .value, with: { (snapshot) in
+                        let snapshotDict = snapshot.value as? [String : AnyObject]
+                        print(snapshotDict!)
+                    })
+                }
+            default:
+                print("NONONO")
+            }
+        })
+        */
         /*
          self.m?.addInfoUser(username: "golubovskiy", phoneNumber: "0", firstName: "Dtima", secondName: "Gol", photoURL: nil, result: { (updResult) in
          switch updResult {
@@ -224,24 +259,42 @@ class ViewController: UIViewController {
          
          })
          */
-        /*
+        
          let user = User(email: "dadada", username: "dadada", phoneNumber: nil, firstName: nil, secondName: nil, photoURL: nil, uid: "userUID")
          let user1 = User(email: "netnet", username: "netnet", phoneNumber: nil, firstName: nil, secondName: nil, photoURL: nil, uid: "user1UID")
          let user2 = User(email: "user2", username: "user2", phoneNumber: nil, firstName: nil, secondName: nil, photoURL: nil, uid: "user2UID")
+        
+        let arrayUsers = [user, user1, user2, self.user!]
          
-         
-         //m?.createConversation([user, user1, user2], withName: "firstConversation")
-         
+        switch m!.createConversation(arrayUsers, withName: "\(index)-Conversation") {
+        case let .successSingleConversation(conversation):
+            m?.createMessage(conversation: conversation, sender: arrayUsers[Int(arc4random_uniform(UInt32(arrayUsers.count)))], content: (type: .text, content: "Hello from for loop"))
+        default:
+            print("ERROR")
+        }
+
+        /*
+        for index in 1...20 {
+            switch m!.createConversation(arrayUsers, withName: "\(index)-Conversation") {
+            case let .successSingleConversation(conversation):
+                m?.createMessage(conversation: conversation, sender: arrayUsers[Int(arc4random_uniform(UInt32(arrayUsers.count)))], content: (type: .text, content: "Hello from for loop"))
+            default:
+                print("ERROR")
+            }
+        }
+        */
+        /*
+        
          //m?.createConversation([user1, user2])
          var conv: Conversation!
          
-         switch m!.createConversation([user, user1, user2], withName: "firstConversation") {
-         case let .successSingleConversation(conversation):
-         conv = conversation
-         m?.createMessage(conversation: conversation, sender: conversation.usersInConversation[0], content: (type: .text, content: "Hello dadada"))
-         default:
-         return
-         }
+        switch m!.createConversation([user, user1, user2], withName: "firstConversation") {
+        case let .successSingleConversation(conversation):
+            conv = conversation
+            m?.createMessage(conversation: conversation, sender: conversation.usersInConversation[0], content: (type: .text, content: "Hello dadada"))
+        default:
+            return
+        }
          
          
          
@@ -270,54 +323,60 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var buttonLogin: UIButton!
     @IBAction func buttonSignUp(_ sender: UIButton) {
-        
-        if emailTextField.text != "" && passwordTextField.text != "" {
-            if segmentControl.selectedSegmentIndex == 0 {    // login
-                
-                Auth.auth().signIn(withEmail: emailTextField.text!,
-                                   password: passwordTextField.text!,
-                                   completion: { (user, error) in
-                                    if user != nil && (user?.isEmailVerified)! {
-                                        self.hintsLabel.text = ("success! you are in")
-                                                ManagerFirebase.shared.getCurrentUser { result in
-                                                    switch (result) {
-                                                    case .successSingleUser(let user):
-                                                        ArchiverManager.shared.saveData(user: user)
-                                                    case .failure(let error):
-                                                        print(error)
-                                                        break
-                                                    default:
-                                                        break
-                                                    }
-                                                }
-                                        
-                                    } else {
-                                        if let myError = error?.localizedDescription {
-                                            self.hintsLabel.text = myError
-                                        } else {
-                                            self.hintsLabel.text = ("confirm your e-mail")
-                                        }
-                                    }
-                })
-                
-            } else {    // sign up
-                Auth.auth().createUser(withEmail: emailTextField.text!,
+//        if Auth.auth().currentUser != nil {
+//            self.performSegue(withIdentifier: "singleConversation", sender: self)
+//        } else {
+            if emailTextField.text != "" && passwordTextField.text != "" {
+                if segmentControl.selectedSegmentIndex == 0 {    // login
+                    
+                    
+                    Auth.auth().signIn(withEmail: emailTextField.text!,
                                        password: passwordTextField.text!,
                                        completion: { (user, error) in
-                                        
-                                        if user != nil {
-                                            user?.sendEmailVerification(completion: nil) // send verification email
-                                            self.hintsLabel.text = ("success")
+                                        if user != nil && (user?.isEmailVerified)! {
+                                            self.hintsLabel.text = ("success! you are in")
+                                            
+                                            ManagerFirebase.shared.getCurrentUser { result in
+                                                switch (result) {
+                                                case .successSingleUser(let user):
+                                                    ArchiverManager.shared.saveData(user: user)
+                                                case .failure(let error):
+                                                    print(error)
+                                                    break
+                                                default:
+                                                    break
+                                                }
+                                            }
+                                            self.performSegue(withIdentifier: "singleConversation", sender: self)
+                                            
                                         } else {
                                             if let myError = error?.localizedDescription {
                                                 self.hintsLabel.text = myError
                                             } else {
-                                                self.hintsLabel.text = ("Something went wrong")
+                                                self.hintsLabel.text = ("confirm your e-mail")
                                             }
                                         }
-                })
+                    })
+                    
+                } else {    // sign up
+                    Auth.auth().createUser(withEmail: emailTextField.text!,
+                                           password: passwordTextField.text!,
+                                           completion: { (user, error) in
+                                            
+                                            if user != nil {
+                                                user?.sendEmailVerification(completion: nil) // send verification email
+                                                self.hintsLabel.text = ("success")
+                                            } else {
+                                                if let myError = error?.localizedDescription {
+                                                    self.hintsLabel.text = myError
+                                                } else {
+                                                    self.hintsLabel.text = ("Something went wrong")
+                                                }
+                                            }
+                    })
+                }
             }
-        }
+//        }
     }
     ////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////
