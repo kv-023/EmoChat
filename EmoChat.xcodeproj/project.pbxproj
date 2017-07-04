@@ -20,6 +20,8 @@
 		5182E4791EF943F70049E94D /* play-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 5182E4731EF943F70049E94D /* play-button.png */; };
 		5182E47A1EF943F70049E94D /* send.png in Resources */ = {isa = PBXBuildFile; fileRef = 5182E4741EF943F70049E94D /* send.png */; };
 		5182E47B1EF943F70049E94D /* transition.gif in Resources */ = {isa = PBXBuildFile; fileRef = 5182E4751EF943F70049E94D /* transition.gif */; };
+		51A770B91F0BC43100D9ECDB /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A770B71F0BC43100D9ECDB /* CustomTableViewCell.swift */; };
+		51A770BA1F0BC43100D9ECDB /* SingleConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A770B81F0BC43100D9ECDB /* SingleConversationViewController.swift */; };
 		51CA8BDD1EF93CEA0062E7C9 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CA8BDB1EF93CEA0062E7C9 /* LoginViewController.swift */; };
 		746478FA29F53658399EE02D /* Pods_EmoChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */; };
 		84247A391EE9CDA6009E8167 /* GlobalUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84247A381EE9CDA6009E8167 /* GlobalUserCell.swift */; };
@@ -81,6 +83,8 @@
 		5182E4731EF943F70049E94D /* play-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play-button.png"; sourceTree = "<group>"; };
 		5182E4741EF943F70049E94D /* send.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = send.png; sourceTree = "<group>"; };
 		5182E4751EF943F70049E94D /* transition.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = transition.gif; sourceTree = "<group>"; };
+		51A770B71F0BC43100D9ECDB /* CustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		51A770B81F0BC43100D9ECDB /* SingleConversationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleConversationViewController.swift; sourceTree = "<group>"; };
 		51CA8BDB1EF93CEA0062E7C9 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		5E5B970584D3FF3821DB6225 /* Pods-EmoChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmoChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmoChat/Pods-EmoChat.release.xcconfig"; sourceTree = "<group>"; };
 		6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmoChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -209,6 +213,16 @@
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
+		};
+		51A770B61F0BC43100D9ECDB /* SingleConversation */ = {
+			isa = PBXGroup;
+			children = (
+				51A770B71F0BC43100D9ECDB /* CustomTableViewCell.swift */,
+				51A770B81F0BC43100D9ECDB /* SingleConversationViewController.swift */,
+			);
+			name = SingleConversation;
+			path = EmoChat/Controller/SingleConversation;
+			sourceTree = SOURCE_ROOT;
 		};
 		51CA8BD91EF93CEA0062E7C9 /* LoginViewController */ = {
 			isa = PBXGroup;
@@ -348,6 +362,7 @@
 		FB982DDE1EE156B700AC2FCD /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				51A770B61F0BC43100D9ECDB /* SingleConversation */,
 				51CA8BD91EF93CEA0062E7C9 /* LoginViewController */,
 				35C9507B1EF7D733006FA7E6 /* Extensions */,
 				F508422D1EF427A600C24EDE /* ChatSettingsTableViewController */,
@@ -536,6 +551,7 @@
 				E7B926EF1EF1487B0018F5FF /* CustomTextFieldWithPopOverInfoBox.swift in Sources */,
 				FBF7A9CA1EF012E600ABADF5 /* SignUpChooseYourPhotoViewController.swift in Sources */,
 				84312F931EE94FB600FAC4D1 /* SearchUsersViewController.swift in Sources */,
+				51A770BA1F0BC43100D9ECDB /* SingleConversationViewController.swift in Sources */,
 				E7352C281EDED52B0095264E /* Message.swift in Sources */,
 				A39232881EEFFF8F00E70CD9 /* OptionsChangePhotoNameSecondNameTableViewController.swift in Sources */,
 				E7352C271EDED52B0095264E /* Auxiliary.swift in Sources */,
@@ -546,6 +562,7 @@
 				FB4317731EE6C24400770338 /* SignUpFirstViewController.swift in Sources */,
 				E7352C3A1EE81CB60095264E /* RegexCheckProtocol.swift in Sources */,
 				51CA8BDD1EF93CEA0062E7C9 /* LoginViewController.swift in Sources */,
+				51A770B91F0BC43100D9ECDB /* CustomTableViewCell.swift in Sources */,
 				3938C2701EDC27C700D69F88 /* AppDelegate.swift in Sources */,
 				E7352C381EE81B790095264E /* ControllerHelper.swift in Sources */,
 				E7B926F41EF1487B0018F5FF /* UIColorHelper.swift in Sources */,
