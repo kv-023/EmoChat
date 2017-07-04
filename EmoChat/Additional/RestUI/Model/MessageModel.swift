@@ -31,7 +31,7 @@ class MessageModel: RegexCheckProtocol {
     var time: Date? {
         return message?.time
     }
-    var content:MessageContentDataType? {
+    var content: MessageContentDataType? {
         return message?.content
     }
     var messageText: String {
