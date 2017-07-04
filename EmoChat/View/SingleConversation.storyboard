@@ -262,14 +262,46 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mJO-Ls-y8m">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Wc2-BE-834">
+                                        <rect key="frame" x="94" y="227" width="187.5" height="213"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gOg-HV-PCz">
+                                                <rect key="frame" x="0.0" y="0.0" width="187.5" height="187.5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="gOg-HV-PCz" secondAttribute="height" id="ovy-7i-UUK"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tBh-ct-Kkt">
+                                                <rect key="frame" x="47.5" y="187.5" width="92.5" height="25.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="Wc2-BE-834" firstAttribute="centerX" secondItem="mJO-Ls-y8m" secondAttribute="centerX" id="hxI-LI-DBj"/>
+                                    <constraint firstItem="Wc2-BE-834" firstAttribute="centerY" secondItem="mJO-Ls-y8m" secondAttribute="centerY" id="sUD-gm-807"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="mJO-Ls-y8m" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="0dh-de-Jx2"/>
                             <constraint firstItem="vGN-hh-QGI" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="9XJ-Gf-hak"/>
                             <constraint firstItem="guk-1E-8hU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="A04-1T-244"/>
                             <constraint firstAttribute="trailing" secondItem="vGN-hh-QGI" secondAttribute="trailing" id="FQa-Eb-mdi"/>
+                            <constraint firstItem="gOg-HV-PCz" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.5" id="Iws-n4-hBQ"/>
+                            <constraint firstItem="mJO-Ls-y8m" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="UJA-DI-aHK"/>
                             <constraint firstItem="guk-1E-8hU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="eG3-tI-2NV"/>
+                            <constraint firstItem="mJO-Ls-y8m" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="eeA-AG-12J"/>
                             <constraint firstItem="guk-1E-8hU" firstAttribute="top" secondItem="vGN-hh-QGI" secondAttribute="bottom" id="g6a-KX-dji"/>
+                            <constraint firstItem="mJO-Ls-y8m" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="jxp-rr-Q4U"/>
                             <constraint firstAttribute="trailing" secondItem="guk-1E-8hU" secondAttribute="trailing" id="wXu-lA-SIc"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="guk-1E-8hU" secondAttribute="bottom" id="wcy-A5-FQ0"/>
                             <constraint firstItem="vGN-hh-QGI" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="x10-ON-S0W"/>
@@ -279,6 +311,8 @@
                     <connections>
                         <outlet property="bottomConstraint" destination="wcy-A5-FQ0" id="YHg-y3-QWv"/>
                         <outlet property="inputSubView" destination="guk-1E-8hU" id="l5T-s4-E2H"/>
+                        <outlet property="loadingGif" destination="gOg-HV-PCz" id="fWx-Uy-XpJ"/>
+                        <outlet property="loadingView" destination="mJO-Ls-y8m" id="yTT-yz-riI"/>
                         <outlet property="table" destination="vGN-hh-QGI" id="r2b-u7-c3Q"/>
                         <outlet property="textMessage" destination="6Zs-2n-ZAE" id="qd2-x3-wmJ"/>
                         <outlet property="textViewMaxHeightConstraint" destination="Vt9-Mo-bkX" id="dhu-ey-aLi"/>
@@ -291,7 +325,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-1441" y="-21"/>
+            <point key="canvasLocation" x="-1442.4000000000001" y="-21.139430284857571"/>
         </scene>
     </scenes>
     <resources>

@@ -32,6 +32,10 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     @IBOutlet weak var textViewMaxHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var loadingView: UIView!
+    
+    @IBOutlet weak var loadingGif: UIImageView!
+    
     var manager: ManagerFirebase?
     var currentUser: User!
     var currentConversation: Conversation!
@@ -55,6 +59,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         table.backgroundView = refresher
         refresher.addTarget(self, action: #selector(updateUI), for: UIControlEvents.valueChanged)
         table.addSubview(refresher)
+        
         
         if !messagesArray.isEmpty {
             table.scrollToRow(at: IndexPath(row: messagesArray.count - 1, section: 0),
@@ -82,7 +87,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         setupKeyboardObservers()
         
         self.setUpFrame()
-        
         
     }
     
@@ -172,6 +176,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             if !self.messagesArray.isEmpty {
                 self.table.scrollToRow(at: IndexPath.init(row: self.messagesArray.count - 1, section: 0), at: .top, animated: false)
             }
+            self.loadingView.isHidden = true
         })
     }
     
