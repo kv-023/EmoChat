@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -21,29 +22,50 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u1R-53-TfW">
-                                <rect key="frame" x="151" y="266" width="72" height="66"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u1R-53-TfW">
+                                <rect key="frame" x="152" y="266" width="72" height="66"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="72" id="1Fg-Ho-42C"/>
+                                    <constraint firstAttribute="height" constant="66" id="n3j-kO-QD3"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="🔴"/>
+                                <state key="normal" title="●"/>
                                 <connections>
                                     <action selector="click_AudioRecord:" destination="K5g-mc-1sb" eventType="touchUpInside" id="YJv-4K-okn"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WZN-QK-0EH">
-                                <rect key="frame" x="153" y="340" width="68" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WZN-QK-0EH">
+                                <rect key="frame" x="154" y="340" width="68" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="Gqr-Ec-LWB"/>
+                                    <constraint firstAttribute="width" constant="68" id="Zd1-xJ-Syk"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="▶️"/>
                                 <connections>
                                     <action selector="doPlay:" destination="K5g-mc-1sb" eventType="touchUpInside" id="ueq-ds-zIA"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Fk-LP-JE1">
+                                <rect key="frame" x="24" y="408" width="327" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="U2V-gQ-F5g" firstAttribute="top" secondItem="5Fk-LP-JE1" secondAttribute="bottom" constant="131" id="0wz-tE-j5L"/>
+                            <constraint firstItem="WZN-QK-0EH" firstAttribute="top" secondItem="u1R-53-TfW" secondAttribute="bottom" constant="8" symbolic="YES" id="CzE-ny-f2B"/>
+                            <constraint firstItem="u1R-53-TfW" firstAttribute="centerX" secondItem="RDs-VV-8om" secondAttribute="centerX" id="Hui-vj-MfW"/>
+                            <constraint firstItem="u1R-53-TfW" firstAttribute="centerX" secondItem="WZN-QK-0EH" secondAttribute="centerX" id="Qba-el-oFs"/>
+                            <constraint firstItem="5Fk-LP-JE1" firstAttribute="leading" secondItem="RDs-VV-8om" secondAttribute="leadingMargin" constant="8" id="Qgr-Vr-yRt"/>
+                            <constraint firstItem="u1R-53-TfW" firstAttribute="top" secondItem="Nqc-k4-r71" secondAttribute="bottom" constant="246" id="m33-QB-PCv"/>
+                            <constraint firstItem="WZN-QK-0EH" firstAttribute="centerX" secondItem="5Fk-LP-JE1" secondAttribute="centerX" id="tEe-C7-ol9"/>
+                            <constraint firstItem="5Fk-LP-JE1" firstAttribute="top" secondItem="WZN-QK-0EH" secondAttribute="bottom" constant="8" symbolic="YES" id="ww7-Ou-y2f"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="btnAudioRecord" destination="u1R-53-TfW" id="woy-fA-iHL"/>
+                        <outlet property="testView" destination="5Fk-LP-JE1" id="DMo-Vy-wR0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jJ0-4V-6BR" userLabel="First Responder" sceneMemberID="firstResponder"/>

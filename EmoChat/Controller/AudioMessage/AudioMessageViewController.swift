@@ -4,10 +4,12 @@ import UIKit
 import AVFoundation
 
 
+
 class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
     
     //MARK - Variables and outlets
     
+    @IBOutlet weak var testView: UIView!
     @IBOutlet weak var btnAudioRecord: UIButton!
     
     var recordingSession : AVAudioSession!
@@ -89,6 +91,7 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
         audioRecorder.stop()
         if success {
             print(success)
+            showAudioMessage(url: audioRecorder.url) //???????
         } else {
             audioRecorder = nil
             print("Somthing Wrong.")
@@ -103,9 +106,13 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
             self.audioPlayer.prepareToPlay()
             self.audioPlayer.delegate = self as? AVAudioPlayerDelegate
             self.audioPlayer.play()
-//          self.audioRecorder = nil
+        
+          self.audioRecorder = nil
         }
     }
+    
+    
+    
     
     //MARK - button to star/stop recording
     
@@ -113,17 +120,16 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
         
         
         if audioRecorder == nil {
-        self.btnAudioRecord.setTitle("⏹", for: UIControlState.normal)
+        self.btnAudioRecord.setTitle("◼︎", for: UIControlState.normal)
 
             self.startRecording()
         } else {
-            self.btnAudioRecord.setTitle("🔴", for: UIControlState.normal)
+            self.btnAudioRecord.setTitle("●", for: UIControlState.normal)
             self.finishRecording(success: true)
             
             manager = ManagerFirebase.shared
             manager?.handleAudioSendWith(url: audioRecorder.url)
         }
-        
     }
     
     //MARK - audioRecorderDidFinishRecording
@@ -144,5 +150,34 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
         filePath = audioRecorder.url
         return filePath!
     }
+    
+    func showAudioMessage(url: URL) {
+        if url.absoluteString.hasSuffix("m4a") {
+
+            let button = UIButton(frame: CGRect(x: 0, y: 0, width: 32, height: 32))
+            
+            button.layer.cornerRadius = 0.5 * button.bounds.size.width
+            button.clipsToBounds = true
+            
+            button.backgroundColor = .black
+            button.setTitle("▶︎", for: .normal)
+            button.addTarget(self, action: #selector(playAudioMessage), for: .touchUpInside)
+            
+            self.testView.addSubview(button)
+        }
+    }
+    
+    func playAudioMessage(sender: UIButton!) {
+        if !audioRecorder.isRecording {
+            self.audioPlayer = try! AVAudioPlayer(contentsOf: audioRecorder.url)
+            self.audioPlayer.prepareToPlay()
+            self.audioPlayer.delegate = self as? AVAudioPlayerDelegate
+            self.audioPlayer.play()
+
+            self.audioRecorder = nil
+        }
+    }
+    
+    
     
 }
