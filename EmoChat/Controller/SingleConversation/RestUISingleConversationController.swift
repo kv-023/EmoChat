@@ -115,7 +115,18 @@ extension CustomTableViewCell {
                         notNullUrl.characters.count > 0 {
                         JSONParser.sharedInstance.downloadImage(url: notNullUrl) { (image) in
 
-                            dicTemData.updateValue(image, forKey: dataField)
+                            var imageForCell = image
+
+                            //resize it
+                            if let notNullImage = imageForCell {
+                                let rectValue:CGFloat = 50
+                                if (notNullImage.size.height > rectValue || notNullImage.size.width > rectValue) == true {
+                                    imageForCell = notNullImage.resizeImageWith(newSize:
+                                        CGSize(width: rectValue, height: rectValue))
+                                }
+                            }
+
+                            dicTemData.updateValue(imageForCell, forKey: dataField)
                             downloadGroup.leave()
                         }
                     } else {
