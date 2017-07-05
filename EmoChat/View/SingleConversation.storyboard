@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -224,8 +224,14 @@
                             <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="guk-1E-8hU">
                                 <rect key="frame" x="0.0" y="624" width="375" height="43"/>
                                 <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="249" scrollEnabled="NO" keyboardDismissMode="interactive" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="6Zs-2n-ZAE" customClass="CustomTextView" customModule="EmoChat" customModuleProvider="target">
-                                        <rect key="frame" x="9" y="5" width="324" height="33"/>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9RH-qm-2Wd" customClass="ConversationBottomBarView" customModule="EmoChat" customModuleProvider="target">
+                                        <rect key="frame" x="76" y="9" width="257" height="26"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="26" id="rU4-TI-bO4"/>
+                                        </constraints>
+                                    </view>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" scrollEnabled="NO" keyboardDismissMode="interactive" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="6Zs-2n-ZAE">
+                                        <rect key="frame" x="76" y="5" width="257" height="33"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" spellCheckingType="yes"/>
@@ -243,18 +249,48 @@
                                             <action selector="sendMessage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yoK-8e-uNL"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ecr-vb-acB">
+                                        <rect key="frame" x="8" y="9" width="26" height="26"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="26" id="Lkn-qT-zL0"/>
+                                            <constraint firstAttribute="width" secondItem="Ecr-vb-acB" secondAttribute="height" multiplier="1:1" id="cek-3D-eWa"/>
+                                        </constraints>
+                                        <state key="normal" image="emoRequest"/>
+                                        <state key="selected" image="emoRequestFilled"/>
+                                        <connections>
+                                            <action selector="actionEmoRequestButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bgN-bO-cHG"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wVa-ek-TzA">
+                                        <rect key="frame" x="42" y="9" width="26" height="26"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="wVa-ek-TzA" secondAttribute="height" multiplier="1:1" id="BSz-fj-xQ0"/>
+                                            <constraint firstAttribute="height" constant="26" id="YbQ-qk-xtY"/>
+                                        </constraints>
+                                        <state key="normal" image="plusImage"/>
+                                        <state key="selected" image="plusImageFilled"/>
+                                        <connections>
+                                            <action selector="actionPlusButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Pdp-qb-8rU"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="9RH-qm-2Wd" firstAttribute="leading" secondItem="6Zs-2n-ZAE" secondAttribute="leading" id="3Gl-2p-gPH"/>
+                                    <constraint firstItem="wVa-ek-TzA" firstAttribute="leading" secondItem="Ecr-vb-acB" secondAttribute="trailing" constant="8" id="IUL-hQ-b96"/>
+                                    <constraint firstAttribute="bottom" secondItem="wVa-ek-TzA" secondAttribute="bottom" constant="8" id="J1w-zE-AiL"/>
                                     <constraint firstAttribute="bottom" secondItem="1ze-E8-Yj2" secondAttribute="bottom" constant="8" id="Jkb-Y7-YvZ"/>
                                     <constraint firstItem="6Zs-2n-ZAE" firstAttribute="top" secondItem="guk-1E-8hU" secondAttribute="top" constant="5" id="NWP-hi-RfN"/>
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="110" id="Oku-CM-bai"/>
+                                    <constraint firstAttribute="bottom" secondItem="Ecr-vb-acB" secondAttribute="bottom" constant="8" id="QYp-VJ-9bM"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="43" id="UhG-ts-bW0"/>
                                     <constraint firstAttribute="height" constant="110" id="Vt9-Mo-bkX"/>
                                     <constraint firstItem="1ze-E8-Yj2" firstAttribute="leading" secondItem="6Zs-2n-ZAE" secondAttribute="trailing" constant="8" id="cIk-Yl-8ZS"/>
                                     <constraint firstAttribute="bottom" secondItem="6Zs-2n-ZAE" secondAttribute="bottom" constant="5" id="euq-hg-ADP"/>
-                                    <constraint firstItem="6Zs-2n-ZAE" firstAttribute="leading" secondItem="guk-1E-8hU" secondAttribute="leading" constant="9" id="pDF-73-Zn7"/>
+                                    <constraint firstItem="9RH-qm-2Wd" firstAttribute="trailing" secondItem="6Zs-2n-ZAE" secondAttribute="trailing" id="m5c-Io-KXW"/>
+                                    <constraint firstItem="9RH-qm-2Wd" firstAttribute="baseline" secondItem="wVa-ek-TzA" secondAttribute="baseline" id="qcp-pD-Ip8"/>
+                                    <constraint firstItem="6Zs-2n-ZAE" firstAttribute="leading" secondItem="wVa-ek-TzA" secondAttribute="trailing" constant="8" id="th9-uk-1R2"/>
                                     <constraint firstAttribute="trailing" secondItem="1ze-E8-Yj2" secondAttribute="trailing" constant="8" id="tv0-K8-GjI"/>
+                                    <constraint firstItem="Ecr-vb-acB" firstAttribute="leading" secondItem="guk-1E-8hU" secondAttribute="leading" constant="8" id="zIa-hW-C0x"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -309,12 +345,17 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
+                        <outlet property="additionalBottomBarView" destination="9RH-qm-2Wd" id="aem-hs-tpS"/>
                         <outlet property="bottomConstraint" destination="wcy-A5-FQ0" id="YHg-y3-QWv"/>
+                        <outlet property="emoRequestButton" destination="Ecr-vb-acB" id="vLQ-6J-qZO"/>
                         <outlet property="inputSubView" destination="guk-1E-8hU" id="l5T-s4-E2H"/>
+                        <outlet property="plusButton" destination="wVa-ek-TzA" id="O4I-bK-Abv"/>
                         <outlet property="loadingGif" destination="gOg-HV-PCz" id="fWx-Uy-XpJ"/>
                         <outlet property="loadingView" destination="mJO-Ls-y8m" id="yTT-yz-riI"/>
                         <outlet property="table" destination="vGN-hh-QGI" id="r2b-u7-c3Q"/>
                         <outlet property="textMessage" destination="6Zs-2n-ZAE" id="qd2-x3-wmJ"/>
+                        <outlet property="textMessageBottomConstraint" destination="euq-hg-ADP" id="vIO-wa-r8Q"/>
+                        <outlet property="textMessageLeadingConstraint" destination="th9-uk-1R2" id="pBh-cA-IZP"/>
                         <outlet property="textViewMaxHeightConstraint" destination="Vt9-Mo-bkX" id="dhu-ey-aLi"/>
                     </connections>
                 </viewController>
@@ -329,6 +370,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="emoRequest" width="66" height="66"/>
+        <image name="emoRequestFilled" width="66" height="66"/>
+        <image name="plusImage" width="66" height="66"/>
+        <image name="plusImageFilled" width="66" height="66"/>
         <image name="sendMessage" width="60" height="60"/>
     </resources>
 </document>
