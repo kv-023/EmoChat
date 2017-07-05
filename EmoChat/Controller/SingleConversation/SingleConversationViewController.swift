@@ -24,9 +24,11 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     // MARK: - constants
     let leadingConstraintConstant: CGFloat = 8.0
+    let trailingConstraintConstant: CGFloat = 8.0
     let topConstraintConstant: CGFloat = 8.0
     
     // MARK: - IBOutlets
+    @IBOutlet weak var sendMessageButton: UIButton!
     @IBOutlet weak var emoRequestButton: UIButton!
     @IBOutlet weak var plusButton: UIButton!
     @IBOutlet weak var textMessageLeadingConstraint: NSLayoutConstraint!
@@ -36,6 +38,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     @IBOutlet weak var additionalBottomBarView: ConversationBottomBarView!
     @IBOutlet weak var textMessageBottomConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var textMessageTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var table: UITableView!
     
     @IBOutlet weak var textViewMaxHeightConstraint: NSLayoutConstraint!
@@ -441,12 +444,11 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         }
         textView.becomeFirstResponder() //Optional
         
-        self.animateTextViewTransitions(becomeFirstResponder: true)
         if plusButton.isSelected {
             plusButton.isSelected = false
             animateBottomBar(plusIsSelected: plusButton.isSelected)
         }
-        
+        self.animateTextViewTransitions(becomeFirstResponder: true)
     }
     
     func textViewDidEndEditing(_ textView: UITextView){
@@ -584,9 +586,13 @@ extension SingleConversationViewController : CellDelegate {
         
         if plusIsSelected {
             textMessageBottomConstraint.constant += height + topConstraintConstant
+            textMessageLeadingConstraint.constant -= (leadingConstraintConstant * 2) + emoRequestButton.frame.width + plusButton.frame.width//two buttons so 2 extra spaces
+            textMessageTrailingConstraint.constant -= sendMessageButton.frame.width + trailingConstraintConstant
             self.additionalBottomBarView.isHidden = !plusIsSelected
         } else {
             textMessageBottomConstraint.constant -= height + topConstraintConstant
+            textMessageLeadingConstraint.constant = leadingConstraintConstant
+            textMessageTrailingConstraint.constant = trailingConstraintConstant
         }
         
         UIView.animate(withDuration: 0.5,
