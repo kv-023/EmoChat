@@ -108,12 +108,12 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        if !messagesArray.isEmpty {
-            table.scrollToRow(at: IndexPath(row: messagesArray.count - 1, section: 0),
-                              at: .bottom, animated: false)
-        }
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        if !messagesArray.isEmpty {
+//            table.scrollToRow(at: IndexPath(row: messagesArray.count - 1, section: 0),
+//                              at: .bottom, animated: false)
+//        }
+//    }
     
     func showMenu(forCell cell: CustomTableViewCell) {
         guard table.indexPath(for: cell) != nil else {
@@ -253,7 +253,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 }
                 self.insertRows(arrayOfMessagesAndTypes)
                 self.table.reloadData()
-//                self.table.scrollToRow(at: IndexPath.init(row: arrayOfMessagesAndTypes.count+1, section: 0), at: .top, animated: false)
+                self.table.scrollToRow(at: IndexPath.init(row: arrayOfMessagesAndTypes.count+1, section: 0), at: .top, animated: false)
                 self.table.contentOffset.y += initialOffset
             })
         }
