@@ -8,93 +8,74 @@
 
 import UIKit
 
-class OptionsChangeEmailTableViewController: UITableViewController, RegexCheckProtocol {
+class OptionsChangeEmailTableViewController: UITableViewController, UITextFieldDelegate, RegexCheckProtocol {
     
     @IBOutlet weak var changeEmailTextField: UITextField!
-    
     @IBOutlet weak var infoLabel: UILabel!
-    
-    var manager: ManagerFirebase?
-    
-    
-    var emailValid = false {
-        didSet {
-            if !emailValid {
-                infoLabel.printError(errorText: NSLocalizedString("Enter valid email", comment: "Valid email warning"))
-            } else {
-                infoLabel.printOK(okText: NSLocalizedString("Email", comment: "Email without warning"))
-            }
-        }
-    }
+    var currentUser: User!
+    var manager: ManagerFirebase!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Manager firebase
+        manager = ManagerFirebase.shared
+        
+        //Add right button item "Save"
+        let rightButtonItem = UIBarButtonItem.init(barButtonSystemItem: .save, target: self, action: #selector(saveEmail))
+        self.navigationItem.rightBarButtonItem = rightButtonItem
         
         
-        //create a right save button and add it to vc
+        //Hide keybord on tap
+        self.hideKeyboard()
         
-        
+        //Add current user email in textfield
+        changeEmailTextField.text = currentUser.email
     }
     
+    // MARK: - Action
+    @IBAction func emailEdited(_ sender: UITextField) {
+        if emailIsValid(userEmail: changeEmailTextField.text) {
+            infoLabel.text = NSLocalizedString("Email is valid", comment: "Email is valid")
+            infoLabel.textColor = UIColor.darkGray
+        } else {
+            infoLabel.printError(errorText: "Enter valid Email")
+        }
+    }
+    
+    // MARK: - Save to firebase
     func saveEmail(sender: UIBarButtonItem) {
-        
-        //ad some action
-        
-        
-        //back to previous vc
-        
-        if let navController = self.navigationController {
-            navController.popViewController(animated: true)
+        if emailIsValid(userEmail: changeEmailTextField.text){
+            manager.changeUsersEmail(email: changeEmailTextField.text!) {
+                result in
+                switch result {
+                case .success:
+                    print ("success change email")
+                    //back to previous vc
+                    if let navController = self.navigationController {
+                        navController.popViewController(animated: true)
+                    }
+                case .failure(let error):
+                    print(error)
+                    self.infoLabel.text = error
+                default:
+                    break
+                }
+            }
         }
     }
-    
-    @IBAction func changeEmailAction(_ sender: Any) {
-        print ("nihao chiba email")
-        
-        
-        
-        
-        
-        
-        
-        
-        var success = true, unique = true
-        
-        if changeEmailTextField.text == "" {
-            infoLabel.printError(errorText: NSLocalizedString("Enter email", comment: "Empty email"))
-            changeEmailTextField.redBorder()
-            success = false
-        }
-        if success
-            && emailValid {
-            
-            
-            print("Vdalo vdalo vdalo")
-            
-//            manager?.changeUsersEmail(email: changeEmailTextField.text!){
-//                result in
-//                switch result {
-//                case .success:
-//                    print("Vdalo")
-//                case .failure(let error):
-//                    self.infoLabel.text = error
-//                default:
-//                    break
-//            }
-            
-        }
-        
-        
-            
-            
-            
-            
-    }
-    
-    
-
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
