@@ -38,7 +38,7 @@
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gUr-HP-DZc">
                                                     <rect key="frame" x="58" y="11" width="80" height="36"/>
-                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" red="0.70380850824455066" green="0.25529397867470982" blue="0.86023644081832185" alpha="0.68822238869863006" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                             <integer key="value" value="10"/>
@@ -301,28 +301,31 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mJO-Ls-y8m">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Wc2-BE-834">
-                                        <rect key="frame" x="0.5" y="217" width="375" height="234"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UgZ-hh-4mR">
+                                        <rect key="frame" x="131" y="285" width="112.5" height="96"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gOg-HV-PCz">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="208.5"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" secondItem="gOg-HV-PCz" secondAttribute="height" multiplier="1.8" id="ovy-7i-UUK"/>
-                                                </constraints>
-                                            </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tBh-ct-Kkt">
-                                                <rect key="frame" x="141.5" y="208.5" width="92.5" height="25.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="OHU-zc-Qo6">
+                                                <rect key="frame" x="38.5" y="30" width="37" height="37"/>
+                                            </activityIndicatorView>
                                         </subviews>
-                                    </stackView>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="UgZ-hh-4mR" secondAttribute="height" multiplier="75:64" id="U99-Gu-Jje"/>
+                                            <constraint firstItem="OHU-zc-Qo6" firstAttribute="centerY" secondItem="UgZ-hh-4mR" secondAttribute="centerY" id="aOo-se-YyJ"/>
+                                            <constraint firstItem="OHU-zc-Qo6" firstAttribute="centerX" secondItem="UgZ-hh-4mR" secondAttribute="centerX" id="woO-nU-Yfi"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.clipToBounds" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="Wc2-BE-834" firstAttribute="centerX" secondItem="mJO-Ls-y8m" secondAttribute="centerX" id="hxI-LI-DBj"/>
-                                    <constraint firstItem="Wc2-BE-834" firstAttribute="centerY" secondItem="mJO-Ls-y8m" secondAttribute="centerY" id="sUD-gm-807"/>
+                                    <constraint firstItem="UgZ-hh-4mR" firstAttribute="centerY" secondItem="mJO-Ls-y8m" secondAttribute="centerY" id="Tym-3y-dZ8"/>
+                                    <constraint firstItem="UgZ-hh-4mR" firstAttribute="centerX" secondItem="mJO-Ls-y8m" secondAttribute="centerX" id="wdO-bu-lwf"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -332,12 +335,12 @@
                             <constraint firstItem="vGN-hh-QGI" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="9XJ-Gf-hak"/>
                             <constraint firstItem="guk-1E-8hU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="A04-1T-244"/>
                             <constraint firstAttribute="trailing" secondItem="vGN-hh-QGI" secondAttribute="trailing" id="FQa-Eb-mdi"/>
-                            <constraint firstItem="gOg-HV-PCz" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="Iws-n4-hBQ"/>
                             <constraint firstItem="mJO-Ls-y8m" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="UJA-DI-aHK"/>
                             <constraint firstItem="guk-1E-8hU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="eG3-tI-2NV"/>
                             <constraint firstItem="mJO-Ls-y8m" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="eeA-AG-12J"/>
                             <constraint firstItem="guk-1E-8hU" firstAttribute="top" secondItem="vGN-hh-QGI" secondAttribute="bottom" id="g6a-KX-dji"/>
                             <constraint firstItem="mJO-Ls-y8m" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="jxp-rr-Q4U"/>
+                            <constraint firstItem="UgZ-hh-4mR" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.3" id="ufY-hw-URD"/>
                             <constraint firstAttribute="trailing" secondItem="guk-1E-8hU" secondAttribute="trailing" id="wXu-lA-SIc"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="guk-1E-8hU" secondAttribute="bottom" id="wcy-A5-FQ0"/>
                             <constraint firstItem="vGN-hh-QGI" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="x10-ON-S0W"/>
@@ -349,7 +352,7 @@
                         <outlet property="bottomConstraint" destination="wcy-A5-FQ0" id="YHg-y3-QWv"/>
                         <outlet property="emoRequestButton" destination="Ecr-vb-acB" id="vLQ-6J-qZO"/>
                         <outlet property="inputSubView" destination="guk-1E-8hU" id="l5T-s4-E2H"/>
-                        <outlet property="loadingGif" destination="gOg-HV-PCz" id="fWx-Uy-XpJ"/>
+                        <outlet property="loadingIndicator" destination="OHU-zc-Qo6" id="PLR-NL-2OC"/>
                         <outlet property="loadingView" destination="mJO-Ls-y8m" id="yTT-yz-riI"/>
                         <outlet property="plusButton" destination="wVa-ek-TzA" id="O4I-bK-Abv"/>
                         <outlet property="table" destination="vGN-hh-QGI" id="r2b-u7-c3Q"/>

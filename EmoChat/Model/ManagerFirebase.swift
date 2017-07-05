@@ -620,7 +620,7 @@ class ManagerFirebase {
             var childUpdates = [String: Any] ()
             childUpdates.updateValue(message.senderId!, forKey: "senderId")
             childUpdates.updateValue(timeStamp.intValue, forKey: "time")
-            childUpdates.updateValue(message.content.content, forKey: "content/\(message.content.type)")
+            childUpdates.updateValue(message.content.content, forKey: "content/\(message.content?.type)")
 
             messageRef.updateChildValues(childUpdates)
 

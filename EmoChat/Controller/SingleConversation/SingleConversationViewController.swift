@@ -43,7 +43,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     @IBOutlet weak var loadingView: UIView!
     
-    @IBOutlet weak var loadingGif: UIImageView!
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!    
     
     var manager: ManagerFirebase?
     var currentUser: User!
@@ -60,6 +60,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     var messageRecognized: Message!
     var photosArray: [String: UIImage] = [:]
     var group = DispatchGroup()
+    var multipleChat: Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,12 +75,13 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         refresher.addTarget(self, action: #selector(updateUI), for: UIControlEvents.valueChanged)
         table.addSubview(refresher)
         table.alwaysBounceVertical = true
-        loadingGif.loadGif(name: "Loading-Circle")
-            //!!!!!!!!!!!!!
+        loadingIndicator.startAnimating()
+        loadingIndicator.hidesWhenStopped = true
 //        if !messagesArray.isEmpty {
 //            table.scrollToRow(at: IndexPath(row: messagesArray.count - 1, section: 0),
 //                              at: .top, animated: false)
 //        }
+            //!!!!!!!!!!!!!
         self.setUpTextView()
         manager = ManagerFirebase.shared
         
@@ -90,6 +92,13 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             self.downloadPhotos()
             self.group.leave()
         })
+        
+        if currentConversation.usersInConversation.count > 2 {
+            multipleChat = true
+        } else {
+            multipleChat = false
+        }
+        navigationItem.title = currentConversation.name ?? "Chat"
 
         group.notify(queue: DispatchQueue.main, execute: {
             self.observeNewMessage()
@@ -335,6 +344,10 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 fatalError("Cell was not casted!")
             }
             cell.singleConversationControllerDelegate = self
+            cell.message.text = ""
+            if multipleChat! {
+                cell.message.text?.append("\(String(describing: currentConversation.name))\n")
+            }
             cell.messageEntity = message.0
 
             setMessageModelInCell(currentCell: cell, message: cell.messageEntity)
@@ -348,6 +361,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 fatalError("Cell was not casted!")
             }
             cell.singleConversationControllerDelegate = self
+            cell.message.text = ""
             cell.messageEntity = message.0
 
             setMessageModelInCell(currentCell: cell, message: cell.messageEntity)
