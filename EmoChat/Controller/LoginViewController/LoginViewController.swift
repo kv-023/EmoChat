@@ -11,29 +11,29 @@ import FirebaseDatabase
 import FirebaseAuth
 
 class LoginViewController: EmoChatUIViewController, UITextFieldDelegate {
-	
+
 	// MARK: - IBOutlets
-	
+
 	@IBOutlet weak var backgroundAnimated: UIImageView!
 	@IBOutlet weak var logIn: UIButton!
 	@IBOutlet weak var emailField: CustomTextFieldWithPopOverInfoBox!
 	@IBOutlet weak var passwordField: CustomTextFieldWithPopOverInfoBox!
 	@IBOutlet weak var errorLabel: UILabel!
 	@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-	
+
 	var manager: ManagerFirebase? = nil
-	let gifManager = SwiftyGifManager(memoryLimit:20)
-	let backgroundGif = UIImage(gifName: "giphy.gif", levelOfIntegrity: 1.5)
-	
-	
+	let gifManager = SwiftyGifManager.defaultManager
+	let backgroundGif = UIImage(gifName: "giphy.gif", levelOfIntegrity: 1.2)
+
 	var currentEmailIsValid: Bool = false
 	var currentPasswordIsValid: Bool = false
-	
+
 	// MARK: - ViewController lifecycle
-	
+
 	override func viewDidLoad() {
 		
 		// Set animated background
+		super.viewDidLoad()
 		self.backgroundAnimated.setGifImage(backgroundGif, manager: gifManager)
 		activityIndicator.isHidden = true
 		
@@ -59,7 +59,6 @@ class LoginViewController: EmoChatUIViewController, UITextFieldDelegate {
 		
 		//Set Firebase manager
 		manager = ManagerFirebase.shared
-		super.viewDidLoad()
 	}
 	
 	// MARK: - Dispose of any resources that can be recreated.

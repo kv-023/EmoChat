@@ -61,21 +61,28 @@ open class SwiftyGifManager {
 	- Parameter imageView: The UIImageView we want to delete
 	*/
 
-	open func deleteImageView(_ imageView: UIImageView){
+	open func deleteImageView(_ imageView: UIImageView) {
 		
-		if let index = self.displayViews.index(of: imageView){
+		if let index = self.displayViews.index(of: imageView) {
+
 			if index >= 0 && index < self.displayViews.count {
+
 				self.displayViews.remove(at: index)
 				self.totalGifSize -= imageView.gifImage!.imageSize!
+				
 				if self.totalGifSize < memoryLimit && !self.haveCache {
+					
 					self.haveCache = true
 					for imageView in self.displayViews{
+
 						DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive).sync{
 							imageView.updateCache()
 						}
+						
 					}
 				}
 			}
+
 		}
 	}
 	
@@ -86,7 +93,9 @@ open class SwiftyGifManager {
 	*/
 
 	open func containsImageView(_ imageView: UIImageView) -> Bool{
+
 		return self.displayViews.contains(imageView)
+
 	}
 	
 	/**
@@ -96,6 +105,7 @@ open class SwiftyGifManager {
 	*/
 
 	open func hasCache(_ imageView: UIImageView) -> Bool{
+
 		if imageView.displaying == false {
 			return false
 		}
@@ -113,18 +123,24 @@ open class SwiftyGifManager {
 	*/
 
 	@objc func updateImageView(){
+
 		for imageView in self.displayViews {
 			
 			DispatchQueue.main.async{
 				imageView.image = imageView.currentImage
+
 			}
+
 			if imageView.isAnimatingGif() {
+
 				DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive).sync{
 					imageView.updateCurrentImage()
 				}
+
 			}
 			
 		}
+
 	}
 	
 }

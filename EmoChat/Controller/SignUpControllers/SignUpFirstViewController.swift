@@ -21,6 +21,8 @@ class SignUpFirstViewController: EmoChatUIViewController, UITextFieldDelegate, R
     @IBOutlet weak var confirmationLabel: UILabel!
     @IBOutlet weak var theScrollView: UIScrollView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+	let backgroundManager = SwiftyGifManager.defaultManager
+	let backgroundGif = UIImage(gifName: "giphy.gif", levelOfIntegrity: 1.2)
 	var manager: ManagerFirebase?
 	var enteredEmail: String?
 	var enteredUsername: String?
@@ -81,7 +83,7 @@ class SignUpFirstViewController: EmoChatUIViewController, UITextFieldDelegate, R
     override func viewDidLoad() {
 		
 		super.viewDidLoad()
-		//backgroundAnimated.loadGif(name: "giphy")
+		self.backgroundAnimated.setGifImage(backgroundGif, manager: backgroundManager)
         
         //Hide keyboard by tap
         self.hideKeyboard()
