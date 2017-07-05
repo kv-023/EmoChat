@@ -22,10 +22,10 @@
 		842E8B6E1EF9330700CA3BF2 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E8B6D1EF9330700CA3BF2 /* DateExtension.swift */; };
 		842E8B701EF9DDB100CA3BF2 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E8B6F1EF9DDB100CA3BF2 /* ArrayExtension.swift */; };
 		84312F931EE94FB600FAC4D1 /* SearchUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84312F921EE94FB600FAC4D1 /* SearchUsersViewController.swift */; };
-		84530F371F0C1E8300EBFCEB /* ImageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84530F361F0C1E8300EBFCEB /* ImageStore.swift */; };
-		84530F391F0C35DD00EBFCEB /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84530F381F0C35DD00EBFCEB /* UserCell.swift */; };
 		8439F8C61F04FAB1002C63A6 /* ConversationBottomBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8439F8C51F04FAB1002C63A6 /* ConversationBottomBarView.xib */; };
 		8439F8C81F04FB62002C63A6 /* ConversationBottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8439F8C71F04FB62002C63A6 /* ConversationBottomBarView.swift */; };
+		84530F371F0C1E8300EBFCEB /* ImageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84530F361F0C1E8300EBFCEB /* ImageStore.swift */; };
+		84530F391F0C35DD00EBFCEB /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84530F381F0C35DD00EBFCEB /* UserCell.swift */; };
 		84A3C8D11EF8790F001A9A19 /* ConversationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A3C8D01EF8790F001A9A19 /* ConversationsController.swift */; };
 		84A3C8D51EF89538001A9A19 /* MessageConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A3C8D41EF89538001A9A19 /* MessageConversationCell.swift */; };
 		A309F3761EEFED6000DF6449 /* OptionsChangeNumberTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A309F3751EEFED6000DF6449 /* OptionsChangeNumberTableViewController.swift */; };
@@ -106,10 +106,10 @@
 		842E8B6D1EF9330700CA3BF2 /* DateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		842E8B6F1EF9DDB100CA3BF2 /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		84312F921EE94FB600FAC4D1 /* SearchUsersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchUsersViewController.swift; sourceTree = "<group>"; };
-		84530F361F0C1E8300EBFCEB /* ImageStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageStore.swift; sourceTree = "<group>"; };
-		84530F381F0C35DD00EBFCEB /* UserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		8439F8C51F04FAB1002C63A6 /* ConversationBottomBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConversationBottomBarView.xib; sourceTree = "<group>"; };
 		8439F8C71F04FB62002C63A6 /* ConversationBottomBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationBottomBarView.swift; sourceTree = "<group>"; };
+		84530F361F0C1E8300EBFCEB /* ImageStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageStore.swift; sourceTree = "<group>"; };
+		84530F381F0C35DD00EBFCEB /* UserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		84A3C8D01EF8790F001A9A19 /* ConversationsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationsController.swift; sourceTree = "<group>"; };
 		84A3C8D41EF89538001A9A19 /* MessageConversationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageConversationCell.swift; sourceTree = "<group>"; };
 		A309F3751EEFED6000DF6449 /* OptionsChangeNumberTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OptionsChangeNumberTableViewController.swift; path = EmoChat/Controller/OptionsController/OptionsChangeNumberTableViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -542,7 +542,8 @@
 				TargetAttributes = {
 					3938C26B1EDC27C700D69F88 = {
 						CreatedOnToolsVersion = 8.3.1;
-						ProvisioningStyle = Manual;
+						DevelopmentTeam = DB3E36CSLR;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 0;
@@ -841,10 +842,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = DB3E36CSLR;
 				INFOPLIST_FILE = EmoChat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Emochat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.serve.Emochat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
@@ -857,10 +858,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = DB3E36CSLR;
 				INFOPLIST_FILE = EmoChat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Emochat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.serve.Emochat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;

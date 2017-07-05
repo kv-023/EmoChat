@@ -39,6 +39,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     @IBOutlet weak var table: UITableView!
     
     @IBOutlet weak var textViewMaxHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var loadingView: UIView!
     
@@ -48,6 +49,10 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     var currentUser: User!
     var currentConversation: Conversation!
     var firstMessage : Message?
+    
+    var sortedSections: [String] = []
+    var messagesArrayWithSection: [String : [(Message, UserType)]] = [:]
+    
     var messagesArray: [(Message, UserType)] = []
     var refresher: UIRefreshControl!
     var cellResized = Set<CustomTableViewCell>()
@@ -70,11 +75,11 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         table.addSubview(refresher)
         table.alwaysBounceVertical = true
         loadingGif.loadGif(name: "Loading-Circle")
-        
-        if !messagesArray.isEmpty {
-            table.scrollToRow(at: IndexPath(row: messagesArray.count - 1, section: 0),
-                              at: .top, animated: false)
-        }
+            //!!!!!!!!!!!!!
+//        if !messagesArray.isEmpty {
+//            table.scrollToRow(at: IndexPath(row: messagesArray.count - 1, section: 0),
+//                              at: .top, animated: false)
+//        }
         self.setUpTextView()
         manager = ManagerFirebase.shared
         
@@ -174,21 +179,30 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     func observeNewMessage () {
         self.manager?.getMessageFromConversation([self.currentConversation], result: { (conv, newMessage) in
-            if let lastMessageTime = self.messagesArray.last?.0.time {
+            if let lastSection = self.sortedSections.last, let lastMessageTime = self.messagesArrayWithSection[lastSection]?.last?.0.time {
                 if lastMessageTime > newMessage.time {
                     return
                 }
             }
+            
             if let res = self.manager?.isMessageFromCurrentUser(newMessage) {
                 if res == true {
                     
-                    let index = self.messagesArray.index(where: { (message, typeRight) -> Bool in
-                        message.uid == newMessage.uid
-                    })
+                    //check if sending message was delivered
+                    //if yes should mark it as 'sent'
+                    var result: (index: Int, section: String)? = nil
+                    for section in self.messagesArrayWithSection {
+                        if let index = section.value.index(where: { (message, typeRight) -> Bool in
+                            message.uid == newMessage.uid
+                        }) {
+                            result = (index, section.key)
+                        }
+                    }
                     
-                    if let i = index, let item = (self.table.cellForRow(at: IndexPath.init(row: i, section: 0)) as? RightCell) {
+                    //find cell with this message
+                    if let i = result, let item = (self.table.cellForRow(at: IndexPath.init(row: i.index, section: self.sortedSections.index(of: i.section)!)) as? RightCell) {
                         item.isReceived = true
-                        self.messagesArray[i].1 = .right(.sent)
+                        self.messagesArrayWithSection[i.section]?[i.index].1 = .right(.sent)
                     } else {
                         self.insertRow((newMessage, .right(.sent)))
                     }
@@ -198,8 +212,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 }
                 
             }
-            if !self.messagesArray.isEmpty {
-                self.table.scrollToRow(at: IndexPath.init(row: self.messagesArray.count - 1, section: 0), at: .top, animated: false)
+            if !self.messagesArrayWithSection.isEmpty {
+                self.table.scrollToRow(at: IndexPath.init(row: (self.messagesArrayWithSection[self.sortedSections.last!]?.count)! - 1, section: self.sortedSections.count - 1), at: .top, animated: false)
             }
             self.loadingView.isHidden = true
         })
@@ -238,7 +252,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     //download 20 last messages
     func updateUI() {
-        if let firstMessage = messagesArray.first?.0 {
+        if let firstMessage = messagesArrayWithSection[sortedSections[0]]!.first?.0 {
             self.refresher.endRefreshing()
             let initialOffset = self.table.contentOffset.y
             
@@ -251,9 +265,11 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                         arrayOfMessagesAndTypes.append((each, .left))
                     }
                 }
+                let startIndex = self.messagesArrayWithSection[self.sortedSections.first!]?.count
+                let startSection = self.sortedSections[0]
                 self.insertRows(arrayOfMessagesAndTypes)
                 self.table.reloadData()
-                self.table.scrollToRow(at: IndexPath.init(row: arrayOfMessagesAndTypes.count+1, section: 0), at: .top, animated: false)
+                self.table.scrollToRow(at: IndexPath.init(row: (self.messagesArrayWithSection[startSection]?.count)! - startIndex!, section: self.sortedSections.index(of: startSection)!), at: .top, animated: false)
                 self.table.contentOffset.y += initialOffset
             })
         }
@@ -292,7 +308,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if tableView.isDragging {
-            cell.transform = CGAffineTransform.init(scaleX: 0.8, y: 0.8)
+            cell.transform = CGAffineTransform.init(scaleX: 0.9, y: 0.9)
             UIView.animate(withDuration: 0.3, animations: {
                 cell.transform = CGAffineTransform.identity
             })
@@ -300,16 +316,17 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return sortedSections.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messagesArray.count
+        return messagesArrayWithSection[sortedSections[section]]!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let message = messagesArray[indexPath.row]
+        let message = messagesArrayWithSection[sortedSections[indexPath.section]]![indexPath.row]
+            //messagesArray[indexPath.row]
         
         
         switch message.1 {
@@ -348,6 +365,10 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             return cell
         }
     }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sortedSections[section]
+    }
 
     //nik
     private func setMessageModelInCell(currentCell cell: CustomTableViewCell,
@@ -369,20 +390,50 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         }
     }
     
+    func createNewSection (date: Date) -> String {
+        if !sortedSections.isEmpty && (date.dayFormatStyle() < (messagesArrayWithSection[sortedSections[0]]?.first!.0.time.dayFormatStyle())!) {
+            self.sortedSections.insert(date.dayFormatStyle(), at: 0)
+        } else {
+            self.sortedSections.append(date.dayFormatStyle())
+        }
+        
+        self.messagesArrayWithSection.updateValue([], forKey: date.dayFormatStyle())
+        table.reloadData()
+        return date.dayFormatStyle()
+    }
+
+    func findAppropriateSection(for message: Message) -> String? {
+        return sortedSections.contains(message.time.dayFormatStyle()) ? message.time.dayFormatStyle() : nil
+    }
+    
+    func addMessageToTheEndOfDictionary (_ message: (Message, UserType)) -> IndexPath {
+        let nameOfSection = self.findAppropriateSection(for: message.0) ?? self.createNewSection(date: message.0.time)
+        self.messagesArrayWithSection[nameOfSection]?.append(message)
+        return IndexPath(row: (messagesArrayWithSection[nameOfSection]?.count)! - 1, section: sortedSections.index(of: nameOfSection)!)
+    }
+    
+    func addMessageAtTheBeginningOfDictionary (_ message: (Message, UserType)) -> IndexPath {
+        let nameOfSection = self.findAppropriateSection(for: message.0) ?? self.createNewSection(date: message.0.time)
+        self.messagesArrayWithSection[nameOfSection]?.insert(message, at: 0)
+        return IndexPath(row: 0, section: sortedSections.index(of: nameOfSection)!)
+    }
+    
+    func addMessagesToDictionary (_ messages: [(Message, UserType)]) -> [IndexPath] {
+        var result : [IndexPath] = []
+        for each in messages.reversed() {
+            result.append(self.addMessageAtTheBeginningOfDictionary(each))
+        }
+        return result
+    }
     
     func insertRow(_ newMessage: (Message, UserType)) {
-        messagesArray.append((newMessage.0, newMessage.1))
+        let indexPath = self.addMessageToTheEndOfDictionary(newMessage)
+        table.insertRows(at: [indexPath], with: .automatic)
 
-        //nik
-//        messageRestModel.updateValue(nil, forKey: newMessage.0)
-
-        table.beginUpdates()
-        table.insertRows(at: [IndexPath(row: messagesArray.count - 1, section: 0)], with: .automatic)
-        table.endUpdates()
     }
     
     func insertRows (_ newMessages: [(Message, UserType)]) {
-        messagesArray = newMessages + messagesArray
+        let indexPath = self.addMessagesToDictionary(newMessages)
     }
     
 
@@ -463,8 +514,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     //MARK: - subview to text and send message
     
-    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
-    
     func setupKeyboardObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: .UIKeyboardWillHide, object: nil)
@@ -542,6 +591,8 @@ extension SingleConversationViewController: SingleConversationControllerProtocol
     }
     
 }
+
+//MARK:- SingleConversationViewController
 extension SingleConversationViewController : CellDelegate {
     func cellDelegate(_ sender: UITableViewCell, didHandle action: Action) {
         if action == .longPress {
