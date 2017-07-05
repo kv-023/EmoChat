@@ -48,7 +48,7 @@ RegexCheckProtocol {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-		backgroundAnimated.loadGif(name: "giphy")
+		//backgroundAnimated.loadGif(name: "giphy")
         phoneField.placeholder = getCountryCode()
         
         //Hide keyboard by tap

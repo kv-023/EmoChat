@@ -22,6 +22,9 @@ class LoginViewController: EmoChatUIViewController, UITextFieldDelegate {
 	@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 	
 	var manager: ManagerFirebase? = nil
+	let gifManager = SwiftyGifManager(memoryLimit:20)
+	let backgroundGif = UIImage(gifName: "giphy.gif", levelOfIntegrity: 1.5)
+	
 	
 	var currentEmailIsValid: Bool = false
 	var currentPasswordIsValid: Bool = false
@@ -31,8 +34,7 @@ class LoginViewController: EmoChatUIViewController, UITextFieldDelegate {
 	override func viewDidLoad() {
 		
 		// Set animated background
-		super.viewDidLoad()
-		backgroundAnimated.loadGif(name: "giphy")
+		self.backgroundAnimated.setGifImage(backgroundGif, manager: gifManager)
 		activityIndicator.isHidden = true
 		
 		// TextField Delegate
@@ -57,6 +59,7 @@ class LoginViewController: EmoChatUIViewController, UITextFieldDelegate {
 		
 		//Set Firebase manager
 		manager = ManagerFirebase.shared
+		super.viewDidLoad()
 	}
 	
 	// MARK: - Dispose of any resources that can be recreated.

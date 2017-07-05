@@ -81,7 +81,7 @@ class SignUpFirstViewController: EmoChatUIViewController, UITextFieldDelegate, R
     override func viewDidLoad() {
 		
 		super.viewDidLoad()
-		backgroundAnimated.loadGif(name: "giphy")
+		//backgroundAnimated.loadGif(name: "giphy")
         
         //Hide keyboard by tap
         self.hideKeyboard()

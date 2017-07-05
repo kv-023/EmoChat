@@ -20,6 +20,8 @@
 		5182E4791EF943F70049E94D /* play-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 5182E4731EF943F70049E94D /* play-button.png */; };
 		5182E47A1EF943F70049E94D /* send.png in Resources */ = {isa = PBXBuildFile; fileRef = 5182E4741EF943F70049E94D /* send.png */; };
 		5182E47B1EF943F70049E94D /* transition.gif in Resources */ = {isa = PBXBuildFile; fileRef = 5182E4751EF943F70049E94D /* transition.gif */; };
+		519AF2011F0D14B400950BFB /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519AF2001F0D14B400950BFB /* StringExtension.swift */; };
+		519AF2031F0D194D00950BFB /* ManagerGifBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519AF2021F0D194D00950BFB /* ManagerGifBackground.swift */; };
 		51A770C31F0BC6E100D9ECDB /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A770BB1F0BC6E100D9ECDB /* CustomTableViewCell.swift */; };
 		51A770C41F0BC6E100D9ECDB /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A770BC1F0BC6E100D9ECDB /* CustomTextView.swift */; };
 		51A770C51F0BC6E100D9ECDB /* LeftSingleConversationUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A770BD1F0BC6E100D9ECDB /* LeftSingleConversationUITableViewCell.swift */; };
@@ -104,6 +106,8 @@
 		5182E4731EF943F70049E94D /* play-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play-button.png"; sourceTree = "<group>"; };
 		5182E4741EF943F70049E94D /* send.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = send.png; sourceTree = "<group>"; };
 		5182E4751EF943F70049E94D /* transition.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = transition.gif; sourceTree = "<group>"; };
+		519AF2001F0D14B400950BFB /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		519AF2021F0D194D00950BFB /* ManagerGifBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerGifBackground.swift; sourceTree = "<group>"; };
 		51A770BB1F0BC6E100D9ECDB /* CustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		51A770BC1F0BC6E100D9ECDB /* CustomTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		51A770BD1F0BC6E100D9ECDB /* LeftSingleConversationUITableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftSingleConversationUITableViewCell.swift; sourceTree = "<group>"; };
@@ -194,6 +198,7 @@
 				51CB3D491F0BCE4A00933B1D /* DateExtension.swift */,
 				35C9507C1EF7D791006FA7E6 /* UIImageExtension.swift */,
 				5182E46D1EF943670049E94D /* UIImageViewExtension.swift */,
+				519AF2001F0D14B400950BFB /* StringExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -387,6 +392,7 @@
 				E7352C241EDED52B0095264E /* Message.swift */,
 				E7352C251EDED52B0095264E /* User.swift */,
 				CC45A7561EE6D40E00FF13AE /* ManagerFirebase.swift */,
+				519AF2021F0D194D00950BFB /* ManagerGifBackground.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -662,6 +668,7 @@
 				51CB3D391F0BC8D400933B1D /* RestIU500px.swift in Sources */,
 				F54D21781EE7149100B0B177 /* AdditionalViewController.swift in Sources */,
 				51CB3D4A1F0BCE4A00933B1D /* ArrayExtension.swift in Sources */,
+				519AF2011F0D14B400950BFB /* StringExtension.swift in Sources */,
 				E7B926F31EF1487B0018F5FF /* PopOverViewController.swift in Sources */,
 				F54D21761EE7130600B0B177 /* Regex.swift in Sources */,
 				51A770C91F0BC6E100D9ECDB /* SingleConversationViewController.swift in Sources */,
@@ -685,6 +692,7 @@
 				51CB3D3A1F0BC8D400933B1D /* RestUIUrlembed.swift in Sources */,
 				E7B926F11EF1487B0018F5FF /* PopOverHelper.swift in Sources */,
 				51CB3D461F0BCBBD00933B1D /* ConversationsDataSource.swift in Sources */,
+				519AF2031F0D194D00950BFB /* ManagerGifBackground.swift in Sources */,
 				A3E7E7D11EEFD893006D24BC /* OptionsMainPageTableViewController.swift in Sources */,
 				A309F3761EEFED6000DF6449 /* OptionsChangeNumberTableViewController.swift in Sources */,
 				E7B926EF1EF1487B0018F5FF /* CustomTextFieldWithPopOverInfoBox.swift in Sources */,

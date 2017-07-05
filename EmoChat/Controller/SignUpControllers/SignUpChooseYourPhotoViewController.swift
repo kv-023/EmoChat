@@ -45,7 +45,7 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
     override func viewDidLoad() {
 		
 		super.viewDidLoad()
-        backgroundAnimated.loadGif(name: "giphy")
+       // backgroundAnimated.loadGif(name: "giphy")
 
         let storage = Storage.storage()
         storageRef = storage.reference()
