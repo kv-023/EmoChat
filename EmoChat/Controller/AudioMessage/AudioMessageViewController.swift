@@ -12,6 +12,20 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
     @IBOutlet weak var testView: UIView!
     @IBOutlet weak var btnAudioRecord: UIButton!
     
+    @IBOutlet weak var PSButtonOutfit: UIButton!
+    @IBAction func playStopButton(_ sender: Any) {
+        
+        
+        
+        self.player.play()
+       // self.PSButtonOutfit.setImage(#imageLiteral(resourceName: "PauseAudioMessage"), for: UIControlState.normal)
+        
+        
+       
+       
+        
+    }
+    
     var recordingSession : AVAudioSession!
     var audioRecorder    :AVAudioRecorder!
     var settings         = [String : Int]()
@@ -23,6 +37,9 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // PSButtonOutfit.isEnabled = false // disable play button
+        
         recordingSession = AVAudioSession.sharedInstance()
         do {
             try recordingSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
@@ -105,15 +122,15 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
         
         
         if audioRecorder == nil {
-        self.btnAudioRecord.setTitle("◼︎", for: UIControlState.normal)
-            self.btnAudioRecord.setTitleColor(UIColor.blue, for: .normal)
+        self.btnAudioRecord.setImage(#imageLiteral(resourceName: "StopAudioMessage"), for: UIControlState.normal)
+           
             DispatchQueue.main.async {
                 self.startRecording()
             }
             
         } else {
-            self.btnAudioRecord.setTitle("●", for: UIControlState.normal)
-            self.btnAudioRecord.setTitleColor(UIColor.red, for: .normal)
+            self.btnAudioRecord.setImage(#imageLiteral(resourceName: "RecordAudioMessage"), for: UIControlState.normal)
+            
             self.finishRecording(success: true)
             
             manager = ManagerFirebase.shared
@@ -171,9 +188,10 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
     
     func play (url: URL) {
  
-        self.player = AVPlayer(url: url) // WORKS!!!!
+        self.player = AVPlayer(url: url)
         self.player.volume = 1.0
-        self.player.play()
+       // self.player.play()
+       self.PSButtonOutfit.setImage(#imageLiteral(resourceName: "PlayAudioMessage"), for: .normal)
         self.audioRecorder = nil
     }
     

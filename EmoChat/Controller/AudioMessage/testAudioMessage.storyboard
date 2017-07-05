@@ -22,14 +22,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u1R-53-TfW">
-                                <rect key="frame" x="152" y="266" width="72" height="66"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u1R-53-TfW">
+                                <rect key="frame" x="151.5" y="266" width="72" height="66"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="66" id="HvX-uq-ACM"/>
                                     <constraint firstAttribute="width" constant="72" id="bR6-Wq-9Rr"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="●">
+                                <state key="normal" image="RecordAudioMessage">
                                     <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
@@ -37,7 +36,16 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Fk-LP-JE1">
-                                <rect key="frame" x="24" y="408" width="327" height="128"/>
+                                <rect key="frame" x="24" y="408" width="326" height="128"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fth-BL-3e8">
+                                        <rect key="frame" x="16" y="8" width="30" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <action selector="playStopButton:" destination="K5g-mc-1sb" eventType="touchUpInside" id="nfC-nN-aH6"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -52,6 +60,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="PSButtonOutfit" destination="Fth-BL-3e8" id="pbO-Zq-jLf"/>
                         <outlet property="btnAudioRecord" destination="u1R-53-TfW" id="woy-fA-iHL"/>
                         <outlet property="testView" destination="5Fk-LP-JE1" id="DMo-Vy-wR0"/>
                     </connections>
@@ -61,4 +70,7 @@
             <point key="canvasLocation" x="205.59999999999999" y="-278.41079460269867"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="RecordAudioMessage" width="50" height="50"/>
+    </resources>
 </document>

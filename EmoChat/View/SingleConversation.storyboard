@@ -342,11 +342,6 @@
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="guk-1E-8hU" secondAttribute="bottom" id="wcy-A5-FQ0"/>
                             <constraint firstItem="vGN-hh-QGI" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="x10-ON-S0W"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="mJO-Ls-y8m"/>
-                            </mask>
-                        </variation>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
