@@ -610,7 +610,7 @@ class ManagerFirebase {
     
     func getMessageFromConversation (_ allConversations: [Conversation], result: @escaping (Conversation, Message) -> Void) {
         for eachConv in allConversations{
-            self.ref?.child("conversations/\(eachConv.uuid)/messagesInConversation").queryLimited(toLast: 10).observe(.childAdded, with: {(snapshot) in
+            self.ref?.child("conversations/\(eachConv.uuid)/messagesInConversation").queryLimited(toLast: 20).observe(.childAdded, with: {(snapshot) in
                 let uidMessage = snapshot.key
                 let messageSnapshot = snapshot.value as? NSDictionary
                 let message = Message(data: messageSnapshot, uid: uidMessage)
@@ -639,6 +639,16 @@ class ManagerFirebase {
             result(messages)
         })
         
+    }
+    
+    func isConversationEmpty(_ conversation: Conversation, result: @escaping (Bool) -> Void) {
+        let newRef = self.ref?.child("conversations/\(conversation.uuid)/messagesInConversation")
+        newRef?.queryLimited(toLast: 1).observeSingleEvent(of: .value, with: {snapshot in
+            if snapshot.childrenCount == 0 {
+                result(true)
+            } else {
+                result(false)
+            }})
     }
     
     func isMessageFromCurrentUser (_ message: Message) -> Bool {

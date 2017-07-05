@@ -8,108 +8,105 @@
 
 import UIKit
 
-class SpecialTextView: UITextView, UITextViewDelegate {
-    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        switch action {
-        case #selector(copy(_:)):
-            return true
-        case #selector(delete(_:)):
-            return true
-        default:
-            return false
-        }
-    }
+
+class CustomTableViewCell: UITableViewCell {
     
-    override func copy(_ sender: Any?) {
-        print("Copy")
-    }
-    
-    override func delete(_ sender: Any?) {
-        print("Delete")
-    }
-}
-
-
-class LeftCell: UITableViewCell, UITextViewDelegate {
-
     @IBOutlet weak var userPic: UIImageView!
     @IBOutlet weak var time: UILabel!
     @IBOutlet weak var message: SpecialTextView!
     @IBOutlet weak var background: UIImageView!
+    @IBOutlet weak var previewContainer: UIView!
+    @IBOutlet weak var heightOfPreviewContainer: NSLayoutConstraint!
     
-    var messageEntity: Message? {
+    weak var delegate: CellDelegate!
+    weak var singleConversationControllerDelegate: SingleConversationControllerProtocol?
+    
+    var temporaryCellHeight:CGFloat = 0
+    var extraCellHeiht:CGFloat {
+        return heightOfPreviewContainer.constant
+    }
+
+    weak var messageModel: MessageModel? {
         didSet {
-            message.text = messageEntity!.content!.content
-        }
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(handler))
-        message.addGestureRecognizer(recognizer)
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-    
-    func handler(_ sender: UILongPressGestureRecognizer) {
-        if sender.state == UIGestureRecognizerState.began {
-            sender.view!.becomeFirstResponder()
-            let menu = UIMenuController.shared
-            menu.setTargetRect(message.frame, in: self)
-            menu.setMenuVisible(true, animated: true)
-        }
-    }
-}
-
-class RightCell: UITableViewCell {
-    
-    @IBOutlet weak var userPic: UIImageView!
-    @IBOutlet weak var time: UILabel!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var message: SpecialTextView!
-    
-    var isReceived = false {
-        didSet {
-            if isReceived {
-                activityIndicator.stopAnimating()
-                activityIndicator.isHidden = true
-                time.isHidden = false
-                time.text = messageEntity?.time.formatDate()
-
-            } else {
-                time.isHidden = true
-                activityIndicator.isHidden = false
-                activityIndicator.startAnimating()
-
+            if messageModel != nil {
+                //self.updateUIForMessageModel()
             }
         }
     }
     
     var messageEntity: Message? {
-        didSet {
-            message.text = messageEntity!.content!.content            
+        get {
+            return _messageEntity
+        }
+
+        set {
+            _messageEntity = newValue
+            //TODO: check type of content
+            message.text = newValue?.content!.content
+            setNullableDataInPreviewContainer()
+//            parseDataFromMessageText(delaySeconds: 1)
+        }
+    }
+
+    func parseDataFromMessageTextForCell() {
+        parseDataFromMessageText(delaySeconds: 1)
+    }
+
+    var contentRect: CGRect {
+        get {
+            return message.frame
         }
     }
     
-
+    func handler(_ recognizer: UILongPressGestureRecognizer) {
+        if recognizer.state == .began {
+            delegate.cellDelegate(self, didHandle: .longPress)
+        }
+    }
+    
+    
+    private var _messageEntity: Message!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        setInitDataForUI()
+    }
+    
+    private func setInitDataForUI() {
+        addRecognizerForMessage()
+        
+        previewContainer.backgroundColor = UIColor.clear
+        setNullableHeightOfPreviewContainer()
+    }
+    
+    func setNullableDataInPreviewContainer() {
+        messageModel = nil
+        removeRestUIInfoViewFromView(view: previewContainer)
+        setNullableHeightOfPreviewContainer()
+    }
+    
+    func setNullableHeightOfPreviewContainer() {
+        heightOfPreviewContainer.constant = 0
+    }
+    
+    private func addRecognizerForMessage() {
+        
         let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(handler))
         message.addGestureRecognizer(recognizer)
     }
-    
-      override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-    
-    func handler(_ sender: UILongPressGestureRecognizer) {
-        if sender.state == UIGestureRecognizerState.ended {
-            sender.view!.becomeFirstResponder()
-            let menu = UIMenuController.shared
-            menu.setTargetRect(message.frame, in: self)
-            menu.setMenuVisible(true, animated: true)
-        }
-    }
+
 }
+
+// MARK: - Actions
+
+enum Action {
+    case longPress
+    // Other actions
+}
+
+protocol CellDelegate: class {
+    func cellDelegate(_ sender: UITableViewCell, didHandle action: Action)
+}
+
+

@@ -63,6 +63,10 @@ class ViewController: UIViewController {
         //            print(newConv)
         //        }
         // Do any additional setup after loading the view, typically from a nib.
+
+        emailTextField.text = "rlms@dfg6.kozow.com"
+        passwordTextField.text = "123456"
+
     }
     
     

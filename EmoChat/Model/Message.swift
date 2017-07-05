@@ -8,6 +8,9 @@
 
 import Foundation
 
+//nik, 2017-06-29
+typealias MessageContentDataType = (type: MessageContentType, content: String)
+
 enum MessageContentType: String {
     case photo
     case video
@@ -19,10 +22,10 @@ class Message {
     let uid: String?
     let senderId: String!
     let time: Date!
-    var content: (type: MessageContentType, content: String)!
+    var content: MessageContentDataType!
 
 
-    init (uid: String, senderId: String, time: Date, content: (type: MessageContentType, content: String))
+    init (uid: String, senderId: String, time: Date, content: MessageContentDataType)
     {
         self.uid = uid
         self.senderId = senderId
@@ -45,10 +48,18 @@ class Message {
             self.content = (type: MessageContentType.video, content: video as! String)
         } else if let text = media?.value(forKey: "text") {
             self.content = (type: MessageContentType.text, content: text as! String)
-        }
-        
+        }        
     }
-    
+}
 
+//MARK:- MessageModel Hashable
 
+extension Message: Hashable {
+    var hashValue: Int {
+        return self.uid?.hashValue ?? 0
+    }
+}
+
+func == (lhs: Message, rhs: Message) -> Bool {
+    return lhs.uid == rhs.uid
 }
