@@ -26,7 +26,7 @@ extension Date {
     
     func dayFormatStyle() -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "d.MM"
+        dateFormatter.dateFormat = "d.MM.yy"
         let date = dateFormatter.string(from: self)
         return date
     }

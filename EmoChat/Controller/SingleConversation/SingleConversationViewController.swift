@@ -22,11 +22,19 @@ enum UserType {
 
 class SingleConversationViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate{
     
-    static var selectedCell: CustomTableViewCell?
+    // MARK: - constants
+    let leadingConstraintConstant: CGFloat = 8.0
+    let topConstraintConstant: CGFloat = 8.0
     
+    // MARK: - IBOutlets
+    @IBOutlet weak var emoRequestButton: UIButton!
+    @IBOutlet weak var plusButton: UIButton!
+    @IBOutlet weak var textMessageLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var inputSubView: UIView!
     
     @IBOutlet weak var textMessage: CustomTextView!
+    @IBOutlet weak var additionalBottomBarView: ConversationBottomBarView!
+    @IBOutlet weak var textMessageBottomConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var table: UITableView!
     
@@ -100,12 +108,12 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        if !messagesArray.isEmpty {
-            table.scrollToRow(at: IndexPath(row: messagesArray.count - 1, section: 0),
-                              at: .bottom, animated: false)
-        }
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        if !messagesArray.isEmpty {
+//            table.scrollToRow(at: IndexPath(row: messagesArray.count - 1, section: 0),
+//                              at: .bottom, animated: false)
+//        }
+//    }
     
     func showMenu(forCell cell: CustomTableViewCell) {
         guard table.indexPath(for: cell) != nil else {
@@ -147,7 +155,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
 
         //nik
         let notNullMessageInArray = messagesArray[indexOfMessage].0
-        messageRestModel.removeValue(forKey: notNullMessageInArray)
+//        messageRestModel.removeValue(forKey: notNullMessageInArray)
 
         messagesArray.remove(at: indexOfMessage)
 
@@ -245,7 +253,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 }
                 self.insertRows(arrayOfMessagesAndTypes)
                 self.table.reloadData()
-//                self.table.scrollToRow(at: IndexPath.init(row: arrayOfMessagesAndTypes.count+1, section: 0), at: .top, animated: false)
+                self.table.scrollToRow(at: IndexPath.init(row: arrayOfMessagesAndTypes.count+1, section: 0), at: .top, animated: false)
                 self.table.contentOffset.y += initialOffset
             })
         }
@@ -348,6 +356,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             let messageModelInDictionary = messageRestModel[notNullMessageEntity],
             messageModelInDictionary != nil {
             cell.messageModel = messageModelInDictionary
+            cell.updateUIForMessageModel()
         } else {
             cell.parseDataFromMessageTextForCell()
         }
@@ -365,7 +374,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         messagesArray.append((newMessage.0, newMessage.1))
 
         //nik
-        messageRestModel.updateValue(nil, forKey: newMessage.0)
+//        messageRestModel.updateValue(nil, forKey: newMessage.0)
 
         table.beginUpdates()
         table.insertRows(at: [IndexPath(row: messagesArray.count - 1, section: 0)], with: .automatic)
@@ -431,6 +440,13 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             textView.textColor = .black
         }
         textView.becomeFirstResponder() //Optional
+        
+        self.animateTextViewTransitions(becomeFirstResponder: true)
+        if plusButton.isSelected {
+            plusButton.isSelected = false
+            animateBottomBar(plusIsSelected: plusButton.isSelected)
+        }
+        
     }
     
     func textViewDidEndEditing(_ textView: UITextView){
@@ -441,6 +457,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         textView.isScrollEnabled = false;
         self.textViewMaxHeightConstraint.isActive = false
         textView.resignFirstResponder()
+        
+        self.animateTextViewTransitions(becomeFirstResponder: false)
     }
     
     //MARK: - subview to text and send message
@@ -520,7 +538,7 @@ extension SingleConversationViewController: SingleConversationControllerProtocol
     func addMessageModelInSingleConversationDictionary(message: Message,
                                                        model: MessageModel?) {
 
-        messageRestModel.updateValue(model, forKey: message)
+//        messageRestModel.updateValue(model, forKey: message)
     }
     
 }
@@ -530,11 +548,94 @@ extension SingleConversationViewController : CellDelegate {
             
             if let cell = sender as? CustomTableViewCell {
                 cell.message.becomeFirstResponder()
-                SingleConversationViewController.selectedCell = cell
+                //SingleConversationViewController.selectedCell = cell
                 showMenu(forCell: cell)
             }
         }
     }
     
+    // MARK: - Actions
+    
+    @IBAction func actionEmoRequestButton(_ sender: UIButton) {
+        if emoRequestButton.isSelected {
+            emoRequestButton.isSelected = false
+        } else {
+            emoRequestButton.isSelected = true
+        }
+    }
+    
+    @IBAction func actionPlusButton(_ sender: UIButton) {
+        
+        if plusButton.isSelected {
+            plusButton.isSelected = false
+        } else {
+            plusButton.isSelected = true
+        }
+        self.animateBottomBar(plusIsSelected: plusButton.isSelected)
+    }
+    
+    // MARK: - BottomBarAnimations
+    
+    func animateBottomBar(plusIsSelected: Bool) {
+        
+        view.layoutIfNeeded()
+        
+        let height = additionalBottomBarView.frame.height
+        
+        if plusIsSelected {
+            textMessageBottomConstraint.constant += height + topConstraintConstant
+            self.additionalBottomBarView.isHidden = !plusIsSelected
+        } else {
+            textMessageBottomConstraint.constant -= height + topConstraintConstant
+        }
+        
+        UIView.animate(withDuration: 0.5,
+                       delay: 0.0,
+                       usingSpringWithDamping: 0,
+                       initialSpringVelocity: 0,
+                       options: [.curveLinear],
+                       animations: {
+                        self.view.layoutIfNeeded()
+                        if plusIsSelected {
+                            self.additionalBottomBarView.alpha = 1.0
+                        } else {
+                            self.additionalBottomBarView.alpha = 0.0
+                        }
+        },
+                       completion: { _ in
+                        self.additionalBottomBarView.isHidden = !plusIsSelected
+        })
+    }
+    
+    func animateTextViewTransitions(becomeFirstResponder: Bool) {
+        
+        view.layoutIfNeeded()
+    
+        let width = plusButton.frame.width + leadingConstraintConstant
+        
+        if becomeFirstResponder {
+            textMessageLeadingConstraint.constant -= width
+        } else {
+            textMessageLeadingConstraint.constant += width
+            self.plusButton.isHidden = becomeFirstResponder
+        }
+        
+        UIView.animate(withDuration: 0.5,
+                       delay: 0.0,
+                       usingSpringWithDamping: 0,
+                       initialSpringVelocity: 0,
+                       options: [.curveLinear],
+                       animations: {
+                        self.view.layoutIfNeeded()
+                        if becomeFirstResponder {
+                            self.plusButton.alpha = 0.0
+                        } else {
+                            self.plusButton.alpha = 1.0
+                        }
+        },
+                       completion: { (_) in
+                        self.plusButton.isHidden = becomeFirstResponder
+        })
+    }
     
 }

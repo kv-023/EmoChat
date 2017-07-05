@@ -1,19 +1,20 @@
 //
-//  ContactCell.swift
+//  UserCell.swift
 //  EmoChat
 //
-//  Created by Admin on 08.06.17.
+//  Created by Admin on 04.07.17.
 //  Copyright © 2017 SoftServe. All rights reserved.
 //
 
 import UIKit
 
-class ContactCell: UITableViewCell {
-
-    @IBOutlet weak var contactPhoto: UIImageView!
-    @IBOutlet weak var contactNameLabel: UILabel!
-    @IBOutlet weak var contactUsernameLabel: UILabel!
+class UserCell: UITableViewCell {
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var userImageView: UIImageView!
+    @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var userUsernameLabel: UILabel!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
