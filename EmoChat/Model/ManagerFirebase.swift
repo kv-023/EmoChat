@@ -641,6 +641,16 @@ class ManagerFirebase {
         
     }
     
+    func isConversationEmpty(_ conversation: Conversation, result: @escaping (Bool) -> Void) {
+        let newRef = self.ref?.child("conversations/\(conversation.uuid)/messagesInConversation")
+        newRef?.queryLimited(toLast: 1).observeSingleEvent(of: .value, with: {snapshot in
+            if snapshot.childrenCount == 0 {
+                result(true)
+            } else {
+                result(false)
+            }})
+    }
+    
     func isMessageFromCurrentUser (_ message: Message) -> Bool {
         var result = false
         if let uid = Auth.auth().currentUser?.uid {

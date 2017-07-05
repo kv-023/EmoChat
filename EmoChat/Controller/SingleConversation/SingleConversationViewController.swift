@@ -52,8 +52,9 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     var refresher: UIRefreshControl!
     var cellResized = Set<CustomTableViewCell>()
     var messageRestModel: [Message: MessageModel?] = [:]
-
     var messageRecognized: Message!
+    var photosArray: [String: UIImage] = [:]
+    var group = DispatchGroup()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,7 +68,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         table.backgroundView = refresher
         refresher.addTarget(self, action: #selector(updateUI), for: UIControlEvents.valueChanged)
         table.addSubview(refresher)
-        
+        table.alwaysBounceVertical = true
+        loadingGif.loadGif(name: "Loading-Circle")
         
         if !messagesArray.isEmpty {
             table.scrollToRow(at: IndexPath(row: messagesArray.count - 1, section: 0),
@@ -88,6 +90,14 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             self.observeNewMessage()
         })
         
+        group.enter()
+        manager?.isConversationEmpty(currentConversation) { result in
+            if result {
+                self.loadingView.isHidden = true
+            }
+            self.group.leave()
+        }
+        
         self.observeDeletion()
         
         print(self.currentConversation.uuid)
@@ -96,6 +106,13 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         
         self.setUpFrame()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if !messagesArray.isEmpty {
+            table.scrollToRow(at: IndexPath(row: messagesArray.count - 1, section: 0),
+                              at: .bottom, animated: false)
+        }
     }
     
     func showMenu(forCell cell: CustomTableViewCell) {
@@ -236,7 +253,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 }
                 self.insertRows(arrayOfMessagesAndTypes)
                 self.table.reloadData()
-                self.table.scrollToRow(at: IndexPath.init(row: arrayOfMessagesAndTypes.count+1, section: 0), at: .top, animated: false)
+//                self.table.scrollToRow(at: IndexPath.init(row: arrayOfMessagesAndTypes.count+1, section: 0), at: .top, animated: false)
                 self.table.contentOffset.y += initialOffset
             })
         }
@@ -246,10 +263,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     
     //MARK: - photos
-    
-    var photosArray: [String: UIImage] = [:]
-    
-    var group = DispatchGroup()
     
     func downloadPhotos () {
         
