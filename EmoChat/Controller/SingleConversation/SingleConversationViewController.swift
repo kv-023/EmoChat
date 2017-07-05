@@ -55,6 +55,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     var messageRecognized: Message!
     var photosArray: [String: UIImage] = [:]
     var group = DispatchGroup()
+    var multipleChat: Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,6 +87,13 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             self.downloadPhotos()
             self.group.leave()
         })
+        
+        if currentConversation.usersInConversation.count > 2 {
+            multipleChat = true
+        } else {
+            multipleChat = false
+        }
+        navigationItem.title = currentConversation.name ?? "Chat"
 
         group.notify(queue: DispatchQueue.main, execute: {
             self.observeNewMessage()
@@ -319,6 +327,10 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 fatalError("Cell was not casted!")
             }
             cell.singleConversationControllerDelegate = self
+            cell.message.text = ""
+            if multipleChat! {
+                cell.message.text?.append("\(String(describing: currentConversation.name))\n")
+            }
             cell.messageEntity = message.0
 
             setMessageModelInCell(currentCell: cell, message: cell.messageEntity)
@@ -332,6 +344,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 fatalError("Cell was not casted!")
             }
             cell.singleConversationControllerDelegate = self
+            cell.message.text = ""
             cell.messageEntity = message.0
 
             setMessageModelInCell(currentCell: cell, message: cell.messageEntity)

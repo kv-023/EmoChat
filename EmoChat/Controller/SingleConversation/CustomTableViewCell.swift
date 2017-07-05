@@ -42,7 +42,7 @@ class CustomTableViewCell: UITableViewCell {
         set {
             _messageEntity = newValue
             //TODO: check type of content
-            message.text = newValue?.content!.content
+            message.text.append((newValue?.content!.content)!)
             setNullableDataInPreviewContainer()
 //            parseDataFromMessageText(delaySeconds: 1)
         }

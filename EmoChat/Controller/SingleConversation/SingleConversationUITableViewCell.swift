@@ -29,7 +29,7 @@
 //            message.text = messageEntity?.content?.content
 //
 //            setNullableDataInPreviewContainer()
-//            parseDataFromMessageText(delaySeconds: 1)
+////            parseDataFromMessageText(delaySeconds: 1)
 //            //heightOfPreviewContainer.constant = 50 // for test only!
 //        }
 //    }
@@ -57,7 +57,7 @@
 //
 //    func setNullableDataInPreviewContainer() {
 //        messageModel = nil
-//        removeRestUIInfoViewFromView(view: previewContainer)
+////        removeRestUIInfoViewFromView(view: previewContainer)
 //        setNullableHeightOfPreviewContainer()
 //    }
 //
