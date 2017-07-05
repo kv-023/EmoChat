@@ -230,7 +230,7 @@
                                             <constraint firstAttribute="height" constant="26" id="rU4-TI-bO4"/>
                                         </constraints>
                                     </view>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" scrollEnabled="NO" keyboardDismissMode="interactive" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="6Zs-2n-ZAE">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" scrollEnabled="NO" keyboardDismissMode="interactive" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="6Zs-2n-ZAE" customClass="CustomTextView" customModule="EmoChat" customModuleProvider="target">
                                         <rect key="frame" x="76" y="5" width="257" height="33"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -349,9 +349,9 @@
                         <outlet property="bottomConstraint" destination="wcy-A5-FQ0" id="YHg-y3-QWv"/>
                         <outlet property="emoRequestButton" destination="Ecr-vb-acB" id="vLQ-6J-qZO"/>
                         <outlet property="inputSubView" destination="guk-1E-8hU" id="l5T-s4-E2H"/>
-                        <outlet property="plusButton" destination="wVa-ek-TzA" id="O4I-bK-Abv"/>
                         <outlet property="loadingGif" destination="gOg-HV-PCz" id="fWx-Uy-XpJ"/>
                         <outlet property="loadingView" destination="mJO-Ls-y8m" id="yTT-yz-riI"/>
+                        <outlet property="plusButton" destination="wVa-ek-TzA" id="O4I-bK-Abv"/>
                         <outlet property="table" destination="vGN-hh-QGI" id="r2b-u7-c3Q"/>
                         <outlet property="textMessage" destination="6Zs-2n-ZAE" id="qd2-x3-wmJ"/>
                         <outlet property="textMessageBottomConstraint" destination="euq-hg-ADP" id="vIO-wa-r8Q"/>
