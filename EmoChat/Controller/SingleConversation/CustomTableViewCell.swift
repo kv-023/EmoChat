@@ -29,7 +29,7 @@ class CustomTableViewCell: UITableViewCell {
     weak var messageModel: MessageModel? {
         didSet {
             if messageModel != nil {
-                self.updateUIForMessageModel()
+                //self.updateUIForMessageModel()
             }
         }
     }

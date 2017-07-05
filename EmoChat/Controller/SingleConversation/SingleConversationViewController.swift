@@ -126,7 +126,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
 
         //nik
         let notNullMessageInArray = messagesArray[indexOfMessage].0
-        messageRestModel.removeValue(forKey: notNullMessageInArray)
+//        messageRestModel.removeValue(forKey: notNullMessageInArray)
 
         messagesArray.remove(at: indexOfMessage)
 
@@ -330,6 +330,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             let messageModelInDictionary = messageRestModel[notNullMessageEntity],
             messageModelInDictionary != nil {
             cell.messageModel = messageModelInDictionary
+            cell.updateUIForMessageModel()
         } else {
             cell.parseDataFromMessageTextForCell()
         }
@@ -347,7 +348,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         messagesArray.append((newMessage.0, newMessage.1))
 
         //nik
-        messageRestModel.updateValue(nil, forKey: newMessage.0)
+//        messageRestModel.updateValue(nil, forKey: newMessage.0)
 
         table.beginUpdates()
         table.insertRows(at: [IndexPath(row: messagesArray.count - 1, section: 0)], with: .automatic)
@@ -502,7 +503,7 @@ extension SingleConversationViewController: SingleConversationControllerProtocol
     func addMessageModelInSingleConversationDictionary(message: Message,
                                                        model: MessageModel?) {
 
-        messageRestModel.updateValue(model, forKey: message)
+//        messageRestModel.updateValue(model, forKey: message)
     }
     
 }

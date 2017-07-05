@@ -42,6 +42,7 @@ extension CustomTableViewCell {
                         self.messageModel = newModel
 
                         //self.updateUI()
+                        self.updateUIForMessageModel()
                     }
                 }
             }
