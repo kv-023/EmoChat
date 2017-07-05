@@ -32,6 +32,23 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        
+//        
+//        
+//        m = ManagerFirebase.shared
+//        
+//        m?.getCurrentUser(){ (result) in
+//            switch result {
+//            case let .successSingleUser(user):
+//                self.user = user
+//                self.m?.getMessageFromConversation(user.userConversations!, result: {
+//                    (conv, message) in
+//                    print("Message \(message.content) from  \(conv.name!)")
+//                })
+//            default:
+//                print("NONONO")
+//            }
+//        }
         
         
         
@@ -259,19 +276,6 @@ class ViewController: UIViewController {
          
          })
          */
-        
-         let user = User(email: "dadada", username: "dadada", phoneNumber: nil, firstName: nil, secondName: nil, photoURL: nil, uid: "userUID")
-         let user1 = User(email: "netnet", username: "netnet", phoneNumber: nil, firstName: nil, secondName: nil, photoURL: nil, uid: "user1UID")
-         let user2 = User(email: "user2", username: "user2", phoneNumber: nil, firstName: nil, secondName: nil, photoURL: nil, uid: "user2UID")
-        
-        let arrayUsers = [user, user1, user2, self.user!]
-         
-        switch m!.createConversation(arrayUsers, withName: "\(index)-Conversation") {
-        case let .successSingleConversation(conversation):
-            m?.createMessage(conversation: conversation, sender: arrayUsers[Int(arc4random_uniform(UInt32(arrayUsers.count)))], content: (type: .text, content: "Hello from for loop"))
-        default:
-            print("ERROR")
-        }
 
         /*
         for index in 1...20 {

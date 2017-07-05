@@ -16,23 +16,18 @@ class OptionsMainPageTableViewController:  UITableViewController, UIImagePickerC
     @IBOutlet weak var phoneNumberLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
-    
-    var manager: ManagerFirebase!
-    
     var currentUserVC: User!
+    var manager: ManagerFirebase!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Manager firebase
+        manager = ManagerFirebase.shared
         
+        //Temporaru login and get current user
         tempLogIn()
         tempGetCurrentUser()
-        
-        
-        
-        
-        
-        
         
     }
     
@@ -58,11 +53,10 @@ class OptionsMainPageTableViewController:  UITableViewController, UIImagePickerC
             switch result {
             case .successSingleUser(let user):
                 print("success getUser")
+                self.currentUserVC = user
+                self.addInfoOnView(user: user)
                 
-                self.tempTemp(user: user)
                 
-                
-                break
             case .failure(let error):
                 print("\(error) fail with getUser")
             default:
@@ -73,29 +67,46 @@ class OptionsMainPageTableViewController:  UITableViewController, UIImagePickerC
     }
     
     
-    func tempTemp (user: User) {
+    func addInfoOnView (user: User) {
         
+        manager.getUserPicFullResolution(from: user.photoURL!) {
+            result in
+            switch result {
+            case .successUserPic(let image):
+                self.userImageView.image = image
+            case . failure(let error):
+                print(error)
+            default:
+                break
+            }
+        }
         
-        
-
-        
-            
-        
-
-        
-        nameAndLastNameLabel.text = user.firstName
+        let nameAndSecondName = "\(user.firstName ?? "Name") \(user.secondName ?? "Lastname")"
+        nameAndLastNameLabel.text = nameAndSecondName
         usernameLabel.text = user.username
         phoneNumberLabel.text = user.phoneNumber
-        emailLabel.text = user.phoneNumber
+        emailLabel.text = user.email
     }
     
+    // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showPhone" {
-            let destinationVC = segue.destination as! OptionsChangeNumberTableViewController
-            destinationVC.currentUser = currentUserVC
-            
+        if let segueIdentifier = segue.identifier {
+            switch segueIdentifier {
+            case "showPhone":
+                let destinationVC = segue.destination as! OptionsChangeNumberTableViewController
+                destinationVC.currentUser = currentUserVC
+            case "showUsername":
+                let destinationVC = segue.destination as! OptionsChangeUsernameTableViewController
+                destinationVC.currentUser = currentUserVC
+            case "showEmail":
+                let destinationVC = segue.destination as! OptionsChangeEmailTableViewController
+                destinationVC.currentUser = currentUserVC
+            case "showPhotoAndName":
+                let destinationVC = segue.destination as! OptionsChangePhotoNameSecondNameTableViewController
+                destinationVC.currentUser = currentUserVC
+            default:
+                break
+            }
         }
     }
-    
-    
 }
