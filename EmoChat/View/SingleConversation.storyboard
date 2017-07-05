@@ -1,35 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<<<<<<< HEAD
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-=======
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
->>>>>>> origin/SingleConversationDevelop
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-<<<<<<< HEAD
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-=======
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
->>>>>>> origin/SingleConversationDevelop
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Single Conversation View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-<<<<<<< HEAD
-                <viewController storyboardIdentifier="singleConversation" id="BYZ-38-t0r" customClass="SingleConversationViewController" customModule="EmoChat" customModuleProvider="target" sceneMemberID="viewController">
-=======
                 <viewController storyboardIdentifier="singleConversation" automaticallyAdjustsScrollViewInsets="NO" id="BYZ-38-t0r" customClass="SingleConversationViewController" customModule="EmoChat" customModuleProvider="target" sceneMemberID="viewController">
->>>>>>> origin/SingleConversationDevelop
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -38,31 +24,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-<<<<<<< HEAD
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="92" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vGN-hh-QGI">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="627"/>
-=======
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" directionalLockEnabled="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vGN-hh-QGI">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="624"/>
->>>>>>> origin/SingleConversationDevelop
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <prototypes>
-<<<<<<< HEAD
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="60" id="CSw-5x-TuY" userLabel="Sender" customClass="SenderCell" customModule="EmoChat" customModuleProvider="target">
-=======
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Left" rowHeight="60" id="CSw-5x-TuY" customClass="LeftCell" customModule="EmoChat">
->>>>>>> origin/SingleConversationDevelop
                                         <rect key="frame" x="0.0" y="28" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CSw-5x-TuY" id="BTd-Kg-2eo">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-<<<<<<< HEAD
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0NN-eU-7Ai">
-                                                    <rect key="frame" x="8" y="9" width="40" height="40"/>
-=======
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gUr-HP-DZc">
                                                     <rect key="frame" x="58" y="11" width="80" height="36"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -75,7 +48,6 @@
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0NN-eU-7Ai">
                                                     <rect key="frame" x="8" y="7" width="40" height="40"/>
->>>>>>> origin/SingleConversationDevelop
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="40" id="XR6-1V-sfw"/>
                                                         <constraint firstAttribute="height" constant="40" id="ueT-Yy-8ab"/>
@@ -84,21 +56,6 @@
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                             <integer key="value" value="20"/>
                                                         </userDefinedRuntimeAttribute>
-<<<<<<< HEAD
-                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.clipToBounds" value="YES"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </imageView>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Some text" translatesAutoresizingMaskIntoConstraints="NO" id="saX-Im-Te1">
-                                                    <rect key="frame" x="56" y="12" width="85" height="34"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                </textView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2BW-ck-jBa">
-                                                    <rect key="frame" x="149" y="19" width="67" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-=======
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
@@ -109,21 +66,10 @@
                                                 </textView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2BW-ck-jBa">
                                                     <rect key="frame" x="147.5" y="33.5" width="26" height="13.5"/>
->>>>>>> origin/SingleConversationDevelop
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-<<<<<<< HEAD
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottomMargin" secondItem="0NN-eU-7Ai" secondAttribute="bottom" constant="3" id="p5f-as-ej9"/>
-                                                <constraint firstItem="0NN-eU-7Ai" firstAttribute="leading" secondItem="BTd-Kg-2eo" secondAttribute="leadingMargin" id="zcH-AO-ibT"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Send message user" rowHeight="60" id="27m-G8-t2t" userLabel="Receiver" customClass="ReceiverCell" customModule="EmoChat" customModuleProvider="target">
-=======
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IPA-0c-jFt" userLabel="PreviewContainer">
                                                     <rect key="frame" x="10" y="50" width="355" height="10"/>
                                                     <color key="backgroundColor" red="0.38961728039999999" green="0.66666666669999997" blue="0.49455274090000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -170,17 +116,12 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Right" rowHeight="60" id="27m-G8-t2t" customClass="RightCell" customModule="EmoChat" customModuleProvider="target">
->>>>>>> origin/SingleConversationDevelop
                                         <rect key="frame" x="0.0" y="88" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="27m-G8-t2t" id="Pim-44-k6V">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-<<<<<<< HEAD
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="D9q-6u-sJ8">
-                                                    <rect key="frame" x="327" y="9" width="40" height="40"/>
-=======
                                                 <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qN7-ND-9M4">
                                                     <rect key="frame" x="238" y="11" width="79" height="36"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -195,24 +136,10 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="D9q-6u-sJ8">
                                                     <rect key="frame" x="327" y="7" width="40" height="40"/>
                                                     <gestureRecognizers/>
->>>>>>> origin/SingleConversationDevelop
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="40" id="ERP-vc-mzn"/>
                                                         <constraint firstAttribute="height" constant="40" id="UI3-C8-cTw"/>
                                                     </constraints>
-<<<<<<< HEAD
-                                                </imageView>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Some text" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="mHH-T8-Hcd">
-                                                    <rect key="frame" x="234" y="12" width="85" height="34"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                </textView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ulI-98-iYs">
-                                                    <rect key="frame" x="159" y="19" width="67" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-=======
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                             <integer key="value" value="20"/>
@@ -228,18 +155,10 @@
                                                 </textView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ulI-98-iYs">
                                                     <rect key="frame" x="201.5" y="33.5" width="26" height="13.5"/>
->>>>>>> origin/SingleConversationDevelop
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-<<<<<<< HEAD
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottomMargin" secondItem="D9q-6u-sJ8" secondAttribute="bottom" constant="3" id="EGg-Kg-hC1"/>
-                                                <constraint firstItem="D9q-6u-sJ8" firstAttribute="trailing" secondItem="Pim-44-k6V" secondAttribute="trailingMargin" id="dI5-qO-wYb"/>
-                                            </constraints>
-=======
                                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="mSK-UU-5O8">
                                                     <rect key="frame" x="212.5" y="32" width="15" height="15"/>
                                                     <constraints>
@@ -287,7 +206,6 @@
                                                     <exclude reference="EGg-Kg-hC1"/>
                                                 </mask>
                                             </variation>
->>>>>>> origin/SingleConversationDevelop
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="activityIndicator" destination="mSK-UU-5O8" id="FmC-Ld-So9"/>
@@ -306,30 +224,19 @@
                             <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="guk-1E-8hU">
                                 <rect key="frame" x="0.0" y="624" width="375" height="43"/>
                                 <subviews>
-<<<<<<< HEAD
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="6Zs-2n-ZAE">
-                                        <rect key="frame" x="9" y="5" width="316" height="30"/>
-=======
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="249" scrollEnabled="NO" keyboardDismissMode="interactive" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="6Zs-2n-ZAE" customClass="CustomTextView" customModule="EmoChat" customModuleProvider="target">
                                         <rect key="frame" x="9" y="5" width="324" height="33"/>
->>>>>>> origin/SingleConversationDevelop
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" spellCheckingType="yes"/>
                                         <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
                                     </textView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ze-E8-Yj2">
-<<<<<<< HEAD
-                                        <rect key="frame" x="337" y="5" width="30" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="1ze-E8-Yj2" secondAttribute="height" multiplier="1:1" id="35V-rO-czA"/>
-=======
                                         <rect key="frame" x="341" y="9" width="26" height="26"/>
                                         <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="1ze-E8-Yj2" secondAttribute="height" multiplier="1:1" id="35V-rO-czA"/>
                                             <constraint firstAttribute="height" constant="26" id="dEs-VQ-iTb"/>
->>>>>>> origin/SingleConversationDevelop
                                         </constraints>
                                         <state key="normal" image="sendMessage"/>
                                         <connections>
@@ -337,18 +244,6 @@
                                         </connections>
                                     </button>
                                 </subviews>
-<<<<<<< HEAD
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="1ze-E8-Yj2" secondAttribute="bottom" constant="5" id="35B-h9-zmp"/>
-                                    <constraint firstAttribute="height" constant="40" id="9mE-6g-V9t"/>
-                                    <constraint firstAttribute="trailing" secondItem="1ze-E8-Yj2" secondAttribute="trailing" constant="8" id="HgI-07-gTE"/>
-                                    <constraint firstItem="6Zs-2n-ZAE" firstAttribute="top" secondItem="guk-1E-8hU" secondAttribute="top" constant="5" id="NWP-hi-RfN"/>
-                                    <constraint firstItem="1ze-E8-Yj2" firstAttribute="leading" secondItem="6Zs-2n-ZAE" secondAttribute="trailing" constant="12" id="OdF-Ti-W8z"/>
-                                    <constraint firstAttribute="bottom" secondItem="6Zs-2n-ZAE" secondAttribute="bottom" constant="5" id="euq-hg-ADP"/>
-                                    <constraint firstItem="1ze-E8-Yj2" firstAttribute="top" secondItem="guk-1E-8hU" secondAttribute="top" constant="5" id="fus-bq-7qs"/>
-                                    <constraint firstItem="6Zs-2n-ZAE" firstAttribute="leading" secondItem="guk-1E-8hU" secondAttribute="leading" constant="9" id="pDF-73-Zn7"/>
-=======
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="1ze-E8-Yj2" secondAttribute="bottom" constant="8" id="Jkb-Y7-YvZ"/>
@@ -360,7 +255,6 @@
                                     <constraint firstAttribute="bottom" secondItem="6Zs-2n-ZAE" secondAttribute="bottom" constant="5" id="euq-hg-ADP"/>
                                     <constraint firstItem="6Zs-2n-ZAE" firstAttribute="leading" secondItem="guk-1E-8hU" secondAttribute="leading" constant="9" id="pDF-73-Zn7"/>
                                     <constraint firstAttribute="trailing" secondItem="1ze-E8-Yj2" secondAttribute="trailing" constant="8" id="tv0-K8-GjI"/>
->>>>>>> origin/SingleConversationDevelop
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -371,18 +265,9 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-<<<<<<< HEAD
-                            <constraint firstAttribute="trailing" secondItem="guk-1E-8hU" secondAttribute="trailing" id="00S-Mg-lhh"/>
-                            <constraint firstItem="vGN-hh-QGI" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="9XJ-Gf-hak"/>
-                            <constraint firstItem="guk-1E-8hU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="A04-1T-244"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="guk-1E-8hU" secondAttribute="bottom" id="EVC-2y-3Qu"/>
-                            <constraint firstAttribute="trailing" secondItem="vGN-hh-QGI" secondAttribute="trailing" id="FQa-Eb-mdi"/>
-                            <constraint firstItem="guk-1E-8hU" firstAttribute="top" secondItem="vGN-hh-QGI" secondAttribute="bottom" id="Iao-Wm-KWy"/>
-=======
                             <constraint firstItem="vGN-hh-QGI" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="9XJ-Gf-hak"/>
                             <constraint firstItem="guk-1E-8hU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="A04-1T-244"/>
                             <constraint firstAttribute="trailing" secondItem="vGN-hh-QGI" secondAttribute="trailing" id="FQa-Eb-mdi"/>
->>>>>>> origin/SingleConversationDevelop
                             <constraint firstItem="guk-1E-8hU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="eG3-tI-2NV"/>
                             <constraint firstItem="guk-1E-8hU" firstAttribute="top" secondItem="vGN-hh-QGI" secondAttribute="bottom" id="g6a-KX-dji"/>
                             <constraint firstAttribute="trailing" secondItem="guk-1E-8hU" secondAttribute="trailing" id="wXu-lA-SIc"/>
@@ -390,10 +275,6 @@
                             <constraint firstItem="vGN-hh-QGI" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="x10-ON-S0W"/>
                         </constraints>
                     </view>
-<<<<<<< HEAD
-                    <connections>
-                        <outlet property="textMessage" destination="6Zs-2n-ZAE" id="qd2-x3-wmJ"/>
-=======
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
                         <outlet property="bottomConstraint" destination="wcy-A5-FQ0" id="YHg-y3-QWv"/>
@@ -401,7 +282,6 @@
                         <outlet property="table" destination="vGN-hh-QGI" id="r2b-u7-c3Q"/>
                         <outlet property="textMessage" destination="6Zs-2n-ZAE" id="qd2-x3-wmJ"/>
                         <outlet property="textViewMaxHeightConstraint" destination="Vt9-Mo-bkX" id="dhu-ey-aLi"/>
->>>>>>> origin/SingleConversationDevelop
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -411,11 +291,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-<<<<<<< HEAD
-            <point key="canvasLocation" x="-836" y="4.9475262368815596"/>
-=======
             <point key="canvasLocation" x="-1441" y="-21"/>
->>>>>>> origin/SingleConversationDevelop
         </scene>
     </scenes>
     <resources>

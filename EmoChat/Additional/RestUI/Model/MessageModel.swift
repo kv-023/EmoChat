@@ -31,11 +31,7 @@ class MessageModel: RegexCheckProtocol {
     var time: Date? {
         return message?.time
     }
-<<<<<<< HEAD
-    var content: MessageContentDataType? {
-=======
     var content:MessageContentDataType? {
->>>>>>> origin/SingleConversationDevelop
         return message?.content
     }
     var messageText: String {

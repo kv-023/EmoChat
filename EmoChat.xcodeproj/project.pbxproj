@@ -42,6 +42,8 @@
 		51CB3D451F0BCBBD00933B1D /* ConversationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CB3D411F0BCBBD00933B1D /* ConversationsController.swift */; };
 		51CB3D461F0BCBBD00933B1D /* ConversationsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CB3D421F0BCBBD00933B1D /* ConversationsDataSource.swift */; };
 		51CB3D471F0BCBBD00933B1D /* MessageConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CB3D441F0BCBBD00933B1D /* MessageConversationCell.swift */; };
+		51CB3D4A1F0BCE4A00933B1D /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CB3D481F0BCE4A00933B1D /* ArrayExtension.swift */; };
+		51CB3D4B1F0BCE4A00933B1D /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CB3D491F0BCE4A00933B1D /* DateExtension.swift */; };
 		746478FA29F53658399EE02D /* Pods_EmoChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */; };
 		84247A391EE9CDA6009E8167 /* GlobalUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84247A381EE9CDA6009E8167 /* GlobalUserCell.swift */; };
 		84312F931EE94FB600FAC4D1 /* SearchUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84312F921EE94FB600FAC4D1 /* SearchUsersViewController.swift */; };
@@ -124,6 +126,8 @@
 		51CB3D411F0BCBBD00933B1D /* ConversationsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationsController.swift; sourceTree = "<group>"; };
 		51CB3D421F0BCBBD00933B1D /* ConversationsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationsDataSource.swift; sourceTree = "<group>"; };
 		51CB3D441F0BCBBD00933B1D /* MessageConversationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageConversationCell.swift; sourceTree = "<group>"; };
+		51CB3D481F0BCE4A00933B1D /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
+		51CB3D491F0BCE4A00933B1D /* DateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		5E5B970584D3FF3821DB6225 /* Pods-EmoChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmoChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmoChat/Pods-EmoChat.release.xcconfig"; sourceTree = "<group>"; };
 		6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmoChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84247A381EE9CDA6009E8167 /* GlobalUserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalUserCell.swift; sourceTree = "<group>"; };
@@ -186,6 +190,8 @@
 		35C9507B1EF7D733006FA7E6 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				51CB3D481F0BCE4A00933B1D /* ArrayExtension.swift */,
+				51CB3D491F0BCE4A00933B1D /* DateExtension.swift */,
 				35C9507C1EF7D791006FA7E6 /* UIImageExtension.swift */,
 				5182E46D1EF943670049E94D /* UIImageViewExtension.swift */,
 			);
@@ -645,6 +651,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				51A770C61F0BC6E100D9ECDB /* RestUISingleConversationController.swift in Sources */,
+				51CB3D4B1F0BCE4A00933B1D /* DateExtension.swift in Sources */,
 				51A770C41F0BC6E100D9ECDB /* CustomTextView.swift in Sources */,
 				51CB3D471F0BCBBD00933B1D /* MessageConversationCell.swift in Sources */,
 				51A770C81F0BC6E100D9ECDB /* SingleConversationUITableViewCell.swift in Sources */,
@@ -654,6 +661,7 @@
 				51CB3D361F0BC8D400933B1D /* JSONParser.swift in Sources */,
 				51CB3D391F0BC8D400933B1D /* RestIU500px.swift in Sources */,
 				F54D21781EE7149100B0B177 /* AdditionalViewController.swift in Sources */,
+				51CB3D4A1F0BCE4A00933B1D /* ArrayExtension.swift in Sources */,
 				E7B926F31EF1487B0018F5FF /* PopOverViewController.swift in Sources */,
 				F54D21761EE7130600B0B177 /* Regex.swift in Sources */,
 				51A770C91F0BC6E100D9ECDB /* SingleConversationViewController.swift in Sources */,
