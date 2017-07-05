@@ -542,7 +542,7 @@
 				TargetAttributes = {
 					3938C26B1EDC27C700D69F88 = {
 						CreatedOnToolsVersion = 8.3.1;
-						DevelopmentTeam = UB2D4HT9M9;
+						DevelopmentTeam = VJQLJMDE9F;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
@@ -841,7 +841,7 @@
 			baseConfigurationReference = E701EB98A17F8F7EB9DF59EA /* Pods-EmoChat.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = UB2D4HT9M9;
+				DEVELOPMENT_TEAM = VJQLJMDE9F;
 				INFOPLIST_FILE = EmoChat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -856,7 +856,7 @@
 			baseConfigurationReference = 5E5B970584D3FF3821DB6225 /* Pods-EmoChat.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = UB2D4HT9M9;
+				DEVELOPMENT_TEAM = VJQLJMDE9F;
 				INFOPLIST_FILE = EmoChat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
