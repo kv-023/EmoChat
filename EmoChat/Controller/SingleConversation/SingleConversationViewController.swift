@@ -42,7 +42,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     @IBOutlet weak var loadingView: UIView!
     
-    @IBOutlet weak var loadingGif: UIImageView!
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!    
     
     var manager: ManagerFirebase?
     var currentUser: User!
@@ -69,7 +69,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         refresher.addTarget(self, action: #selector(updateUI), for: UIControlEvents.valueChanged)
         table.addSubview(refresher)
         table.alwaysBounceVertical = true
-        loadingGif.loadGif(name: "Loading-Circle")
+        loadingIndicator.startAnimating()
+        loadingIndicator.hidesWhenStopped = true
         
         if !messagesArray.isEmpty {
             table.scrollToRow(at: IndexPath(row: messagesArray.count - 1, section: 0),
