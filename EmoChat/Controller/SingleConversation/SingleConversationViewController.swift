@@ -239,33 +239,34 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     }
     
     @IBAction func sendMessage(_ sender: UIButton) {
-        
-        let result:MessageOperationResult? = manager?.createMessage(
-            conversation: currentConversation!,
-            sender: currentUser,
-            content: (.text, textMessage.text))
-
-        switch (result!) {
-        case .successSingleMessage(let message):
-            insertRow((message, .right(.sending)))
-        case .failure(let string):
-            print(string)
-        default:
-            break
+        if textMessage.textColor != UIColor.lightGray && !textMessage.text.isEmpty && textMessage.text[textMessage.text.startIndex] != " " {
+            let result:MessageOperationResult? = manager?.createMessage(
+                conversation: currentConversation!,
+                sender: currentUser,
+                content: (.text, textMessage.text))
+            
+            switch (result!) {
+            case .successSingleMessage(let message):
+                insertRow((message, .right(.sending)))
+            case .failure(let string):
+                print(string)
+            default:
+                break
+            }
+            
+            if !self.messagesArrayWithSection.isEmpty {
+                self.table.scrollToRow(at: IndexPath.init(row: (self.messagesArrayWithSection[self.sortedSections.last!]?.count)! - 1, section: self.sortedSections.count - 1), at: .top, animated: false)
+            }
+            
+            //clean textView
+            textMessage.text = ""
+            textMessage.isScrollEnabled = false;
+            
+            self.textViewMaxHeightConstraint.isActive = false
+            
+            
+            //firstMessage = messagesArray.first?.0 //messagesArray[0].0
         }
-        
-        if !self.messagesArrayWithSection.isEmpty {
-            self.table.scrollToRow(at: IndexPath.init(row: (self.messagesArrayWithSection[self.sortedSections.last!]?.count)! - 1, section: self.sortedSections.count - 1), at: .top, animated: false)
-        }
-
-        //clean textView
-        textMessage.text = ""
-        textMessage.isScrollEnabled = false;
-
-        self.textViewMaxHeightConstraint.isActive = false
-        
-        
-        //firstMessage = messagesArray.first?.0 //messagesArray[0].0
     }
     
     //download 20 last messages
