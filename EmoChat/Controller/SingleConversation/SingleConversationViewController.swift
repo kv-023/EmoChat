@@ -358,7 +358,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 if name == "" {
                     name.append((user?.username)!)
                 }
-                cell.name = name
+                cell.message.text.append(name)
+                cell.message.text.append("\n")
             }
             cell.messageEntity = message.0
 
