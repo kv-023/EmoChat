@@ -60,7 +60,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     var messageRecognized: Message!
     var photosArray: [String: UIImage] = [:]
     var group = DispatchGroup()
-    var multipleChat: Bool?
+    var multipleChat = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,7 +81,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
 //            table.scrollToRow(at: IndexPath(row: messagesArray.count - 1, section: 0),
 //                              at: .top, animated: false)
 //        }
-            //!!!!!!!!!!!!!
         self.setUpTextView()
         manager = ManagerFirebase.shared
         
@@ -93,15 +92,13 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             self.group.leave()
         })
         
-        if currentConversation.usersInConversation.count > 2 {
-            multipleChat = true
-        } else {
-            multipleChat = false
-        }
-        navigationItem.title = currentConversation.name ?? "Chat"
+        navigationItem.title = currentConversation.name!
 
         group.notify(queue: DispatchQueue.main, execute: {
             self.observeNewMessage()
+            if self.currentConversation.usersInConversation.count > 2 {
+                self.multipleChat = true
+            }
         })
         
         group.enter()
@@ -343,10 +340,25 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "Left", for: indexPath) as? LeftCell else {
                 fatalError("Cell was not casted!")
             }
-            cell.singleConversationControllerDelegate = self
             cell.message.text = ""
-            if multipleChat! {
-                cell.message.text?.append("\(String(describing: currentConversation.name))\n")
+            cell.singleConversationControllerDelegate = self
+            if multipleChat {
+                let user = currentConversation.usersInConversation.first(where: {user in
+                    print("first")
+                    return user.uid == message.0.senderId
+                })
+                print("second")
+                var name = ""
+                if let first = user?.firstName {
+                    name.append(first)
+                }
+                if let second = user?.secondName {
+                    name.append(" \(second)")
+                }
+                if name == "" {
+                    name.append((user?.username)!)
+                }
+                cell.name = name
             }
             cell.messageEntity = message.0
 
@@ -360,6 +372,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "Right", for: indexPath) as? RightCell else {
                 fatalError("Cell was not casted!")
             }
+            cell.message.text = ""
             cell.singleConversationControllerDelegate = self
             cell.message.text = ""
             cell.messageEntity = message.0

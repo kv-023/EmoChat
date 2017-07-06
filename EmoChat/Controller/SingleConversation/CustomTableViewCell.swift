@@ -20,6 +20,7 @@ class CustomTableViewCell: UITableViewCell {
     
     weak var delegate: CellDelegate!
     weak var singleConversationControllerDelegate: SingleConversationControllerProtocol?
+    var name: String?
     
     var temporaryCellHeight:CGFloat = 0
     var extraCellHeiht:CGFloat {
@@ -42,6 +43,10 @@ class CustomTableViewCell: UITableViewCell {
         set {
             _messageEntity = newValue
             //TODO: check type of content
+            if let _ = name {
+                message.text.append(name!)
+                message.text.append("\n")
+            }
             message.text.append((newValue?.content!.content)!)
             setNullableDataInPreviewContainer()
 //            parseDataFromMessageText(delaySeconds: 1)
