@@ -594,10 +594,10 @@ extension SingleConversationViewController : CellDelegate {
             textMessageLeadingConstraint.constant = leadingConstraintConstant
             textMessageTrailingConstraint.constant = trailingConstraintConstant
         }
-        
+
         UIView.animate(withDuration: 0.5,
                        delay: 0.0,
-                       usingSpringWithDamping: 0,
+                       usingSpringWithDamping: 0.7,
                        initialSpringVelocity: 0,
                        options: [.curveLinear],
                        animations: {
@@ -628,7 +628,7 @@ extension SingleConversationViewController : CellDelegate {
         
         UIView.animate(withDuration: 0.5,
                        delay: 0.0,
-                       usingSpringWithDamping: 0,
+                       usingSpringWithDamping: 0.7,
                        initialSpringVelocity: 0,
                        options: [.curveLinear],
                        animations: {
