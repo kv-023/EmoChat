@@ -60,7 +60,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     var messageRecognized: Message!
     var photosArray: [String: UIImage] = [:]
     var group = DispatchGroup()
-    var multipleChat: Bool?
+    var multipleChat = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,9 +97,14 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             multipleChat = false
         }
         navigationItem.title = currentConversation.name ?? "Chat"
+        
+        navigationItem.title = currentConversation.name!
 
         group.notify(queue: DispatchQueue.main, execute: {
             self.observeNewMessage()
+            if self.currentConversation.usersInConversation.count > 2 {
+                self.multipleChat = true
+            }
         })
         
         group.enter()
@@ -316,6 +321,15 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
+        if sortedSections.count == 0 {
+            let supportLabel = UILabel()
+            supportLabel.textColor = UIColor.lightGray
+            supportLabel.text = "No messages yet"
+            supportLabel.textAlignment = .center
+            table.backgroundView = supportLabel
+        } else {
+            table.backgroundView = nil
+        }
         return sortedSections.count
     }
     
@@ -334,10 +348,26 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "Left", for: indexPath) as? LeftCell else {
                 fatalError("Cell was not casted!")
             }
-            cell.singleConversationControllerDelegate = self
             cell.message.text = ""
-            if multipleChat! {
-                cell.message.text?.append("\(String(describing: currentConversation.name))\n")
+            cell.singleConversationControllerDelegate = self
+            if multipleChat {
+                let user = currentConversation.usersInConversation.first(where: {user in
+                    print("first")
+                    return user.uid == message.0.senderId
+                })
+                print("second")
+                var name = ""
+                if let first = user?.firstName {
+                    name.append(first)
+                }
+                if let second = user?.secondName {
+                    name.append(" \(second)")
+                }
+                if name == "" {
+                    name.append((user?.username)!)
+                }
+                cell.message.text.append(name)
+                cell.message.text.append("\n")
             }
             cell.messageEntity = message.0
 
@@ -351,6 +381,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "Right", for: indexPath) as? RightCell else {
                 fatalError("Cell was not casted!")
             }
+            cell.message.text = ""
             cell.singleConversationControllerDelegate = self
             cell.message.text = ""
             cell.messageEntity = message.0
