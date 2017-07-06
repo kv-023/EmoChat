@@ -73,7 +73,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         refresher = UIRefreshControl()
         table.backgroundView = refresher
         refresher.addTarget(self, action: #selector(updateUI), for: UIControlEvents.valueChanged)
-        table.addSubview(refresher)
         table.alwaysBounceVertical = true
         loadingIndicator.startAnimating()
         loadingIndicator.hidesWhenStopped = true
@@ -99,9 +98,19 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         navigationItem.title = currentConversation.name ?? "Chat"
         
         navigationItem.title = currentConversation.name!
+        
+        self.observeDeletion()
+        
+        print(self.currentConversation.uuid)
+        
+        setupKeyboardObservers()
+        
+        self.setUpFrame()
 
         group.notify(queue: DispatchQueue.main, execute: {
-            self.observeNewMessage()
+            DispatchQueue.global().async {
+                self.observeNewMessage()
+            }
             if self.currentConversation.usersInConversation.count > 2 {
                 self.multipleChat = true
             }
@@ -115,16 +124,15 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             self.group.leave()
         }
         
-        self.observeDeletion()
-        
-        print(self.currentConversation.uuid)
-        
-        setupKeyboardObservers()
-        
-        self.setUpFrame()
-        
     }
 
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        if !messagesArray.isEmpty {
+//            table.scrollToRow(at: IndexPath(row: messagesArray.count - 1, section: 0),
+//                              at: .bottom, animated: false)
+//        }
+//    }
     
     func showMenu(forCell cell: CustomTableViewCell) {
         guard table.indexPath(for: cell) != nil else {
@@ -184,7 +192,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     }
     
     func observeNewMessage () {
-        self.manager?.getMessageFromConversation([self.currentConversation], result: { (conv, newMessage) in
+        manager?.getMessageFromConversation([self.currentConversation], result: { (conv, newMessage) in
             if let lastSection = self.sortedSections.last, let lastMessageTime = self.messagesArrayWithSection[lastSection]?.last?.0.time {
                 if lastMessageTime > newMessage.time {
                     return
@@ -221,7 +229,9 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             if !self.messagesArrayWithSection.isEmpty {
                 self.table.scrollToRow(at: IndexPath.init(row: (self.messagesArrayWithSection[self.sortedSections.last!]?.count)! - 1, section: self.sortedSections.count - 1), at: .top, animated: false)
             }
-            self.loadingView.isHidden = true
+            DispatchQueue.main.async {
+                self.loadingView.isHidden = true
+            }
         })
     }
     
@@ -326,9 +336,11 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             supportLabel.textColor = UIColor.lightGray
             supportLabel.text = "No messages yet"
             supportLabel.textAlignment = .center
+            refresher.removeFromSuperview()
             table.backgroundView = supportLabel
         } else {
             table.backgroundView = nil
+            table.addSubview(refresher)
         }
         return sortedSections.count
     }
@@ -352,10 +364,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             cell.singleConversationControllerDelegate = self
             if multipleChat {
                 let user = currentConversation.usersInConversation.first(where: {user in
-                    print("first")
                     return user.uid == message.0.senderId
                 })
-                print("second")
                 var name = ""
                 if let first = user?.firstName {
                     name.append(first)
