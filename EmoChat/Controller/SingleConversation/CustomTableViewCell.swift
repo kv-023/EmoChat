@@ -17,6 +17,7 @@ class CustomTableViewCell: UITableViewCell {
     @IBOutlet weak var background: UIImageView!
     @IBOutlet weak var previewContainer: UIView!
     @IBOutlet weak var heightOfPreviewContainer: NSLayoutConstraint!
+    @IBOutlet weak var bottomOfPreviewContainer: NSLayoutConstraint!
     
     weak var delegate: CellDelegate!
     weak var singleConversationControllerDelegate: SingleConversationControllerProtocol?
@@ -88,6 +89,7 @@ class CustomTableViewCell: UITableViewCell {
     
     func setNullableHeightOfPreviewContainer() {
         heightOfPreviewContainer.constant = 0
+        bottomOfPreviewContainer.constant = 5
     }
     
     private func addRecognizerForMessage() {

@@ -77,11 +77,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         table.alwaysBounceVertical = true
         loadingIndicator.startAnimating()
         loadingIndicator.hidesWhenStopped = true
-//        if !messagesArray.isEmpty {
-//            table.scrollToRow(at: IndexPath(row: messagesArray.count - 1, section: 0),
-//                              at: .top, animated: false)
-//        }
-            //!!!!!!!!!!!!!
+
         self.setUpTextView()
         manager = ManagerFirebase.shared
         
@@ -90,9 +86,11 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                                         completion: { (users) in
             self.currentConversation.usersInConversation = users
             self.downloadPhotos()
+            print("new thread")
             self.group.leave()
-        })
         
+        })
+        print("Main thread")
         if currentConversation.usersInConversation.count > 2 {
             multipleChat = true
         } else {
@@ -121,13 +119,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         self.setUpFrame()
         
     }
-    
-//    override func viewWillAppear(_ animated: Bool) {
-//        if !messagesArray.isEmpty {
-//            table.scrollToRow(at: IndexPath(row: messagesArray.count - 1, section: 0),
-//                              at: .bottom, animated: false)
-//        }
-//    }
+
     
     func showMenu(forCell cell: CustomTableViewCell) {
         guard table.indexPath(for: cell) != nil else {
@@ -244,10 +236,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             break
         }
         
-        if !messagesArray.isEmpty {
-            self.table.scrollToRow(at: IndexPath(row: messagesArray.count - 1, section: 0),
-                                   at: .top,
-                                   animated: false)
+        if !self.messagesArrayWithSection.isEmpty {
+            self.table.scrollToRow(at: IndexPath.init(row: (self.messagesArrayWithSection[self.sortedSections.last!]?.count)! - 1, section: self.sortedSections.count - 1), at: .top, animated: false)
         }
 
         //clean textView
@@ -256,7 +246,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
 
         self.textViewMaxHeightConstraint.isActive = false
         
-        firstMessage = messagesArray.first?.0 //messagesArray[0].0
+        
+        //firstMessage = messagesArray.first?.0 //messagesArray[0].0
     }
     
     //download 20 last messages
@@ -380,6 +371,31 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         }
     }
     
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView(frame: .zero)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.01
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 18
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView(frame: CGRect(x:0, y:0, width:tableView.frame.size.width, height:18))
+        let label = UILabel(frame: CGRect(x:0, y:0, width:tableView.frame.size.width, height:18))
+        label.font = UIFont.systemFont(ofSize: 14)
+        
+        label.text = sortedSections[section];
+        label.textAlignment = .center
+       // label.backgroundColor = UIColor(red: 242, green: 242, blue: 242)
+        view.addSubview(label);
+        view.backgroundColor = UIColor(red: 242, green: 242, blue: 242)
+        return view
+    }
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return sortedSections[section]
     }
@@ -426,28 +442,25 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         return IndexPath(row: (messagesArrayWithSection[nameOfSection]?.count)! - 1, section: sortedSections.index(of: nameOfSection)!)
     }
     
-    func addMessageAtTheBeginningOfDictionary (_ message: (Message, UserType)) -> IndexPath {
+    func addMessageAtTheBeginningOfDictionary (_ message: (Message, UserType))  {
         let nameOfSection = self.findAppropriateSection(for: message.0) ?? self.createNewSection(date: message.0.time)
         self.messagesArrayWithSection[nameOfSection]?.insert(message, at: 0)
-        return IndexPath(row: 0, section: sortedSections.index(of: nameOfSection)!)
     }
     
-    func addMessagesToDictionary (_ messages: [(Message, UserType)]) -> [IndexPath] {
-        var result : [IndexPath] = []
+    func addMessagesToDictionary (_ messages: [(Message, UserType)]) {
         for each in messages.reversed() {
-            result.append(self.addMessageAtTheBeginningOfDictionary(each))
+            self.addMessageAtTheBeginningOfDictionary(each)
         }
-        return result
     }
     
     func insertRow(_ newMessage: (Message, UserType)) {
         let indexPath = self.addMessageToTheEndOfDictionary(newMessage)
-        table.insertRows(at: [indexPath], with: .automatic)
+        table.insertRows(at: [indexPath], with: .none)
 
     }
     
     func insertRows (_ newMessages: [(Message, UserType)]) {
-        let indexPath = self.addMessagesToDictionary(newMessages)
+        self.addMessagesToDictionary(newMessages)
     }
     
 
@@ -552,11 +565,9 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 self.view.layoutIfNeeded()
             })
 
-            if !messagesArray.isEmpty {
-                table.scrollToRow(at: IndexPath(row: messagesArray.count - 1,
-                                                     section: 0), at: .top, animated: false)
-            }
-        }
+            if !self.messagesArrayWithSection.isEmpty {
+                self.table.scrollToRow(at: IndexPath.init(row: (self.messagesArrayWithSection[self.sortedSections.last!]?.count)! - 1, section: self.sortedSections.count - 1), at: .top, animated: false)
+            }        }
     }
     
     @IBAction func hideKeyboard(_ sender: Any) {
