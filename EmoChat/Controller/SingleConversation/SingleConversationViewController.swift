@@ -322,6 +322,15 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
+        if sortedSections.count == 0 {
+            let supportLabel = UILabel()
+            supportLabel.textColor = UIColor.lightGray
+            supportLabel.text = "No messages yet"
+            supportLabel.textAlignment = .center
+            table.backgroundView = supportLabel
+        } else {
+            table.backgroundView = nil
+        }
         return sortedSections.count
     }
     
