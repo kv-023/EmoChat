@@ -157,7 +157,7 @@
                                                     </button>
                                                 </subviews>
                                             </stackView>
-                                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="Kqu-dC-DMK">
+                                            <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="Kqu-dC-DMK">
                                                 <rect key="frame" x="140.5" y="505" width="39" height="37"/>
                                             </pageControl>
                                         </subviews>
@@ -329,7 +329,7 @@
                                                     </label>
                                                 </subviews>
                                             </stackView>
-                                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" currentPage="2" translatesAutoresizingMaskIntoConstraints="NO" id="us5-pO-cbC">
+                                            <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" currentPage="2" translatesAutoresizingMaskIntoConstraints="NO" id="us5-pO-cbC">
                                                 <rect key="frame" x="140.5" y="505" width="39" height="37"/>
                                             </pageControl>
                                         </subviews>
@@ -545,7 +545,7 @@
                                                     </label>
                                                 </subviews>
                                             </stackView>
-                                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" currentPage="1" translatesAutoresizingMaskIntoConstraints="NO" id="D5s-Iw-KwH">
+                                            <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" currentPage="1" translatesAutoresizingMaskIntoConstraints="NO" id="D5s-Iw-KwH">
                                                 <rect key="frame" x="140.5" y="505" width="39" height="37"/>
                                             </pageControl>
                                         </subviews>
