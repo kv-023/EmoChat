@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SystemConfiguration
 
 enum RightType {
     case sent
@@ -88,17 +89,14 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                                         completion: { (users) in
             self.currentConversation.usersInConversation = users
             self.downloadPhotos()
-            print("new thread")
             self.group.leave()
         
         })
-        print("Main thread")
         if currentConversation.usersInConversation.count > 2 {
             multipleChat = true
         } else {
             multipleChat = false
         }
-        navigationItem.title = currentConversation.name ?? "Chat"
         
         navigationItem.title = currentConversation.name!
         
@@ -380,6 +378,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 if name == "" {
                     name.append((user?.username)!)
                 }
+                
                 cell.message.text.append(name)
                 cell.message.text.append("\n")
             }
@@ -672,6 +671,33 @@ extension SingleConversationViewController : CellDelegate {
                 showMenu(forCell: cell)
             }
         }
+    }
+    
+    // MARK: - Check Internet Connection
+    
+    func connectedToNetwork() -> Bool {
+        
+        var zeroAddress = sockaddr_in()
+        zeroAddress.sin_len = UInt8(MemoryLayout<sockaddr_in>.size)
+        zeroAddress.sin_family = sa_family_t(AF_INET)
+        
+        guard let defaultRouteReachability = withUnsafePointer(to: &zeroAddress, {
+            $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {
+                SCNetworkReachabilityCreateWithAddress(nil, $0)
+            }
+        }) else {
+            return false
+        }
+        
+        var flags: SCNetworkReachabilityFlags = []
+        if !SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags) {
+            return false
+        }
+        
+        let isReachable = flags.contains(.reachable)
+        let needsConnection = flags.contains(.connectionRequired)
+        
+        return (isReachable && !needsConnection)
     }
     
     // MARK: - Actions
