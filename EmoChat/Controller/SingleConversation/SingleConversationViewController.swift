@@ -356,12 +356,14 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     private func setMessageModelInCell(currentCell cell: CustomTableViewCell,
                                        message messageEntity: Message?) {
         if let notNullMessageEntity = messageEntity,
-            let messageModelInDictionary = messageRestModel[notNullMessageEntity],
-            messageModelInDictionary != nil {
+            let messageModelInDictionary = messageRestModel[notNullMessageEntity] as? MessageModel {
+
             cell.messageModel = messageModelInDictionary
-            cell.updateUIForMessageModel()
+
+//            cell.updateUIForMessageModel()
         } else {
-            cell.parseDataFromMessageTextForCell()
+            cell.messageModel = nil
+//            cell.parseDataFromMessageTextForCell()
         }
     }
 
@@ -540,7 +542,7 @@ extension SingleConversationViewController: SingleConversationControllerProtocol
     func addMessageModelInSingleConversationDictionary(message: Message,
                                                        model: MessageModel?) {
 
-//        messageRestModel.updateValue(model, forKey: message)
+        messageRestModel.updateValue(model, forKey: message)
     }
     
 }

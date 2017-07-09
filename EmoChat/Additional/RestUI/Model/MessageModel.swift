@@ -18,6 +18,9 @@ class MessageModel: RegexCheckProtocol {
 //            }
         }
     }
+    var containsUrlLinks:Bool {
+        return messageURLData.count > 0
+    }
 
     var messageURLDataIsReady:Bool = false
 

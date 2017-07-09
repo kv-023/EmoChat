@@ -70,6 +70,23 @@ extension CustomTableViewCell {
         }
     }
 
+    func showViewForRestUIContent() {
+//        guard itIsRightModelWithMessage() else {
+//            return
+//        }
+
+        weak var contentViewCell:RestUIInfoView?
+
+//        guard let messageURLData = messageModel?.messageURLData else {
+//            return
+//        }
+
+//        DispatchQueue.main.async  {
+            contentViewCell = self.getPrepareXibOfEmbeddedView()
+            contentViewCell?.spinner.startAnimating()
+//        }
+    }
+
     private func updateUI() {
 
         guard itIsRightModelWithMessage() else {
@@ -83,7 +100,7 @@ extension CustomTableViewCell {
         }
 
         DispatchQueue.main.async  {
-            contentViewCell = self.xibToFrameSetup()
+            contentViewCell = self.getPrepareXibOfEmbeddedView()//self.xibToFrameSetup()
             contentViewCell?.spinner.startAnimating()
         }
 
@@ -154,6 +171,42 @@ extension CustomTableViewCell {
     }
 
     //MARK:- UIView creation
+    private func getPrepareXibOfEmbeddedView(eraseExtraViews: Bool = true) -> RestUIInfoView? {
+        guard let masterContainer = self.previewContainer else {
+            return nil
+        }
+        var arrayOfViews = getRestUIInfoViewFromView(view: masterContainer)
+
+        let countOfViews = arrayOfViews.count
+        if countOfViews > 0 {
+
+            let viewForReturn = arrayOfViews[0]//arrayOfViews.popFirst()
+            //prepare part
+            //            var arrayOfViews = Array(arrayOfViews[1...countOfViews])
+            if let notNullIndexOfElement = arrayOfViews.index(of: viewForReturn) {
+                arrayOfViews.remove(at: notNullIndexOfElement)
+            }
+
+            if countOfViews > 1 && eraseExtraViews {
+                removeRestUIInfoViewFromView(view: masterContainer,
+                                             arrayOfRequestedViews: &arrayOfViews)
+            }
+
+            //let ccViewHeight = calculateHeightOfView(view: viewForReturn)
+            //setPreviewContainerHeight(height: viewForReturn.heightOriginal)
+            self.previewContainer.layoutIfNeeded()
+            //self.singleConversationControllerDelegate?.resizeSingleConversationCell(cell: self)
+
+            return viewForReturn
+        } else {
+            return xibToFrameSetup()
+        }
+    }
+
+    func setPreviewContainerHeight(height: CGFloat) {
+        self.heightOfPreviewContainer.constant = height
+    }
+
     private func xibToFrameSetup() -> RestUIInfoView {
 
         let contentViewCell = Bundle.main.loadNibNamed("RestUIInfo2",
@@ -171,7 +224,9 @@ extension CustomTableViewCell {
                                        width: self.previewContainer.frame.width,
                                        height: ccViewHeight)
 
-        self.heightOfPreviewContainer.constant = ccViewHeight
+//        self.heightOfPreviewContainer.constant = ccViewHeight
+        setPreviewContainerHeight(height: ccViewHeight)
+
         self.previewContainer.addSubview(contentViewCell)
 
         setConstrainInSubView(embeddedView: contentViewCell, parrentView: self.previewContainer)
@@ -219,5 +274,35 @@ extension CustomTableViewCell {
             currentSubview.removeFromSuperview()
         }
     }
+    func removeRestUIInfoViewFromView(view masterView: UIView,
+                                      arrayOfRequestedViews: inout [RestUIInfoView]) {
+
+        for currentSubview in arrayOfRequestedViews {
+            if let notNullIndexOfElement = arrayOfRequestedViews.index(of: currentSubview) {
+                arrayOfRequestedViews.remove(at: notNullIndexOfElement)
+            }
+
+            currentSubview.removeFromSuperview()
+        }
+    }
+
+
+    func getRestUIInfoViewFromView(view masterView: UIView) -> Array<RestUIInfoView> {
+        let subviews = masterView.subviews
+
+        var arrayForReturn: Array<RestUIInfoView> = []
+        for currentSubview in subviews {
+
+            if let currentMySubview: RestUIInfoView = currentSubview as? RestUIInfoView {
+                arrayForReturn.append(currentMySubview)
+            }
+        }
+
+        return arrayForReturn
+    }
+}
+
+//MARK:- RegexCheckProtocol ext.
+extension CustomTableViewCell: RegexCheckProtocol {
 
 }
