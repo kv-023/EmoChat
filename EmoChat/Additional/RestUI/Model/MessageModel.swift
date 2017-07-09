@@ -11,6 +11,7 @@ import Foundation
 class MessageModel: RegexCheckProtocol {
 
     weak var message: Message?
+    var dataForRestUIInfoView: DataForRestUIInfoView?
     var messageURLData: MessageURLDataType {
         didSet {
 //            for (key3, value3) in messageURLData {

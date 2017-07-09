@@ -71,20 +71,10 @@ extension CustomTableViewCell {
     }
 
     func showViewForRestUIContent() {
-//        guard itIsRightModelWithMessage() else {
-//            return
-//        }
 
-        weak var contentViewCell:RestUIInfoView?
-
-//        guard let messageURLData = messageModel?.messageURLData else {
-//            return
-//        }
-
-//        DispatchQueue.main.async  {
-            contentViewCell = self.getPrepareXibOfEmbeddedView()
-            contentViewCell?.spinner.startAnimating()
-//        }
+        // weak var contentViewCell:RestUIInfoView?
+        let contentViewCell = getContentViewCell()//self.getPrepareXibOfEmbeddedView()
+        contentViewCell?.spinner.startAnimating()
     }
 
     func getContentViewCell() -> RestUIInfoView? {
@@ -118,16 +108,15 @@ extension CustomTableViewCell {
             return
         }
 
-//        contentViewCell = self.getPrepareXibOfEmbeddedView()//self.xibToFrameSetup()
         contentViewCell = getContentViewCell()
 
         DispatchQueue.main.async  {
             contentViewCell?.spinner.startAnimating()
         }
 
-        if let notNullDataForRestUIInfoView = contentViewCell?.dataForRestUIInfoView  {
+        if let notNullDataForRestUIInfoView = self.messageModel?.dataForRestUIInfoView  {
             DispatchQueue.main.async {
-//                contentViewCell?.fullFillViewFromDataInfo(data: notNullDataForRestUIInfoView)
+                contentViewCell?.fullFillViewFromDataInfo(data: notNullDataForRestUIInfoView)
                 contentViewCell?.spinner.stopAnimating()
             }
         } else {
@@ -137,7 +126,6 @@ extension CustomTableViewCell {
 
             for (key, value) in messageURLData {
 
-                //            contentViewCell?.url = key
                 dicTemData.updateValue(key, forKey: "url")
 
                 if let valueModel = value as? UrlembedModel {
@@ -187,18 +175,12 @@ extension CustomTableViewCell {
             downloadGroup.notify(queue: DispatchQueue.main) { // 2
                 DispatchQueue.main.async  {
 
-                    //                contentViewCell?.captionLabel.text = dicTemData["captionLabel"] as? String ?? ""
-                    //                contentViewCell?.detailLabel.text = dicTemData["detailLabel"] as? String ?? ""
-                    //                contentViewCell?.urlImageIco.image = dicTemData["urlImageIco"] as? UIImage ?? nil
-                    //                contentViewCell?.mainImage.image =  dicTemData["mainImage"] as? UIImage ?? nil
-                    //                contentViewCell?.url =  dicTemData["url"] as? String ?? nil
-                    
-                    contentViewCell?.dataForRestUIInfoView = DataForRestUIInfoView(dict: dicTemData)
+                    let tempParsedData = DataForRestUIInfoView(dict: dicTemData)
+                    contentViewCell?.dataForRestUIInfoView = tempParsedData
+                    self.messageModel?.dataForRestUIInfoView = tempParsedData
                     contentViewCell?.spinner.stopAnimating()
                 }
             }
-
-            
         }
 
     }
@@ -213,9 +195,8 @@ extension CustomTableViewCell {
         let countOfViews = arrayOfViews.count
         if countOfViews > 0 {
 
-            let viewForReturn = arrayOfViews[0]//arrayOfViews.popFirst()
+            let viewForReturn = arrayOfViews[0]
             //prepare part
-            //            var arrayOfViews = Array(arrayOfViews[1...countOfViews])
             if let notNullIndexOfElement = arrayOfViews.index(of: viewForReturn) {
                 arrayOfViews.remove(at: notNullIndexOfElement)
             }
@@ -243,8 +224,8 @@ extension CustomTableViewCell {
     private func xibToFrameSetup() -> RestUIInfoView {
 
         let contentViewCell = Bundle.main.loadNibNamed("RestUIInfo2",
-                                              owner: self.previewContainer,
-                                              options: nil)?.first as! RestUIInfoView
+                                                       owner: self.previewContainer,
+                                                       options: nil)?.first as! RestUIInfoView
 
         contentViewCell.eraseAllFields()
         contentViewCell.captionLabel.text = "loading ..."
@@ -257,7 +238,6 @@ extension CustomTableViewCell {
                                        width: self.previewContainer.frame.width,
                                        height: ccViewHeight)
 
-//        self.heightOfPreviewContainer.constant = ccViewHeight
         setPreviewContainerHeight(height: ccViewHeight)
 
         self.previewContainer.addSubview(contentViewCell)
@@ -275,7 +255,7 @@ extension CustomTableViewCell {
         contentViewCell.layer.masksToBounds = true
 
         contentViewCell.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
-        
+
         return contentViewCell
     }
 
@@ -289,9 +269,9 @@ extension CustomTableViewCell {
 
         let trailing = NSLayoutConstraint(item: myView, attribute: NSLayoutAttribute.trailing, relatedBy: NSLayoutRelation.equal, toItem: hostView, attribute: NSLayoutAttribute.trailing, multiplier: 1, constant: 0)
         self.addConstraint(trailing)
-        
+
         let top = NSLayoutConstraint(item: myView, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: hostView, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 0)
-        
+
         self.addConstraint(top)
     }
 
@@ -314,28 +294,28 @@ extension CustomTableViewCell {
             if let notNullIndexOfElement = arrayOfRequestedViews.index(of: currentSubview) {
                 arrayOfRequestedViews.remove(at: notNullIndexOfElement)
             }
-
+            
             currentSubview.removeFromSuperview()
         }
     }
-
-
+    
+    
     func getRestUIInfoViewFromView(view masterView: UIView) -> Array<RestUIInfoView> {
         let subviews = masterView.subviews
-
+        
         var arrayForReturn: Array<RestUIInfoView> = []
         for currentSubview in subviews {
-
+            
             if let currentMySubview: RestUIInfoView = currentSubview as? RestUIInfoView {
                 arrayForReturn.append(currentMySubview)
             }
         }
-
+        
         return arrayForReturn
     }
 }
 
 //MARK:- RegexCheckProtocol ext.
 extension CustomTableViewCell: RegexCheckProtocol {
-
+    
 }

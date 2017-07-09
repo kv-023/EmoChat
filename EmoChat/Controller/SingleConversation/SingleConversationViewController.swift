@@ -359,11 +359,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             let messageModelInDictionary = messageRestModel[notNullMessageEntity] as? MessageModel {
 
             cell.messageModel = messageModelInDictionary
-
-//            cell.updateUIForMessageModel()
         } else {
             cell.messageModel = nil
-//            cell.parseDataFromMessageTextForCell()
         }
     }
 

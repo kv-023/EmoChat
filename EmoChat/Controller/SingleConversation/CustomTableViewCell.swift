@@ -28,12 +28,6 @@ class CustomTableViewCell: UITableViewCell {
 
     weak var messageModel: MessageModel? {
         didSet {
-
-
-
-//            if messageModel != nil {
-//                //self.updateUIForMessageModel()
-//            }
             if let notNullMessageModel = messageModel {
 
                 if notNullMessageModel.containsUrlLinks {
@@ -41,8 +35,6 @@ class CustomTableViewCell: UITableViewCell {
                 } else {
                     setNullableDataInPreviewContainer()
                 }
-                //lets show spinner animation
-//                showViewForRestUIContent()
             } else {
                 let arrayOfLinks = self.getArrayOfRegexMatchesForURLInText(text: self.message.text)
                 if arrayOfLinks.count > 0 {
@@ -67,7 +59,6 @@ class CustomTableViewCell: UITableViewCell {
             //TODO: check type of content
             message.text = newValue?.content!.content
             setNullableDataInPreviewContainer()
-//            parseDataFromMessageText(delaySeconds: 1)
         }
     }
 
@@ -104,7 +95,6 @@ class CustomTableViewCell: UITableViewCell {
     }
     
     func setNullableDataInPreviewContainer() {
-//       messageModel = nil
         removeRestUIInfoViewFromView(view: previewContainer)
         setNullableHeightOfPreviewContainer()
     }
