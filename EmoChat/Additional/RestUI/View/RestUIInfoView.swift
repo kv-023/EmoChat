@@ -16,6 +16,8 @@ class RestUIInfoView: UIView {
     @IBOutlet weak var urlImageIco: UIImageView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
 
+    var heightOriginal:CGFloat = 0
+
     var url: String?
     weak var dataModel: UrlembedModel?
 
@@ -43,7 +45,7 @@ class RestUIInfoView: UIView {
     }
 
     private func commonInit() {
-
+        heightOriginal = self.bounds.height
     }
     
     private func addUrlTapRecognizer() {

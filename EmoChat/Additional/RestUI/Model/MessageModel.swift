@@ -10,7 +10,7 @@ import Foundation
 
 class MessageModel: RegexCheckProtocol {
 
-    weak var message:Message?
+    weak var message: Message?
     var messageURLData: MessageURLDataType {
         didSet {
 //            for (key3, value3) in messageURLData {
