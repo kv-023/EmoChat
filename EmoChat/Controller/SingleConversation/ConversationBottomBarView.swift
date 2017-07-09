@@ -9,31 +9,14 @@
 import UIKit
 
 @IBDesignable class ConversationBottomBarView: UIView {
-    
-    // MARK: - Variables
-    
-    var shouldUpdateConstraints = true
 
     // MARK: - IBOutlets
-    
     @IBOutlet weak var attachFileButton: UIButton!
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var attachPhotoButton: UIButton!
     @IBOutlet weak var geolocationButton: UIButton!
-    
-    /*
-     @IBInspectable var image: UIImage? {
-     get {
-     return imageView.image
-     }
-     set(image) {
-     imageView.image = image
-     }
-     }
- */
-    
+
     // MARK: - Initializers
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
@@ -45,18 +28,15 @@ import UIKit
     }
     
     // MARK: - Private Helper Methods
-    
     // Performs the initial setup.
     private func setupView() {
         let view = viewFromNibForClass()
         view.frame = bounds
-        
         // Auto-layout stuff.
         view.autoresizingMask = [
             UIViewAutoresizing.flexibleWidth,
             UIViewAutoresizing.flexibleHeight
         ]
-        
         // Show the view.
         addSubview(view)
     }

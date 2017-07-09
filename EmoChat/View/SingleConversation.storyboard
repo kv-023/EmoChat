@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16C68" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -275,10 +275,11 @@
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="9RH-qm-2Wd" firstAttribute="leading" secondItem="6Zs-2n-ZAE" secondAttribute="leading" id="3Gl-2p-gPH"/>
+                                    <constraint firstItem="1ze-E8-Yj2" firstAttribute="leading" secondItem="9RH-qm-2Wd" secondAttribute="trailing" constant="8" id="2HI-fa-pfj"/>
                                     <constraint firstItem="wVa-ek-TzA" firstAttribute="leading" secondItem="Ecr-vb-acB" secondAttribute="trailing" constant="8" id="IUL-hQ-b96"/>
                                     <constraint firstAttribute="bottom" secondItem="wVa-ek-TzA" secondAttribute="bottom" constant="8" id="J1w-zE-AiL"/>
                                     <constraint firstAttribute="bottom" secondItem="1ze-E8-Yj2" secondAttribute="bottom" constant="8" id="Jkb-Y7-YvZ"/>
+                                    <constraint firstItem="9RH-qm-2Wd" firstAttribute="leading" secondItem="wVa-ek-TzA" secondAttribute="trailing" constant="8" id="NMH-wg-WUn"/>
                                     <constraint firstItem="6Zs-2n-ZAE" firstAttribute="top" secondItem="guk-1E-8hU" secondAttribute="top" constant="5" id="NWP-hi-RfN"/>
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="110" id="Oku-CM-bai"/>
                                     <constraint firstAttribute="bottom" secondItem="Ecr-vb-acB" secondAttribute="bottom" constant="8" id="QYp-VJ-9bM"/>
@@ -286,7 +287,6 @@
                                     <constraint firstAttribute="height" constant="110" id="Vt9-Mo-bkX"/>
                                     <constraint firstItem="1ze-E8-Yj2" firstAttribute="leading" secondItem="6Zs-2n-ZAE" secondAttribute="trailing" constant="8" id="cIk-Yl-8ZS"/>
                                     <constraint firstAttribute="bottom" secondItem="6Zs-2n-ZAE" secondAttribute="bottom" constant="5" id="euq-hg-ADP"/>
-                                    <constraint firstItem="9RH-qm-2Wd" firstAttribute="trailing" secondItem="6Zs-2n-ZAE" secondAttribute="trailing" id="m5c-Io-KXW"/>
                                     <constraint firstItem="9RH-qm-2Wd" firstAttribute="baseline" secondItem="wVa-ek-TzA" secondAttribute="baseline" id="qcp-pD-Ip8"/>
                                     <constraint firstItem="6Zs-2n-ZAE" firstAttribute="leading" secondItem="wVa-ek-TzA" secondAttribute="trailing" constant="8" id="th9-uk-1R2"/>
                                     <constraint firstAttribute="trailing" secondItem="1ze-E8-Yj2" secondAttribute="trailing" constant="8" id="tv0-K8-GjI"/>
@@ -352,10 +352,12 @@
                         <outlet property="loadingGif" destination="gOg-HV-PCz" id="fWx-Uy-XpJ"/>
                         <outlet property="loadingView" destination="mJO-Ls-y8m" id="yTT-yz-riI"/>
                         <outlet property="plusButton" destination="wVa-ek-TzA" id="O4I-bK-Abv"/>
+                        <outlet property="sendMessageButton" destination="1ze-E8-Yj2" id="XBk-uH-FN5"/>
                         <outlet property="table" destination="vGN-hh-QGI" id="r2b-u7-c3Q"/>
                         <outlet property="textMessage" destination="6Zs-2n-ZAE" id="qd2-x3-wmJ"/>
                         <outlet property="textMessageBottomConstraint" destination="euq-hg-ADP" id="vIO-wa-r8Q"/>
                         <outlet property="textMessageLeadingConstraint" destination="th9-uk-1R2" id="pBh-cA-IZP"/>
+                        <outlet property="textMessageTrailingConstraint" destination="cIk-Yl-8ZS" id="vB9-Rf-F5h"/>
                         <outlet property="textViewMaxHeightConstraint" destination="Vt9-Mo-bkX" id="dhu-ey-aLi"/>
                     </connections>
                 </viewController>
