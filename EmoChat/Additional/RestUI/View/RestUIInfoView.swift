@@ -15,11 +15,26 @@ class RestUIInfoView: UIView {
     @IBOutlet weak var detailLabel: UILabel!
     @IBOutlet weak var urlImageIco: UIImageView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
+    var url: String?
+
+    var dataForRestUIInfoView: DataForRestUIInfoView? {
+        didSet {
+            if let notNullDataForRestUIInfoView = dataForRestUIInfoView {
+                fullFillViewFromDataInfo(data: notNullDataForRestUIInfoView)
+            }
+        }
+    }
 
     var heightOriginal:CGFloat = 0
-
-    var url: String?
     weak var dataModel: UrlembedModel?
+
+    func fullFillViewFromDataInfo(data: DataForRestUIInfoView) {
+        captionLabel.text = data.captionLabel
+        detailLabel.text = data.detailLabel
+        urlImageIco.image = data.urlImageIco
+        mainImage.image = data.mainImage
+        url = data.url
+    }
 
     func eraseAllFields() {
         captionLabel.text = ""

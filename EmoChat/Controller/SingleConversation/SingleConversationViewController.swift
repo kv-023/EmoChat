@@ -158,7 +158,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
 
         //nik
         let notNullMessageInArray = messagesArray[indexOfMessage].0
-//        messageRestModel.removeValue(forKey: notNullMessageInArray)
+        messageRestModel.removeValue(forKey: notNullMessageInArray)
 
         messagesArray.remove(at: indexOfMessage)
 
