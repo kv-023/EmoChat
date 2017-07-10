@@ -97,6 +97,10 @@ class CustomTableViewCell: UITableViewCell {
         let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(handler))
         message.addGestureRecognizer(recognizer)
     }
+    
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
 
 }
 

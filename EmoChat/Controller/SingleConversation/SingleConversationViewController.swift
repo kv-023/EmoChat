@@ -131,11 +131,15 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
 //    }
     
     func showMenu(forCell cell: CustomTableViewCell) {
+        
+        
+        
         guard table.indexPath(for: cell) != nil else {
             return
         }
         
         let menu = UIMenuController.shared
+        menu.setMenuVisible(false, animated: true)
         menu.setTargetRect(cell.contentRect, in: cell.contentView)
         let item = UIMenuItem(title: "Copy", action: #selector(copyAction(_:)))
         menu.menuItems = [item]
@@ -784,9 +788,16 @@ extension SingleConversationViewController : CellDelegate {
         if action == .longPress {
             
             if let cell = sender as? CustomTableViewCell {
-                cell.message.becomeFirstResponder()
+                if self.inputSubView.isFirstResponder {
+                    self.textMessage.overrideNextResponder = cell
+                } else {
+                    cell.message.becomeFirstResponder()
+                    showMenu(forCell: cell)
+                }
+                
+                
                 //SingleConversationViewController.selectedCell = cell
-                showMenu(forCell: cell)
+                
             }
         }
     }

@@ -9,6 +9,16 @@
 import UIKit
 
 class CustomTextView: UITextView {
+    
+    var overrideNextResponder: UIResponder?
+    
+    override var next: UIResponder? {
+        if overrideNextResponder != nil {
+            return overrideNextResponder!
+        } else {
+            return super.next
+        }
+    }
 
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         if action == #selector(paste(_:)) && UIPasteboard.general.string != nil {
@@ -25,5 +35,7 @@ class CustomTextView: UITextView {
     override var canBecomeFirstResponder: Bool{
         return true
     }
+    
+
 
 }
