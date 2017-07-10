@@ -367,25 +367,24 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "Left", for: indexPath) as? LeftCell else {
                 fatalError("Cell was not casted!")
             }
-            cell.message.text = ""
+            cell.message.attributedText = NSAttributedString(string: "")
             cell.singleConversationControllerDelegate = self
             if multipleChat {
                 let user = currentConversation.usersInConversation.first(where: {user in
                     return user.uid == message.0.senderId
                 })
-                var name = ""
+                var name = NSMutableAttributedString(string: "")
                 if let first = user?.firstName {
-                    name.append(first)
+                    name.append(NSMutableAttributedString(string: first, attributes: [NSForegroundColorAttributeName : UIColor.blue]))
                 }
                 if let second = user?.secondName {
-                    name.append(" \(second)")
+                    name.append(NSMutableAttributedString(string: " \(second)", attributes: [NSForegroundColorAttributeName : UIColor.blue]))
                 }
-                if name == "" {
-                    name.append((user?.username)!)
+                if name == NSMutableAttributedString(string: "") {
+                    name.append(NSMutableAttributedString(string: (user?.username)!, attributes: [NSForegroundColorAttributeName : UIColor.blue]))
                 }
-                
-                cell.message.text.append(name)
-                cell.message.text.append("\n")
+                name.append(NSAttributedString(string: "\n"))
+                cell.name = name
             }
             cell.messageEntity = message.0
 
