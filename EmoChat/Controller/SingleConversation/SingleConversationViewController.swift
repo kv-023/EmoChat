@@ -92,11 +92,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             self.group.leave()
         
         })
-        if currentConversation.usersInConversation.count > 2 {
-            multipleChat = true
-        } else {
-            multipleChat = false
-        }
         
         navigationItem.title = currentConversation.name!
         
@@ -209,7 +204,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     }
     
     func observeNewMessage () {
-        manager?.getMessageFromConversation([self.currentConversation], result: { (conv, newMessage) in
+        manager?.getMessageFromConversation([self.currentConversation]) { (conv, newMessage) in
             if let lastSection = self.sortedSections.last, let lastMessageTime = self.messagesArrayWithSection[lastSection]?.last?.0.time {
                 if lastMessageTime > newMessage.time {
                     return
@@ -238,8 +233,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             if !self.messagesArrayWithSection.isEmpty {
                 self.table.scrollToRow(at: IndexPath.init(row: (self.messagesArrayWithSection[self.sortedSections.last!]?.count)! - 1, section: self.sortedSections.count - 1), at: .top, animated: false)
             }
-            self.updateUI()
-        })
+        }
+        self.loadingView.isHidden = true
     }
     
     @IBAction func sendMessage(_ sender: UIButton) {
@@ -294,7 +289,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 self.table.reloadData()
                 self.table.scrollToRow(at: IndexPath.init(row: (self.messagesArrayWithSection[startSection]?.count)! - startIndex!, section: self.sortedSections.index(of: startSection)!), at: .top, animated: false)
                 self.table.contentOffset.y += initialOffset
-                self.loadingView.isHidden = true
             })
         }
     }
