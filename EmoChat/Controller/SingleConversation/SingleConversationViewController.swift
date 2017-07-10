@@ -155,21 +155,25 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         deleteMessage(messageRecognized)
     }
     
-    func removeAtUid(_ uid: String) {
-        let indexOfMessage: Int = messagesArray.index(where: {tuple in
-            if tuple.0.uid == uid {
-                return true
-            } else {
-                return false
+    func removeMessageFromDictionary (index: (index: Int, section: String)?) {
+        if let indexResult = index, let count = messagesArrayWithSection[index!.section]?.count {
+            switch count {
+            case 0:
+                return
+            case 1:
+                sortedSections.remove(at: (sortedSections.index(of: indexResult.section))!)
+                messagesArrayWithSection.removeValue(forKey: indexResult.section)
+                break
+            default:
+                messagesArrayWithSection[indexResult.section]?.remove(at: indexResult.index)
+                break
             }
-        })!
-
-        //nik
-        let notNullMessageInArray = messagesArray[indexOfMessage].0
-//        messageRestModel.removeValue(forKey: notNullMessageInArray)
-
-        messagesArray.remove(at: indexOfMessage)
-
+        }
+    }
+    
+    func removeAtUid(_ uid: String) {
+        let result = self.findMessageInDictionary(with: uid)
+        self.removeMessageFromDictionary(index: result)
         table.reloadData()
     }
     
@@ -183,6 +187,18 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         }
     }
     
+    func findMessageInDictionary(with uid: String) -> (index: Int, section: String)? {
+        var result: (index: Int, section: String)? = nil
+        for section in self.messagesArrayWithSection {
+            if let index = section.value.index(where: { (message, typeRight) -> Bool in
+                message.uid == uid
+            }) {
+                result = (index, section.key)
+            }
+        }
+        return result
+    }
+    
     func observeNewMessage () {
         self.manager?.getMessageFromConversation([self.currentConversation], result: { (conv, newMessage) in
             if let lastSection = self.sortedSections.last, let lastMessageTime = self.messagesArrayWithSection[lastSection]?.last?.0.time {
@@ -194,19 +210,11 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             if let res = self.manager?.isMessageFromCurrentUser(newMessage) {
                 if res == true {
                     
-                    //check if sending message was delivered
-                    //if yes should mark it as 'sent'
-                    var result: (index: Int, section: String)? = nil
-                    for section in self.messagesArrayWithSection {
-                        if let index = section.value.index(where: { (message, typeRight) -> Bool in
-                            message.uid == newMessage.uid
-                        }) {
-                            result = (index, section.key)
-                        }
-                    }
+                    //check if sending message was delivered via findMessageInDictionary
+                    //if yes should mark it as 'sent' 
                     
                     //find cell with this message
-                    if let i = result, let item = (self.table.cellForRow(at: IndexPath.init(row: i.index, section: self.sortedSections.index(of: i.section)!)) as? RightCell) {
+                    if let i = self.findMessageInDictionary(with: newMessage.uid!), let item = (self.table.cellForRow(at: IndexPath.init(row: i.index, section: self.sortedSections.index(of: i.section)!)) as? RightCell) {
                         item.isReceived = true
                         self.messagesArrayWithSection[i.section]?[i.index].1 = .right(.sent)
                     } else {
@@ -352,10 +360,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             cell.singleConversationControllerDelegate = self
             if multipleChat {
                 let user = currentConversation.usersInConversation.first(where: {user in
-                    print("first")
                     return user.uid == message.0.senderId
                 })
-                print("second")
                 var name = ""
                 if let first = user?.firstName {
                     name.append(first)
@@ -421,7 +427,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         
         label.text = sortedSections[section];
         label.textAlignment = .center
-       // label.backgroundColor = UIColor(red: 242, green: 242, blue: 242)
         view.addSubview(label);
         view.backgroundColor = UIColor(red: 242, green: 242, blue: 242)
         return view
@@ -451,8 +456,9 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         }
     }
     
+    //MARK: - Additional methods for adding new message to tableView
     func createNewSection (date: Date) -> String {
-        if !sortedSections.isEmpty && (date.dayFormatStyle() < (messagesArrayWithSection[sortedSections[0]]?.first!.0.time.dayFormatStyle())!) {
+        if !sortedSections.isEmpty && (date.dayFormatStyleDate() < (messagesArrayWithSection[sortedSections[0]]?.first!.0.time.dayFormatStyleDate())!) {
             self.sortedSections.insert(date.dayFormatStyle(), at: 0)
         } else {
             self.sortedSections.append(date.dayFormatStyle())
@@ -548,7 +554,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             textView.text = ""
             textView.textColor = .black
         }
-        textView.becomeFirstResponder() //Optional
+        //textView.becomeFirstResponder() //Optional
         
         self.animateTextViewTransitions(becomeFirstResponder: true)
         if plusButton.isSelected {
@@ -615,51 +621,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         NotificationCenter.default.removeObserver(self)
         //TODO: remove observers
     }
-}
-
-//MARK:- SingleConversationCellProtocol
-extension SingleConversationViewController: SingleConversationControllerProtocol {
-
-    func resizeSingleConversationCell(cell: CustomTableViewCell) {
-        if let indexPath = table.indexPath(for: cell) {
-
-            cellResized.insert(cell)
-
-            table.beginUpdates()
-            table.rectForRow(at: indexPath)
-
-            cell.temporaryCellHeight = table.rectForRow(at: indexPath).height// - cell.extraCellHeiht
-
-            //self.tableView.reloadRows(at: [indexPath],
-            //                          with: UITableViewRowAnimation.automatic)
-            // self.tableView.moveRow(at: indexPath, to: indexPath)
-            cell.updateConstraintsIfNeeded()
-            cell.previewContainer.updateConstraintsIfNeeded()
-            table.endUpdates()
-            
-        }
-    }
-
-    func addMessageModelInSingleConversationDictionary(message: Message,
-                                                       model: MessageModel?) {
-
-//        messageRestModel.updateValue(model, forKey: message)
-    }
-    
-}
-
-//MARK:- SingleConversationViewController
-extension SingleConversationViewController : CellDelegate {
-    func cellDelegate(_ sender: UITableViewCell, didHandle action: Action) {
-        if action == .longPress {
-            
-            if let cell = sender as? CustomTableViewCell {
-                cell.message.becomeFirstResponder()
-                //SingleConversationViewController.selectedCell = cell
-                showMenu(forCell: cell)
-            }
-        }
-    }
     
     // MARK: - Actions
     
@@ -717,7 +678,7 @@ extension SingleConversationViewController : CellDelegate {
     func animateTextViewTransitions(becomeFirstResponder: Bool) {
         
         view.layoutIfNeeded()
-    
+        
         let width = plusButton.frame.width + leadingConstraintConstant
         
         if becomeFirstResponder {
@@ -743,6 +704,53 @@ extension SingleConversationViewController : CellDelegate {
                        completion: { (_) in
                         self.plusButton.isHidden = becomeFirstResponder
         })
+    }
+    
+
+}
+
+//MARK:- SingleConversationCellProtocol
+extension SingleConversationViewController: SingleConversationControllerProtocol {
+
+    func resizeSingleConversationCell(cell: CustomTableViewCell) {
+        if let indexPath = table.indexPath(for: cell) {
+
+            cellResized.insert(cell)
+
+            table.beginUpdates()
+            table.rectForRow(at: indexPath)
+
+            cell.temporaryCellHeight = table.rectForRow(at: indexPath).height// - cell.extraCellHeiht
+
+            //self.tableView.reloadRows(at: [indexPath],
+            //                          with: UITableViewRowAnimation.automatic)
+            // self.tableView.moveRow(at: indexPath, to: indexPath)
+            cell.updateConstraintsIfNeeded()
+            cell.previewContainer.updateConstraintsIfNeeded()
+            table.endUpdates()
+            
+        }
+    }
+
+    func addMessageModelInSingleConversationDictionary(message: Message,
+                                                       model: MessageModel?) {
+
+//        messageRestModel.updateValue(model, forKey: message)
+    }
+    
+}
+
+//MARK:- SingleConversationViewController
+extension SingleConversationViewController : CellDelegate {
+    func cellDelegate(_ sender: UITableViewCell, didHandle action: Action) {
+        if action == .longPress {
+            
+            if let cell = sender as? CustomTableViewCell {
+                cell.message.becomeFirstResponder()
+                //SingleConversationViewController.selectedCell = cell
+                showMenu(forCell: cell)
+            }
+        }
     }
     
 }
