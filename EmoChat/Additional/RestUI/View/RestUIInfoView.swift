@@ -50,11 +50,13 @@ class RestUIInfoView: UIView {
 
         let tapRecognizer = UITapGestureRecognizer(target: self,
                                                       action: #selector(handler))
+        let tapRecognizer2 = UITapGestureRecognizer(target: self,
+                                                   action: #selector(handler))
         captionLabel.addGestureRecognizer(tapRecognizer)
-        detailLabel.addGestureRecognizer(tapRecognizer)
+        detailLabel.addGestureRecognizer(tapRecognizer2)
     }
 
-    func handler(_ sender: UILongPressGestureRecognizer) {
+    func handler(_ sender: UITapGestureRecognizer) {
         if sender.state == UIGestureRecognizerState.ended {
 
             let errorMessage1 = "an error occurred while open url:"

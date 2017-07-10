@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SystemConfiguration
 
 enum RightType {
     case sent
@@ -24,9 +25,11 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     // MARK: - constants
     let leadingConstraintConstant: CGFloat = 8.0
+    let trailingConstraintConstant: CGFloat = 8.0
     let topConstraintConstant: CGFloat = 8.0
     
     // MARK: - IBOutlets
+    @IBOutlet weak var sendMessageButton: UIButton!
     @IBOutlet weak var emoRequestButton: UIButton!
     @IBOutlet weak var plusButton: UIButton!
     @IBOutlet weak var textMessageLeadingConstraint: NSLayoutConstraint!
@@ -36,6 +39,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     @IBOutlet weak var additionalBottomBarView: ConversationBottomBarView!
     @IBOutlet weak var textMessageBottomConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var textMessageTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var table: UITableView!
     
     @IBOutlet weak var textViewMaxHeightConstraint: NSLayoutConstraint!
@@ -73,7 +77,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         refresher = UIRefreshControl()
         table.backgroundView = refresher
         refresher.addTarget(self, action: #selector(updateUI), for: UIControlEvents.valueChanged)
-        table.addSubview(refresher)
         table.alwaysBounceVertical = true
         loadingIndicator.startAnimating()
         loadingIndicator.hidesWhenStopped = true
@@ -86,22 +89,29 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                                         completion: { (users) in
             self.currentConversation.usersInConversation = users
             self.downloadPhotos()
-            print("new thread")
             self.group.leave()
         
         })
-        print("Main thread")
         if currentConversation.usersInConversation.count > 2 {
             multipleChat = true
         } else {
             multipleChat = false
         }
-        navigationItem.title = currentConversation.name ?? "Chat"
         
         navigationItem.title = currentConversation.name!
+        
+        self.observeDeletion()
+        
+        print(self.currentConversation.uuid)
+        
+        setupKeyboardObservers()
+        
+        self.setUpFrame()
 
         group.notify(queue: DispatchQueue.main, execute: {
-            self.observeNewMessage()
+            DispatchQueue.global().async {
+                self.observeNewMessage()
+            }
             if self.currentConversation.usersInConversation.count > 2 {
                 self.multipleChat = true
             }
@@ -115,16 +125,15 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             self.group.leave()
         }
         
-        self.observeDeletion()
-        
-        print(self.currentConversation.uuid)
-        
-        setupKeyboardObservers()
-        
-        self.setUpFrame()
-        
     }
 
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        if !messagesArray.isEmpty {
+//            table.scrollToRow(at: IndexPath(row: messagesArray.count - 1, section: 0),
+//                              at: .bottom, animated: false)
+//        }
+//    }
     
     func showMenu(forCell cell: CustomTableViewCell) {
         guard table.indexPath(for: cell) != nil else {
@@ -200,7 +209,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     }
     
     func observeNewMessage () {
-        self.manager?.getMessageFromConversation([self.currentConversation], result: { (conv, newMessage) in
+        manager?.getMessageFromConversation([self.currentConversation], result: { (conv, newMessage) in
             if let lastSection = self.sortedSections.last, let lastMessageTime = self.messagesArrayWithSection[lastSection]?.last?.0.time {
                 if lastMessageTime > newMessage.time {
                     return
@@ -229,38 +238,39 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             if !self.messagesArrayWithSection.isEmpty {
                 self.table.scrollToRow(at: IndexPath.init(row: (self.messagesArrayWithSection[self.sortedSections.last!]?.count)! - 1, section: self.sortedSections.count - 1), at: .top, animated: false)
             }
-            self.loadingView.isHidden = true
+            self.updateUI()
         })
     }
     
     @IBAction func sendMessage(_ sender: UIButton) {
-        
-        let result:MessageOperationResult? = manager?.createMessage(
-            conversation: currentConversation!,
-            sender: currentUser,
-            content: (.text, textMessage.text))
-
-        switch (result!) {
-        case .successSingleMessage(let message):
-            insertRow((message, .right(.sending)))
-        case .failure(let string):
-            print(string)
-        default:
-            break
+        if textMessage.textColor != UIColor.lightGray && !textMessage.text.isEmpty && textMessage.text[textMessage.text.startIndex] != " " {
+            let result:MessageOperationResult? = manager?.createMessage(
+                conversation: currentConversation!,
+                sender: currentUser,
+                content: (.text, textMessage.text))
+            
+            switch (result!) {
+            case .successSingleMessage(let message):
+                insertRow((message, .right(.sending)))
+            case .failure(let string):
+                print(string)
+            default:
+                break
+            }
+            
+            if !self.messagesArrayWithSection.isEmpty {
+                self.table.scrollToRow(at: IndexPath.init(row: (self.messagesArrayWithSection[self.sortedSections.last!]?.count)! - 1, section: self.sortedSections.count - 1), at: .top, animated: false)
+            }
+            
+            //clean textView
+            textMessage.text = ""
+            textMessage.isScrollEnabled = false;
+            
+            self.textViewMaxHeightConstraint.isActive = false
+            
+            
+            //firstMessage = messagesArray.first?.0 //messagesArray[0].0
         }
-        
-        if !self.messagesArrayWithSection.isEmpty {
-            self.table.scrollToRow(at: IndexPath.init(row: (self.messagesArrayWithSection[self.sortedSections.last!]?.count)! - 1, section: self.sortedSections.count - 1), at: .top, animated: false)
-        }
-
-        //clean textView
-        textMessage.text = ""
-        textMessage.isScrollEnabled = false;
-
-        self.textViewMaxHeightConstraint.isActive = false
-        
-        
-        //firstMessage = messagesArray.first?.0 //messagesArray[0].0
     }
     
     //download 20 last messages
@@ -284,6 +294,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 self.table.reloadData()
                 self.table.scrollToRow(at: IndexPath.init(row: (self.messagesArrayWithSection[startSection]?.count)! - startIndex!, section: self.sortedSections.index(of: startSection)!), at: .top, animated: false)
                 self.table.contentOffset.y += initialOffset
+                self.loadingView.isHidden = true
             })
         }
     }
@@ -334,9 +345,11 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             supportLabel.textColor = UIColor.lightGray
             supportLabel.text = "No messages yet"
             supportLabel.textAlignment = .center
+            refresher.removeFromSuperview()
             table.backgroundView = supportLabel
         } else {
             table.backgroundView = nil
+            table.addSubview(refresher)
         }
         return sortedSections.count
     }
@@ -372,6 +385,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 if name == "" {
                     name.append((user?.username)!)
                 }
+                
                 cell.message.text.append(name)
                 cell.message.text.append("\n")
             }
@@ -556,12 +570,11 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         }
         //textView.becomeFirstResponder() //Optional
         
-        self.animateTextViewTransitions(becomeFirstResponder: true)
         if plusButton.isSelected {
             plusButton.isSelected = false
             animateBottomBar(plusIsSelected: plusButton.isSelected)
         }
-        
+        self.animateTextViewTransitions(becomeFirstResponder: true)
     }
     
     func textViewDidEndEditing(_ textView: UITextView){
@@ -622,6 +635,33 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         //TODO: remove observers
     }
     
+    // MARK: - Check Internet Connection
+    
+    func connectedToNetwork() -> Bool {
+        
+        var zeroAddress = sockaddr_in()
+        zeroAddress.sin_len = UInt8(MemoryLayout<sockaddr_in>.size)
+        zeroAddress.sin_family = sa_family_t(AF_INET)
+        
+        guard let defaultRouteReachability = withUnsafePointer(to: &zeroAddress, {
+            $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {
+                SCNetworkReachabilityCreateWithAddress(nil, $0)
+            }
+        }) else {
+            return false
+        }
+        
+        var flags: SCNetworkReachabilityFlags = []
+        if !SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags) {
+            return false
+        }
+        
+        let isReachable = flags.contains(.reachable)
+        let needsConnection = flags.contains(.connectionRequired)
+        
+        return (isReachable && !needsConnection)
+    }
+    
     // MARK: - Actions
     
     @IBAction func actionEmoRequestButton(_ sender: UIButton) {
@@ -652,14 +692,18 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         
         if plusIsSelected {
             textMessageBottomConstraint.constant += height + topConstraintConstant
+            textMessageLeadingConstraint.constant -= (leadingConstraintConstant * 2) + emoRequestButton.frame.width + plusButton.frame.width//two buttons so 2 extra spaces
+            textMessageTrailingConstraint.constant -= sendMessageButton.frame.width + trailingConstraintConstant
             self.additionalBottomBarView.isHidden = !plusIsSelected
         } else {
             textMessageBottomConstraint.constant -= height + topConstraintConstant
+            textMessageLeadingConstraint.constant = leadingConstraintConstant
+            textMessageTrailingConstraint.constant = trailingConstraintConstant
         }
-        
+
         UIView.animate(withDuration: 0.5,
                        delay: 0.0,
-                       usingSpringWithDamping: 0,
+                       usingSpringWithDamping: 0.7,
                        initialSpringVelocity: 0,
                        options: [.curveLinear],
                        animations: {
@@ -690,7 +734,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         
         UIView.animate(withDuration: 0.5,
                        delay: 0.0,
-                       usingSpringWithDamping: 0,
+                       usingSpringWithDamping: 0.7,
                        initialSpringVelocity: 0,
                        options: [.curveLinear],
                        animations: {

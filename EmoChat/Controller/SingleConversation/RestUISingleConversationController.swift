@@ -93,6 +93,7 @@ extension CustomTableViewCell {
         for (key, value) in messageURLData {
 
             contentViewCell?.url = key
+            dicTemData.updateValue(key, forKey: "url")
 
             if let valueModel = value as? UrlembedModel {
 
@@ -145,6 +146,7 @@ extension CustomTableViewCell {
                 contentViewCell?.detailLabel.text = dicTemData["detailLabel"] as? String ?? ""
                 contentViewCell?.urlImageIco.image = dicTemData["urlImageIco"] as? UIImage ?? nil
                 contentViewCell?.mainImage.image =  dicTemData["mainImage"] as? UIImage ?? nil
+                contentViewCell?.url =  dicTemData["url"] as? String ?? nil
 
                 contentViewCell?.spinner.stopAnimating()
             }
