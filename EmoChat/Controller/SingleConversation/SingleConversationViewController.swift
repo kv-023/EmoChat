@@ -230,9 +230,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             if !self.messagesArrayWithSection.isEmpty {
                 self.table.scrollToRow(at: IndexPath.init(row: (self.messagesArrayWithSection[self.sortedSections.last!]?.count)! - 1, section: self.sortedSections.count - 1), at: .top, animated: false)
             }
-            DispatchQueue.main.async {
-                self.loadingView.isHidden = true
-            }
+            self.updateUI()
         })
     }
     
@@ -288,6 +286,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 self.table.reloadData()
                 self.table.scrollToRow(at: IndexPath.init(row: (self.messagesArrayWithSection[startSection]?.count)! - startIndex!, section: self.sortedSections.index(of: startSection)!), at: .top, animated: false)
                 self.table.contentOffset.y += initialOffset
+                self.loadingView.isHidden = true
             })
         }
     }
