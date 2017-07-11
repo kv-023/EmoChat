@@ -70,6 +70,32 @@ extension CustomTableViewCell {
         }
     }
 
+    func showViewForRestUIContent() {
+
+        // weak var contentViewCell:RestUIInfoView?
+        let contentViewCell = getContentViewCell()//self.getPrepareXibOfEmbeddedView()
+        contentViewCell?.spinner.startAnimating()
+    }
+
+    func getContentViewCell() -> RestUIInfoView? {
+        var contentViewCell:RestUIInfoView?
+
+        let tasksGroup = DispatchGroup()
+        tasksGroup.enter()
+        if !Thread.isMainThread {
+            DispatchQueue.main.async {
+                contentViewCell = self.getPrepareXibOfEmbeddedView()
+                tasksGroup.leave()
+            }
+        } else {
+            contentViewCell = self.getPrepareXibOfEmbeddedView()
+            tasksGroup.leave()
+        }
+
+        tasksGroup.wait()
+        return contentViewCell
+    }
+
     private func updateUI() {
 
         guard itIsRightModelWithMessage() else {
@@ -82,83 +108,124 @@ extension CustomTableViewCell {
             return
         }
 
+        contentViewCell = getContentViewCell()
+
         DispatchQueue.main.async  {
-            contentViewCell = self.xibToFrameSetup()
             contentViewCell?.spinner.startAnimating()
         }
 
-        let downloadGroup = DispatchGroup()
-        var dicTemData: [String: Any?] = [:]
-
-        for (key, value) in messageURLData {
-
-            contentViewCell?.url = key
-            dicTemData.updateValue(key, forKey: "url")
-
-            if let valueModel = value as? UrlembedModel {
-
-                contentViewCell?.dataModel = valueModel
-
-                let arrayOfURL: [(String,String?)] = [("mainImage", valueModel.url),
-                                                       ("urlImageIco", valueModel.favicon)]
-
-                let _ = DispatchQueue.global(qos: .userInitiated)
-                DispatchQueue.concurrentPerform(iterations: arrayOfURL.count) { i in
-                    let index = Int(i)
-                    let (dataField, urlAdress) = arrayOfURL[index]
-
-                    downloadGroup.enter()
-
-                    dicTemData.updateValue(valueModel.title, forKey: "captionLabel")
-                    dicTemData.updateValue(valueModel.text, forKey: "detailLabel")
-
-                    if let notNullUrl = urlAdress,
-                        notNullUrl.characters.count > 0 {
-                        JSONParser.sharedInstance.downloadImage(url: notNullUrl) { (image) in
-
-                            var imageForCell = image
-
-                            //resize it
-                            if let notNullImage = imageForCell {
-                                let rectValue:CGFloat = 50
-                                if (notNullImage.size.height > rectValue || notNullImage.size.width > rectValue) == true {
-                                    imageForCell = notNullImage.resizeImageWith(newSize:
-                                        CGSize(width: rectValue, height: rectValue))
-                                }
-                            }
-
-                            dicTemData.updateValue(imageForCell, forKey: dataField)
-                            downloadGroup.leave()
-                        }
-                    } else {
-                        downloadGroup.leave()
-                    }
-                }
-            }
-
-            break // only one cycle needed
-        }
-
-        downloadGroup.notify(queue: DispatchQueue.main) { // 2
-            DispatchQueue.main.async  {
-
-                contentViewCell?.captionLabel.text = dicTemData["captionLabel"] as? String ?? ""
-                contentViewCell?.detailLabel.text = dicTemData["detailLabel"] as? String ?? ""
-                contentViewCell?.urlImageIco.image = dicTemData["urlImageIco"] as? UIImage ?? nil
-                contentViewCell?.mainImage.image =  dicTemData["mainImage"] as? UIImage ?? nil
-                contentViewCell?.url =  dicTemData["url"] as? String ?? nil
-
+        if let notNullDataForRestUIInfoView = self.messageModel?.dataForRestUIInfoView  {
+            DispatchQueue.main.async {
+                contentViewCell?.fullFillViewFromDataInfo(data: notNullDataForRestUIInfoView)
                 contentViewCell?.spinner.stopAnimating()
             }
+        } else {
+
+            let downloadGroup = DispatchGroup()
+            var dicTemData: [String: Any?] = [:]
+
+            for (key, value) in messageURLData {
+
+                dicTemData.updateValue(key, forKey: "url")
+
+                if let valueModel = value as? UrlembedModel {
+
+                    contentViewCell?.dataModel = valueModel
+
+                    let arrayOfURL: [(String,String?)] = [("mainImage", valueModel.url),
+                                                          ("urlImageIco", valueModel.favicon)]
+
+                    let _ = DispatchQueue.global(qos: .userInitiated)
+                    DispatchQueue.concurrentPerform(iterations: arrayOfURL.count) { i in
+                        let index = Int(i)
+                        let (dataField, urlAdress) = arrayOfURL[index]
+
+                        downloadGroup.enter()
+
+                        dicTemData.updateValue(valueModel.title, forKey: "captionLabel")
+                        dicTemData.updateValue(valueModel.text, forKey: "detailLabel")
+
+                        if let notNullUrl = urlAdress,
+                            notNullUrl.characters.count > 0 {
+                            JSONParser.sharedInstance.downloadImage(url: notNullUrl) { (image) in
+
+                                var imageForCell = image
+
+                                //resize it
+                                if let notNullImage = imageForCell {
+                                    let rectValue:CGFloat = 50
+                                    if (notNullImage.size.height > rectValue || notNullImage.size.width > rectValue) == true {
+                                        imageForCell = notNullImage.resizeImageWith(newSize:
+                                            CGSize(width: rectValue, height: rectValue))
+                                    }
+                                }
+
+                                dicTemData.updateValue(imageForCell, forKey: dataField)
+                                downloadGroup.leave()
+                            }
+                        } else {
+                            downloadGroup.leave()
+                        }
+                    }
+                }
+
+                break // only one cycle needed
+            }
+
+            downloadGroup.notify(queue: DispatchQueue.main) { // 2
+                DispatchQueue.main.async  {
+
+                    let tempParsedData = DataForRestUIInfoView(dict: dicTemData)
+                    contentViewCell?.dataForRestUIInfoView = tempParsedData
+                    self.messageModel?.dataForRestUIInfoView = tempParsedData
+                    contentViewCell?.spinner.stopAnimating()
+                }
+            }
         }
+
     }
 
     //MARK:- UIView creation
+    private func getPrepareXibOfEmbeddedView(eraseExtraViews: Bool = true) -> RestUIInfoView? {
+        guard let masterContainer = self.previewContainer else {
+            return nil
+        }
+        var arrayOfViews = getRestUIInfoViewFromView(view: masterContainer)
+
+        let countOfViews = arrayOfViews.count
+        if countOfViews > 0 {
+
+            let viewForReturn = arrayOfViews[0]
+            //prepare part
+            if let notNullIndexOfElement = arrayOfViews.index(of: viewForReturn) {
+                arrayOfViews.remove(at: notNullIndexOfElement)
+            }
+
+            if countOfViews > 1 && eraseExtraViews {
+                removeRestUIInfoViewFromView(view: masterContainer,
+                                             arrayOfRequestedViews: &arrayOfViews)
+            }
+
+            //let ccViewHeight = calculateHeightOfView(view: viewForReturn)
+            //setPreviewContainerHeight(height: viewForReturn.heightOriginal)
+            self.previewContainer.layoutIfNeeded()
+            //self.singleConversationControllerDelegate?.resizeSingleConversationCell(cell: self)
+
+            return viewForReturn
+        } else {
+            return xibToFrameSetup()
+        }
+    }
+
+    func setPreviewContainerHeight(height: CGFloat) {
+        self.heightOfPreviewContainer.constant = height
+    }
+
     private func xibToFrameSetup() -> RestUIInfoView {
 
         let contentViewCell = Bundle.main.loadNibNamed("RestUIInfo2",
-                                              owner: self.previewContainer,
-                                              options: nil)?.first as! RestUIInfoView
+                                                       owner: self.previewContainer,
+                                                       options: nil)?.first as! RestUIInfoView
 
         contentViewCell.eraseAllFields()
         contentViewCell.captionLabel.text = "loading ..."
@@ -171,7 +238,8 @@ extension CustomTableViewCell {
                                        width: self.previewContainer.frame.width,
                                        height: ccViewHeight)
 
-        self.heightOfPreviewContainer.constant = ccViewHeight
+        setPreviewContainerHeight(height: ccViewHeight)
+
         self.previewContainer.addSubview(contentViewCell)
 
         setConstrainInSubView(embeddedView: contentViewCell, parrentView: self.previewContainer)
@@ -187,7 +255,7 @@ extension CustomTableViewCell {
         contentViewCell.layer.masksToBounds = true
 
         contentViewCell.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
-        
+
         return contentViewCell
     }
 
@@ -201,9 +269,9 @@ extension CustomTableViewCell {
 
         let trailing = NSLayoutConstraint(item: myView, attribute: NSLayoutAttribute.trailing, relatedBy: NSLayoutRelation.equal, toItem: hostView, attribute: NSLayoutAttribute.trailing, multiplier: 1, constant: 0)
         self.addConstraint(trailing)
-        
+
         let top = NSLayoutConstraint(item: myView, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: hostView, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 0)
-        
+
         self.addConstraint(top)
     }
 
@@ -219,5 +287,35 @@ extension CustomTableViewCell {
             currentSubview.removeFromSuperview()
         }
     }
+    func removeRestUIInfoViewFromView(view masterView: UIView,
+                                      arrayOfRequestedViews: inout [RestUIInfoView]) {
 
+        for currentSubview in arrayOfRequestedViews {
+            if let notNullIndexOfElement = arrayOfRequestedViews.index(of: currentSubview) {
+                arrayOfRequestedViews.remove(at: notNullIndexOfElement)
+            }
+            
+            currentSubview.removeFromSuperview()
+        }
+    }
+    
+    
+    func getRestUIInfoViewFromView(view masterView: UIView) -> Array<RestUIInfoView> {
+        let subviews = masterView.subviews
+        
+        var arrayForReturn: Array<RestUIInfoView> = []
+        for currentSubview in subviews {
+            
+            if let currentMySubview: RestUIInfoView = currentSubview as? RestUIInfoView {
+                arrayForReturn.append(currentMySubview)
+            }
+        }
+        
+        return arrayForReturn
+    }
+}
+
+//MARK:- RegexCheckProtocol ext.
+extension CustomTableViewCell: RegexCheckProtocol {
+    
 }

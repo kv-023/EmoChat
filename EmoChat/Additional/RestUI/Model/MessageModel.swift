@@ -10,13 +10,17 @@ import Foundation
 
 class MessageModel: RegexCheckProtocol {
 
-    weak var message:Message?
+    weak var message: Message?
+    var dataForRestUIInfoView: DataForRestUIInfoView?
     var messageURLData: MessageURLDataType {
         didSet {
 //            for (key3, value3) in messageURLData {
 //                print("key: \(key3), value:\(String(describing: value3))")
 //            }
         }
+    }
+    var containsUrlLinks:Bool {
+        return messageURLData.count > 0
     }
 
     var messageURLDataIsReady:Bool = false

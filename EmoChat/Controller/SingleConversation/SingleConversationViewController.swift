@@ -471,12 +471,11 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     private func setMessageModelInCell(currentCell cell: CustomTableViewCell,
                                        message messageEntity: Message?) {
         if let notNullMessageEntity = messageEntity,
-            let messageModelInDictionary = messageRestModel[notNullMessageEntity],
-            messageModelInDictionary != nil {
+            let messageModelInDictionary = messageRestModel[notNullMessageEntity] as? MessageModel {
+
             cell.messageModel = messageModelInDictionary
-            cell.updateUIForMessageModel()
         } else {
-            cell.parseDataFromMessageTextForCell()
+            cell.messageModel = nil
         }
     }
 
