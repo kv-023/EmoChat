@@ -21,6 +21,7 @@ class CustomTableViewCell: UITableViewCell {
     
     weak var delegate: CellDelegate!
     weak var singleConversationControllerDelegate: SingleConversationControllerProtocol?
+    var name: NSMutableAttributedString?
     
     var temporaryCellHeight:CGFloat = 0
     var extraCellHeiht:CGFloat {
@@ -43,7 +44,12 @@ class CustomTableViewCell: UITableViewCell {
         set {
             _messageEntity = newValue
             //TODO: check type of content
-            message.text.append((newValue?.content!.content)!)
+            var text = NSMutableAttributedString(string: "")
+            if let enterText = name {
+                text.append(enterText)
+            }
+            text.append(NSAttributedString(string: (newValue?.content!.content)!, attributes: [NSForegroundColorAttributeName : UIColor.black]))
+            message.attributedText = text
             setNullableDataInPreviewContainer()
 //            parseDataFromMessageText(delaySeconds: 1)
         }
