@@ -22,11 +22,11 @@ enum UserType {
 
 
 class SingleConversationViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate {
-//    
-//    private struct Constants {
-//        static let leadingConstraint: CGFloat = 8.0
-//    }
-//    
+    //
+    //    private struct Constants {
+    //        static let leadingConstraint: CGFloat = 8.0
+    //    }
+    //
     // MARK: - constants
     let leadingConstraintConstant: CGFloat = 8.0
     let trailingConstraintConstant: CGFloat = 8.0
@@ -51,7 +51,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     @IBOutlet weak var loadingView: UIView!
     
-    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!    
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
     var manager: ManagerFirebase?
     var currentUser: User!
@@ -84,17 +84,17 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         table.alwaysBounceVertical = true
         loadingIndicator.startAnimating()
         loadingIndicator.hidesWhenStopped = true
-
+        
         self.setUpTextView()
         manager = ManagerFirebase.shared
         
         group.enter()
         manager?.getUsersInConversation(conversation: self.currentConversation,
                                         completion: { (users) in
-            self.currentConversation.usersInConversation = users
-            self.downloadPhotos()
-            self.group.leave()
-        
+                                            self.currentConversation.usersInConversation = users
+                                            self.downloadPhotos()
+                                            self.group.leave()
+                                            
         })
         
         navigationItem.title = currentConversation.name!
@@ -106,7 +106,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         setupKeyboardObservers()
         
         self.setUpFrame()
-
+        
         group.notify(queue: DispatchQueue.main, execute: {
             DispatchQueue.global().async {
                 self.observeNewMessage()
@@ -126,38 +126,40 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         }
         
     }
+    
 
-    
-//    override func viewWillAppear(_ animated: Bool) {
-//        if !messagesArray.isEmpty {
-//            table.scrollToRow(at: IndexPath(row: messagesArray.count - 1, section: 0),
-//                              at: .bottom, animated: false)
-//        }
-//    }
-    
     func showMenu(forCell cell: CustomTableViewCell) {
-        
-        
         
         guard table.indexPath(for: cell) != nil else {
             return
         }
-        
         let menu = UIMenuController.shared
         menu.setMenuVisible(false, animated: true)
         menu.setTargetRect(cell.contentRect, in: cell.contentView)
         let item = UIMenuItem(title: "Copy", action: #selector(copyAction(_:)))
         menu.menuItems = [item]
         menu.update()
-        
         if cell is RightCell {
             menu.menuItems?.append(UIMenuItem(title: "Delete", action: #selector(deleteAction(_:))))
         }
+        
+        textMessage.shouldBlockMenuActions = true
+        
         menu.setMenuVisible(true, animated: true)
+        
+        textMessage.shouldBlockMenuActions = false
+        UIMenuController.shared.menuItems = []
         
         messageRecognized = cell.messageEntity
     }
     
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        return action == #selector(copyAction(_:)) || action == #selector(deleteAction(_:))
+    }
     //functionality
     
     func copyAction(_ sender: Any?) {
@@ -231,7 +233,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 if res == true {
                     
                     //check if sending message was delivered via findMessageInDictionary
-                    //if yes should mark it as 'sent' 
+                    //if yes should mark it as 'sent'
                     
                     //find cell with this message
                     if let i = self.findMessageInDictionary(with: newMessage.uid!), let item = (self.table.cellForRow(at: IndexPath.init(row: i.index, section: self.sortedSections.index(of: i.section)!)) as? RightCell) {
@@ -309,8 +311,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             })
         }
     }
-
-
+    
+    
     
     
     //MARK: - photos
@@ -372,7 +374,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let message = messagesArrayWithSection[sortedSections[indexPath.section]]![indexPath.row]
-            //messagesArray[indexPath.row]
+        //messagesArray[indexPath.row]
         
         
         switch message.1 {
@@ -400,9 +402,9 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 cell.name = name
             }
             cell.messageEntity = message.0
-
+            
             setMessageModelInCell(currentCell: cell, message: cell.messageEntity)
-
+            
             cell.time.text = message.0.time.formatDate()
             cell.userPic.image = self.photosArray[message.0.senderId]
             cell.delegate = self
@@ -415,9 +417,9 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             cell.singleConversationControllerDelegate = self
             cell.message.text = ""
             cell.messageEntity = message.0
-
+            
             setMessageModelInCell(currentCell: cell, message: cell.messageEntity)
-
+            
             cell.userPic.image = self.photosArray[message.0.senderId]
             switch message.1 {
             case .right(.sent) :
@@ -445,7 +447,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-
+        
         let headerView = UIView()
         headerView.backgroundColor = UIColor(red: 242, green: 242, blue: 242)
         let newlabel = UILabel()
@@ -466,7 +468,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return sortedSections[section]
     }
-
+    
     //nik
     private func setMessageModelInCell(currentCell cell: CustomTableViewCell,
                                        message messageEntity: Message?) {
@@ -479,7 +481,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             cell.parseDataFromMessageTextForCell()
         }
     }
-
+    
     func setUpFrame() {
         if let rect = self.navigationController?.navigationBar.frame {
             let y = rect.size.height + rect.origin.y
@@ -499,7 +501,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         table.reloadData()
         return date.dayFormatStyle()
     }
-
+    
     func findAppropriateSection(for message: Message) -> String? {
         return sortedSections.contains(message.time.dayFormatStyle()) ? message.time.dayFormatStyle() : nil
     }
@@ -524,33 +526,33 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     func insertRow(_ newMessage: (Message, UserType)) {
         let indexPath = self.addMessageToTheEndOfDictionary(newMessage)
         table.insertRows(at: [indexPath], with: .none)
-
+        
     }
     
     func insertRows (_ newMessages: [(Message, UserType)]) {
         self.addMessagesToDictionary(newMessages)
     }
     
-
+    
     func tableView(_ tableView: UITableView,
                    heightForRowAt indexPath: IndexPath) -> CGFloat {
-
-//        var cellHeightForReturn:CGFloat = UITableViewAutomaticDimension
-//
-//        if let cellInstance = table.cellForRow(at: indexPath) as? SingleConversationUITableViewCell {
-//            if cellResized.contains(cellInstance) {
-//
-//                cellHeightForReturn = cellInstance.temporaryCellHeight + cellInstance.extraCellHeiht
-//            }
-//
-//            return cellHeightForReturn
-//        } else {
-//            return UITableViewAutomaticDimension
-//        }
-
+        
+        //        var cellHeightForReturn:CGFloat = UITableViewAutomaticDimension
+        //
+        //        if let cellInstance = table.cellForRow(at: indexPath) as? SingleConversationUITableViewCell {
+        //            if cellResized.contains(cellInstance) {
+        //
+        //                cellHeightForReturn = cellInstance.temporaryCellHeight + cellInstance.extraCellHeiht
+        //            }
+        //
+        //            return cellHeightForReturn
+        //        } else {
+        //            return UITableViewAutomaticDimension
+        //        }
+        
         return UITableViewAutomaticDimension
     }
-
+    
     //MARK: - text view
     
     func setUpTextView () {
@@ -606,9 +608,9 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         self.animateTextViewTransitions(becomeFirstResponder: false)
     }
     
-//    override func viewWillLayoutSubviews() {
-//        table.reloadData()
-//    }
+    //    override func viewWillLayoutSubviews() {
+    //        table.reloadData()
+    //    }
     
     //MARK: - subview to text and send message
     
@@ -633,9 +635,9 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             self.bottomConstraint.constant = keyboardSize.height
             UIView.animate(withDuration: keyboardDuration,
                            animations: {
-                self.view.layoutIfNeeded()
+                            self.view.layoutIfNeeded()
             })
-
+            
             if !self.messagesArrayWithSection.isEmpty {
                 self.table.scrollToRow(at: IndexPath.init(row: (self.messagesArrayWithSection[self.sortedSections.last!]?.count)! - 1, section: self.sortedSections.count - 1), at: .top, animated: false)
             }        }
@@ -649,7 +651,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
@@ -721,7 +723,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             textMessageLeadingConstraint.constant = leadingConstraintConstant
             textMessageTrailingConstraint.constant = trailingConstraintConstant
         }
-
+        
         UIView.animate(withDuration: 0.5,
                        delay: 0.0,
                        usingSpringWithDamping: 0.7,
@@ -771,22 +773,22 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         })
     }
     
-
+    
 }
 
 //MARK:- SingleConversationCellProtocol
 extension SingleConversationViewController: SingleConversationControllerProtocol {
-
+    
     func resizeSingleConversationCell(cell: CustomTableViewCell) {
         if let indexPath = table.indexPath(for: cell) {
-
+            
             cellResized.insert(cell)
-
+            
             table.beginUpdates()
             table.rectForRow(at: indexPath)
-
+            
             cell.temporaryCellHeight = table.rectForRow(at: indexPath).height// - cell.extraCellHeiht
-
+            
             //self.tableView.reloadRows(at: [indexPath],
             //                          with: UITableViewRowAnimation.automatic)
             // self.tableView.moveRow(at: indexPath, to: indexPath)
@@ -796,11 +798,11 @@ extension SingleConversationViewController: SingleConversationControllerProtocol
             
         }
     }
-
+    
     func addMessageModelInSingleConversationDictionary(message: Message,
                                                        model: MessageModel?) {
-
-//        messageRestModel.updateValue(model, forKey: message)
+        
+        //        messageRestModel.updateValue(model, forKey: message)
     }
     
 }
@@ -812,13 +814,7 @@ extension SingleConversationViewController : CellDelegate {
     func cellDelegate(_ sender: UITableViewCell, didHandle action: Action) {
         if action == .longPress {
             if let cell = sender as? CustomTableViewCell {
-//                if self.inputSubView.isFirstResponder {
-//                    self.textMessage.overrideNextResponder = cell
-//                } else {
-                    cell.message.becomeFirstResponder()
                     showMenu(forCell: cell)
-//                }
-                
             }
         }
     }
