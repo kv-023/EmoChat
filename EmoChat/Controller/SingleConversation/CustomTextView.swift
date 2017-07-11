@@ -14,7 +14,7 @@ class CustomTextView: UITextView {
     
     override var next: UIResponder? {
         if overrideNextResponder != nil {
-            return overrideNextResponder!
+            return overrideNextResponder
         } else {
             return super.next
         }
