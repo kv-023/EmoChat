@@ -48,7 +48,7 @@ class CustomTableViewCell: UITableViewCell {
             if let enterText = name {
                 text.append(enterText)
             }
-            text.append(NSAttributedString(string: (newValue?.content!.content)!, attributes: [NSForegroundColorAttributeName : UIColor.black]))
+            text.append(NSAttributedString(string: (newValue?.content!.content)!, attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: CGFloat.init(15.0))]))
             message.attributedText = text
             setNullableDataInPreviewContainer()
 //            parseDataFromMessageText(delaySeconds: 1)

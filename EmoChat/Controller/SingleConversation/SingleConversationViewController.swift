@@ -156,6 +156,15 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     //functionality
     
     func copyAction(_ sender: Any?) {
+        var content: String
+        if multipleChat && !(manager?.isMessageFromCurrentUser(messageRecognized))! {
+            var contentArray = messageRecognized.content!.content.characters.split(separator: "\n")
+            contentArray.remove(at: 0)
+            let tempContent = contentArray.flatMap({String($0)})
+            content = tempContent.joined(separator: "\n")
+        } else {
+            content = messageRecognized.content!.content
+        }
         UIPasteboard.general.string = messageRecognized.content!.content
     }
     
@@ -375,13 +384,13 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 })
                 var name = NSMutableAttributedString(string: "")
                 if let first = user?.firstName {
-                    name.append(NSMutableAttributedString(string: first, attributes: [NSForegroundColorAttributeName : UIColor.blue]))
+                    name.append(NSMutableAttributedString(string: first, attributes: [NSFontAttributeName : UIFont.boldSystemFont(ofSize: CGFloat.init(15.0))]))
                 }
                 if let second = user?.secondName {
-                    name.append(NSMutableAttributedString(string: " \(second)", attributes: [NSForegroundColorAttributeName : UIColor.blue]))
+                    name.append(NSMutableAttributedString(string: " \(second)", attributes: [NSFontAttributeName : UIFont.boldSystemFont(ofSize: CGFloat.init(15.0))]))
                 }
                 if name == NSMutableAttributedString(string: "") {
-                    name.append(NSMutableAttributedString(string: (user?.username)!, attributes: [NSForegroundColorAttributeName : UIColor.blue]))
+                    name.append(NSMutableAttributedString(string: (user?.username)!, attributes: [NSFontAttributeName : UIFont.boldSystemFont(ofSize: CGFloat.init(15.0))]))
                 }
                 name.append(NSAttributedString(string: "\n"))
                 cell.name = name
