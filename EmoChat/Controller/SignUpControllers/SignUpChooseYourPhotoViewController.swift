@@ -102,8 +102,12 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
         
         guard let chosenImage = info[UIImagePickerControllerEditedImage] as? UIImage else { return }
         edited = true
-        userImage = chosenImage
-        
+        // resize image
+        let rectValue:CGFloat = 50
+        if (chosenImage.size.height > rectValue || chosenImage.size.width > rectValue) == true {
+            userImage = chosenImage.resizeImageWith(newSize:
+                CGSize(width: rectValue, height: rectValue))
+        }
         //add image to view
         userPhotoView.contentMode = .scaleAspectFill
         userPhotoView.clipsToBounds = true

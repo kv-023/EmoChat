@@ -110,6 +110,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         group.notify(queue: DispatchQueue.main, execute: {
             DispatchQueue.global().async {
                 self.observeNewMessage()
+                self.loadingView.isHidden = true
             }
             if self.currentConversation.usersInConversation.count > 2 {
                 self.multipleChat = true
@@ -250,8 +251,9 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             if !self.messagesArrayWithSection.isEmpty {
                 self.table.scrollToRow(at: IndexPath.init(row: (self.messagesArrayWithSection[self.sortedSections.last!]?.count)! - 1, section: self.sortedSections.count - 1), at: .top, animated: false)
             }
+            
         }
-        self.loadingView.isHidden = true
+        
     }
     
     @IBAction func sendMessage(_ sender: UIButton) {
