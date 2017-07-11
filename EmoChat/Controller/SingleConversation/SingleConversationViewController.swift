@@ -434,15 +434,22 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView(frame: CGRect(x:0, y:0, width:tableView.frame.size.width, height:18))
-        let label = UILabel(frame: CGRect(x:0, y:0, width:tableView.frame.size.width, height:18))
-        label.font = UIFont.systemFont(ofSize: 14)
+
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor(red: 242, green: 242, blue: 242)
+        let newlabel = UILabel()
+        newlabel.textAlignment = .center
+        newlabel.font = UIFont.systemFont(ofSize: 14)
+        newlabel.text = sortedSections[section]
         
-        label.text = sortedSections[section];
-        label.textAlignment = .center
-        view.addSubview(label);
-        view.backgroundColor = UIColor(red: 242, green: 242, blue: 242)
-        return view
+        headerView.addSubview(newlabel)
+        newlabel.translatesAutoresizingMaskIntoConstraints = false
+        headerView.addConstraint(NSLayoutConstraint(item: newlabel, attribute: .leading, relatedBy: .equal, toItem: headerView, attribute: .leading, multiplier: 1.0, constant: 0))
+        headerView.addConstraint(NSLayoutConstraint(item: newlabel, attribute: .trailing, relatedBy: .equal, toItem: headerView, attribute: .trailing, multiplier: 1.0, constant: 20.0))
+        headerView.addConstraint(NSLayoutConstraint(item: newlabel, attribute: .top, relatedBy: .equal, toItem: headerView, attribute: .top, multiplier: 1.0, constant: 0))
+        headerView.addConstraint(NSLayoutConstraint(item: newlabel, attribute: .bottom, relatedBy: .equal, toItem: headerView, attribute: .bottom, multiplier: 1.0, constant: 0))
+        
+        return headerView
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -588,9 +595,9 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         self.animateTextViewTransitions(becomeFirstResponder: false)
     }
     
-    override func viewWillLayoutSubviews() {
-        table.reloadData()
-    }
+//    override func viewWillLayoutSubviews() {
+//        table.reloadData()
+//    }
     
     //MARK: - subview to text and send message
     
