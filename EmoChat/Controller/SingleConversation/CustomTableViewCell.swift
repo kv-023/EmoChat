@@ -59,7 +59,7 @@ class CustomTableViewCell: UITableViewCell {
         set {
             _messageEntity = newValue
             //TODO: check type of content
-            var text = NSMutableAttributedString(string: "")
+            let text = NSMutableAttributedString(string: "")
             if let enterText = name {
                 text.append(enterText)
             }

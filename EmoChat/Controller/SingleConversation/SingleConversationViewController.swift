@@ -389,7 +389,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 let user = currentConversation.usersInConversation.first(where: {user in
                     return user.uid == message.0.senderId
                 })
-                var name = NSMutableAttributedString(string: "")
+                let name = NSMutableAttributedString(string: "")
                 if let first = user?.firstName {
                     name.append(NSMutableAttributedString(string: first, attributes: [NSFontAttributeName : UIFont.boldSystemFont(ofSize: CGFloat.init(15.0))]))
                 }
