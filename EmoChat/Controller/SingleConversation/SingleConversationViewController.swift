@@ -21,8 +21,12 @@ enum UserType {
 
 
 
-class SingleConversationViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate{
-    
+class SingleConversationViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate {
+//    
+//    private struct Constants {
+//        static let leadingConstraint: CGFloat = 8.0
+//    }
+//    
     // MARK: - constants
     let leadingConstraintConstant: CGFloat = 8.0
     let trailingConstraintConstant: CGFloat = 8.0
@@ -587,6 +591,10 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         self.animateTextViewTransitions(becomeFirstResponder: false)
     }
     
+    override func viewWillLayoutSubviews() {
+        table.reloadData()
+    }
+    
     //MARK: - subview to text and send message
     
     func setupKeyboardObservers() {
@@ -783,20 +791,18 @@ extension SingleConversationViewController: SingleConversationControllerProtocol
 }
 
 //MARK:- SingleConversationViewController
+
 extension SingleConversationViewController : CellDelegate {
+    
     func cellDelegate(_ sender: UITableViewCell, didHandle action: Action) {
         if action == .longPress {
-            
             if let cell = sender as? CustomTableViewCell {
-                if self.inputSubView.isFirstResponder {
-                    self.textMessage.overrideNextResponder = cell
-                } else {
+//                if self.inputSubView.isFirstResponder {
+//                    self.textMessage.overrideNextResponder = cell
+//                } else {
                     cell.message.becomeFirstResponder()
                     showMenu(forCell: cell)
-                }
-                
-                
-                //SingleConversationViewController.selectedCell = cell
+//                }
                 
             }
         }
