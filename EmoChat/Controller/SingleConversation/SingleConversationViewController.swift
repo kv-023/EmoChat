@@ -195,6 +195,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     func removeAtUid(_ uid: String) {
         let result = self.findMessageInDictionary(with: uid)
+        messageRestModel.removeValue(forKey: ((messagesArrayWithSection[result!.1]?[result!.0])?.0)!)
         self.removeMessageFromDictionary(index: result)
         table.reloadData()
     }
@@ -473,12 +474,11 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     private func setMessageModelInCell(currentCell cell: CustomTableViewCell,
                                        message messageEntity: Message?) {
         if let notNullMessageEntity = messageEntity,
-            let messageModelInDictionary = messageRestModel[notNullMessageEntity],
-            messageModelInDictionary != nil {
+            let messageModelInDictionary = messageRestModel[notNullMessageEntity] as? MessageModel {
+
             cell.messageModel = messageModelInDictionary
-            cell.updateUIForMessageModel()
         } else {
-            cell.parseDataFromMessageTextForCell()
+            cell.messageModel = nil
         }
     }
     
@@ -801,8 +801,8 @@ extension SingleConversationViewController: SingleConversationControllerProtocol
     
     func addMessageModelInSingleConversationDictionary(message: Message,
                                                        model: MessageModel?) {
-        
-        //        messageRestModel.updateValue(model, forKey: message)
+
+        messageRestModel.updateValue(model, forKey: message)
     }
     
 }
