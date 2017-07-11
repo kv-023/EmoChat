@@ -31,4 +31,11 @@ extension Date {
         return date
     }
     
+    func dayFormatStyleDate() -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "d.MM.yy"
+        let date = dateFormatter.date(from: dateFormatter.string(from: self))
+        return date!
+    }
+    
 }   

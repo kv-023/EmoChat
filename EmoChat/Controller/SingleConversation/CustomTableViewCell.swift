@@ -17,9 +17,11 @@ class CustomTableViewCell: UITableViewCell {
     @IBOutlet weak var background: UIImageView!
     @IBOutlet weak var previewContainer: UIView!
     @IBOutlet weak var heightOfPreviewContainer: NSLayoutConstraint!
+    @IBOutlet weak var bottomOfPreviewContainer: NSLayoutConstraint!
     
     weak var delegate: CellDelegate!
     weak var singleConversationControllerDelegate: SingleConversationControllerProtocol?
+    var name: NSMutableAttributedString?
     
     var temporaryCellHeight:CGFloat = 0
     var extraCellHeiht:CGFloat {
@@ -57,7 +59,12 @@ class CustomTableViewCell: UITableViewCell {
         set {
             _messageEntity = newValue
             //TODO: check type of content
-            message.text = newValue?.content!.content
+            let text = NSMutableAttributedString(string: "")
+            if let enterText = name {
+                text.append(enterText)
+            }
+            text.append(NSAttributedString(string: (newValue?.content!.content)!, attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: CGFloat.init(15.0))]))
+            message.attributedText = text
             setNullableDataInPreviewContainer()
         }
     }
@@ -101,6 +108,7 @@ class CustomTableViewCell: UITableViewCell {
     
     func setNullableHeightOfPreviewContainer() {
         heightOfPreviewContainer.constant = 0
+        bottomOfPreviewContainer.constant = 5
     }
     
     private func addRecognizerForMessage() {
@@ -108,6 +116,10 @@ class CustomTableViewCell: UITableViewCell {
         let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(handler))
         message.addGestureRecognizer(recognizer)
     }
+    
+//    override var canBecomeFirstResponder: Bool {
+//        return true
+//    }
 
 }
 

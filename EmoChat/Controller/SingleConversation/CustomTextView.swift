@@ -9,21 +9,17 @@
 import UIKit
 
 class CustomTextView: UITextView {
-
+    
+    var shouldBlockMenuActions: Bool = false
+    
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        if action == #selector(paste(_:)) && UIPasteboard.general.string != nil {
-            UIMenuController.shared.menuItems = []
-            return true
-        }
-        return false
+        return !shouldBlockMenuActions && super.canPerformAction(action, withSender: sender)
     }
     
-    override func paste(_ sender: Any?) {
-        self.text? += UIPasteboard.general.string!
-    }
-
     override var canBecomeFirstResponder: Bool{
         return true
     }
-
+    
+    
+    
 }

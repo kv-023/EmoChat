@@ -12,11 +12,14 @@ class RestUIStrategyManager {
 
     static var instance = RestUIStrategyManager()
 
-    private lazy var urlembedStrategy: RestUIStrategy = {
-        return UrlParserFactory.urlparser(for: .urlembed)
-    }()
-
+//    private lazy var urlembedStrategy: RestUIStrategy = {
+//        return UrlParserFactory.urlparser(for: .urlembed)
+//    }()
+    
+    private var urlembedStrategy: RestUIStrategy
+    
     private init() {
+        urlembedStrategy = UrlParserFactory.urlparser(for: .urlembed)
     }
 
     func getDataFromURL(dataType parsersDataType: UrlParserResourseType,
