@@ -175,10 +175,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             case 1:
                 sortedSections.remove(at: (sortedSections.index(of: indexResult.section))!)
                 messagesArrayWithSection.removeValue(forKey: indexResult.section)
-                break
             default:
                 messagesArrayWithSection[indexResult.section]?.remove(at: indexResult.index)
-                break
             }
         }
     }
