@@ -5,12 +5,17 @@ import AVFoundation
 
 
 
+
 class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
     
     //MARK - Variables and outlets
     
-    @IBOutlet weak var testView: UIView!
+
     @IBOutlet weak var btnAudioRecord: UIButton!
+    
+  
+    @IBOutlet weak var WaveFormView: AudioMessageWaveForm!
+
     
     @IBOutlet weak var PSButtonOutfit: UIButton!
     @IBAction func playStopButton(_ sender: Any) {
@@ -25,6 +30,11 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
        
         
     }
+    
+  
+    
+    
+    
     
     var recordingSession : AVAudioSession!
     var audioRecorder    :AVAudioRecorder!
@@ -107,7 +117,12 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
     func finishRecording(success: Bool) {
         audioRecorder.stop()
         if success {
-            print(success)
+            print("success")
+            
+            audioMessageToAnalyze(url: audioRecorder.url)
+            self.WaveFormView.setNeedsDisplay()
+           
+            
            // showAudioMessage(url: audioRecorder.url) //???????
         } else {
             audioRecorder = nil
@@ -187,12 +202,26 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
     
     
     func play (url: URL) {
- 
+        print("URL: \(url)")
+        
+        
         self.player = AVPlayer(url: url)
         self.player.volume = 1.0
        // self.player.play()
        self.PSButtonOutfit.setImage(#imageLiteral(resourceName: "PlayAudioMessage"), for: .normal)
         self.audioRecorder = nil
+        
+    }
+    
+    func audioMessageToAnalyze(url: URL) {
+       // let url = Bundle.main.url(forResource: url.absoluteString, withExtension: "m4a")
+        let file = try! AVAudioFile(forReading: url)//Read File into AVAudioFile
+        let format = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: file.fileFormat.sampleRate, channels: file.fileFormat.channelCount, interleaved: false)//Format of the file
+        
+        let buf = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: UInt32(file.length))//Buffer
+        try! file.read(into: buf)//Read Floats
+        //Store the array of floats in the struct
+        readFile.arrayFloatValues = Array(UnsafeBufferPointer(start: buf.floatChannelData?[0], count:Int(buf.frameLength)))
     }
     
     

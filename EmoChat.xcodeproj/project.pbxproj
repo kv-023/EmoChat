@@ -15,6 +15,7 @@
 		3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2731EDC27C700D69F88 /* Main.storyboard */; };
 		3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2761EDC27C700D69F88 /* Assets.xcassets */; };
 		3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */; };
+		459BAC641F163C1B00E18D14 /* AudioMessageWaveForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459BAC631F163C1B00E18D14 /* AudioMessageWaveForm.swift */; };
 		45F3C0D61F06555000467C4F /* AudioMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F3C0D51F06555000467C4F /* AudioMessageViewController.swift */; };
 		45F3C0DA1F06559C00467C4F /* testAudioMessage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45F3C0D91F06559C00467C4F /* testAudioMessage.storyboard */; };
 		746478FA29F53658399EE02D /* Pods_EmoChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF27242650A9429D2DAFC20 /* Pods_EmoChat.framework */; };
@@ -98,6 +99,7 @@
 		3938C2761EDC27C700D69F88 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3938C2791EDC27C700D69F88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3938C27B1EDC27C700D69F88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		459BAC631F163C1B00E18D14 /* AudioMessageWaveForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioMessageWaveForm.swift; path = AudioMessage/AudioMessageWaveForm.swift; sourceTree = "<group>"; };
 		45F3C0D51F06555000467C4F /* AudioMessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioMessageViewController.swift; path = AudioMessage/AudioMessageViewController.swift; sourceTree = "<group>"; };
 		45F3C0D91F06559C00467C4F /* testAudioMessage.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = testAudioMessage.storyboard; path = AudioMessage/testAudioMessage.storyboard; sourceTree = "<group>"; };
 		5E5B970584D3FF3821DB6225 /* Pods-EmoChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmoChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmoChat/Pods-EmoChat.release.xcconfig"; sourceTree = "<group>"; };
@@ -256,6 +258,7 @@
 			isa = PBXGroup;
 			children = (
 				45F3C0D51F06555000467C4F /* AudioMessageViewController.swift */,
+				459BAC631F163C1B00E18D14 /* AudioMessageWaveForm.swift */,
 				45F3C0D91F06559C00467C4F /* testAudioMessage.storyboard */,
 			);
 			name = AudioMessage;
@@ -671,6 +674,7 @@
 				E70F3DB41F0507D900617235 /* UrlembedModel.swift in Sources */,
 				CC13C5EB1EF9227F00B38E59 /* SingleConversationViewController.swift in Sources */,
 				E70F3DC01F0648D500617235 /* RestUISingleConversationController.swift in Sources */,
+				459BAC641F163C1B00E18D14 /* AudioMessageWaveForm.swift in Sources */,
 				E70F3DB71F0507D900617235 /* RestUIInfoView.swift in Sources */,
 				CC13C5D51EF4092900B38E59 /* ArchiverManager.swift in Sources */,
 				E70F3DB21F0507D900617235 /* MessageModel.swift in Sources */,
