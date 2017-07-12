@@ -44,7 +44,7 @@ class AudioMessageWaveForm: UIView {
             aPath.move(to: CGPoint(x:aPath.currentPoint.x + x , y:aPath.currentPoint.y ))
             
             //y is the amplitude of each square
-            aPath.addLine(to: CGPoint(x:aPath.currentPoint.x  , y:aPath.currentPoint.y - (readFile.points[f] * 70) - 1.0))
+            aPath.addLine(to: CGPoint(x:aPath.currentPoint.x  , y:aPath.currentPoint.y - (readFile.points[f] * 1000) - 3.0))
             
             aPath.close()
             
@@ -67,7 +67,7 @@ class AudioMessageWaveForm: UIView {
             aPath2.move(to: CGPoint(x:aPath2.currentPoint.x + x , y:aPath2.currentPoint.y ))
             
             //y is the amplitude of each square
-            aPath2.addLine(to: CGPoint(x:aPath2.currentPoint.x  , y:aPath2.currentPoint.y - ((-1.0 * readFile.points[f]) * 50)))
+            aPath2.addLine(to: CGPoint(x:aPath2.currentPoint.x  , y:aPath2.currentPoint.y - ((-1.0 * readFile.points[f]) * 500)))
             
             // aPath.close()
             aPath2.close()
@@ -77,7 +77,7 @@ class AudioMessageWaveForm: UIView {
             f += 1
         }
         
-        //If you want to stroke it with a Orange color
+        
         UIColor.red.set()
         //Reflection and make it transparent
         aPath2.stroke(with: CGBlendMode.normal, alpha: 0.5)
