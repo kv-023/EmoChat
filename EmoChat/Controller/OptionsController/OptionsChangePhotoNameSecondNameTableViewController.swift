@@ -17,6 +17,15 @@ class OptionsChangePhotoNameSecondNameTableViewController: UITableViewController
     var currentUser: CurrentUser!
     
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+        //Add info in view controller
+        firstNameTextField.text = currentUser.firstName
+        lastNaneTexField.text = currentUser.secondName
+        
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,19 +37,14 @@ class OptionsChangePhotoNameSecondNameTableViewController: UITableViewController
         
         //Hide keybord on tap
         self.hideKeyboard()
-        
-        //Add info in view controller
-        firstNameTextField.text = currentUser.firstName
-        lastNaneTexField.text = currentUser.secondName
-        
-//        userPhotoView.image = currentUser.p
-        
     }
     
     func saveInformation(sender: UIBarButtonItem) {
         if nameIsValid(uname: firstNameTextField.text!) &&
             lastNameIsValid(uname: lastNaneTexField.text!) {
-            currentUser.changeInfo(phoneNumber: nil, firstName: firstNameTextField.text, secondName: lastNaneTexField.text)
+            currentUser.changeInfo(phoneNumber: nil,
+                                   firstName: firstNameTextField.text,
+                                   secondName: lastNaneTexField.text)
         }
         //Back to previous vc
         if let navController = self.navigationController {

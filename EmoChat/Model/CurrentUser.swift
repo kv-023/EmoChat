@@ -21,8 +21,10 @@ class CurrentUser {
     var email:String!
     var username:String!
     var photoURL: String?
+    var photo: UIImage?
     var userConversations: [Conversation]?
     var contacts: [User] = []
+    
     
     
     private init() {}
@@ -76,11 +78,12 @@ class CurrentUser {
                                 result in
                                 switch result {
                                 case .success:
-                                    print("success change phone number, name and secondname in firebabe")
+                                    print("success change name and secondname in firebabe")
                                     
-                                    //Change phone number singleton current user
-                                    self.phoneNumber = phoneNumber
-                                    print("success change phone number, name and secondname in singleton currentUser")
+                                    //Change hange name and secondname singleton current user
+                                    self.firstName = firstName
+                                    self.secondName = secondName
+                                    print("success change name and secondname in singleton currentUser")
                                     
                                 case .failure(let error):
                                     print(error)
@@ -181,7 +184,7 @@ class CurrentUser {
             result in
             switch result {
             case .success:
-                print ("success change username if firebase")
+                print ("success change username to firebase")
                 
                 //Save username to singleton current user
                 self.username = newUsername
@@ -201,7 +204,12 @@ class CurrentUser {
             result in
             switch result {
             case .success:
-                print("photo save normal")
+                print("success saving photo")
+                
+                //Save photo to singleton currebt user
+                self.photo = chosenImage
+                print("success saving photo to singleton current user")
+                
             case .failure(let error):
                 print("\(error) fail saving photo")
             default:

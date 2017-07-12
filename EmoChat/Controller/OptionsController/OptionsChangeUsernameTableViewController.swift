@@ -16,6 +16,13 @@ RegexCheckProtocol {
     var currentUser: CurrentUser!
     
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+        
+        //Show current username in textfield
+        changeUsernameTextField.text = currentUser.username
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -27,9 +34,6 @@ RegexCheckProtocol {
         
         //Hide keybord ot tap
         self.hideKeyboard()
-        
-        //Show current username in textfield
-        changeUsernameTextField.text = currentUser.username
     }
     
     // MARK: - Actions

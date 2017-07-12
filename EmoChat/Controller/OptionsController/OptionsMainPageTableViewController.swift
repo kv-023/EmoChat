@@ -18,24 +18,24 @@ class OptionsMainPageTableViewController:  UITableViewController, UIImagePickerC
     @IBOutlet weak var emailLabel: UILabel!
     
     var currentUser: CurrentUser!
+    
+    override func viewWillAppear(_ animated: Bool) {
+
+        nameAndLastNameLabel.text = "\(currentUser.firstName ?? "Name") \(currentUser.secondName ?? "Lastname")"
+        phoneNumberLabel.text = currentUser.phoneNumber
+        usernameLabel.text = currentUser.username
+        emailLabel.text = currentUser.email
+        userImageView.image = currentUser.photo
+        
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         currentUser = CurrentUser.shared
         
-        
         //Temp login and get current user
         currentUser.tempLogIn()
         currentUser.tempGetCurrentUser()
-
-
-        let nameAndSecondName = "\(currentUser.firstName ?? "Name") \(currentUser.secondName ?? "Lastname")"
-        
-        nameAndLastNameLabel.text = nameAndSecondName
-        
-        phoneNumberLabel.text = currentUser.phoneNumber
-        usernameLabel.text = currentUser.username
-        emailLabel.text = currentUser.email
     }
 }

@@ -13,6 +13,13 @@ class OptionsChangeEmailTableViewController: UITableViewController, UITextFieldD
     @IBOutlet weak var changeEmailTextField: UITextField!
     @IBOutlet weak var infoLabel: UILabel!
     var currentUser: CurrentUser!
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        
+        //Add current user email in textfield
+        changeEmailTextField.text = currentUser.email
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,9 +33,6 @@ class OptionsChangeEmailTableViewController: UITableViewController, UITextFieldD
         
         //Hide keybord on tap
         self.hideKeyboard()
-        
-        //Add current user email in textfield
-        changeEmailTextField.text = currentUser.email
     }
     
     // MARK: - Action
