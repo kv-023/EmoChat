@@ -33,6 +33,8 @@ class OptionsChangePhotoNameSecondNameTableViewController: UITableViewController
         firstNameTextField.text = currentUser.firstName
         lastNaneTexField.text = currentUser.secondName
         
+//        userPhotoView.image = currentUser.p
+        
     }
     
     func saveInformation(sender: UIBarButtonItem) {
