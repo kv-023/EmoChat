@@ -52,7 +52,7 @@ class AudioMessageWaveForm: UIView {
             f += 1
         }
         
-        //If you want to stroke it with a Orange color
+        
         UIColor.orange.set()
         aPath.stroke()
         //If you want to fill it as well
@@ -97,20 +97,7 @@ class AudioMessageWaveForm: UIView {
         let sampleCount = vDSP_Length(readFile.arrayFloatValues.count)
         //print(sampleCount)
         vDSP_vabs(readFile.arrayFloatValues, 1, &processingBuffer, 1, sampleCount);
-        // print(processingBuffer)
-        
-        
-        // convert do dB
-        //    var zero:Float = 1;
-        //    vDSP_vdbcon(floatArrPtr, 1, &zero, floatArrPtr, 1, sampleCount, 1);
-        //    //print(floatArr)
-        //
-        //    // clip to [noiseFloor, 0]
-        //    var noiseFloor:Float = -50.0
-        //    var ceil:Float = 0.0
-        //    vDSP_vclip(floatArrPtr, 1, &noiseFloor, &ceil,
-        //                   floatArrPtr, 1, sampleCount);
-        //print(floatArr)
+      
         
         var multiplier = 1.0
         print(multiplier)
