@@ -220,12 +220,14 @@ class SearchUsersViewController: UITableViewController {
         
         let title = NSLocalizedString("New Conversation",
                                       comment: "Create new conversation")
-        let message =  NSLocalizedString("Create conversation with \(usernames) ?",
-                                         comment: "Usernames")
+        let message =  NSLocalizedString("Create conversation with",
+                                         comment: "Usernames") + " \(usernames) ?"
         let alertController = UIAlertController(title: title,
                                       message: message,
                                       preferredStyle: UIAlertControllerStyle.alert)
-        let yesAction = UIAlertAction(title: "Yes", style: .default) { [weak self] (action) in
+        
+        let yesAction = UIAlertAction(title: NSLocalizedString("Yes", comment: ""), style: .default) { [weak self] (action) in
+
             let textField = alertController.textFields?.first!
             if textField?.text != "" {
                 self?.checkmarkedFriends.append(self!.currentUser)
@@ -244,8 +246,8 @@ class SearchUsersViewController: UITableViewController {
             }
         }
         
-        let noAction = UIAlertAction(title: "No", style: .destructive, handler: nil)
-        
+        let noAction = UIAlertAction(title: NSLocalizedString("No", comment: ""), style: .destructive, handler: nil)
+
         alertController.addAction(yesAction)
         alertController.addAction(noAction)
         alertController.addTextField { (textField) in
