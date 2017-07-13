@@ -231,8 +231,22 @@ class CurrentUser {
             }
         }
     }
-        
-        
+    
+    func getUserPicFullResolution(photoURL: String) {
+        manager.getUserPicFullResolution(from: photoURL) {
+            result in
+            switch result {
+            case .successUserPic(let image):
+                print("method \(image)")
+//                result(.successUserPic(image))
+            case . failure(let error):
+                print(error)
+            default:
+                break
+            }
+        }
+    }
+    
         
         
 

@@ -27,6 +27,8 @@ class OptionsMainPageTableViewController:  UITableViewController, UIImagePickerC
         emailLabel.text = currentUser.email
         userImageView.image = currentUser.photo
         
+//        if currentUser.photoURL 
+        
     }
 
     override func viewDidLoad() {
