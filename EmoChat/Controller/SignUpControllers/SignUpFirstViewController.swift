@@ -166,31 +166,31 @@ class SignUpFirstViewController: EmoChatUIViewController, UITextFieldDelegate, R
 		
 		if username.text == "" {
 			username.imageQuestionShowed = true
-			username.textInfoForQuestionLabel = "Username field must not be empty!"
+			username.textInfoForQuestionLabel = NSLocalizedString("Username field must not be empty!", comment: "")
 			username.shake(count: 1, for: 0.05, withTranslation: 15, delay: 0)
             success = false
         }
 		
 		if email.text == "" {
 			email.imageQuestionShowed = true
-			email.textInfoForQuestionLabel = "Email field must not be empty!"
+			email.textInfoForQuestionLabel = NSLocalizedString("Email field must not be empty!", comment: "")
 			email.shake(count: 1, for: 0.05, withTranslation: 15, delay: 0)
             success = false
         }
 		
 		if confirmation.text == "" {
 			confirmation.imageQuestionShowed = true
-			confirmation.textInfoForQuestionLabel = "Confirmation field must not be empty!"
+			confirmation.textInfoForQuestionLabel = NSLocalizedString("Confirmation field must not be empty!", comment: "")
 		} else if password.text != confirmation.text {
 			confirmation.imageQuestionShowed = true
-			confirmation.textInfoForQuestionLabel = "Password doesn't match with your previous input"
+			confirmation.textInfoForQuestionLabel = NSLocalizedString("Password doesn't match with your previous input", comment: "")
 			confirmation.shake(count: 1, for: 0.05, withTranslation: 15, delay: 0)
             success = false
         }
 
 		if password.text == "" {
 			password.imageQuestionShowed = true
-			password.textInfoForQuestionLabel = "Password field must not be empty!"
+			password.textInfoForQuestionLabel = NSLocalizedString("Password field must not be empty!", comment: "")
 			password.shake(count: 1, for: 0.05, withTranslation: 15, delay: 0)
             success = false
         }

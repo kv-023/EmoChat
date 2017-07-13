@@ -71,7 +71,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        navigationItem.backBarButtonItem?.title = "zaaa"
         table.dataSource = self
         table.delegate = self
         table.estimatedRowHeight = table.rowHeight

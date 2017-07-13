@@ -19,7 +19,6 @@
 		519EFB281F1793BC00CC33AE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519EFB271F1793BC00CC33AE /* LoginViewController.swift */; };
 		519EFB2A1F1793E600CC33AE /* ManagerGifBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519EFB291F1793E600CC33AE /* ManagerGifBackground.swift */; };
 		519EFB2C1F1794B800CC33AE /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519EFB2B1F1794B800CC33AE /* StringExtension.swift */; };
-		519EFB2E1F17961200CC33AE /* SingleConversation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 519EFB2D1F17961200CC33AE /* SingleConversation.storyboard */; };
 		519EFB371F17971400CC33AE /* attache.png in Resources */ = {isa = PBXBuildFile; fileRef = 519EFB301F17971400CC33AE /* attache.png */; };
 		519EFB381F17971400CC33AE /* giphy.gif in Resources */ = {isa = PBXBuildFile; fileRef = 519EFB311F17971400CC33AE /* giphy.gif */; };
 		519EFB391F17971400CC33AE /* Loading-Circle.gif in Resources */ = {isa = PBXBuildFile; fileRef = 519EFB321F17971400CC33AE /* Loading-Circle.gif */; };
@@ -82,16 +81,17 @@
 		ED1E2D941EDD75B20058B6A6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */; };
 		F54D21761EE7130600B0B177 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54D21751EE7130600B0B177 /* Regex.swift */; };
 		F54D21781EE7149100B0B177 /* AdditionalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54D21771EE7149000B0B177 /* AdditionalViewController.swift */; };
+		F594A2AF1F17CB63007153E0 /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F594A2B11F17CB63007153E0 /* SignUp.storyboard */; };
+		F594A2B21F17CB69007153E0 /* Options.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F594A2B41F17CB69007153E0 /* Options.storyboard */; };
+		F594A2B51F17CB70007153E0 /* ChatSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F594A2B71F17CB70007153E0 /* ChatSettings.storyboard */; };
+		F594A2B81F17CB76007153E0 /* SingleConversation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F594A2BA1F17CB76007153E0 /* SingleConversation.storyboard */; };
+		F594A2BB1F17CB7B007153E0 /* Confirmation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F594A2BD1F17CB7B007153E0 /* Confirmation.storyboard */; };
+		F594A2BE1F17CB84007153E0 /* Conversations.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F594A2C01F17CB84007153E0 /* Conversations.storyboard */; };
+		F594A2C11F17CB8C007153E0 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F594A2C31F17CB8C007153E0 /* Login.storyboard */; };
+		F594A2C41F17CB90007153E0 /* SearchUsers.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F594A2C61F17CB90007153E0 /* SearchUsers.storyboard */; };
+		F594A2C71F17CB95007153E0 /* UserInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F594A2C91F17CB95007153E0 /* UserInfo.storyboard */; };
 		F5E339401EF6DA5500D224BF /* ChatSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3393F1EF6DA5500D224BF /* ChatSettingsTableViewController.swift */; };
 		FB4317731EE6C24400770338 /* SignUpFirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4317721EE6C24400770338 /* SignUpFirstViewController.swift */; };
-		FB982DD51EE1569700AC2FCD /* ChatSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DCC1EE1569700AC2FCD /* ChatSettings.storyboard */; };
-		FB982DD61EE1569700AC2FCD /* Confirmation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DCD1EE1569700AC2FCD /* Confirmation.storyboard */; };
-		FB982DD71EE1569700AC2FCD /* Conversations.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DCE1EE1569700AC2FCD /* Conversations.storyboard */; };
-		FB982DD81EE1569700AC2FCD /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DCF1EE1569700AC2FCD /* Login.storyboard */; };
-		FB982DD91EE1569700AC2FCD /* Options.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DD01EE1569700AC2FCD /* Options.storyboard */; };
-		FB982DDA1EE1569700AC2FCD /* SearchUsers.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DD11EE1569700AC2FCD /* SearchUsers.storyboard */; };
-		FB982DDB1EE1569700AC2FCD /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DD21EE1569700AC2FCD /* SignUp.storyboard */; };
-		FB982DDD1EE1569700AC2FCD /* UserInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB982DD41EE1569700AC2FCD /* UserInfo.storyboard */; };
 		FBAC19811EF13E1A0027AF9D /* ConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAC19801EF13E1A0027AF9D /* ConfirmationViewController.swift */; };
 		FBF7A9CA1EF012E600ABADF5 /* SignUpChooseYourPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF7A9C91EF012E600ABADF5 /* SignUpChooseYourPhotoViewController.swift */; };
 /* End PBXBuildFile section */
@@ -111,7 +111,6 @@
 		519EFB271F1793BC00CC33AE /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		519EFB291F1793E600CC33AE /* ManagerGifBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerGifBackground.swift; sourceTree = "<group>"; };
 		519EFB2B1F1794B800CC33AE /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
-		519EFB2D1F17961200CC33AE /* SingleConversation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SingleConversation.storyboard; sourceTree = "<group>"; };
 		519EFB301F17971400CC33AE /* attache.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = attache.png; sourceTree = "<group>"; };
 		519EFB311F17971400CC33AE /* giphy.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = giphy.gif; sourceTree = "<group>"; };
 		519EFB321F17971400CC33AE /* Loading-Circle.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Loading-Circle.gif"; sourceTree = "<group>"; };
@@ -177,16 +176,29 @@
 		ED5291B01EE16F24008F8174 /* EmoChat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EmoChat.entitlements; sourceTree = "<group>"; };
 		F54D21751EE7130600B0B177 /* Regex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
 		F54D21771EE7149000B0B177 /* AdditionalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdditionalViewController.swift; sourceTree = "<group>"; };
+		F594A2B01F17CB63007153E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/SignUp.storyboard; sourceTree = "<group>"; };
+		F594A2B31F17CB69007153E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Options.storyboard; sourceTree = "<group>"; };
+		F594A2B61F17CB70007153E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/ChatSettings.storyboard; sourceTree = "<group>"; };
+		F594A2B91F17CB76007153E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/SingleConversation.storyboard; sourceTree = "<group>"; };
+		F594A2BC1F17CB7B007153E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Confirmation.storyboard; sourceTree = "<group>"; };
+		F594A2BF1F17CB84007153E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Conversations.storyboard; sourceTree = "<group>"; };
+		F594A2C21F17CB8C007153E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Login.storyboard; sourceTree = "<group>"; };
+		F594A2C51F17CB90007153E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/SearchUsers.storyboard; sourceTree = "<group>"; };
+		F594A2C81F17CB95007153E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/UserInfo.storyboard; sourceTree = "<group>"; };
+		F594A2CA1F17CBA9007153E0 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/SignUp.strings; sourceTree = "<group>"; };
+		F594A2CB1F17CBAA007153E0 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Options.strings; sourceTree = "<group>"; };
+		F594A2CC1F17CBAA007153E0 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/ChatSettings.strings; sourceTree = "<group>"; };
+		F594A2CD1F17CBAA007153E0 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/SingleConversation.strings; sourceTree = "<group>"; };
+		F594A2CE1F17CBAA007153E0 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Confirmation.strings; sourceTree = "<group>"; };
+		F594A2CF1F17CBAA007153E0 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Conversations.strings; sourceTree = "<group>"; };
+		F594A2D01F17CBAA007153E0 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Login.strings; sourceTree = "<group>"; };
+		F594A2D11F17CBAA007153E0 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/SearchUsers.strings; sourceTree = "<group>"; };
+		F594A2D21F17CBAB007153E0 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/UserInfo.strings; sourceTree = "<group>"; };
+		F594A2D31F17CBAB007153E0 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		F594A2D41F17CBAB007153E0 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		F594A2D51F17CBAB007153E0 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F5E3393F1EF6DA5500D224BF /* ChatSettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatSettingsTableViewController.swift; sourceTree = "<group>"; };
 		FB4317721EE6C24400770338 /* SignUpFirstViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpFirstViewController.swift; sourceTree = "<group>"; };
-		FB982DCC1EE1569700AC2FCD /* ChatSettings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChatSettings.storyboard; sourceTree = "<group>"; };
-		FB982DCD1EE1569700AC2FCD /* Confirmation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Confirmation.storyboard; sourceTree = "<group>"; };
-		FB982DCE1EE1569700AC2FCD /* Conversations.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Conversations.storyboard; sourceTree = "<group>"; };
-		FB982DCF1EE1569700AC2FCD /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
-		FB982DD01EE1569700AC2FCD /* Options.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Options.storyboard; sourceTree = "<group>"; };
-		FB982DD11EE1569700AC2FCD /* SearchUsers.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SearchUsers.storyboard; sourceTree = "<group>"; };
-		FB982DD21EE1569700AC2FCD /* SignUp.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SignUp.storyboard; sourceTree = "<group>"; };
-		FB982DD41EE1569700AC2FCD /* UserInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserInfo.storyboard; sourceTree = "<group>"; };
 		FBAC19801EF13E1A0027AF9D /* ConfirmationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmationViewController.swift; sourceTree = "<group>"; };
 		FBF7A9C91EF012E600ABADF5 /* SignUpChooseYourPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpChooseYourPhotoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -503,15 +515,15 @@
 		FB982DCB1EE1569700AC2FCD /* View */ = {
 			isa = PBXGroup;
 			children = (
-				FB982DD21EE1569700AC2FCD /* SignUp.storyboard */,
-				FB982DD01EE1569700AC2FCD /* Options.storyboard */,
-				FB982DCC1EE1569700AC2FCD /* ChatSettings.storyboard */,
-				519EFB2D1F17961200CC33AE /* SingleConversation.storyboard */,
-				FB982DCD1EE1569700AC2FCD /* Confirmation.storyboard */,
-				FB982DCE1EE1569700AC2FCD /* Conversations.storyboard */,
-				FB982DCF1EE1569700AC2FCD /* Login.storyboard */,
-				FB982DD11EE1569700AC2FCD /* SearchUsers.storyboard */,
-				FB982DD41EE1569700AC2FCD /* UserInfo.storyboard */,
+				F594A2B11F17CB63007153E0 /* SignUp.storyboard */,
+				F594A2B41F17CB69007153E0 /* Options.storyboard */,
+				F594A2B71F17CB70007153E0 /* ChatSettings.storyboard */,
+				F594A2BA1F17CB76007153E0 /* SingleConversation.storyboard */,
+				F594A2BD1F17CB7B007153E0 /* Confirmation.storyboard */,
+				F594A2C01F17CB84007153E0 /* Conversations.storyboard */,
+				F594A2C31F17CB8C007153E0 /* Login.storyboard */,
+				F594A2C61F17CB90007153E0 /* SearchUsers.storyboard */,
+				F594A2C91F17CB95007153E0 /* UserInfo.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -593,6 +605,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 3938C2631EDC27C700D69F88;
 			productRefGroup = 3938C26D1EDC27C700D69F88 /* Products */;
@@ -610,27 +623,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				519EFB371F17971400CC33AE /* attache.png in Resources */,
-				FB982DD81EE1569700AC2FCD /* Login.storyboard in Resources */,
-				FB982DDA1EE1569700AC2FCD /* SearchUsers.storyboard in Resources */,
+				F594A2C11F17CB8C007153E0 /* Login.storyboard in Resources */,
+				F594A2C41F17CB90007153E0 /* SearchUsers.storyboard in Resources */,
 				519EFB3A1F17971400CC33AE /* mail-sent.png in Resources */,
 				519EFB3C1F17971400CC33AE /* send.png in Resources */,
 				519EFB3D1F17971400CC33AE /* transition.gif in Resources */,
 				E70F3DB61F0507D900617235 /* RestUIInfo2.xib in Resources */,
 				3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */,
-				FB982DDB1EE1569700AC2FCD /* SignUp.storyboard in Resources */,
+				F594A2AF1F17CB63007153E0 /* SignUp.storyboard in Resources */,
 				8439F8C61F04FAB1002C63A6 /* ConversationBottomBarView.xib in Resources */,
 				ED1E2D941EDD75B20058B6A6 /* GoogleService-Info.plist in Resources */,
-				FB982DDD1EE1569700AC2FCD /* UserInfo.storyboard in Resources */,
+				F594A2C71F17CB95007153E0 /* UserInfo.storyboard in Resources */,
 				519EFB391F17971400CC33AE /* Loading-Circle.gif in Resources */,
 				519EFB381F17971400CC33AE /* giphy.gif in Resources */,
-				FB982DD71EE1569700AC2FCD /* Conversations.storyboard in Resources */,
+				F594A2BE1F17CB84007153E0 /* Conversations.storyboard in Resources */,
 				E7B926F21EF1487B0018F5FF /* PopOverVC.xib in Resources */,
-				519EFB2E1F17961200CC33AE /* SingleConversation.storyboard in Resources */,
-				FB982DD91EE1569700AC2FCD /* Options.storyboard in Resources */,
+				F594A2B81F17CB76007153E0 /* SingleConversation.storyboard in Resources */,
+				F594A2B21F17CB69007153E0 /* Options.storyboard in Resources */,
 				E7883F3B1EF1C2DA00E876CC /* Localizable.strings in Resources */,
 				3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */,
-				FB982DD61EE1569700AC2FCD /* Confirmation.storyboard in Resources */,
-				FB982DD51EE1569700AC2FCD /* ChatSettings.storyboard in Resources */,
+				F594A2BB1F17CB7B007153E0 /* Confirmation.storyboard in Resources */,
+				F594A2B51F17CB70007153E0 /* ChatSettings.storyboard in Resources */,
 				519EFB3B1F17971400CC33AE /* play-button.png in Resources */,
 				3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */,
 			);
@@ -763,6 +776,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				3938C2741EDC27C700D69F88 /* Base */,
+				F594A2D31F17CBAB007153E0 /* ru */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -771,6 +785,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				3938C2791EDC27C700D69F88 /* Base */,
+				F594A2D41F17CBAB007153E0 /* ru */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -779,8 +794,90 @@
 			isa = PBXVariantGroup;
 			children = (
 				E7883F3C1EF1C2DA00E876CC /* Base */,
+				F594A2D51F17CBAB007153E0 /* ru */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		F594A2B11F17CB63007153E0 /* SignUp.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F594A2B01F17CB63007153E0 /* Base */,
+				F594A2CA1F17CBA9007153E0 /* ru */,
+			);
+			name = SignUp.storyboard;
+			sourceTree = "<group>";
+		};
+		F594A2B41F17CB69007153E0 /* Options.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F594A2B31F17CB69007153E0 /* Base */,
+				F594A2CB1F17CBAA007153E0 /* ru */,
+			);
+			name = Options.storyboard;
+			sourceTree = "<group>";
+		};
+		F594A2B71F17CB70007153E0 /* ChatSettings.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F594A2B61F17CB70007153E0 /* Base */,
+				F594A2CC1F17CBAA007153E0 /* ru */,
+			);
+			name = ChatSettings.storyboard;
+			sourceTree = "<group>";
+		};
+		F594A2BA1F17CB76007153E0 /* SingleConversation.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F594A2B91F17CB76007153E0 /* Base */,
+				F594A2CD1F17CBAA007153E0 /* ru */,
+			);
+			name = SingleConversation.storyboard;
+			sourceTree = "<group>";
+		};
+		F594A2BD1F17CB7B007153E0 /* Confirmation.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F594A2BC1F17CB7B007153E0 /* Base */,
+				F594A2CE1F17CBAA007153E0 /* ru */,
+			);
+			name = Confirmation.storyboard;
+			sourceTree = "<group>";
+		};
+		F594A2C01F17CB84007153E0 /* Conversations.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F594A2BF1F17CB84007153E0 /* Base */,
+				F594A2CF1F17CBAA007153E0 /* ru */,
+			);
+			name = Conversations.storyboard;
+			sourceTree = "<group>";
+		};
+		F594A2C31F17CB8C007153E0 /* Login.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F594A2C21F17CB8C007153E0 /* Base */,
+				F594A2D01F17CBAA007153E0 /* ru */,
+			);
+			name = Login.storyboard;
+			sourceTree = "<group>";
+		};
+		F594A2C61F17CB90007153E0 /* SearchUsers.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F594A2C51F17CB90007153E0 /* Base */,
+				F594A2D11F17CBAA007153E0 /* ru */,
+			);
+			name = SearchUsers.storyboard;
+			sourceTree = "<group>";
+		};
+		F594A2C91F17CB95007153E0 /* UserInfo.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F594A2C81F17CB95007153E0 /* Base */,
+				F594A2D21F17CBAB007153E0 /* ru */,
+			);
+			name = UserInfo.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -790,6 +887,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -840,6 +938,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";

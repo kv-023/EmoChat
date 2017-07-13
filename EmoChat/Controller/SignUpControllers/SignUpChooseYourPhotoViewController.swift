@@ -74,19 +74,19 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
         //handling image picker sourse type
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: {
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Camera", comment: "") , style: .default, handler: {
             action in
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
                 picker.sourceType = .camera
                 self.present(picker, animated: true, completion: nil)
             } else {
-                let alertCameraError = UIAlertController(title: "Camera Error", message: "Some promlems with camera, use the library", preferredStyle: UIAlertControllerStyle.alert)
+                let alertCameraError = UIAlertController(title: NSLocalizedString("Camera Error", comment: ""), message: NSLocalizedString("Some promlems with camera, use the library", comment: "") , preferredStyle: UIAlertControllerStyle.alert)
                 alertCameraError.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
                 self.present(alertCameraError, animated: true, completion: nil)
             }
         }))
         
-        alert.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: {
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Photo Library", comment: ""), style: .default, handler: {
             action in
             if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
                 picker.sourceType = .photoLibrary
@@ -98,7 +98,7 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
             }
         }))
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: "") , style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
         self.present(picker, animated: true, completion: nil)
     }

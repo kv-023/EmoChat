@@ -1,0 +1,66 @@
+
+/* Class = "UILabel"; text = "Tell Friends About Emochat"; ObjectID = "2sV-Lv-adH"; */
+"2sV-Lv-adH.text"        = "Рассказать друзьям";
+
+/* Class = "UITextField"; placeholder = "First Name"; ObjectID = "Aoe-Lr-vZC"; */
+"Aoe-Lr-vZC.placeholder" = "Имя";
+
+/* Class = "UITextField"; placeholder = "Email Address"; ObjectID = "CUU-vZ-7Mh"; */
+"CUU-vZ-7Mh.placeholder" = "Email";
+
+/* Class = "UILabel"; text = "Log out"; ObjectID = "Gw6-Uw-Iqg"; */
+"Gw6-Uw-Iqg.text"        = "Выйти";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Jks-4u-jgz"; */
+"Jks-4u-jgz.text"        = "Label";
+
+/* Class = "UITableViewSection"; headerTitle = "Change your username"; ObjectID = "M7E-As-08f"; */
+"M7E-As-08f.headerTitle" = "Изменить имя пользователя";
+
+/* Class = "UILabel"; text = "Email"; ObjectID = "MlH-Xk-DoF"; */
+"MlH-Xk-DoF.text"        = "Email";
+
+/* Class = "UILabel"; text = "Information about name and photo"; ObjectID = "OTd-Z7-RXc"; */
+"OTd-Z7-RXc.text"        = "Ваше имя и фото профиля";
+
+/* Class = "UILabel"; text = "Info about phone number"; ObjectID = "POu-vl-Tl4"; */
+"POu-vl-Tl4.text"        = "Ваш номер телефона";
+
+/* Class = "UILabel"; text = "Info about username"; ObjectID = "Tdq-WK-Kic"; */
+"Tdq-WK-Kic.text"        = "Ваше имя пользователя";
+
+/* Class = "UITextField"; placeholder = "Second Name"; ObjectID = "Wry-yp-yhp"; */
+"Wry-yp-yhp.placeholder" = "Фамилия";
+
+/* Class = "UILabel"; text = "Information about email"; ObjectID = "biU-5h-oqz"; */
+"biU-5h-oqz.text"        = "Ваш email";
+
+/* Class = "UITableViewSection"; headerTitle = "Enter your email address"; ObjectID = "emi-rF-uy2"; */
+"emi-rF-uy2.headerTitle" = "Введите Ваш email";
+
+/* Class = "UILabel"; text = "Phone Number"; ObjectID = "hEZ-Bk-VIi"; */
+"hEZ-Bk-VIi.text"        = "Номер телефона";
+
+/* Class = "UITextField"; placeholder = "Username"; ObjectID = "hWM-bm-EKQ"; */
+"hWM-bm-EKQ.placeholder" = "Имя пользователя";
+
+/* Class = "UILabel"; text = "Help"; ObjectID = "jNP-cM-SFE"; */
+"jNP-cM-SFE.text"        = "Помощь";
+
+/* Class = "UITextField"; placeholder = "Number Phone"; ObjectID = "lqs-L4-NsD"; */
+"lqs-L4-NsD.placeholder" = "Номер телефона";
+
+/* Class = "UILabel"; text = "online"; ObjectID = "m4L-az-jUJ"; */
+"m4L-az-jUJ.text"        = "онлайн";
+
+/* Class = "UITableViewSection"; headerTitle = "Change your number"; ObjectID = "sdk-aa-gA7"; */
+"sdk-aa-gA7.headerTitle" = "Изменить номер телефона";
+
+/* Class = "UILabel"; text = "Name Lastname"; ObjectID = "tdm-tr-667"; */
+"tdm-tr-667.text"        = "Name Lastname";
+
+/* Class = "UILabel"; text = "Username"; ObjectID = "vDO-12-Egq"; */
+"vDO-12-Egq.text"        = "Имя пользователя";
+
+/* Class = "UIButton"; normalTitle = "Set User Photo"; ObjectID = "yUq-e6-V2W"; */
+"yUq-e6-V2W.normalTitle" = "Выбрать фото";
