@@ -83,4 +83,9 @@
 "No"                                                    = "No";
 "Enter conversation name"                               = "Enter conversation name";
 
-
+//SingleConversVC
+"Delete"                                                = "Delete";
+"Copy"                                                  = "Copy";
+"No messages yet"                                       = "No messages yet";
+"Type message..."                                       = "Type message...";
+"loading ..."                                           = "loading ...";

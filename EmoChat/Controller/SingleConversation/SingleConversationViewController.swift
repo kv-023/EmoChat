@@ -71,7 +71,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.backBarButtonItem?.title = "zaaa"
         table.dataSource = self
         table.delegate = self
         table.estimatedRowHeight = table.rowHeight
@@ -137,11 +136,11 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         let menu = UIMenuController.shared
         menu.setMenuVisible(false, animated: true)
         menu.setTargetRect(cell.contentRect, in: cell.contentView)
-        let item = UIMenuItem(title: "Copy", action: #selector(copyAction(_:)))
+        let item = UIMenuItem(title: NSLocalizedString("Copy", comment: ""), action: #selector(copyAction(_:)))
         menu.menuItems = [item]
         menu.update()
         if cell is RightCell {
-            menu.menuItems?.append(UIMenuItem(title: "Delete", action: #selector(deleteAction(_:))))
+            menu.menuItems?.append(UIMenuItem(title: NSLocalizedString("Delete", comment: ""), action: #selector(deleteAction(_:))))
         }
         
         textMessage.shouldBlockMenuActions = true
@@ -359,7 +358,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         if sortedSections.count == 0 {
             let supportLabel = UILabel()
             supportLabel.textColor = UIColor.lightGray
-            supportLabel.text = "No messages yet"
+            supportLabel.text = NSLocalizedString("No messages yet", comment: "")
             supportLabel.textAlignment = .center
             refresher.removeFromSuperview()
             table.backgroundView = supportLabel
@@ -559,7 +558,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     func setUpTextView () {
         textMessage.delegate = self
-        textMessage.text = "Type message..."
+        textMessage.text = NSLocalizedString("Type message...", comment: "")
         textMessage.textColor = .lightGray
         
         textMessage.layer.cornerRadius = 10
@@ -600,7 +599,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     func textViewDidEndEditing(_ textView: UITextView){
         if (textView.text == ""){
-            textView.text = "Type message..."
+            textView.text = NSLocalizedString("Type message...", comment: "")
             textView.textColor = .lightGray
         }
         textView.isScrollEnabled = false;

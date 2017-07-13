@@ -228,7 +228,7 @@ extension CustomTableViewCell {
                                                        options: nil)?.first as! RestUIInfoView
 
         contentViewCell.eraseAllFields()
-        contentViewCell.captionLabel.text = "loading ..."
+        contentViewCell.captionLabel.text = NSLocalizedString("loading ...", comment: "")
 
         let ccViewHeight = contentViewCell.bounds.height
         contentViewCell.translatesAutoresizingMaskIntoConstraints = false
@@ -297,7 +297,7 @@ extension CustomTableViewCell {
             
             currentSubview.removeFromSuperview()
         }
-    }
+    }   
     
     
     func getRestUIInfoViewFromView(view masterView: UIView) -> Array<RestUIInfoView> {

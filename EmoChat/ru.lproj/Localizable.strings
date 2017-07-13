@@ -87,6 +87,11 @@
 "No"                                                    = "Нет";
 "Enter conversation name"                               = "Введите название беседы";
 
-
+//SingleConversVC
+"Delete"                                                = "Удалить";
+"Copy"                                                  = "Скопировать";
+"No messages yet"                                       = "Нету сообщений";
+"Type message..."                                       = "Сообщение...";
+"loading ..."                                           = "загружаю...";
 
 
