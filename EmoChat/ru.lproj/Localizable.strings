@@ -2,16 +2,91 @@
 
 
 //first sign-up screen
-"ssign-up-error.aapp.regex-check.user-name" = "User name should contain minimum 5 characters and be without spec. symbols!";
-"ssign-up-error.aapp.regex-check.email" = "e-mail should be correct!";
-"ssign-up-error.aapp.regex-check.password" = "Password should contain minimum 6 characters!";
-"ssign-up-error.aapp.regex-check.password-confirmation" = "Password confirmation should match with password!";
+"ssign-up-error.aapp.regex-check.user-name"             = "Имя пользователя должно содержать минимум 5 символов";
+"ssign-up-error.aapp.regex-check.email"                 = "Введите корректный email";
+"ssign-up-error.aapp.regex-check.password"              = "Пароль должен содержать минимум 6 символов!";
+"ssign-up-error.aapp.regex-check.password-confirmation" = "Пароли должны совпадать!";
 
 //second sign-up screen
-"ssign-up-error.aapp.regex-check.name" = "Name should contain max. 18 characters and only 'a-z/(A-Z)' symbols!";
-"ssign-up-error.aapp.regex-check.last-name" = "Last name should contain max. 18 characters and only 'a-z/(A-Z)' symbols!";
-"ssign-up-error.aapp.regex-check.phone" = "Phone should contain max. 13 characters and only '+' and '0-9' symbols!";
+"ssign-up-error.aapp.regex-check.name"                  = "Имя должно содержать 'a-z/(A-Z)' символы!";
+"ssign-up-error.aapp.regex-check.last-name"             = "Фамилия должна содержать 'a-z/(A-Z)' символы!";
+"ssign-up-error.aapp.regex-check.phone"                 = "Телефон должен содержать максимум 13 символов и содержать только '+' и '0-9'!";
+
 
 //log-in screen
-"llog-in-error.aapp.regex-check.email" = "Correct email form is 'name@email.com'";
-"llog-in-error.aapp.regex-check.password" = "Password should contain minimum 6 characters!";
+"llog-in-error.aapp.regex-check.email"                  = "Введите корректную форму email 'name@email.com'";
+"llog-in-error.aapp.regex-check.password"               = "Пароль должен содержать минимум 6 символов!";
+
+//LoginViewController
+"Email must not be empty"                               = "Email не должет быть пустым";
+"Password must not be empty"                            = "Пароль не должен быть пустым";
+"You have succesfuly logged in"                         = "Добро пожаловать";
+"Please confirm your e-mail"                            = "Подтвердите Ваш email";
+
+
+//SignUp First Controller
+"Enter valid username"                                  = "Введите правильное имя пользователя";
+"Username"                                              = "Имя пользователя";
+"Enter valid email"                                     = "Введите правильный email";
+"Enter valid password"                                  = "Введите правильный пароль";
+"Password"                                              = "Пароль";
+"Enter valid confirmation"                              = "Подтвердите пароль";
+"Confirmation"                                          = "Подтвердите пароль";
+"Enter username"                                        = "Введите имя пользователя";
+"Enter email"                                           = "Введите email";
+"Passwords do not match"                                = "Пароли должны совпадать";
+"Enter password"                                        = "Введите пароль";
+
+"Username field must not be empty!"                     = "Имя пользователя не должно быть пустым!";
+"Email field must not be empty!"                        = "Email не должен быть пустым!";
+"Confirmation field must not be empty!"                 = "Подтвердите пароль!";
+"Password doesn't match with your previous input"       = "Пароли должны совпадать!";
+"Password field must not be empty!"                     = "Пароль не должен быть пустым!";
+
+
+//SignUp AdditionalInfo
+"Enter valid name"                                      = "Введите правильное имя";
+"Enter valid last name"                                 = "Введите правильную фамилию";
+"Last Name"                                             = "Фамилия";
+"First Name"                                            = "Имя";
+
+//SignUp Photo
+"Camera Error"                                          = "Ошибка";
+"Some promlems with camera, use the library"            = "Ошибка камеры, выберите фото с галереи";
+"Camera"                                                = "Камера";
+
+//ConversationsDataSource
+"Yesterday"                                             = "Вчера";
+
+//Chat settings
+"CHAT SETTINGS"                                         = "НАСТРОЙКИ ЧАТА";
+"USERS IN CONVERSATION"                                 = "ДРУЗЬЯ В ЧАТЕ";
+"Choose new conversation logo"                          = "Выберите логотип беседы";
+"Image Source"                                          = "Новое фото";
+"Cancel"                                                = "Отмена";
+"Photo Library"                                         = "Фотопленка";
+
+//OptionsChangeController
+"Enter valid Email"                                     = "Введите правильный email";
+"Email is valid"                                        = "Email подходит";
+"Phone number is valid"                                 = "Номер телефона подходит";
+"Username is taken"                                     = "Такое имя пользователя уже существует";
+"Username is valid"                                     = "Имя пользователя подходит";
+"Enter valid username"                                  = "Введите правильное имя пользователя";
+"Enter valid phone number"                              = "Введите правильный номер телефона";
+
+//SearchUsersViewController
+"Create Conversation"                                   = "Создать беседу";
+"Search users..."                                       = "Поиск";
+"Done"                                                  = "Готово";
+"Contacts"                                              = "Мои контакты";
+"Global search"                                         = "Глобальный поиск";
+"New Conversation"                                      = "Новая беседа";
+"Create conversation with"                              = "Создать беседу с";
+"Yes"                                                   = "Да";
+"No"                                                    = "Нет";
+"Enter conversation name"                               = "Введите название беседы";
+
+
+
+
