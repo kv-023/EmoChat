@@ -10,13 +10,17 @@ import Foundation
 
 class MessageModel: RegexCheckProtocol {
 
-    var message:Message?
+    weak var message: Message?
+    var dataForRestUIInfoView: DataForRestUIInfoView?
     var messageURLData: MessageURLDataType {
         didSet {
 //            for (key3, value3) in messageURLData {
 //                print("key: \(key3), value:\(String(describing: value3))")
 //            }
         }
+    }
+    var containsUrlLinks:Bool {
+        return messageURLData.count > 0
     }
 
     var messageURLDataIsReady:Bool = false
@@ -42,6 +46,11 @@ class MessageModel: RegexCheckProtocol {
         messageURLData = [:]
     }
 
+    deinit {
+        messageURLData = [:]
+        message = nil
+    }
+
     convenience init(message: Message) {
         self.init()
         self.message = message
@@ -55,7 +64,7 @@ class MessageModel: RegexCheckProtocol {
 
         //https://www.raywenderlich.com/148515/grand-central-dispatch-tutorial-swift-3-part-2
         DispatchQueue.global(qos: .userInitiated).asyncAfter(
-            deadline: .now() + .seconds(delay), execute: {
+            deadline: .now() + .seconds(delay), execute: {[unowned self] in
 
             var tempMessageURLData: MessageURLDataType = [:]
             let downloadGroup = DispatchGroup()
@@ -84,5 +93,16 @@ class MessageModel: RegexCheckProtocol {
             }
         })
     }
-    
+}
+
+//MARK:- MessageModel Hashable
+
+extension MessageModel: Hashable {
+    var hashValue: Int {
+        return self.uid?.hashValue ?? 0
+    }
+}
+
+func == (lhs: MessageModel, rhs: MessageModel) -> Bool {
+    return lhs.uid == rhs.uid
 }

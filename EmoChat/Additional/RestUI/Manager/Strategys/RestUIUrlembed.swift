@@ -30,6 +30,8 @@ final class RestUIUrlembed: RestUIStrategy {
                                              requestUrl: urlForConnect)
 
                 completion(urlModel)
+            } else {
+                completion(nil)
             }
         }
     }
@@ -47,6 +49,6 @@ final class RestUIUrlembed: RestUIStrategy {
     func getLinkForResponse(forUrl urlResource:String) -> String {
         let backSlashString = "/"
 
-        return String(httpAdress+backSlashString+apiKey+backSlashString+urlResource)
+        return String(self.httpAdress+backSlashString+self.apiKey+backSlashString+urlResource)
     }
 }

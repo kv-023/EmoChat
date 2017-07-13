@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SystemConfiguration
 
 enum RightType {
     case sent
@@ -20,27 +21,53 @@ enum UserType {
 
 
 
-class SingleConversationViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate{
+class SingleConversationViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate {
+    //
+    //    private struct Constants {
+    //        static let leadingConstraint: CGFloat = 8.0
+    //    }
+    //
+    // MARK: - constants
+    let leadingConstraintConstant: CGFloat = 8.0
+    let trailingConstraintConstant: CGFloat = 8.0
+    let topConstraintConstant: CGFloat = 8.0
     
-    static var selectedCell: CustomTableViewCell?
-    
+    // MARK: - IBOutlets
+    @IBOutlet weak var sendMessageButton: UIButton!
+    @IBOutlet weak var emoRequestButton: UIButton!
+    @IBOutlet weak var plusButton: UIButton!
+    @IBOutlet weak var textMessageLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var inputSubView: UIView!
     
     @IBOutlet weak var textMessage: CustomTextView!
+    @IBOutlet weak var additionalBottomBarView: ConversationBottomBarView!
+    @IBOutlet weak var textMessageBottomConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var textMessageTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var table: UITableView!
     
     @IBOutlet weak var textViewMaxHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var loadingView: UIView!
+    
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
     var manager: ManagerFirebase?
     var currentUser: User!
     var currentConversation: Conversation!
     var firstMessage : Message?
-    var messagesArray: [(Message, UserType)] = []
+    
+    var sortedSections: [String] = []
+    var messagesArrayWithSection: [String : [(Message, UserType)]] = [:]
+    
     var refresher: UIRefreshControl!
     var cellResized = Set<CustomTableViewCell>()
-    
+    var messageRestModel: [Message: MessageModel?] = [:]
     var messageRecognized: Message!
+    var photosArray: [String: UIImage] = [:]
+    var group = DispatchGroup()
+    var multipleChat = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,26 +80,23 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         refresher = UIRefreshControl()
         table.backgroundView = refresher
         refresher.addTarget(self, action: #selector(updateUI), for: UIControlEvents.valueChanged)
-        table.addSubview(refresher)
+        table.alwaysBounceVertical = true
+        loadingIndicator.startAnimating()
+        loadingIndicator.hidesWhenStopped = true
         
-        if !messagesArray.isEmpty {
-            table.scrollToRow(at: IndexPath(row: messagesArray.count - 1, section: 0),
-                              at: .top, animated: false)
-        }
         self.setUpTextView()
         manager = ManagerFirebase.shared
         
         group.enter()
         manager?.getUsersInConversation(conversation: self.currentConversation,
                                         completion: { (users) in
-            self.currentConversation.usersInConversation = users
-            self.downloadPhotos()
-            self.group.leave()
+                                            self.currentConversation.usersInConversation = users
+                                            self.downloadPhotos()
+                                            self.group.leave()
+                                            
         })
-
-        group.notify(queue: DispatchQueue.main, execute: {
-            self.observeNewMessage()
-        })
+        
+        navigationItem.title = currentConversation.name!
         
         self.observeDeletion()
         
@@ -81,32 +105,74 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         setupKeyboardObservers()
         
         self.setUpFrame()
+
+        self.observeNewMessage()
         
+        group.notify(queue: DispatchQueue.main, execute: {
+//            DispatchQueue.global().async {
+              self.updateUI()
+            
+ //           }
+            if self.currentConversation.usersInConversation.count > 2 {
+                self.multipleChat = true
+            }
+        })
+        
+        group.enter()
+        manager?.isConversationEmpty(currentConversation) { result in
+            if result {
+                self.loadingView.isHidden = true
+            }
+            self.group.leave()
+        }
         
     }
     
+
     func showMenu(forCell cell: CustomTableViewCell) {
+        
         guard table.indexPath(for: cell) != nil else {
             return
         }
-        
         let menu = UIMenuController.shared
+        menu.setMenuVisible(false, animated: true)
         menu.setTargetRect(cell.contentRect, in: cell.contentView)
         let item = UIMenuItem(title: "Copy", action: #selector(copyAction(_:)))
         menu.menuItems = [item]
         menu.update()
-        
         if cell is RightCell {
             menu.menuItems?.append(UIMenuItem(title: "Delete", action: #selector(deleteAction(_:))))
         }
+        
+        textMessage.shouldBlockMenuActions = true
+        
         menu.setMenuVisible(true, animated: true)
+        
+        textMessage.shouldBlockMenuActions = false
+        UIMenuController.shared.menuItems = []
         
         messageRecognized = cell.messageEntity
     }
     
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        return action == #selector(copyAction(_:)) || action == #selector(deleteAction(_:))
+    }
     //functionality
     
     func copyAction(_ sender: Any?) {
+        var content: String
+        if multipleChat && !(manager?.isMessageFromCurrentUser(messageRecognized))! {
+            var contentArray = messageRecognized.content!.content.characters.split(separator: "\n")
+            contentArray.remove(at: 0)
+            let tempContent = contentArray.flatMap({String($0)})
+            content = tempContent.joined(separator: "\n")
+        } else {
+            content = messageRecognized.content!.content
+        }
         UIPasteboard.general.string = messageRecognized.content!.content
     }
     
@@ -114,15 +180,24 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         deleteMessage(messageRecognized)
     }
     
-    func removeAtUid(_ uid: String) {
-        let indexOfMessage: Int = messagesArray.index(where: {tuple in
-            if tuple.0.uid == uid {
-                return true
-            } else {
-                return false
+    func removeMessageFromDictionary (index: (index: Int, section: String)?) {
+        if let indexResult = index, let count = messagesArrayWithSection[index!.section]?.count {
+            switch count {
+            case 0:
+                return
+            case 1:
+                sortedSections.remove(at: (sortedSections.index(of: indexResult.section))!)
+                messagesArrayWithSection.removeValue(forKey: indexResult.section)
+            default:
+                messagesArrayWithSection[indexResult.section]?.remove(at: indexResult.index)
             }
-        })!
-        messagesArray.remove(at: indexOfMessage)
+        }
+    }
+    
+    func removeAtUid(_ uid: String) {
+        let result = self.findMessageInDictionary(with: uid)
+        messageRestModel.removeValue(forKey: ((messagesArrayWithSection[result!.1]?[result!.0])?.0)!)
+        self.removeMessageFromDictionary(index: result)
         table.reloadData()
     }
     
@@ -136,23 +211,36 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         }
     }
     
+    func findMessageInDictionary(with uid: String) -> (index: Int, section: String)? {
+        var result: (index: Int, section: String)? = nil
+        for section in self.messagesArrayWithSection {
+            if let index = section.value.index(where: { (message, typeRight) -> Bool in
+                message.uid == uid
+            }) {
+                result = (index, section.key)
+            }
+        }
+        return result
+    }
+    
     func observeNewMessage () {
-        self.manager?.getMessageFromConversation([self.currentConversation], result: { (conv, newMessage) in
-            if let lastMessageTime = self.messagesArray.last?.0.time {
+        manager?.getMessageFromConversation([self.currentConversation]) { (conv, newMessage) in
+            if let lastSection = self.sortedSections.last, let lastMessageTime = self.messagesArrayWithSection[lastSection]?.last?.0.time {
                 if lastMessageTime > newMessage.time {
                     return
                 }
             }
+            
             if let res = self.manager?.isMessageFromCurrentUser(newMessage) {
                 if res == true {
                     
-                    let index = self.messagesArray.index(where: { (message, typeRight) -> Bool in
-                        message.uid == newMessage.uid
-                    })
+                    //check if sending message was delivered via findMessageInDictionary
+                    //if yes should mark it as 'sent'
                     
-                    if let i = index, let item = (self.table.cellForRow(at: IndexPath.init(row: i, section: 0)) as? RightCell) {
+                    //find cell with this message
+                    if let i = self.findMessageInDictionary(with: newMessage.uid!), let item = (self.table.cellForRow(at: IndexPath.init(row: i.index, section: self.sortedSections.index(of: i.section)!)) as? RightCell) {
                         item.isReceived = true
-                        self.messagesArray[i].1 = .right(.sent)
+                        self.messagesArrayWithSection[i.section]?[i.index].1 = .right(.sent)
                     } else {
                         self.insertRow((newMessage, .right(.sent)))
                     }
@@ -162,46 +250,48 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 }
                 
             }
-            if !self.messagesArray.isEmpty {
-                self.table.scrollToRow(at: IndexPath.init(row: self.messagesArray.count - 1, section: 0), at: .top, animated: false)
+            if !self.messagesArrayWithSection.isEmpty {
+                self.table.scrollToRow(at: IndexPath.init(row: (self.messagesArrayWithSection[self.sortedSections.last!]?.count)! - 1, section: self.sortedSections.count - 1), at: .top, animated: false)
             }
-        })
+            
+        }
+        
     }
     
     @IBAction func sendMessage(_ sender: UIButton) {
-        
-        let result:MessageOperationResult? = manager?.createMessage(
-            conversation: currentConversation!,
-            sender: currentUser,
-            content: (.text, textMessage.text))
-
-        switch (result!) {
-        case .successSingleMessage(let message):
-            insertRow((message, .right(.sending)))
-        case .failure(let string):
-            print(string)
-        default:
-            break
+        if textMessage.textColor != UIColor.lightGray && !textMessage.text.isEmpty && textMessage.text[textMessage.text.startIndex] != " " {
+            let result:MessageOperationResult? = manager?.createMessage(
+                conversation: currentConversation!,
+                sender: currentUser,
+                content: (.text, textMessage.text))
+            
+            switch (result!) {
+            case .successSingleMessage(let message):
+                insertRow((message, .right(.sending)))
+            case .failure(let string):
+                print(string)
+            default:
+                break
+            }
+            
+            if !self.messagesArrayWithSection.isEmpty {
+                self.table.scrollToRow(at: IndexPath.init(row: (self.messagesArrayWithSection[self.sortedSections.last!]?.count)! - 1, section: self.sortedSections.count - 1), at: .top, animated: false)
+            }
+            
+            //clean textView
+            textMessage.text = ""
+            textMessage.isScrollEnabled = false;
+            
+            self.textViewMaxHeightConstraint.isActive = false
+            
+            
+            //firstMessage = messagesArray.first?.0 //messagesArray[0].0
         }
-        
-        if !messagesArray.isEmpty {
-            self.table.scrollToRow(at: IndexPath(row: messagesArray.count - 1, section: 0),
-                                   at: .top,
-                                   animated: false)
-        }
-
-        //clean textView
-        textMessage.text = ""
-        textMessage.isScrollEnabled = false;
-
-        self.textViewMaxHeightConstraint.isActive = false
-        
-        firstMessage = messagesArray.first?.0 //messagesArray[0].0
     }
     
     //download 20 last messages
     func updateUI() {
-        if let firstMessage = messagesArray.first?.0 {
+        if let firstMessage = messagesArrayWithSection[sortedSections[0]]!.first?.0 {
             self.refresher.endRefreshing()
             let initialOffset = self.table.contentOffset.y
             
@@ -214,22 +304,21 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                         arrayOfMessagesAndTypes.append((each, .left))
                     }
                 }
+                let startIndex = self.messagesArrayWithSection[self.sortedSections.first!]?.count
+                let startSection = self.sortedSections[0]
                 self.insertRows(arrayOfMessagesAndTypes)
                 self.table.reloadData()
-                self.table.scrollToRow(at: IndexPath.init(row: arrayOfMessagesAndTypes.count+1, section: 0), at: .top, animated: false)
+                self.table.scrollToRow(at: IndexPath.init(row: (self.messagesArrayWithSection[startSection]?.count)! - startIndex!, section: self.sortedSections.index(of: startSection)!), at: .top, animated: false)
                 self.table.contentOffset.y += initialOffset
+                self.loadingView.isHidden = true
             })
         }
     }
-
-
+    
+    
     
     
     //MARK: - photos
-    
-    var photosArray: [String: UIImage] = [:]
-    
-    var group = DispatchGroup()
     
     func downloadPhotos () {
         
@@ -259,7 +348,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if tableView.isDragging {
-            cell.transform = CGAffineTransform.init(scaleX: 0.8, y: 0.8)
+            cell.transform = CGAffineTransform.init(scaleX: 0.9, y: 0.9)
             UIView.animate(withDuration: 0.3, animations: {
                 cell.transform = CGAffineTransform.identity
             })
@@ -267,16 +356,28 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        if sortedSections.count == 0 {
+            let supportLabel = UILabel()
+            supportLabel.textColor = UIColor.lightGray
+            supportLabel.text = "No messages yet"
+            supportLabel.textAlignment = .center
+            refresher.removeFromSuperview()
+            table.backgroundView = supportLabel
+        } else {
+            table.backgroundView = nil
+            table.addSubview(refresher)
+        }
+        return sortedSections.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messagesArray.count
+        return messagesArrayWithSection[sortedSections[section]]!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let message = messagesArray[indexPath.row]
+        let message = messagesArrayWithSection[sortedSections[indexPath.section]]![indexPath.row]
+        //messagesArray[indexPath.row]
         
         
         switch message.1 {
@@ -284,8 +385,29 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "Left", for: indexPath) as? LeftCell else {
                 fatalError("Cell was not casted!")
             }
+            cell.message.attributedText = NSAttributedString(string: "")
             cell.singleConversationControllerDelegate = self
+            if multipleChat {
+                let user = currentConversation.usersInConversation.first(where: {user in
+                    return user.uid == message.0.senderId
+                })
+                let name = NSMutableAttributedString(string: "")
+                if let first = user?.firstName {
+                    name.append(NSMutableAttributedString(string: first, attributes: [NSFontAttributeName : UIFont.boldSystemFont(ofSize: CGFloat.init(15.0))]))
+                }
+                if let second = user?.secondName {
+                    name.append(NSMutableAttributedString(string: " \(second)", attributes: [NSFontAttributeName : UIFont.boldSystemFont(ofSize: CGFloat.init(15.0))]))
+                }
+                if name == NSMutableAttributedString(string: "") {
+                    name.append(NSMutableAttributedString(string: (user?.username)!, attributes: [NSFontAttributeName : UIFont.boldSystemFont(ofSize: CGFloat.init(15.0))]))
+                }
+                name.append(NSAttributedString(string: "\n"))
+                cell.name = name
+            }
             cell.messageEntity = message.0
+            
+            setMessageModelInCell(currentCell: cell, message: cell.messageEntity)
+            
             cell.time.text = message.0.time.formatDate()
             cell.userPic.image = self.photosArray[message.0.senderId]
             cell.delegate = self
@@ -294,8 +416,13 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "Right", for: indexPath) as? RightCell else {
                 fatalError("Cell was not casted!")
             }
+            cell.message.text = ""
             cell.singleConversationControllerDelegate = self
+            cell.message.text = ""
             cell.messageEntity = message.0
+            
+            setMessageModelInCell(currentCell: cell, message: cell.messageEntity)
+            
             cell.userPic.image = self.photosArray[message.0.senderId]
             switch message.1 {
             case .right(.sent) :
@@ -310,6 +437,52 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         }
     }
     
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView(frame: .zero)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.01
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 18
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor(red: 242, green: 242, blue: 242)
+        let newlabel = UILabel()
+        newlabel.textAlignment = .center
+        newlabel.font = UIFont.systemFont(ofSize: 14)
+        newlabel.text = sortedSections[section]
+        
+        headerView.addSubview(newlabel)
+        newlabel.translatesAutoresizingMaskIntoConstraints = false
+        headerView.addConstraint(NSLayoutConstraint(item: newlabel, attribute: .leading, relatedBy: .equal, toItem: headerView, attribute: .leading, multiplier: 1.0, constant: 0))
+        headerView.addConstraint(NSLayoutConstraint(item: newlabel, attribute: .trailing, relatedBy: .equal, toItem: headerView, attribute: .trailing, multiplier: 1.0, constant: 20.0))
+        headerView.addConstraint(NSLayoutConstraint(item: newlabel, attribute: .top, relatedBy: .equal, toItem: headerView, attribute: .top, multiplier: 1.0, constant: 0))
+        headerView.addConstraint(NSLayoutConstraint(item: newlabel, attribute: .bottom, relatedBy: .equal, toItem: headerView, attribute: .bottom, multiplier: 1.0, constant: 0))
+        
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sortedSections[section]
+    }
+    
+    //nik
+    private func setMessageModelInCell(currentCell cell: CustomTableViewCell,
+                                       message messageEntity: Message?) {
+        if let notNullMessageEntity = messageEntity,
+            let messageModelInDictionary = messageRestModel[notNullMessageEntity] as? MessageModel {
+
+            cell.messageModel = messageModelInDictionary
+        } else {
+            cell.messageModel = nil
+        }
+    }
     
     func setUpFrame() {
         if let rect = self.navigationController?.navigationBar.frame {
@@ -318,38 +491,70 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         }
     }
     
+    //MARK: - Additional methods for adding new message to tableView
+    func createNewSection (date: Date) -> String {
+        if !sortedSections.isEmpty && (date.dayFormatStyleDate() < (messagesArrayWithSection[sortedSections[0]]?.first!.0.time.dayFormatStyleDate())!) {
+            self.sortedSections.insert(date.dayFormatStyle(), at: 0)
+        } else {
+            self.sortedSections.append(date.dayFormatStyle())
+        }
+        
+        self.messagesArrayWithSection.updateValue([], forKey: date.dayFormatStyle())
+        table.reloadData()
+        return date.dayFormatStyle()
+    }
+    
+    func findAppropriateSection(for message: Message) -> String? {
+        return sortedSections.contains(message.time.dayFormatStyle()) ? message.time.dayFormatStyle() : nil
+    }
+    
+    func addMessageToTheEndOfDictionary (_ message: (Message, UserType)) -> IndexPath {
+        let nameOfSection = self.findAppropriateSection(for: message.0) ?? self.createNewSection(date: message.0.time)
+        self.messagesArrayWithSection[nameOfSection]?.append(message)
+        return IndexPath(row: (messagesArrayWithSection[nameOfSection]?.count)! - 1, section: sortedSections.index(of: nameOfSection)!)
+    }
+    
+    func addMessageAtTheBeginningOfDictionary (_ message: (Message, UserType))  {
+        let nameOfSection = self.findAppropriateSection(for: message.0) ?? self.createNewSection(date: message.0.time)
+        self.messagesArrayWithSection[nameOfSection]?.insert(message, at: 0)
+    }
+    
+    func addMessagesToDictionary (_ messages: [(Message, UserType)]) {
+        for each in messages.reversed() {
+            self.addMessageAtTheBeginningOfDictionary(each)
+        }
+    }
     
     func insertRow(_ newMessage: (Message, UserType)) {
-        messagesArray.append((newMessage.0, newMessage.1))
-        table.beginUpdates()
-        table.insertRows(at: [IndexPath(row: messagesArray.count - 1, section: 0)], with: .automatic)
-        table.endUpdates()
+        let indexPath = self.addMessageToTheEndOfDictionary(newMessage)
+        table.insertRows(at: [indexPath], with: .none)
+        
     }
     
     func insertRows (_ newMessages: [(Message, UserType)]) {
-        messagesArray = newMessages + messagesArray
+        self.addMessagesToDictionary(newMessages)
     }
     
-
+    
     func tableView(_ tableView: UITableView,
                    heightForRowAt indexPath: IndexPath) -> CGFloat {
-
-//        var cellHeightForReturn:CGFloat = UITableViewAutomaticDimension
-//
-//        if let cellInstance = table.cellForRow(at: indexPath) as? SingleConversationUITableViewCell {
-//            if cellResized.contains(cellInstance) {
-//
-//                cellHeightForReturn = cellInstance.temporaryCellHeight + cellInstance.extraCellHeiht
-//            }
-//
-//            return cellHeightForReturn
-//        } else {
-//            return UITableViewAutomaticDimension
-//        }
-
+        
+        //        var cellHeightForReturn:CGFloat = UITableViewAutomaticDimension
+        //
+        //        if let cellInstance = table.cellForRow(at: indexPath) as? SingleConversationUITableViewCell {
+        //            if cellResized.contains(cellInstance) {
+        //
+        //                cellHeightForReturn = cellInstance.temporaryCellHeight + cellInstance.extraCellHeiht
+        //            }
+        //
+        //            return cellHeightForReturn
+        //        } else {
+        //            return UITableViewAutomaticDimension
+        //        }
+        
         return UITableViewAutomaticDimension
     }
-
+    
     //MARK: - text view
     
     func setUpTextView () {
@@ -384,7 +589,13 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             textView.text = ""
             textView.textColor = .black
         }
-        textView.becomeFirstResponder() //Optional
+        //textView.becomeFirstResponder() //Optional
+        
+        if plusButton.isSelected {
+            plusButton.isSelected = false
+            animateBottomBar(plusIsSelected: plusButton.isSelected)
+        }
+        self.animateTextViewTransitions(becomeFirstResponder: true)
     }
     
     func textViewDidEndEditing(_ textView: UITextView){
@@ -395,11 +606,19 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         textView.isScrollEnabled = false;
         self.textViewMaxHeightConstraint.isActive = false
         textView.resignFirstResponder()
+        
+        self.animateTextViewTransitions(becomeFirstResponder: false)
     }
     
-    //MARK: - subview to text and send message
+//    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+//        
+//    }
     
-    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
+    //    override func viewWillLayoutSubviews() {
+    //        table.reloadData()
+    //    }
+    
+    //MARK: - subview to text and send message
     
     func setupKeyboardObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: .UIKeyboardWillShow, object: nil)
@@ -422,14 +641,12 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             self.bottomConstraint.constant = keyboardSize.height
             UIView.animate(withDuration: keyboardDuration,
                            animations: {
-                self.view.layoutIfNeeded()
+                            self.view.layoutIfNeeded()
             })
-
-            if !messagesArray.isEmpty {
-                table.scrollToRow(at: IndexPath(row: messagesArray.count - 1,
-                                                     section: 0), at: .top, animated: false)
-            }
-        }
+            
+            if !self.messagesArrayWithSection.isEmpty {
+                self.table.scrollToRow(at: IndexPath.init(row: (self.messagesArrayWithSection[self.sortedSections.last!]?.count)! - 1, section: self.sortedSections.count - 1), at: .top, animated: false)
+            }        }
     }
     
     @IBAction func hideKeyboard(_ sender: Any) {
@@ -440,27 +657,144 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
         //TODO: remove observers
     }
+    
+    // MARK: - Check Internet Connection
+    
+    func connectedToNetwork() -> Bool {
+        
+        var zeroAddress = sockaddr_in()
+        zeroAddress.sin_len = UInt8(MemoryLayout<sockaddr_in>.size)
+        zeroAddress.sin_family = sa_family_t(AF_INET)
+        
+        guard let defaultRouteReachability = withUnsafePointer(to: &zeroAddress, {
+            $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {
+                SCNetworkReachabilityCreateWithAddress(nil, $0)
+            }
+        }) else {
+            return false
+        }
+        
+        var flags: SCNetworkReachabilityFlags = []
+        if !SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags) {
+            return false
+        }
+        
+        let isReachable = flags.contains(.reachable)
+        let needsConnection = flags.contains(.connectionRequired)
+        
+        return (isReachable && !needsConnection)
+    }
+    
+    // MARK: - Actions
+    
+    @IBAction func actionEmoRequestButton(_ sender: UIButton) {
+        if emoRequestButton.isSelected {
+            emoRequestButton.isSelected = false
+        } else {
+            emoRequestButton.isSelected = true
+        }
+    }
+    
+    @IBAction func actionPlusButton(_ sender: UIButton) {
+        
+        if plusButton.isSelected {
+            plusButton.isSelected = false
+        } else {
+            plusButton.isSelected = true
+        }
+        self.animateBottomBar(plusIsSelected: plusButton.isSelected)
+    }
+    
+    // MARK: - BottomBarAnimations
+    
+    func animateBottomBar(plusIsSelected: Bool) {
+        
+        view.layoutIfNeeded()
+        
+        let height = additionalBottomBarView.frame.height
+        
+        if plusIsSelected {
+            textMessageBottomConstraint.constant += height + topConstraintConstant
+            textMessageLeadingConstraint.constant -= (leadingConstraintConstant * 2) + emoRequestButton.frame.width + plusButton.frame.width//two buttons so 2 extra spaces
+            textMessageTrailingConstraint.constant -= sendMessageButton.frame.width + trailingConstraintConstant
+            self.additionalBottomBarView.isHidden = !plusIsSelected
+        } else {
+            textMessageBottomConstraint.constant -= height + topConstraintConstant
+            textMessageLeadingConstraint.constant = leadingConstraintConstant
+            textMessageTrailingConstraint.constant = trailingConstraintConstant
+        }
+        
+        UIView.animate(withDuration: 0.5,
+                       delay: 0.0,
+                       usingSpringWithDamping: 0.7,
+                       initialSpringVelocity: 0,
+                       options: [.curveLinear],
+                       animations: {
+                        self.view.layoutIfNeeded()
+                        if plusIsSelected {
+                            self.additionalBottomBarView.alpha = 1.0
+                        } else {
+                            self.additionalBottomBarView.alpha = 0.0
+                        }
+        },
+                       completion: { _ in
+                        self.additionalBottomBarView.isHidden = !plusIsSelected
+        })
+    }
+    
+    func animateTextViewTransitions(becomeFirstResponder: Bool) {
+        
+        view.layoutIfNeeded()
+        
+        let width = plusButton.frame.width + leadingConstraintConstant
+        
+        if becomeFirstResponder {
+            textMessageLeadingConstraint.constant -= width
+        } else {
+            textMessageLeadingConstraint.constant += width
+            self.plusButton.isHidden = becomeFirstResponder
+        }
+        
+        UIView.animate(withDuration: 0.5,
+                       delay: 0.0,
+                       usingSpringWithDamping: 0.7,
+                       initialSpringVelocity: 0,
+                       options: [.curveLinear],
+                       animations: {
+                        self.view.layoutIfNeeded()
+                        if becomeFirstResponder {
+                            self.plusButton.alpha = 0.0
+                        } else {
+                            self.plusButton.alpha = 1.0
+                        }
+        },
+                       completion: { (_) in
+                        self.plusButton.isHidden = becomeFirstResponder
+        })
+    }
+    
+    
 }
 
 //MARK:- SingleConversationCellProtocol
 extension SingleConversationViewController: SingleConversationControllerProtocol {
-
+    
     func resizeSingleConversationCell(cell: CustomTableViewCell) {
         if let indexPath = table.indexPath(for: cell) {
-
+            
             cellResized.insert(cell)
-
+            
             table.beginUpdates()
             table.rectForRow(at: indexPath)
-
+            
             cell.temporaryCellHeight = table.rectForRow(at: indexPath).height// - cell.extraCellHeiht
-
+            
             //self.tableView.reloadRows(at: [indexPath],
             //                          with: UITableViewRowAnimation.automatic)
             // self.tableView.moveRow(at: indexPath, to: indexPath)
@@ -471,18 +805,24 @@ extension SingleConversationViewController: SingleConversationControllerProtocol
         }
     }
     
+    func addMessageModelInSingleConversationDictionary(message: Message,
+                                                       model: MessageModel?) {
+
+        messageRestModel.updateValue(model, forKey: message)
+    }
+    
 }
+
+//MARK:- SingleConversationViewController
+
 extension SingleConversationViewController : CellDelegate {
+    
     func cellDelegate(_ sender: UITableViewCell, didHandle action: Action) {
         if action == .longPress {
-            
             if let cell = sender as? CustomTableViewCell {
-                cell.message.becomeFirstResponder()
-                SingleConversationViewController.selectedCell = cell
-                showMenu(forCell: cell)
+                    showMenu(forCell: cell)
             }
         }
     }
-    
     
 }

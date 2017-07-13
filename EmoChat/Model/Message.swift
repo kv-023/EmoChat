@@ -47,10 +47,18 @@ class Message {
             self.content = (type: MessageContentType.video, content: video as! String)
         } else if let text = media?.value(forKey: "text") {
             self.content = (type: MessageContentType.text, content: text as! String)
-        }
-        
+        }        
     }
-    
+}
 
+//MARK:- MessageModel Hashable
 
+extension Message: Hashable {
+    var hashValue: Int {
+        return self.uid?.hashValue ?? 0
+    }
+}
+
+func == (lhs: Message, rhs: Message) -> Bool {
+    return lhs.uid == rhs.uid
 }

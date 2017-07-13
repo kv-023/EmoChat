@@ -46,6 +46,7 @@ class ManagerFirebase {
     let ref: DatabaseReference?
     let storageRef: StorageReference
     let conversationsRef: DatabaseReference?
+    let observerTuplesRef: DatabaseReference?
     let newRef: DatabaseReference?
     public static let shared = ManagerFirebase()
     
@@ -53,6 +54,7 @@ class ManagerFirebase {
         self.ref = Database.database().reference()
         self.storageRef = Storage.storage().reference()
         self.conversationsRef = Database.database().reference()
+        self.observerTuplesRef = Database.database().reference()
         self.newRef = Database.database().reference()
     }
     
@@ -246,7 +248,7 @@ class ManagerFirebase {
     /*
      Generate array of conversation without messages from snapshot
      */
-    private func getConversetionsFromSnapshot (_ value: NSDictionary?, accordingTo arrayID: [String], currentUserEmail email: String) -> [Conversation] {
+    func getConversetionsFromSnapshot (_ value: NSDictionary?, accordingTo arrayID: [String], currentUserEmail email: String) -> [Conversation] {
         var conversations = [Conversation]()
         
         for eachConv in arrayID {
@@ -376,11 +378,68 @@ class ManagerFirebase {
         }
     }
     
-    
 
+        
+    //MARK: - Conversation logo
+    func createLogo (selectedUsers: [User], conversationID: String) -> String {
+            var array = [UIImage]()
+        
+            //create reference
+            let imagePath = "conversLogos/\(conversationID)/logo.jpg"
+            let metaData = StorageMetadata()
+            metaData.contentType = "image/jpeg"
+        
+            for user in selectedUsers {
+                self.getUserPic(from: user.photoURL!, result: { (result) in
+                    switch result {
+                    case let .successUserPic(img):
+                        array.append(img)
+                    default: print("Error")
+                    }
+                })
+            }
+    
+            let finalImage = UIImage.createFinalImg(logoImages: array)
+            let imageData = UIImageJPEGRepresentation(finalImage, 1)
+ 
+            self.storageRef.child(imagePath).putData(imageData!, metadata: metaData)
+            self.ref?.child("conversations/\(conversationID)/logoURL").setValue(imagePath)
+        
+            return imagePath
+        }
     
     
-    //MARK: Update profile
+    func loadLogo (_ image: UIImage, conversationID: String, result: @escaping (UserOperationResult) -> Void) {
+        if (Auth.auth().currentUser?.uid) != nil {
+            guard let chosenImageData = UIImageJPEGRepresentation(image, 1) else {
+                result(.failure(NSLocalizedString("Something went wrong", comment: "Undefined error")))
+                return
+            }
+            
+            //create reference
+            let imagePath = "conversLogos/\(conversationID)/logo.jpg"
+            
+            let metaData = StorageMetadata()
+            metaData.contentType = "image/jpeg"
+            
+            //add to firebase
+            
+            self.storageRef.child(imagePath).putData(chosenImageData, metadata: metaData) { (metaData, error) in
+                
+                if error != nil {
+                    result(.failure((error?.localizedDescription)!))
+                } else {
+                    self.ref?.child("conversations/\(conversationID)/logoURL").setValue(imagePath)
+                    result(.success)
+                    
+                }
+            }
+        } else {
+            result(.failure(NSLocalizedString("User isn't authenticated", comment: "")))
+        }
+    }
+    
+    //MARK: - Update profile
     func changeInfo (phoneNumber: String?, firstName: String?, secondName: String?, result: @escaping (UserOperationResult) -> Void) {
         if let uid = Auth.auth().currentUser?.uid{
             var childUpdates = [String: String] ()
@@ -512,7 +571,7 @@ class ManagerFirebase {
     }
     
     // MARK: - Conversations
-    func createConversation(_ members: [User], withName name: String? = nil) -> ConversationOperationResult {
+    func createConversation(_ members: [User], withName name: String? = nil, completion: @escaping (ConversationOperationResult) -> Void) {
         
         let timeStamp = NSNumber(value:Date().timeIntervalSince1970 * 1000.0)
         let key = ref?.child("conversations").childByAutoId().key
@@ -538,10 +597,9 @@ class ManagerFirebase {
                 
                 ref?.child("users/\(member.uid!)/conversations/\(conversation.uuid)").setValue(true)
             }
-        
-            return .successSingleConversation(conversation)
+            completion(.successSingleConversation(conversation))
         } else {
-            return .failure(NSLocalizedString("Something went wrong", comment: "Undefined error"))
+            completion(.failure(NSLocalizedString("Conversation was not created", comment: "")))
         }
         
     }
@@ -562,7 +620,7 @@ class ManagerFirebase {
             var childUpdates = [String: Any] ()
             childUpdates.updateValue(message.senderId!, forKey: "senderId")
             childUpdates.updateValue(timeStamp.intValue, forKey: "time")
-            childUpdates.updateValue(message.content.content, forKey: "content/\(message.content.type)")
+            childUpdates.updateValue(message.content.content, forKey: "content/\((message.content?.type)!)")
 
             messageRef.updateChildValues(childUpdates)
 
@@ -610,7 +668,7 @@ class ManagerFirebase {
     
     func getMessageFromConversation (_ allConversations: [Conversation], result: @escaping (Conversation, Message) -> Void) {
         for eachConv in allConversations{
-            self.ref?.child("conversations/\(eachConv.uuid)/messagesInConversation").queryLimited(toLast: 20).observe(.childAdded, with: {(snapshot) in
+            self.ref?.child("conversations/\(eachConv.uuid)/messagesInConversation").queryLimited(toLast: 1).observe(.childAdded, with: {(snapshot) in
                 let uidMessage = snapshot.key
                 let messageSnapshot = snapshot.value as? NSDictionary
                 let message = Message(data: messageSnapshot, uid: uidMessage)
@@ -639,6 +697,16 @@ class ManagerFirebase {
             result(messages)
         })
         
+    }
+    
+    func isConversationEmpty(_ conversation: Conversation, result: @escaping (Bool) -> Void) {
+        let newRef = self.ref?.child("conversations/\(conversation.uuid)/messagesInConversation")
+        newRef?.queryLimited(toLast: 1).observeSingleEvent(of: .value, with: {snapshot in
+            if snapshot.childrenCount == 0 {
+                result(true)
+            } else {
+                result(false)
+            }})
     }
     
     func isMessageFromCurrentUser (_ message: Message) -> Bool {
@@ -744,7 +812,7 @@ class ManagerFirebase {
         var conversations: [Conversation] = []
         
         let conversationsDispatchGroup = DispatchGroup()
-        
+
         ref?.child("conversations").observeSingleEvent(of: .value, with: { [weak self] (snapshot) in
             
             let upperBound: Int!
@@ -864,6 +932,8 @@ class ManagerFirebase {
         }
         
         messageRef.queryLimited(toLast: 1).observeSingleEvent(of: .value, with: { (messagesSnapshot) in
+            
+            guard messagesSnapshot.exists() else { return }
             //get last message snapshot
             let messageSnapshot = messagesSnapshot.children.allObjects[0] as! DataSnapshot
             

@@ -19,7 +19,7 @@ class ConversationsController: UITableViewController {
         super.viewDidLoad()
 
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 100
+        tableView.estimatedRowHeight = 77
         
         tableView.dataSource = conversationsDataSource
         conversationsDataSource.tableView = tableView
@@ -50,16 +50,14 @@ class ConversationsController: UITableViewController {
     
     // MARK: - UITableViewDelegate
     
-    override func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
-        print(#function)
-        return proposedDestinationIndexPath
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showSingleConversation" {
             let vc = segue.destination as! SingleConversationViewController
             vc.currentConversation = self.selectedConversation
             vc.currentUser = conversationsDataSource.currentUser
+            let backItem = UIBarButtonItem()
+            backItem.title = "Back"
+            navigationItem.backBarButtonItem = backItem
         }
         
     }
