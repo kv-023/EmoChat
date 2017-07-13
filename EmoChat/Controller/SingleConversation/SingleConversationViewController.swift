@@ -61,7 +61,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     var sortedSections: [String] = []
     var messagesArrayWithSection: [String : [(Message, UserType)]] = [:]
     
-    var messagesArray: [(Message, UserType)] = []
     var refresher: UIRefreshControl!
     var cellResized = Set<CustomTableViewCell>()
     var messageRestModel: [Message: MessageModel?] = [:]
@@ -106,12 +105,14 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         setupKeyboardObservers()
         
         self.setUpFrame()
+
+        self.observeNewMessage()
         
         group.notify(queue: DispatchQueue.main, execute: {
-            DispatchQueue.global().async {
-                self.observeNewMessage()
-                self.loadingView.isHidden = true
-            }
+//            DispatchQueue.global().async {
+              self.updateUI()
+            
+ //           }
             if self.currentConversation.usersInConversation.count > 2 {
                 self.multipleChat = true
             }
@@ -309,6 +310,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 self.table.reloadData()
                 self.table.scrollToRow(at: IndexPath.init(row: (self.messagesArrayWithSection[startSection]?.count)! - startIndex!, section: self.sortedSections.index(of: startSection)!), at: .top, animated: false)
                 self.table.contentOffset.y += initialOffset
+                self.loadingView.isHidden = true
             })
         }
     }
@@ -607,6 +609,10 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         
         self.animateTextViewTransitions(becomeFirstResponder: false)
     }
+    
+//    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+//        
+//    }
     
     //    override func viewWillLayoutSubviews() {
     //        table.reloadData()
