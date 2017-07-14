@@ -21,12 +21,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if Auth.auth().currentUser != nil {
             if let info = ArchiverManager.shared.loadData()?.getNameOrUsername() {
                 print(info)
-
             }
+            
+            launchConversationsViewController()
         }
   
 		return true
 	}
+    
+    private func launchConversationsViewController () {
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+
+        let storyboard = UIStoryboard.init(name: "Conversations", bundle: nil)
+        
+        let viewController = storyboard.instantiateViewController(withIdentifier: "RootNav") as! UINavigationController
+        
+        self.window?.rootViewController = viewController
+        self.window?.makeKeyAndVisible()
+    }
 
 	func applicationWillResignActive(_ application: UIApplication) {
 		// Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

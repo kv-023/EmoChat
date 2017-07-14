@@ -90,8 +90,8 @@
 //SingleConversVC
 "Delete"                                                = "Удалить";
 "Copy"                                                  = "Скопировать";
-"No messages yet"                                       = "Нету сообщений";
-"Type message..."                                       = "Сообщение...";
-"loading ..."                                           = "загружаю...";
+"No messages yet"                                       = "Нет сообщений";
+"Type message..."                                       = "Введите сообщение...";
+"loading ..."                                           = "загрузка...";
 
 

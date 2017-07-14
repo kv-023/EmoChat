@@ -588,7 +588,7 @@
 				TargetAttributes = {
 					3938C26B1EDC27C700D69F88 = {
 						CreatedOnToolsVersion = 8.3.1;
-						DevelopmentTeam = TA84XW3A99;
+						DevelopmentTeam = DB3E36CSLR;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
@@ -984,7 +984,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = TA84XW3A99;
+				DEVELOPMENT_TEAM = DB3E36CSLR;
 				INFOPLIST_FILE = EmoChat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.serve.Emochat;
@@ -1000,7 +1000,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = TA84XW3A99;
+				DEVELOPMENT_TEAM = DB3E36CSLR;
 				INFOPLIST_FILE = EmoChat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.serve.Emochat;

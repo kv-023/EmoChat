@@ -28,7 +28,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="77"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="A8c-ue-4H4" id="g9f-NM-atA">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="76.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="77"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Conversation name Conversation name Conversation name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HMO-f7-ZWC">
@@ -131,9 +131,9 @@
         <!--Navigation Controller-->
         <scene sceneID="0Td-Eg-OIv">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ffh-No-9mc" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="RootNav" automaticallyAdjustsScrollViewInsets="NO" id="ffh-No-9mc" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="D7t-V7-2U3">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="D7t-V7-2U3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

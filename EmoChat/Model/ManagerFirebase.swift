@@ -83,6 +83,18 @@ class ManagerFirebase {
         }
     }
     
+    
+    //MARK: Sign out
+    func singOut (result: @escaping (UserOperationResult) -> Void) {
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+        } catch let signOutError as NSError {
+            result(.failure(signOutError.description))
+        }
+        result(.success)
+    }
+    
     // MARK: Log In
     /*
         You can pass a closure which take the result as a string
