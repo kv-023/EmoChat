@@ -109,6 +109,14 @@ class OptionsMainPageTableViewController:  UITableViewController, UIImagePickerC
             case "showPhotoAndName":
                 let destinationVC = segue.destination as! OptionsChangePhotoNameSecondNameTableViewController
                 destinationVC.currentUser = currentUserVC
+            case "signOut":
+                    switch manager.singOut() {
+                    case .failure(let error):
+                        print(error)
+                    default:
+                        break
+                    }
+                
             default:
                 break
             }

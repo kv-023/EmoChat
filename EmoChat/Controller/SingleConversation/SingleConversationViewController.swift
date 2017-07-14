@@ -68,6 +68,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     var photosArray: [String: UIImage] = [:]
     var group = DispatchGroup()
     var multipleChat = false
+    var isEmpty = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,10 +109,10 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         self.observeNewMessage()
         
         group.notify(queue: DispatchQueue.main, execute: {
-//            DispatchQueue.global().async {
-              self.updateUI()
-            
- //           }
+
+            if !self.isEmpty {
+                self.updateUI()
+            }
             if self.currentConversation.usersInConversation.count > 2 {
                 self.multipleChat = true
             }
@@ -121,13 +122,22 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         manager?.isConversationEmpty(currentConversation) { result in
             if result {
                 self.loadingView.isHidden = true
+            } else {
+                self.isEmpty = false
             }
             self.group.leave()
         }
         
     }
     
-
+    func setUpFrame() {
+        if let rect = self.navigationController?.navigationBar.frame {
+            let y = rect.size.height + rect.origin.y
+            table.frame = CGRect(x: table.frame.minX, y: table.frame.minY + y, width: table.frame.width, height: table.frame.height - y)
+        }
+    }
+    
+    //MARK: - Menu
     func showMenu(forCell cell: CustomTableViewCell) {
         
         guard table.indexPath(for: cell) != nil else {
@@ -160,8 +170,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         return action == #selector(copyAction(_:)) || action == #selector(deleteAction(_:))
     }
-    //functionality
     
+    //functionality
     func copyAction(_ sender: Any?) {
         var content: String
         if multipleChat && !(manager?.isMessageFromCurrentUser(messageRecognized))! {
@@ -179,6 +189,52 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         deleteMessage(messageRecognized)
     }
     
+    //MARK: - Additional methods for adding new message to tableView
+    func createNewSection (date: Date) -> String {
+        if !sortedSections.isEmpty && (date.dayFormatStyleDate() < (messagesArrayWithSection[sortedSections[0]]?.first!.0.time.dayFormatStyleDate())!) {
+            self.sortedSections.insert(date.dayFormatStyle(), at: 0)
+        } else {
+            self.sortedSections.append(date.dayFormatStyle())
+        }
+        
+        self.messagesArrayWithSection.updateValue([], forKey: date.dayFormatStyle())
+        table.reloadData()
+        return date.dayFormatStyle()
+    }
+    
+    func findAppropriateSection(for message: Message) -> String? {
+        return sortedSections.contains(message.time.dayFormatStyle()) ? message.time.dayFormatStyle() : nil
+    }
+    
+    func addMessageToTheEndOfDictionary (_ message: (Message, UserType)) -> IndexPath {
+        let nameOfSection = self.findAppropriateSection(for: message.0) ?? self.createNewSection(date: message.0.time)
+        self.messagesArrayWithSection[nameOfSection]?.append(message)
+        return IndexPath(row: (messagesArrayWithSection[nameOfSection]?.count)! - 1, section: sortedSections.index(of: nameOfSection)!)
+    }
+    
+    func addMessageAtTheBeginningOfDictionary (_ message: (Message, UserType))  {
+        let nameOfSection = self.findAppropriateSection(for: message.0) ?? self.createNewSection(date: message.0.time)
+        self.messagesArrayWithSection[nameOfSection]?.insert(message, at: 0)
+    }
+    
+    func addMessagesToDictionary (_ messages: [(Message, UserType)]) {
+        for each in messages.reversed() {
+            self.addMessageAtTheBeginningOfDictionary(each)
+        }
+    }
+    
+    func insertRow(_ newMessage: (Message, UserType)) {
+        let indexPath = self.addMessageToTheEndOfDictionary(newMessage)
+        table.insertRows(at: [indexPath], with: .none)
+        
+    }
+    
+    func insertRows (_ newMessages: [(Message, UserType)]) {
+        self.addMessagesToDictionary(newMessages)
+    }
+
+    
+    //MARK: - Add and delete messages
     func removeMessageFromDictionary (index: (index: Int, section: String)?) {
         if let indexResult = index, let count = messagesArrayWithSection[index!.section]?.count {
             switch count {
@@ -249,9 +305,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 }
                 
             }
-            if !self.messagesArrayWithSection.isEmpty {
-                self.table.scrollToRow(at: IndexPath.init(row: (self.messagesArrayWithSection[self.sortedSections.last!]?.count)! - 1, section: self.sortedSections.count - 1), at: .top, animated: false)
-            }
+            self.scrollToLastMessage()
             
         }
         
@@ -273,18 +327,14 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 break
             }
             
-            if !self.messagesArrayWithSection.isEmpty {
-                self.table.scrollToRow(at: IndexPath.init(row: (self.messagesArrayWithSection[self.sortedSections.last!]?.count)! - 1, section: self.sortedSections.count - 1), at: .top, animated: false)
-            }
+            scrollToLastMessage()
             
             //clean textView
             textMessage.text = ""
             textMessage.isScrollEnabled = false;
             
             self.textViewMaxHeightConstraint.isActive = false
-            
-            
-            //firstMessage = messagesArray.first?.0 //messagesArray[0].0
+
         }
     }
     
@@ -314,26 +364,32 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         }
     }
     
+    func scrollToLastMessage () {
+        if !self.messagesArrayWithSection.isEmpty {
+            self.table.scrollToRow(at: IndexPath.init(row: (self.messagesArrayWithSection[self.sortedSections.last!]?.count)! - 1, section: self.sortedSections.count - 1), at: .top, animated: false)
+        }
+    }
     
     
     
-    //MARK: - photos
+    
+    //MARK: - Photos
     
     func downloadPhotos () {
         
         for member in currentConversation.usersInConversation{
             group.enter()
             if let photoURL = member.photoURL {
-                manager?.getUserPic(from: photoURL, result: { (result) in
+                manager?.getUserPic(from: photoURL, result: { [weak self] (result) in
                     switch result {
                     case .successUserPic(let image):
-                        self.photosArray.updateValue(image, forKey: member.uid)
+                        self?.photosArray.updateValue(image, forKey: member.uid)
                     case .failure(let error) :
                         print(error)
                     default:
                         break
                     }
-                    self.group.leave()
+                    self?.group.leave()
                 })
             }
             else {
@@ -483,56 +539,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         }
     }
     
-    func setUpFrame() {
-        if let rect = self.navigationController?.navigationBar.frame {
-            let y = rect.size.height + rect.origin.y
-            table.frame = CGRect(x: table.frame.minX, y: table.frame.minY + y, width: table.frame.width, height: table.frame.height - y)
-        }
-    }
+
     
-    //MARK: - Additional methods for adding new message to tableView
-    func createNewSection (date: Date) -> String {
-        if !sortedSections.isEmpty && (date.dayFormatStyleDate() < (messagesArrayWithSection[sortedSections[0]]?.first!.0.time.dayFormatStyleDate())!) {
-            self.sortedSections.insert(date.dayFormatStyle(), at: 0)
-        } else {
-            self.sortedSections.append(date.dayFormatStyle())
-        }
-        
-        self.messagesArrayWithSection.updateValue([], forKey: date.dayFormatStyle())
-        table.reloadData()
-        return date.dayFormatStyle()
-    }
-    
-    func findAppropriateSection(for message: Message) -> String? {
-        return sortedSections.contains(message.time.dayFormatStyle()) ? message.time.dayFormatStyle() : nil
-    }
-    
-    func addMessageToTheEndOfDictionary (_ message: (Message, UserType)) -> IndexPath {
-        let nameOfSection = self.findAppropriateSection(for: message.0) ?? self.createNewSection(date: message.0.time)
-        self.messagesArrayWithSection[nameOfSection]?.append(message)
-        return IndexPath(row: (messagesArrayWithSection[nameOfSection]?.count)! - 1, section: sortedSections.index(of: nameOfSection)!)
-    }
-    
-    func addMessageAtTheBeginningOfDictionary (_ message: (Message, UserType))  {
-        let nameOfSection = self.findAppropriateSection(for: message.0) ?? self.createNewSection(date: message.0.time)
-        self.messagesArrayWithSection[nameOfSection]?.insert(message, at: 0)
-    }
-    
-    func addMessagesToDictionary (_ messages: [(Message, UserType)]) {
-        for each in messages.reversed() {
-            self.addMessageAtTheBeginningOfDictionary(each)
-        }
-    }
-    
-    func insertRow(_ newMessage: (Message, UserType)) {
-        let indexPath = self.addMessageToTheEndOfDictionary(newMessage)
-        table.insertRows(at: [indexPath], with: .none)
-        
-    }
-    
-    func insertRows (_ newMessages: [(Message, UserType)]) {
-        self.addMessagesToDictionary(newMessages)
-    }
     
     
     func tableView(_ tableView: UITableView,
@@ -554,7 +562,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         return UITableViewAutomaticDimension
     }
     
-    //MARK: - text view
+    //MARK: - Text view
     
     func setUpTextView () {
         textMessage.delegate = self
@@ -609,15 +617,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         self.animateTextViewTransitions(becomeFirstResponder: false)
     }
     
-//    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-//        
-//    }
-    
-    //    override func viewWillLayoutSubviews() {
-    //        table.reloadData()
-    //    }
-    
-    //MARK: - subview to text and send message
+    //MARK: - Keyboard actions
     
     func setupKeyboardObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: .UIKeyboardWillShow, object: nil)
@@ -643,9 +643,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                             self.view.layoutIfNeeded()
             })
             
-            if !self.messagesArrayWithSection.isEmpty {
-                self.table.scrollToRow(at: IndexPath.init(row: (self.messagesArrayWithSection[self.sortedSections.last!]?.count)! - 1, section: self.sortedSections.count - 1), at: .top, animated: false)
-            }        }
+            scrollToLastMessage()
+        }
     }
     
     @IBAction func hideKeyboard(_ sender: Any) {
@@ -660,7 +659,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
-        //TODO: remove observers
+        //TODO: remove observers from Firebase
     }
     
     // MARK: - Check Internet Connection
@@ -794,9 +793,6 @@ extension SingleConversationViewController: SingleConversationControllerProtocol
             
             cell.temporaryCellHeight = table.rectForRow(at: indexPath).height// - cell.extraCellHeiht
             
-            //self.tableView.reloadRows(at: [indexPath],
-            //                          with: UITableViewRowAnimation.automatic)
-            // self.tableView.moveRow(at: indexPath, to: indexPath)
             cell.updateConstraintsIfNeeded()
             cell.previewContainer.updateConstraintsIfNeeded()
             table.endUpdates()

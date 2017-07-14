@@ -262,7 +262,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="WhU-If-oRj" kind="presentation" id="cCo-fC-vgU"/>
+                                            <segue destination="WhU-If-oRj" kind="presentation" identifier="signOut" id="cCo-fC-vgU"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>

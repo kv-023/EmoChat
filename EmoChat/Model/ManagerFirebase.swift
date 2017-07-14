@@ -85,14 +85,14 @@ class ManagerFirebase {
     
     
     //MARK: Sign out
-    func singOut (result: @escaping (UserOperationResult) -> Void) {
+    func singOut () -> UserOperationResult {
         let firebaseAuth = Auth.auth()
         do {
             try firebaseAuth.signOut()
         } catch let signOutError as NSError {
-            result(.failure(signOutError.description))
+            return .failure(signOutError.description)
         }
-        result(.success)
+        return .success
     }
     
     // MARK: Log In
