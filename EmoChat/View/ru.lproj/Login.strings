@@ -1,0 +1,21 @@
+
+/* Class = "UITextField"; placeholder = "example@example.com"; ObjectID = "Vp7-IZ-JzE"; */
+"Vp7-IZ-JzE.placeholder" = "example@example.com";
+
+/* Class = "UIButton"; normalTitle = "SIGN IN"; ObjectID = "bYC-FF-8D6"; */
+"bYC-FF-8D6.normalTitle" = "ВХОД";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "g4g-Ca-vAU"; */
+"g4g-Ca-vAU.placeholder" = "Пароль";
+
+/* Class = "UILabel"; text = "Username"; ObjectID = "oPG-ot-pH6"; */
+"oPG-ot-pH6.text"        = "Email";
+
+/* Class = "UIButton"; normalTitle = "Sign Up"; ObjectID = "pJg-Fs-pwq"; */
+"pJg-Fs-pwq.normalTitle" = "Регистрация";
+
+/* Class = "UILabel"; text = "Don't have an account?"; ObjectID = "vxy-HU-iRD"; */
+"vxy-HU-iRD.text"        = "Нету аккаунта?";
+
+/* Class = "UILabel"; text = "Password"; ObjectID = "zKC-dO-BYz"; */
+"zKC-dO-BYz.text"        = "Пароль";

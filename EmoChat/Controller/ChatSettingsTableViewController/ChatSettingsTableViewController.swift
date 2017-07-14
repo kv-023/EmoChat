@@ -23,7 +23,7 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
     var conversation: Conversation!
     var conversations: [Conversation]?
     
-    let userDefaults = UserDefaults.standard
+    //let userDefaults = UserDefaults.standard
     let kDefaultsCellLogo = "conversationLogo"
    
     var avatar = [UIImage]()
@@ -33,13 +33,7 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
         super.viewDidLoad()
         tableView.contentInset = UIEdgeInsetsMake(28, 0, 0, 0)
         usersInConversation = ["Ivan Ivanych", "Valentin", "Stepan Stepanov", "realman"]
-        let im = UIImage.init(named: "111.png")
-        let im2 = UIImage.init(named: "222.png")
-        let im3 = UIImage.init(named: "333.png")
-        let im4 = UIImage.init(named: "444.png")
         
-        avatar = [im!, im2!, im3!, im4!]
-    
     
          manager = ManagerFirebase.shared
         
@@ -142,7 +136,7 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
             //userCell.textLabel?.text = "Name LastName"
             userCell.userPic.clipsToBounds = true
             userCell.userPic.layer.cornerRadius =  22
-            userCell.userPic.image = avatar[indexPath.row]
+          //  userCell.userPic.image = avatar[indexPath.row]
             userCell.userName.text = usersInConversation[indexPath.row]
             
             return userCell
@@ -161,9 +155,9 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 1:
-            return "CHAT SETTINGS"
+            return NSLocalizedString("CHAT SETTINGS", comment: "")
         case 2:
-            return "\(usersInConversation.count) USERS IN CONVERSATION"
+            return NSLocalizedString("USERS IN CONVERSATION", comment: "")
         default:
             return ""
         }
@@ -204,9 +198,9 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
     
-        let alert = UIAlertController(title: "Image Source", message: "Choose new conversation logo", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: NSLocalizedString("Image Source", comment: "Image Source") , message: NSLocalizedString("Choose new conversation logo", comment: "Choose new conversation logo") , preferredStyle: .actionSheet)
     
-        alert.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: {
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Photo Library", comment: "Photo Library"), style: .default, handler: {
             action in
             if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
                 
@@ -217,7 +211,7 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
             )
         )
     
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"), style: .cancel, handler: nil))
     
         self.present(alert, animated: true, completion: nil)
         self.present(imagePicker, animated: true, completion: nil)
@@ -234,7 +228,7 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
         
         let imgData = UIImageJPEGRepresentation(chosenImage, 1)
         
-        userDefaults.set(imgData, forKey: kDefaultsCellLogo)
+        //userDefaults.set(imgData, forKey: kDefaultsCellLogo)
         
         
         //Add image to firebase

@@ -1,0 +1,15 @@
+
+/* Class = "UINavigationItem"; title = "Conversations"; ObjectID = "0FM-20-btW"; */
+"0FM-20-btW.title" = "Диалоги";
+
+/* Class = "UILabel"; text = "Conversation name Conversation name Conversation name"; ObjectID = "HMO-f7-ZWC"; */
+"HMO-f7-ZWC.text"  = "Conversation name Conversation name Conversation name";
+
+/* Class = "UILabel"; text = "15:00"; ObjectID = "WJQ-VX-wu9"; */
+"WJQ-VX-wu9.text"  = "15:00";
+
+/* Class = "UILabel"; text = "Last message Last message Last message Last message Last message Last message "; ObjectID = "aon-ed-H52"; */
+"aon-ed-H52.text"  = "Last message Last message Last message Last message Last message Last message ";
+
+/* Class = "UIBarButtonItem"; title = "Options"; ObjectID = "tay-zl-S5V"; */
+"tay-zl-S5V.title" = "Настройки";

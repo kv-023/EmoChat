@@ -188,14 +188,14 @@ class LoginViewController: EmoChatUIViewController, UITextFieldDelegate {
 			if emailField.text == "" {
 	
 				emailField.imageQuestionShowed = true
-				emailField.textInfoForQuestionLabel = "Email must not be empty"
+				emailField.textInfoForQuestionLabel = NSLocalizedString("Email must not be empty", comment: "") 
 
 			}
 
 			if passwordField.text == "" {
 
 				passwordField.imageQuestionShowed = true
-				passwordField.textInfoForQuestionLabel = "Password must not be empty"
+				passwordField.textInfoForQuestionLabel = NSLocalizedString("Password must not be empty", comment: "")
 
 			}
 
@@ -246,7 +246,7 @@ class LoginViewController: EmoChatUIViewController, UITextFieldDelegate {
 				if user != nil && (user?.isEmailVerified)! {
 					
 					self.activityIndicator.startAnimating()
-					self.errorLabel.text = ("You have succesfuly logged in")
+					self.errorLabel.text =  NSLocalizedString("You have succesfuly logged in", comment: "")
 					self.errorLabel.textColor = UIColor.green
 					
 					// Slow delay between transition to conversations. Go to conversation through Segue
@@ -273,7 +273,7 @@ class LoginViewController: EmoChatUIViewController, UITextFieldDelegate {
 						
 					} else {
 						
-						self.errorLabel.text = ("Please confirm your e-mail")
+						self.errorLabel.text = NSLocalizedString("Please confirm your e-mail", comment: "")
 						self.errorLabel.textColor = UIColor.red
 						
 					}
