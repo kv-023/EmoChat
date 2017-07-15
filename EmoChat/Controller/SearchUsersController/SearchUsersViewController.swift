@@ -41,6 +41,8 @@ class SearchUsersViewController: UITableViewController {
     // MARK: - ViewController lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        extendedLayoutIncludesOpaqueBars = true
 
         managerFirebase.getCurrentUser { [weak self] (result) in
             switch result {
@@ -55,8 +57,7 @@ class SearchUsersViewController: UITableViewController {
             }
         }
         
-        let createConversationButton = UIBarButtonItem(title: NSLocalizedString("Create Conversation",
-                                                                                comment: ""),
+        let createConversationButton = UIBarButtonItem(title: NSLocalizedString("Create Conversation", comment: ""),
                                                        style: .plain,
                                                        target: self,
                                                        action: #selector(createConversationAction(_:)))
