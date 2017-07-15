@@ -27,7 +27,7 @@ class OptionsMainPageTableViewController:  UITableViewController, UIImagePickerC
         emailLabel.text = currentUser.email
         userImageView.image = currentUser.photo
         
-//        if currentUser.photoURL 
+
         
     }
 
@@ -39,5 +39,8 @@ class OptionsMainPageTableViewController:  UITableViewController, UIImagePickerC
         //Temp login and get current user
         currentUser.tempLogIn()
         currentUser.tempGetCurrentUser()
+        
+       //     currentUser.getUserPicFullResolution(photoURL: currentUser.photoURL!)
+    
     }
 }

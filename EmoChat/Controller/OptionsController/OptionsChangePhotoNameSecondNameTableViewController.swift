@@ -18,11 +18,7 @@ class OptionsChangePhotoNameSecondNameTableViewController: UITableViewController
     
     
     override func viewWillAppear(_ animated: Bool) {
-        
-        //Add info in view controller
-        firstNameTextField.text = currentUser.firstName
-        lastNaneTexField.text = currentUser.secondName
-        
+
     }
     
     
@@ -37,6 +33,16 @@ class OptionsChangePhotoNameSecondNameTableViewController: UITableViewController
         
         //Hide keybord on tap
         self.hideKeyboard()
+        
+        //Add info in view controller
+        firstNameTextField.text = currentUser.firstName
+        lastNaneTexField.text = currentUser.secondName
+        
+        userPhotoView.contentMode = .scaleAspectFill
+        userPhotoView.clipsToBounds = true
+        userPhotoView.layer.cornerRadius = userPhotoView.frame.width/2
+        
+        userPhotoView.image = currentUser.photo
     }
     
     func saveInformation(sender: UIBarButtonItem) {
@@ -58,9 +64,7 @@ class OptionsChangePhotoNameSecondNameTableViewController: UITableViewController
         guard let chosenImage = info[UIImagePickerControllerEditedImage] as? UIImage else { return }
         
         //Add image to view
-        userPhotoView.contentMode = .scaleAspectFill
-        userPhotoView.clipsToBounds = true
-        userPhotoView.layer.cornerRadius = userPhotoView.frame.width/2
+
         userPhotoView.image = chosenImage
         
         currentUser.addPhoto(chosenImage: chosenImage)
