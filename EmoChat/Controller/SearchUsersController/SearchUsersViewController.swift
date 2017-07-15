@@ -237,7 +237,8 @@ class SearchUsersViewController: UITableViewController {
                                                          completion: { (result) in
                     switch result {
                     case let .successSingleConversation(conversation):
-                        _ = self!.managerFirebase.createLogo(selectedUsers: self!.checkmarkedFriends, conversationID: conversation.uuid)
+                        print("success")
+                        //_ = self!.managerFirebase.createLogo(selectedUsers: self!.checkmarkedFriends, conversationID: conversation.uuid)
                     default:
                         print("Conversation was not created")
                     }
