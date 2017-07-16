@@ -33,6 +33,7 @@
 		84312F931EE94FB600FAC4D1 /* SearchUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84312F921EE94FB600FAC4D1 /* SearchUsersViewController.swift */; };
 		8439F8C61F04FAB1002C63A6 /* ConversationBottomBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8439F8C51F04FAB1002C63A6 /* ConversationBottomBarView.xib */; };
 		8439F8C81F04FB62002C63A6 /* ConversationBottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8439F8C71F04FB62002C63A6 /* ConversationBottomBarView.swift */; };
+		843C58C51F1C0D7F00355ACD /* VideoPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843C58C41F1C0D7F00355ACD /* VideoPlayerViewController.swift */; };
 		84530F371F0C1E8300EBFCEB /* ImageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84530F361F0C1E8300EBFCEB /* ImageStore.swift */; };
 		84530F391F0C35DD00EBFCEB /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84530F381F0C35DD00EBFCEB /* UserCell.swift */; };
 		847120EC1F1B6A4600C34D62 /* WebView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 847120EA1F1B6A4600C34D62 /* WebView.storyboard */; };
@@ -128,6 +129,7 @@
 		84312F921EE94FB600FAC4D1 /* SearchUsersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchUsersViewController.swift; sourceTree = "<group>"; };
 		8439F8C51F04FAB1002C63A6 /* ConversationBottomBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConversationBottomBarView.xib; sourceTree = "<group>"; };
 		8439F8C71F04FB62002C63A6 /* ConversationBottomBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationBottomBarView.swift; sourceTree = "<group>"; };
+		843C58C41F1C0D7F00355ACD /* VideoPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewController.swift; sourceTree = "<group>"; };
 		84530F361F0C1E8300EBFCEB /* ImageStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageStore.swift; sourceTree = "<group>"; };
 		84530F381F0C35DD00EBFCEB /* UserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		847120EB1F1B6A4600C34D62 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/WebView.storyboard; sourceTree = "<group>"; };
@@ -330,6 +332,7 @@
 			isa = PBXGroup;
 			children = (
 				847120EE1F1B6B3C00C34D62 /* WebViewController.swift */,
+				843C58C41F1C0D7F00355ACD /* VideoPlayerViewController.swift */,
 			);
 			path = WebViewController;
 			sourceTree = "<group>";
@@ -748,6 +751,7 @@
 				E759F3621F128B640045E626 /* DataForRestUIInfoView.swift in Sources */,
 				35F8943A1F00FFE000862BAC /* UserTableViewCell.swift in Sources */,
 				E7B926F11EF1487B0018F5FF /* PopOverHelper.swift in Sources */,
+				843C58C51F1C0D7F00355ACD /* VideoPlayerViewController.swift in Sources */,
 				A3E7E7D11EEFD893006D24BC /* OptionsMainPageTableViewController.swift in Sources */,
 				84530F391F0C35DD00EBFCEB /* UserCell.swift in Sources */,
 				A309F3761EEFED6000DF6449 /* OptionsChangeNumberTableViewController.swift in Sources */,

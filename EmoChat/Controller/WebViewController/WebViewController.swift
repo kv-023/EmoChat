@@ -14,40 +14,64 @@ class WebViewController: UIViewController, AVCaptureFileOutputRecordingDelegate 
     // MARK: - Outlets
     @IBOutlet weak var webView: UIWebView!
     @IBOutlet weak var camPreview: UIView!
+    @IBOutlet weak var videoButton: UIButton!
     
     // MARK: - Constants
-    let cameraButton = UIView()
     let captureSession = AVCaptureSession()
     let movieOutput = AVCaptureMovieFileOutput()
     
     // MARK: - Variables
     var url: URL!
+    var blurredView: UIVisualEffectView!
     var previewLayer: AVCaptureVideoPreviewLayer!
     var activeInput: AVCaptureDeviceInput!
     var outputURL: URL!
+    //temp var
+    var recordedVideo: URL!
     
     // MARK: - ViewController lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        webView.delegate = self
+        
+        let blurEffect = UIBlurEffect(style: .light)
+        blurredView = UIVisualEffectView(effect: blurEffect)
+        blurredView.frame = self.view.bounds
+        blurredView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        view.addSubview(blurredView)
+        
         if setupSession() {
             setupPreview()
             startSession()
         }
         
-        cameraButton.isUserInteractionEnabled = true
-        let cameraButtonRecognizer = UITapGestureRecognizer(target: self, action: #selector(WebViewController.startCapture))
-        cameraButton.addGestureRecognizer(cameraButtonRecognizer)
-        cameraButton.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
-        cameraButton.backgroundColor = UIColor.red
-        //camPreview.addSubview(cameraButton)
+        //camPreview.isUserInteractionEnabled = true
+        //let cameraButtonRecognizer = UITapGestureRecognizer(target: self, action: #selector(WebViewController.startCapture))
+        //camPreview.addGestureRecognizer(cameraButtonRecognizer)
+        
+        // temp button
+        let button = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(rightButtonAction(sender:)))
+        navigationItem.rightBarButtonItem = button
+    }
+    
+    //temp action
+    func rightButtonAction(sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "showVideo", sender: recordedVideo)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         webView.loadRequest(URLRequest(url: url))
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        stopRecording()
     }
     
     // MARK: - Layout
@@ -213,6 +237,9 @@ class WebViewController: UIViewController, AVCaptureFileOutputRecordingDelegate 
         
         if movieOutput.isRecording == false {
             
+            let title = NSLocalizedString("Stop", comment: "")
+            videoButton.titleLabel?.text = title
+            
             let connection = movieOutput.connection(withMediaType: AVMediaTypeVideo)
             if (connection?.isVideoOrientationSupported)! {
                 connection?.videoOrientation = currentVideoOrientation()
@@ -248,6 +275,10 @@ class WebViewController: UIViewController, AVCaptureFileOutputRecordingDelegate 
     func stopRecording() {
         
         if movieOutput.isRecording == true {
+            
+            let title = NSLocalizedString("Record", comment: "")
+            videoButton.titleLabel?.text = title
+            
             movieOutput.stopRecording()
         }
     }
@@ -261,13 +292,43 @@ class WebViewController: UIViewController, AVCaptureFileOutputRecordingDelegate 
             print("Error recording movie: \(error!.localizedDescription)")
         } else {
             
-            _ = outputURL as URL
-            
+            recordedVideo = outputURL as URL
         }
+        
         outputURL = nil
     }
     
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let identifier = segue.identifier else { return }
+        switch identifier {
+        case "showVideo":
+            let vc = segue.destination as! VideoPlayerViewController
+            vc.videoURL = sender as! URL
+        default:
+            preconditionFailure("Wrong segue identifier")
+        }
+    }
+    
+    // MARK: - Actions
+    
+    @IBAction func actionVideoButton(_ sender: Any) {
+        startCapture()
+    }
     
     
+}
+
+extension WebViewController: UIWebViewDelegate {
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        guard !webView.isLoading else { return }
+        UIView.animate(withDuration: 0.5, animations: { [weak self] () in
+                self?.blurredView.alpha = 0.0
+            }, completion: { [weak self] (_) in
+                self?.blurredView.isHidden = true
+                self?.startCapture()
+        })
+    }
 }
 
