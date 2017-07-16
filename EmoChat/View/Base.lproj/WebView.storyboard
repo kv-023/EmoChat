@@ -27,7 +27,7 @@
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </webView>
                             <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="tmJ-e3-Oft">
-                                <rect key="frame" x="259" y="559" width="100" height="100"/>
+                                <rect key="frame" x="275" y="559" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="WBV-eK-TDm"/>
                                     <constraint firstAttribute="height" constant="100" id="fM5-VE-Xe7"/>
@@ -36,7 +36,7 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="tmJ-e3-Oft" firstAttribute="trailing" secondItem="59g-mc-Sx2" secondAttribute="trailingMargin" id="GAr-Mz-Ctv"/>
+                            <constraint firstItem="tmJ-e3-Oft" firstAttribute="trailing" secondItem="59g-mc-Sx2" secondAttribute="trailingMargin" constant="16" id="GAr-Mz-Ctv"/>
                             <constraint firstAttribute="trailing" secondItem="wAx-xO-qYC" secondAttribute="trailing" id="aeZ-w9-W2e"/>
                             <constraint firstItem="wAx-xO-qYC" firstAttribute="leading" secondItem="59g-mc-Sx2" secondAttribute="leading" id="cKO-3C-pVF"/>
                             <constraint firstItem="wAx-xO-qYC" firstAttribute="top" secondItem="59g-mc-Sx2" secondAttribute="top" id="dql-Dh-1zF"/>

@@ -11,17 +11,22 @@ import AVFoundation
 
 class WebViewController: UIViewController, AVCaptureFileOutputRecordingDelegate {
     
-    
+    // MARK: - Outlets
     @IBOutlet weak var webView: UIWebView!
     @IBOutlet weak var camPreview: UIView!
-    var url: URL!
     
+    // MARK: - Constants
     let cameraButton = UIView()
     let captureSession = AVCaptureSession()
     let movieOutput = AVCaptureMovieFileOutput()
+    
+    // MARK: - Variables
+    var url: URL!
     var previewLayer: AVCaptureVideoPreviewLayer!
     var activeInput: AVCaptureDeviceInput!
     var outputURL: URL!
+    
+    // MARK: - ViewController lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,15 +37,10 @@ class WebViewController: UIViewController, AVCaptureFileOutputRecordingDelegate 
         }
         
         cameraButton.isUserInteractionEnabled = true
-        
         let cameraButtonRecognizer = UITapGestureRecognizer(target: self, action: #selector(WebViewController.startCapture))
-        
         cameraButton.addGestureRecognizer(cameraButtonRecognizer)
-        
         cameraButton.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
-        
         cameraButton.backgroundColor = UIColor.red
-        
         //camPreview.addSubview(cameraButton)
     }
     
@@ -50,15 +50,50 @@ class WebViewController: UIViewController, AVCaptureFileOutputRecordingDelegate 
         webView.loadRequest(URLRequest(url: url))
     }
     
+    // MARK: - Layout
+    
+    private func updatePreviewLayer(layer: AVCaptureConnection, orientation: AVCaptureVideoOrientation) {
+        
+        layer.videoOrientation = orientation
+        
+        previewLayer.frame = camPreview.bounds
+        
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if let connection =  self.previewLayer?.connection  {
+            let currentDevice: UIDevice = UIDevice.current
+            let orientation: UIDeviceOrientation = currentDevice.orientation
+            let previewLayerConnection : AVCaptureConnection = connection
+            if previewLayerConnection.isVideoOrientationSupported {
+                switch (orientation) {
+                case .portrait: updatePreviewLayer(layer: previewLayerConnection, orientation: .portrait)
+                    break
+                case .landscapeRight: updatePreviewLayer(layer: previewLayerConnection, orientation: .landscapeLeft)
+                    break
+                case .landscapeLeft: updatePreviewLayer(layer: previewLayerConnection, orientation: .landscapeRight)
+                    break
+                case .portraitUpsideDown: updatePreviewLayer(layer: previewLayerConnection, orientation: .portraitUpsideDown)
+                    break
+                default: updatePreviewLayer(layer: previewLayerConnection, orientation: .portrait)
+                    break
+                }
+            }
+        }
+    }
+    
+    //MARK:- Setup Camera
+    
     func setupPreview() {
         // Configure previewLayer
         previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         previewLayer.frame = camPreview.bounds
-        previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+        previewLayer.videoGravity = AVLayerVideoGravityResizeAspect
         camPreview.layer.addSublayer(previewLayer)
     }
     
-    //MARK:- Setup Camera
     
     func setupSession() -> Bool {
         
