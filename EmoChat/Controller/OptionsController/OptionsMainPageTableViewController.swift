@@ -27,8 +27,6 @@ class OptionsMainPageTableViewController:  UITableViewController, UIImagePickerC
         emailLabel.text = currentUser.email
         userImageView.image = currentUser.photo
         
-
-        
     }
 
     override func viewDidLoad() {
@@ -37,10 +35,8 @@ class OptionsMainPageTableViewController:  UITableViewController, UIImagePickerC
         currentUser = CurrentUser.shared
         
         //Temp login and get current user
-        currentUser.tempLogIn()
-        currentUser.tempGetCurrentUser()
-        
-       //     currentUser.getUserPicFullResolution(photoURL: currentUser.photoURL!)
+        currentUser.logIn()
+        currentUser.getCurrentUser()
     
     }
 }

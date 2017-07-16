@@ -29,8 +29,8 @@ class CurrentUser {
     
     private init() {}
     
-    // MARK: -  Temporary functions
-    func tempLogIn() {
+    // MARK: -  Login
+    func logIn() {
         manager = ManagerFirebase.shared
         manager.logIn(email: "zellensky@gmail.com", password: "qwerty") {
             result in
@@ -46,7 +46,8 @@ class CurrentUser {
         }
     }
     
-    func tempGetCurrentUser() {
+    // MARK: -  Get user
+    func getCurrentUser() {
         manager.getCurrentUser {
             result in
             switch result {
@@ -57,15 +58,22 @@ class CurrentUser {
                 self.secondName = user.secondName
                 self.phoneNumber = user.phoneNumber
                 self.email = user.email
+                self.photoURL = user.photoURL
                 self.username = user.username
                 self.userConversations = user.userConversations
                 self.contacts = user.contacts
+                
+                if let optPhotoURL = user.photoURL {
+                    self.getUserPicFullResolution(photoURL: optPhotoURL)
+                }
+                
             case .failure(let error):
                 print("\(error) fail with getUser")
             default:
                 break
             }
         }
+
     }
     
     // MARK: - Add additional info
@@ -217,7 +225,27 @@ class CurrentUser {
             }
         }
     }
+
+    //MARK: - Get user picture
+    func getUserPicFullResolution(photoURL: String) {
+        manager.getUserPicFullResolution(from: photoURL) {
+            result in
+            switch result {
+            case .successUserPic(let image):
+                print("method \(image)")
+                self.photo = image
+                
+            case . failure(let error):
+                print(error)
+            default:
+                break
+            }
+        }
+    }
     
+    
+    //MARK: - Sign up
+
     func signUp (email: String, password: String) {
         manager.signUp(email: email, password: password) {
             result in
@@ -232,77 +260,24 @@ class CurrentUser {
         }
     }
     
-    func getUserPicFullResolution(photoURL: String) {
-        manager.getUserPicFullResolution(from: photoURL) {
-            result in
-            switch result {
-            case .successUserPic(let image):
-                print("method \(image)")
-//                result(.successUserPic(image))
-            case . failure(let error):
-                print(error)
-            default:
-                break
-            }
-        }
-    }
     
-        
-        
-
-
-
+    
+    
 }
-    
-    //MARK: - Get userpic full resolution
-    
-     /*
-    func getUserPicFullResolution(photoURL: String, result: @escaping (CurrentUserOperationResult) -> Void) {
-        manager.getUserPicFullResolution(from: photoURL) {
-            result in
-            switch result {
-            case .successUserPic(let image):
-                print("method \(image)")
-                result(.successUserPic(image))
-            case . failure(let error):
-                print(error)
-            default:
-                break
-            }
-        }
-    }
-    
-    
 
-    func getUserPicFullResolution (from userURL: String, result: @escaping (UserOperationResult) -> Void) {
-        let photoRef = storageRef.child(userURL)
-        
-        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
-        photoRef.getData(maxSize: 2 * 1024 * 1024) { data, error in
-            if let error = error {
-                result(.failure(error.localizedDescription))
-                // Uh-oh, an error occurred!
-            } else {
-                // Data for "images/island.jpg" is returned
-                result(.successUserPic((UIImage(data: data!))!))
-            }
-        }
-    }
-*/
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
