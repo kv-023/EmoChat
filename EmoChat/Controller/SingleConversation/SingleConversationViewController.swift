@@ -54,6 +54,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     @IBOutlet weak var loadingView: UIView!
     
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var noInternetLabel: UILabel!
     
     var manager: ManagerFirebase?
     var currentUser: User!
@@ -88,6 +89,10 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         
         self.setUpTextView()
         manager = ManagerFirebase.shared
+        
+        if !connectedToNetwork() {
+            noInternetLabel.isHidden = false
+        }
         
         group.enter()
         manager?.getUsersInConversation(conversation: self.currentConversation,
@@ -175,15 +180,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     //functionality
     func copyAction(_ sender: Any?) {
-        var content: String
-        if multipleChat && !(manager?.isMessageFromCurrentUser(messageRecognized))! {
-            var contentArray = messageRecognized.content!.content.characters.split(separator: "\n")
-            contentArray.remove(at: 0)
-            let tempContent = contentArray.flatMap({String($0)})
-            content = tempContent.joined(separator: "\n")
-        } else {
-            content = messageRecognized.content!.content
-        }
         UIPasteboard.general.string = messageRecognized.content!.content
     }
     
@@ -824,6 +820,7 @@ extension SingleConversationViewController : CellDelegate {
     
 }
 
+// MARK: - CustomTextView extension
 extension CustomTextView {
     
     func containsAlphaNumericCharacters() -> Bool {

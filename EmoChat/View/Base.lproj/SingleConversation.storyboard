@@ -323,10 +323,18 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trying to establish a connection" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zfn-eE-WSI">
+                                        <rect key="frame" x="78.5" y="389" width="218.5" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="zfn-eE-WSI" firstAttribute="top" secondItem="UgZ-hh-4mR" secondAttribute="bottom" constant="8" id="BzS-c8-JDB"/>
                                     <constraint firstItem="UgZ-hh-4mR" firstAttribute="centerY" secondItem="mJO-Ls-y8m" secondAttribute="centerY" id="Tym-3y-dZ8"/>
+                                    <constraint firstItem="zfn-eE-WSI" firstAttribute="centerX" secondItem="mJO-Ls-y8m" secondAttribute="centerX" id="tCh-rW-hax"/>
                                     <constraint firstItem="UgZ-hh-4mR" firstAttribute="centerX" secondItem="mJO-Ls-y8m" secondAttribute="centerX" id="wdO-bu-lwf"/>
                                 </constraints>
                             </view>
@@ -356,6 +364,7 @@
                         <outlet property="inputSubView" destination="guk-1E-8hU" id="l5T-s4-E2H"/>
                         <outlet property="loadingIndicator" destination="OHU-zc-Qo6" id="PLR-NL-2OC"/>
                         <outlet property="loadingView" destination="mJO-Ls-y8m" id="yTT-yz-riI"/>
+                        <outlet property="noInternetLabel" destination="zfn-eE-WSI" id="bYE-Vt-7xo"/>
                         <outlet property="plusButton" destination="wVa-ek-TzA" id="O4I-bK-Abv"/>
                         <outlet property="sendMessageButton" destination="1ze-E8-Yj2" id="XBk-uH-FN5"/>
                         <outlet property="table" destination="vGN-hh-QGI" id="r2b-u7-c3Q"/>
