@@ -973,12 +973,25 @@ class ManagerFirebase {
         })
     }
     
+    func changeLastMessageInConversation (conversation: Conversation) {
+        self.getLastMessageOf (conversationID: conversation.uuid) { (result) in
+            switch result {
+            case .successSingleMessage(let message):
+                self.ref?.child("conversations/\(conversation.uuid)/lastMessage").setValue(message.time.timeIntervalSince1970)
+            default:
+                break
+            }
+        }
+    }
+    
     func updateLastMessageOf(_ conversation: Conversation,
                              completionHandler: @escaping (MessageOperationResult) -> Void) {
         self.getLastMessageOf(conversationID: conversation.uuid, from: nil) { (result) in
             switch result {
             case let .successSingleMessage(message):
                 completionHandler(.successSingleMessage(message))
+            case .failure(let error):
+                print(error)
             default:
                 print("message not received")
             }
@@ -987,6 +1000,7 @@ class ManagerFirebase {
     
     func deleteMessage (_ uid: String, from conversation: Conversation) {
         self.ref?.child("conversations/\(conversation.uuid)/messagesInConversation/\(uid)").removeValue()
+        self.changeLastMessageInConversation(conversation: conversation)
     }
     
     func observeDeletionOfMessages (in conversation: Conversation, result: @escaping (String) -> Void) {
