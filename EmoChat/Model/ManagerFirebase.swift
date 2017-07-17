@@ -8,6 +8,7 @@
 
 
 
+
 import Foundation
 import Firebase
 
@@ -81,6 +82,18 @@ class ManagerFirebase {
                 }
             }
         }
+    }
+    
+    
+    //MARK: Sign out
+    func singOut () -> UserOperationResult {
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+        } catch let signOutError as NSError {
+            return .failure(signOutError.description)
+        }
+        return .success
     }
     
     // MARK: Log In
@@ -586,7 +599,7 @@ class ManagerFirebase {
         if let refConv = ref?.child("conversations/\(conversation.uuid)") {
             
             var childUpdates = [String : Any] ()
-            childUpdates.updateValue(timeStamp.intValue, forKey: "lastMessage")
+            childUpdates.updateValue(timeStamp.doubleValue, forKey: "lastMessage")
             if members.count > 2 {
                 childUpdates.updateValue(conversation.name!, forKey: "name")
             }
@@ -619,12 +632,12 @@ class ManagerFirebase {
             
             var childUpdates = [String: Any] ()
             childUpdates.updateValue(message.senderId!, forKey: "senderId")
-            childUpdates.updateValue(timeStamp.intValue, forKey: "time")
+            childUpdates.updateValue(timeStamp.doubleValue, forKey: "time")
             childUpdates.updateValue(message.content.content, forKey: "content/\((message.content?.type)!)")
 
             messageRef.updateChildValues(childUpdates)
 
-            ref?.child("conversations/\(conversation.uuid)/lastMessage").setValue(timeStamp.intValue)
+            ref?.child("conversations/\(conversation.uuid)/lastMessage").setValue(timeStamp.doubleValue)
             return .successSingleMessage(message)
         } else {
             return .failure(NSLocalizedString("Something went wrong", comment: ""))
@@ -668,7 +681,7 @@ class ManagerFirebase {
     
     func getMessageFromConversation (_ allConversations: [Conversation], result: @escaping (Conversation, Message) -> Void) {
         for eachConv in allConversations{
-            self.ref?.child("conversations/\(eachConv.uuid)/messagesInConversation").queryLimited(toLast: 1).observe(.childAdded, with: {(snapshot) in
+            self.ref?.child("conversations/\(eachConv.uuid)/messagesInConversation").queryLimited(toLast: UInt(eachConv.usersInConversation.count)).observe(.childAdded, with: {(snapshot) in
                 let uidMessage = snapshot.key
                 let messageSnapshot = snapshot.value as? NSDictionary
                 let message = Message(data: messageSnapshot, uid: uidMessage)
@@ -939,7 +952,7 @@ class ManagerFirebase {
             
             //time
             let timestamp = messageDict["time"] as! NSNumber
-            let date = Date(milliseconds: timestamp.intValue)
+            let date = Date(milliseconds: timestamp.doubleValue)
             //sender
             let senderId = messageDict["senderId"] as? String
             //content
@@ -959,12 +972,25 @@ class ManagerFirebase {
         })
     }
     
+    func changeLastMessageInConversation (conversation: Conversation) {
+        self.getLastMessageOf (conversationID: conversation.uuid) { (result) in
+            switch result {
+            case .successSingleMessage(let message):
+                self.ref?.child("conversations/\(conversation.uuid)/lastMessage").setValue(message.time.timeIntervalSince1970)
+            default:
+                break
+            }
+        }
+    }
+    
     func updateLastMessageOf(_ conversation: Conversation,
                              completionHandler: @escaping (MessageOperationResult) -> Void) {
         self.getLastMessageOf(conversationID: conversation.uuid, from: nil) { (result) in
             switch result {
             case let .successSingleMessage(message):
                 completionHandler(.successSingleMessage(message))
+            case .failure(let error):
+                print(error)
             default:
                 print("message not received")
             }
@@ -973,6 +999,7 @@ class ManagerFirebase {
     
     func deleteMessage (_ uid: String, from conversation: Conversation) {
         self.ref?.child("conversations/\(conversation.uuid)/messagesInConversation/\(uid)").removeValue()
+        self.changeLastMessageInConversation(conversation: conversation)
     }
     
     func observeDeletionOfMessages (in conversation: Conversation, result: @escaping (String) -> Void) {

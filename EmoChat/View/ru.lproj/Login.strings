@@ -15,7 +15,7 @@
 "pJg-Fs-pwq.normalTitle" = "Регистрация";
 
 /* Class = "UILabel"; text = "Don't have an account?"; ObjectID = "vxy-HU-iRD"; */
-"vxy-HU-iRD.text"        = "Нету аккаунта?";
+"vxy-HU-iRD.text"        = "Нет аккаунта?";
 
 /* Class = "UILabel"; text = "Password"; ObjectID = "zKC-dO-BYz"; */
 "zKC-dO-BYz.text"        = "Пароль";
