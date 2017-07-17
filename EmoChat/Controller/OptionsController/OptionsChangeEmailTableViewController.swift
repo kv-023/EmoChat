@@ -13,29 +13,25 @@ class OptionsChangeEmailTableViewController: UITableViewController, UITextFieldD
     @IBOutlet weak var changeEmailTextField: UITextField!
     @IBOutlet weak var infoLabel: UILabel!
     var currentUser: CurrentUser!
-    
-    override func viewWillAppear(_ animated: Bool) {
-        
-        
-        //Add current user email in textfield
-        changeEmailTextField.text = currentUser.email
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Singleton
         currentUser = CurrentUser.shared
+        
+        //Add current user email in textfield
+        changeEmailTextField.text = currentUser.email
         
         //Add right button item "Save"
         let rightButtonItem = UIBarButtonItem.init(barButtonSystemItem: .save, target: self, action: #selector(saveEmail))
         self.navigationItem.rightBarButtonItem = rightButtonItem
         
-        
         //Hide keybord on tap
         self.hideKeyboard()
     }
     
-    // MARK: - Action
+    // MARK: - Actions with editing
     @IBAction func emailEdited(_ sender: UITextField) {
         if emailIsValid(userEmail: changeEmailTextField.text) {
             infoLabel.text = NSLocalizedString("Email is valid", comment: "Email is valid")
@@ -45,7 +41,7 @@ class OptionsChangeEmailTableViewController: UITableViewController, UITextFieldD
         }
     }
     
-    // MARK: - Save to firebase
+    // MARK: - Save to firebasen and current user
     func saveEmail(sender: UIBarButtonItem) {
         if emailIsValid(userEmail: changeEmailTextField.text){
             currentUser.changeEmail(newEmail: changeEmailTextField.text!)

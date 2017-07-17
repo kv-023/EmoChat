@@ -15,18 +15,14 @@ RegexCheckProtocol {
     @IBOutlet weak var infoLabel: UILabel!
     var currentUser: CurrentUser!
     
-    
-    override func viewWillAppear(_ animated: Bool) {
-        
-        
-        //Show current username in textfield
-        changeUsernameTextField.text = currentUser.username
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Singleton
         currentUser = CurrentUser.shared
+        
+        //Show current username in textfield
+        changeUsernameTextField.text = currentUser.username
         
         //Init rigth button item
         let rightButtonItem = UIBarButtonItem.init(barButtonSystemItem: .save, target: self, action: #selector(saveUserName))
@@ -36,7 +32,7 @@ RegexCheckProtocol {
         self.hideKeyboard()
     }
     
-    // MARK: - Actions
+    // MARK: - Actions with editing
     @IBAction func usernameEdited(_ sender: UITextField) {
         
         if usernameIsValid(userName: sender.text) {

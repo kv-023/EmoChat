@@ -265,9 +265,7 @@ class CurrentUser {
             result in
             switch result {
             case .successUserPic(let image):
-                print("method \(image)")
                 self.photo = image
-                
             case . failure(let error):
                 print(error)
             default:

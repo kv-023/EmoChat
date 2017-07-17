@@ -16,15 +16,10 @@ class OptionsChangePhotoNameSecondNameTableViewController: UITableViewController
     @IBOutlet weak var infoLabel: UILabel!
     var currentUser: CurrentUser!
     
-    
-    override func viewWillAppear(_ animated: Bool) {
-        
-    }
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Singleton
         currentUser = CurrentUser.shared
         
         //Add rigth button item
@@ -38,13 +33,14 @@ class OptionsChangePhotoNameSecondNameTableViewController: UITableViewController
         firstNameTextField.text = currentUser.firstName
         lastNaneTexField.text = currentUser.secondName
         
+        //Add photo
         userPhotoView.contentMode = .scaleAspectFill
         userPhotoView.clipsToBounds = true
         userPhotoView.layer.cornerRadius = userPhotoView.frame.width/2
-        
         userPhotoView.image = currentUser.photo
     }
-    
+
+    //MARK: - Save information method after tap on "save" button
     func saveInformation(sender: UIBarButtonItem) {
         if nameIsValid(uname: firstNameTextField.text!) &&
             lastNameIsValid(uname: lastNaneTexField.text!) {
@@ -73,7 +69,7 @@ class OptionsChangePhotoNameSecondNameTableViewController: UITableViewController
         self.dismiss(animated:true, completion: nil)
     }
     
-    // MARK: - Actions
+    // MARK: - Actions with editing information
     @IBAction func firstNameChanged(_ sender: UITextField) {
         if nameIsValid(uname: sender.text) {
             infoLabel.text = NSLocalizedString("First Name", comment: "First Name")
@@ -92,7 +88,8 @@ class OptionsChangePhotoNameSecondNameTableViewController: UITableViewController
             infoLabel.printError(errorText: "Enter valid last name")
         }
     }
-    
+    // MARK: - Set User Photo Button and handling sourses
+
     @IBAction func setUserPhotoButton(_ sender: Any) {
         
         //Create image picker
