@@ -25,17 +25,8 @@ class OptionsMainPageTableViewController:  UITableViewController {
         //Singleton
         currentUser = CurrentUser.shared
         currentUser.updateInfoOnView = updateInfoOnView
+        updateInfoOnView()
         
-        
-        /////////////////////////////////
-        /////////////////////////////////
-        /////////////////////////////////
-        /////////////////////////////////
-        /////////////////////////////////
-        /////////////////////////////////
-        //Temp login and get current user
-        
-        currentUser.logIn()
         currentUser.getCurrentUser()
     
     }
@@ -49,4 +40,3 @@ class OptionsMainPageTableViewController:  UITableViewController {
     }
     
 }
-

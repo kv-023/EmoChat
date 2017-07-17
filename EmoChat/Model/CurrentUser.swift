@@ -81,6 +81,7 @@ class CurrentUser {
     
     // MARK: -  Get user
     func getCurrentUser() {
+        manager = ManagerFirebase.shared
         manager.getCurrentUser {
             result in
             switch result {
