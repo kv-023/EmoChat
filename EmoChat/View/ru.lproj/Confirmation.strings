@@ -1,0 +1,18 @@
+
+/* Class = "UIButton"; normalTitle = "Previous"; ObjectID = "Lpa-Cl-CCa"; */
+"Lpa-Cl-CCa.normalTitle" = "Назад";
+
+/* Class = "UIButton"; normalTitle = "OK"; ObjectID = "UaX-PL-Sbx"; */
+"UaX-PL-Sbx.normalTitle" = "OK";
+
+/* Class = "UILabel"; text = "Follow the link you have got in order to proceed."; ObjectID = "aIE-km-gss"; */
+"aIE-km-gss.text"        = "Перейдите по ссылке для завершения регистрации.";
+
+/* Class = "UILabel"; text = " "; ObjectID = "fU1-KX-10y"; */
+"fU1-KX-10y.text"        = " ";
+
+/* Class = "UILabel"; text = "Confirmation"; ObjectID = "zI2-4o-tHD"; */
+"zI2-4o-tHD.text"        = "";
+
+/* Class = "UILabel"; text = "We have sent you a letter of confirmation for:"; ObjectID = "zTG-uj-xo5"; */
+"zTG-uj-xo5.text"        = "Мы отправили Вам письмо с кодом на:";

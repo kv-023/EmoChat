@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ffh-No-9mc">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Conversations-->
+        <scene sceneID="nfT-aP-fJ0">
+            <objects>
+                <tableViewController storyboardIdentifier="conversations" id="nvU-Z9-twn" customClass="ConversationsController" customModule="EmoChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="77" sectionHeaderHeight="28" sectionFooterHeight="28" id="x95-HY-wlk">
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="2os-HJ-Rhe">
+                            <rect key="frame" x="0.0" y="105" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MessageCellIdentifier" rowHeight="77" id="A8c-ue-4H4" customClass="MessageConversationCell" customModule="EmoChat" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="77"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="A8c-ue-4H4" id="g9f-NM-atA">
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="76.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Conversation name Conversation name Conversation name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HMO-f7-ZWC">
+                                            <rect key="frame" x="66" y="8" width="221.5" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="15:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WJQ-VX-wu9">
+                                            <rect key="frame" x="295.5" y="8" width="38.5" height="19.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last message Last message Last message Last message Last message Last message " lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aon-ed-H52">
+                                            <rect key="frame" x="66" y="31.5" width="268" height="36"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="male" translatesAutoresizingMaskIntoConstraints="NO" id="Lzv-R3-Lep">
+                                            <rect key="frame" x="8" y="13" width="50" height="50"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="50" id="NBI-B2-TDk"/>
+                                                <constraint firstAttribute="height" constant="50" id="x0e-NI-fw5"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="leadingMargin" secondItem="Lzv-R3-Lep" secondAttribute="leading" id="1fj-u5-msK"/>
+                                        <constraint firstItem="Lzv-R3-Lep" firstAttribute="top" secondItem="g9f-NM-atA" secondAttribute="topMargin" constant="5" id="68Q-hb-T1G"/>
+                                        <constraint firstItem="WJQ-VX-wu9" firstAttribute="leading" secondItem="HMO-f7-ZWC" secondAttribute="trailing" constant="8" id="Ktn-Ey-AXf"/>
+                                        <constraint firstAttribute="topMargin" secondItem="WJQ-VX-wu9" secondAttribute="top" id="Qer-3Q-ZxR"/>
+                                        <constraint firstItem="aon-ed-H52" firstAttribute="leading" secondItem="Lzv-R3-Lep" secondAttribute="trailing" constant="8" id="Ser-ME-heL"/>
+                                        <constraint firstAttribute="topMargin" secondItem="HMO-f7-ZWC" secondAttribute="top" id="Ttm-en-tfS"/>
+                                        <constraint firstItem="aon-ed-H52" firstAttribute="top" secondItem="HMO-f7-ZWC" secondAttribute="bottom" constant="3" id="cMt-hF-p1O"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Lzv-R3-Lep" secondAttribute="bottom" constant="6" id="kIc-S7-ukc"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="aon-ed-H52" secondAttribute="trailing" id="mA6-VC-dxx"/>
+                                        <constraint firstItem="WJQ-VX-wu9" firstAttribute="baseline" secondItem="HMO-f7-ZWC" secondAttribute="baseline" id="n4p-0G-XM4"/>
+                                        <constraint firstItem="HMO-f7-ZWC" firstAttribute="leading" secondItem="Lzv-R3-Lep" secondAttribute="trailing" constant="8" id="ura-5a-jbg"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="WJQ-VX-wu9" secondAttribute="trailing" id="vKQ-Eh-ch1"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="conversationImageView" destination="Lzv-R3-Lep" id="x3u-qJ-aus"/>
+                                    <outlet property="conversationNameLabel" destination="HMO-f7-ZWC" id="VS8-FX-hev"/>
+                                    <outlet property="conversationTimeLabel" destination="WJQ-VX-wu9" id="gJD-Cd-r5K"/>
+                                    <outlet property="lastMessageLabel" destination="aon-ed-H52" id="Pb0-xH-1rf"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="delegate" destination="nvU-Z9-twn" id="SPM-AA-Clp"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Conversations" id="0FM-20-btW">
+                        <barButtonItem key="leftBarButtonItem" title="Options" id="tay-zl-S5V">
+                            <connections>
+                                <segue destination="1Kc-Sn-Nlu" kind="show" id="1gb-dO-HB4"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="l9C-xL-cGG">
+                            <connections>
+                                <segue destination="2dX-fQ-tG0" kind="show" id="NNR-pC-BBf"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="pZt-PA-0jh" kind="show" identifier="showSingleConversation" id="Cft-YI-wRw"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Aqs-Bb-5Jf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1776.5" y="41.5"/>
+        </scene>
+        <!--SingleConversation-->
+        <scene sceneID="ArT-qr-ar7">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="singleConversation" storyboardName="SingleConversation" id="pZt-PA-0jh" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rfc-HZ-a7R" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2393" y="-109"/>
+        </scene>
+        <!--SearchUsers-->
+        <scene sceneID="6fD-Df-T3G">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="searchUsers" storyboardName="SearchUsers" id="2dX-fQ-tG0" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Px6-5A-mUv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2577" y="16"/>
+        </scene>
+        <!--options-->
+        <scene sceneID="Q3O-tk-l4u">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Options" referencedIdentifier="options" id="1Kc-Sn-Nlu" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cQQ-bf-fQR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2507" y="60"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="0Td-Eg-OIv">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ffh-No-9mc" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="D7t-V7-2U3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="nvU-Z9-twn" kind="relationship" relationship="rootViewController" id="JSa-aW-VK6"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fPz-SA-n4k" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="889" y="41"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="male" width="40" height="40"/>
+    </resources>
+</document>

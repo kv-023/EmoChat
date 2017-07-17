@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ConversationBottomBarView" customModule="EmoChat" customModuleProvider="target">
+            <connections>
+                <outlet property="attachFileButton" destination="pnh-CD-xPm" id="wi8-ci-uyH"/>
+                <outlet property="attachPhotoButton" destination="o4Z-5K-Pbs" id="M9U-X3-lct"/>
+                <outlet property="cameraButton" destination="uN0-fV-4QV" id="hTL-Fi-NCg"/>
+                <outlet property="geolocationButton" destination="ff2-ck-JM3" id="NAH-Lu-TZJ"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="277" height="40"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleAspectFit" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="8Iu-Ox-6ui">
+                    <rect key="frame" x="10" y="0.0" width="257" height="40"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uN0-fV-4QV">
+                            <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="uN0-fV-4QV" secondAttribute="height" multiplier="1:1" id="KBE-do-vwA"/>
+                            </constraints>
+                            <state key="normal" image="cameraImage"/>
+                            <state key="selected" image="cameraFilled"/>
+                            <state key="highlighted" image="cameraFilled"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o4Z-5K-Pbs">
+                            <rect key="frame" x="72.5" y="0.0" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="o4Z-5K-Pbs" secondAttribute="height" multiplier="1:1" id="Clc-K4-4pE"/>
+                            </constraints>
+                            <state key="normal" image="pictureImage"/>
+                            <state key="selected" image="pictureFilled"/>
+                            <state key="highlighted" image="pictureFilled"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pnh-CD-xPm">
+                            <rect key="frame" x="144.5" y="0.0" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="pnh-CD-xPm" secondAttribute="height" multiplier="1:1" id="Nfp-mB-Fsg"/>
+                            </constraints>
+                            <state key="normal" image="attachImage"/>
+                            <state key="selected" image="attachFilled"/>
+                            <state key="highlighted" image="attachFilled"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ff2-ck-JM3">
+                            <rect key="frame" x="217" y="0.0" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="ff2-ck-JM3" secondAttribute="height" multiplier="1:1" id="ebx-ov-mgH"/>
+                            </constraints>
+                            <state key="normal" image="geolocationImage"/>
+                            <state key="selected" image="geoLocationFilled"/>
+                            <state key="highlighted" image="geoLocationFilled"/>
+                        </button>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="8Iu-Ox-6ui" secondAttribute="trailing" constant="10" id="QLf-Ke-BsV"/>
+                <constraint firstItem="8Iu-Ox-6ui" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="WMu-Ox-DSN"/>
+                <constraint firstAttribute="bottom" secondItem="8Iu-Ox-6ui" secondAttribute="bottom" id="b98-gB-dcC"/>
+                <constraint firstItem="8Iu-Ox-6ui" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="mJ9-hc-PLr"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="99.5" y="184"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="attachFilled" width="66" height="66"/>
+        <image name="attachImage" width="66" height="66"/>
+        <image name="cameraFilled" width="66" height="66"/>
+        <image name="cameraImage" width="66" height="66"/>
+        <image name="geoLocationFilled" width="66" height="66"/>
+        <image name="geolocationImage" width="66" height="66"/>
+        <image name="pictureFilled" width="66" height="66"/>
+        <image name="pictureImage" width="66" height="66"/>
+    </resources>
+</document>

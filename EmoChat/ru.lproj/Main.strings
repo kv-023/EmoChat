@@ -1,0 +1,12 @@
+
+/* Class = "UISegmentedControl"; 8Qk-yj-eaD.segmentTitles[0] = "login"; ObjectID = "8Qk-yj-eaD"; */
+"8Qk-yj-eaD.segmentTitles[0]" = "login";
+
+/* Class = "UISegmentedControl"; 8Qk-yj-eaD.segmentTitles[1] = "Sign up"; ObjectID = "8Qk-yj-eaD"; */
+"8Qk-yj-eaD.segmentTitles[1]" = "Sign up";
+
+/* Class = "UIButton"; normalTitle = "Skip"; ObjectID = "Mi1-dC-9Tl"; */
+"Mi1-dC-9Tl.normalTitle" = "Skip";
+
+/* Class = "UIButton"; normalTitle = "GO!"; ObjectID = "lub-3F-K7Q"; */
+"lub-3F-K7Q.normalTitle" = "GO!";

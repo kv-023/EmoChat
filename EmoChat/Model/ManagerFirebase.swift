@@ -27,6 +27,7 @@ enum ConversationOperationResult
 {
     case failure(String)
     case successSingleConversation(Conversation)
+    case successArrayOfConversations([Conversation])
     case successUpdate(Bool)
     case success
 }
@@ -45,14 +46,20 @@ class ManagerFirebase {
     
     let ref: DatabaseReference?
     let storageRef: StorageReference
+    let conversationsRef: DatabaseReference?
+    let observerTuplesRef: DatabaseReference?
+    let newRef: DatabaseReference?
     public static let shared = ManagerFirebase()
     
     private init () {
         self.ref = Database.database().reference()
         self.storageRef = Storage.storage().reference()
+        self.conversationsRef = Database.database().reference()
+        self.observerTuplesRef = Database.database().reference()
+        self.newRef = Database.database().reference()
     }
     
-    
+    //MARK: - Return URLs of members photos
     func getURLsFromConversation(_ conversation: Conversation) -> [String] {
         var arrayOfURLs = [String]()
         for member in conversation.usersInConversation {
@@ -196,7 +203,7 @@ class ManagerFirebase {
                 let phonenumber = userSnapshot?["phoneNumber"] as! String?
                 let photoURL = userSnapshot?["photoURL"] as! String?
                 //getting array of conversation ids
-                let conversationsID = userSnapshot?["conversations"] as? NSDictionary
+                //let conversationsID = userSnapshot?["conversations"] as? NSDictionary
                 
                 //create user without conversations and contacts
                 
@@ -209,11 +216,9 @@ class ManagerFirebase {
                 }
                 
                 //generate array of conversations
-                if let conversationsArrayId = conversationsID?.allKeys {
-                    user.userConversations = self.sortListOfConversations(self.getConversetionsFromSnapshot(value, accordingTo: conversationsArrayId as! [String], currentUserEmail: email))
-                    //getting array of contacts
-                    //user.contacts = self.getContacts(from: user.userConversations!)
-                }
+//                if let conversationsArrayId = conversationsID?.allKeys {
+//                    user.userConversations = self.sortListOfConversations(self.getConversetionsFromSnapshot(value, accordingTo: conversationsArrayId as! [String], currentUserEmail: email))
+//                }
                 
                 //return result
                 getUser(.successSingleUser(user))
@@ -244,7 +249,7 @@ class ManagerFirebase {
     /*
      Generate array of conversation without messages from snapshot
      */
-    private func getConversetionsFromSnapshot (_ value: NSDictionary?, accordingTo arrayID: [String], currentUserEmail email: String) -> [Conversation] {
+    func getConversetionsFromSnapshot (_ value: NSDictionary?, accordingTo arrayID: [String], currentUserEmail email: String) -> [Conversation] {
         var conversations = [Conversation]()
         
         for eachConv in arrayID {
@@ -265,7 +270,14 @@ class ManagerFirebase {
             //members in conversation
             let users = self.getUsersFromIDs(ids: conversationSnapshot?["usersInConversation"] as! NSDictionary,value: value)
             
-            let conversation = Conversation(conversationId: eachConv, usersInConversation: users, messagesInConversation: nil, lastMessage: lastMessage)
+            let time = conversationSnapshot?["lastMessage"] as? TimeInterval
+            let date = (Date(timeIntervalSince1970: time!/1000))
+            let conversation = Conversation(conversationId: eachConv,
+                                            usersInConversation: [],
+                                            messagesInConversation: nil,
+                                            lastMessage: lastMessage,
+                                            lastMessageTimeStamp: date,
+                                            name: "")
             
             //define the name of conversation
             var result = ""
@@ -284,8 +296,11 @@ class ManagerFirebase {
     
     //to sort list of conversation
     private func sortListOfConversations (_ array: [Conversation]) -> [Conversation]{
-        let sortedArray = array.sorted { (cv1, cv2) -> Bool in
+        /*let sortedArray = array.sorted { (cv1, cv2) -> Bool in
             return ((cv1.lastMessage?.time.compare((cv2.lastMessage?.time)!)) != nil)
+        }*/
+        let sortedArray = array.sorted { (cv1, cv2) -> Bool in
+            return ((cv1.lastMessageTimeStamp?.compare(cv2.lastMessageTimeStamp!)) != nil)
         }
         return sortedArray
     }
@@ -337,7 +352,7 @@ class ManagerFirebase {
         let photoRef = storageRef.child(userURL)
         
         // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
-        photoRef.getData(maxSize: 1 * 200 * 200) { data, error in
+        photoRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
             if let error = error {
                 result(.failure(error.localizedDescription))
                 // Uh-oh, an error occurred!
@@ -364,11 +379,68 @@ class ManagerFirebase {
         }
     }
     
-    
 
+        
+    //MARK: - Conversation logo
+    func createLogo (selectedUsers: [User], conversationID: String) -> String {
+            var array = [UIImage]()
+        
+            //create reference
+            let imagePath = "conversLogos/\(conversationID)/logo.jpg"
+            let metaData = StorageMetadata()
+            metaData.contentType = "image/jpeg"
+        
+            for user in selectedUsers {
+                self.getUserPic(from: user.photoURL!, result: { (result) in
+                    switch result {
+                    case let .successUserPic(img):
+                        array.append(img)
+                    default: print("Error")
+                    }
+                })
+            }
+    
+            let finalImage = UIImage.createFinalImg(logoImages: array)
+            let imageData = UIImageJPEGRepresentation(finalImage, 1)
+ 
+            self.storageRef.child(imagePath).putData(imageData!, metadata: metaData)
+            self.ref?.child("conversations/\(conversationID)/logoURL").setValue(imagePath)
+        
+            return imagePath
+        }
     
     
-    //MARK: Update profile
+    func loadLogo (_ image: UIImage, conversationID: String, result: @escaping (UserOperationResult) -> Void) {
+        if (Auth.auth().currentUser?.uid) != nil {
+            guard let chosenImageData = UIImageJPEGRepresentation(image, 1) else {
+                result(.failure(NSLocalizedString("Something went wrong", comment: "Undefined error")))
+                return
+            }
+            
+            //create reference
+            let imagePath = "conversLogos/\(conversationID)/logo.jpg"
+            
+            let metaData = StorageMetadata()
+            metaData.contentType = "image/jpeg"
+            
+            //add to firebase
+            
+            self.storageRef.child(imagePath).putData(chosenImageData, metadata: metaData) { (metaData, error) in
+                
+                if error != nil {
+                    result(.failure((error?.localizedDescription)!))
+                } else {
+                    self.ref?.child("conversations/\(conversationID)/logoURL").setValue(imagePath)
+                    result(.success)
+                    
+                }
+            }
+        } else {
+            result(.failure(NSLocalizedString("User isn't authenticated", comment: "")))
+        }
+    }
+    
+    //MARK: - Update profile
     func changeInfo (phoneNumber: String?, firstName: String?, secondName: String?, result: @escaping (UserOperationResult) -> Void) {
         if let uid = Auth.auth().currentUser?.uid{
             var childUpdates = [String: String] ()
@@ -396,6 +468,7 @@ class ManagerFirebase {
         let childUpdates = ["/users/\(uid)/username": username]
         self.ref?.updateChildValues(childUpdates)
     }
+    
     
     func changeUsername (newUsername: String, result: @escaping (UserOperationResult) -> Void) {
         if let uid = Auth.auth().currentUser?.uid {
@@ -441,14 +514,7 @@ class ManagerFirebase {
             }
         }
     }
-    
-
-//    func updateUserProfilePhoto(_ photoUrl: String) {
-//        if let uid = Auth.auth().currentUser?.uid {
-//            self.ref?.child("users/\(uid)/photoURL").setValue(photoUrl)
-//        }
-//    }
-    
+     
     
     //MARK: To check if username is unique
     func checkUserNameUniqness(_ userName: String, result : @escaping (UserOperationResult)->Void) {
@@ -488,7 +554,6 @@ class ManagerFirebase {
             }
             result(.successArrayOfUsers(users))
         })
-        
     }
 
     
@@ -505,53 +570,62 @@ class ManagerFirebase {
         }
         return result
     }
-
-    
-    
     
     // MARK: - Conversations
-    func createConversation(_ members: [User], withName name: String? = nil) -> ConversationOperationResult {
+    func createConversation(_ members: [User], withName name: String? = nil, completion: @escaping (ConversationOperationResult) -> Void) {
         
-        if let refConv = ref?.child("conversations").childByAutoId() {
+        let timeStamp = NSNumber(value:Date().timeIntervalSince1970 * 1000.0)
+        let key = ref?.child("conversations").childByAutoId().key
+        
+        let conversation = Conversation(conversationId: key!,
+                                        usersInConversation: members,
+                                        messagesInConversation: nil,
+                                        lastMessage: nil,
+                                        lastMessageTimeStamp: Date(timeIntervalSince1970: TimeInterval(timeStamp.int64Value / 1000)),
+                                        name: name)
+        
+        if let refConv = ref?.child("conversations/\(conversation.uuid)") {
             
-            let uid: String = (refConv.key)
+            var childUpdates = [String : Any] ()
+            childUpdates.updateValue(timeStamp.intValue, forKey: "lastMessage")
+            if members.count > 2 {
+                childUpdates.updateValue(conversation.name!, forKey: "name")
+            }
+            refConv.updateChildValues(childUpdates)
             
             for member in members {
                 refConv.child("usersInConversation/\(member.uid!)").setValue(true)
+                
+                ref?.child("users/\(member.uid!)/conversations/\(conversation.uuid)").setValue(true)
             }
-            
-            if members.count > 2 {
-                refConv.child("name").setValue(name)
-            } else {
-                ref?.child("u")
-            }
-        
-            let conversation = Conversation(conversationId: uid,
-                                            usersInConversation: members,
-                                            messagesInConversation: [],
-                                            lastMessage: nil)
-            return .successSingleConversation(conversation)
+            completion(.successSingleConversation(conversation))
         } else {
-            return .failure(NSLocalizedString("Something went wrong", comment: "Undefined error"))
+            completion(.failure(NSLocalizedString("Conversation was not created", comment: "")))
         }
         
     }
     
-        // MARK: - Messages
+    // MARK: - Messages
     func createMessage(conversation: Conversation, sender: User, content:(type: MessageContentType, content: String)) -> MessageOperationResult {
         
-        let timeStamp = Int((Date().timeIntervalSince1970 * 1000.0))
+        let timeStamp = NSNumber(value:Date().timeIntervalSince1970 * 1000.0)
+        let key = ref?.child("conversations/").childByAutoId().key
         
-        let message = Message(uid: "\(timeStamp)\(sender.uid!)",
+        let message = Message(uid: key!,
             senderId: sender.uid,
-            time: Date(timeIntervalSince1970: TimeInterval(timeStamp / 1000)),
+            time: Date(timeIntervalSince1970: TimeInterval(timeStamp.int64Value / 1000)),
             content: (type: content.type, content: content.content))
         
         if let messageRef = ref?.child("conversations/\(conversation.uuid)/messagesInConversation/\(message.uid!)") {
-            messageRef.child("content/\(message.content.type)").setValue(message.content.content)
-            messageRef.child("senderId").setValue(message.senderId!)
-            messageRef.child("time").setValue(timeStamp)
-            ref?.child("conversations/\(conversation.uuid)/lastMessage").setValue(timeStamp)
+            
+            var childUpdates = [String: Any] ()
+            childUpdates.updateValue(message.senderId!, forKey: "senderId")
+            childUpdates.updateValue(timeStamp.intValue, forKey: "time")
+            childUpdates.updateValue(message.content.content, forKey: "content/\((message.content?.type)!)")
+
+            messageRef.updateChildValues(childUpdates)
+
+            ref?.child("conversations/\(conversation.uuid)/lastMessage").setValue(timeStamp.intValue)
             return .successSingleMessage(message)
         } else {
             return .failure(NSLocalizedString("Something went wrong", comment: ""))
@@ -559,6 +633,7 @@ class ManagerFirebase {
     }
     
     //MARK: - test
+    //some uesr's info was changed
     func valueChanged (action: @escaping (String) -> Void) {
         if let uid = Auth.auth().currentUser?.uid {
             let namePath = self.ref?.child("users/\(uid)")
@@ -594,37 +669,321 @@ class ManagerFirebase {
     
     func getMessageFromConversation (_ allConversations: [Conversation], result: @escaping (Conversation, Message) -> Void) {
         for eachConv in allConversations{
-            self.ref?.child("conversations/\(eachConv.uuid)/messagesInConversation").observe(.childAdded, with: {(snapshot) in
+            self.ref?.child("conversations/\(eachConv.uuid)/messagesInConversation").queryLimited(toLast: 1).observe(.childAdded, with: {(snapshot) in
                 let uidMessage = snapshot.key
                 let messageSnapshot = snapshot.value as? NSDictionary
                 let message = Message(data: messageSnapshot, uid: uidMessage)
                 result(eachConv, message)
             })
         }
-        
-//            let namePath = self.ref?.child("users/\(uid)/conversations")
-//            namePath?.observe(.childAdded, with: { (snapshot) in
-//                let idConv = snapshot.key
-//                self.ref?.observeSingleEvent(of: .value, with: { (snapshot) in
-//                    //let users = snapshot.childSnapshot(forPath: "users").value as? NSDictionary
-//                    let conversation = snapshot.childSnapshot(forPath: "conversations/\(idConv)").value as! NSDictionary
-//                    
-//                })
-//                //action((snapshot.value as? String)!)
-//                
-//                
-//            })
-            
-        
-
-        
-//        let namePath = self.ref?.child("conversations/conversationId-456")
-//        namePath?.observe(.childChanged, with: { (snapshot) in
-//            let changedSnap = snapshot.value
-//            
-//        })
     }
     
+    func getBunchOfMessages (in conversation: Conversation, startingFrom uid: String, count: Int, result: @escaping ([Message]) -> Void) {
+        let newRef = self.ref?.child("conversations/\(conversation.uuid)/messagesInConversation")
+            newRef?.queryEnding(atValue: uid).queryLimited(toLast: UInt(count)).queryOrderedByKey().observeSingleEvent(of: .value, with: { (snapshot) in
+            //let value = snapshot.value as? [String : AnyObject]
+                var messages = [Message]()
+                for each in snapshot.children {
+                    
+                    let messageDict = (each as! DataSnapshot).value as? NSDictionary
+                    let message = Message(data: messageDict, uid: (each as AnyObject).key)
+                    
+                    guard message.uid! != uid else{
+                        continue
+                    }
+                    messages.append(message)
+                }
+                
+     //       print(uid)
+            result(messages)
+        })
+        
+    }
+    
+    func isConversationEmpty(_ conversation: Conversation, result: @escaping (Bool) -> Void) {
+        let newRef = self.ref?.child("conversations/\(conversation.uuid)/messagesInConversation")
+        newRef?.queryLimited(toLast: 1).observeSingleEvent(of: .value, with: {snapshot in
+            if snapshot.childrenCount == 0 {
+                result(true)
+            } else {
+                result(false)
+            }})
+    }
+    
+    func isMessageFromCurrentUser (_ message: Message) -> Bool {
+        var result = false
+        if let uid = Auth.auth().currentUser?.uid {
+            result = message.senderId == uid
+        }
+        return result
+    }
+    
+    //MARK: - tuple array
+    
+    private func getConversationsIDs(conversatinsIDs: [String : AnyObject],
+                                     completionHandler: @escaping ([conversationTuple]) -> Void) {
+        
+        var conversationsIDs: [conversationTuple] = []
+        
+        ManagerFirebase.shared.ref?.child("conversations").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            for key in conversatinsIDs {
+                let conversationSnapshot = snapshot.childSnapshot(forPath: "\(key.key)")
+                let conversationDict = conversationSnapshot.value as? [String : AnyObject]
+                if let timeStamp = conversationDict?["lastMessage"] as? NSNumber {
+                    let convTuple = conversationTuple(conversationId: "\(conversationSnapshot.key)",
+                                                            timestamp: Date(milliseconds: timeStamp.intValue))
+                    conversationsIDs.append(convTuple)
+                }
+            }
+            completionHandler(conversationsIDs)
+        })
+    }
+   
+    func getSortedConversationsIDs(of user: User, completionHandler: @escaping ([conversationTuple]) ->  Void) {
+        
+        var sortedConversationsArray: [conversationTuple] = []
+
+        ref?.child("users/\(user.uid!)/conversations").observeSingleEvent(of: .value, with: { [weak self] (conversationIDs) in
+            
+            let conversationsDict = conversationIDs.value as? [String : AnyObject] ?? [:]
+            
+            self?.getConversationsIDs(conversatinsIDs: conversationsDict) { (conversationsIDs) in
+                sortedConversationsArray = conversationsIDs.sorted(by: { $0.timestamp.timeIntervalSince1970 > $1.timestamp.timeIntervalSince1970 })
+                //{ $0.timestamp.compare($1.timestamp) == .orderedDescending }
+                //{ $0.timestamp > $1.timestamp }
+                completionHandler(sortedConversationsArray)
+            }
+        })
+    }
+    
+    private func getConversation(from conversationDict:[String : AnyObject],
+                                 conversationID: String,
+                                 withLastMessage message: Message?,
+                                 owner user: User) -> Conversation {
+        //create conversation's fields
+        let timeStamp = conversationDict["lastMessage"] as! NSNumber
+        let date = Date(milliseconds: timeStamp.intValue)
+        
+        //define the name of conversation
+        var conversationName = ""
+        if let name = conversationDict["name"] as? String {
+            conversationName = name
+        } else {
+            let contactsIDs = conversationDict["usersInConversation"] as? [String : AnyObject] ?? [:]
+            for user in user.contacts {
+                if contactsIDs.keys.contains(user.uid) {
+                    if let name = user.firstName, let secondName = user.secondName{
+                        conversationName = "\(name) \(secondName)"
+                    } else {
+                        conversationName = "\(user.username)"
+                    }
+                }
+            }
+        }
+        
+        //create conversation
+        return Conversation(conversationId: conversationID,
+                            usersInConversation: [],
+                            messagesInConversation: nil,
+                            lastMessage: message,
+                            lastMessageTimeStamp: date,
+                            name: conversationName)
+    }
+    
+    
+    func getUsersInConversation(conversation: Conversation,completion: @escaping ([User]) -> Void)  {
+        
+        self.ref?.observeSingleEvent(of: .value, with: { (snapshot) in
+            let value = snapshot.value as? NSDictionary
+            let conversationSnapshot = (value?["conversations"] as? NSDictionary)?[conversation.uuid] as? NSDictionary
+            let users = self.getUsersFromIDs(ids: conversationSnapshot?["usersInConversation"] as! NSDictionary, value: value)
+            completion(users)
+            
+        })
+        
+    }
+    
+    func getConversations(of user: User ,
+                          IDs: [conversationTuple],
+                          withOffset offset: Int,
+                          count: Int,
+                          completionHandler: @escaping (ConversationOperationResult) -> Void) {
+        
+        var conversations: [Conversation] = []
+        
+        let conversationsDispatchGroup = DispatchGroup()
+
+        ref?.child("conversations").observeSingleEvent(of: .value, with: { [weak self] (snapshot) in
+            
+            let upperBound: Int!
+            
+            if (count + offset) < IDs.count {
+                upperBound = count + offset
+            } else {
+                upperBound = IDs.count
+            }
+            
+            let range = offset..<upperBound
+            for conversationTuple in IDs[range] {
+                
+                if snapshot.childSnapshot(forPath: "\(conversationTuple.conversationId)/messagesInConversation").exists() {
+                    
+                    conversationsDispatchGroup.enter()
+                    
+                    let conversationDict = snapshot.childSnapshot(forPath: "\(conversationTuple.conversationId)").value as? [String : AnyObject] ?? [:]
+                    
+                    if let conversation = self?.getConversation(
+                        from: conversationDict,
+                        conversationID: conversationTuple.conversationId,
+                        withLastMessage: nil,
+                        owner: user) {
+                        conversations.append(conversation)
+                    }
+
+                    self?.getLastMessageOf(conversationID: conversationTuple.conversationId,
+                                           from: snapshot,
+                                           completionHandler: { (result) in
+                        switch result {
+                        case let .successSingleMessage(message):
+                            
+                            let index = conversations.index(where: { (conversation) -> Bool in
+                                conversation.uuid == conversationTuple.conversationId
+                            })
+                            
+                            conversations[index!].lastMessage = message
+                            
+                            conversationsDispatchGroup.leave()
+                        default:
+                            return
+                        }
+                    })
+                } else {
+                    let conversationDict = snapshot.childSnapshot(forPath: "\(conversationTuple.conversationId)").value as? [String : AnyObject] ?? [:]
+                    
+                    if let conversation = self?.getConversation(
+                        from: conversationDict,
+                        conversationID: conversationTuple.conversationId,
+                        withLastMessage: nil,
+                        owner: user) {
+                        conversations.append(conversation)
+                    }
+                }
+            }
+            conversationsDispatchGroup.notify(queue: DispatchQueue.main, execute: {
+                completionHandler(.successArrayOfConversations(conversations))
+            })
+        }, withCancel: { (error) in
+            completionHandler(.failure(error.localizedDescription))
+        })
+    }
+    
+    func getSingleConversation(of user: User,
+                               tuple: conversationTuple,
+                                completionHandler: @escaping (ConversationOperationResult) -> Void){
+        
+        ref?.child("conversations/\(tuple.conversationId)").observeSingleEvent(of: .value, with: { [weak self] (snapshot) in
+            print(tuple.conversationId)
+            
+            if snapshot.childSnapshot(forPath: "messagesInConversation").exists() {
+                
+                self?.getLastMessageOf(conversationID: tuple.conversationId, from: nil, conversationSnapshot: snapshot, completionHandler: { (result) in
+                    
+                    switch result {
+                    case let .successSingleMessage(message):
+                        let conversationDict = snapshot.value as? [String : AnyObject] ?? [:]
+                        if let conversation = self?.getConversation(from: conversationDict,
+                                                                    conversationID: tuple.conversationId,
+                                                                    withLastMessage: message,
+                                                                    owner: user) {
+                            completionHandler(.successSingleConversation(conversation))
+                        }
+                    default:
+                        return
+                    }
+                })
+            } else {
+                
+                let conversationDict = snapshot.value as? [String : AnyObject] ?? [:]
+                if let conversation = self?.getConversation(from: conversationDict,
+                                                         conversationID: tuple.conversationId,
+                                                         withLastMessage: nil,
+                                                         owner: user) {
+                    completionHandler(.successSingleConversation(conversation))
+                }
+            }
+        }, withCancel: { (error) in
+            completionHandler(.failure(error.localizedDescription))
+        })
+    }
+    
+    private func getLastMessageOf(conversationID: String,
+                                  from snapshot: DataSnapshot? = nil,
+                                  conversationSnapshot: DataSnapshot? = nil,
+                                  completionHandler: @escaping (MessageOperationResult) -> Void) {
+
+        let messageRef: DatabaseReference!
+        
+        if conversationSnapshot != nil {
+            messageRef = conversationSnapshot?.childSnapshot(forPath: "messagesInConversation").ref
+        } else if snapshot != nil {
+            messageRef = snapshot!.childSnapshot(forPath: "\(conversationID)/messagesInConversation").ref
+        } else {
+            messageRef = ref?.child("conversations/\(conversationID)/messagesInConversation")
+        }
+        
+        messageRef.queryLimited(toLast: 1).observeSingleEvent(of: .value, with: { (messagesSnapshot) in
+            
+            guard messagesSnapshot.exists() else { return }
+            //get last message snapshot
+            let messageSnapshot = messagesSnapshot.children.allObjects[0] as! DataSnapshot
+            
+            let messageDict = messageSnapshot.value as? [String : AnyObject] ?? [:]
+            
+            //time
+            let timestamp = messageDict["time"] as! NSNumber
+            let date = Date(milliseconds: timestamp.intValue)
+            //sender
+            let senderId = messageDict["senderId"] as? String
+            //content
+            let contentDict = messageDict["content"] as! [String : String]
+            let type = MessageContentType(rawValue: contentDict.first!.key) //(contentDict.first?.key)
+            let content = contentDict["text"]
+            
+            let message = Message(uid: messageSnapshot.key,
+                                  senderId: senderId!,
+                                  time: date,
+                                  content: (type: type!, content: content!))
+            
+            completionHandler(.successSingleMessage(message))
+            
+        }, withCancel: { (error) in
+            completionHandler(.failure(error.localizedDescription))
+        })
+    }
+    
+    func updateLastMessageOf(_ conversation: Conversation,
+                             completionHandler: @escaping (MessageOperationResult) -> Void) {
+        self.getLastMessageOf(conversationID: conversation.uuid, from: nil) { (result) in
+            switch result {
+            case let .successSingleMessage(message):
+                completionHandler(.successSingleMessage(message))
+            default:
+                print("message not received")
+            }
+        }
+    }
+    
+    func deleteMessage (_ uid: String, from conversation: Conversation) {
+        self.ref?.child("conversations/\(conversation.uuid)/messagesInConversation/\(uid)").removeValue()
+    }
+    
+    func observeDeletionOfMessages (in conversation: Conversation, result: @escaping (String) -> Void) {
+        let newRef = self.ref?.child("conversations/\(conversation.uuid)/messagesInConversation")
+        newRef?.observe(.childRemoved, with: { (snapshot) in
+            result(snapshot.key)
+        })
+    }
     
 }
 

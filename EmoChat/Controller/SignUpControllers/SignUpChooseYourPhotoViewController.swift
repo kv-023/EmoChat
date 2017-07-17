@@ -10,7 +10,8 @@ import UIKit
 import Firebase
 
 class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate   {
-    
+	
+	@IBOutlet weak var backgroundAnimated: UIImageView!
     @IBOutlet weak var userPhotoView: UIImageView!
     @IBOutlet weak var warningLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -31,7 +32,9 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
     
     override func viewWillAppear(_ animated: Bool) {
         userPhotoView.clipsToBounds = true
-        userPhotoView.layer.cornerRadius = userPhotoView.frame.width/2
+		userPhotoView.layer.cornerRadius = 7
+		userPhotoView.layer.borderWidth = 1
+		userPhotoView.layer.borderColor = UIColor.black.cgColor
         activityIndicator.isHidden = true
         if let picture = image {
             userImage = picture
@@ -40,8 +43,10 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
+		
+		super.viewDidLoad()
+       // backgroundAnimated.loadGif(name: "giphy")
+
         let storage = Storage.storage()
         storageRef = storage.reference()
         
@@ -69,19 +74,19 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
         //handling image picker sourse type
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: {
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Camera", comment: "") , style: .default, handler: {
             action in
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
                 picker.sourceType = .camera
                 self.present(picker, animated: true, completion: nil)
             } else {
-                let alertCameraError = UIAlertController(title: "Camera Error", message: "Some promlems with camera, use the library", preferredStyle: UIAlertControllerStyle.alert)
+                let alertCameraError = UIAlertController(title: NSLocalizedString("Camera Error", comment: ""), message: NSLocalizedString("Some promlems with camera, use the library", comment: "") , preferredStyle: UIAlertControllerStyle.alert)
                 alertCameraError.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
                 self.present(alertCameraError, animated: true, completion: nil)
             }
         }))
         
-        alert.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: {
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Photo Library", comment: ""), style: .default, handler: {
             action in
             if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
                 picker.sourceType = .photoLibrary
@@ -93,7 +98,7 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
             }
         }))
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: "") , style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
         self.present(picker, animated: true, completion: nil)
     }
@@ -102,8 +107,12 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
         
         guard let chosenImage = info[UIImagePickerControllerEditedImage] as? UIImage else { return }
         edited = true
-        userImage = chosenImage
-        
+        // resize image
+        let rectValue:CGFloat = 50
+        if (chosenImage.size.height > rectValue || chosenImage.size.width > rectValue) == true {
+            userImage = chosenImage.resizeImageWith(newSize:
+                CGSize(width: rectValue, height: rectValue))
+        }
         //add image to view
         userPhotoView.contentMode = .scaleAspectFill
         userPhotoView.clipsToBounds = true

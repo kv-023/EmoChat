@@ -36,42 +36,55 @@ class SearchUsersViewController: UITableViewController {
     var searchController: UISearchController!
     var searchType = SearchType.contacts
     var selectedUser: User!
+    let imageStore = ImageStore.shared
     
     // MARK: - ViewController lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        managerFirebase.getCurrentUser { (result) in
+        managerFirebase.getCurrentUser { [weak self] (result) in
             switch result {
             case let .successSingleUser(user):
                 print(user.username)
                 print(user.contacts)
-                self.currentUser = user
-                self.friends = user.contacts
+                self?.currentUser = user
+                self?.friends = user.contacts
+                self?.tableView.reloadData()
             default:
-                print("NONONO")
+                print("USER NOT FOUND")
             }
         }
         
-        let createConversationButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createConversationAction(_:)))
-        
+        let createConversationButton = UIBarButtonItem(title: NSLocalizedString("Create Conversation",
+                                                                                comment: ""),
+                                                       style: .plain,
+                                                       target: self,
+                                                       action: #selector(createConversationAction(_:)))
         self.navigationItem.rightBarButtonItem = createConversationButton
         createConversationButton.isEnabled = false
         
-        searchController = UISearchController(searchResultsController: nil)
-        searchController.searchResultsUpdater = self
-        searchController.dimsBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = NSLocalizedString("Search users...", comment: "")
-        searchController.searchBar.searchBarStyle = .minimal
-        searchController.searchBar.delegate = self
-        searchController.searchBar.scopeBarBackgroundImage = UIImage(color: UIColor.white)
-        searchController.searchBar.setValue(NSLocalizedString("Done", comment: ""), forKey: "_cancelButtonText")
-        definesPresentationContext = true
-        tableView.tableHeaderView = searchController.searchBar
+        setUpSearchBar()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    // MARK: - Private functions 
+    
+    func setUpSearchBar() {
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = NSLocalizedString("Search users...", comment: "")
+        searchController.searchBar.searchBarStyle = .default
+        searchController.searchBar.delegate = self
+        searchController.searchBar.setValue(NSLocalizedString("Done", comment: ""), forKey: "_cancelButtonText")
+        let contactsScope = NSLocalizedString("Contacts", comment: "Contacts search section")
+        let globalScope = NSLocalizedString("Global search", comment: "Global search section")
+        searchController.searchBar.scopeButtonTitles = [contactsScope, globalScope]
+        definesPresentationContext = true
+        tableView.tableHeaderView = searchController.searchBar
     }
     
     // MARK: - UITableViewDelegate
@@ -91,6 +104,7 @@ class SearchUsersViewController: UITableViewController {
             }
         case .globalUsers:
             selectedUser = filteredUsers[indexPath.row]
+            self.performSegue(withIdentifier: "showUserInfo", sender: self)
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
@@ -117,37 +131,60 @@ class SearchUsersViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        switch searchType {
-        case .contacts:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ContactCellIdentifier", for: indexPath) as! ContactCell
-            let user = (searchController.isActive) ? filteredFriends[indexPath.row] : friends[indexPath.row]
-            cell.contactNameLabel.text = "\(user.firstName ?? "") \(user.secondName ?? "")"
-            cell.contactUsernameLabel.text = user.username
+        let cell = tableView.dequeueReusableCell(withIdentifier: "UserCellIdentifier", for: indexPath) as! UserCell
+        cell.userImageView.image = nil
+        let user: User!
+        
+        if searchType == .contacts {
+            user = (searchController.isActive) ? filteredFriends[indexPath.row] : friends[indexPath.row]
+            cell.userNameLabel.text = "\(user.firstName ?? "") \(user.secondName ?? "")"
+            cell.userUsernameLabel.text = user.username
             
             if checkmarkedFriends.contains(user) {
                 cell.accessoryType = .checkmark
             } else {
                 cell.accessoryType = .none
             }
-            
-            return cell
-        case .globalUsers:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "UserCellIdentifier", for: indexPath) as! GlobalUserCell
-            let user = filteredUsers[indexPath.row]
-            cell.userNameSurnameLabel.text = "\(user.firstName ?? "") \(user.secondName ?? "")"
+        } else {
+            user = filteredUsers[indexPath.row]
+            cell.userNameLabel.text = "\(user.firstName ?? "") \(user.secondName ?? "")"
             cell.userUsernameLabel.text = user.username
-            
-            return cell
+            cell.accessoryType = .disclosureIndicator
         }
+        
+        if let photoURL = user.photoURL, photoURL != "" {
+            if let image = imageStore.image(forKey: photoURL) {
+                cell.userImageView.image = image
+            } else {
+                cell.activityIndicator.startAnimating()
+                managerFirebase.getUserPicFullResolution(from: photoURL, result: { [weak self] (result) in
+                    switch result {
+                    case let .successUserPic(userImage):
+                        cell.userImageView.image = userImage
+                        cell.activityIndicator.stopAnimating()
+                        self?.imageStore.setImage(userImage, forKey: photoURL)
+                    default:
+                        return
+                    }
+                })
+            }
+        } else {
+            cell.userImageView.image = #imageLiteral(resourceName: "male")
+        }
+        
+        return cell
     }
     
     // MARK: - Searching
-    func filterContent(for searchText: String, scope: SearchType) {
-        switch scope {
+    func filterContent(for searchText: String) {
+        switch searchType {
         case .contacts:
             filteredFriends = friends.filter({ (friend) -> Bool in
                 return friend.username.lowercased().hasPrefix(searchText.lowercased())
             })
+            if filteredFriends.count == friends.count && tableView.visibleCells.isEmpty {
+                tableView.reloadData()
+            }
             tableView.reloadData()
         case .globalUsers:
             if searchText != "" {
@@ -166,28 +203,59 @@ class SearchUsersViewController: UITableViewController {
                 tableView.reloadData()
             }
         }
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
     
     // MARK: - Actions
     func createConversationAction(_ sender: UIBarButtonItem) {
         var usernames = ""
         
-        for u in checkmarkedFriends {
-            usernames = "\(usernames) \(u.username!), "
+        for (index, user) in checkmarkedFriends.enumerated() {
+            if index == checkmarkedFriends.count - 1 {
+                usernames = "\(usernames) \(user.username!)"
+            } else {
+                usernames = "\(usernames) \(user.username!), "
+            }
         }
         
-        let title = NSLocalizedString("New Conversation", comment: "Create new conversation")
-        let message =  NSLocalizedString("Create conversation with \(usernames) ?", comment: "Usernames")
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        let title = NSLocalizedString("New Conversation",
+                                      comment: "Create new conversation")
+        let message =  NSLocalizedString("Create conversation with",
+                                         comment: "Usernames") + " \(usernames) ?"
+        let alertController = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: UIAlertControllerStyle.alert)
         
-        let yesAction = UIAlertAction(title: "Yes", style: .default) { (action) in
-            
+        let yesAction = UIAlertAction(title: NSLocalizedString("Yes", comment: ""), style: .default) { [weak self] (action) in
+
+            let textField = alertController.textFields?.first!
+            if textField?.text != "" {
+                self?.checkmarkedFriends.append(self!.currentUser)
+                self?.managerFirebase.createConversation(self!.checkmarkedFriends,
+                                                         withName: textField?.text,
+                                                         completion: { (result) in
+                    switch result {
+                    case let .successSingleConversation(conversation):
+                        _ = self!.managerFirebase.createLogo(selectedUsers: self!.checkmarkedFriends, conversationID: conversation.uuid)
+                    default:
+                        print("Conversation was not created")
+                    }
+                })
+                self?.checkmarkedFriends.removeLast()
+                self?.navigationController?.popViewController(animated: true)
+            }
         }
-        let noAction = UIAlertAction(title: "No", style: .destructive, handler: nil)
-        alert.addAction(yesAction)
-        alert.addAction(noAction)
         
-        self.present(alert, animated: true, completion: nil)
+        let noAction = UIAlertAction(title: NSLocalizedString("No", comment: ""), style: .destructive, handler: nil)
+
+        alertController.addAction(yesAction)
+        alertController.addAction(noAction)
+        alertController.addTextField { (textField) in
+            textField.placeholder = NSLocalizedString("Enter conversation name",
+                                                      comment: "")
+        }
+        
+        self.present(alertController, animated: true, completion: nil)
     }
     
     // MARK: - Navigation
@@ -204,49 +272,32 @@ class SearchUsersViewController: UITableViewController {
 
 extension SearchUsersViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        if let searchText = searchController.searchBar.text {
-            filterContent(for: searchText, scope: searchType)
-            //tableView.reloadData()
-        }
+
     }
 }
 
 extension SearchUsersViewController: UISearchBarDelegate {
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        self.perform(#selector(self.filterContent(for:)),
+                     with: searchText,
+                     afterDelay: 0.5)
+    }
+    
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         searchType = SearchType(rawValue: selectedScope)!
         tableView.reloadData()
-        filterContent(for: searchBar.text!, scope: searchType)
-        print(self.currentUser.contacts)
-        print(self.friends)
+        filterContent(for: searchBar.text!)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         if searchType == .globalUsers && searchBar.text == "" || filteredUsers.isEmpty {
             searchType = .contacts
             searchBar.selectedScopeButtonIndex = searchType.rawValue
+            filterContent(for: "")
         }
     }
 
-    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        let contactsScope = NSLocalizedString("Contacts", comment: "Contacts search section")
-        let globalScope = NSLocalizedString("Global search", comment: "Global search section")
-        searchController.searchBar.scopeButtonTitles = [contactsScope, globalScope]
-        
-        return true
-    }
-}
-
-public extension UIImage {
-    public convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {
-        let rect = CGRect(origin: .zero, size: size)
-        UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
-        color.setFill()
-        UIRectFill(rect)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        guard let cgImage = image?.cgImage else { return nil }
-        self.init(cgImage: cgImage)
-    }
 }

@@ -1,0 +1,24 @@
+
+/* Class = "UILabel"; text = "Send Message"; ObjectID = "5XI-1i-5eP"; */
+"5XI-1i-5eP.text" = "Отправить сообщение";
+
+/* Class = "UILabel"; text = "username"; ObjectID = "84Z-pa-dX5"; */
+"84Z-pa-dX5.text" = "Имя пользователя";
+
+/* Class = "UILabel"; text = "Block User"; ObjectID = "8PS-Lk-erm"; */
+"8PS-Lk-erm.text" = "Заблокировать пользователя";
+
+/* Class = "UILabel"; text = "Olga Salij"; ObjectID = "BgA-KC-4Nl"; */
+"BgA-KC-4Nl.text" = "Olga Salij";
+
+/* Class = "UILabel"; text = "@olgasaliy"; ObjectID = "Hbo-yd-eo1"; */
+"Hbo-yd-eo1.text" = "@olgasaliy";
+
+/* Class = "UILabel"; text = "number phone"; ObjectID = "JBo-PA-Zac"; */
+"JBo-PA-Zac.text" = "Номер моб.";
+
+/* Class = "UILabel"; text = "+38 (095) 088 26 03"; ObjectID = "RLJ-9h-DDq"; */
+"RLJ-9h-DDq.text" = "+38 (095) 088 26 03";
+
+/* Class = "UILabel"; text = "online"; ObjectID = "hqj-Wn-xLh"; */
+"hqj-Wn-xLh.text" = "онлайн";
