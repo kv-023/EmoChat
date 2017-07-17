@@ -604,6 +604,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         self.animateTextViewTransitions(becomeFirstResponder: true)
     }
     
+
     func textViewDidEndEditing(_ textView: UITextView){
         if (textView.text == ""){
             textView.text = NSLocalizedString("Type message...", comment: "")
@@ -615,6 +616,12 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         
         self.animateTextViewTransitions(becomeFirstResponder: false)
     }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        scrollToLastMessage()
+        return true
+    }
+    
     
     //MARK: - Keyboard actions
     
