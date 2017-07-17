@@ -15,9 +15,7 @@ struct readFile {
 }
 
 class AudioMessageWaveForm: UIView {
-    
-    
-    
+// MARK - draw
     override func draw(_ rect: CGRect) {
         //downsample and convert to [CGFloat]
         self.convertToPoints()
@@ -45,9 +43,7 @@ class AudioMessageWaveForm: UIView {
             
             //y is the amplitude of each square
             aPath.addLine(to: CGPoint(x:aPath.currentPoint.x  , y:aPath.currentPoint.y - (readFile.points[f] * 1000) - 3.0))
-            
             aPath.close()
-            
             x += 1
             f += 1
         }
@@ -55,7 +51,6 @@ class AudioMessageWaveForm: UIView {
         
         UIColor.orange.set()
         aPath.stroke()
-        //If you want to fill it as well
         aPath.fill()
         
         f = 0
@@ -68,30 +63,21 @@ class AudioMessageWaveForm: UIView {
             
             //y is the amplitude of each square
             aPath2.addLine(to: CGPoint(x:aPath2.currentPoint.x  , y:aPath2.currentPoint.y - ((-1.0 * readFile.points[f]) * 500)))
-            
-            // aPath.close()
             aPath2.close()
             
             //print(aPath.currentPoint.x)
             x += 1
             f += 1
         }
-        
-        
+
         UIColor.red.set()
-        //Reflection and make it transparent
         aPath2.stroke(with: CGBlendMode.normal, alpha: 0.5)
-        
-        //If you want to fill it as well
         aPath2.fill()
     }
     
-    
+    // MARK - convertToPoints
     
     func convertToPoints() {
-        
-        
-        
         var processingBuffer = [Float](repeating: 0.0,
                                        count: Int(readFile.arrayFloatValues.count))
         let sampleCount = vDSP_Length(readFile.arrayFloatValues.count)
@@ -117,17 +103,9 @@ class AudioMessageWaveForm: UIView {
                     filter, &downSampledData,
                     vDSP_Length(downSampledLength),
                     vDSP_Length(samplesPerPixel))
-        
         // print(" DOWNSAMPLEDDATA: \(downSampledData.count)")
-        
         //convert [Float] to [CGFloat] array
         readFile.points = downSampledData.map{CGFloat($0)}
         
     }
-    
-    
-    
-    
-    
-    
 }

@@ -12,29 +12,12 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
     
 
     @IBOutlet weak var btnAudioRecord: UIButton!
-    
-  
     @IBOutlet weak var WaveFormView: AudioMessageWaveForm!
-
-    
     @IBOutlet weak var PSButtonOutfit: UIButton!
     @IBAction func playStopButton(_ sender: Any) {
-        
-        
-        
         self.player.play()
        // self.PSButtonOutfit.setImage(#imageLiteral(resourceName: "PauseAudioMessage"), for: UIControlState.normal)
-        
-        
-       
-       
-        
     }
-    
-  
-    
-    
-    
     
     var recordingSession : AVAudioSession!
     var audioRecorder    :AVAudioRecorder!
@@ -80,7 +63,7 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+     
     }
     
     //MARK - directoryURL
@@ -121,9 +104,6 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
             
             audioMessageToAnalyze(url: audioRecorder.url)
             self.WaveFormView.setNeedsDisplay()
-           
-            
-           // showAudioMessage(url: audioRecorder.url) //???????
         } else {
             audioRecorder = nil
             print("Somthing Wrong.")
@@ -166,39 +146,8 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
         }
     }
     
-    //MARK - func showAudioMessage
     
-
-//    func showAudioMessage(url: URL) {
-//    //    if url.absoluteString.hasSuffix("m4a") {
-//
-//            let button = UIButton(frame: CGRect(x: 0, y: 0, width: 32, height: 32))
-//            
-//            button.layer.cornerRadius = 0.5 * button.bounds.size.width
-//            button.clipsToBounds = true
-//            
-//            button.backgroundColor = .black
-//            button.setTitle("▶︎", for: .normal)
-//            button.addTarget(self, action: #selector(playAudioMessage), for: .touchUpInside)
-//            
-//            self.testView.addSubview(button)
-//       // }
-//    }
-    
-    
-    //MARK - func playAudioMessage
-    
-//    func playAudioMessage(sender: UIButton!) {
-//        if !audioRecorder.isRecording {
-//            self.audioPlayer = try! AVAudioPlayer(contentsOf: audioRecorder.url)
-//            self.audioPlayer.prepareToPlay()
-//            self.audioPlayer.delegate = self as? AVAudioPlayerDelegate
-//            self.audioPlayer.play()
-//
-//            self.audioRecorder = nil
-//        }
-//    }
-    
+    //MARK - Play
     
     
     func play (url: URL) {
@@ -212,6 +161,8 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
         self.audioRecorder = nil
         
     }
+    
+    //MARK - audioMessageToAnalyze
     
     func audioMessageToAnalyze(url: URL) {
        // let url = Bundle.main.url(forResource: url.absoluteString, withExtension: "m4a")
