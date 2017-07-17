@@ -312,7 +312,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     }
     
     @IBAction func sendMessage(_ sender: UIButton) {
-        if textMessage.textColor != UIColor.lightGray && !textMessage.text.isEmpty && textMessage.text[textMessage.text.startIndex] != " " {
+        if textMessage.textColor != UIColor.lightGray && textMessage.containsAlphaNumericCharacters() {
             let result:MessageOperationResult? = manager?.createMessage(
                 conversation: currentConversation!,
                 sender: currentUser,
@@ -817,6 +817,26 @@ extension SingleConversationViewController : CellDelegate {
             if let cell = sender as? CustomTableViewCell {
                     showMenu(forCell: cell)
             }
+        }
+    }
+    
+}
+
+extension CustomTextView {
+    
+    func containsAlphaNumericCharacters() -> Bool {
+        let charsArray = Array(self.text.characters)
+        let result = charsArray.filter { (character) -> Bool in
+            if String(character) == " " || String(character) == "\n" {
+                return false
+            } else {
+                return true
+            }
+        }
+        if result.count > 0 {
+            return true
+        } else {
+            return false
         }
     }
     
