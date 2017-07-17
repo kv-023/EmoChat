@@ -36,7 +36,9 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Set the Background</string>
+	<string>Camera please</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Microphone please</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Set the Background</string>
 	<key>UILaunchStoryboardName</key>

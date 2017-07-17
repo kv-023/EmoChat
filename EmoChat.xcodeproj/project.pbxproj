@@ -33,8 +33,11 @@
 		84312F931EE94FB600FAC4D1 /* SearchUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84312F921EE94FB600FAC4D1 /* SearchUsersViewController.swift */; };
 		8439F8C61F04FAB1002C63A6 /* ConversationBottomBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8439F8C51F04FAB1002C63A6 /* ConversationBottomBarView.xib */; };
 		8439F8C81F04FB62002C63A6 /* ConversationBottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8439F8C71F04FB62002C63A6 /* ConversationBottomBarView.swift */; };
+		843C58C51F1C0D7F00355ACD /* VideoPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843C58C41F1C0D7F00355ACD /* VideoPlayerViewController.swift */; };
 		84530F371F0C1E8300EBFCEB /* ImageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84530F361F0C1E8300EBFCEB /* ImageStore.swift */; };
 		84530F391F0C35DD00EBFCEB /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84530F381F0C35DD00EBFCEB /* UserCell.swift */; };
+		847120EC1F1B6A4600C34D62 /* WebView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 847120EA1F1B6A4600C34D62 /* WebView.storyboard */; };
+		847120EF1F1B6B3C00C34D62 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847120EE1F1B6B3C00C34D62 /* WebViewController.swift */; };
 		84A3C8D11EF8790F001A9A19 /* ConversationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A3C8D01EF8790F001A9A19 /* ConversationsController.swift */; };
 		84A3C8D51EF89538001A9A19 /* MessageConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A3C8D41EF89538001A9A19 /* MessageConversationCell.swift */; };
 		A309F3761EEFED6000DF6449 /* OptionsChangeNumberTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A309F3751EEFED6000DF6449 /* OptionsChangeNumberTableViewController.swift */; };
@@ -127,8 +130,11 @@
 		84312F921EE94FB600FAC4D1 /* SearchUsersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchUsersViewController.swift; sourceTree = "<group>"; };
 		8439F8C51F04FAB1002C63A6 /* ConversationBottomBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConversationBottomBarView.xib; sourceTree = "<group>"; };
 		8439F8C71F04FB62002C63A6 /* ConversationBottomBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationBottomBarView.swift; sourceTree = "<group>"; };
+		843C58C41F1C0D7F00355ACD /* VideoPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewController.swift; sourceTree = "<group>"; };
 		84530F361F0C1E8300EBFCEB /* ImageStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageStore.swift; sourceTree = "<group>"; };
 		84530F381F0C35DD00EBFCEB /* UserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
+		847120EB1F1B6A4600C34D62 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/WebView.storyboard; sourceTree = "<group>"; };
+		847120EE1F1B6B3C00C34D62 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		84A3C8D01EF8790F001A9A19 /* ConversationsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationsController.swift; sourceTree = "<group>"; };
 		84A3C8D41EF89538001A9A19 /* MessageConversationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageConversationCell.swift; sourceTree = "<group>"; };
 		A309F3751EEFED6000DF6449 /* OptionsChangeNumberTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OptionsChangeNumberTableViewController.swift; path = EmoChat/Controller/OptionsController/OptionsChangeNumberTableViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -322,6 +328,15 @@
 				84530F381F0C35DD00EBFCEB /* UserCell.swift */,
 			);
 			path = CustomCells;
+			sourceTree = "<group>";
+		};
+		847120ED1F1B6B1400C34D62 /* WebViewController */ = {
+			isa = PBXGroup;
+			children = (
+				847120EE1F1B6B3C00C34D62 /* WebViewController.swift */,
+				843C58C41F1C0D7F00355ACD /* VideoPlayerViewController.swift */,
+			);
+			path = WebViewController;
 			sourceTree = "<group>";
 		};
 		84A3C8CE1EF878AA001A9A19 /* ConversationsController */ = {
@@ -518,6 +533,7 @@
 		FB982DCB1EE1569700AC2FCD /* View */ = {
 			isa = PBXGroup;
 			children = (
+				847120EA1F1B6A4600C34D62 /* WebView.storyboard */,
 				F594A2B11F17CB63007153E0 /* SignUp.storyboard */,
 				F594A2B41F17CB69007153E0 /* Options.storyboard */,
 				F594A2B71F17CB70007153E0 /* ChatSettings.storyboard */,
@@ -534,6 +550,7 @@
 		FB982DDE1EE156B700AC2FCD /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				847120ED1F1B6B1400C34D62 /* WebViewController */,
 				519EFB261F1793BC00CC33AE /* LoginViewController */,
 				84A3C8CE1EF878AA001A9A19 /* ConversationsController */,
 				CC13C5E91EF9225600B38E59 /* SingleConversation */,
@@ -645,6 +662,7 @@
 				F594A2B21F17CB69007153E0 /* Options.storyboard in Resources */,
 				E7883F3B1EF1C2DA00E876CC /* Localizable.strings in Resources */,
 				3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */,
+				847120EC1F1B6A4600C34D62 /* WebView.storyboard in Resources */,
 				F594A2BB1F17CB7B007153E0 /* Confirmation.storyboard in Resources */,
 				F594A2B51F17CB70007153E0 /* ChatSettings.storyboard in Resources */,
 				519EFB3B1F17971400CC33AE /* play-button.png in Resources */,
@@ -726,6 +744,7 @@
 				E70F3DB41F0507D900617235 /* UrlembedModel.swift in Sources */,
 				CC13C5EB1EF9227F00B38E59 /* SingleConversationViewController.swift in Sources */,
 				E70F3DC01F0648D500617235 /* RestUISingleConversationController.swift in Sources */,
+				459BAC641F163C1B00E18D14 /* AudioMessageWaveForm.swift in Sources */,
 				E70F3DB71F0507D900617235 /* RestUIInfoView.swift in Sources */,
 				CC13C5D51EF4092900B38E59 /* ArchiverManager.swift in Sources */,
 				E70F3DB21F0507D900617235 /* MessageModel.swift in Sources */,
@@ -736,6 +755,7 @@
 				E759F3621F128B640045E626 /* DataForRestUIInfoView.swift in Sources */,
 				35F8943A1F00FFE000862BAC /* UserTableViewCell.swift in Sources */,
 				E7B926F11EF1487B0018F5FF /* PopOverHelper.swift in Sources */,
+				843C58C51F1C0D7F00355ACD /* VideoPlayerViewController.swift in Sources */,
 				A3E7E7D11EEFD893006D24BC /* OptionsMainPageTableViewController.swift in Sources */,
 				84530F391F0C35DD00EBFCEB /* UserCell.swift in Sources */,
 				A309F3761EEFED6000DF6449 /* OptionsChangeNumberTableViewController.swift in Sources */,
@@ -754,7 +774,9 @@
 				E7352C291EDED52B0095264E /* User.swift in Sources */,
 				E70F3DAF1F0507D900617235 /* RestUIStrategy.swift in Sources */,
 				E7352C2B1EE0139E0095264E /* ModelGenericHelper.swift in Sources */,
+				847120EF1F1B6B3C00C34D62 /* WebViewController.swift in Sources */,
 				FB4317731EE6C24400770338 /* SignUpFirstViewController.swift in Sources */,
+				45F3C0D61F06555000467C4F /* AudioMessageViewController.swift in Sources */,
 				E7352C3A1EE81CB60095264E /* RegexCheckProtocol.swift in Sources */,
 				CC13C5ED1EF929AF00B38E59 /* SpecialTextView.swift in Sources */,
 				E70F3DAE1F0507D900617235 /* RestUIHelper.swift in Sources */,
@@ -792,6 +814,14 @@
 				F594A2D41F17CBAB007153E0 /* ru */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		847120EA1F1B6A4600C34D62 /* WebView.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				847120EB1F1B6A4600C34D62 /* Base */,
+			);
+			name = WebView.storyboard;
 			sourceTree = "<group>";
 		};
 		E7883F3D1EF1C2DA00E876CC /* Localizable.strings */ = {
@@ -990,6 +1020,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = DB3E36CSLR;
 				INFOPLIST_FILE = EmoChat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.serve.Emochat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1006,6 +1037,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = DB3E36CSLR;
 				INFOPLIST_FILE = EmoChat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.serve.Emochat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
