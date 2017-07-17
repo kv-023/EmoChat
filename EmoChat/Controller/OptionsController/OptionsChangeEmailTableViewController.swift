@@ -12,28 +12,26 @@ class OptionsChangeEmailTableViewController: UITableViewController, UITextFieldD
     
     @IBOutlet weak var changeEmailTextField: UITextField!
     @IBOutlet weak var infoLabel: UILabel!
-    var currentUser: User!
-    var manager: ManagerFirebase!
-    
+    var currentUser: CurrentUser!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //Manager firebase
-        manager = ManagerFirebase.shared
+        //Singleton
+        currentUser = CurrentUser.shared
+        
+        //Add current user email in textfield
+        changeEmailTextField.text = currentUser.email
         
         //Add right button item "Save"
         let rightButtonItem = UIBarButtonItem.init(barButtonSystemItem: .save, target: self, action: #selector(saveEmail))
         self.navigationItem.rightBarButtonItem = rightButtonItem
         
-        
         //Hide keybord on tap
         self.hideKeyboard()
-        
-        //Add current user email in textfield
-        changeEmailTextField.text = currentUser.email
     }
     
-    // MARK: - Action
+    // MARK: - Actions with editing
     @IBAction func emailEdited(_ sender: UITextField) {
         if emailIsValid(userEmail: changeEmailTextField.text) {
             infoLabel.text = NSLocalizedString("Email is valid", comment: "Email is valid")
@@ -43,25 +41,15 @@ class OptionsChangeEmailTableViewController: UITableViewController, UITextFieldD
         }
     }
     
-    // MARK: - Save to firebase
+    // MARK: - Save to firebasen and current user
     func saveEmail(sender: UIBarButtonItem) {
         if emailIsValid(userEmail: changeEmailTextField.text){
-            manager.changeUsersEmail(email: changeEmailTextField.text!) {
-                result in
-                switch result {
-                case .success:
-                    print ("success change email")
-                    //back to previous vc
-                    if let navController = self.navigationController {
-                        navController.popViewController(animated: true)
-                    }
-                case .failure(let error):
-                    print(error)
-                    self.infoLabel.text = error
-                default:
-                    break
-                }
-            }
+            currentUser.changeEmail(newEmail: changeEmailTextField.text!)
+        }
+        
+        //Back to previous vc
+        if let navController = self.navigationController {
+            navController.popViewController(animated: true)
         }
     }
 }
