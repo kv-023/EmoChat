@@ -18,7 +18,7 @@ class OptionsChangePhotoNameSecondNameTableViewController: UITableViewController
     
     
     override func viewWillAppear(_ animated: Bool) {
-
+        
     }
     
     
@@ -64,12 +64,12 @@ class OptionsChangePhotoNameSecondNameTableViewController: UITableViewController
         guard let chosenImage = info[UIImagePickerControllerEditedImage] as? UIImage else { return }
         
         //Add image to view
-
         userPhotoView.image = chosenImage
         
+        //Add to firebase and current user
         currentUser.addPhoto(chosenImage: chosenImage)
-
-//        Dissmiss image picker
+        
+        //Dissmiss image picker
         self.dismiss(animated:true, completion: nil)
     }
     

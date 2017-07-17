@@ -15,15 +15,48 @@ class CurrentUser {
     var manager: ManagerFirebase!
     
     var uid: String!
-    var firstName: String?
-    var secondName: String?
-    var phoneNumber: String?
-    var email:String!
-    var username:String!
+    
+    var firstName: String? {
+        didSet {updateInfoOnView?()
+        }
+    }
+    
+    var secondName: String? {
+        didSet {
+            updateInfoOnView?()
+        }
+    }
+    
+    var phoneNumber: String? {
+        didSet {
+            updateInfoOnView?()
+        }
+    }
+    
+    var email:String!{
+        didSet {
+            updateInfoOnView?()
+        }
+    }
+    
+    var username:String! {
+        didSet {
+            updateInfoOnView?()
+        }
+    }
+    
     var photoURL: String?
-    var photo: UIImage?
+    
+    var photo: UIImage? {
+        didSet {
+            updateInfoOnView?()
+        }
+    }
     var userConversations: [Conversation]?
     var contacts: [User] = []
+    
+    var updateInfoOnView: (() -> Void)?
+    
     
     
     
@@ -73,7 +106,7 @@ class CurrentUser {
                 break
             }
         }
-
+        
     }
     
     // MARK: - Add additional info
@@ -225,7 +258,7 @@ class CurrentUser {
             }
         }
     }
-
+    
     //MARK: - Get user picture
     func getUserPicFullResolution(photoURL: String) {
         manager.getUserPicFullResolution(from: photoURL) {
@@ -245,7 +278,7 @@ class CurrentUser {
     
     
     //MARK: - Sign up
-
+    
     func signUp (email: String, password: String) {
         manager.signUp(email: email, password: password) {
             result in

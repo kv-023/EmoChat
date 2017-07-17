@@ -8,7 +8,7 @@
 
 import UIKit
 
-class OptionsMainPageTableViewController:  UITableViewController, UIImagePickerControllerDelegate, UITextFieldDelegate, UINavigationControllerDelegate, RegexCheckProtocol  {
+class OptionsMainPageTableViewController:  UITableViewController {
     
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var nameAndLastNameLabel: UILabel!
@@ -18,25 +18,35 @@ class OptionsMainPageTableViewController:  UITableViewController, UIImagePickerC
     @IBOutlet weak var emailLabel: UILabel!
     
     var currentUser: CurrentUser!
-    
-    override func viewWillAppear(_ animated: Bool) {
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        //Singleton
+        currentUser = CurrentUser.shared
+        currentUser.updateInfoOnView = updateInfoOnView
+        
+        
+        /////////////////////////////////
+        /////////////////////////////////
+        /////////////////////////////////
+        /////////////////////////////////
+        /////////////////////////////////
+        /////////////////////////////////
+        //Temp login and get current user
+        
+        currentUser.logIn()
+        currentUser.getCurrentUser()
+    
+    }
+    
+    func updateInfoOnView() {
         nameAndLastNameLabel.text = "\(currentUser.firstName ?? "Name") \(currentUser.secondName ?? "Lastname")"
         phoneNumberLabel.text = currentUser.phoneNumber
         usernameLabel.text = currentUser.username
         emailLabel.text = currentUser.email
         userImageView.image = currentUser.photo
-        
     }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        currentUser = CurrentUser.shared
-        
-        //Temp login and get current user
-        currentUser.logIn()
-        currentUser.getCurrentUser()
     
-    }
 }
+
