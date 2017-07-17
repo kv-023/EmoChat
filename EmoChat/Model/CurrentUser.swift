@@ -108,7 +108,7 @@ class CurrentUser {
         }
         
     }
-    
+        
     // MARK: - Add additional info
     func changeInfo(phoneNumber: String?,
                     firstName: String?,
