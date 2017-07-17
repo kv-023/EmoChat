@@ -55,9 +55,6 @@ class ConversationsController: UITableViewController {
             let vc = segue.destination as! SingleConversationViewController
             vc.currentConversation = self.selectedConversation
             vc.currentUser = conversationsDataSource.currentUser
-          /*  let backItem = UIBarButtonItem()
-            backItem.title = "Back"
-            navigationItem.backBarButtonItem = backItem*/
         }
         
     }

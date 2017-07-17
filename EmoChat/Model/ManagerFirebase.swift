@@ -732,7 +732,7 @@ class ManagerFirebase {
                 let conversationDict = conversationSnapshot.value as? [String : AnyObject]
                 if let timeStamp = conversationDict?["lastMessage"] as? NSNumber {
                     let convTuple = conversationTuple(conversationId: "\(conversationSnapshot.key)",
-                                                            timestamp: Date(milliseconds: timeStamp.intValue))
+                                                            timestamp: Date(milliseconds: timeStamp.doubleValue))
                     conversationsIDs.append(convTuple)
                 }
             }
@@ -750,8 +750,6 @@ class ManagerFirebase {
             
             self?.getConversationsIDs(conversatinsIDs: conversationsDict) { (conversationsIDs) in
                 sortedConversationsArray = conversationsIDs.sorted(by: { $0.timestamp.timeIntervalSince1970 > $1.timestamp.timeIntervalSince1970 })
-                //{ $0.timestamp.compare($1.timestamp) == .orderedDescending }
-                //{ $0.timestamp > $1.timestamp }
                 completionHandler(sortedConversationsArray)
             }
         })
@@ -763,7 +761,7 @@ class ManagerFirebase {
                                  owner user: User) -> Conversation {
         //create conversation's fields
         let timeStamp = conversationDict["lastMessage"] as! NSNumber
-        let date = Date(milliseconds: timeStamp.intValue)
+        let date = Date(milliseconds: timeStamp.doubleValue)
         
         //define the name of conversation
         var conversationName = ""
