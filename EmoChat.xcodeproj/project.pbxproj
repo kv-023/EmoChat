@@ -49,7 +49,6 @@
 		E70F3DB41F0507D900617235 /* UrlembedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70F3DA41F0507D900617235 /* UrlembedModel.swift */; };
 		E70F3DB61F0507D900617235 /* RestUIInfo2.xib in Resources */ = {isa = PBXBuildFile; fileRef = E70F3DA71F0507D900617235 /* RestUIInfo2.xib */; };
 		E70F3DB71F0507D900617235 /* RestUIInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70F3DA81F0507D900617235 /* RestUIInfoView.swift */; };
-		E70F3DBA1F052D1700617235 /* SingleConversationUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70F3DB91F052D1700617235 /* SingleConversationUITableViewCell.swift */; };
 		E70F3DBC1F063EC000617235 /* LeftSingleConversationUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70F3DBB1F063EC000617235 /* LeftSingleConversationUITableViewCell.swift */; };
 		E70F3DBE1F0644F300617235 /* RightSingleConversationUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70F3DBD1F0644F300617235 /* RightSingleConversationUITableViewCell.swift */; };
 		E70F3DC01F0648D500617235 /* RestUISingleConversationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70F3DBF1F0648D500617235 /* RestUISingleConversationController.swift */; };
@@ -135,7 +134,6 @@
 		E70F3DA41F0507D900617235 /* UrlembedModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UrlembedModel.swift; sourceTree = "<group>"; };
 		E70F3DA71F0507D900617235 /* RestUIInfo2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestUIInfo2.xib; sourceTree = "<group>"; };
 		E70F3DA81F0507D900617235 /* RestUIInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestUIInfoView.swift; sourceTree = "<group>"; };
-		E70F3DB91F052D1700617235 /* SingleConversationUITableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleConversationUITableViewCell.swift; sourceTree = "<group>"; };
 		E70F3DBB1F063EC000617235 /* LeftSingleConversationUITableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftSingleConversationUITableViewCell.swift; sourceTree = "<group>"; };
 		E70F3DBD1F0644F300617235 /* RightSingleConversationUITableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightSingleConversationUITableViewCell.swift; sourceTree = "<group>"; };
 		E70F3DBF1F0648D500617235 /* RestUISingleConversationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestUISingleConversationController.swift; sourceTree = "<group>"; };
@@ -315,7 +313,6 @@
 			children = (
 				CCF540021F0BAB3800F50EE6 /* CustomTableViewCell.swift */,
 				CC13C5EA1EF9227F00B38E59 /* SingleConversationViewController.swift */,
-				E70F3DB91F052D1700617235 /* SingleConversationUITableViewCell.swift */,
 				E70F3DBF1F0648D500617235 /* RestUISingleConversationController.swift */,
 				E70F3DBB1F063EC000617235 /* LeftSingleConversationUITableViewCell.swift */,
 				E70F3DBD1F0644F300617235 /* RightSingleConversationUITableViewCell.swift */,
@@ -668,7 +665,6 @@
 				FBAC19811EF13E1A0027AF9D /* ConfirmationViewController.swift in Sources */,
 				E7883F381EF1611F00E876CC /* Localize.swift in Sources */,
 				CC45A7571EE6D40E00FF13AE /* ManagerFirebase.swift in Sources */,
-				E70F3DBA1F052D1700617235 /* SingleConversationUITableViewCell.swift in Sources */,
 				E70F3DB41F0507D900617235 /* UrlembedModel.swift in Sources */,
 				CC13C5EB1EF9227F00B38E59 /* SingleConversationViewController.swift in Sources */,
 				E70F3DC01F0648D500617235 /* RestUISingleConversationController.swift in Sources */,

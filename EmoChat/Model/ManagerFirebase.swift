@@ -47,6 +47,7 @@ class ManagerFirebase {
     let storageRef: StorageReference
     let conversationsRef: DatabaseReference?
     let observerTuplesRef: DatabaseReference?
+    let observeConnectedRef: DatabaseReference?
     let newRef: DatabaseReference?
     public static let shared = ManagerFirebase()
     
@@ -56,6 +57,17 @@ class ManagerFirebase {
         self.conversationsRef = Database.database().reference()
         self.observerTuplesRef = Database.database().reference()
         self.newRef = Database.database().reference()
+        self.observeConnectedRef = Database.database().reference(withPath: ".info/connected")
+
+        //Keeping Data Fresh
+//        //self.storageRef.keepSynced(true)
+//        self.conversationsRef?.keepSynced(true)
+//        self.ref?.keepSynced(true)
+//        self.observerTuplesRef?.keepSynced(true)
+//        self.newRef?.keepSynced(true)
+
+        //enable disk persistence
+//        Database.database().isPersistenceEnabled = true
     }
     
     //MARK: - Return URLs of members photos
@@ -983,7 +995,73 @@ class ManagerFirebase {
             result(snapshot.key)
         })
     }
+
+    //nik
+
+    func checkOnlineStatus(userUid uid: String) {
+        self.observeConnectedRef?.observe(.value, with: { snapshot in
+            var statusOfConnection: UserOnlineStatus = .unknown
+            if snapshot.value as? Bool ?? false {
+                print("Connected")
+
+                statusOfConnection = .connected
+            } else {
+                print("Not connected")
+
+                statusOfConnection = .notConnected
+            }
+
+            self.setOnlineStatusForCurrentUser(userUid: uid,
+                                               status: statusOfConnection,
+                                               result: { (result) in
+                                                
+            })
+        })
+    }
+
+
+    enum UserOnlineStatus: String {
+        case connected = "Connected"
+        case notConnected = "NotConnected"
+        case unknown = "Unknown"
+    }
+
+    func setOnlineStatusForCurrentUser (userUid uid: String,
+                                        status: UserOnlineStatus,
+                                        result: ((UserOperationResult) -> Void)?) {
+        if let user = Auth.auth().currentUser {
+
+            guard user.uid == uid else {
+                result?(.failure(NSLocalizedString("Assigned uid \(uid) isn't from current user \(user.uid)", comment: "")))
+                return
+            }
+
+            setOnlineStatusForUser(userUid: uid, status: status)
+
+            result?(.success)
+        } else {
+
+            result?(.failure(NSLocalizedString("User isn't authenticated", comment: "")))
+        }
+    }
+
+    func setOnlineStatusForUser(userUid uid: String,
+             status: UserOnlineStatus) {
+
+        let userRef = self.ref?.child("users/\(uid)/presenceStatus")
+        let userStatusRef = userRef?.child("currentStatus")
+
+        userStatusRef?.onDisconnectRemoveValue()
+
+        userStatusRef?.setValue(status.rawValue)
+        userStatusRef?.onDisconnectSetValue(UserOnlineStatus.notConnected.rawValue)
+
+        userRef?.child("ended").onDisconnectSetValue(ServerValue.timestamp())
+        userRef?.child("began").setValue(ServerValue.timestamp())
+
+    }
     
+
 }
 
 

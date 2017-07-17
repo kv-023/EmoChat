@@ -369,8 +369,27 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             let y = rect.size.height + rect.origin.y
             table.frame = CGRect(x: table.frame.minX, y: table.frame.minY + y, width: table.frame.width, height: table.frame.height - y)
         }
+
+        //add button
+        let checkOnlinUserStatusButton = UIBarButtonItem(title: "chek status",  style: .plain, target: self, action: #selector(SingleConversationViewController.checkOnlinUserStatusButton))
+        if var notNullRightBarButtonItems = self.navigationItem.rightBarButtonItems {
+            notNullRightBarButtonItems.append(checkOnlinUserStatusButton)
+        } else {
+            self.navigationItem.rightBarButtonItem = checkOnlinUserStatusButton
+        }
+
     }
-    
+
+    func checkOnlinUserStatusButton() {
+        let usersInConversation = self.currentConversation.usersInConversation
+        for userInConv in usersInConversation {
+            guard userInConv.uid == currentUser.uid  else {
+                continue
+            }
+
+            manager?.checkOnlineStatus(userUid: userInConv.uid)
+        }
+    }
     
     func insertRow(_ newMessage: (Message, UserType)) {
         messagesArray.append((newMessage.0, newMessage.1))
