@@ -598,7 +598,7 @@ class ManagerFirebase {
         if let refConv = ref?.child("conversations/\(conversation.uuid)") {
             
             var childUpdates = [String : Any] ()
-            childUpdates.updateValue(timeStamp.intValue, forKey: "lastMessage")
+            childUpdates.updateValue(timeStamp.doubleValue, forKey: "lastMessage")
             if members.count > 2 {
                 childUpdates.updateValue(conversation.name!, forKey: "name")
             }
@@ -631,12 +631,12 @@ class ManagerFirebase {
             
             var childUpdates = [String: Any] ()
             childUpdates.updateValue(message.senderId!, forKey: "senderId")
-            childUpdates.updateValue(timeStamp.intValue, forKey: "time")
+            childUpdates.updateValue(timeStamp.doubleValue, forKey: "time")
             childUpdates.updateValue(message.content.content, forKey: "content/\((message.content?.type)!)")
 
             messageRef.updateChildValues(childUpdates)
 
-            ref?.child("conversations/\(conversation.uuid)/lastMessage").setValue(timeStamp.intValue)
+            ref?.child("conversations/\(conversation.uuid)/lastMessage").setValue(timeStamp.doubleValue)
             return .successSingleMessage(message)
         } else {
             return .failure(NSLocalizedString("Something went wrong", comment: ""))
@@ -680,7 +680,7 @@ class ManagerFirebase {
     
     func getMessageFromConversation (_ allConversations: [Conversation], result: @escaping (Conversation, Message) -> Void) {
         for eachConv in allConversations{
-            self.ref?.child("conversations/\(eachConv.uuid)/messagesInConversation").queryLimited(toLast: 1).observe(.childAdded, with: {(snapshot) in
+            self.ref?.child("conversations/\(eachConv.uuid)/messagesInConversation").queryLimited(toLast: UInt(eachConv.usersInConversation.count)).observe(.childAdded, with: {(snapshot) in
                 let uidMessage = snapshot.key
                 let messageSnapshot = snapshot.value as? NSDictionary
                 let message = Message(data: messageSnapshot, uid: uidMessage)
@@ -951,7 +951,7 @@ class ManagerFirebase {
             
             //time
             let timestamp = messageDict["time"] as! NSNumber
-            let date = Date(milliseconds: timestamp.intValue)
+            let date = Date(milliseconds: timestamp.doubleValue)
             //sender
             let senderId = messageDict["senderId"] as? String
             //content
