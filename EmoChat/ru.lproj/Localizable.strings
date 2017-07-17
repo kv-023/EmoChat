@@ -88,6 +88,7 @@
 "Enter conversation name"                               = "Введите название беседы";
 
 //SingleConversVC
+"Back"                                                  = "Назад";
 "Delete"                                                = "Удалить";
 "Copy"                                                  = "Скопировать";
 "No messages yet"                                       = "Нет сообщений";

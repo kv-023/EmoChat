@@ -22,11 +22,13 @@ enum UserType {
 
 
 class SingleConversationViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate {
+    
     //
     //    private struct Constants {
     //        static let leadingConstraint: CGFloat = 8.0
     //    }
     //
+    
     // MARK: - constants
     let leadingConstraintConstant: CGFloat = 8.0
     let trailingConstraintConstant: CGFloat = 8.0
@@ -250,10 +252,11 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     }
     
     func removeAtUid(_ uid: String) {
-        let result = self.findMessageInDictionary(with: uid)
-        messageRestModel.removeValue(forKey: ((messagesArrayWithSection[result!.1]?[result!.0])?.0)!)
-        self.removeMessageFromDictionary(index: result)
-        table.reloadData()
+        if let result = self.findMessageInDictionary(with: uid){
+            messageRestModel.removeValue(forKey: ((messagesArrayWithSection[result.1]?[result.0])?.0)!)
+            self.removeMessageFromDictionary(index: result)
+            table.reloadData()
+        }
     }
     
     func deleteMessage(_ target: Message) {
@@ -780,7 +783,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
 }
 
-//MARK:- SingleConversationCellProtocol
+//MARK: - SingleConversationCellProtocol
 extension SingleConversationViewController: SingleConversationControllerProtocol {
     
     func resizeSingleConversationCell(cell: CustomTableViewCell) {
@@ -808,8 +811,7 @@ extension SingleConversationViewController: SingleConversationControllerProtocol
     
 }
 
-//MARK:- SingleConversationViewController
-
+//MARK: - SingleConversationViewController
 extension SingleConversationViewController : CellDelegate {
     
     func cellDelegate(_ sender: UITableViewCell, didHandle action: Action) {
