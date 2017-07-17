@@ -681,7 +681,7 @@ class ManagerFirebase {
     
     func getMessageFromConversation (_ allConversations: [Conversation], result: @escaping (Conversation, Message) -> Void) {
         for eachConv in allConversations{
-            self.ref?.child("conversations/\(eachConv.uuid)/messagesInConversation").queryLimited(toLast: 5).observe(.childAdded, with: {(snapshot) in
+            self.ref?.child("conversations/\(eachConv.uuid)/messagesInConversation").queryLimited(toLast: 3).observe(.childAdded, with: {(snapshot) in
                 let uidMessage = snapshot.key
                 let messageSnapshot = snapshot.value as? NSDictionary
                 let message = Message(data: messageSnapshot, uid: uidMessage)
@@ -976,7 +976,7 @@ class ManagerFirebase {
         self.getLastMessageOf (conversationID: conversation.uuid) { (result) in
             switch result {
             case .successSingleMessage(let message):
-                self.ref?.child("conversations/\(conversation.uuid)/lastMessage").setValue(message.time.timeIntervalSince1970)
+                self.ref?.child("conversations/\(conversation.uuid)/lastMessage").setValue(NSNumber(value:message.time.timeIntervalSince1970 * 1000.0))
             default:
                 break
             }
