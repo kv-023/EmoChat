@@ -82,7 +82,7 @@ class RestUIInfoView: UIView {
                     print(errorMessage1 + " \(String(describing: self.url))")
                     return
             }
-            /*
+
             let sharedUIApplication = UIApplication.shared
             guard sharedUIApplication.canOpenURL(validUrl) else {
                 print(errorMessage1 + " \(notNullURLString)")
@@ -90,9 +90,9 @@ class RestUIInfoView: UIView {
             }
 
             sharedUIApplication.open(validUrl, options: [:], completionHandler: nil)
-            */
+
             
-            let storyboard = UIStoryboard(name: "WebView", bundle: Bundle.main)
+            /*let storyboard = UIStoryboard(name: "WebView", bundle: Bundle.main)
             let webVC = storyboard.instantiateViewController(withIdentifier: "WebVC") as! WebViewController
             webVC.url = validUrl
             
@@ -106,7 +106,7 @@ class RestUIInfoView: UIView {
                 navController = topController as? UINavigationController
             }
             
-            navController?.pushViewController(webVC, animated: true)
+            navController?.pushViewController(webVC, animated: true)*/
         }
     }
 
