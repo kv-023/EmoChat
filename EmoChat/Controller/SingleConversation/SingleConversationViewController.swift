@@ -105,6 +105,14 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         
         navigationItem.title = currentConversation.name!
         
+        let button = UIButton.init(type: .custom)
+        let img = UIImage.init(named: "info")
+        button.setImage(img, for: UIControlState.normal)
+        button.addTarget(self, action:#selector(conversationInfoPressed), for: UIControlEvents.touchUpInside)
+        button.frame = CGRect.init(x: 0, y: 0, width: 30, height: 30)
+        let barButton = UIBarButtonItem.init(customView: button)
+        self.navigationItem.rightBarButtonItem = barButton
+        
         self.observeDeletion()
         
         print(self.currentConversation.uuid)
@@ -145,6 +153,19 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     }
     
     //MARK: - Menu
+    func conversationInfoPressed() {
+        let vc = UIStoryboard(name:"ChatSettings", bundle:nil).instantiateViewController(withIdentifier: "chatSettings") as! ChatSettingsTableViewController
+       
+        vc.conversation = currentConversation
+        vc.photosArray = photosArray
+        vc.currentUser = currentUser
+        
+        let backItem = UIBarButtonItem()
+        backItem.title = NSLocalizedString("Back", comment: "Back button")
+        navigationItem.backBarButtonItem = backItem
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     func showMenu(forCell cell: CustomTableViewCell) {
         
         guard table.indexPath(for: cell) != nil else {

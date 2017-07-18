@@ -9,7 +9,6 @@
 import UIKit
 import Firebase
 
-
 class ChatSettingsTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var logoCell = LogoTableViewCell()
@@ -17,36 +16,50 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
     var leaveChatCell = UITableViewCell()
     var userCell = UserTableViewCell()
     
-    
     var storageRef: StorageReference!
     var manager: ManagerFirebase!
+    var currentUser: User!
     var conversation: Conversation!
-    var conversations: [Conversation]?
+    
+    var usersInConversation = [User]()
+    var photosArray: [String: UIImage] = [:]
     
     //let userDefaults = UserDefaults.standard
     let kDefaultsCellLogo = "conversationLogo"
-   
-    var avatar = [UIImage]()
-    var usersInConversation = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.contentInset = UIEdgeInsetsMake(28, 0, 0, 0)
-        usersInConversation = ["Ivan Ivanych", "Valentin", "Stepan Stepanov", "realman"]
+        tableView.contentInset = UIEdgeInsetsMake(-20, 0, 0, 0)
+       self.navigationItem.title = NSLocalizedString("Conversation", comment: "")
+        var usersWithFirstName = [User]()
+        var usersWithUsername = [User]()
+       
+        for users in conversation.usersInConversation {
+            if users.firstName != nil {
+                usersWithFirstName.append(users)
+            } else {
+                usersWithUsername.append(users)
+            }
+        }
         
-    
-         manager = ManagerFirebase.shared
+        usersWithFirstName.sort { $0.firstName! < $1.firstName! }
+        usersWithUsername.sort { $0.username! < $1.username! }
         
+        usersInConversation.append(contentsOf: usersWithFirstName)
+        usersInConversation.append(contentsOf: usersWithUsername)
+        
+        manager = ManagerFirebase.shared
+        /*
         manager?.logIn(email: "zellensky@gmail.com", password: "qwerty") { (result) in
             switch (result) {
                 
-            case .successSingleUser(let uuu):
+            case .successSingleUser(let uuu5):
                 print("111111111111111")
             case .failure(let error):
                 print(error)
             default: break
             }
-        }
+        }*/
         
         /*
        
@@ -85,7 +98,7 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
         case 1:
             return 2
         default:
-            return usersInConversation.count
+            return conversation.usersInConversation.count
         }
         
     }
@@ -98,7 +111,7 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
         case 0:
             logoCell = tableView.dequeueReusableCell(withIdentifier: "logoCell", for: indexPath) as! LogoTableViewCell
             
-            logoCell.conversTitle.text = "Conversation title"
+            logoCell.conversTitle.text = conversation.name!
             logoCell.conversLogo.clipsToBounds = true
             logoCell.conversLogo.layer.cornerRadius =  logoCell.conversLogo.frame.size.height / 2
           //  logoCell.conversLogo.contentMode = .scaleAspectFill
@@ -107,7 +120,7 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
            //     let image = UIImage(data: imageData  as! Data) {
             
             
-                logoCell.conversLogo.image = UIImage.createFinalImg(logoImages: avatar )
+                //logoCell.conversLogo.image = UIImage.createFinalImg(logoImages: avatar )
                 
           //  } else {
             
@@ -136,12 +149,21 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
             //userCell.textLabel?.text = "Name LastName"
             userCell.userPic.clipsToBounds = true
             userCell.userPic.layer.cornerRadius =  22
-          //  userCell.userPic.image = avatar[indexPath.row]
-            userCell.userName.text = usersInConversation[indexPath.row]
-            
+            let userByIndexPath = usersInConversation[indexPath.row]
+
+            if (userByIndexPath.firstName != nil) && (userByIndexPath.secondName != nil) {
+                userCell.userName.text = userByIndexPath.firstName! + " " + userByIndexPath.secondName!
+            } else if (userByIndexPath.firstName != nil) {
+                 userCell.userName.text = userByIndexPath.firstName!
+            } else {
+                userCell.userName.text = "@" + userByIndexPath.username
+
+            }
+            userCell.userPic.image = self.photosArray[userByIndexPath.uid]
+           
             return userCell
         }
-    }
+    }                                                                                   
 
     
     //MARK: - UITableViewDelegate
@@ -155,7 +177,7 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 1:
-            return NSLocalizedString("CHAT SETTINGS", comment: "")
+            return NSLocalizedString("CONVERSATION SETTINGS", comment: "")
         case 2:
             return NSLocalizedString("USERS IN CONVERSATION", comment: "")
         default:
@@ -226,14 +248,14 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
         logoCell.conversLogo.clipsToBounds = true
         logoCell.conversLogo.image = chosenImage
         
-        let imgData = UIImageJPEGRepresentation(chosenImage, 1)
+       // let imgData = UIImageJPEGRepresentation(chosenImage, 1)
         
         //userDefaults.set(imgData, forKey: kDefaultsCellLogo)
         
         
         //Add image to firebase
      
-        manager?.loadLogo(chosenImage, conversationID: "77777", result: { (result) in
+        manager?.loadLogo(chosenImage, conversationID: conversation.uuid, result: { (result) in
             switch result {
             case .success:
                 print("photo save")

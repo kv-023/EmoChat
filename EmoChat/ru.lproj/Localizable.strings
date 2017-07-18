@@ -59,12 +59,13 @@
 "Yesterday"                                             = "Вчера";
 
 //Chat settings
-"CHAT SETTINGS"                                         = "НАСТРОЙКИ ЧАТА";
-"USERS IN CONVERSATION"                                 = "ДРУЗЬЯ В ЧАТЕ";
+"CHAT SETTINGS"                                         = "НАСТРОЙКИ БЕСЕДЫ";
+"USERS IN CONVERSATION"                                 = "УЧАСТНИКИ";
 "Choose new conversation logo"                          = "Выберите логотип беседы";
 "Image Source"                                          = "Новое фото";
 "Cancel"                                                = "Отмена";
 "Photo Library"                                         = "Фотопленка";
+"Conversation"                                          = "Беседа";
 
 //OptionsChangeController
 "Enter valid Email"                                     = "Введите правильный email";
