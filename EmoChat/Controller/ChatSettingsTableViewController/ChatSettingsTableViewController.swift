@@ -24,63 +24,37 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
     var usersInConversation = [User]()
     var photosArray: [String: UIImage] = [:]
     
-    //let userDefaults = UserDefaults.standard
-    let kDefaultsCellLogo = "conversationLogo"
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        manager = ManagerFirebase.shared
         tableView.contentInset = UIEdgeInsetsMake(-20, 0, 0, 0)
-       self.navigationItem.title = NSLocalizedString("Conversation", comment: "")
+        self.navigationItem.title = NSLocalizedString("Conversation", comment: "")
+        
         var usersWithFirstName = [User]()
         var usersWithUsername = [User]()
        
         for users in conversation.usersInConversation {
-            if users.firstName != nil {
+            
+            if (users.firstName != nil) && (users.secondName != nil) {
                 usersWithFirstName.append(users)
             } else {
                 usersWithUsername.append(users)
             }
         }
         
-        usersWithFirstName.sort { $0.firstName! < $1.firstName! }
+        usersWithFirstName.sort { (user1, user2) -> Bool in
+            if user1.firstName == user2.firstName {
+                return user1.secondName! < user2.secondName!
+            } else {
+                return user1.firstName! < user2.firstName!
+            }
+        }
         usersWithUsername.sort { $0.username! < $1.username! }
-        
+       
         usersInConversation.append(contentsOf: usersWithFirstName)
         usersInConversation.append(contentsOf: usersWithUsername)
-        
-        manager = ManagerFirebase.shared
-        /*
-        manager?.logIn(email: "zellensky@gmail.com", password: "qwerty") { (result) in
-            switch (result) {
-                
-            case .successSingleUser(let uuu5):
-                print("111111111111111")
-            case .failure(let error):
-                print(error)
-            default: break
-            }
-        }*/
-        
-        /*
-       
-        manager?.getCurrentUser { (result) in
-            switch (result) {
-            case .successSingleUser(let _):
-                print("dadadadadadadadadad")
-                //self.currentUser = user
-               // self.currentConversation = user.userConversations?.first!
-               // print(self.currentConversation.uuid)
-            case .failure(let error):
-                print(error)
-            default:
-                break
-            }
-            
-        }
-*/
-    
-    
- 
+        usersInConversation = usersInConversation.filter{$0.username != currentUser.username}
+
     }
  
     
@@ -98,12 +72,11 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
         case 1:
             return 2
         default:
-            return conversation.usersInConversation.count
+            return usersInConversation.count
         }
         
     }
     
-
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         switch indexPath.section {
@@ -145,8 +118,7 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
             
         default:
             userCell = tableView.dequeueReusableCell(withIdentifier: "user", for: indexPath) as! UserTableViewCell
-            //userCell.imageView?.image = UIImage.init(named: "male.png")
-            //userCell.textLabel?.text = "Name LastName"
+            
             userCell.userPic.clipsToBounds = true
             userCell.userPic.layer.cornerRadius =  22
             let userByIndexPath = usersInConversation[indexPath.row]
@@ -247,10 +219,6 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
     
         logoCell.conversLogo.clipsToBounds = true
         logoCell.conversLogo.image = chosenImage
-        
-       // let imgData = UIImageJPEGRepresentation(chosenImage, 1)
-        
-        //userDefaults.set(imgData, forKey: kDefaultsCellLogo)
         
         
         //Add image to firebase

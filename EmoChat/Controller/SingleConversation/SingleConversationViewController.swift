@@ -104,12 +104,11 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         })
         
         navigationItem.title = currentConversation.name!
-        
         let button = UIButton.init(type: .custom)
         let img = UIImage.init(named: "info")
         button.setImage(img, for: UIControlState.normal)
         button.addTarget(self, action:#selector(conversationInfoPressed), for: UIControlEvents.touchUpInside)
-        button.frame = CGRect.init(x: 0, y: 0, width: 30, height: 30)
+        button.frame = CGRect.init(x: 0, y: 0, width: 25, height: 25)
         let barButton = UIBarButtonItem.init(customView: button)
         self.navigationItem.rightBarButtonItem = barButton
         
