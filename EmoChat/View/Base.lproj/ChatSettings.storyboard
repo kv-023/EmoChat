@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="a3v-gZ-Ph8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="fCk-rj-mID">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -21,7 +21,7 @@
         <!--Chat Settings Table View Controller-->
         <scene sceneID="14Y-VU-rcE">
             <objects>
-                <tableViewController automaticallyAdjustsScrollViewInsets="NO" id="fCk-rj-mID" customClass="ChatSettingsTableViewController" customModule="EmoChat" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="chatSettings" automaticallyAdjustsScrollViewInsets="NO" id="fCk-rj-mID" customClass="ChatSettingsTableViewController" customModule="EmoChat" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="DdW-Qt-zOy">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -43,14 +43,14 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="usa-Dh-LlS">
-                                            <rect key="frame" x="96" y="14" width="200" height="21"/>
+                                            <rect key="frame" x="96" y="14" width="180" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailingMargin" secondItem="usa-Dh-LlS" secondAttribute="trailing" constant="16" id="NdW-sL-3PA"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="usa-Dh-LlS" secondAttribute="trailing" constant="36" id="NdW-sL-3PA"/>
                                         <constraint firstItem="usa-Dh-LlS" firstAttribute="leading" secondItem="qWT-Eg-dys" secondAttribute="trailing" constant="17" id="dDw-2U-pxi"/>
                                         <constraint firstItem="usa-Dh-LlS" firstAttribute="top" secondItem="ZYc-TG-9hD" secondAttribute="topMargin" constant="6" id="dEG-q2-WP0"/>
                                     </constraints>
@@ -107,7 +107,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="39"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Leave Chat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BMG-bf-urG">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Leave Conversation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BMG-bf-urG">
                                             <rect key="frame" x="63" y="9" width="225" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="225" id="v9T-qG-ouG"/>
@@ -187,24 +187,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MjR-D3-vcJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2906.25" y="150"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="9St-NM-FIr">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="a3v-gZ-Ph8" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="FxR-Zc-3ss">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="fCk-rj-mID" kind="relationship" relationship="rootViewController" id="Qtb-Wt-JET"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="i5s-M8-wxt" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1286.25" y="126.7605633802817"/>
         </scene>
     </scenes>
     <resources>
