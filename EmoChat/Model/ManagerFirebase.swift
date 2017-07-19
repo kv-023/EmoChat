@@ -976,7 +976,7 @@ class ManagerFirebase {
         self.getLastMessageOf (conversationID: conversation.uuid) { (result) in
             switch result {
             case .successSingleMessage(let message):
-                self.ref?.child("conversations/\(conversation.uuid)/lastMessage").setValue(NSNumber(value:message.time.timeIntervalSince1970 * 1000.0))
+                self.ref?.child("conversations/\(conversation.uuid)/lastMessage").setValue(message.time.timeIntervalSince1970 * 1000)
             default:
                 break
             }
