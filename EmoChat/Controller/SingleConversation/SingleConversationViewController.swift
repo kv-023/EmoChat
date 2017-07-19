@@ -73,10 +73,18 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     var multipleChat = false
     var isEmpty = true
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        table.dataSource = self
-        table.delegate = self
+    func addNavigationItem () {
+        navigationItem.title = currentConversation.name!
+        let button = UIButton.init(type: .custom)
+        let img = UIImage.init(named: "info")
+        button.setImage(img, for: UIControlState.normal)
+        button.addTarget(self, action:#selector(conversationInfoPressed), for: UIControlEvents.touchUpInside)
+        button.frame = CGRect.init(x: 0, y: 0, width: 25, height: 25)
+        let barButton = UIBarButtonItem.init(customView: button)
+        self.navigationItem.rightBarButtonItem = barButton
+    }
+    
+    func initialSetup () {
         table.estimatedRowHeight = table.rowHeight
         table.rowHeight = UITableViewAutomaticDimension
         table.alwaysBounceVertical = false
@@ -87,12 +95,30 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         loadingIndicator.startAnimating()
         loadingIndicator.hidesWhenStopped = true
         
-        self.setUpTextView()
-        manager = ManagerFirebase.shared
-        
         if !connectedToNetwork() {
             noInternetLabel.isHidden = false
         }
+
+        setUpTextView()
+        setUpFrame()
+        addNavigationItem()
+    }
+    
+    func setObservers () {
+        setupKeyboardObservers()
+        observeNewMessage()
+        observeDeletion()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        table.dataSource = self
+        table.delegate = self
+        
+        initialSetup()
+        
+        manager = ManagerFirebase.shared
+        setObservers()
         
         group.enter()
         manager?.getUsersInConversation(conversation: self.currentConversation,
@@ -101,35 +127,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                                             self.downloadPhotos()
                                             self.group.leave()
                                             
-        })
-        
-        navigationItem.title = currentConversation.name!
-        let button = UIButton.init(type: .custom)
-        let img = UIImage.init(named: "info")
-        button.setImage(img, for: UIControlState.normal)
-        button.addTarget(self, action:#selector(conversationInfoPressed), for: UIControlEvents.touchUpInside)
-        button.frame = CGRect.init(x: 0, y: 0, width: 25, height: 25)
-        let barButton = UIBarButtonItem.init(customView: button)
-        self.navigationItem.rightBarButtonItem = barButton
-        
-        self.observeDeletion()
-        
-        print(self.currentConversation.uuid)
-        
-        setupKeyboardObservers()
-        
-        self.setUpFrame()
-
-        self.observeNewMessage()
-        
-        group.notify(queue: DispatchQueue.main, execute: {
-
-            if !self.isEmpty {
-                self.updateUI()
-            }
-            if self.currentConversation.usersInConversation.count > 2 {
-                self.multipleChat = true
-            }
         })
         
         group.enter()
@@ -142,6 +139,16 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             self.group.leave()
         }
         
+        group.notify(queue: DispatchQueue.main, execute: {
+            
+            if !self.isEmpty {
+                self.updateUI()
+            }
+            if self.currentConversation.usersInConversation.count > 2 {
+                self.multipleChat = true
+            }
+        })
+  
     }
     
     func setUpFrame() {
@@ -151,7 +158,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         }
     }
     
-    //MARK: - Menu
+    //MARK: - Nav item
     func conversationInfoPressed() {
         let vc = UIStoryboard(name:"ChatSettings", bundle:nil).instantiateViewController(withIdentifier: "chatSettings") as! ChatSettingsTableViewController
        
@@ -165,6 +172,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    //MARK: - Menu
     func showMenu(forCell cell: CustomTableViewCell) {
         
         guard table.indexPath(for: cell) != nil else {
@@ -318,14 +326,11 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                     } else {
                         self.insertRow((newMessage, .right(.sent)))
                     }
-                    
                 } else {
                     self.insertRow((newMessage, .left))
                 }
-                
             }
             self.scrollToLastMessage()
-            
         }
         
     }
@@ -357,7 +362,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         }
     }
     
-    //download 20 last messages
+    //download 20 more messages
     func updateUI() {
         if let firstMessage = messagesArrayWithSection[sortedSections[0]]!.first?.0 {
             self.refresher.endRefreshing()
@@ -418,6 +423,15 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         }
     }
     
+    func displayNoMessages() {
+        let supportLabel = UILabel()
+        supportLabel.textColor = UIColor.lightGray
+        supportLabel.text = NSLocalizedString("No messages yet", comment: "")
+        supportLabel.textAlignment = .center
+        refresher.removeFromSuperview()
+        table.backgroundView = supportLabel
+    }
+    
     //MARK: - UITableViewDataSource
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -430,17 +444,12 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        if sortedSections.count == 0 {
-            let supportLabel = UILabel()
-            supportLabel.textColor = UIColor.lightGray
-            supportLabel.text = NSLocalizedString("No messages yet", comment: "")
-            supportLabel.textAlignment = .center
-            refresher.removeFromSuperview()
-            table.backgroundView = supportLabel
-        } else {
-            table.backgroundView = nil
-            table.addSubview(refresher)
-        }
+//        if sortedSections.count == 0 {
+//            displayNoMessages()
+//        } else {
+//            table.backgroundView = nil
+//            table.addSubview(refresher)
+//        }
         return sortedSections.count
     }
     
@@ -465,16 +474,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 let user = currentConversation.usersInConversation.first(where: {user in
                     return user.uid == message.0.senderId
                 })
-                let name = NSMutableAttributedString(string: "")
-                if let first = user?.firstName {
-                    name.append(NSMutableAttributedString(string: first, attributes: [NSFontAttributeName : UIFont.boldSystemFont(ofSize: CGFloat.init(15.0))]))
-                }
-                if let second = user?.secondName {
-                    name.append(NSMutableAttributedString(string: " \(second)", attributes: [NSFontAttributeName : UIFont.boldSystemFont(ofSize: CGFloat.init(15.0))]))
-                }
-                if name == NSMutableAttributedString(string: "") {
-                    name.append(NSMutableAttributedString(string: (user?.username)!, attributes: [NSFontAttributeName : UIFont.boldSystemFont(ofSize: CGFloat.init(15.0))]))
-                }
+                var name = NSMutableAttributedString(string: "")
+                name = NSMutableAttributedString(string: (user?.getNameOrUsername())!, attributes: [NSFontAttributeName : UIFont.boldSystemFont(ofSize: CGFloat.init(15.0))])
                 name.append(NSAttributedString(string: "\n"))
                 cell.name = name
             }
@@ -542,9 +543,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         return headerView
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sortedSections[section]
-    }
     
     //nik
     private func setMessageModelInCell(currentCell cell: CustomTableViewCell,
@@ -556,29 +554,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         } else {
             cell.messageModel = nil
         }
-    }
-    
-
-    
-    
-    
-    func tableView(_ tableView: UITableView,
-                   heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        //        var cellHeightForReturn:CGFloat = UITableViewAutomaticDimension
-        //
-        //        if let cellInstance = table.cellForRow(at: indexPath) as? SingleConversationUITableViewCell {
-        //            if cellResized.contains(cellInstance) {
-        //
-        //                cellHeightForReturn = cellInstance.temporaryCellHeight + cellInstance.extraCellHeiht
-        //            }
-        //
-        //            return cellHeightForReturn
-        //        } else {
-        //            return UITableViewAutomaticDimension
-        //        }
-        
-        return UITableViewAutomaticDimension
     }
     
     //MARK: - Text view
