@@ -9,15 +9,38 @@
 
 import UIKit
 
+//you can derive from this class for your own left message prototypes
 class LeftCell: CustomTableViewCell {
-
-
+    
+    //TODO: displaying sender's name in all left cells
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        setInitData()
     }
 
-    private func setInitData() {
-        
+
+}
+
+class LeftTextCell: LeftCell {
+    
+    var name: NSMutableAttributedString?
+    
+    override var messageEntity: Message? {
+        didSet {
+            //or set media content in ui elements
+            let text = NSMutableAttributedString(string: "")
+            if let enterText = name {
+                text.append(enterText)
+            }
+            text.append(NSAttributedString(string: (messageEntity?.content!.content)!, attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: CGFloat.init(15.0))]))
+            message.attributedText = text
+            
+            setNullableDataInPreviewContainer()
+        }
     }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+
 }

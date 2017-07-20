@@ -335,6 +335,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         
     }
     
+    //you don't need to use this method to send message with media content
     @IBAction func sendMessage(_ sender: UIButton) {
         if textMessage.textColor != UIColor.lightGray && textMessage.containsAlphaNumericCharacters() {
             let result:MessageOperationResult? = manager?.createMessage(
@@ -400,7 +401,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     //MARK: - Photos
     
     func downloadPhotos () {
-        
         for member in currentConversation.usersInConversation{
             group.enter()
             if let photoURL = member.photoURL {
@@ -444,12 +444,12 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-//        if sortedSections.count == 0 {
-//            displayNoMessages()
-//        } else {
-//            table.backgroundView = nil
-//            table.addSubview(refresher)
-//        }
+        if sortedSections.count == 0 {
+            displayNoMessages()
+        } else {
+            table.backgroundView = nil
+            table.addSubview(refresher)
+        }
         return sortedSections.count
     }
     
@@ -457,58 +457,71 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         return messagesArrayWithSection[sortedSections[section]]!.count
     }
     
+    private func setGeneralVars (cell: CustomTableViewCell, message: Message) {
+        cell.singleConversationControllerDelegate = self
+        cell.messageEntity = message
+        setMessageModelInCell(currentCell: cell, message: cell.messageEntity)
+        cell.userPic.image = self.photosArray[message.senderId]
+        cell.delegate = self
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let message = messagesArrayWithSection[sortedSections[indexPath.section]]![indexPath.row]
-        //messagesArray[indexPath.row]
-        
         
         switch message.1 {
         case .left:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "Left", for: indexPath) as? LeftCell else {
-                fatalError("Cell was not casted!")
+            switch message.0.content.0 {
+            case .text :
+                guard let cellText = tableView.dequeueReusableCell(withIdentifier: "Left", for: indexPath) as? LeftTextCell else {
+                    fatalError("Cell was not casted!")
+                }
+                cellText.message.attributedText = NSAttributedString(string: "")
+                //add sender's name
+                if multipleChat {
+                    let user = currentConversation.usersInConversation.first(where: {user in
+                        return user.uid == message.0.senderId
+                    })
+                    var name = NSMutableAttributedString(string: "")
+                    name = NSMutableAttributedString(string: (user?.getNameOrUsername())!, attributes: [NSFontAttributeName : UIFont.boldSystemFont(ofSize: CGFloat.init(15.0))])
+                    name.append(NSAttributedString(string: "\n"))
+                    cellText.name = name
+                    cellText.time.text = message.0.time.formatDate()
+
+                }
+                setGeneralVars(cell: cellText, message: message.0)
+                return cellText
+            case .audio:
+                return UITableViewCell()
+            case .video:
+                return UITableViewCell()
+            case .photo:
+                return UITableViewCell()
             }
-            cell.message.attributedText = NSAttributedString(string: "")
-            cell.singleConversationControllerDelegate = self
-            if multipleChat {
-                let user = currentConversation.usersInConversation.first(where: {user in
-                    return user.uid == message.0.senderId
-                })
-                var name = NSMutableAttributedString(string: "")
-                name = NSMutableAttributedString(string: (user?.getNameOrUsername())!, attributes: [NSFontAttributeName : UIFont.boldSystemFont(ofSize: CGFloat.init(15.0))])
-                name.append(NSAttributedString(string: "\n"))
-                cell.name = name
-            }
-            cell.messageEntity = message.0
-            
-            setMessageModelInCell(currentCell: cell, message: cell.messageEntity)
-            
-            cell.time.text = message.0.time.formatDate()
-            cell.userPic.image = self.photosArray[message.0.senderId]
-            cell.delegate = self
-            return cell
         case .right:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "Right", for: indexPath) as? RightCell else {
-                fatalError("Cell was not casted!")
+            switch message.0.content.0 {
+            case .text :
+                guard let cellText = tableView.dequeueReusableCell(withIdentifier: "Right", for: indexPath) as? RightTextCell else {
+                    fatalError("Cell was not casted!")
+                }
+                cellText.message.text = ""
+                switch message.1 {
+                case .right(.sent) :
+                    cellText.isReceived = true
+                case .right(.sending):
+                    cellText.isReceived = false
+                default:
+                    break
+                }
+                setGeneralVars(cell: cellText, message: message.0)
+                return cellText
+            case .audio:
+                return UITableViewCell()
+            case .video:
+                return UITableViewCell()
+            case .photo:
+                return UITableViewCell()
             }
-            cell.message.text = ""
-            cell.singleConversationControllerDelegate = self
-            cell.message.text = ""
-            cell.messageEntity = message.0
-            
-            setMessageModelInCell(currentCell: cell, message: cell.messageEntity)
-            
-            cell.userPic.image = self.photosArray[message.0.senderId]
-            switch message.1 {
-            case .right(.sent) :
-                cell.isReceived = true
-            case .right(.sending):
-                cell.isReceived = false
-            default:
-                break
-            }
-            cell.delegate = self
-            return cell
         }
     }
     
