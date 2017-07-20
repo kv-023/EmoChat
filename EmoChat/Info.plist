@@ -36,11 +36,13 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Set the Background</string>
+	<string>Camera please</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Microphone please</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Set the Background</string>
 	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
+	<string>ChatSettings</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Login</string>
 	<key>UIRequiredDeviceCapabilities</key>

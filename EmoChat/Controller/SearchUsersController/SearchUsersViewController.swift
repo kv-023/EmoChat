@@ -41,6 +41,8 @@ class SearchUsersViewController: UITableViewController {
     // MARK: - ViewController lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        extendedLayoutIncludesOpaqueBars = true
 
         managerFirebase.getCurrentUser { [weak self] (result) in
             switch result {
@@ -55,8 +57,7 @@ class SearchUsersViewController: UITableViewController {
             }
         }
         
-        let createConversationButton = UIBarButtonItem(title: NSLocalizedString("Create Conversation",
-                                                                                comment: ""),
+        let createConversationButton = UIBarButtonItem(title: NSLocalizedString("Create Conversation", comment: ""),
                                                        style: .plain,
                                                        target: self,
                                                        action: #selector(createConversationAction(_:)))
@@ -236,7 +237,8 @@ class SearchUsersViewController: UITableViewController {
                                                          completion: { (result) in
                     switch result {
                     case let .successSingleConversation(conversation):
-                        _ = self!.managerFirebase.createLogo(selectedUsers: self!.checkmarkedFriends, conversationID: conversation.uuid)
+                        print("success")
+                        //_ = self!.managerFirebase.createLogo(selectedUsers: self!.checkmarkedFriends, conversationID: conversation.uuid)
                     default:
                         print("Conversation was not created")
                     }
