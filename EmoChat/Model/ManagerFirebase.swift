@@ -593,7 +593,7 @@ class ManagerFirebase {
                                         usersInConversation: members,
                                         messagesInConversation: nil,
                                         lastMessage: nil,
-                                        lastMessageTimeStamp: Date(timeIntervalSince1970: TimeInterval(timeStamp.int64Value / 1000)),
+                                        lastMessageTimeStamp: Date(timeIntervalSince1970: TimeInterval(timeStamp.intValue / 1000)),
                                         name: name)
         
         if let refConv = ref?.child("conversations/\(conversation.uuid)") {
@@ -625,7 +625,7 @@ class ManagerFirebase {
         
         let message = Message(uid: key!,
             senderId: sender.uid,
-            time: Date(timeIntervalSince1970: TimeInterval(timeStamp.int64Value / 1000)),
+            time: Date(timeIntervalSince1970: TimeInterval(timeStamp.intValue / 1000)),
             content: (type: content.type, content: content.content))
         
         if let messageRef = ref?.child("conversations/\(conversation.uuid)/messagesInConversation/\(message.uid!)") {

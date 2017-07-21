@@ -13,6 +13,7 @@ class RightCell: CustomTableViewCell {
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
+    
     var isReceived = false {
         didSet {
             if isReceived {
@@ -32,12 +33,27 @@ class RightCell: CustomTableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        setInitData()
-    }
-
-    private func setInitData() {
-        
     }
     
 }
+
+class RightTextCell: RightCell {
+    
+    override var messageEntity: Message? {
+        didSet {
+            //or set media content in ui elements
+            let text = NSMutableAttributedString(string: "")
+            text.append(NSAttributedString(string: (messageEntity?.content!.content)!, attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: CGFloat.init(15.0))]))
+            message.attributedText = text
+            
+            setNullableDataInPreviewContainer()
+        }
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+}
+
+
 
