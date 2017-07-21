@@ -57,12 +57,22 @@ class OptionsChangePhotoNameSecondNameTableViewController: UITableViewController
     //MARK: - Image picker
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
-        guard let chosenImage = info[UIImagePickerControllerEditedImage] as? UIImage else { return }
+        guard var chosenImage = info[UIImagePickerControllerEditedImage] as? UIImage else { return }
+        
+        //TODO: add 2 photos to storage - fullsize and compressed
+        
+        //Resize image (compress)
+        let rectValue:CGFloat = 100
+        if (chosenImage.size.height > rectValue || chosenImage.size.width > rectValue) == true {
+            chosenImage = chosenImage.resizeImageWith(newSize:
+                CGSize(width: rectValue, height: rectValue))
+        }
         
         //Add image to view
         userPhotoView.image = chosenImage
         
         //Add to firebase and current user
+        //TODO: Delete previous photo. Add url of old photo instead of passing nil (in addPhoto method)
         currentUser.addPhoto(chosenImage: chosenImage)
         
         //Dissmiss image picker
