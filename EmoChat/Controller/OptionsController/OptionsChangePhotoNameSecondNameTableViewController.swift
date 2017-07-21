@@ -22,6 +22,7 @@ class OptionsChangePhotoNameSecondNameTableViewController: UITableViewController
         //Singleton
         currentUser = CurrentUser.shared
         
+        
         //Add rigth button item
         let rightButtonItem = UIBarButtonItem.init(barButtonSystemItem: .save, target: self, action: #selector(saveInformation))
         self.navigationItem.rightBarButtonItem = rightButtonItem
