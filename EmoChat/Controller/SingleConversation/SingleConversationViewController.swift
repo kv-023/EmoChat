@@ -486,9 +486,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                     name = NSMutableAttributedString(string: (user?.getNameOrUsername())!, attributes: [NSFontAttributeName : UIFont.boldSystemFont(ofSize: CGFloat.init(15.0))])
                     name.append(NSAttributedString(string: "\n"))
                     cellText.name = name
-                    cellText.time.text = message.0.time.formatDate()
-
                 }
+                cellText.time.text = message.0.time.formatDate()
                 setGeneralVars(cell: cellText, message: message.0)
                 return cellText
             case .audio:
@@ -505,6 +504,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                     fatalError("Cell was not casted!")
                 }
                 cellText.message.text = ""
+                setGeneralVars(cell: cellText, message: message.0)
                 switch message.1 {
                 case .right(.sent) :
                     cellText.isReceived = true
@@ -513,7 +513,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 default:
                     break
                 }
-                setGeneralVars(cell: cellText, message: message.0)
+                
                 return cellText
             case .audio:
                 return UITableViewCell()
