@@ -14,6 +14,11 @@ struct readFile {
     static var points:[CGFloat] = [] 
 }
 
+struct progressPath {
+    static var upperPath: UIBezierPath? = nil
+    static var lowerPath: UIBezierPath? = nil
+}
+
 class AudioMessageWaveForm: UIView {
 // MARK - draw
     override func draw(_ rect: CGRect) {
@@ -42,7 +47,7 @@ class AudioMessageWaveForm: UIView {
             aPath.move(to: CGPoint(x:aPath.currentPoint.x + x , y:aPath.currentPoint.y ))
             
             //y is the amplitude of each square
-            aPath.addLine(to: CGPoint(x:aPath.currentPoint.x  , y:aPath.currentPoint.y - (readFile.points[f] * 1000) - 3.0))
+            aPath.addLine(to: CGPoint(x:aPath.currentPoint.x  , y:aPath.currentPoint.y - (readFile.points[f] * 200) - 1.0))
             aPath.close()
             x += 1
             f += 1
@@ -53,6 +58,8 @@ class AudioMessageWaveForm: UIView {
         aPath.stroke()
         aPath.fill()
         
+        progressPath.upperPath = aPath
+        
         f = 0
         aPath2.move(to: CGPoint(x:0.0 , y:rect.height/2 ))
         
@@ -62,7 +69,7 @@ class AudioMessageWaveForm: UIView {
             aPath2.move(to: CGPoint(x:aPath2.currentPoint.x + x , y:aPath2.currentPoint.y ))
             
             //y is the amplitude of each square
-            aPath2.addLine(to: CGPoint(x:aPath2.currentPoint.x  , y:aPath2.currentPoint.y - ((-1.0 * readFile.points[f]) * 500)))
+            aPath2.addLine(to: CGPoint(x:aPath2.currentPoint.x  , y:aPath2.currentPoint.y - ((-1.0 * readFile.points[f]) * 110)))
             aPath2.close()
             
             //print(aPath.currentPoint.x)
@@ -73,6 +80,8 @@ class AudioMessageWaveForm: UIView {
         UIColor.red.set()
         aPath2.stroke(with: CGBlendMode.normal, alpha: 0.5)
         aPath2.fill()
+        
+        progressPath.lowerPath = aPath2
     }
     
     // MARK - convertToPoints

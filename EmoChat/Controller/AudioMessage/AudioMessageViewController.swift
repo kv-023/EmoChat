@@ -17,6 +17,7 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
     @IBAction func playStopButton(_ sender: Any) {
         self.player.play()
        // self.PSButtonOutfit.setImage(#imageLiteral(resourceName: "PauseAudioMessage"), for: UIControlState.normal)
+        playingProgress()
     }
     
     var recordingSession : AVAudioSession!
@@ -175,5 +176,30 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
         readFile.arrayFloatValues = Array(UnsafeBufferPointer(start: buf.floatChannelData?[0], count:Int(buf.frameLength)))
     }
     
+    func playingProgress() {
+        
+        var path = progressPath.upperPath
+        
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.frame = WaveFormView.layer.bounds
+        
+        
+        shapeLayer.path = path?.cgPath
+        
+        
+        shapeLayer.strokeColor = UIColor.blue.cgColor
+        
+        
+        let strokeEndAnimation = CABasicAnimation(keyPath: "strokeEnd")
+        strokeEndAnimation.duration = 5.0
+        strokeEndAnimation.fromValue = 0.0
+        strokeEndAnimation.toValue = 1.0
+        
+        
+        shapeLayer.add(strokeEndAnimation, forKey: "strokeEnd")
+        self.WaveFormView.layer.addSublayer(shapeLayer)
+        
+    }
+
     
 }
