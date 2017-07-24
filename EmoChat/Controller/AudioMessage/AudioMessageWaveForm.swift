@@ -23,6 +23,7 @@ struct progressPath {
     static func removeLayerFromSuperView() {
         if let arrayFoLayersForRemove = layerData {
             for layerOfData in arrayFoLayersForRemove {
+
                 layerOfData.removeFromSuperlayer()
             }
         }

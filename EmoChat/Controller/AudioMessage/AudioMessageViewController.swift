@@ -256,6 +256,7 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
 
         shapeLayerUpper.add(strokeEndAnimation, forKey: "strokeEnd")
         shapeLayerLower.add(strokeEndAnimation, forKey: "strokeEnd")
+
         self.WaveFormView.layer.addSublayer(shapeLayerUpper)
         self.WaveFormView.layer.addSublayer(shapeLayerLower)
 
@@ -265,7 +266,37 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
         DispatchQueue.global(qos: .userInitiated).asyncAfter(
             deadline: .now() + .seconds(2), execute: {
                 DispatchQueue.main.async {
-                    progressPath.removeLayerFromSuperView()
+//                    CATransaction.begin()
+//                    CATransaction.setDisableActions(true)
+
+
+                    let shapeLayerUpper = CAShapeLayer()
+                    shapeLayerUpper.frame = self.WaveFormView.layer.bounds
+                    shapeLayerUpper.path = pathUp?.cgPath
+                    shapeLayerUpper.strokeColor = UIColor.orange.cgColor
+
+                    let shapeLayerLower = CAShapeLayer()
+                    shapeLayerLower.frame = self.WaveFormView.layer.bounds
+                    shapeLayerLower.path = pathDown?.cgPath
+                    shapeLayerLower.strokeColor = UIColor.red.cgColor
+
+                    let strokeEndAnimationCleaner = CABasicAnimation(keyPath: "transform.scale.y")
+                    strokeEndAnimationCleaner.duration = 2.0
+                    strokeEndAnimationCleaner.fromValue = 0.0
+                    strokeEndAnimationCleaner.toValue = 1.0
+
+                    shapeLayerUpper.add(strokeEndAnimationCleaner, forKey: nil)
+                    shapeLayerLower.add(strokeEndAnimationCleaner, forKey: nil)
+
+                    self.WaveFormView.layer.addSublayer(shapeLayerUpper)
+                    self.WaveFormView.layer.addSublayer(shapeLayerLower)
+
+                    progressPath.layerData?.append(shapeLayerUpper)
+                    progressPath.layerData?.append(shapeLayerLower)
+
+
+                    //progressPath.removeLayerFromSuperView()
+//                    CATransaction.commit()
                 }
         })
 
