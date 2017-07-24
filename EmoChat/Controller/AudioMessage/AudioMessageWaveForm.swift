@@ -14,23 +14,35 @@ struct readFile {
     static var points:[CGFloat] = [] 
 }
 
-struct progressPath {
-    static var upperPath: UIBezierPath? = nil
-    static var lowerPath: UIBezierPath? = nil
+struct ProgressPath {
+    static var sharedIstance = ProgressPath()
 
-    static var layerData:[CAShapeLayer]? = []
+    var upperPath: UIBezierPath? = nil
+    var lowerPath: UIBezierPath? = nil
 
-    static func removeLayerFromSuperView() {
+    var upperPathColor: UIColor = UIColor.clear
+    var lowerPathColor: UIColor = UIColor.clear
+
+    var layerData:[CAShapeLayer]? = []
+
+    mutating func addLayer(layer: CAShapeLayer) {
+        layerData?.append(layer)
+    }
+
+    mutating func removeLayersFromSuperView() {
         if let arrayFoLayersForRemove = layerData {
             for layerOfData in arrayFoLayersForRemove {
 
                 layerOfData.removeFromSuperlayer()
             }
+
+            ProgressPath.sharedIstance.layerData?.removeAll()
         }
     }
 }
 
 class AudioMessageWaveForm: UIView {
+
 // MARK - draw
     override func draw(_ rect: CGRect) {
         //downsample and convert to [CGFloat]
@@ -64,12 +76,14 @@ class AudioMessageWaveForm: UIView {
             f += 1
         }
         
-        
-        UIColor.orange.set()
+        let upperPathColor = UIColor.orange
+        //UIColor.orange.set()
+        upperPathColor.set()
         aPath.stroke()
         aPath.fill()
         
-        progressPath.upperPath = aPath
+        ProgressPath.sharedIstance.upperPath = aPath
+        ProgressPath.sharedIstance.upperPathColor = upperPathColor
         
         f = 0
         aPath2.move(to: CGPoint(x:0.0 , y:rect.height/2 ))
@@ -88,11 +102,15 @@ class AudioMessageWaveForm: UIView {
             f += 1
         }
 
-        UIColor.red.set()
+        let lowerPathColor = UIColor.red
+//        UIColor.red.set()
+        lowerPathColor.set()
         aPath2.stroke(with: CGBlendMode.normal, alpha: 0.5)
         aPath2.fill()
-        
-        progressPath.lowerPath = aPath2
+
+
+        ProgressPath.sharedIstance.lowerPathColor = lowerPathColor
+        ProgressPath.sharedIstance.lowerPath = aPath2
     }
     
     // MARK - convertToPoints

@@ -236,9 +236,40 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
 
     func playingProgress() {
 
-        let pathUp = progressPath.upperPath
-        let pathDown = progressPath.lowerPath
+        let pathUp = ProgressPath.sharedIstance.upperPath
+        let pathDown = ProgressPath.sharedIstance.lowerPath
 
+        let currentAudioDuration: CFTimeInterval = audioSecondsVal
+        setInitialDraw(pathUp: pathUp,
+                       pathDown: pathDown,
+                       duration: currentAudioDuration)
+
+        //outro animation
+        DispatchQueue.global(qos: .userInitiated).asyncAfter(
+            deadline: .now() + .seconds(2), execute: {
+                DispatchQueue.main.async {
+
+                    let outroDuration: CFTimeInterval = 3.0
+                    self.setOutroDraw(pathUp: pathUp,
+                                      pathDown: pathDown,
+                                      duration: outroDuration)
+
+                    //remove all layers
+                    let eraseLayerDelay: Int = Int(outroDuration) + 1
+                    DispatchQueue.global(qos: .userInitiated).asyncAfter(
+                        deadline: .now() + .seconds(eraseLayerDelay), execute: {
+                            DispatchQueue.main.async {
+                                ProgressPath.sharedIstance.removeLayersFromSuperView()
+                            }
+                    })
+                }
+        })
+        
+    }
+
+    func setInitialDraw(pathUp: UIBezierPath?,
+               pathDown: UIBezierPath?,
+               duration: CFTimeInterval) {
         let shapeLayerUpper = CAShapeLayer()
         shapeLayerUpper.frame = WaveFormView.layer.bounds
         shapeLayerUpper.path = pathUp?.cgPath
@@ -250,7 +281,7 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
         shapeLayerLower.strokeColor = UIColor.cyan.cgColor
 
         let strokeEndAnimation = CABasicAnimation(keyPath: "strokeEnd")
-        strokeEndAnimation.duration = audioSecondsVal
+        strokeEndAnimation.duration = duration
         strokeEndAnimation.fromValue = 0.0
         strokeEndAnimation.toValue = 1.0
 
@@ -260,47 +291,36 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
         self.WaveFormView.layer.addSublayer(shapeLayerUpper)
         self.WaveFormView.layer.addSublayer(shapeLayerLower)
 
-        progressPath.layerData?.append(shapeLayerUpper)
-        progressPath.layerData?.append(shapeLayerLower)
-
-        DispatchQueue.global(qos: .userInitiated).asyncAfter(
-            deadline: .now() + .seconds(2), execute: {
-                DispatchQueue.main.async {
-//                    CATransaction.begin()
-//                    CATransaction.setDisableActions(true)
-
-
-                    let shapeLayerUpper = CAShapeLayer()
-                    shapeLayerUpper.frame = self.WaveFormView.layer.bounds
-                    shapeLayerUpper.path = pathUp?.cgPath
-                    shapeLayerUpper.strokeColor = UIColor.orange.cgColor
-
-                    let shapeLayerLower = CAShapeLayer()
-                    shapeLayerLower.frame = self.WaveFormView.layer.bounds
-                    shapeLayerLower.path = pathDown?.cgPath
-                    shapeLayerLower.strokeColor = UIColor.red.cgColor
-
-                    let strokeEndAnimationCleaner = CABasicAnimation(keyPath: "transform.scale.y")
-                    strokeEndAnimationCleaner.duration = 2.0
-                    strokeEndAnimationCleaner.fromValue = 0.0
-                    strokeEndAnimationCleaner.toValue = 1.0
-
-                    shapeLayerUpper.add(strokeEndAnimationCleaner, forKey: nil)
-                    shapeLayerLower.add(strokeEndAnimationCleaner, forKey: nil)
-
-                    self.WaveFormView.layer.addSublayer(shapeLayerUpper)
-                    self.WaveFormView.layer.addSublayer(shapeLayerLower)
-
-                    progressPath.layerData?.append(shapeLayerUpper)
-                    progressPath.layerData?.append(shapeLayerLower)
-
-
-                    //progressPath.removeLayerFromSuperView()
-//                    CATransaction.commit()
-                }
-        })
-
+        ProgressPath.sharedIstance.addLayer(layer: shapeLayerUpper)
+        ProgressPath.sharedIstance.addLayer(layer: shapeLayerLower)
     }
 
-    
+    func setOutroDraw(pathUp: UIBezierPath?,
+                      pathDown: UIBezierPath?,
+                      duration: CFTimeInterval) {
+        let shapeLayerUpper = CAShapeLayer()
+        shapeLayerUpper.frame = self.WaveFormView.layer.bounds
+        shapeLayerUpper.path = pathUp?.cgPath
+        shapeLayerUpper.strokeColor = ProgressPath.sharedIstance.upperPathColor.cgColor
+
+        let shapeLayerLower = CAShapeLayer()
+        shapeLayerLower.frame = self.WaveFormView.layer.bounds
+        shapeLayerLower.path = pathDown?.cgPath
+        shapeLayerLower.strokeColor =  ProgressPath.sharedIstance.lowerPathColor.cgColor
+
+        let strokeEndAnimationCleaner = CABasicAnimation(keyPath: "transform.scale.y")
+        strokeEndAnimationCleaner.duration = duration
+        strokeEndAnimationCleaner.fromValue = 0.0
+        strokeEndAnimationCleaner.toValue = 1.0
+
+        shapeLayerUpper.add(strokeEndAnimationCleaner, forKey: nil)
+        shapeLayerLower.add(strokeEndAnimationCleaner, forKey: nil)
+
+        self.WaveFormView.layer.addSublayer(shapeLayerUpper)
+        self.WaveFormView.layer.addSublayer(shapeLayerLower)
+
+        ProgressPath.sharedIstance.addLayer(layer: shapeLayerUpper)
+        ProgressPath.sharedIstance.addLayer(layer: shapeLayerLower)
+    }
+
 }
