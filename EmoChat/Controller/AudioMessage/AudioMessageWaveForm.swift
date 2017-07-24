@@ -17,6 +17,16 @@ struct readFile {
 struct progressPath {
     static var upperPath: UIBezierPath? = nil
     static var lowerPath: UIBezierPath? = nil
+
+    static var layerData:[CAShapeLayer]? = []
+
+    static func removeLayerFromSuperView() {
+        if let arrayFoLayersForRemove = layerData {
+            for layerOfData in arrayFoLayersForRemove {
+                layerOfData.removeFromSuperlayer()
+            }
+        }
+    }
 }
 
 class AudioMessageWaveForm: UIView {

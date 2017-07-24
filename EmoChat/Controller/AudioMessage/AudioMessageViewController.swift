@@ -19,6 +19,8 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
         self.player.play()
        // self.PSButtonOutfit.setImage(#imageLiteral(resourceName: "PauseAudioMessage"), for: UIControlState.normal)
         playingProgress()
+
+        //progressPath.removeLayerFromSuperView()
     }
     
     var recordingSession : AVAudioSession!
@@ -135,7 +137,6 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
            
             DispatchQueue.main.async {
                 self.startRecording()
-//                self.audioSecondsValLabel.text = String(self.audioSecondsVal)
             }
             
         } else {
@@ -149,14 +150,8 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
             manager?.handleAudioSendWith(url: audioRecorder.url, result:{ [unowned self] (urlFromFireBase) in
                // self.showAudioMessage(url: urlFromFireBase)
                 self.initPlayer(url: urlFromFireBase)
-
-//                DispatchQueue.main.async {
-//                    self.audioSecondsValLabel.text = String(self.audioSecondsVal)
-//                }
             })
-
         }
-
     }
     
     //MARK - audioRecorderDidFinishRecording
@@ -214,29 +209,66 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
         readFile.arrayFloatValues = Array(UnsafeBufferPointer(start: buf.floatChannelData?[0], count:Int(buf.frameLength)))
     }
     
+//    func playingProgress() {
+//        
+//        let path = progressPath.upperPath
+//        
+//        let shapeLayer = CAShapeLayer()
+//        shapeLayer.frame = WaveFormView.layer.bounds
+//        
+//        
+//        shapeLayer.path = path?.cgPath
+//        
+//        
+//        shapeLayer.strokeColor = UIColor.blue.cgColor
+//        
+//        
+//        let strokeEndAnimation = CABasicAnimation(keyPath: "strokeEnd")
+//        strokeEndAnimation.duration = audioSecondsVal//5.0
+//        strokeEndAnimation.fromValue = 0.0
+//        strokeEndAnimation.toValue = 1.0
+//        
+//        
+//        shapeLayer.add(strokeEndAnimation, forKey: "strokeEnd")
+//        self.WaveFormView.layer.addSublayer(shapeLayer)
+//        
+//    }
+
     func playingProgress() {
-        
-        let path = progressPath.upperPath
-        
-        let shapeLayer = CAShapeLayer()
-        shapeLayer.frame = WaveFormView.layer.bounds
-        
-        
-        shapeLayer.path = path?.cgPath
-        
-        
-        shapeLayer.strokeColor = UIColor.blue.cgColor
-        
-        
+
+        let pathUp = progressPath.upperPath
+        let pathDown = progressPath.lowerPath
+
+        let shapeLayerUpper = CAShapeLayer()
+        shapeLayerUpper.frame = WaveFormView.layer.bounds
+        shapeLayerUpper.path = pathUp?.cgPath
+        shapeLayerUpper.strokeColor = UIColor.blue.cgColor
+
+        let shapeLayerLower = CAShapeLayer()
+        shapeLayerLower.frame = WaveFormView.layer.bounds
+        shapeLayerLower.path = pathDown?.cgPath
+        shapeLayerLower.strokeColor = UIColor.cyan.cgColor
+
         let strokeEndAnimation = CABasicAnimation(keyPath: "strokeEnd")
-        strokeEndAnimation.duration = audioSecondsVal//5.0
+        strokeEndAnimation.duration = audioSecondsVal
         strokeEndAnimation.fromValue = 0.0
         strokeEndAnimation.toValue = 1.0
-        
-        
-        shapeLayer.add(strokeEndAnimation, forKey: "strokeEnd")
-        self.WaveFormView.layer.addSublayer(shapeLayer)
-        
+
+        shapeLayerUpper.add(strokeEndAnimation, forKey: "strokeEnd")
+        shapeLayerLower.add(strokeEndAnimation, forKey: "strokeEnd")
+        self.WaveFormView.layer.addSublayer(shapeLayerUpper)
+        self.WaveFormView.layer.addSublayer(shapeLayerLower)
+
+        progressPath.layerData?.append(shapeLayerUpper)
+        progressPath.layerData?.append(shapeLayerLower)
+
+        DispatchQueue.global(qos: .userInitiated).asyncAfter(
+            deadline: .now() + .seconds(2), execute: {
+                DispatchQueue.main.async {
+                    progressPath.removeLayerFromSuperView()
+                }
+        })
+
     }
 
     
