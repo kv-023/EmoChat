@@ -341,7 +341,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             let result:MessageOperationResult? = manager?.createMessage(
                 conversation: currentConversation!,
                 sender: currentUser,
-                content: (.text, textMessage.text))
+                content: (.text, textMessage.text),
+                isEmoMessage: emoRequestButton.isSelected)
             
             switch (result!) {
             case .successSingleMessage(let message):

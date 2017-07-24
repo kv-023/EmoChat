@@ -618,7 +618,7 @@ class ManagerFirebase {
     }
     
     // MARK: - Messages
-    func createMessage(conversation: Conversation, sender: User, content:(type: MessageContentType, content: String)) -> MessageOperationResult {
+    func createMessage(conversation: Conversation, sender: User, content:(type: MessageContentType, content: String), isEmoMessage: Bool = false) -> MessageOperationResult {
         
         let timeStamp = NSNumber(value:Date().timeIntervalSince1970 * 1000.0)
         let key = ref?.child("conversations/").childByAutoId().key
@@ -634,6 +634,13 @@ class ManagerFirebase {
             childUpdates.updateValue(message.senderId!, forKey: "senderId")
             childUpdates.updateValue(timeStamp.doubleValue, forKey: "time")
             childUpdates.updateValue(message.content.content, forKey: "content/\((message.content?.type)!)")
+            
+            if isEmoMessage {
+                let usersInConversation = conversation.usersInConversation.filter { $0.uid != Auth.auth().currentUser?.uid /*CurrentUser.shared.uid*/ }
+                for user in usersInConversation {
+                    childUpdates.updateValue(false, forKey: "isEmoRecorded/\(user.uid!)")
+                }
+            }
 
             messageRef.updateChildValues(childUpdates)
 
@@ -893,7 +900,6 @@ class ManagerFirebase {
                                 completionHandler: @escaping (ConversationOperationResult) -> Void){
         
         ref?.child("conversations/\(tuple.conversationId)").observeSingleEvent(of: .value, with: { [weak self] (snapshot) in
-            print(tuple.conversationId)
             
             if snapshot.childSnapshot(forPath: "messagesInConversation").exists() {
                 
