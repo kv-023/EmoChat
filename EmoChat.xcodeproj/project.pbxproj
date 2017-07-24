@@ -84,6 +84,7 @@
 		E7B926F21EF1487B0018F5FF /* PopOverVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7B926EC1EF1487B0018F5FF /* PopOverVC.xib */; };
 		E7B926F31EF1487B0018F5FF /* PopOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B926ED1EF1487B0018F5FF /* PopOverViewController.swift */; };
 		E7B926F41EF1487B0018F5FF /* UIColorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B926EE1EF1487B0018F5FF /* UIColorHelper.swift */; };
+		E7F8018E1F25F448002AEC3F /* AudioHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F8018D1F25F448002AEC3F /* AudioHelper.swift */; };
 		ED1E2D941EDD75B20058B6A6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */; };
 		F54D21761EE7130600B0B177 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54D21751EE7130600B0B177 /* Regex.swift */; };
 		F54D21781EE7149100B0B177 /* AdditionalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54D21771EE7149000B0B177 /* AdditionalViewController.swift */; };
@@ -184,6 +185,7 @@
 		E7B926EC1EF1487B0018F5FF /* PopOverVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopOverVC.xib; sourceTree = "<group>"; };
 		E7B926ED1EF1487B0018F5FF /* PopOverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopOverViewController.swift; sourceTree = "<group>"; };
 		E7B926EE1EF1487B0018F5FF /* UIColorHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorHelper.swift; sourceTree = "<group>"; };
+		E7F8018D1F25F448002AEC3F /* AudioHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioHelper.swift; sourceTree = "<group>"; };
 		ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ED5291B01EE16F24008F8174 /* EmoChat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EmoChat.entitlements; sourceTree = "<group>"; };
 		F54D21751EE7130600B0B177 /* Regex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
@@ -301,6 +303,7 @@
 				45E287CA1F1CD45F00AE1249 /* AudioMessageViewController.swift */,
 				45E287CB1F1CD45F00AE1249 /* AudioMessageWaveForm.swift */,
 				45E287CD1F1CD45F00AE1249 /* testAudioMessage.storyboard */,
+				E7F8018D1F25F448002AEC3F /* AudioHelper.swift */,
 			);
 			path = AudioMessage;
 			sourceTree = "<group>";
@@ -789,6 +792,7 @@
 				E7352C2B1EE0139E0095264E /* ModelGenericHelper.swift in Sources */,
 				847120EF1F1B6B3C00C34D62 /* WebViewController.swift in Sources */,
 				FB4317731EE6C24400770338 /* SignUpFirstViewController.swift in Sources */,
+				E7F8018E1F25F448002AEC3F /* AudioHelper.swift in Sources */,
 				E7352C3A1EE81CB60095264E /* RegexCheckProtocol.swift in Sources */,
 				CC13C5ED1EF929AF00B38E59 /* SpecialTextView.swift in Sources */,
 				E70F3DAE1F0507D900617235 /* RestUIHelper.swift in Sources */,

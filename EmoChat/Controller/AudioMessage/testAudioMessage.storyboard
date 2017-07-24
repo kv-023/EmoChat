@@ -52,6 +52,16 @@
                                     <constraint firstAttribute="height" constant="70" id="Btk-eH-Kui"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6M6-0V-SFM">
+                                <rect key="frame" x="62" y="359" width="42" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="2qp-zk-OVx"/>
+                                    <constraint firstAttribute="width" constant="42" id="Q2R-tw-RrU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -59,6 +69,8 @@
                             <constraint firstItem="6sp-dN-up2" firstAttribute="top" secondItem="8zZ-NU-UWe" secondAttribute="bottom" constant="19" id="6Qo-G2-85h"/>
                             <constraint firstAttribute="trailingMargin" secondItem="6sp-dN-up2" secondAttribute="trailing" id="Qgl-kX-T4X"/>
                             <constraint firstItem="8zZ-NU-UWe" firstAttribute="leading" secondItem="RDs-VV-8om" secondAttribute="leadingMargin" constant="8" id="Rqc-Sa-7Eb"/>
+                            <constraint firstItem="6M6-0V-SFM" firstAttribute="leading" secondItem="8zZ-NU-UWe" secondAttribute="trailing" constant="8" id="a90-E3-teb"/>
+                            <constraint firstItem="6M6-0V-SFM" firstAttribute="top" secondItem="8zZ-NU-UWe" secondAttribute="top" id="kXd-CG-IrX"/>
                             <constraint firstItem="u1R-53-TfW" firstAttribute="centerX" secondItem="RDs-VV-8om" secondAttribute="centerX" id="lJl-8F-t45"/>
                             <constraint firstItem="u1R-53-TfW" firstAttribute="top" secondItem="Nqc-k4-r71" secondAttribute="bottom" constant="246" id="pL8-Bh-An7"/>
                             <constraint firstItem="6sp-dN-up2" firstAttribute="leading" secondItem="RDs-VV-8om" secondAttribute="leadingMargin" id="yZC-Lh-7NV"/>
@@ -67,6 +79,7 @@
                     <connections>
                         <outlet property="PSButtonOutfit" destination="8zZ-NU-UWe" id="JF0-og-a89"/>
                         <outlet property="WaveFormView" destination="6sp-dN-up2" id="KTC-BA-nQ0"/>
+                        <outlet property="audioSecondsValLabel" destination="6M6-0V-SFM" id="yeY-tk-4D1"/>
                         <outlet property="btnAudioRecord" destination="u1R-53-TfW" id="woy-fA-iHL"/>
                     </connections>
                 </viewController>

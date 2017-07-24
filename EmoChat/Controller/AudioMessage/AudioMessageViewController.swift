@@ -11,6 +11,7 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
     //MARK - Variables and outlets
     
 
+    @IBOutlet weak var audioSecondsValLabel: UILabel!
     @IBOutlet weak var btnAudioRecord: UIButton!
     @IBOutlet weak var WaveFormView: AudioMessageWaveForm!
     @IBOutlet weak var PSButtonOutfit: UIButton!
@@ -25,8 +26,18 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
     var settings         = [String : Int]()
     var player = AVPlayer()
     var manager: ManagerFirebase?
-    
-    
+
+    var audioSecondsVal: Double {
+        get {
+//            var valueForReturn: Double = 0.0
+//            if let tempVal = player.currentItem?.duration {
+//                valueForReturn = CMTimeGetSeconds(tempVal)
+//            }
+            let valueForReturn = calcLenthOfAudioFile()
+            return valueForReturn.roundTo(places: 2)
+        }
+    }
+
     //MARK - ViewDidLoad
     
     override func viewDidLoad() {
@@ -38,7 +49,7 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
         do {
             try recordingSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
             try recordingSession.setActive(true)
-            recordingSession.requestRecordPermission() { [unowned self] allowed in
+            recordingSession.requestRecordPermission() { allowed in
                 
                 DispatchQueue.main.async {
                     if allowed {
@@ -60,6 +71,8 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
             AVNumberOfChannelsKey: 1,
             AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
         ]
+
+        audioSecondsValLabel.text = String(audioSecondsVal)
     }
     
     override func didReceiveMemoryWarning() {
@@ -92,6 +105,7 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
         do {
             try audioSession.setActive(true)
             audioRecorder.record()
+
         } catch {
         }
     }
@@ -102,7 +116,7 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
         audioRecorder.stop()
         if success {
             print("success")
-            
+
             audioMessageToAnalyze(url: audioRecorder.url)
             self.WaveFormView.setNeedsDisplay()
         } else {
@@ -115,28 +129,34 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
     //MARK - button to star/stop recording
     
     @IBAction func click_AudioRecord(_ sender: AnyObject) {
-        
-        
+
         if audioRecorder == nil {
         self.btnAudioRecord.setImage(#imageLiteral(resourceName: "StopAudioMessage"), for: UIControlState.normal)
            
             DispatchQueue.main.async {
                 self.startRecording()
+//                self.audioSecondsValLabel.text = String(self.audioSecondsVal)
             }
             
         } else {
+            audioSecondsValLabel.text = String(audioSecondsVal)
+
             self.btnAudioRecord.setImage(#imageLiteral(resourceName: "RecordAudioMessage"), for: UIControlState.normal)
             
             self.finishRecording(success: true)
-            
+
             manager = ManagerFirebase.shared
-            manager?.handleAudioSendWith(url: audioRecorder.url, result:{ (urlFromFireBase) in
+            manager?.handleAudioSendWith(url: audioRecorder.url, result:{ [unowned self] (urlFromFireBase) in
                // self.showAudioMessage(url: urlFromFireBase)
-                self.play(url: urlFromFireBase)
+                self.initPlayer(url: urlFromFireBase)
+
+//                DispatchQueue.main.async {
+//                    self.audioSecondsValLabel.text = String(self.audioSecondsVal)
+//                }
             })
-                
-            
+
         }
+
     }
     
     //MARK - audioRecorderDidFinishRecording
@@ -149,18 +169,36 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
     
     
     //MARK - Play
+
+    func urlOfCurrentlyPlayingInPlayer(player: AVPlayer) -> URL? {
+        return ((player.currentItem?.asset) as? AVURLAsset)?.url
+    }
+
+    func calcLenthOfAudioFile() -> Double {
+        var valueForReturn: Double = 0
+        if let urlFromPlayer = urlOfCurrentlyPlayingInPlayer(player: self.player) {
+            let asset: AVURLAsset = AVURLAsset.init(url: urlFromPlayer)
+            let durationInSeconds: Double = CMTimeGetSeconds(asset.duration)
+
+            valueForReturn = durationInSeconds
+        }
+        return valueForReturn
+    }
+
+    func showCalcLenthOfAudioFile() {
+        self.audioSecondsValLabel.text = String(audioSecondsVal)
+    }
     
-    
-    func play (url: URL) {
+    func initPlayer (url: URL) {
         print("URL: \(url)")
-        
-        
+
         self.player = AVPlayer(url: url)
         self.player.volume = 1.0
-       // self.player.play()
-       self.PSButtonOutfit.setImage(#imageLiteral(resourceName: "PlayAudioMessage"), for: .normal)
+        // self.player.play()
+        self.PSButtonOutfit.setImage(#imageLiteral(resourceName: "PlayAudioMessage"), for: .normal)
         self.audioRecorder = nil
-        
+
+        showCalcLenthOfAudioFile()
     }
     
     //MARK - audioMessageToAnalyze
@@ -178,7 +216,7 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
     
     func playingProgress() {
         
-        var path = progressPath.upperPath
+        let path = progressPath.upperPath
         
         let shapeLayer = CAShapeLayer()
         shapeLayer.frame = WaveFormView.layer.bounds
@@ -191,7 +229,7 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
         
         
         let strokeEndAnimation = CABasicAnimation(keyPath: "strokeEnd")
-        strokeEndAnimation.duration = 5.0
+        strokeEndAnimation.duration = audioSecondsVal//5.0
         strokeEndAnimation.fromValue = 0.0
         strokeEndAnimation.toValue = 1.0
         
