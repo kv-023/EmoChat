@@ -17,11 +17,9 @@ class CustomTableViewCell: UITableViewCell {
     @IBOutlet weak var background: UIImageView!
     @IBOutlet weak var previewContainer: UIView!
     @IBOutlet weak var heightOfPreviewContainer: NSLayoutConstraint!
-    @IBOutlet weak var bottomOfPreviewContainer: NSLayoutConstraint!
     
     weak var delegate: CellDelegate!
     weak var singleConversationControllerDelegate: SingleConversationControllerProtocol?
-    var name: NSMutableAttributedString?
     
     var temporaryCellHeight:CGFloat = 0
     var extraCellHeiht:CGFloat {
@@ -51,20 +49,9 @@ class CustomTableViewCell: UITableViewCell {
         }
     }
     
+    //SHOULD BE OVERRIDDEN IN SUBCLASSES FOR DIFFERENT CONTENT TYPE
     var messageEntity: Message? {
-        get {
-            return _messageEntity
-        }
-
-        set {
-            _messageEntity = newValue
-            //TODO: check type of content
-            let text = NSMutableAttributedString(string: "")
-            if let enterText = name {
-                text.append(enterText)
-            }
-            text.append(NSAttributedString(string: (newValue?.content!.content)!, attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: CGFloat.init(15.0))]))
-            message.attributedText = text
+        didSet {
             setNullableDataInPreviewContainer()
         }
     }
@@ -73,9 +60,10 @@ class CustomTableViewCell: UITableViewCell {
         parseDataFromMessageText(delaySeconds: 1)
     }
 
+    //CAN BE OVERRIDDEN
     var contentRect: CGRect {
         get {
-            return message.frame
+            return self.background.frame
         }
     }
     
@@ -84,9 +72,6 @@ class CustomTableViewCell: UITableViewCell {
             delegate.cellDelegate(self, didHandle: .longPress)
         }
     }
-    
-    
-    private var _messageEntity: Message!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -108,19 +93,13 @@ class CustomTableViewCell: UITableViewCell {
     
     func setNullableHeightOfPreviewContainer() {
         heightOfPreviewContainer.constant = 0
-        bottomOfPreviewContainer.constant = 5
     }
-    
-    private func addRecognizerForMessage() {
-        
+   
+    //SHOULD BE OVERRIDDEN TO CHANGE SOURCE FOR TAP RECOGNIZER
+    func addRecognizerForMessage() {        
         let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(handler))
         message.addGestureRecognizer(recognizer)
     }
-    
-//    override var canBecomeFirstResponder: Bool {
-//        return true
-//    }
-
 }
 
 // MARK: - Actions
