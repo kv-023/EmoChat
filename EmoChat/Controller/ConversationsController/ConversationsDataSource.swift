@@ -145,6 +145,9 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
             
             managerFirebase.observerTuplesRef?.child("conversations/\(object.conversationId)").observe(.childChanged, with: { [weak self] (conversationSnapshot) in
                 
+                
+                print(conversationSnapshot.value)
+                
                 //check if timeStamp has been changed
                 if let timestamp = conversationSnapshot.value as? NSNumber {
                     
@@ -154,7 +157,7 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
                     }) {
                         
                         //set new timeStamp
-                        let newTimeStamp = Date(milliseconds: timestamp.intValue)
+                        let newTimeStamp = Date(milliseconds: timestamp.doubleValue)
                         self?.tupleArray[oldIndex].timestamp = newTimeStamp
                         
                         //Change index in tupleArray
