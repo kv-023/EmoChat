@@ -15,7 +15,7 @@ import UIKit
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var attachPhotoButton: UIButton!
     @IBOutlet weak var geolocationButton: UIButton!
-
+    
     // MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)

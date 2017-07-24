@@ -763,6 +763,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                        completion: { _ in
                         self.additionalBottomBarView.isHidden = !plusIsSelected
         })
+        
+        self.additionalBottomBarView.attachPhotoButton.addTarget(self, action: "addPhoto", for: UIControlEvents.touchUpInside)
     }
     
     func animateTextViewTransitions(becomeFirstResponder: Bool) {
@@ -859,4 +861,24 @@ extension CustomTextView {
         }
     }
     
+}
+
+extension SingleConversationViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func addPhoto () {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = false
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        guard let chosenImage = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
+        print(chosenImage)
+        self.dismiss(animated:true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
 }
