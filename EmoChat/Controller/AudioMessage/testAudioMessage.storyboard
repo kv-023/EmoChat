@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="K5g-mc-1sb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="K5g-mc-1sb">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u1R-53-TfW">
-                                <rect key="frame" x="152" y="266" width="72" height="66"/>
+                                <rect key="frame" x="151.5" y="266" width="72" height="66"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="66" id="HvX-uq-ACM"/>
                                     <constraint firstAttribute="width" constant="72" id="bR6-Wq-9Rr"/>
@@ -35,8 +35,12 @@
                                     <action selector="click_AudioRecord:" destination="K5g-mc-1sb" eventType="touchUpInside" id="YJv-4K-okn"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8zZ-NU-UWe">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8zZ-NU-UWe">
                                 <rect key="frame" x="24" y="359" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="6s9-UF-bAd"/>
+                                    <constraint firstAttribute="height" constant="30" id="8sX-TV-VWz"/>
+                                </constraints>
                                 <connections>
                                     <action selector="playStopButton:" destination="K5g-mc-1sb" eventType="touchUpInside" id="gRl-0f-jnD"/>
                                 </connections>
@@ -44,17 +48,20 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6sp-dN-up2" customClass="AudioMessageWaveForm" customModule="EmoChat" customModuleProvider="target">
                                 <rect key="frame" x="16" y="408" width="343" height="70"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="Btk-eH-Kui"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="6sp-dN-up2" firstAttribute="top" secondItem="RDs-VV-8om" secondAttribute="top" constant="408" id="3Bk-4f-Xoq"/>
-                            <constraint firstItem="U2V-gQ-F5g" firstAttribute="top" secondItem="6sp-dN-up2" secondAttribute="bottom" constant="189" id="5Na-Qz-wyL"/>
-                            <constraint firstItem="6sp-dN-up2" firstAttribute="top" secondItem="8zZ-NU-UWe" secondAttribute="bottom" constant="19" id="Yzi-fC-h5U"/>
-                            <constraint firstItem="6sp-dN-up2" firstAttribute="centerX" secondItem="u1R-53-TfW" secondAttribute="centerX" id="k3o-QR-xeJ"/>
+                            <constraint firstItem="8zZ-NU-UWe" firstAttribute="top" secondItem="u1R-53-TfW" secondAttribute="bottom" constant="27" id="4Xl-3r-EFj"/>
+                            <constraint firstItem="6sp-dN-up2" firstAttribute="top" secondItem="8zZ-NU-UWe" secondAttribute="bottom" constant="19" id="6Qo-G2-85h"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="6sp-dN-up2" secondAttribute="trailing" id="Qgl-kX-T4X"/>
+                            <constraint firstItem="8zZ-NU-UWe" firstAttribute="leading" secondItem="RDs-VV-8om" secondAttribute="leadingMargin" constant="8" id="Rqc-Sa-7Eb"/>
                             <constraint firstItem="u1R-53-TfW" firstAttribute="centerX" secondItem="RDs-VV-8om" secondAttribute="centerX" id="lJl-8F-t45"/>
                             <constraint firstItem="u1R-53-TfW" firstAttribute="top" secondItem="Nqc-k4-r71" secondAttribute="bottom" constant="246" id="pL8-Bh-An7"/>
-                            <constraint firstItem="6sp-dN-up2" firstAttribute="leading" secondItem="RDs-VV-8om" secondAttribute="leadingMargin" id="zvU-io-gig"/>
+                            <constraint firstItem="6sp-dN-up2" firstAttribute="leading" secondItem="RDs-VV-8om" secondAttribute="leadingMargin" id="yZC-Lh-7NV"/>
                         </constraints>
                     </view>
                     <connections>
