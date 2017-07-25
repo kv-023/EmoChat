@@ -81,6 +81,12 @@
 		E7B926F21EF1487B0018F5FF /* PopOverVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7B926EC1EF1487B0018F5FF /* PopOverVC.xib */; };
 		E7B926F31EF1487B0018F5FF /* PopOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B926ED1EF1487B0018F5FF /* PopOverViewController.swift */; };
 		E7B926F41EF1487B0018F5FF /* UIColorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B926EE1EF1487B0018F5FF /* UIColorHelper.swift */; };
+		E7F801961F2739FA002AEC3F /* AudioHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F801901F2739FA002AEC3F /* AudioHelper.swift */; };
+		E7F801971F2739FA002AEC3F /* AudioMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F801911F2739FA002AEC3F /* AudioMessageViewController.swift */; };
+		E7F801981F2739FA002AEC3F /* AudioMessageWaveForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F801921F2739FA002AEC3F /* AudioMessageWaveForm.swift */; };
+		E7F801991F2739FA002AEC3F /* playProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F801931F2739FA002AEC3F /* playProgress.swift */; };
+		E7F8019A1F2739FA002AEC3F /* testAudioMessage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7F801941F2739FA002AEC3F /* testAudioMessage.storyboard */; };
+		E7F8019B1F2739FA002AEC3F /* WaveFormProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F801951F2739FA002AEC3F /* WaveFormProgress.swift */; };
 		ED1E2D941EDD75B20058B6A6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */; };
 		F54D21761EE7130600B0B177 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54D21751EE7130600B0B177 /* Regex.swift */; };
 		F54D21781EE7149100B0B177 /* AdditionalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54D21771EE7149000B0B177 /* AdditionalViewController.swift */; };
@@ -179,6 +185,12 @@
 		E7B926EC1EF1487B0018F5FF /* PopOverVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopOverVC.xib; sourceTree = "<group>"; };
 		E7B926ED1EF1487B0018F5FF /* PopOverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopOverViewController.swift; sourceTree = "<group>"; };
 		E7B926EE1EF1487B0018F5FF /* UIColorHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorHelper.swift; sourceTree = "<group>"; };
+		E7F801901F2739FA002AEC3F /* AudioHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioHelper.swift; sourceTree = "<group>"; };
+		E7F801911F2739FA002AEC3F /* AudioMessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioMessageViewController.swift; sourceTree = "<group>"; };
+		E7F801921F2739FA002AEC3F /* AudioMessageWaveForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioMessageWaveForm.swift; sourceTree = "<group>"; };
+		E7F801931F2739FA002AEC3F /* playProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = playProgress.swift; sourceTree = "<group>"; };
+		E7F801941F2739FA002AEC3F /* testAudioMessage.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = testAudioMessage.storyboard; sourceTree = "<group>"; };
+		E7F801951F2739FA002AEC3F /* WaveFormProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveFormProgress.swift; sourceTree = "<group>"; };
 		ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ED5291B01EE16F24008F8174 /* EmoChat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EmoChat.entitlements; sourceTree = "<group>"; };
 		F54D21751EE7130600B0B177 /* Regex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
@@ -500,6 +512,19 @@
 			path = EmoChatTextField;
 			sourceTree = "<group>";
 		};
+		E7F8018F1F2739FA002AEC3F /* AudioMessage */ = {
+			isa = PBXGroup;
+			children = (
+				E7F801901F2739FA002AEC3F /* AudioHelper.swift */,
+				E7F801911F2739FA002AEC3F /* AudioMessageViewController.swift */,
+				E7F801921F2739FA002AEC3F /* AudioMessageWaveForm.swift */,
+				E7F801931F2739FA002AEC3F /* playProgress.swift */,
+				E7F801941F2739FA002AEC3F /* testAudioMessage.storyboard */,
+				E7F801951F2739FA002AEC3F /* WaveFormProgress.swift */,
+			);
+			path = AudioMessage;
+			sourceTree = "<group>";
+		};
 		EDB7F02033953CB545BB1360 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -558,6 +583,7 @@
 		FB982DDE1EE156B700AC2FCD /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				E7F8018F1F2739FA002AEC3F /* AudioMessage */,
 				847120ED1F1B6B1400C34D62 /* WebViewController */,
 				519EFB261F1793BC00CC33AE /* LoginViewController */,
 				84A3C8CE1EF878AA001A9A19 /* ConversationsController */,
@@ -669,6 +695,7 @@
 				F594A2B81F17CB76007153E0 /* SingleConversation.storyboard in Resources */,
 				F594A2B21F17CB69007153E0 /* Options.storyboard in Resources */,
 				E7883F3B1EF1C2DA00E876CC /* Localizable.strings in Resources */,
+				E7F8019A1F2739FA002AEC3F /* testAudioMessage.storyboard in Resources */,
 				3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */,
 				847120EC1F1B6A4600C34D62 /* WebView.storyboard in Resources */,
 				F594A2BB1F17CB7B007153E0 /* Confirmation.storyboard in Resources */,
@@ -733,6 +760,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7F801961F2739FA002AEC3F /* AudioHelper.swift in Sources */,
 				E7352C261EDED52B0095264E /* Conversation.swift in Sources */,
 				842E8B6C1EF931C900CA3BF2 /* ConversationsDataSource.swift in Sources */,
 				F5E339401EF6DA5500D224BF /* ChatSettingsTableViewController.swift in Sources */,
@@ -755,6 +783,7 @@
 				CC8B92B91F1FF53300A82AD5 /* RightSingleConversationUITableViewCell.swift in Sources */,
 				CC13C5D51EF4092900B38E59 /* ArchiverManager.swift in Sources */,
 				E70F3DB21F0507D900617235 /* MessageModel.swift in Sources */,
+				E7F801991F2739FA002AEC3F /* playProgress.swift in Sources */,
 				2BF498D81F0C33C700F72EAA /* UIImageViewExtension.swift in Sources */,
 				519EFB2A1F1793E600CC33AE /* ManagerGifBackground.swift in Sources */,
 				E7B926F01EF1487B0018F5FF /* EmoChatUIViewController.swift in Sources */,
@@ -763,6 +792,8 @@
 				E759F3621F128B640045E626 /* DataForRestUIInfoView.swift in Sources */,
 				35F8943A1F00FFE000862BAC /* UserTableViewCell.swift in Sources */,
 				E7B926F11EF1487B0018F5FF /* PopOverHelper.swift in Sources */,
+				E7F801981F2739FA002AEC3F /* AudioMessageWaveForm.swift in Sources */,
+				E7F8019B1F2739FA002AEC3F /* WaveFormProgress.swift in Sources */,
 				843C58C51F1C0D7F00355ACD /* VideoPlayerViewController.swift in Sources */,
 				A3E7E7D11EEFD893006D24BC /* OptionsMainPageTableViewController.swift in Sources */,
 				84530F391F0C35DD00EBFCEB /* UserCell.swift in Sources */,
@@ -782,6 +813,7 @@
 				E70F3DAF1F0507D900617235 /* RestUIStrategy.swift in Sources */,
 				E7352C2B1EE0139E0095264E /* ModelGenericHelper.swift in Sources */,
 				A30FCEF31EFA7F45006A9E08 /* CurrentUser.swift in Sources */,
+				E7F801971F2739FA002AEC3F /* AudioMessageViewController.swift in Sources */,
 				847120EF1F1B6B3C00C34D62 /* WebViewController.swift in Sources */,
 				FB4317731EE6C24400770338 /* SignUpFirstViewController.swift in Sources */,
 				E7352C3A1EE81CB60095264E /* RegexCheckProtocol.swift in Sources */,
