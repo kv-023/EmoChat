@@ -90,6 +90,7 @@
 		ED1E2D941EDD75B20058B6A6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */; };
 		F54D21761EE7130600B0B177 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54D21751EE7130600B0B177 /* Regex.swift */; };
 		F54D21781EE7149100B0B177 /* AdditionalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54D21771EE7149000B0B177 /* AdditionalViewController.swift */; };
+		F588D5B81F273129009E06C5 /* UserInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F588D5B71F273129009E06C5 /* UserInfoTableViewController.swift */; };
 		F594A2AF1F17CB63007153E0 /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F594A2B11F17CB63007153E0 /* SignUp.storyboard */; };
 		F594A2B21F17CB69007153E0 /* Options.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F594A2B41F17CB69007153E0 /* Options.storyboard */; };
 		F594A2B51F17CB70007153E0 /* ChatSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F594A2B71F17CB70007153E0 /* ChatSettings.storyboard */; };
@@ -195,6 +196,7 @@
 		ED5291B01EE16F24008F8174 /* EmoChat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EmoChat.entitlements; sourceTree = "<group>"; };
 		F54D21751EE7130600B0B177 /* Regex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
 		F54D21771EE7149000B0B177 /* AdditionalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdditionalViewController.swift; sourceTree = "<group>"; };
+		F588D5B71F273129009E06C5 /* UserInfoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoTableViewController.swift; sourceTree = "<group>"; };
 		F594A2B01F17CB63007153E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/SignUp.storyboard; sourceTree = "<group>"; };
 		F594A2B31F17CB69007153E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Options.storyboard; sourceTree = "<group>"; };
 		F594A2B61F17CB70007153E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/ChatSettings.storyboard; sourceTree = "<group>"; };
@@ -543,6 +545,14 @@
 			path = ChatSettingsTableViewController;
 			sourceTree = "<group>";
 		};
+		F588D5B61F2730AB009E06C5 /* UserInfoController */ = {
+			isa = PBXGroup;
+			children = (
+				F588D5B71F273129009E06C5 /* UserInfoTableViewController.swift */,
+			);
+			path = UserInfoController;
+			sourceTree = "<group>";
+		};
 		FB4317711EE6C21800770338 /* SignUpControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -584,6 +594,7 @@
 			isa = PBXGroup;
 			children = (
 				E7F8018F1F2739FA002AEC3F /* AudioMessage */,
+				F588D5B61F2730AB009E06C5 /* UserInfoController */,
 				847120ED1F1B6B1400C34D62 /* WebViewController */,
 				519EFB261F1793BC00CC33AE /* LoginViewController */,
 				84A3C8CE1EF878AA001A9A19 /* ConversationsController */,
@@ -798,6 +809,7 @@
 				A3E7E7D11EEFD893006D24BC /* OptionsMainPageTableViewController.swift in Sources */,
 				84530F391F0C35DD00EBFCEB /* UserCell.swift in Sources */,
 				A309F3761EEFED6000DF6449 /* OptionsChangeNumberTableViewController.swift in Sources */,
+				F588D5B81F273129009E06C5 /* UserInfoTableViewController.swift in Sources */,
 				FB0B34061F1CCC0F00FC5836 /* SingleConversationDataSource.swift in Sources */,
 				519EFB2C1F1794B800CC33AE /* StringExtension.swift in Sources */,
 				E7B926EF1EF1487B0018F5FF /* CustomTextFieldWithPopOverInfoBox.swift in Sources */,
