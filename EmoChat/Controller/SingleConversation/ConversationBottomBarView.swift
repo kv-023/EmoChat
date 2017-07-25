@@ -15,7 +15,10 @@ import UIKit
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var attachPhotoButton: UIButton!
     @IBOutlet weak var geolocationButton: UIButton!
+    @IBOutlet weak var audioRecordButton: UIButton!
 
+    @IBAction func audioRecordButtonPressed(_ sender: UIButton, forEvent event: UIEvent) {
+    }
     // MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
