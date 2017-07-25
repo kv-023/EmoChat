@@ -27,7 +27,7 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
                          completionHandler: @escaping() -> Void) {
         
         managerFirebase = ManagerFirebase.shared
-        
+                
         ManagerFirebase.shared.getCurrentUser { [weak self] (result) in
             switch result {
             case let .successSingleUser(user):
@@ -144,9 +144,6 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
         for object in tupleArray {
             
             managerFirebase.observerTuplesRef?.child("conversations/\(object.conversationId)").observe(.childChanged, with: { [weak self] (conversationSnapshot) in
-                
-                
-                print(conversationSnapshot.value)
                 
                 //check if timeStamp has been changed
                 if let timestamp = conversationSnapshot.value as? NSNumber {

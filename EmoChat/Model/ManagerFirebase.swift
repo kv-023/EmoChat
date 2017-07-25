@@ -329,7 +329,7 @@ class ManagerFirebase {
             }
             
             //create reference
-            let imagePath = "userPics/\(uid)/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
+            let imagePath = "userPics/\(uid)/\(Double(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
             
             let metaData = StorageMetadata()
             metaData.contentType = "image/jpeg"
@@ -679,8 +679,6 @@ class ManagerFirebase {
                     getNewConversation(newConv)
                 })
                 //action((snapshot.value as? String)!)
-             
-                
             })
             
         }
@@ -689,6 +687,14 @@ class ManagerFirebase {
     func getMessageFromConversation (_ allConversations: [Conversation], result: @escaping (Conversation, Message) -> Void) {
         for eachConv in allConversations{
             self.ref?.child("conversations/\(eachConv.uuid)/messagesInConversation").queryLimited(toLast: 3).observe(.childAdded, with: {(snapshot) in
+                
+                print("\(Auth.auth().currentUser!.uid)")
+                if snapshot.hasChild("isEmoRecorded"), snapshot.hasChild("isEmoRecorded/\(Auth.auth().currentUser!.uid)") {
+                    print("emoMessage")
+                } else {
+                    print("default message")
+                }
+                
                 let uidMessage = snapshot.key
                 let messageSnapshot = snapshot.value as? NSDictionary
                 let message = Message(data: messageSnapshot, uid: uidMessage)
@@ -699,21 +705,37 @@ class ManagerFirebase {
     
     func getBunchOfMessages (in conversation: Conversation, startingFrom uid: String, count: Int, result: @escaping ([Message]) -> Void) {
         let newRef = self.ref?.child("conversations/\(conversation.uuid)/messagesInConversation")
-            newRef?.queryEnding(atValue: uid).queryLimited(toLast: UInt(count)).queryOrderedByKey().observeSingleEvent(of: .value, with: { (snapshot) in
+        newRef?.queryEnding(atValue: uid).queryLimited(toLast: UInt(count)).queryOrderedByKey().observeSingleEvent(of: .value, with: { (snapshot) in
             //let value = snapshot.value as? [String : AnyObject]
-                var messages = [Message]()
-                for each in snapshot.children {
-                    
-                    let messageDict = (each as! DataSnapshot).value as? NSDictionary
-                    let message = Message(data: messageDict, uid: (each as AnyObject).key)
-                    
-                    guard message.uid! != uid else{
-                        continue
-                    }
-                    messages.append(message)
-                }
+            var messages = [Message]()
+            for each in snapshot.children {
                 
-     //       print(uid)
+                let messageDict = (each as! DataSnapshot).value as? NSDictionary
+                
+                //start
+                print(snapshot)
+                print(each)
+                
+                
+                let messageSnapshot = each as! DataSnapshot
+
+                if messageSnapshot.hasChild("isEmoRecorded"), messageSnapshot.hasChild("messageSnapshot/\(CurrentUser.shared.uid!)") {
+                    print("emoMessage")
+                } else {
+                    print("default message")
+                }
+
+                //end
+                
+                let message = Message(data: messageDict, uid: (each as AnyObject).key)
+                
+                guard message.uid! != uid else{
+                    continue
+                }
+                messages.append(message)
+            }
+            
+            //       print(uid)
             result(messages)
         })
         
