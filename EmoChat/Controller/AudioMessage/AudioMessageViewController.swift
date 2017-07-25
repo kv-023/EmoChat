@@ -11,12 +11,16 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
     //MARK - Variables and outlets
     
 
+    @IBOutlet weak var audioSecondsValLabel: UILabel!
     @IBOutlet weak var btnAudioRecord: UIButton!
     @IBOutlet weak var WaveFormView: AudioMessageWaveForm!
     @IBOutlet weak var PSButtonOutfit: UIButton!
     @IBAction func playStopButton(_ sender: Any) {
         self.player.play()
        // self.PSButtonOutfit.setImage(#imageLiteral(resourceName: "PauseAudioMessage"), for: UIControlState.normal)
+        playingProgress()
+
+        //progressPath.removeLayerFromSuperView()
     }
     
     var recordingSession : AVAudioSession!
@@ -24,8 +28,18 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
     var settings         = [String : Int]()
     var player = AVPlayer()
     var manager: ManagerFirebase?
-    
-    
+
+    var audioSecondsVal: Double {
+        get {
+//            var valueForReturn: Double = 0.0
+//            if let tempVal = player.currentItem?.duration {
+//                valueForReturn = CMTimeGetSeconds(tempVal)
+//            }
+            let valueForReturn = calcLenthOfAudioFile()
+            return valueForReturn.roundTo(places: 2)
+        }
+    }
+
     //MARK - ViewDidLoad
     
     override func viewDidLoad() {
@@ -37,7 +51,7 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
         do {
             try recordingSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
             try recordingSession.setActive(true)
-            recordingSession.requestRecordPermission() { [unowned self] allowed in
+            recordingSession.requestRecordPermission() { allowed in
                 
                 DispatchQueue.main.async {
                     if allowed {
@@ -59,6 +73,8 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
             AVNumberOfChannelsKey: 1,
             AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
         ]
+
+        audioSecondsValLabel.text = String(audioSecondsVal)
     }
     
     override func didReceiveMemoryWarning() {
@@ -91,6 +107,7 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
         do {
             try audioSession.setActive(true)
             audioRecorder.record()
+
         } catch {
         }
     }
@@ -101,7 +118,7 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
         audioRecorder.stop()
         if success {
             print("success")
-            
+
             audioMessageToAnalyze(url: audioRecorder.url)
             self.WaveFormView.setNeedsDisplay()
         } else {
@@ -114,8 +131,7 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
     //MARK - button to star/stop recording
     
     @IBAction func click_AudioRecord(_ sender: AnyObject) {
-        
-        
+
         if audioRecorder == nil {
         self.btnAudioRecord.setImage(#imageLiteral(resourceName: "StopAudioMessage"), for: UIControlState.normal)
            
@@ -124,17 +140,17 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
             }
             
         } else {
+            audioSecondsValLabel.text = String(audioSecondsVal)
+
             self.btnAudioRecord.setImage(#imageLiteral(resourceName: "RecordAudioMessage"), for: UIControlState.normal)
             
             self.finishRecording(success: true)
-            
+
             manager = ManagerFirebase.shared
-            manager?.handleAudioSendWith(url: audioRecorder.url, result:{ (urlFromFireBase) in
+            manager?.handleAudioSendWith(url: audioRecorder.url, result:{ [unowned self] (urlFromFireBase) in
                // self.showAudioMessage(url: urlFromFireBase)
-                self.play(url: urlFromFireBase)
+                self.initPlayer(url: urlFromFireBase)
             })
-                
-            
         }
     }
     
@@ -148,18 +164,36 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
     
     
     //MARK - Play
+
+    func urlOfCurrentlyPlayingInPlayer(player: AVPlayer) -> URL? {
+        return ((player.currentItem?.asset) as? AVURLAsset)?.url
+    }
+
+    func calcLenthOfAudioFile() -> Double {
+        var valueForReturn: Double = 0
+        if let urlFromPlayer = urlOfCurrentlyPlayingInPlayer(player: self.player) {
+            let asset: AVURLAsset = AVURLAsset.init(url: urlFromPlayer)
+            let durationInSeconds: Double = CMTimeGetSeconds(asset.duration)
+
+            valueForReturn = durationInSeconds
+        }
+        return valueForReturn
+    }
+
+    func showCalcLenthOfAudioFile() {
+        self.audioSecondsValLabel.text = String(audioSecondsVal)
+    }
     
-    
-    func play (url: URL) {
+    func initPlayer (url: URL) {
         print("URL: \(url)")
-        
-        
+
         self.player = AVPlayer(url: url)
         self.player.volume = 1.0
-       // self.player.play()
-       self.PSButtonOutfit.setImage(#imageLiteral(resourceName: "PlayAudioMessage"), for: .normal)
+        // self.player.play()
+        self.PSButtonOutfit.setImage(#imageLiteral(resourceName: "PlayAudioMessage"), for: .normal)
         self.audioRecorder = nil
-        
+
+        showCalcLenthOfAudioFile()
     }
     
     //MARK - audioMessageToAnalyze
@@ -175,5 +209,118 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
         readFile.arrayFloatValues = Array(UnsafeBufferPointer(start: buf.floatChannelData?[0], count:Int(buf.frameLength)))
     }
     
-    
+//    func playingProgress() {
+//        
+//        let path = progressPath.upperPath
+//        
+//        let shapeLayer = CAShapeLayer()
+//        shapeLayer.frame = WaveFormView.layer.bounds
+//        
+//        
+//        shapeLayer.path = path?.cgPath
+//        
+//        
+//        shapeLayer.strokeColor = UIColor.blue.cgColor
+//        
+//        
+//        let strokeEndAnimation = CABasicAnimation(keyPath: "strokeEnd")
+//        strokeEndAnimation.duration = audioSecondsVal//5.0
+//        strokeEndAnimation.fromValue = 0.0
+//        strokeEndAnimation.toValue = 1.0
+//        
+//        
+//        shapeLayer.add(strokeEndAnimation, forKey: "strokeEnd")
+//        self.WaveFormView.layer.addSublayer(shapeLayer)
+//        
+//    }
+
+    func playingProgress() {
+
+        let pathUp = ProgressPath.sharedIstance.upperPath
+        let pathDown = ProgressPath.sharedIstance.lowerPath
+
+        let currentAudioDuration: CFTimeInterval = audioSecondsVal
+        setInitialDraw(pathUp: pathUp,
+                       pathDown: pathDown,
+                       duration: currentAudioDuration)
+
+        //outro animation
+        DispatchQueue.global(qos: .userInitiated).asyncAfter(
+            deadline: .now() + .seconds(2), execute: {
+                DispatchQueue.main.async {
+
+                    let outroDuration: CFTimeInterval = 3.0
+                    self.setOutroDraw(pathUp: pathUp,
+                                      pathDown: pathDown,
+                                      duration: outroDuration)
+
+                    //remove all layers
+                    let eraseLayerDelay: Int = Int(outroDuration) + 1
+                    DispatchQueue.global(qos: .userInitiated).asyncAfter(
+                        deadline: .now() + .seconds(eraseLayerDelay), execute: {
+                            DispatchQueue.main.async {
+                                ProgressPath.sharedIstance.removeLayersFromSuperView()
+                            }
+                    })
+                }
+        })
+        
+    }
+
+    func setInitialDraw(pathUp: UIBezierPath?,
+               pathDown: UIBezierPath?,
+               duration: CFTimeInterval) {
+        let shapeLayerUpper = CAShapeLayer()
+        shapeLayerUpper.frame = WaveFormView.layer.bounds
+        shapeLayerUpper.path = pathUp?.cgPath
+        shapeLayerUpper.strokeColor = UIColor.blue.cgColor
+
+        let shapeLayerLower = CAShapeLayer()
+        shapeLayerLower.frame = WaveFormView.layer.bounds
+        shapeLayerLower.path = pathDown?.cgPath
+        shapeLayerLower.strokeColor = UIColor.cyan.cgColor
+
+        let strokeEndAnimation = CABasicAnimation(keyPath: "strokeEnd")
+        strokeEndAnimation.duration = duration
+        strokeEndAnimation.fromValue = 0.0
+        strokeEndAnimation.toValue = 1.0
+
+        shapeLayerUpper.add(strokeEndAnimation, forKey: "strokeEnd")
+        shapeLayerLower.add(strokeEndAnimation, forKey: "strokeEnd")
+
+        self.WaveFormView.layer.addSublayer(shapeLayerUpper)
+        self.WaveFormView.layer.addSublayer(shapeLayerLower)
+
+        ProgressPath.sharedIstance.addLayer(layer: shapeLayerUpper)
+        ProgressPath.sharedIstance.addLayer(layer: shapeLayerLower)
+    }
+
+    func setOutroDraw(pathUp: UIBezierPath?,
+                      pathDown: UIBezierPath?,
+                      duration: CFTimeInterval) {
+        let shapeLayerUpper = CAShapeLayer()
+        shapeLayerUpper.frame = self.WaveFormView.layer.bounds
+        shapeLayerUpper.path = pathUp?.cgPath
+        shapeLayerUpper.strokeColor = ProgressPath.sharedIstance.upperPathColor.cgColor
+
+        let shapeLayerLower = CAShapeLayer()
+        shapeLayerLower.frame = self.WaveFormView.layer.bounds
+        shapeLayerLower.path = pathDown?.cgPath
+        shapeLayerLower.strokeColor =  ProgressPath.sharedIstance.lowerPathColor.cgColor
+
+        let strokeEndAnimationCleaner = CABasicAnimation(keyPath: "transform.scale.y")
+        strokeEndAnimationCleaner.duration = duration
+        strokeEndAnimationCleaner.fromValue = 0.0
+        strokeEndAnimationCleaner.toValue = 1.0
+
+        shapeLayerUpper.add(strokeEndAnimationCleaner, forKey: nil)
+        shapeLayerLower.add(strokeEndAnimationCleaner, forKey: nil)
+
+        self.WaveFormView.layer.addSublayer(shapeLayerUpper)
+        self.WaveFormView.layer.addSublayer(shapeLayerLower)
+
+        ProgressPath.sharedIstance.addLayer(layer: shapeLayerUpper)
+        ProgressPath.sharedIstance.addLayer(layer: shapeLayerLower)
+    }
+
 }
