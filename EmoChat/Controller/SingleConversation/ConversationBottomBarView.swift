@@ -8,7 +8,17 @@
 
 import UIKit
 
+protocol AudioRecordProtocol {
+
+    func startRecordingAudio()
+    func finishRecordingAudio()
+}
+
+
 @IBDesignable class ConversationBottomBarView: UIView {
+
+    //MARK: delegates
+    var audioRecordDelegate: AudioRecordProtocol?
 
     // MARK: - IBOutlets
     @IBOutlet weak var attachFileButton: UIButton!
@@ -17,8 +27,22 @@ import UIKit
     @IBOutlet weak var geolocationButton: UIButton!
     @IBOutlet weak var audioRecordButton: UIButton!
 
-    @IBAction func audioRecordButtonPressed(_ sender: UIButton, forEvent event: UIEvent) {
+    @IBAction func audioRecordButtonPressed(_ sender: UIButton,
+                                            forEvent event: UIEvent) {
+
+        if audioRecordDelegate == nil {
+            audioRecordDelegate = AudioMessageControl.cInit()
+        }
+
+        sender.isSelected = !sender.isSelected
+
+        if sender.isSelected {
+            audioRecordDelegate?.startRecordingAudio()
+        } else {
+            audioRecordDelegate?.finishRecordingAudio()
+        }
     }
+
     // MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)

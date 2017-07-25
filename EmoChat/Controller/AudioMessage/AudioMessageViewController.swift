@@ -1,31 +1,25 @@
 
-
 import UIKit
 import AVFoundation
-
-
 
 
 class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
     
     //MARK - Variables and outlets
     
-
     @IBOutlet weak var audioSecondsValLabel: UILabel!
     @IBOutlet weak var btnAudioRecord: UIButton!
     @IBOutlet weak var WaveFormView: AudioMessageWaveForm!
     @IBOutlet weak var PSButtonOutfit: UIButton!
     @IBAction func playStopButton(_ sender: Any) {
         self.player.play()
-       // self.PSButtonOutfit.setImage(#imageLiteral(resourceName: "PauseAudioMessage"), for: UIControlState.normal)
-        playingProgress()
 
-        //progressPath.removeLayerFromSuperView()
+        playingProgress()
     }
     
-    var recordingSession : AVAudioSession!
-    var audioRecorder    :AVAudioRecorder!
-    var settings         = [String : Int]()
+    var recordingSession: AVAudioSession!
+    var audioRecorder: AVAudioRecorder!
+    var settings = [String : Int]()
     var player = AVPlayer()
     var manager: ManagerFirebase?
 
@@ -209,31 +203,6 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
         readFile.arrayFloatValues = Array(UnsafeBufferPointer(start: buf.floatChannelData?[0], count:Int(buf.frameLength)))
     }
     
-//    func playingProgress() {
-//        
-//        let path = progressPath.upperPath
-//        
-//        let shapeLayer = CAShapeLayer()
-//        shapeLayer.frame = WaveFormView.layer.bounds
-//        
-//        
-//        shapeLayer.path = path?.cgPath
-//        
-//        
-//        shapeLayer.strokeColor = UIColor.blue.cgColor
-//        
-//        
-//        let strokeEndAnimation = CABasicAnimation(keyPath: "strokeEnd")
-//        strokeEndAnimation.duration = audioSecondsVal//5.0
-//        strokeEndAnimation.fromValue = 0.0
-//        strokeEndAnimation.toValue = 1.0
-//        
-//        
-//        shapeLayer.add(strokeEndAnimation, forKey: "strokeEnd")
-//        self.WaveFormView.layer.addSublayer(shapeLayer)
-//        
-//    }
-
     func playingProgress() {
 
         let pathUp = ProgressPath.sharedIstance.upperPath
