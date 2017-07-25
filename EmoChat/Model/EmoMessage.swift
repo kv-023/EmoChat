@@ -9,5 +9,5 @@
 import Foundation
 
 class EmoMessage: Message {
-    var isEmo: Bool?
+
 }

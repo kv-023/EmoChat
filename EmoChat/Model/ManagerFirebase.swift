@@ -684,28 +684,34 @@ class ManagerFirebase {
         }
     }
     
+    private func getMessageFromSnapshot(snapshot: DataSnapshot, message: inout Message?, messageDictionary: NSDictionary, uid: String) -> Message {
+        if snapshot.hasChild("isEmoRecorded"), snapshot.hasChild("isEmoRecorded/\(Auth.auth().currentUser!.uid)") {
+            message = EmoMessage(data: messageDictionary, uid: uid)
+            return message!
+        } else {
+            message = Message(data: messageDictionary, uid: uid)
+            return message!
+        }
+    }
+    
     func getMessageFromConversation (_ allConversations: [Conversation], result: @escaping (Conversation, Message) -> Void) {
         for eachConv in allConversations{
-            self.ref?.child("conversations/\(eachConv.uuid)/messagesInConversation").queryLimited(toLast: 3).observe(.childAdded, with: {(snapshot) in
-                
-                print("\(Auth.auth().currentUser!.uid)")
-                if snapshot.hasChild("isEmoRecorded"), snapshot.hasChild("isEmoRecorded/\(Auth.auth().currentUser!.uid)") {
-                    print("emoMessage")
-                } else {
-                    print("default message")
-                }
+            self.ref?.child("conversations/\(eachConv.uuid)/messagesInConversation").queryLimited(toLast: 3).observe(.childAdded, with: { [weak self] (snapshot) in
                 
                 let uidMessage = snapshot.key
                 let messageSnapshot = snapshot.value as? NSDictionary
-                let message = Message(data: messageSnapshot, uid: uidMessage)
-                result(eachConv, message)
+                
+                var message: Message?
+                message = self?.getMessageFromSnapshot(snapshot: snapshot, message: &message, messageDictionary: messageSnapshot!, uid: uidMessage)
+        
+                result(eachConv, message!)
             })
         }
     }
     
     func getBunchOfMessages (in conversation: Conversation, startingFrom uid: String, count: Int, result: @escaping ([Message]) -> Void) {
         let newRef = self.ref?.child("conversations/\(conversation.uuid)/messagesInConversation")
-        newRef?.queryEnding(atValue: uid).queryLimited(toLast: UInt(count)).queryOrderedByKey().observeSingleEvent(of: .value, with: { (snapshot) in
+        newRef?.queryEnding(atValue: uid).queryLimited(toLast: UInt(count)).queryOrderedByKey().observeSingleEvent(of: .value, with: { [weak self] (snapshot) in
             //let value = snapshot.value as? [String : AnyObject]
             var messages = [Message]()
             for each in snapshot.children {
@@ -713,26 +719,17 @@ class ManagerFirebase {
                 let messageDict = (each as! DataSnapshot).value as? NSDictionary
                 
                 //start
-                print(snapshot)
-                print(each)
-                
-                
-                let messageSnapshot = each as! DataSnapshot
 
-                if messageSnapshot.hasChild("isEmoRecorded"), messageSnapshot.hasChild("messageSnapshot/\(CurrentUser.shared.uid!)") {
-                    print("emoMessage")
-                } else {
-                    print("default message")
-                }
+                let messageSnapshot = each as! DataSnapshot
+                var message: Message?
+                message = self?.getMessageFromSnapshot(snapshot: messageSnapshot, message: &message, messageDictionary: messageDict!, uid: (each as AnyObject).key)
 
                 //end
                 
-                let message = Message(data: messageDict, uid: (each as AnyObject).key)
-                
-                guard message.uid! != uid else{
+                guard message!.uid! != uid else {
                     continue
                 }
-                messages.append(message)
+                messages.append(message!)
             }
             
             //       print(uid)
