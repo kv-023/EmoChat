@@ -77,7 +77,7 @@
                             </tableViewSection>
                             <tableViewSection id="QYx-PC-hlm">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="3PP-kd-cu3">
+                                    <tableViewCell clipsSubviews="YES" tag="1" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="phoneCell" id="3PP-kd-cu3">
                                         <rect key="frame" x="0.0" y="189" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3PP-kd-cu3" id="G3S-hp-vMy">
