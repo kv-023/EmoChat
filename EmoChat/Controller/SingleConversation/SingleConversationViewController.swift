@@ -119,11 +119,11 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         setupKeyboardObservers()
         
         self.setUpFrame()
-
+        
         self.observeNewMessage()
         
         group.notify(queue: DispatchQueue.main, execute: {
-
+            
             if !self.isEmpty {
                 self.updateUI()
             }
@@ -154,7 +154,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     //MARK: - Menu
     func conversationInfoPressed() {
         let vc = UIStoryboard(name:"ChatSettings", bundle:nil).instantiateViewController(withIdentifier: "chatSettings") as! ChatSettingsTableViewController
-       
+        
         vc.conversation = currentConversation
         vc.photosArray = photosArray
         vc.currentUser = currentUser
@@ -250,7 +250,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     func insertRows (_ newMessages: [(Message, UserType)]) {
         self.addMessagesToDictionary(newMessages)
     }
-
+    
     
     //MARK: - Add and delete messages
     func removeMessageFromDictionary (index: (index: Int, section: String)?) {
@@ -353,7 +353,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             textMessage.isScrollEnabled = false;
             
             self.textViewMaxHeightConstraint.isActive = false
-
+            
         }
     }
     
@@ -551,14 +551,14 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                                        message messageEntity: Message?) {
         if let notNullMessageEntity = messageEntity,
             let messageModelInDictionary = messageRestModel[notNullMessageEntity] as? MessageModel {
-
+            
             cell.messageModel = messageModelInDictionary
         } else {
             cell.messageModel = nil
         }
     }
     
-
+    
     
     
     
@@ -764,7 +764,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                         self.additionalBottomBarView.isHidden = !plusIsSelected
         })
         
-        self.additionalBottomBarView.attachPhotoButton.addTarget(self, action: "addPhoto", for: UIControlEvents.touchUpInside)
+        self.additionalBottomBarView.attachPhotoButton.addTarget(self, action: #selector(self.addPhotoLibrary), for: UIControlEvents.touchUpInside)
+        self.additionalBottomBarView.cameraButton.addTarget(self, action: #selector(self.addPhotoCamera), for: UIControlEvents.touchUpInside)
     }
     
     func animateTextViewTransitions(becomeFirstResponder: Bool) {
@@ -823,7 +824,7 @@ extension SingleConversationViewController: SingleConversationControllerProtocol
     
     func addMessageModelInSingleConversationDictionary(message: Message,
                                                        model: MessageModel?) {
-
+        
         messageRestModel.updateValue(model, forKey: message)
     }
     
@@ -835,7 +836,7 @@ extension SingleConversationViewController : CellDelegate {
     func cellDelegate(_ sender: UITableViewCell, didHandle action: Action) {
         if action == .longPress {
             if let cell = sender as? CustomTableViewCell {
-                    showMenu(forCell: cell)
+                showMenu(forCell: cell)
             }
         }
     }
@@ -860,16 +861,35 @@ extension CustomTextView {
             return false
         }
     }
-    
 }
 
+// MARK: - For working with pictures
 extension SingleConversationViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func addPhoto () {
+    func addPhotoLibrary () {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.allowsEditing = false
-        imagePicker.sourceType = .photoLibrary
-        present(imagePicker, animated: true, completion: nil)
+        
+        
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            imagePicker.sourceType = .photoLibrary
+            present(imagePicker, animated: true, completion: nil)}
+    }
+    
+    func addPhotoCamera () {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = false
+        
+        
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            imagePicker.sourceType = .camera
+            present(imagePicker, animated: true, completion: nil)}
+        else {
+            let alertCameraError = UIAlertController(title: "Camera Error", message: "Some promlems with camera, use the library", preferredStyle: UIAlertControllerStyle.alert)
+            alertCameraError.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alertCameraError, animated: true, completion: nil)
+        }
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {

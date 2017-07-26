@@ -43,9 +43,6 @@
                             <state key="normal" image="pictureImage"/>
                             <state key="selected" image="pictureFilled"/>
                             <state key="highlighted" image="pictureFilled"/>
-                            <connections>
-                                <action selector="attachPhotoAction:" destination="-1" eventType="touchUpInside" id="l0i-4i-uwf"/>
-                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pnh-CD-xPm">
                             <rect key="frame" x="108.5" y="0.0" width="40" height="40"/>
