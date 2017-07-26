@@ -1,4 +1,4 @@
-//
+    //
 //  AudioMessageControl.swift
 //  EmoChat
 //
@@ -15,8 +15,10 @@ extension AudioMessageControl: AudioRecordProtocol {
         startAudioRecorder()
     }
 
-    func finishRecordingAudio() {
+    func finishRecordingAudio() -> URL? {
         stopAudioRecorder()
+
+        return audioRecorder.url//urlOfCurrentlyPlayingInPlayer(player: player)
     }
 }
 
@@ -44,6 +46,7 @@ class AudioMessageControl: UIViewController, AVAudioRecorderDelegate {
 
         return newInstance
     }
+
 
     //MARK - ViewDidLoad
 
@@ -85,11 +88,6 @@ class AudioMessageControl: UIViewController, AVAudioRecorderDelegate {
         ]
 
     }
-
-//    override func didReceiveMemoryWarning() {
-//        super.didReceiveMemoryWarning()
-//
-//    }
 
     //MARK - directoryURL
 
@@ -144,30 +142,30 @@ class AudioMessageControl: UIViewController, AVAudioRecorderDelegate {
 
     //MARK - button to star/stop recording
 
-    @IBAction func click_AudioRecord(_ sender: AnyObject) {
-//        if audioRecorder == nil {
-//            //            self.btnAudioRecord.setImage(#imageLiteral(resourceName: "StopAudioMessage"), for: UIControlState.normal)
+//    @IBAction func click_AudioRecord(_ sender: AnyObject) {
+////        if audioRecorder == nil {
+////            //            self.btnAudioRecord.setImage(#imageLiteral(resourceName: "StopAudioMessage"), for: UIControlState.normal)
+////
+////            DispatchQueue.main.async {
+////                self.startRecording()
+////            }
+////
+////        } else {
+////            //            audioSecondsValLabel.text = String(audioSecondsVal)
+////
+////            //            self.btnAudioRecord.setImage(#imageLiteral(resourceName: "RecordAudioMessage"), for: UIControlState.normal)
+////
+////            self.finishRecording(success: true)
+////
+////            //            manager = ManagerFirebase.shared
+////            //            manager?.handleAudioSendWith(url: audioRecorder.url, result:{ [unowned self] (urlFromFireBase) in
+////            //                // self.showAudioMessage(url: urlFromFireBase)
+////            //                self.initPlayer(url: urlFromFireBase)
+////            //            })
+////        }
 //
-//            DispatchQueue.main.async {
-//                self.startRecording()
-//            }
 //
-//        } else {
-//            //            audioSecondsValLabel.text = String(audioSecondsVal)
-//
-//            //            self.btnAudioRecord.setImage(#imageLiteral(resourceName: "RecordAudioMessage"), for: UIControlState.normal)
-//
-//            self.finishRecording(success: true)
-//
-//            //            manager = ManagerFirebase.shared
-//            //            manager?.handleAudioSendWith(url: audioRecorder.url, result:{ [unowned self] (urlFromFireBase) in
-//            //                // self.showAudioMessage(url: urlFromFireBase)
-//            //                self.initPlayer(url: urlFromFireBase)
-//            //            })
-//        }
-
-
-    }
+//    }
 
     func startAudioRecorder() {
         if audioRecorder != nil {

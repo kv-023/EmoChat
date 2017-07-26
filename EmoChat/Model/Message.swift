@@ -48,7 +48,9 @@ class Message {
             self.content = (type: MessageContentType.video, content: video as! String)
         } else if let text = media?.value(forKey: "text") {
             self.content = (type: MessageContentType.text, content: text as! String)
-        }        
+        } else if let audio = media?.value(forKey: "audio") {
+            self.content = (type: MessageContentType.audio, content: audio as! String)
+        }
     }
 }
 

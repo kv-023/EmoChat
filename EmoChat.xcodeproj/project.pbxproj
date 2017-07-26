@@ -75,6 +75,8 @@
 		E759F3621F128B640045E626 /* DataForRestUIInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E759F3611F128B640045E626 /* DataForRestUIInfoView.swift */; };
 		E7883F381EF1611F00E876CC /* Localize.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7883F371EF1611F00E876CC /* Localize.swift */; };
 		E7883F3B1EF1C2DA00E876CC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E7883F3D1EF1C2DA00E876CC /* Localizable.strings */; };
+		E7AA99B21F276D5C0037BD2A /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AA99B11F276D5C0037BD2A /* DoubleExtension.swift */; };
+		E7AA99B41F2886500037BD2A /* ConversationMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AA99B31F2886500037BD2A /* ConversationMessage.swift */; };
 		E7B926EF1EF1487B0018F5FF /* CustomTextFieldWithPopOverInfoBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B926E91EF1487B0018F5FF /* CustomTextFieldWithPopOverInfoBox.swift */; };
 		E7B926F01EF1487B0018F5FF /* EmoChatUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B926EA1EF1487B0018F5FF /* EmoChatUIViewController.swift */; };
 		E7B926F11EF1487B0018F5FF /* PopOverHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B926EB1EF1487B0018F5FF /* PopOverHelper.swift */; };
@@ -99,7 +101,6 @@
 		F594A2C41F17CB90007153E0 /* SearchUsers.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F594A2C61F17CB90007153E0 /* SearchUsers.storyboard */; };
 		F594A2C71F17CB95007153E0 /* UserInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F594A2C91F17CB95007153E0 /* UserInfo.storyboard */; };
 		F5E339401EF6DA5500D224BF /* ChatSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3393F1EF6DA5500D224BF /* ChatSettingsTableViewController.swift */; };
-		FB0B34061F1CCC0F00FC5836 /* SingleConversationDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0B34051F1CCC0F00FC5836 /* SingleConversationDataSource.swift */; };
 		FB4317731EE6C24400770338 /* SignUpFirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4317721EE6C24400770338 /* SignUpFirstViewController.swift */; };
 		FBAC19811EF13E1A0027AF9D /* ConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAC19801EF13E1A0027AF9D /* ConfirmationViewController.swift */; };
 		FBF7A9CA1EF012E600ABADF5 /* SignUpChooseYourPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF7A9C91EF012E600ABADF5 /* SignUpChooseYourPhotoViewController.swift */; };
@@ -178,6 +179,8 @@
 		E759F3611F128B640045E626 /* DataForRestUIInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataForRestUIInfoView.swift; sourceTree = "<group>"; };
 		E7883F371EF1611F00E876CC /* Localize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localize.swift; sourceTree = "<group>"; };
 		E7883F3C1EF1C2DA00E876CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		E7AA99B11F276D5C0037BD2A /* DoubleExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleExtension.swift; sourceTree = "<group>"; };
+		E7AA99B31F2886500037BD2A /* ConversationMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationMessage.swift; sourceTree = "<group>"; };
 		E7B926E91EF1487B0018F5FF /* CustomTextFieldWithPopOverInfoBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextFieldWithPopOverInfoBox.swift; sourceTree = "<group>"; };
 		E7B926EA1EF1487B0018F5FF /* EmoChatUIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmoChatUIViewController.swift; sourceTree = "<group>"; };
 		E7B926EB1EF1487B0018F5FF /* PopOverHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopOverHelper.swift; sourceTree = "<group>"; };
@@ -215,7 +218,6 @@
 		F594A2D41F17CBAB007153E0 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		F594A2D51F17CBAB007153E0 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F5E3393F1EF6DA5500D224BF /* ChatSettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatSettingsTableViewController.swift; sourceTree = "<group>"; };
-		FB0B34051F1CCC0F00FC5836 /* SingleConversationDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleConversationDataSource.swift; sourceTree = "<group>"; };
 		FB4317721EE6C24400770338 /* SignUpFirstViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpFirstViewController.swift; sourceTree = "<group>"; };
 		FBAC19801EF13E1A0027AF9D /* ConfirmationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmationViewController.swift; sourceTree = "<group>"; };
 		FBF7A9C91EF012E600ABADF5 /* SignUpChooseYourPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpChooseYourPhotoViewController.swift; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 				842E8B6D1EF9330700CA3BF2 /* DateExtension.swift */,
 				842E8B6F1EF9DDB100CA3BF2 /* ArrayExtension.swift */,
 				2BF498D71F0C33C700F72EAA /* UIImageViewExtension.swift */,
+				E7AA99B11F276D5C0037BD2A /* DoubleExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -384,7 +387,7 @@
 			children = (
 				CC8B92B31F1FF53300A82AD5 /* Cells */,
 				CC13C5EA1EF9227F00B38E59 /* SingleConversationViewController.swift */,
-				FB0B34051F1CCC0F00FC5836 /* SingleConversationDataSource.swift */,
+				E7AA99B31F2886500037BD2A /* ConversationMessage.swift */,
 				E70F3DBF1F0648D500617235 /* RestUISingleConversationController.swift */,
 				CC13C5EC1EF929AF00B38E59 /* SpecialTextView.swift */,
 				CCF540001F0AB64200F50EE6 /* CustomTextView.swift */,
@@ -793,10 +796,11 @@
 				843C58C51F1C0D7F00355ACD /* VideoPlayerViewController.swift in Sources */,
 				A3E7E7D11EEFD893006D24BC /* OptionsMainPageTableViewController.swift in Sources */,
 				84530F391F0C35DD00EBFCEB /* UserCell.swift in Sources */,
+				E7AA99B41F2886500037BD2A /* ConversationMessage.swift in Sources */,
 				A309F3761EEFED6000DF6449 /* OptionsChangeNumberTableViewController.swift in Sources */,
-				FB0B34061F1CCC0F00FC5836 /* SingleConversationDataSource.swift in Sources */,
 				519EFB2C1F1794B800CC33AE /* StringExtension.swift in Sources */,
 				E7B926EF1EF1487B0018F5FF /* CustomTextFieldWithPopOverInfoBox.swift in Sources */,
+				E7AA99B21F276D5C0037BD2A /* DoubleExtension.swift in Sources */,
 				E70F3DB11F0507D900617235 /* RestUIUrlembed.swift in Sources */,
 				FBF7A9CA1EF012E600ABADF5 /* SignUpChooseYourPhotoViewController.swift in Sources */,
 				84312F931EE94FB600FAC4D1 /* SearchUsersViewController.swift in Sources */,

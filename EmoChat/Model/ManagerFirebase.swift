@@ -643,7 +643,86 @@ class ManagerFirebase {
             return .failure(NSLocalizedString("Something went wrong", comment: ""))
         }
     }
-    
+
+    func createMessage(conversation: Conversation,
+                       sender: User,
+                       content: ConversationMessage) -> MessageOperationResult {
+
+        let timeStamp = NSNumber(value:Date().timeIntervalSince1970 * 1000.0)
+        let key = ref?.child("conversations/").childByAutoId().key
+
+        let message = Message(uid: key!,
+                              senderId: sender.uid,
+                              time: Date(timeIntervalSince1970: TimeInterval(timeStamp.intValue / 1000)),
+                              content: (type: content.type, content: content.content))
+
+        if let messageRef = ref?.child("conversations/\(conversation.uuid)/messagesInConversation/\(message.uid!)") {
+
+            var childUpdates = [String: Any] ()
+            childUpdates.updateValue(message.senderId!, forKey: "senderId")
+            childUpdates.updateValue(timeStamp.doubleValue, forKey: "time")
+
+            var messageContent: String = ""
+            switch message.content.type {
+            case .text:
+                messageContent = message.content.content
+            case .audio:
+
+////                let audioGroup = DispatchGroup()
+////                var needWaiting: Bool = true
+////                audioGroup.enter()
+//                ManagerFirebase.shared.handleAudioSendWith(url: URL(string: message.content.content)!,
+//                                    result:{ (urlFromFireBase) in
+//
+//                                        messageContent = urlFromFireBase.absoluteString
+////                                        audioGroup.leave()
+////                                        needWaiting = false
+//                })
+//
+////                if needWaiting {
+////                    audioGroup.wait()
+////                }
+                messageContent = uploadDataToFirebase(content: message.content.content)
+
+            default: break
+
+            }
+
+
+            childUpdates.updateValue(messageContent,
+                                     forKey: "content/\((message.content?.type)!)")
+
+            messageRef.updateChildValues(childUpdates)
+
+            ref?.child("conversations/\(conversation.uuid)/lastMessage").setValue(timeStamp.doubleValue)
+            return .successSingleMessage(message)
+        } else {
+            return .failure(NSLocalizedString("Something went wrong", comment: ""))
+        }
+    }
+
+    func uploadDataToFirebase(content: String?) -> String {
+
+        var messageContent: String = ""
+        let contentData = content ?? ""
+
+        let audioGroup = DispatchGroup()
+        audioGroup.enter()
+
+        handleAudioSendWith(url: URL(string: contentData)!,
+                            result:{ (urlFromFireBase) in
+
+                                messageContent = urlFromFireBase.absoluteString
+                                audioGroup.leave()
+
+        })
+
+        audioGroup.wait()
+
+        return messageContent
+    }
+
+
     //MARK: - test
     //some uesr's info was changed
     func valueChanged (action: @escaping (String) -> Void) {
@@ -963,7 +1042,7 @@ class ManagerFirebase {
             let message = Message(uid: messageSnapshot.key,
                                   senderId: senderId!,
                                   time: date,
-                                  content: (type: type!, content: content!))
+                                  content: (type: type!, content: content ?? "unknown content for '\(String(describing: type))' !!!"))
             
             completionHandler(.successSingleMessage(message))
             
@@ -1008,34 +1087,33 @@ class ManagerFirebase {
             result(snapshot.key)
         })
     }
-    
-
 
     
     func handleAudioSendWith(url: URL, result: @escaping (URL) -> Void) {
   //      if let uid = Auth.auth().currentUser?.uid {
             let fileUrl = url
             let fileName = NSUUID().uuidString + ".m4a"
-        
+
+        let checkValidation = FileManager.default
+        let directoryPath: String = fileUrl.path
+        guard checkValidation.fileExists(atPath: directoryPath) else {
+            print("An error occured! directory '\(directoryPath)' doesn't exist!")
+            return
+        }
+
         self.storageRef.storage.reference().child("message_voice").child(fileName).putFile(from: fileUrl, metadata: nil) { (metadata, error) in
             if error != nil {
                 print(error?.localizedDescription ?? "Error")
+                result(URL(string: "An error occured!")!)
             }
+
             if let downloadUrl = metadata?.downloadURL() {
                 result(downloadUrl)
-                }
+            } else {
+                result(URL(string: "An error occured!")!)
             }
      //   }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+    }
 }
-
-

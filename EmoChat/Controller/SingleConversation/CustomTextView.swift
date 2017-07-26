@@ -11,6 +11,7 @@ import UIKit
 class CustomTextView: UITextView {
     
     var shouldBlockMenuActions: Bool = false
+    var shouldIgnoreConversationMessageDidSetLink: Bool = false
     
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         return !shouldBlockMenuActions && super.canPerformAction(action, withSender: sender)
@@ -19,7 +20,23 @@ class CustomTextView: UITextView {
     override var canBecomeFirstResponder: Bool{
         return true
     }
-    
-    
-    
+
+    override var text: String! {
+        didSet {
+            if !shouldIgnoreConversationMessageDidSetLink {
+                ConversationMessage.sharedInstance.content = text
+            }
+
+            shouldIgnoreConversationMessageDidSetLink = false
+        }
+    }
+}
+
+extension CustomTextView: CustomTextViewProtocol {
+
+    func setText(text: String) {
+        shouldIgnoreConversationMessageDidSetLink = true //igrore recurse for onece
+        self.text = text
+    }
+
 }

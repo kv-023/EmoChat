@@ -28,7 +28,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     //        static let leadingConstraint: CGFloat = 8.0
     //    }
     //
-    
+
+
     // MARK: - constants
     let leadingConstraintConstant: CGFloat = 8.0
     let trailingConstraintConstant: CGFloat = 8.0
@@ -72,7 +73,12 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     var group = DispatchGroup()
     var multipleChat = false
     var isEmpty = true
-    
+
+    var currentMessage: ConversationMessage {
+        return  ConversationMessage.sharedInstance
+    }
+
+
     func addNavigationItem () {
         navigationItem.title = currentConversation.name!
         let button = UIButton.init(type: .custom)
@@ -102,6 +108,9 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         setUpTextView()
         setUpFrame()
         addNavigationItem()
+
+        currentMessage.linkedTextViewDelegate = textMessage
+        additionalBottomBarView.singleConversationBottomBarDelegate = self
     }
     
     func setObservers () {
@@ -232,18 +241,18 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         return sortedSections.contains(message.time.dayFormatStyle()) ? message.time.dayFormatStyle() : nil
     }
     
-    func addMessageToTheEndOfDictionary (_ message: (Message, UserType)) -> IndexPath {
+    func addMessageToTheEndOfDictionary(_ message: (Message, UserType)) -> IndexPath {
         let nameOfSection = self.findAppropriateSection(for: message.0) ?? self.createNewSection(date: message.0.time)
         self.messagesArrayWithSection[nameOfSection]?.append(message)
         return IndexPath(row: (messagesArrayWithSection[nameOfSection]?.count)! - 1, section: sortedSections.index(of: nameOfSection)!)
     }
     
-    func addMessageAtTheBeginningOfDictionary (_ message: (Message, UserType))  {
+    func addMessageAtTheBeginningOfDictionary(_ message: (Message, UserType))  {
         let nameOfSection = self.findAppropriateSection(for: message.0) ?? self.createNewSection(date: message.0.time)
         self.messagesArrayWithSection[nameOfSection]?.insert(message, at: 0)
     }
     
-    func addMessagesToDictionary (_ messages: [(Message, UserType)]) {
+    func addMessagesToDictionary(_ messages: [(Message, UserType)]) {
         for each in messages.reversed() {
             self.addMessageAtTheBeginningOfDictionary(each)
         }
@@ -255,7 +264,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         
     }
     
-    func insertRows (_ newMessages: [(Message, UserType)]) {
+    func insertRows(_ newMessages: [(Message, UserType)]) {
         self.addMessagesToDictionary(newMessages)
     }
 
@@ -287,7 +296,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         manager?.deleteMessage(target.uid!, from: currentConversation)
     }
     
-    func observeDeletion () {
+    func observeDeletion() {
         manager?.observeDeletionOfMessages(in: currentConversation) { uid in
             self.removeAtUid(uid)
         }
@@ -305,7 +314,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         return result
     }
     
-    func observeNewMessage () {
+    func observeNewMessage() {
         manager?.getMessageFromConversation([self.currentConversation]) { (conv, newMessage) in
             if let lastSection = self.sortedSections.last, let lastMessageTime = self.messagesArrayWithSection[lastSection]?.last?.0.time {
                 if lastMessageTime > newMessage.time {
@@ -337,12 +346,52 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     //you don't need to use this method to send message with media content
     @IBAction func sendMessage(_ sender: UIButton) {
-        if textMessage.textColor != UIColor.lightGray && textMessage.containsAlphaNumericCharacters() {
+
+
+//        if textMessage.textColor != UIColor.lightGray && textMessage.containsAlphaNumericCharacters() {
+//            let result:MessageOperationResult? = manager?.createMessage(
+//                conversation: currentConversation!,
+//                sender: currentUser,
+//                content: (.text, textMessage.text))
+//
+//
+//            switch (result!) {
+//            case .successSingleMessage(let message):
+//                insertRow((message, .right(.sending)))
+//            case .failure(let string):
+//                print(string)
+//            default:
+//                break
+//            }
+//            
+//            scrollToLastMessage()
+//            
+//            //clean textView
+//            textMessage.text = ""
+//
+//            textMessage.isScrollEnabled = false
+//            
+//            self.textViewMaxHeightConstraint.isActive = false
+//
+//        }
+
+        guard  (currentMessage.type == .text
+            && textMessage.textColor != UIColor.lightGray
+            && textMessage.containsAlphaNumericCharacters())
+            || currentMessage.type == .audio
+            || currentMessage.type == .photo
+            || currentMessage.type == .video
+            else {
+
+            print("An Error occured during sending the message!")
+            return
+        }
+
             let result:MessageOperationResult? = manager?.createMessage(
                 conversation: currentConversation!,
                 sender: currentUser,
-                content: (.text, textMessage.text))
-            
+                content: currentMessage)
+
             switch (result!) {
             case .successSingleMessage(let message):
                 insertRow((message, .right(.sending)))
@@ -351,16 +400,17 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             default:
                 break
             }
-            
+
             scrollToLastMessage()
-            
+
             //clean textView
-            textMessage.text = ""
-            textMessage.isScrollEnabled = false;
-            
+            currentMessage.eraseAllData()
+
+            textMessage.isScrollEnabled = false
+
             self.textViewMaxHeightConstraint.isActive = false
 
-        }
+
     }
     
     //download 20 more messages
@@ -574,6 +624,10 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     func setUpTextView () {
         textMessage.delegate = self
         textMessage.text = NSLocalizedString("Type message...", comment: "")
+
+        currentMessage.setData(content: textMessage.text, type: .text)
+//        currentMessage.type = .text
+
         textMessage.textColor = .lightGray
         
         textMessage.layer.cornerRadius = 10
@@ -626,6 +680,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        currentMessage.setData(content: textMessage.text, type: .text)
         scrollToLastMessage()
         return true
     }
@@ -854,4 +910,16 @@ extension CustomTextView {
         }
     }
     
+}
+
+//MARK: - SingleConversationBottomBarProtocol
+
+extension SingleConversationViewController: SingleConversationBottomBarProtocol {
+
+    func setAudioPath(path: String?) {
+
+        if let notNullAudioPath = path {
+            currentMessage.setData(content: notNullAudioPath, type: .audio)
+        }
+    }
 }

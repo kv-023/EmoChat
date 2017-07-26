@@ -8,17 +8,22 @@
 
 import UIKit
 
-protocol AudioRecordProtocol {
+protocol AudioRecordProtocol: class {
 
     func startRecordingAudio()
-    func finishRecordingAudio()
+    func finishRecordingAudio() -> URL?
 }
 
+protocol SingleConversationBottomBarProtocol: class {
+
+    func setAudioPath(path: String?)
+}
 
 @IBDesignable class ConversationBottomBarView: UIView {
 
     //MARK: delegates
     var audioRecordDelegate: AudioRecordProtocol?
+    weak var singleConversationBottomBarDelegate: SingleConversationBottomBarProtocol?
 
     // MARK: - IBOutlets
     @IBOutlet weak var attachFileButton: UIButton!
@@ -32,6 +37,7 @@ protocol AudioRecordProtocol {
 
         if audioRecordDelegate == nil {
             audioRecordDelegate = AudioMessageControl.cInit()
+
         }
 
         sender.isSelected = !sender.isSelected
@@ -39,7 +45,8 @@ protocol AudioRecordProtocol {
         if sender.isSelected {
             audioRecordDelegate?.startRecordingAudio()
         } else {
-            audioRecordDelegate?.finishRecordingAudio()
+            let urlAudio = audioRecordDelegate?.finishRecordingAudio()
+            singleConversationBottomBarDelegate?.setAudioPath(path: urlAudio?.path)
         }
     }
 
