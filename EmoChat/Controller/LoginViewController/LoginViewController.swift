@@ -59,6 +59,9 @@ class LoginViewController: EmoChatUIViewController, UITextFieldDelegate {
 		
 		//Set Firebase manager
 		manager = ManagerFirebase.shared
+        
+        
+        requestPermissionForNotifications()
 	}
 	
 	// MARK: - Dispose of any resources that can be recreated.

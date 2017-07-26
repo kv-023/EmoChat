@@ -307,15 +307,16 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     func observeNewMessage () {
         manager?.getMessageFromConversation([self.currentConversation]) { (conv, newMessage) in
+            
             if let lastSection = self.sortedSections.last, let lastMessageTime = self.messagesArrayWithSection[lastSection]?.last?.0.time {
                 if lastMessageTime > newMessage.time {
                     return
                 }
             }
             
+            
             if let res = self.manager?.isMessageFromCurrentUser(newMessage) {
                 if res == true {
-                    
                     //check if sending message was delivered via findMessageInDictionary
                     //if yes should mark it as 'sent'
                     
@@ -471,6 +472,9 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         
         switch message.1 {
         case .left:
+            
+            notifyAboutNewMessage()
+            
             switch message.0.content.0 {
             case .text :
                 guard let cellText = tableView.dequeueReusableCell(withIdentifier: "Left", for: indexPath) as? LeftTextCell else {

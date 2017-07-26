@@ -16,6 +16,7 @@
 		3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2731EDC27C700D69F88 /* Main.storyboard */; };
 		3938C2771EDC27C700D69F88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2761EDC27C700D69F88 /* Assets.xcassets */; };
 		3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3938C2781EDC27C700D69F88 /* LaunchScreen.storyboard */; };
+		45D7D39E1F28F9F100F9CD50 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D7D39D1F28F9F000F9CD50 /* Notification.swift */; };
 		519EFB281F1793BC00CC33AE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519EFB271F1793BC00CC33AE /* LoginViewController.swift */; };
 		519EFB2A1F1793E600CC33AE /* ManagerGifBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519EFB291F1793E600CC33AE /* ManagerGifBackground.swift */; };
 		519EFB2C1F1794B800CC33AE /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519EFB2B1F1794B800CC33AE /* StringExtension.swift */; };
@@ -119,6 +120,7 @@
 		3938C2761EDC27C700D69F88 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3938C2791EDC27C700D69F88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3938C27B1EDC27C700D69F88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		45D7D39D1F28F9F000F9CD50 /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		519EFB271F1793BC00CC33AE /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		519EFB291F1793E600CC33AE /* ManagerGifBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerGifBackground.swift; sourceTree = "<group>"; };
 		519EFB2B1F1794B800CC33AE /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
@@ -476,6 +478,7 @@
 				A30FCEF21EFA7F45006A9E08 /* CurrentUser.swift */,
 				E7352C241EDED52B0095264E /* Message.swift */,
 				E7352C251EDED52B0095264E /* User.swift */,
+				45D7D39D1F28F9F000F9CD50 /* Notification.swift */,
 				CC45A7561EE6D40E00FF13AE /* ManagerFirebase.swift */,
 			);
 			path = Model;
@@ -653,7 +656,7 @@
 				TargetAttributes = {
 					3938C26B1EDC27C700D69F88 = {
 						CreatedOnToolsVersion = 8.3.1;
-						DevelopmentTeam = DB3E36CSLR;
+						DevelopmentTeam = UB2D4HT9M9;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
@@ -791,6 +794,7 @@
 				CC13C5EB1EF9227F00B38E59 /* SingleConversationViewController.swift in Sources */,
 				E70F3DC01F0648D500617235 /* RestUISingleConversationController.swift in Sources */,
 				E70F3DB71F0507D900617235 /* RestUIInfoView.swift in Sources */,
+				45D7D39E1F28F9F100F9CD50 /* Notification.swift in Sources */,
 				CC8B92B91F1FF53300A82AD5 /* RightSingleConversationUITableViewCell.swift in Sources */,
 				CC13C5D51EF4092900B38E59 /* ArchiverManager.swift in Sources */,
 				E70F3DB21F0507D900617235 /* MessageModel.swift in Sources */,
@@ -1068,11 +1072,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = DB3E36CSLR;
+				DEVELOPMENT_TEAM = UB2D4HT9M9;
 				INFOPLIST_FILE = EmoChat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.serve.Emochat;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.serve.Emochat-777";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
@@ -1085,11 +1089,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = DB3E36CSLR;
+				DEVELOPMENT_TEAM = UB2D4HT9M9;
 				INFOPLIST_FILE = EmoChat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.serve.Emochat;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.serve.Emochat-777";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
