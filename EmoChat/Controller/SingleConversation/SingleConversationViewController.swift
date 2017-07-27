@@ -110,6 +110,11 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         observeDeletion()
     }
     
+    
+    override func viewDidAppear(_ animated: Bool) {
+        UIApplication.shared.applicationIconBadgeNumber = 0
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         table.dataSource = self
@@ -332,6 +337,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 }
             }
             self.scrollToLastMessage()
+            
         }
         
     }
@@ -394,6 +400,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         if !self.messagesArrayWithSection.isEmpty {
             self.table.scrollToRow(at: IndexPath.init(row: (self.messagesArrayWithSection[self.sortedSections.last!]?.count)! - 1, section: self.sortedSections.count - 1), at: .top, animated: false)
         }
+        
     }
     
     
@@ -469,14 +476,15 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let message = messagesArrayWithSection[sortedSections[indexPath.section]]![indexPath.row]
-        
+       
         switch message.1 {
         case .left:
             
-            notifyAboutNewMessage()
+           notifyAboutNewMessage()
             
             switch message.0.content.0 {
             case .text :
+                
                 guard let cellText = tableView.dequeueReusableCell(withIdentifier: "Left", for: indexPath) as? LeftTextCell else {
                     fatalError("Cell was not casted!")
                 }
@@ -858,4 +866,5 @@ extension CustomTextView {
         }
     }
     
+
 }

@@ -12,11 +12,7 @@ import UserNotifications
 
 
 func notifyAboutNewMessage() {
-    
-    
-    
-   
-    
+
     let content = UNMutableNotificationContent()
     
     content.title = "Emochat"
@@ -26,9 +22,8 @@ func notifyAboutNewMessage() {
     content.sound = UNNotificationSound.default()
     
     
-    
-    
     let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+    
     let requst = UNNotificationRequest(identifier: "timerDone", content: content, trigger: trigger)
     UNUserNotificationCenter.current().add(requst, withCompletionHandler: nil)
 }
