@@ -706,18 +706,25 @@ class ManagerFirebase {
         var messageContent: String = ""
         let contentData = content ?? ""
 
-        let audioGroup = DispatchGroup()
-        audioGroup.enter()
+//        let audioGroup = DispatchGroup()
+//        audioGroup.enter()
+        let semaphore = DispatchSemaphore(value: 0)
 
         handleAudioSendWith(url: URL(string: contentData)!,
                             result:{ (urlFromFireBase) in
 
                                 messageContent = urlFromFireBase.absoluteString
-                                audioGroup.leave()
+//                                audioGroup.leave()
+                                semaphore.signal()
 
         })
+        _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+//        audioGroup.wait()
+//        audioGroup.notify(queue: DispatchQueue.main) {
+//            //
+//            return messageContent
+//        }
 
-        audioGroup.wait()
 
         return messageContent
     }

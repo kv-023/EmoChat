@@ -22,7 +22,7 @@ extension AudioMessageControl: AudioRecordProtocol {
     }
 }
 
-class AudioMessageControl: UIViewController, AVAudioRecorderDelegate {
+class AudioMessageControl: NSObject, AVAudioRecorderDelegate {//UIViewController,
 
     var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
@@ -48,16 +48,16 @@ class AudioMessageControl: UIViewController, AVAudioRecorderDelegate {
     }
 
 
-    //MARK - ViewDidLoad
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // PSButtonOutfit.isEnabled = false // disable play button
-        initiateSVariable()
-
-//        audioSecondsValLabel.text = String(audioSecondsVal)
-    }
+//    //MARK - ViewDidLoad
+//
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//
+//        // PSButtonOutfit.isEnabled = false // disable play button
+//        initiateSVariable()
+//
+////        audioSecondsValLabel.text = String(audioSecondsVal)
+//    }
 
     func initiateSVariable() {
         recordingSession = AVAudioSession.sharedInstance()

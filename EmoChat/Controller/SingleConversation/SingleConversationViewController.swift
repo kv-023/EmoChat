@@ -80,7 +80,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
 
 
     func addNavigationItem () {
-        navigationItem.title = currentConversation.name!
+        navigationItem.title = currentConversation.name ?? "<?>"
         let button = UIButton.init(type: .custom)
         let img = UIImage.init(named: "info")
         button.setImage(img, for: UIControlState.normal)
