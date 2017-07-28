@@ -9,38 +9,6 @@
 import UIKit
 import Accelerate
 
-struct readFile {
-    static var arrayFloatValues:[Float] = []
-    static var points:[CGFloat] = [] 
-}
-
-struct ProgressPath {
-    static var sharedIstance = ProgressPath()
-
-    var upperPath: UIBezierPath? = nil
-    var lowerPath: UIBezierPath? = nil
-
-    var upperPathColor: UIColor = UIColor.clear
-    var lowerPathColor: UIColor = UIColor.clear
-
-    var layerData:[CAShapeLayer]? = []
-
-    mutating func addLayer(layer: CAShapeLayer) {
-        layerData?.append(layer)
-    }
-
-    mutating func removeLayersFromSuperView() {
-        if let arrayFoLayersForRemove = layerData {
-            for layerOfData in arrayFoLayersForRemove {
-
-                layerOfData.removeFromSuperlayer()
-            }
-
-            ProgressPath.sharedIstance.layerData?.removeAll()
-        }
-    }
-}
-
 class AudioMessageWaveForm: UIView {
 
 // MARK - draw
@@ -145,5 +113,141 @@ class AudioMessageWaveForm: UIView {
         //convert [Float] to [CGFloat] array
         readFile.points = downSampledData.map{CGFloat($0)}
         
+    }
+
+    //MARK:- show playing progress
+
+    func playingProgress(sec audioSecondsVal: Double?) {
+
+        guard let NotNullAudioSecondsVal = audioSecondsVal else {
+            print("audia second can't be nil !")
+            return
+        }
+
+        let pathUp = ProgressPath.sharedIstance.upperPath
+        let pathDown = ProgressPath.sharedIstance.lowerPath
+
+        let currentAudioDuration: CFTimeInterval = NotNullAudioSecondsVal
+        setInitialDraw(pathUp: pathUp,
+                       pathDown: pathDown,
+                       duration: currentAudioDuration)
+
+        //outro animation
+        DispatchQueue.global(qos: .userInitiated).asyncAfter(
+            deadline: .now() + .seconds(2), execute: {
+                DispatchQueue.main.async {
+
+                    let outroDuration: CFTimeInterval = 3.0
+                    self.setOutroDraw(pathUp: pathUp,
+                                      pathDown: pathDown,
+                                      duration: outroDuration)
+
+                    //remove all layers
+                    let eraseLayerDelay: Int = Int(outroDuration) + 1
+                    DispatchQueue.global(qos: .userInitiated).asyncAfter(
+                        deadline: .now() + .seconds(eraseLayerDelay), execute: {
+                            DispatchQueue.main.async {
+                                ProgressPath.sharedIstance.removeLayersFromSuperView()
+                            }
+                    })
+                }
+        })
+
+    }
+
+    private func setInitialDraw(pathUp: UIBezierPath?,
+                        pathDown: UIBezierPath?,
+                        duration: CFTimeInterval) {
+        let shapeLayerUpper = CAShapeLayer()
+        shapeLayerUpper.frame = self.layer.bounds//WaveFormView.layer.bounds
+        shapeLayerUpper.path = pathUp?.cgPath
+        shapeLayerUpper.strokeColor = UIColor.blue.cgColor
+
+        let shapeLayerLower = CAShapeLayer()
+        shapeLayerLower.frame = self.layer.bounds//WaveFormView.layer.bounds
+        shapeLayerLower.path = pathDown?.cgPath
+        shapeLayerLower.strokeColor = UIColor.cyan.cgColor
+
+        let strokeEndAnimation = CABasicAnimation(keyPath: "strokeEnd")
+        strokeEndAnimation.duration = duration
+        strokeEndAnimation.fromValue = 0.0
+        strokeEndAnimation.toValue = 1.0
+
+        shapeLayerUpper.add(strokeEndAnimation, forKey: "strokeEnd")
+        shapeLayerLower.add(strokeEndAnimation, forKey: "strokeEnd")
+
+//        self.WaveFormView.
+        self.layer.addSublayer(shapeLayerUpper)
+//        self.WaveFormView.
+        self.layer.addSublayer(shapeLayerLower)
+
+        ProgressPath.sharedIstance.addLayer(layer: shapeLayerUpper)
+        ProgressPath.sharedIstance.addLayer(layer: shapeLayerLower)
+    }
+
+    private func setOutroDraw(pathUp: UIBezierPath?,
+                      pathDown: UIBezierPath?,
+                      duration: CFTimeInterval) {
+        let shapeLayerUpper = CAShapeLayer()
+        shapeLayerUpper.frame = self.layer.bounds//self.WaveFormView.layer.bounds
+        shapeLayerUpper.path = pathUp?.cgPath
+        shapeLayerUpper.strokeColor = ProgressPath.sharedIstance.upperPathColor.cgColor
+
+        let shapeLayerLower = CAShapeLayer()
+        shapeLayerLower.frame = self.layer.bounds//self.WaveFormView.layer.bounds
+        shapeLayerLower.path = pathDown?.cgPath
+        shapeLayerLower.strokeColor =  ProgressPath.sharedIstance.lowerPathColor.cgColor
+
+        let strokeEndAnimationCleaner = CABasicAnimation(keyPath: "transform.scale.y")
+        strokeEndAnimationCleaner.duration = duration
+        strokeEndAnimationCleaner.fromValue = 0.0
+        strokeEndAnimationCleaner.toValue = 1.0
+
+        shapeLayerUpper.add(strokeEndAnimationCleaner, forKey: nil)
+        shapeLayerLower.add(strokeEndAnimationCleaner, forKey: nil)
+
+//        self.WaveFormView.
+        self.layer.addSublayer(shapeLayerUpper)
+//        self.WaveFormView.
+        self.layer.addSublayer(shapeLayerLower)
+
+        ProgressPath.sharedIstance.addLayer(layer: shapeLayerUpper)
+        ProgressPath.sharedIstance.addLayer(layer: shapeLayerLower)
+    }
+}
+
+//Mark:- Auxiliary structures
+
+struct readFile {
+
+    static var arrayFloatValues:[Float] = []
+    static var points:[CGFloat] = []
+}
+
+struct ProgressPath {
+
+    static var sharedIstance = ProgressPath()
+
+    var upperPath: UIBezierPath? = nil
+    var lowerPath: UIBezierPath? = nil
+
+    var upperPathColor: UIColor = UIColor.clear
+    var lowerPathColor: UIColor = UIColor.clear
+
+    var layerData:[CAShapeLayer]? = []
+
+    mutating func addLayer(layer: CAShapeLayer) {
+        layerData?.append(layer)
+    }
+
+    mutating func removeLayersFromSuperView() {
+        if let arrayFoLayersForRemove = layerData {
+            for layerOfData in arrayFoLayersForRemove {
+
+                layerOfData.removeFromSuperlayer()
+            }
+
+            ProgressPath.sharedIstance.layerData?.removeAll()
+        }
     }
 }

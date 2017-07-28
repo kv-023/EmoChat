@@ -77,6 +77,9 @@
 		E7883F3B1EF1C2DA00E876CC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E7883F3D1EF1C2DA00E876CC /* Localizable.strings */; };
 		E7AA99B21F276D5C0037BD2A /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AA99B11F276D5C0037BD2A /* DoubleExtension.swift */; };
 		E7AA99B41F2886500037BD2A /* ConversationMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AA99B31F2886500037BD2A /* ConversationMessage.swift */; };
+		E7AA99B71F2BB3830037BD2A /* AudioMessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7AA99B61F2BB3830037BD2A /* AudioMessageView.xib */; };
+		E7AA99B91F2BB3B40037BD2A /* AudioMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AA99B81F2BB3B40037BD2A /* AudioMessageView.swift */; };
+		E7AA99BB1F2BC8890037BD2A /* MediaMessageSingleConversationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AA99BA1F2BC8890037BD2A /* MediaMessageSingleConversationController.swift */; };
 		E7B926EF1EF1487B0018F5FF /* CustomTextFieldWithPopOverInfoBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B926E91EF1487B0018F5FF /* CustomTextFieldWithPopOverInfoBox.swift */; };
 		E7B926F01EF1487B0018F5FF /* EmoChatUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B926EA1EF1487B0018F5FF /* EmoChatUIViewController.swift */; };
 		E7B926F11EF1487B0018F5FF /* PopOverHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B926EB1EF1487B0018F5FF /* PopOverHelper.swift */; };
@@ -181,6 +184,9 @@
 		E7883F3C1EF1C2DA00E876CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E7AA99B11F276D5C0037BD2A /* DoubleExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleExtension.swift; sourceTree = "<group>"; };
 		E7AA99B31F2886500037BD2A /* ConversationMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationMessage.swift; sourceTree = "<group>"; };
+		E7AA99B61F2BB3830037BD2A /* AudioMessageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AudioMessageView.xib; sourceTree = "<group>"; };
+		E7AA99B81F2BB3B40037BD2A /* AudioMessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioMessageView.swift; sourceTree = "<group>"; };
+		E7AA99BA1F2BC8890037BD2A /* MediaMessageSingleConversationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaMessageSingleConversationController.swift; sourceTree = "<group>"; };
 		E7B926E91EF1487B0018F5FF /* CustomTextFieldWithPopOverInfoBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextFieldWithPopOverInfoBox.swift; sourceTree = "<group>"; };
 		E7B926EA1EF1487B0018F5FF /* EmoChatUIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmoChatUIViewController.swift; sourceTree = "<group>"; };
 		E7B926EB1EF1487B0018F5FF /* PopOverHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopOverHelper.swift; sourceTree = "<group>"; };
@@ -389,6 +395,7 @@
 				CC13C5EA1EF9227F00B38E59 /* SingleConversationViewController.swift */,
 				E7AA99B31F2886500037BD2A /* ConversationMessage.swift */,
 				E70F3DBF1F0648D500617235 /* RestUISingleConversationController.swift */,
+				E7AA99BA1F2BC8890037BD2A /* MediaMessageSingleConversationController.swift */,
 				CC13C5EC1EF929AF00B38E59 /* SpecialTextView.swift */,
 				CCF540001F0AB64200F50EE6 /* CustomTextView.swift */,
 				8439F8C51F04FAB1002C63A6 /* ConversationBottomBarView.xib */,
@@ -490,6 +497,15 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
+		E7AA99B51F2BB3660037BD2A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E7AA99B61F2BB3830037BD2A /* AudioMessageView.xib */,
+				E7AA99B81F2BB3B40037BD2A /* AudioMessageView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		E7B926E71EF1487B0018F5FF /* Additional */ = {
 			isa = PBXGroup;
 			children = (
@@ -516,6 +532,7 @@
 		E7F8018F1F2739FA002AEC3F /* AudioMessage */ = {
 			isa = PBXGroup;
 			children = (
+				E7AA99B51F2BB3660037BD2A /* View */,
 				E7F801901F2739FA002AEC3F /* AudioHelper.swift */,
 				E7F801911F2739FA002AEC3F /* AudioMessageViewController.swift */,
 				E7F8019C1F274C67002AEC3F /* AudioMessageControl.swift */,
@@ -691,6 +708,7 @@
 				519EFB391F17971400CC33AE /* Loading-Circle.gif in Resources */,
 				519EFB381F17971400CC33AE /* giphy.gif in Resources */,
 				F594A2BE1F17CB84007153E0 /* Conversations.storyboard in Resources */,
+				E7AA99B71F2BB3830037BD2A /* AudioMessageView.xib in Resources */,
 				E7B926F21EF1487B0018F5FF /* PopOverVC.xib in Resources */,
 				F594A2B81F17CB76007153E0 /* SingleConversation.storyboard in Resources */,
 				F594A2B21F17CB69007153E0 /* Options.storyboard in Resources */,
@@ -783,12 +801,14 @@
 				E70F3DB71F0507D900617235 /* RestUIInfoView.swift in Sources */,
 				CC8B92B91F1FF53300A82AD5 /* RightSingleConversationUITableViewCell.swift in Sources */,
 				CC13C5D51EF4092900B38E59 /* ArchiverManager.swift in Sources */,
+				E7AA99BB1F2BC8890037BD2A /* MediaMessageSingleConversationController.swift in Sources */,
 				E70F3DB21F0507D900617235 /* MessageModel.swift in Sources */,
 				2BF498D81F0C33C700F72EAA /* UIImageViewExtension.swift in Sources */,
 				519EFB2A1F1793E600CC33AE /* ManagerGifBackground.swift in Sources */,
 				E7B926F01EF1487B0018F5FF /* EmoChatUIViewController.swift in Sources */,
 				CC8B92B71F1FF53300A82AD5 /* CustomTableViewCell.swift in Sources */,
 				CCF540011F0AB64200F50EE6 /* CustomTextView.swift in Sources */,
+				E7AA99B91F2BB3B40037BD2A /* AudioMessageView.swift in Sources */,
 				E759F3621F128B640045E626 /* DataForRestUIInfoView.swift in Sources */,
 				35F8943A1F00FFE000862BAC /* UserTableViewCell.swift in Sources */,
 				E7B926F11EF1487B0018F5FF /* PopOverHelper.swift in Sources */,

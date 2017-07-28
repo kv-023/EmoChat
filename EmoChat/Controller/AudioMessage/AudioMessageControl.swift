@@ -1,4 +1,4 @@
-    //
+//
 //  AudioMessageControl.swift
 //  EmoChat
 //
@@ -9,18 +9,6 @@
 import UIKit
 import AVFoundation
 
-extension AudioMessageControl: AudioRecordProtocol {
-
-    func startRecordingAudio() {
-        startAudioRecorder()
-    }
-
-    func finishRecordingAudio() -> URL? {
-        stopAudioRecorder()
-
-        return audioRecorder.url//urlOfCurrentlyPlayingInPlayer(player: player)
-    }
-}
 
 class AudioMessageControl: NSObject, AVAudioRecorderDelegate {//UIViewController,
 
@@ -197,6 +185,10 @@ class AudioMessageControl: NSObject, AVAudioRecorderDelegate {//UIViewController
         return ((player.currentItem?.asset) as? AVURLAsset)?.url
     }
 
+    func urlOfCurrentlyPlayingInPlayer() -> URL? {
+        return  urlOfCurrentlyPlayingInPlayer(player: self.player)
+    }
+
     func calcLenthOfAudioFile() -> Double {
         var valueForReturn: Double = 0
         if let urlFromPlayer = urlOfCurrentlyPlayingInPlayer(player: self.player) {
@@ -237,5 +229,46 @@ class AudioMessageControl: NSObject, AVAudioRecorderDelegate {//UIViewController
         readFile.arrayFloatValues = Array(UnsafeBufferPointer(start: buf.floatChannelData?[0], count:Int(buf.frameLength)))
     }
 
+
+}
+
+//MARK:- AudioRecordProtocol
+extension AudioMessageControl: AudioRecordProtocol {
+
+    func startRecordingAudio() {
+        startAudioRecorder()
+    }
+
+    func finishRecordingAudio() -> URL? {
+        stopAudioRecorder()
+
+        return audioRecorder.url//urlOfCurrentlyPlayingInPlayer(player: player)
+    }
+}
+
+//MARK:- AudioRecordPlayback
+extension AudioMessageControl: AudioRecordPlaybackProtocol {
+
+    func playAudio(urlFromFireBase url: URL?) {
+
+        guard let notNullUrl = url else {
+            print("url for audio playing can't be nil !")
+            return
+        }
+        if audioRecorder != nil {
+            audioRecorder.stop()
+            audioRecorder = nil
+        }
+
+        //DispatchQueue.main.async {
+        self.initPlayer(url: notNullUrl)
+        self.player.play()
+
+        if urlOfCurrentlyPlayingInPlayer() != notNullUrl {
+            audioMessageToAnalyze(url: notNullUrl)
+        }
+
+        //}
+    }
 
 }

@@ -314,8 +314,3 @@ extension CustomTableViewCell {
         return arrayForReturn
     }
 }
-
-//MARK:- RegexCheckProtocol ext.
-extension CustomTableViewCell: RegexCheckProtocol {
-    
-}

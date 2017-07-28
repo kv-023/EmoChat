@@ -25,26 +25,40 @@ class CustomTableViewCell: UITableViewCell {
     var extraCellHeiht:CGFloat {
         return heightOfPreviewContainer.constant
     }
+    var contentTypeOfMessage: MessageContentType {
+        return messageEntity?.content?.type ?? .text
+    }
+    var originTextInCell: String {
+        return messageEntity?.content?.content ?? ""
+    }
 
     weak var messageModel: MessageModel? {
         didSet {
-            if let notNullMessageModel = messageModel {
 
-                if notNullMessageModel.containsUrlLinks {
-                    updateUIForMessageModel()
-                } else {
-                    setNullableDataInPreviewContainer()
-                }
-            } else {
-                let arrayOfLinks = self.getArrayOfRegexMatchesForURLInText(text: self.message.text)
-                if arrayOfLinks.count > 0 {
-                    //lets show spinner animation
-                    showViewForRestUIContent()
-                    parseDataFromMessageTextForCell()
-                } else {
-                    setNullableDataInPreviewContainer()
-                }
+            switch  contentTypeOfMessage {
+            case .text:
+                if let notNullMessageModel = messageModel {
 
+                    if notNullMessageModel.containsUrlLinks {
+                        updateUIForMessageModel()
+                    } else {
+                        setNullableDataInPreviewContainer()
+                    }
+                } else {
+                    let arrayOfLinks = self.getArrayOfRegexMatchesForURLInText(text: self.message.text)
+                    if arrayOfLinks.count > 0 {
+                        //lets show spinner animation
+                        showViewForRestUIContent()
+                        parseDataFromMessageTextForCell()
+                    } else {
+                        setNullableDataInPreviewContainer()
+                    }
+                    
+                }
+            case .audio: break
+                
+            default:
+                break
             }
         }
     }
@@ -100,6 +114,27 @@ class CustomTableViewCell: UITableViewCell {
         let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(handler))
         message.addGestureRecognizer(recognizer)
     }
+
+    func getTextForCellText(cell: UITableViewCell) -> String {
+        var valueForReturn: String = ""
+
+        switch contentTypeOfMessage {
+        case .text:
+            valueForReturn = originTextInCell
+        case .audio, .video, .photo:
+
+            var theAddedText:String = ""
+            if cell is LeftCell {
+                theAddedText = "received "
+            } else if cell is RightCell {
+                theAddedText =  "sent "
+            }
+
+            valueForReturn = theAddedText + contentTypeOfMessage.rawValue
+        }
+
+        return valueForReturn
+    }
 }
 
 // MARK: - Actions
@@ -111,6 +146,11 @@ enum Action {
 
 protocol CellDelegate: class {
     func cellDelegate(_ sender: UITableViewCell, didHandle action: Action)
+}
+
+//MARK:- RegexCheckProtocol ext.
+extension CustomTableViewCell: RegexCheckProtocol {
+
 }
 
 
