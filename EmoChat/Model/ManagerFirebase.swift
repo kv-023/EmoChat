@@ -636,7 +636,7 @@ class ManagerFirebase {
             childUpdates.updateValue(message.content.content, forKey: "content/\((message.content?.type)!)")
             
             if isEmoMessage {
-                let usersInConversation = conversation.usersInConversation.filter { $0.uid != Auth.auth().currentUser?.uid /*CurrentUser.shared.uid*/ }
+                let usersInConversation = conversation.usersInConversation.filter { $0.uid != Auth.auth().currentUser?.uid }
                 for user in usersInConversation {
                     childUpdates.updateValue(false, forKey: "isEmoRecorded/\(user.uid!)")
                 }

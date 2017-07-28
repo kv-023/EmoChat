@@ -33,6 +33,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     let leadingConstraintConstant: CGFloat = 8.0
     let trailingConstraintConstant: CGFloat = 8.0
     let topConstraintConstant: CGFloat = 8.0
+    let blurredViewTag = 228
+    let cellCornerRadius: CGFloat = 10.0
     
     // MARK: - IBOutlets
     @IBOutlet weak var sendMessageButton: UIButton!
@@ -433,6 +435,22 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         table.backgroundView = supportLabel
     }
     
+    // MARK: - UITableViewDelegate
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        guard let cell = tableView.cellForRow(at: indexPath) else { return }
+        guard let blurredView = cell.viewWithTag(blurredViewTag) else { return }
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            blurredView.alpha = 0.0
+        }, completion: { (_) in
+            blurredView.removeFromSuperview()
+        })
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     //MARK: - UITableViewDataSource
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -490,6 +508,9 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 }
                 cellText.time.text = message.0.time.formatDate()
                 setGeneralVars(cell: cellText, message: message.0)
+                
+                isEmoMessage(message.0, inCell: cellText)
+                
                 return cellText
             case .audio:
                 return UITableViewCell()
@@ -855,4 +876,39 @@ extension CustomTextView {
         }
     }
     
+}
+
+// MARK: - Methods for emoMessage
+extension SingleConversationViewController {
+    
+    func isEmoMessage(_ message: Message, inCell cell: UITableViewCell) {
+        if message is EmoMessage {
+            makeCellBlurred(cell: cell)
+        } else {
+            guard let blurredView = cell.viewWithTag(blurredViewTag) else { return }
+            blurredView.removeFromSuperview()
+        }
+    }
+    
+    private func makeCellBlurred(cell: UITableViewCell) {
+        
+        if let blurredView = cell.viewWithTag(blurredViewTag) {
+            blurredView.removeFromSuperview()
+        }
+        
+        let blurEffect = UIBlurEffect(style: .light)
+        let blurredView = UIVisualEffectView(effect: blurEffect)
+        blurredView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        blurredView.tag = blurredViewTag
+        blurredView.clipsToBounds = true
+
+        if let textCell = cell as? CustomTableViewCell {
+            blurredView.frame = CGRect(x: textCell.message.bounds.minX,
+                                       y: textCell.message.bounds.minY + 28.0,
+                                       width: textCell.message.bounds.width,
+                                       height: textCell.message.bounds.height - 28.0)
+            blurredView.layer.cornerRadius = cellCornerRadius
+            textCell.message.addSubview(blurredView)
+        }
+    }
 }

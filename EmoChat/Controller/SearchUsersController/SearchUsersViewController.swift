@@ -236,7 +236,7 @@ class SearchUsersViewController: UITableViewController {
                                                          withName: textField?.text,
                                                          completion: { (result) in
                     switch result {
-                    case let .successSingleConversation(conversation):
+                    case .successSingleConversation(_):
                         print("success")
                         //_ = self!.managerFirebase.createLogo(selectedUsers: self!.checkmarkedFriends, conversationID: conversation.uuid)
                     default:
