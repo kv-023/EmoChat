@@ -347,34 +347,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     //you don't need to use this method to send message with media content
     @IBAction func sendMessage(_ sender: UIButton) {
 
-
-//        if textMessage.textColor != UIColor.lightGray && textMessage.containsAlphaNumericCharacters() {
-//            let result:MessageOperationResult? = manager?.createMessage(
-//                conversation: currentConversation!,
-//                sender: currentUser,
-//                content: (.text, textMessage.text))
-//
-//
-//            switch (result!) {
-//            case .successSingleMessage(let message):
-//                insertRow((message, .right(.sending)))
-//            case .failure(let string):
-//                print(string)
-//            default:
-//                break
-//            }
-//            
-//            scrollToLastMessage()
-//            
-//            //clean textView
-//            textMessage.text = ""
-//
-//            textMessage.isScrollEnabled = false
-//            
-//            self.textViewMaxHeightConstraint.isActive = false
-//
-//        }
-
         guard  (currentMessage.type == .text
             && textMessage.textColor != UIColor.lightGray
             && textMessage.containsAlphaNumericCharacters())
@@ -387,32 +359,42 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             return
         }
 
-            let result:MessageOperationResult? = manager?.createMessage(
-                conversation: currentConversation!,
-                sender: currentUser,
-                content: currentMessage)
+        guard let notNullCurrentConversation = currentConversation else {
+            print("An Error occured during sending the message! Current conversation can't be nil !")
+            return
+        }
 
-            switch (result!) {
-            case .successSingleMessage(let message):
-                insertRow((message, .right(.sending)))
-            case .failure(let string):
-                print(string)
-            default:
-                break
-            }
+        manager?.createMessage(conversation: notNullCurrentConversation,
+                               sender: currentUser,
+                               content: currentMessage,
+                               result: { (messageOperationResult) in
 
-            scrollToLastMessage()
+                                DispatchQueue.main.async {
+                                    //do all work on main queue
 
-            //clean textView
-            currentMessage.eraseAllData()
+                                    switch (messageOperationResult) {
+                                    case .successSingleMessage(let message):
+                                        self.insertRow((message, .right(.sending)))
+                                    case .failure(let string):
+                                        print(string)
+                                    default:
+                                        break
+                                    }
 
-            textMessage.isScrollEnabled = false
+                                    self.scrollToLastMessage()
 
-            self.textViewMaxHeightConstraint.isActive = false
+                                    //clean textView
+                                    self.currentMessage.eraseAllData()
+
+                                    self.textMessage.isScrollEnabled = false
+                                    
+                                    self.textViewMaxHeightConstraint.isActive = false
+                                }
+        })
 
 
     }
-    
+
     //download 20 more messages
     func updateUI() {
         if let firstMessage = messagesArrayWithSection[sortedSections[0]]!.first?.0 {
@@ -549,7 +531,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             }
         case .right:
             switch message.0.content.0 {
-            case .text :
+            case .text, .audio:
                 guard let cellText = tableView.dequeueReusableCell(withIdentifier: "Right", for: indexPath) as? RightTextCell else {
                     fatalError("Cell was not casted!")
                 }
