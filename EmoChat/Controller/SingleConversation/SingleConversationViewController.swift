@@ -890,6 +890,16 @@ extension SingleConversationViewController {
         }
     }
     
+    private func createLabel(rect: CGRect) -> UILabel {
+        let label = UILabel(frame: rect)
+        label.text = NSLocalizedString("Tap me!", comment: "")
+        label.textColor = UIColor.darkGray
+        let center = CGPoint(x: rect.midX, y: rect.midY)
+        label.center = center
+        label.textAlignment = .center
+        return label
+    }
+    
     private func makeCellBlurred(cell: UITableViewCell) {
         
         if let blurredView = cell.viewWithTag(blurredViewTag) {
@@ -903,12 +913,19 @@ extension SingleConversationViewController {
         blurredView.clipsToBounds = true
 
         if let textCell = cell as? CustomTableViewCell {
-            blurredView.frame = CGRect(x: textCell.message.bounds.minX,
-                                       y: textCell.message.bounds.minY + 28.0,
-                                       width: textCell.message.bounds.width,
-                                       height: textCell.message.bounds.height - 28.0)
+            blurredView.frame = CGRect(x: textCell.message.frame.minX,
+                                       y: textCell.message.frame.minY + 28.0,
+                                       width: textCell.message.frame.width,
+                                       height: textCell.message.frame.height - 28.0)
+            
+            
+            let label = createLabel(rect: blurredView.bounds)
+            
+            blurredView.addSubview(label)
             blurredView.layer.cornerRadius = cellCornerRadius
-            textCell.message.addSubview(blurredView)
+            textCell.message.gestureRecognizers?.removeAll()
+            textCell.gestureRecognizers?.removeAll()
+            textCell.contentView.addSubview(blurredView)
         }
     }
 }
