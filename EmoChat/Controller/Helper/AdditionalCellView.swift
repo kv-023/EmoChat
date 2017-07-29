@@ -13,6 +13,7 @@ class AdditionalCellView: UIView {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var captionLabel: UILabel!
     var url: String?
+    var dataForMediaInfoView: DataForMediaMessageInfoProtocol?
 
     /*
     // Only override draw() if you perform custom drawing.
@@ -30,6 +31,10 @@ class AdditionalCellView: UIView {
     func eraseAllFields() {
         captionLabel.text = ""
         url = ""
+    }
+
+    func setDataForMediaContentFromDictionary(dict: [String: Any?]) {
+
     }
 
 }

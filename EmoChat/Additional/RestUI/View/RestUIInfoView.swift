@@ -49,6 +49,12 @@ class RestUIInfoView: AdditionalCellView {
         mainImage.image = UIImage()
     }
 
+    override func setDataForMediaContentFromDictionary(dict: [String: Any?]) {
+        let tempDataForMediaInfoView = DataForRestUIInfoView(dict: dict)
+        dataForRestUIInfoView = tempDataForMediaInfoView
+    }
+
+
     override init(frame: CGRect) { // for using CustomView in code
         super.init(frame: frame)
 

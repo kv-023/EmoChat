@@ -170,15 +170,15 @@ extension CustomTableViewCell {
                 contentViewCell?.fullFillViewFromDataInfo(data: notNullDataForMediaInfoView)
                 contentViewCell?.spinner.stopAnimating()
             }
-        }
-            //else {
-//
+        } else {
+
+
 //            let downloadGroup = DispatchGroup()
-//            var dicTemData: [String: Any?] = [:]
+            var dicTemData: [String: Any?] = [:]
 //
 //            for (key, value) in messageURLData {
 //
-//                dicTemData.updateValue(key, forKey: "url")
+                dicTemData.updateValue(self.messageModel?.message?.content.content, forKey: "url")
 //
 //                if let valueModel = value as? UrlembedModel {
 //
@@ -194,7 +194,7 @@ extension CustomTableViewCell {
 //
 //                        downloadGroup.enter()
 //
-//                        dicTemData.updateValue(valueModel.title, forKey: "captionLabel")
+                        dicTemData.updateValue("", forKey: "captionLabel")
 //                        dicTemData.updateValue(valueModel.text, forKey: "detailLabel")
 //
 //                        if let notNullUrl = urlAdress,
@@ -225,17 +225,20 @@ extension CustomTableViewCell {
 //            }
 //
 //            downloadGroup.notify(queue: DispatchQueue.main) { // 2
-//                DispatchQueue.main.async  {
-//
-//                    let tempParsedData = DataForRestUIInfoView(dict: dicTemData)
-//                    contentViewCell?.dataForRestUIInfoView = tempParsedData
-//                    self.messageModel?.dataForRestUIInfoView = tempParsedData
-//                    contentViewCell?.spinner.stopAnimating()
+                DispatchQueue.main.async  {
+                    
+//                    let tempParsedData = DataForAudioMessageInfoView(dict: dicTemData)
+//                    contentViewCell?.dataForMediaInfoView = tempParsedData
+                    contentViewCell?.setDataForMediaContentFromDictionary(dict: dicTemData)
+                    self.messageModel?.dataForMediaInfoView = contentViewCell?.dataForMediaInfoView
+                    contentViewCell?.spinner.stopAnimating()
 //                }
-//            }
-//        }
+            }
+        }
 
     }
+
+
 
     //MARK:- UIView creation
     fileprivate func getPrepareXibOfEmbeddedView<Tview: UIView>(eraseExtraViews: Bool = true,

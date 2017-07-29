@@ -17,7 +17,7 @@ protocol AudioRecordPlaybackProtocol: class {
 class AudioMessageView: AdditionalCellView {
 
     @IBOutlet weak var playStopButton: UIButton!
-//    @IBOutlet weak var captionLabel: UILabel!
+    //    @IBOutlet weak var captionLabel: UILabel!
     @IBAction func playStopButtonPressed(_ sender: UIButton) {
         if let notNullURL = url {
             audioPlaybackDelegate?.playAudio(urlFromFireBase: URL(string: notNullURL))
@@ -26,7 +26,7 @@ class AudioMessageView: AdditionalCellView {
         WaveFormView.playingProgress(sec: audioPlaybackDelegate?.audioSecondsVal)
     }
     @IBOutlet weak var WaveFormView: AudioMessageWaveForm!
-//    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    //    @IBOutlet weak var spinner: UIActivityIndicatorView!
 
     weak var audioPlaybackDelegate: AudioRecordPlaybackProtocol?
 
@@ -35,36 +35,36 @@ class AudioMessageView: AdditionalCellView {
             if self.url != nil {
 
                 WaveFormView.setNeedsDisplay()
-
+            }
+        }
+    }
+    override var dataForMediaInfoView: DataForMediaMessageInfoProtocol? {
+        didSet {
+            if let notNullDataForMediaInfoView = dataForMediaInfoView {
+                fullFillViewFromDataInfo(data: notNullDataForMediaInfoView)
             }
         }
     }
 
-//    var dataForRestUIInfoView: DataForRestUIInfoView? {
-//        didSet {
-//            if let notNullDataForRestUIInfoView = dataForRestUIInfoView {
-//                fullFillViewFromDataInfo(data: notNullDataForRestUIInfoView)
-//            }
-//        }
-//    }
+    override func fullFillViewFromDataInfo(data: DataForMediaMessageInfoProtocol) {
+        super.fullFillViewFromDataInfo(data: data)
+
+        if let castedData = data as? DataForAudioMessageInfoView {
+
+        }
+    }
+
+    override func setDataForMediaContentFromDictionary(dict: [String: Any?]) {
+        let tempDataForMediaInfoView = DataForAudioMessageInfoView(dict: dict)
+        dataForMediaInfoView = tempDataForMediaInfoView
+    }
 
     var heightOriginal:CGFloat = 0
-//    weak var dataModel: UrlembedModel?
+    //    weak var dataModel: UrlembedModel?
 
-//    func fullFillViewFromDataInfo(data: DataForRestUIInfoView) {
-//        captionLabel.text = data.captionLabel
-//        detailLabel.text = data.detailLabel
-//        urlImageIco.image = data.urlImageIco
-//        mainImage.image = data.mainImage
-//        url = data.url
-//    }
+    override   func eraseAllFields() {
+        super.eraseAllFields()
 
-override   func eraseAllFields() {
-    super.eraseAllFields()
-//        captionLabel.text = ""
-//        detailLabel.text = ""
-//        urlImageIco.image = UIImage()
-//        mainImage.image = UIImage()
     }
 
     override init(frame: CGRect) { // for using CustomView in code
@@ -80,9 +80,9 @@ override   func eraseAllFields() {
     }
 
     override func awakeFromNib() {
-//        addUrlTapRecognizer()
+        //        addUrlTapRecognizer()
     }
-
+    
     private func commonInit() {
         heightOriginal = self.bounds.height
         audioPlaybackDelegate = AudioMessageControl.cInit()
