@@ -15,7 +15,7 @@ class RestUIInfoView: AdditionalCellView {
     @IBOutlet weak var detailLabel: UILabel!
     @IBOutlet weak var urlImageIco: UIImageView!
 //    @IBOutlet weak var spinner: UIActivityIndicatorView!
-    var url: String?
+//    override var url: String?
 
     var dataForRestUIInfoView: DataForRestUIInfoView? {
         didSet {
@@ -28,15 +28,21 @@ class RestUIInfoView: AdditionalCellView {
     var heightOriginal:CGFloat = 0
     weak var dataModel: UrlembedModel?
 
-    func fullFillViewFromDataInfo(data: DataForRestUIInfoView) {
-        captionLabel.text = data.captionLabel
-        detailLabel.text = data.detailLabel
-        urlImageIco.image = data.urlImageIco
-        mainImage.image = data.mainImage
-        url = data.url
+    override func fullFillViewFromDataInfo(data: DataForMediaMessageInfoProtocol) {
+        super.fullFillViewFromDataInfo(data: data)
+
+        if let castedData = data as? DataForRestUIInfoView {
+//            captionLabel.text = data.captionLabel
+//            url = data.url
+            detailLabel.text = castedData.detailLabel
+            urlImageIco.image = castedData.urlImageIco
+            mainImage.image = castedData.mainImage
+        }
     }
 
-    func eraseAllFields() {
+    override func eraseAllFields() {
+        super.eraseAllFields()
+
         captionLabel.text = ""
         detailLabel.text = ""
         urlImageIco.image = UIImage()

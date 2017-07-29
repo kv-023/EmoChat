@@ -83,6 +83,7 @@
 		E7AA99BD1F2BEC170037BD2A /* AdditionalCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AA99BC1F2BEC170037BD2A /* AdditionalCellView.swift */; };
 		E7AA99C01F2C8E3F0037BD2A /* MessageModelGeneric.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AA99BF1F2C8E3F0037BD2A /* MessageModelGeneric.swift */; };
 		E7AA99C21F2C8EC80037BD2A /* MessageModelAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AA99C11F2C8EC80037BD2A /* MessageModelAudio.swift */; };
+		E7AA99C41F2CC9C30037BD2A /* DataForAudioMessageInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AA99C31F2CC9C30037BD2A /* DataForAudioMessageInfoView.swift */; };
 		E7B926EF1EF1487B0018F5FF /* CustomTextFieldWithPopOverInfoBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B926E91EF1487B0018F5FF /* CustomTextFieldWithPopOverInfoBox.swift */; };
 		E7B926F01EF1487B0018F5FF /* EmoChatUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B926EA1EF1487B0018F5FF /* EmoChatUIViewController.swift */; };
 		E7B926F11EF1487B0018F5FF /* PopOverHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B926EB1EF1487B0018F5FF /* PopOverHelper.swift */; };
@@ -193,6 +194,7 @@
 		E7AA99BC1F2BEC170037BD2A /* AdditionalCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdditionalCellView.swift; sourceTree = "<group>"; };
 		E7AA99BF1F2C8E3F0037BD2A /* MessageModelGeneric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageModelGeneric.swift; sourceTree = "<group>"; };
 		E7AA99C11F2C8EC80037BD2A /* MessageModelAudio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageModelAudio.swift; sourceTree = "<group>"; };
+		E7AA99C31F2CC9C30037BD2A /* DataForAudioMessageInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataForAudioMessageInfoView.swift; sourceTree = "<group>"; };
 		E7B926E91EF1487B0018F5FF /* CustomTextFieldWithPopOverInfoBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextFieldWithPopOverInfoBox.swift; sourceTree = "<group>"; };
 		E7B926EA1EF1487B0018F5FF /* EmoChatUIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmoChatUIViewController.swift; sourceTree = "<group>"; };
 		E7B926EB1EF1487B0018F5FF /* PopOverHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopOverHelper.swift; sourceTree = "<group>"; };
@@ -516,6 +518,7 @@
 		E7AA99BE1F2C8CEF0037BD2A /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E7AA99C31F2CC9C30037BD2A /* DataForAudioMessageInfoView.swift */,
 				E7AA99C11F2C8EC80037BD2A /* MessageModelAudio.swift */,
 			);
 			path = Model;
@@ -804,6 +807,7 @@
 				E70F3DAD1F0507D900617235 /* JSONParser.swift in Sources */,
 				E70F3DB01F0507D900617235 /* RestIU500px.swift in Sources */,
 				E7B926F31EF1487B0018F5FF /* PopOverViewController.swift in Sources */,
+				E7AA99C41F2CC9C30037BD2A /* DataForAudioMessageInfoView.swift in Sources */,
 				F54D21761EE7130600B0B177 /* Regex.swift in Sources */,
 				3938C2721EDC27C700D69F88 /* ViewController.swift in Sources */,
 				A39232841EEFF58E00E70CD9 /* OptionsChangeUsernameTableViewController.swift in Sources */,

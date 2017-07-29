@@ -12,6 +12,7 @@ class AdditionalCellView: UIView {
 
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var captionLabel: UILabel!
+    var url: String?
 
     /*
     // Only override draw() if you perform custom drawing.
@@ -20,5 +21,15 @@ class AdditionalCellView: UIView {
         // Drawing code
     }
     */
+
+    func fullFillViewFromDataInfo(data: DataForMediaMessageInfoProtocol) {
+        captionLabel.text = data.captionLabel
+        url = data.url
+    }
+
+    func eraseAllFields() {
+        captionLabel.text = ""
+        url = ""
+    }
 
 }

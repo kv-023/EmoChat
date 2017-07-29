@@ -30,7 +30,7 @@ class AudioMessageView: AdditionalCellView {
 
     weak var audioPlaybackDelegate: AudioRecordPlaybackProtocol?
 
-    var url: String? {
+    override var url: String? {
         didSet{
             if self.url != nil {
 
@@ -59,12 +59,13 @@ class AudioMessageView: AdditionalCellView {
 //        url = data.url
 //    }
 
-//    func eraseAllFields() {
+override   func eraseAllFields() {
+    super.eraseAllFields()
 //        captionLabel.text = ""
 //        detailLabel.text = ""
 //        urlImageIco.image = UIImage()
 //        mainImage.image = UIImage()
-//    }
+    }
 
     override init(frame: CGRect) { // for using CustomView in code
         super.init(frame: frame)
@@ -86,52 +87,5 @@ class AudioMessageView: AdditionalCellView {
         heightOriginal = self.bounds.height
         audioPlaybackDelegate = AudioMessageControl.cInit()
     }
-
-//    private func addUrlTapRecognizer() {
-//
-//        let tapRecognizer = UITapGestureRecognizer(target: self,
-//                                                   action: #selector(handler))
-//        let tapRecognizer2 = UITapGestureRecognizer(target: self,
-//                                                    action: #selector(handler))
-//        captionLabel.addGestureRecognizer(tapRecognizer)
-//        detailLabel.addGestureRecognizer(tapRecognizer2)
-//    }
-//
-//    func handler(_ sender: UITapGestureRecognizer) {
-//        if sender.state == UIGestureRecognizerState.ended {
-//
-//            let errorMessage1 = "an error occurred while open url:"
-//            guard let notNullURLString = self.url,
-//                let validUrl = URL(string: notNullURLString) else {
-//                    print(errorMessage1 + " \(String(describing: self.url))")
-//                    return
-//            }
-//
-//            let sharedUIApplication = UIApplication.shared
-//            guard sharedUIApplication.canOpenURL(validUrl) else {
-//                print(errorMessage1 + " \(notNullURLString)")
-//                return
-//            }
-//
-//            sharedUIApplication.open(validUrl, options: [:], completionHandler: nil)
-//
-//
-//            /*let storyboard = UIStoryboard(name: "WebView", bundle: Bundle.main)
-//             let webVC = storyboard.instantiateViewController(withIdentifier: "WebVC") as! WebViewController
-//             webVC.url = validUrl
-//
-//             var navController: UINavigationController?
-//
-//             if var topController = UIApplication.shared.keyWindow?.rootViewController {
-//             while let presentedViewController = topController.presentedViewController {
-//             topController = presentedViewController
-//             }
-//             // topController should now be your topmost view controller
-//             navController = topController as? UINavigationController
-//             }
-//
-//             navController?.pushViewController(webVC, animated: true)*/
-//        }
-//    }
 
 }

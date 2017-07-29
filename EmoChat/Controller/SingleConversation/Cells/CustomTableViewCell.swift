@@ -58,8 +58,24 @@ class CustomTableViewCell: UITableViewCell {
                     
                 }
             case .audio:
-                showViewForContent()
-                //showViewForRestUIContent()
+//                showViewForContent()
+                if let notNullMessageModel = messageModel as? MessageModelAudio {
+
+                    //if notNullMessageModel.containsUrlLinks {
+//                        updateUIForMessageModel()
+//                    } else {
+//                        setNullableDataInPreviewContainer()
+//                    }
+                } else {
+
+                    showViewForContent()
+                    //parseDataFromMessageTextForCell()
+                    getMediaContentFromMessageTextForCell()
+
+                }
+
+
+
             default:
                 break
             }
@@ -75,6 +91,10 @@ class CustomTableViewCell: UITableViewCell {
 
     func parseDataFromMessageTextForCell() {
         parseDataFromMessageText(delaySeconds: 1)
+    }
+
+    func getMediaContentFromMessageTextForCell() {
+        getMediaContentFromMessageText(delaySeconds: 1)
     }
 
     //CAN BE OVERRIDDEN
@@ -104,7 +124,8 @@ class CustomTableViewCell: UITableViewCell {
     }
     
     func setNullableDataInPreviewContainer() {
-        removeRestUIInfoViewFromView(view: previewContainer)
+//        removeRestUIInfoViewFromView(view: previewContainer)
+        removeViewFromSuperView(view: previewContainer)
         setNullableHeightOfPreviewContainer()
     }
     

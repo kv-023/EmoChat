@@ -14,34 +14,30 @@ import UIKit
 
 extension CustomTableViewCell {
 
-//    func parseDataFromMessageText(delaySeconds delay: Int = 0) {
-//
-//        guard let notNullMessage = self.messageEntity else {
-//            return
-//        }
-//
-//        let newModel = MessageModel(message: notNullMessage)
-//        newModel.getParseDataFromResource(delaySeconds: delay, completion: { //[unowned self]
-//            (allDone) in
-//
-//            if allDone {
-//                guard newModel.messageURLDataIsReady
-//                    && newModel.messageURLData.count > 0 else {
-//                        return
-//                }
-//
-//                DispatchQueue.main.async {
-//                    if self.itIsRightModelWithMessage(model: newModel) {
-//                        self.singleConversationControllerDelegate?.addMessageModelInSingleConversationDictionary(message: notNullMessage,                                                                                                    model: newModel)
-//                        self.messageModel = newModel
-//
-//                        //self.updateUI()
-//                        self.updateUIForMessageModel()
-//                    }
-//                }
-//            }
-//        })
-//    }
+    func getMediaContentFromMessageText(delaySeconds delay: Int = 0) {
+
+        guard let notNullMessage = self.messageEntity else {
+            return
+        }
+
+        let newModel = MessageModelAudio(message: notNullMessage)
+        newModel.getParseDataFromResource(delaySeconds: delay, completion: { //[unowned self]
+            (allDone) in
+
+            if allDone {
+
+                DispatchQueue.main.async {
+                    if self.itIsRightModelWithMessage(model: newModel) {
+                        self.singleConversationControllerDelegate?.addMessageModelInSingleConversationDictionary(message: notNullMessage,                                                                                                    model: newModel)
+                        self.messageModel = newModel
+
+                        //self.updateUI()
+                        self.updateUIForMediaMessageModel()
+                    }
+                }
+            }
+        })
+    }
 
     typealias ExtraView = AdditionalCellView
 
@@ -63,38 +59,60 @@ extension CustomTableViewCell {
     private func itIsRightModelWithMessage() -> Bool {
         return self.messageModel?.uid == self.messageEntity?.uid
     }
-//    private func itIsRightModelWithMessage(model tMessageModel:MessageModel?) -> Bool {
-//        return tMessageModel?.uid == self.messageEntity?.uid
-//    }
-//    private func itIsRightModelWithMessage(modelUID uid:String?) -> Bool {
-//        return uid == self.messageEntity?.uid
-//    }
+    private func itIsRightModelWithMessage(model tMessageModel:MessageModelGeneric?) -> Bool {
+        return tMessageModel?.uid == self.messageEntity?.uid
+    }
+    private func itIsRightModelWithMessage(modelUID uid:String?) -> Bool {
+        return uid == self.messageEntity?.uid
+    }
 
 //    //MARK: load detail & update UI
-//    public func updateUIForMessageModel() {
-//        if !Thread.isMainThread {
-//            DispatchQueue.main.async {
-//                //self.updateUI()
-//            }
-//        } else {
-//            //self.updateUI()
-//        }
-//    }
-
-    func showViewForContent() {
-        switch contentTypeOfMessage {
-        case .audio:
-            showViewForContent1(viewType: AudioMessageView.self)
-        case .text:
-            showViewForContent1(viewType: RestUIInfoView.self)
-            //                case .photo, .video:
-        //                    return UIView
-        default:
-            break
+    public func updateUIForMediaMessageModel() {
+        if !Thread.isMainThread {
+            DispatchQueue.main.async {
+                self.updateUI(viewType: self.getTypeOfCurrenContent())
+            }
+        } else {
+            self.updateUI(viewType: getTypeOfCurrenContent())
         }
     }
 
-    func showViewForContent1<Tview: ExtraView>(viewType: Tview.Type) {
+    private func getTypeOfCurrenContent() -> AdditionalCellView.Type? {
+        var valueForReturn: AdditionalCellView.Type? = nil
+
+        switch contentTypeOfMessage {
+        case .audio:
+            valueForReturn = AudioMessageView.self
+        case .text:
+            valueForReturn = RestUIInfoView.self
+        //case .photo, .video:
+        default:
+            break
+        }
+
+        return valueForReturn
+    }
+
+    func showViewForContent() {
+//        switch contentTypeOfMessage {
+//        case .audio:
+//            showViewForContent1(viewType: AudioMessageView.self)
+//        case .text:
+//            showViewForContent1(viewType: RestUIInfoView.self)
+//            //                case .photo, .video:
+//        //                    return UIView
+//        default:
+//            break
+//        }
+        showViewForContent1(viewType: getTypeOfCurrenContent())
+    }
+
+    func showViewForContent1<Tview: ExtraView>(viewType: Tview.Type?) {
+
+        guard viewType != nil else {
+            print("unknown type in func showViewForContent !!")
+            return
+        }
 
         // weak var contentViewCell:RestUIInfoView?
         let contentViewCell:Tview? = getContentViewCell()
@@ -121,30 +139,39 @@ extension CustomTableViewCell {
         return contentViewCell
     }
 
-//    private func updateUI() {
-//
-//        guard itIsRightModelWithMessage() else {
+    private func updateUI<Tview: ExtraView>(viewType: Tview.Type?) {
+
+        guard viewType != nil else {
+            print("unknown type in func updateUI !!")
+            return
+        }
+        guard itIsRightModelWithMessage() else {
+            return
+        }
+//        guard let currentCastedMessageModel = self.messageModel as? Tview? else {
+//            print ("An error occured durring casted messsage model to type: \(String(describing: viewType))")
 //            return
 //        }
-//
-//        weak var contentViewCell:RestUIInfoView?
-//
+
+        weak var contentViewCell:Tview?
+
 //        guard let messageURLData = messageModel?.messageURLData else {
 //            return
 //        }
 //
-//        contentViewCell = getContentViewCell()
-//
-//        DispatchQueue.main.async  {
-//            contentViewCell?.spinner.startAnimating()
-//        }
-//
-//        if let notNullDataForRestUIInfoView = self.messageModel?.dataForRestUIInfoView  {
-//            DispatchQueue.main.async {
-//                contentViewCell?.fullFillViewFromDataInfo(data: notNullDataForRestUIInfoView)
-//                contentViewCell?.spinner.stopAnimating()
-//            }
-//        } else {
+        contentViewCell = getContentViewCell()
+
+        DispatchQueue.main.async  {
+            contentViewCell?.spinner.startAnimating()
+        }
+
+        if let notNullDataForMediaInfoView = self.messageModel?.dataForMediaInfoView  {
+            DispatchQueue.main.async {
+                contentViewCell?.fullFillViewFromDataInfo(data: notNullDataForMediaInfoView)
+                contentViewCell?.spinner.stopAnimating()
+            }
+        }
+            //else {
 //
 //            let downloadGroup = DispatchGroup()
 //            var dicTemData: [String: Any?] = [:]
@@ -207,11 +234,11 @@ extension CustomTableViewCell {
 //                }
 //            }
 //        }
-//
-//    }
+
+    }
 
     //MARK:- UIView creation
-    private func getPrepareXibOfEmbeddedView<Tview: UIView>(eraseExtraViews: Bool = true,
+    fileprivate func getPrepareXibOfEmbeddedView<Tview: UIView>(eraseExtraViews: Bool = true,
                                              xibName: String? = nil) -> Tview? {
         guard let masterContainer = self.previewContainer else {
             return nil

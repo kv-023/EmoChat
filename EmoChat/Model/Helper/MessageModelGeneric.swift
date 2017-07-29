@@ -8,8 +8,15 @@
 
 import Foundation
 
+protocol DataForMediaMessageInfoProtocol {
+    var captionLabel: String? {get set}
+    var url: String? {get set}
+}
+
 class MessageModelGeneric: RegexCheckProtocol, Hashable {
     weak var message: Message?
+
+    var dataForMediaInfoView: DataForMediaMessageInfoProtocol?
 
     //get data from model
     var senderId: String {
