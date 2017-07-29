@@ -37,6 +37,71 @@ class JSONParser: NSObject {
         task.resume()
     }
 
+    func downloadMediaFromURL(url: String,
+                              newFileName: String,
+                       result: @escaping (URL?) -> Void) {
+
+        guard let mediaURL: URL = URL(string: (url)) else {
+            result(nil)
+            return
+        }
+
+        let task = URLSession.shared.downloadTask(with: mediaURL) {(URLData, responce, error) in
+            if let localUrl = URLData {
+
+                let fileManager = FileManager.default
+
+                //Get documents directory URL
+                let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+
+                var fileName = ""
+                if  newFileName == "" {
+                    fileName = localUrl.lastPathComponent//.appendingFormat(".m4a")
+                    fileName = fileName.replacingOccurrences(of: ".tmp", with: "")
+                    fileName = fileName.appendingFormat(".m4a")
+                } else {
+                    fileName = newFileName
+                }
+
+                // Check if Directory exist
+                let directoryMediaUrl = documentsDirectory.appendingPathComponent("fBaseAudio")
+                if fileManager.fileExists(atPath: directoryMediaUrl.path) == false {
+                    do {
+                        try fileManager.createDirectory(at: directoryMediaUrl,
+                                                        withIntermediateDirectories: false,
+                                                        attributes: nil)
+                    } catch {
+                        //print(error.localizedDescription)
+                    }
+                }
+
+                let destinationURL = directoryMediaUrl.appendingPathComponent(fileName)
+
+//                // Check if file exist
+//                if fileManager.fileExists(atPath: destinationURL.path) {
+//                    do{
+//                        try fileManager.removeItem(at: documentsDirectory)
+//                    } catch {
+//                        print(error.localizedDescription)
+//                    }
+//                }
+
+                // Copy File From Temp Folder To Documents Directory
+                do {
+                    try fileManager.copyItem(atPath: localUrl.path,
+                                             toPath: destinationURL.path)
+                } catch {
+                    print(error.localizedDescription)
+                }
+
+                result(destinationURL)
+            } else { // need this to avoid everlasting loop
+                result(nil)
+            }
+        }
+        task.resume()
+    }
+
     func getJSONDataFromURL(forUrl urlForRequest:String,
                             completion: @escaping (_ jsonData:JsonDataType?) -> Void) {
 

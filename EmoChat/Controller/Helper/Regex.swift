@@ -57,5 +57,6 @@ struct Regex {
         }
         return valueForReturn
     }
-    
+
+        
 }

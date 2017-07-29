@@ -51,7 +51,6 @@ extension CustomTableViewCell {
     }
 
     private func itIsRightModelWithMessage() -> Bool {
-//        let ttt = self.messageModel == self.messageModel // test!!
         return self.messageModel?.uid == self.messageEntity?.uid
     }
     private func itIsRightModelWithMessage(model tMessageModel:MessageModel?) -> Bool {

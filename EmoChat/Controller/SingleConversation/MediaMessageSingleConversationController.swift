@@ -12,7 +12,11 @@ import UIKit
 
 //MARK:- Controller for RestUI
 
+
+
 extension CustomTableViewCell {
+
+//    static var backGroundColorOfExtraView = UIColor.lightGray.withAlphaComponent(0.3)
 
     func getMediaContentFromMessageText(delaySeconds delay: Int = 0) {
 
@@ -173,12 +177,31 @@ extension CustomTableViewCell {
         } else {
 
 
-//            let downloadGroup = DispatchGroup()
+            let downloadGroup = DispatchGroup()
             var dicTemData: [String: Any?] = [:]
-//
-//            for (key, value) in messageURLData {
-//
-                dicTemData.updateValue(self.messageModel?.message?.content.content, forKey: "url")
+
+            dicTemData.updateValue("", forKey: "captionLabel")
+
+            let remoteUrl: String? = self.messageModel?.message?.content.content
+            dicTemData.updateValue(remoteUrl, forKey: "rurl")
+
+            if let notNullUrl = remoteUrl {
+                downloadGroup.enter()
+                //
+                let nameOfFile = getMediaFileNameFromURL(text: notNullUrl)
+                JSONParser.sharedInstance.downloadMediaFromURL(url: notNullUrl,
+                                                               newFileName: nameOfFile,
+                                                               result: { (localUrl) in
+                    downloadGroup.leave()
+                    dicTemData.updateValue(localUrl?.path, forKey: "url")
+                    dicTemData.updateValue("", forKey: "captionLabel")
+                    
+                })
+            }
+//            downloadGroup.wait()
+
+
+
 //
 //                if let valueModel = value as? UrlembedModel {
 //
@@ -194,7 +217,7 @@ extension CustomTableViewCell {
 //
 //                        downloadGroup.enter()
 //
-                        dicTemData.updateValue("", forKey: "captionLabel")
+//                        dicTemData.updateValue("", forKey: "captionLabel")
 //                        dicTemData.updateValue(valueModel.text, forKey: "detailLabel")
 //
 //                        if let notNullUrl = urlAdress,
@@ -224,16 +247,16 @@ extension CustomTableViewCell {
 //                break // only one cycle needed
 //            }
 //
-//            downloadGroup.notify(queue: DispatchQueue.main) { // 2
-                DispatchQueue.main.async  {
-                    
+            downloadGroup.notify(queue: DispatchQueue.main) { // 2
+//                DispatchQueue.main.async  {
+
 //                    let tempParsedData = DataForAudioMessageInfoView(dict: dicTemData)
 //                    contentViewCell?.dataForMediaInfoView = tempParsedData
                     contentViewCell?.setDataForMediaContentFromDictionary(dict: dicTemData)
                     self.messageModel?.dataForMediaInfoView = contentViewCell?.dataForMediaInfoView
                     contentViewCell?.spinner.stopAnimating()
-//                }
-            }
+                }
+//            }
         }
 
     }
@@ -375,9 +398,9 @@ extension CustomTableViewCell {
 
         for currentSubview in subviews {
 
-            guard currentSubview is UIView else {
-                continue
-            }
+//            guard currentSubview is UIView else {
+//                continue
+//            }
 
             currentSubview.removeFromSuperview()
         }

@@ -12,6 +12,7 @@ protocol AudioRecordPlaybackProtocol: class {
 
     func playAudio(urlFromFireBase url: URL?)
     var audioSecondsVal: Double { get }
+    func analyzeAudioMessage(url: URL)
 }
 
 class AudioMessageView: AdditionalCellView {
@@ -20,7 +21,7 @@ class AudioMessageView: AdditionalCellView {
     //    @IBOutlet weak var captionLabel: UILabel!
     @IBAction func playStopButtonPressed(_ sender: UIButton) {
         if let notNullURL = url {
-            audioPlaybackDelegate?.playAudio(urlFromFireBase: URL(string: notNullURL))
+            audioPlaybackDelegate?.playAudio(urlFromFireBase: URL(fileURLWithPath: notNullURL))
         }
 
         WaveFormView.playingProgress(sec: audioPlaybackDelegate?.audioSecondsVal)
@@ -28,11 +29,17 @@ class AudioMessageView: AdditionalCellView {
     @IBOutlet weak var WaveFormView: AudioMessageWaveForm!
     //    @IBOutlet weak var spinner: UIActivityIndicatorView!
 
-    weak var audioPlaybackDelegate: AudioRecordPlaybackProtocol?
+    var audioPlaybackDelegate: AudioRecordPlaybackProtocol?
 
     override var url: String? {
         didSet{
-            if self.url != nil {
+            if let notNullURL = self.url, notNullURL != "" {
+                let localUrlPath = URL(fileURLWithPath: notNullURL)
+                audioPlaybackDelegate?.analyzeAudioMessage(url: localUrlPath)
+                if let currentAudioSecondsVal = audioPlaybackDelegate?.audioSecondsVal {
+                    captionLabel.textAlignment = .left
+                    captionLabel.text = String(currentAudioSecondsVal) + " sec."
+                }
 
                 WaveFormView.setNeedsDisplay()
             }
@@ -82,9 +89,18 @@ class AudioMessageView: AdditionalCellView {
     override func awakeFromNib() {
         //        addUrlTapRecognizer()
     }
+
+    override var backgroundColor: UIColor? {
+        didSet {
+            if WaveFormView != nil {
+                WaveFormView.backgroundColor = backgroundColor?.withAlphaComponent(0.3)
+            }
+        }
+    }
     
     private func commonInit() {
         heightOriginal = self.bounds.height
+        //CustomTableViewCell.backGroundColorOfExtraView
         audioPlaybackDelegate = AudioMessageControl.cInit()
     }
 

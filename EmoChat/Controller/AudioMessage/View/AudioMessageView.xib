@@ -30,7 +30,7 @@
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8lm-0C-CfG" customClass="AudioMessageWaveForm" customModule="EmoChat" customModuleProvider="target">
                     <rect key="frame" x="61" y="0.0" width="314" height="66"/>
-                    <color key="backgroundColor" red="1" green="0.65881808605327974" blue="0.95124263295913336" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <label opaque="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="caption" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZKV-qE-bx0">
                     <rect key="frame" x="61" y="0.0" width="314" height="30"/>
@@ -46,7 +46,7 @@
                     <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </activityIndicatorView>
             </subviews>
-            <color key="backgroundColor" red="0.6594831317728409" green="0.93132309455098206" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="y9R-Pj-867" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="5" id="2Kg-34-llb"/>
                 <constraint firstItem="y9R-Pj-867" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Ee9-f9-eTl"/>

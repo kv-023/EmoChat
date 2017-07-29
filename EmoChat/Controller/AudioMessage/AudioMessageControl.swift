@@ -56,9 +56,9 @@ class AudioMessageControl: NSObject, AVAudioRecorderDelegate {//UIViewController
 
                 DispatchQueue.main.async {
                     if allowed {
-                        print("Allow")
+//                        print("Allow")
                     } else {
-                        print("Dont Allow")
+                        print("RecordPermission: Dont Allow")
                     }
                 }
             }
@@ -84,7 +84,7 @@ class AudioMessageControl: NSObject, AVAudioRecorderDelegate {//UIViewController
         let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
         let documentDirectory = urls[0] as URL
         let soundURL = documentDirectory.appendingPathComponent("sound.m4a")
-        print(soundURL)
+//        print(soundURL)
         return soundURL as URL?
     }
 
@@ -208,6 +208,7 @@ class AudioMessageControl: NSObject, AVAudioRecorderDelegate {//UIViewController
         print("URL: \(url)")
 
         self.player = AVPlayer(url: url)
+//        self.player.prepareToPlay() //!
         self.player.volume = 1.0
         // self.player.play()
 //        self.PSButtonOutfit.setImage(#imageLiteral(resourceName: "PlayAudioMessage"), for: .normal)
@@ -249,6 +250,10 @@ extension AudioMessageControl: AudioRecordProtocol {
 //MARK:- AudioRecordPlayback
 extension AudioMessageControl: AudioRecordPlaybackProtocol {
 
+    func analyzeAudioMessage(url: URL) {
+        audioMessageToAnalyze(url: url)
+    }
+
     func playAudio(urlFromFireBase url: URL?) {
 
         guard let notNullUrl = url else {
@@ -261,14 +266,12 @@ extension AudioMessageControl: AudioRecordPlaybackProtocol {
         }
 
 
-
-
-
         //DispatchQueue.main.async {
-  //      self.initPlayer(url: notNullUrl)
+        self.initPlayer(url: notNullUrl)
 
-        let playerItem = AVPlayerItem(url: notNullUrl)
-        self.player.replaceCurrentItem(with: playerItem)
+
+//        let playerItem = AVPlayerItem(url: notNullUrl)
+//        self.player.replaceCurrentItem(with: playerItem)
 
         self.player.play()
 

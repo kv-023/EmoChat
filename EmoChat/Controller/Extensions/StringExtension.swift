@@ -21,7 +21,7 @@ extension String {
         let mediana: Int = (maxLength - filler.characters.count) / 2
         let firstSymbol = String(characters.prefix(mediana))
         let lastSymbol = String(characters.suffix(mediana))
-        let textShrinked: String = firstSymbol + filler + lastSymbol
+        let textShrinked: String = "☞" + firstSymbol + filler + lastSymbol
 
         return textShrinked
 
