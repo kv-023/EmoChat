@@ -43,19 +43,6 @@ extension CustomTableViewCell {
 //        })
 //    }
 
-
-//    typealias typeOfAdditionalView = {
-//        switch contentTypeOfMessage {
-//        case .audio:
-//            return AudioMessageView.self
-//        case .text:
-//            return RestUIInfoView.self
-////        case .photo, .video:
-////            return UIView
-//        default:
-//            return UIView.self
-//    }
-
     typealias ExtraView = AdditionalCellView
 
     var extraViewXibName: String {
@@ -83,14 +70,14 @@ extension CustomTableViewCell {
 //        return uid == self.messageEntity?.uid
 //    }
 
-    //MARK: load detail & update UI
+//    //MARK: load detail & update UI
 //    public func updateUIForMessageModel() {
 //        if !Thread.isMainThread {
 //            DispatchQueue.main.async {
-//                self.updateUI()
+//                //self.updateUI()
 //            }
 //        } else {
-//            self.updateUI()
+//            //self.updateUI()
 //        }
 //    }
 
@@ -229,9 +216,10 @@ extension CustomTableViewCell {
         guard let masterContainer = self.previewContainer else {
             return nil
         }
-        let tryToReloadView:Bool = false //maybe, later it can be useful
+
         let xibNameForLoad = xibName ?? extraViewXibName
 
+        let tryToReloadView:Bool = false //maybe, later it can be useful
         if tryToReloadView {
             //var arrayOfViews = getRestUIInfoViewFromView(view: masterContainer)
             var arrayOfViews:[Tview] = getRequestedViewFromView(view: masterContainer)

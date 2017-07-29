@@ -8,53 +8,56 @@
 
 import Foundation
 
-class MessageModel: RegexCheckProtocol {
+class MessageModel: MessageModelGeneric {
+//    typealias currentProtocolType = MessageModel
 
-    weak var message: Message?
+
+//    weak var message: Message?
     var dataForRestUIInfoView: DataForRestUIInfoView?
-    var messageURLData: MessageURLDataType {
+    var messageURLData: MessageURLDataType = [:] {
         didSet {
 //            for (key3, value3) in messageURLData {
 //                print("key: \(key3), value:\(String(describing: value3))")
 //            }
         }
     }
-    var containsUrlLinks:Bool {
+    var containsUrlLinks: Bool {
         return messageURLData.count > 0
     }
 
     var messageURLDataIsReady:Bool = false
 
-    //get data from model
-    var senderId: String {
-        return message?.senderId ?? ""
-    }
-    var uid: String? {
-        return message?.uid
-    }
-    var time: Date? {
-        return message?.time
-    }
-    var content:MessageContentDataType? {
-        return message?.content
-    }
-    var messageText: String {
-        return content?.content ?? ""
-    }
+//    //get data from model
+//    var senderId: String {
+//        return message?.senderId ?? ""
+//    }
+////    var uid: String? {
+////        return message?.uid
+////    }
+//    var time: Date? {
+//        return message?.time
+//    }
+//    var content:MessageContentDataType? {
+//        return message?.content
+//    }
+//    var messageText: String {
+//        return content?.content ?? ""
+//    }
 
-    init() {
-        messageURLData = [:]
+    override init() {
+        super.init()
+//        messageURLData = [:]
     }
 
     deinit {
         messageURLData = [:]
-        message = nil
+//        message = nil
     }
 
-    convenience init(message: Message) {
-        self.init()
-        self.message = message
-    }
+//    convenience init(message: Message) {
+//        self.init()
+//        self.message = message
+//    }
 
 
     //prepare data for conversation's cell
@@ -95,14 +98,13 @@ class MessageModel: RegexCheckProtocol {
     }
 }
 
-//MARK:- MessageModel Hashable
-
-extension MessageModel: Hashable {
-    var hashValue: Int {
-        return self.uid?.hashValue ?? 0
-    }
-}
-
-func == (lhs: MessageModel, rhs: MessageModel) -> Bool {
-    return lhs.uid == rhs.uid
-}
+//
+//extension MessageModel: Hashable {
+//    var hashValue: Int {
+//        return self.uid?.hashValue ?? 0
+//    }
+//}
+//
+//func == (lhs: MessageModel, rhs: MessageModel) -> Bool {
+//    return lhs.uid == rhs.uid
+//}

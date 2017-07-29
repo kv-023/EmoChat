@@ -30,8 +30,6 @@ class AudioMessageView: AdditionalCellView {
 
     weak var audioPlaybackDelegate: AudioRecordPlaybackProtocol?
 
-//    var player = AVPlayer()
-
     var url: String? {
         didSet{
             if self.url != nil {

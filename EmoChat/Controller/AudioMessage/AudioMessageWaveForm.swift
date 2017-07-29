@@ -120,7 +120,7 @@ class AudioMessageWaveForm: UIView {
     func playingProgress(sec audioSecondsVal: Double?) {
 
         guard let NotNullAudioSecondsVal = audioSecondsVal else {
-            print("audia second can't be nil !")
+            print("audio second can't be nil !")
             return
         }
 

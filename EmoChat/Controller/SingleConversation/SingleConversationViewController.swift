@@ -67,7 +67,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     var refresher: UIRefreshControl!
     var cellResized = Set<CustomTableViewCell>()
-    var messageRestModel: [Message: MessageModel?] = [:]
+    var messageRestModel: [Message: MessageModelGeneric?] = [:]
     var messageRecognized: Message!
     var photosArray: [String: UIImage] = [:]
     var group = DispatchGroup()
@@ -856,7 +856,7 @@ extension SingleConversationViewController: SingleConversationControllerProtocol
     }
     
     func addMessageModelInSingleConversationDictionary(message: Message,
-                                                       model: MessageModel?) {
+                                                       model: MessageModelGeneric?) {
 
         messageRestModel.updateValue(model, forKey: message)
     }
