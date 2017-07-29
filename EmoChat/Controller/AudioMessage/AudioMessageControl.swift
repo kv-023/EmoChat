@@ -260,8 +260,16 @@ extension AudioMessageControl: AudioRecordPlaybackProtocol {
             audioRecorder = nil
         }
 
+
+
+
+
         //DispatchQueue.main.async {
-        self.initPlayer(url: notNullUrl)
+  //      self.initPlayer(url: notNullUrl)
+
+        let playerItem = AVPlayerItem(url: notNullUrl)
+        self.player.replaceCurrentItem(with: playerItem)
+
         self.player.play()
 
         if urlOfCurrentlyPlayingInPlayer() != notNullUrl {

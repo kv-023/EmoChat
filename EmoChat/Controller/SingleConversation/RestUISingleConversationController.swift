@@ -190,30 +190,40 @@ extension CustomTableViewCell {
         guard let masterContainer = self.previewContainer else {
             return nil
         }
-        var arrayOfViews = getRestUIInfoViewFromView(view: masterContainer)
 
-        let countOfViews = arrayOfViews.count
-        if countOfViews > 0 {
+        let tryToReloadView:Bool = false //maybe, later it can be useful
+        if tryToReloadView {
+            var arrayOfViews = getRestUIInfoViewFromView(view: masterContainer)
 
-            let viewForReturn = arrayOfViews[0]
-            //prepare part
-            if let notNullIndexOfElement = arrayOfViews.index(of: viewForReturn) {
-                arrayOfViews.remove(at: notNullIndexOfElement)
+            let countOfViews = arrayOfViews.count
+            if countOfViews > 0 {
+
+                let viewForReturn = arrayOfViews[0]
+                //prepare part
+                if let notNullIndexOfElement = arrayOfViews.index(of: viewForReturn) {
+                    arrayOfViews.remove(at: notNullIndexOfElement)
+                }
+
+                if countOfViews > 1 && eraseExtraViews {
+                    removeRestUIInfoViewFromView(view: masterContainer,
+                                                 arrayOfRequestedViews: &arrayOfViews)
+                }
+
+                //let ccViewHeight = calculateHeightOfView(view: viewForReturn)
+                //setPreviewContainerHeight(height: viewForReturn.heightOriginal)
+                self.previewContainer.layoutIfNeeded()
+                //self.singleConversationControllerDelegate?.resizeSingleConversationCell(cell: self)
+
+                return viewForReturn
+            } else {
+
+                return xibToFrameSetup()
             }
 
-            if countOfViews > 1 && eraseExtraViews {
-                removeRestUIInfoViewFromView(view: masterContainer,
-                                             arrayOfRequestedViews: &arrayOfViews)
-            }
-
-            //let ccViewHeight = calculateHeightOfView(view: viewForReturn)
-            //setPreviewContainerHeight(height: viewForReturn.heightOriginal)
-            self.previewContainer.layoutIfNeeded()
-            //self.singleConversationControllerDelegate?.resizeSingleConversationCell(cell: self)
-
-            return viewForReturn
         } else {
+            removeViewFromSuperView(view: masterContainer)
             return xibToFrameSetup()
+
         }
     }
 

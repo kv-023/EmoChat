@@ -364,6 +364,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             return
         }
 
+//        currentMessage.content = textMessage.text
         manager?.createMessage(conversation: notNullCurrentConversation,
                                sender: currentUser,
                                content: currentMessage,
@@ -504,7 +505,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         switch message.1 {
         case .left:
             switch message.0.content.0 {
-            case .text :
+            case .text, .audio:
                 guard let cellText = tableView.dequeueReusableCell(withIdentifier: "Left", for: indexPath) as? LeftTextCell else {
                     fatalError("Cell was not casted!")
                 }
@@ -522,8 +523,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 cellText.time.text = message.0.time.formatDate()
                 setGeneralVars(cell: cellText, message: message.0)
                 return cellText
-            case .audio:
-                return UITableViewCell()
+//            case .audio:
+//                return UITableViewCell()
             case .video:
                 return UITableViewCell()
             case .photo:
@@ -547,8 +548,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 }
                 
                 return cellText
-            case .audio:
-                return UITableViewCell()
+//            case .audio:
+//                return UITableViewCell()
             case .video:
                 return UITableViewCell()
             case .photo:
@@ -632,6 +633,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             textView.isScrollEnabled = false
             self.textViewMaxHeightConstraint.isActive = false
         }
+//        currentMessage.setData(content: textMessage.text, type: .text)
     }
     
     func textViewDidBeginEditing(_ textView: UITextView){
@@ -659,11 +661,12 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         textView.resignFirstResponder()
         
         self.animateTextViewTransitions(becomeFirstResponder: false)
+//        currentMessage.setData(content: textMessage.text, type: .text)
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
-        currentMessage.setData(content: textMessage.text, type: .text)
+        currentMessage.setData(content: text, type: .text)
         scrollToLastMessage()
         return true
     }

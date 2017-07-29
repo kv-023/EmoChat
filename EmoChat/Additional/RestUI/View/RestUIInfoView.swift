@@ -8,13 +8,13 @@
 
 import UIKit
 
-class RestUIInfoView: UIView {
+class RestUIInfoView: AdditionalCellView {
 
     @IBOutlet weak var mainImage: UIImageView!
-    @IBOutlet weak var captionLabel: UILabel!
+//    @IBOutlet weak var captionLabel: UILabel!
     @IBOutlet weak var detailLabel: UILabel!
     @IBOutlet weak var urlImageIco: UIImageView!
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
+//    @IBOutlet weak var spinner: UIActivityIndicatorView!
     var url: String?
 
     var dataForRestUIInfoView: DataForRestUIInfoView? {

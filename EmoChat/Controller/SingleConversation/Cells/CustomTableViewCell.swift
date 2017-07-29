@@ -55,8 +55,9 @@ class CustomTableViewCell: UITableViewCell {
                     }
                     
                 }
-            case .audio: break
-                
+            case .audio:
+                showViewForContent()
+                //showViewForRestUIContent()
             default:
                 break
             }
@@ -106,7 +107,9 @@ class CustomTableViewCell: UITableViewCell {
     }
     
     func setNullableHeightOfPreviewContainer() {
-        heightOfPreviewContainer.constant = 0
+        if contentTypeOfMessage != .audio {
+            heightOfPreviewContainer.constant = 0
+        }
     }
    
     //SHOULD BE OVERRIDDEN TO CHANGE SOURCE FOR TAP RECOGNIZER

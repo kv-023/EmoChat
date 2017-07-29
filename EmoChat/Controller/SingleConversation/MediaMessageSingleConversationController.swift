@@ -43,6 +43,21 @@ extension CustomTableViewCell {
 //        })
 //    }
 
+
+//    typealias typeOfAdditionalView = {
+//        switch contentTypeOfMessage {
+//        case .audio:
+//            return AudioMessageView.self
+//        case .text:
+//            return RestUIInfoView.self
+////        case .photo, .video:
+////            return UIView
+//        default:
+//            return UIView.self
+//    }
+
+    typealias ExtraView = AdditionalCellView
+
     var extraViewXibName: String {
         get {
             switch contentTypeOfMessage {
@@ -58,15 +73,15 @@ extension CustomTableViewCell {
         }
     }
 
-    private func itIsRightModelWithMessage() -> Bool {
-        return self.messageModel?.uid == self.messageEntity?.uid
-    }
-    private func itIsRightModelWithMessage(model tMessageModel:MessageModel?) -> Bool {
-        return tMessageModel?.uid == self.messageEntity?.uid
-    }
-    private func itIsRightModelWithMessage(modelUID uid:String?) -> Bool {
-        return uid == self.messageEntity?.uid
-    }
+//    private func itIsRightModelWithMessage() -> Bool {
+//        return self.messageModel?.uid == self.messageEntity?.uid
+//    }
+//    private func itIsRightModelWithMessage(model tMessageModel:MessageModel?) -> Bool {
+//        return tMessageModel?.uid == self.messageEntity?.uid
+//    }
+//    private func itIsRightModelWithMessage(modelUID uid:String?) -> Bool {
+//        return uid == self.messageEntity?.uid
+//    }
 
     //MARK: load detail & update UI
 //    public func updateUIForMessageModel() {
@@ -80,10 +95,24 @@ extension CustomTableViewCell {
 //    }
 
     func showViewForContent() {
+        switch contentTypeOfMessage {
+        case .audio:
+            showViewForContent1(viewType: AudioMessageView.self)
+        case .text:
+            showViewForContent1(viewType: RestUIInfoView.self)
+            //                case .photo, .video:
+        //                    return UIView
+        default:
+            break
+        }
+    }
+
+    func showViewForContent1<Tview: ExtraView>(viewType: Tview.Type) {
 
         // weak var contentViewCell:RestUIInfoView?
-        let contentViewCell = getContentViewCell()
+        let contentViewCell:Tview? = getContentViewCell()
         contentViewCell?.spinner.startAnimating()
+        contentViewCell?.captionLabel?.text = NSLocalizedString("loading ... \(Int(arc4random_uniform(UInt32(240))))", comment: "")
     }
 
     func getContentViewCell<T: UIView>() -> T? {
@@ -200,35 +229,42 @@ extension CustomTableViewCell {
         guard let masterContainer = self.previewContainer else {
             return nil
         }
-
+        let tryToReloadView:Bool = false //maybe, later it can be useful
         let xibNameForLoad = xibName ?? extraViewXibName
 
-        //var arrayOfViews = getRestUIInfoViewFromView(view: masterContainer)
-        var arrayOfViews:[Tview] = getRequestedViewFromView(view: masterContainer)
+        if tryToReloadView {
+            //var arrayOfViews = getRestUIInfoViewFromView(view: masterContainer)
+            var arrayOfViews:[Tview] = getRequestedViewFromView(view: masterContainer)
 
-        let countOfViews = arrayOfViews.count
-        if countOfViews > 0 {
+            let countOfViews = arrayOfViews.count
+            if countOfViews > 0 {
 
-            let viewForReturn = arrayOfViews[0]
-            //prepare part
-            if let notNullIndexOfElement = arrayOfViews.index(of: viewForReturn) {
-                arrayOfViews.remove(at: notNullIndexOfElement)
+                let viewForReturn = arrayOfViews[0]
+                //prepare part
+                if let notNullIndexOfElement = arrayOfViews.index(of: viewForReturn) {
+                    arrayOfViews.remove(at: notNullIndexOfElement)
+                }
+
+                if countOfViews > 1 && eraseExtraViews {
+                    removeRequestedViewFromView(view: masterContainer,
+                                                arrayOfRequestedViews: &arrayOfViews)
+                }
+
+                //let ccViewHeight = calculateHeightOfView(view: viewForReturn)
+                //setPreviewContainerHeight(height: viewForReturn.heightOriginal)
+                self.previewContainer.layoutIfNeeded()
+                //self.singleConversationControllerDelegate?.resizeSingleConversationCell(cell: self)
+
+                return viewForReturn
+            } else {
+                let viewForReturn:Tview = xibToFrameSetup(xibName: xibNameForLoad)
+                return viewForReturn
             }
-
-            if countOfViews > 1 && eraseExtraViews {
-                removeRequestedViewFromView(view: masterContainer,
-                                             arrayOfRequestedViews: &arrayOfViews)
-            }
-
-            //let ccViewHeight = calculateHeightOfView(view: viewForReturn)
-            //setPreviewContainerHeight(height: viewForReturn.heightOriginal)
-            self.previewContainer.layoutIfNeeded()
-            //self.singleConversationControllerDelegate?.resizeSingleConversationCell(cell: self)
-
-            return viewForReturn
         } else {
+            removeViewFromSuperView(view: masterContainer)
             let viewForReturn:Tview = xibToFrameSetup(xibName: xibNameForLoad)
             return viewForReturn
+
         }
     }
 
@@ -260,7 +296,7 @@ extension CustomTableViewCell {
         setConstrainInSubView(embeddedView: contentViewCell, parrentView: self.previewContainer)
         self.previewContainer.layoutIfNeeded()
 
-        self.singleConversationControllerDelegate?.resizeSingleConversationCell(cell: self)
+//        self.singleConversationControllerDelegate?.resizeSingleConversationCell(cell: self)
 
         let radiuR:CGFloat = 10
         self.previewContainer.layer.cornerRadius = radiuR
@@ -290,19 +326,20 @@ extension CustomTableViewCell {
         self.addConstraint(top)
     }
 
-//    func removeRestUIInfoViewFromView(view masterView: UIView) {
-//        let subviews = masterView.subviews
-//
-//        for currentSubview in subviews {
-//
-//            guard currentSubview is RestUIInfoView else {
-//                continue
-//            }
-//
-//            currentSubview.removeFromSuperview()
-//        }
-//    }
-    func removeRequestedViewFromView<Tview>(view masterView: UIView, typeOfRequestedView: Tview.Type) {
+    func removeRequestedViewFromView<Tview: UIView>(view masterView: UIView,
+                                      arrayOfRequestedViews: inout [Tview]) {
+
+        for currentSubview in arrayOfRequestedViews {
+            if let notNullIndexOfElement = arrayOfRequestedViews.index(of: currentSubview) {
+                arrayOfRequestedViews.remove(at: notNullIndexOfElement)
+            }
+
+            currentSubview.removeFromSuperview()
+        }
+    }
+
+    func removeRequestedViewFromView<Tview>(view masterView: UIView,
+                                     typeOfRequestedView: Tview.Type) {
         let subviews = masterView.subviews
 
         for currentSubview in subviews {
@@ -315,17 +352,20 @@ extension CustomTableViewCell {
         }
     }
 
-    func removeRequestedViewFromView<Tview: UIView>(view masterView: UIView,
-                                      arrayOfRequestedViews: inout [Tview]) {
+    func removeViewFromSuperView(view masterView: UIView) {
+        let subviews = masterView.subviews
 
-        for currentSubview in arrayOfRequestedViews {
-            if let notNullIndexOfElement = arrayOfRequestedViews.index(of: currentSubview) {
-                arrayOfRequestedViews.remove(at: notNullIndexOfElement)
+        for currentSubview in subviews {
+
+            guard currentSubview is UIView else {
+                continue
             }
-            
+
             currentSubview.removeFromSuperview()
         }
-    }   
+    }
+
+
 
 //    func getRestUIInfoViewFromView(view masterView: UIView) -> Array<RestUIInfoView> {
 //        let subviews = masterView.subviews

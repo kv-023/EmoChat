@@ -14,9 +14,10 @@ protocol AudioRecordPlaybackProtocol: class {
     var audioSecondsVal: Double { get }
 }
 
-class AudioMessageView: UIView {
+class AudioMessageView: AdditionalCellView {
 
     @IBOutlet weak var playStopButton: UIButton!
+//    @IBOutlet weak var captionLabel: UILabel!
     @IBAction func playStopButtonPressed(_ sender: UIButton) {
         if let notNullURL = url {
             audioPlaybackDelegate?.playAudio(urlFromFireBase: URL(string: notNullURL))
@@ -25,7 +26,7 @@ class AudioMessageView: UIView {
         WaveFormView.playingProgress(sec: audioPlaybackDelegate?.audioSecondsVal)
     }
     @IBOutlet weak var WaveFormView: AudioMessageWaveForm!
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
+//    @IBOutlet weak var spinner: UIActivityIndicatorView!
 
     weak var audioPlaybackDelegate: AudioRecordPlaybackProtocol?
 
