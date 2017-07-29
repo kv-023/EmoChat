@@ -38,5 +38,24 @@ struct Regex {
 
         return  Regex.matches(for: regex, in: text)
     }
+
+    static func removingRegexMatches(for regex: String,
+                                     in text: String,
+                                     replaceWith: String = "") -> String? {
+        var valueForReturn: String?
+        do {
+            let regex = try NSRegularExpression(pattern: regex,
+                                                options:[.caseInsensitive])
+            let range = NSMakeRange(0, text.characters.count)
+            valueForReturn = regex.stringByReplacingMatches(in: text,
+                                                            options: [],
+                                                            range: range,
+                                                            withTemplate: replaceWith)
+        } catch {
+            print("invalid regex: \(error.localizedDescription)")
+            return valueForReturn
+        }
+        return valueForReturn
+    }
     
 }

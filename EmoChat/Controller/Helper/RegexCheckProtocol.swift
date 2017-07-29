@@ -120,6 +120,20 @@ extension RegexCheckProtocol {
         return valueForReturn
     }
 
+    func removeTransferProtocolTag(text textForAnalyze: String?) -> String {
+        var valueForReturn: String = ""
+
+        if let notNullText = textForAnalyze {
+            let regexLoginPattern = "(?:https?|ftp|file):\\/\\/|www\\.|ftp\\."
+
+            valueForReturn = Regex.removingRegexMatches(for: regexLoginPattern,
+                                                        in: notNullText,
+                                                        replaceWith: "") ?? notNullText
+
+        }
+        return valueForReturn
+    }
+
 }
 
 //MARK:- regex error explanation

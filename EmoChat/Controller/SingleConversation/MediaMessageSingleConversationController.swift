@@ -60,9 +60,9 @@ extension CustomTableViewCell {
         }
     }
 
-//    private func itIsRightModelWithMessage() -> Bool {
-//        return self.messageModel?.uid == self.messageEntity?.uid
-//    }
+    private func itIsRightModelWithMessage() -> Bool {
+        return self.messageModel?.uid == self.messageEntity?.uid
+    }
 //    private func itIsRightModelWithMessage(model tMessageModel:MessageModel?) -> Bool {
 //        return tMessageModel?.uid == self.messageEntity?.uid
 //    }

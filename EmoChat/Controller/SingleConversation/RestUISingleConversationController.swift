@@ -106,7 +106,12 @@ extension CustomTableViewCell {
 
         weak var contentViewCell:RestUIInfoView?
 
-        guard let messageURLData = messageModel?.messageURLData else {
+        guard let cMessageModel:MessageModel? = messageModel as? MessageModel? else {
+            print("An incorrect model type was given !!")
+            return
+        }
+
+        guard let messageURLData = cMessageModel?.messageURLData else {
             return
         }
 
@@ -116,7 +121,7 @@ extension CustomTableViewCell {
             contentViewCell?.spinner.startAnimating()
         }
 
-        if let notNullDataForRestUIInfoView = self.messageModel?.dataForRestUIInfoView  {
+        if let notNullDataForRestUIInfoView = cMessageModel?.dataForRestUIInfoView  {
             DispatchQueue.main.async {
                 contentViewCell?.fullFillViewFromDataInfo(data: notNullDataForRestUIInfoView)
                 contentViewCell?.spinner.stopAnimating()
@@ -179,7 +184,7 @@ extension CustomTableViewCell {
 
                     let tempParsedData = DataForRestUIInfoView(dict: dicTemData)
                     contentViewCell?.dataForRestUIInfoView = tempParsedData
-                    self.messageModel?.dataForRestUIInfoView = tempParsedData
+                    cMessageModel?.dataForRestUIInfoView = tempParsedData
                     contentViewCell?.spinner.stopAnimating()
                 }
             }

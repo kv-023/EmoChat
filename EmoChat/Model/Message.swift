@@ -54,7 +54,7 @@ class Message {
     }
 }
 
-//MARK:- MessageModel Hashable
+//MARK:- Message Hashable
 
 extension Message: Hashable {
     var hashValue: Int {

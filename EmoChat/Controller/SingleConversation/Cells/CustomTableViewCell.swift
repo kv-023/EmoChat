@@ -32,12 +32,12 @@ class CustomTableViewCell: UITableViewCell {
         return messageEntity?.content?.content ?? ""
     }
 
-    weak var messageModel: MessageModel? {
+    weak var messageModel: MessageModelGeneric? {
         didSet {
 
             switch  contentTypeOfMessage {
             case .text:
-                if let notNullMessageModel = messageModel {
+                if let notNullMessageModel = messageModel as? MessageModel {
 
                     if notNullMessageModel.containsUrlLinks {
                         updateUIForMessageModel()
@@ -45,7 +45,9 @@ class CustomTableViewCell: UITableViewCell {
                         setNullableDataInPreviewContainer()
                     }
                 } else {
-                    let arrayOfLinks = self.getArrayOfRegexMatchesForURLInText(text: self.message.text)
+//                    let arrayOfLinks = self.getArrayOfRegexMatchesForURLInText(text: self.message.text)
+                let arrayOfLinks = self.getArrayOfRegexMatchesForURLInText(text: self.originTextInCell)
+
                     if arrayOfLinks.count > 0 {
                         //lets show spinner animation
                         showViewForRestUIContent()
@@ -124,6 +126,7 @@ class CustomTableViewCell: UITableViewCell {
         switch contentTypeOfMessage {
         case .text:
             valueForReturn = originTextInCell
+            valueForReturn.shrinkUrlAddress()
         case .audio, .video, .photo:
 
             var theAddedText:String = ""

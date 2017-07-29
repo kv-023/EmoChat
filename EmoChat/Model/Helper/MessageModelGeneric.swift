@@ -28,7 +28,7 @@ class MessageModelGeneric: RegexCheckProtocol, Hashable {
         return content?.content ?? ""
     }
 
-    //MARK class functions
+    //MARK: class functions
     init() {
 
     }
@@ -51,43 +51,3 @@ class MessageModelGeneric: RegexCheckProtocol, Hashable {
         return lhs.uid == rhs.uid
     }
 }
-
-
-//protocol MessageModelGeneric: RegexCheckProtocol {
-//    weak var message: Message? {get set}
-//    var uid: String? {get}
-////    var hashValue: Int {get}
-////    associatedtype currentApplicationClass: Self
-//}
-//
-////MARK:- MessageModel Hashable
-//
-//extension MessageModelGeneric {
-//
-////    var hashValue: Int {
-////        return self.uid?.hashValue ?? 0
-////    }
-//
-////    static func ==<T: Self>(lhs: T, rhs: T) -> Bool {
-////        return lhs.uid == rhs.uid
-////    }
-//
-//    //get data from model
-//    var senderId: String {
-//        return message?.senderId ?? ""
-//    }
-//    var uid: String? {
-//        return message?.uid
-//    }
-//    var time: Date? {
-//        return message?.time
-//    }
-//    var content:MessageContentDataType? {
-//        return message?.content
-//    }
-//    var messageText: String {
-//        return content?.content ?? ""
-//    }
-//
-//}
-

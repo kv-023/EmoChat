@@ -9,8 +9,6 @@
 import Foundation
 
 class MessageModel: MessageModelGeneric {
-//    typealias currentProtocolType = MessageModel
-
 
 //    weak var message: Message?
     var dataForRestUIInfoView: DataForRestUIInfoView?
