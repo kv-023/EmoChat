@@ -20,7 +20,8 @@ class MessageModelAudio: MessageModelGeneric {
             deadline: .now() + .seconds(delay), execute: {[unowned self] in
 
                 //smth to do...
-
+                let _ = self.content
+                
                 DispatchQueue.main.async {
                     
                     completion(true)

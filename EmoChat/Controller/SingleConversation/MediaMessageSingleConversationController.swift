@@ -16,7 +16,7 @@ import UIKit
 
 extension CustomTableViewCell {
 
-//    static var backGroundColorOfExtraView = UIColor.lightGray.withAlphaComponent(0.3)
+    //    static var backGroundColorOfExtraView = UIColor.lightGray.withAlphaComponent(0.3)
 
     func getMediaContentFromMessageText(delaySeconds delay: Int = 0) {
 
@@ -52,8 +52,8 @@ extension CustomTableViewCell {
                 return "AudioMessageView"
             case .text:
                 return "RestUIInfo2"
-            case .photo, .video:
-                return "NEED-TO-REWRITE"
+//            case .photo, .video:
+//                return "NEED-TO-REWRITE !!!"
             default:
                 return "RestUIInfo2"
             }
@@ -70,7 +70,7 @@ extension CustomTableViewCell {
         return uid == self.messageEntity?.uid
     }
 
-//    //MARK: load detail & update UI
+    //    //MARK: load detail & update UI
     public func updateUIForMediaMessageModel() {
         if !Thread.isMainThread {
             DispatchQueue.main.async {
@@ -98,20 +98,10 @@ extension CustomTableViewCell {
     }
 
     func showViewForContent() {
-//        switch contentTypeOfMessage {
-//        case .audio:
-//            showViewForContent1(viewType: AudioMessageView.self)
-//        case .text:
-//            showViewForContent1(viewType: RestUIInfoView.self)
-//            //                case .photo, .video:
-//        //                    return UIView
-//        default:
-//            break
-//        }
-        showViewForContent1(viewType: getTypeOfCurrenContent())
+        showViewForContentType(viewType: getTypeOfCurrenContent())
     }
 
-    func showViewForContent1<Tview: ExtraView>(viewType: Tview.Type?) {
+    private func showViewForContentType<Tview: ExtraView>(viewType: Tview.Type?) {
 
         guard viewType != nil else {
             print("unknown type in func. showViewForContent !!")
@@ -124,7 +114,7 @@ extension CustomTableViewCell {
         contentViewCell?.captionLabel?.text = NSLocalizedString("loading ...", comment: "")//NSLocalizedString("loading ... \(Int(arc4random_uniform(UInt32(240))))", comment: "")
     }
 
-    func getContentViewCell<T: UIView>() -> T? {
+    func getContentViewCell<T: ExtraView>() -> T? {
         var contentViewCell:T?
 
         let tasksGroup = DispatchGroup()
@@ -152,17 +142,17 @@ extension CustomTableViewCell {
         guard itIsRightModelWithMessage() else {
             return
         }
-//        guard let currentCastedMessageModel = self.messageModel as? Tview? else {
-//            print ("An error occured durring casted messsage model to type: \(String(describing: viewType))")
-//            return
-//        }
+        //        guard let currentCastedMessageModel = self.messageModel as? Tview? else {
+        //            print ("An error occured durring casted messsage model to type: \(String(describing: viewType))")
+        //            return
+        //        }
 
         weak var contentViewCell:Tview?
 
-//        guard let messageURLData = messageModel?.messageURLData else {
-//            return
-//        }
-//
+        //        guard let messageURLData = messageModel?.messageURLData else {
+        //            return
+        //        }
+        //
         contentViewCell = getContentViewCell()
 
         DispatchQueue.main.async  {
@@ -193,71 +183,21 @@ extension CustomTableViewCell {
                                                                newFileName: nameOfFile,
                                                                result: { (localUrl) in
 
-                    dicTemData.updateValue(localUrl?.path, forKey: "url")
-                    dicTemData.updateValue("", forKey: "captionLabel")
+                                                                dicTemData.updateValue(localUrl?.path, forKey: "url")
+                                                                dicTemData.updateValue("", forKey: "captionLabel")
 
-                    downloadGroup.leave()
+                                                                downloadGroup.leave()
                 })
             }
-//            downloadGroup.wait()
 
+            downloadGroup.notify(queue: DispatchQueue.main) {
 
-
-//
-//                if let valueModel = value as? UrlembedModel {
-//
-//                    contentViewCell?.dataModel = valueModel
-//
-//                    let arrayOfURL: [(String,String?)] = [("mainImage", valueModel.url),
-//                                                          ("urlImageIco", valueModel.favicon)]
-//
-//                    let _ = DispatchQueue.global(qos: .userInitiated)
-//                    DispatchQueue.concurrentPerform(iterations: arrayOfURL.count) { i in
-//                        let index = Int(i)
-//                        let (dataField, urlAdress) = arrayOfURL[index]
-//
-//                        downloadGroup.enter()
-//
-//                        dicTemData.updateValue("", forKey: "captionLabel")
-//                        dicTemData.updateValue(valueModel.text, forKey: "detailLabel")
-//
-//                        if let notNullUrl = urlAdress,
-//                            notNullUrl.characters.count > 0 {
-//                            JSONParser.sharedInstance.downloadImage(url: notNullUrl) { (image) in
-//
-//                                var imageForCell = image
-//
-//                                //resize it
-//                                if let notNullImage = imageForCell {
-//                                    let rectValue:CGFloat = 50
-//                                    if (notNullImage.size.height > rectValue || notNullImage.size.width > rectValue) == true {
-//                                        imageForCell = notNullImage.resizeImageWith(newSize:
-//                                            CGSize(width: rectValue, height: rectValue))
-//                                    }
-//                                }
-//
-//                                dicTemData.updateValue(imageForCell, forKey: dataField)
-//                                downloadGroup.leave()
-//                            }
-//                        } else {
-//                            downloadGroup.leave()
-//                        }
-//                    }
-//                }
-//
-//                break // only one cycle needed
-//            }
-//
-            downloadGroup.notify(queue: DispatchQueue.main) { // 2
-//                DispatchQueue.main.async  {
-
-//                    let tempParsedData = DataForAudioMessageInfoView(dict: dicTemData)
-//                    contentViewCell?.dataForMediaInfoView = tempParsedData
-                    contentViewCell?.setDataForMediaContentFromDictionary(dict: dicTemData)
-                    self.messageModel?.dataForMediaInfoView = contentViewCell?.dataForMediaInfoView
-                    contentViewCell?.spinner.stopAnimating()
-                }
-//            }
+                //                    let tempParsedData = DataForAudioMessageInfoView(dict: dicTemData)
+                //                    contentViewCell?.dataForMediaInfoView = tempParsedData
+                contentViewCell?.setDataForMediaContentFromDictionary(dict: dicTemData)
+                self.messageModel?.dataForMediaInfoView = contentViewCell?.dataForMediaInfoView
+                contentViewCell?.spinner.stopAnimating()
+            }
         }
 
     }
@@ -265,16 +205,16 @@ extension CustomTableViewCell {
 
 
     //MARK:- UIView creation
-    fileprivate func getPrepareXibOfEmbeddedView<Tview: UIView>(eraseExtraViews: Bool = true,
-                                             xibName: String? = nil) -> Tview? {
+    fileprivate func getPrepareXibOfEmbeddedView<Tview: ExtraView>(eraseExtraViews: Bool = true,
+                                                 xibName: String? = nil,
+                                                 tryToReloadView:Bool = false) -> Tview? {
         guard let masterContainer = self.previewContainer else {
             return nil
         }
 
         let xibNameForLoad = xibName ?? extraViewXibName
 
-        let tryToReloadView:Bool = false //maybe, later it can be useful
-        if tryToReloadView {
+        if tryToReloadView { //maybe, later it can be useful
             //var arrayOfViews = getRestUIInfoViewFromView(view: masterContainer)
             var arrayOfViews:[Tview] = getRequestedViewFromView(view: masterContainer)
 
@@ -310,18 +250,19 @@ extension CustomTableViewCell {
         }
     }
 
-//    func setPreviewContainerHeight(height: CGFloat) {
-//        self.heightOfPreviewContainer.constant = height
-//    }
+    //    func setPreviewContainerHeight(height: CGFloat) {
+    //        self.heightOfPreviewContainer.constant = height
+    //    }
 
-    private func xibToFrameSetup<Tview: UIView>(xibName: String) -> Tview {
+    private func xibToFrameSetup<Tview: ExtraView>(xibName: String) -> Tview {
 
         let contentViewCell = Bundle.main.loadNibNamed(xibName,
                                                        owner: self.previewContainer,
                                                        options: nil)?.first as! Tview
 
-//        contentViewCell.eraseAllFields()
-//        contentViewCell.captionLabel.text = NSLocalizedString("loading ...", comment: "")
+
+        contentViewCell.eraseAllFields()
+        //        contentViewCell.captionLabel.text = NSLocalizedString("loading ...", comment: "")
 
         let ccViewHeight = contentViewCell.bounds.height
         contentViewCell.translatesAutoresizingMaskIntoConstraints = false
@@ -338,13 +279,12 @@ extension CustomTableViewCell {
         setConstrainInSubView(embeddedView: contentViewCell, parrentView: self.previewContainer)
         self.previewContainer.layoutIfNeeded()
 
-//        self.singleConversationControllerDelegate?.resizeSingleConversationCell(cell: self)
+        //        self.singleConversationControllerDelegate?.resizeSingleConversationCell(cell: self)
 
         let radiuR:CGFloat = 10
         self.previewContainer.layer.cornerRadius = radiuR
         contentViewCell.layer.cornerRadius = radiuR
-//        contentViewCell.mainImage.layer.cornerRadius = radiuR
-//        contentViewCell.mainImage.layer.masksToBounds = true
+
         contentViewCell.layer.masksToBounds = true
 
         contentViewCell.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
@@ -368,8 +308,8 @@ extension CustomTableViewCell {
         self.addConstraint(top)
     }
 
-    func removeRequestedViewFromView<Tview: UIView>(view masterView: UIView,
-                                      arrayOfRequestedViews: inout [Tview]) {
+    func removeRequestedViewFromView<Tview: ExtraView>(view masterView: UIView,
+                                     arrayOfRequestedViews: inout [Tview]) {
 
         for currentSubview in arrayOfRequestedViews {
             if let notNullIndexOfElement = arrayOfRequestedViews.index(of: currentSubview) {
@@ -398,30 +338,10 @@ extension CustomTableViewCell {
         let subviews = masterView.subviews
 
         for currentSubview in subviews {
-
-//            guard currentSubview is UIView else {
-//                continue
-//            }
-
+            
             currentSubview.removeFromSuperview()
         }
     }
-
-
-
-//    func getRestUIInfoViewFromView(view masterView: UIView) -> Array<RestUIInfoView> {
-//        let subviews = masterView.subviews
-//        
-//        var arrayForReturn: Array<RestUIInfoView> = []
-//        for currentSubview in subviews {
-//            
-//            if let currentMySubview: RestUIInfoView = currentSubview as? RestUIInfoView {
-//                arrayForReturn.append(currentMySubview)
-//            }
-//        }
-//        
-//        return arrayForReturn
-//    }
 
     func getRequestedViewFromView<Tview>(view masterView: UIView) -> Array<Tview> {
         let subviews = masterView.subviews

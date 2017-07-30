@@ -192,13 +192,13 @@ extension CustomTableViewCell {
     }
 
     //MARK:- UIView creation
-    private func getPrepareXibOfEmbeddedView(eraseExtraViews: Bool = true) -> RestUIInfoView? {
+    private func getPrepareXibOfEmbeddedView(eraseExtraViews: Bool = true,
+                                             tryToReloadView:Bool = false) -> RestUIInfoView? {
         guard let masterContainer = self.previewContainer else {
             return nil
         }
 
-        let tryToReloadView:Bool = false //maybe, later it can be useful
-        if tryToReloadView {
+        if tryToReloadView {//maybe, later it can be useful
             var arrayOfViews = getRestUIInfoViewFromView(view: masterContainer)
 
             let countOfViews = arrayOfViews.count
