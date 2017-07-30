@@ -357,7 +357,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             return
         }
 
-//        currentMessage.content = textMessage.text
         manager?.createMessage(conversation: notNullCurrentConversation,
                                sender: currentUser,
                                content: currentMessage,
@@ -603,7 +602,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         textMessage.text = NSLocalizedString("Type message...", comment: "")
 
         currentMessage.setData(content: textMessage.text, type: .text)
-//        currentMessage.type = .text
 
         textMessage.textColor = .lightGray
         
@@ -627,7 +625,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             textView.isScrollEnabled = false
             self.textViewMaxHeightConstraint.isActive = false
         }
-//        currentMessage.setData(content: textMessage.text, type: .text)
+        currentMessage.setData(content: textView.text, type: .text)
     }
     
     func textViewDidBeginEditing(_ textView: UITextView){
@@ -655,12 +653,11 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         textView.resignFirstResponder()
         
         self.animateTextViewTransitions(becomeFirstResponder: false)
-//        currentMessage.setData(content: textMessage.text, type: .text)
+        currentMessage.setData(content: textView.text, type: .text)
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        
-        currentMessage.setData(content: text, type: .text)
+
         scrollToLastMessage()
         return true
     }

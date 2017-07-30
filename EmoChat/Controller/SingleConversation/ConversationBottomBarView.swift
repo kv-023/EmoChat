@@ -37,7 +37,6 @@ protocol SingleConversationBottomBarProtocol: class {
 
         if audioRecordDelegate == nil {
             audioRecordDelegate = AudioMessageControl.cInit()
-
         }
 
         sender.isSelected = !sender.isSelected

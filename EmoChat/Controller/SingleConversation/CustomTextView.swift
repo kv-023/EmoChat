@@ -39,4 +39,9 @@ extension CustomTextView: CustomTextViewProtocol {
         self.text = text
     }
 
+    func setEditingStyle(flag: Bool = true) {
+        self.isEditable = flag
+        self.isUserInteractionEnabled = flag
+    }
+
 }

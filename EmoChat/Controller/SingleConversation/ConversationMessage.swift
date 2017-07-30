@@ -8,6 +8,7 @@
 
 protocol CustomTextViewProtocol: class {
     func setText(text: String)
+    func setEditingStyle(flag: Bool)
 }
 
 class ConversationMessage {
@@ -18,26 +19,48 @@ class ConversationMessage {
 
     var content: String {
         didSet {
+            originContent = content
+
+            //try to make representation for media content
+            var theAddedText:String = ""
+            switch type {
+            case .text:
+                break
+            case .audio:
+                theAddedText = "🎤"
+                fallthrough
+//            case .photo, .video
+            default:
+                content =  theAddedText + type.rawValue
+                break
+            }
+
             linkedTextViewDelegate?.setText(text: content)
         }
     }
-
-    var type: MessageContentType
+    var type: MessageContentType {
+        didSet {
+            //only for text should left editing style
+            linkedTextViewDelegate?.setEditingStyle(flag: type == MessageContentType.text)
+        }
+    }
+    var originContent: String
 
     init() {
-        content = ""
         type = .text
+        content = ""
+        originContent = ""
     }
 
     private func setInitData() {
-        content = ""
         type = .text
+        content = ""
     }
 
     func setData(content: String,
                  type: MessageContentType) {
-        self.content = content
         self.type = type
+        self.content = content
     }
 
     func eraseAllData() {
