@@ -114,14 +114,14 @@ extension CustomTableViewCell {
     func showViewForContent1<Tview: ExtraView>(viewType: Tview.Type?) {
 
         guard viewType != nil else {
-            print("unknown type in func showViewForContent !!")
+            print("unknown type in func. showViewForContent !!")
             return
         }
 
         // weak var contentViewCell:RestUIInfoView?
         let contentViewCell:Tview? = getContentViewCell()
         contentViewCell?.spinner.startAnimating()
-        contentViewCell?.captionLabel?.text = NSLocalizedString("loading ... \(Int(arc4random_uniform(UInt32(240))))", comment: "")
+        contentViewCell?.captionLabel?.text = NSLocalizedString("loading ...", comment: "")//NSLocalizedString("loading ... \(Int(arc4random_uniform(UInt32(240))))", comment: "")
     }
 
     func getContentViewCell<T: UIView>() -> T? {
@@ -192,10 +192,11 @@ extension CustomTableViewCell {
                 JSONParser.sharedInstance.downloadMediaFromURL(url: notNullUrl,
                                                                newFileName: nameOfFile,
                                                                result: { (localUrl) in
-                    downloadGroup.leave()
+
                     dicTemData.updateValue(localUrl?.path, forKey: "url")
                     dicTemData.updateValue("", forKey: "captionLabel")
-                    
+
+                    downloadGroup.leave()
                 })
             }
 //            downloadGroup.wait()

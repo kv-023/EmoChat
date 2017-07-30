@@ -52,7 +52,9 @@ class JSONParser: NSObject {
                 let fileManager = FileManager.default
 
                 //Get documents directory URL
-                let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+//                let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+                let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+                let documentsDirectory = URL(fileURLWithPath: path)
 
                 var fileName = ""
                 if  newFileName == "" {
@@ -65,9 +67,10 @@ class JSONParser: NSObject {
 
                 // Check if Directory exist
                 let directoryMediaUrl = documentsDirectory.appendingPathComponent("fBaseAudio")
-                if fileManager.fileExists(atPath: directoryMediaUrl.path) == false {
+                let directoryMediaUrlExists = (try? directoryMediaUrl.checkResourceIsReachable()) ?? false
+                if !directoryMediaUrlExists {
                     do {
-                        try fileManager.createDirectory(at: directoryMediaUrl,
+                        try fileManager.createDirectory(atPath: directoryMediaUrl.path,
                                                         withIntermediateDirectories: false,
                                                         attributes: nil)
                     } catch {
@@ -76,23 +79,23 @@ class JSONParser: NSObject {
                 }
 
                 let destinationURL = directoryMediaUrl.appendingPathComponent(fileName)
-
-//                // Check if file exist
-//                if fileManager.fileExists(atPath: destinationURL.path) {
+                let destinationURLExists = (try? destinationURL.checkResourceIsReachable()) ?? false
+                // Check if file exist
+                if !destinationURLExists {
 //                    do{
 //                        try fileManager.removeItem(at: documentsDirectory)
 //                    } catch {
 //                        print(error.localizedDescription)
 //                    }
-//                }
-
-                // Copy File From Temp Folder To Documents Directory
-                do {
-                    try fileManager.copyItem(atPath: localUrl.path,
-                                             toPath: destinationURL.path)
-                } catch {
-                    print(error.localizedDescription)
+                    // Copy File From Temp Folder To Documents Directory
+                    do {
+                        try fileManager.copyItem(atPath: localUrl.path,
+                                                 toPath: destinationURL.path)
+                    } catch {
+                        print(error.localizedDescription)
+                    }
                 }
+
 
                 result(destinationURL)
             } else { // need this to avoid everlasting loop

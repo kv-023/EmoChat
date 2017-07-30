@@ -12,6 +12,7 @@ import AVFoundation
 
 class AudioMessageControl: NSObject, AVAudioRecorderDelegate {//UIViewController,
 
+    weak var audioMessageWaveForm: AudioMessageWaveForm?
     var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
     var settings = [String : Int]()
@@ -34,18 +35,6 @@ class AudioMessageControl: NSObject, AVAudioRecorderDelegate {//UIViewController
 
         return newInstance
     }
-
-
-//    //MARK - ViewDidLoad
-//
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//
-//        // PSButtonOutfit.isEnabled = false // disable play button
-//        initiateSVariable()
-//
-////        audioSecondsValLabel.text = String(audioSecondsVal)
-//    }
 
     func initiateSVariable() {
         recordingSession = AVAudioSession.sharedInstance()
@@ -127,34 +116,6 @@ class AudioMessageControl: NSObject, AVAudioRecorderDelegate {//UIViewController
         }
     }
 
-
-    //MARK - button to star/stop recording
-
-//    @IBAction func click_AudioRecord(_ sender: AnyObject) {
-////        if audioRecorder == nil {
-////            //            self.btnAudioRecord.setImage(#imageLiteral(resourceName: "StopAudioMessage"), for: UIControlState.normal)
-////
-////            DispatchQueue.main.async {
-////                self.startRecording()
-////            }
-////
-////        } else {
-////            //            audioSecondsValLabel.text = String(audioSecondsVal)
-////
-////            //            self.btnAudioRecord.setImage(#imageLiteral(resourceName: "RecordAudioMessage"), for: UIControlState.normal)
-////
-////            self.finishRecording(success: true)
-////
-////            //            manager = ManagerFirebase.shared
-////            //            manager?.handleAudioSendWith(url: audioRecorder.url, result:{ [unowned self] (urlFromFireBase) in
-////            //                // self.showAudioMessage(url: urlFromFireBase)
-////            //                self.initPlayer(url: urlFromFireBase)
-////            //            })
-////        }
-//
-//
-//    }
-
     func startAudioRecorder() {
         if audioRecorder != nil {
             audioRecorder.stop()
@@ -227,11 +188,11 @@ class AudioMessageControl: NSObject, AVAudioRecorderDelegate {//UIViewController
         let buf = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: UInt32(file.length))//Buffer
         try! file.read(into: buf)//Read Floats
         //Store the array of floats in the struct
-        readFile.arrayFloatValues = Array(UnsafeBufferPointer(start: buf.floatChannelData?[0], count:Int(buf.frameLength)))
+        audioMessageWaveForm?.readFile.arrayFloatValues = Array(UnsafeBufferPointer(start: buf.floatChannelData?[0], count:Int(buf.frameLength)))
     }
 
-
 }
+
 
 //MARK:- AudioRecordProtocol
 extension AudioMessageControl: AudioRecordProtocol {
@@ -250,7 +211,13 @@ extension AudioMessageControl: AudioRecordProtocol {
 //MARK:- AudioRecordPlayback
 extension AudioMessageControl: AudioRecordPlaybackProtocol {
 
-    func analyzeAudioMessage(url: URL) {
+    func analyzeAudioMessage(url: URL, waveFormView: AudioMessageWaveForm?) {
+        //try to link wave form, if needed
+        if self.audioMessageWaveForm == nil
+            &&  waveFormView != nil {
+            self.audioMessageWaveForm = waveFormView
+        }
+        
         audioMessageToAnalyze(url: url)
     }
 

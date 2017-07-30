@@ -9,7 +9,12 @@
 import UIKit
 import Accelerate
 
+
+
 class AudioMessageWaveForm: UIView {
+
+    var readFile = ReadFile()
+    var progressPath = ProgressPath()
 
 // MARK - draw
     override func draw(_ rect: CGRect) {
@@ -50,14 +55,14 @@ class AudioMessageWaveForm: UIView {
         aPath.stroke()
         aPath.fill()
         
-        ProgressPath.sharedIstance.upperPath = aPath
-        ProgressPath.sharedIstance.upperPathColor = upperPathColor
+        progressPath.upperPath = aPath
+        progressPath.upperPathColor = upperPathColor
         
         f = 0
         aPath2.move(to: CGPoint(x:0.0 , y:rect.height/2 ))
         
         //Reflection of waveform
-        for _ in readFile.points{
+        for _ in readFile.points {
             var x:CGFloat = 2.5
             aPath2.move(to: CGPoint(x:aPath2.currentPoint.x + x , y:aPath2.currentPoint.y ))
             
@@ -77,8 +82,8 @@ class AudioMessageWaveForm: UIView {
         aPath2.fill()
 
 
-        ProgressPath.sharedIstance.lowerPathColor = lowerPathColor
-        ProgressPath.sharedIstance.lowerPath = aPath2
+        progressPath.lowerPathColor = lowerPathColor
+        progressPath.lowerPath = aPath2
     }
     
     // MARK - convertToPoints
@@ -92,8 +97,8 @@ class AudioMessageWaveForm: UIView {
       
         
         var multiplier = 1.0
-        print(multiplier)
-        if multiplier < 1{
+//        print(multiplier)
+        if multiplier < 1 {
             multiplier = 1.0
             
         }
@@ -124,8 +129,8 @@ class AudioMessageWaveForm: UIView {
             return
         }
 
-        let pathUp = ProgressPath.sharedIstance.upperPath
-        let pathDown = ProgressPath.sharedIstance.lowerPath
+        let pathUp = progressPath.upperPath
+        let pathDown = progressPath.lowerPath
 
         let currentAudioDuration: CFTimeInterval = NotNullAudioSecondsVal
         setInitialDraw(pathUp: pathUp,
@@ -147,7 +152,7 @@ class AudioMessageWaveForm: UIView {
                     DispatchQueue.global(qos: .userInitiated).asyncAfter(
                         deadline: .now() + .seconds(eraseLayerDelay), execute: {
                             DispatchQueue.main.async {
-                                ProgressPath.sharedIstance.removeLayersFromSuperView()
+                                self.progressPath.removeLayersFromSuperView()
                             }
                     })
                 }
@@ -181,8 +186,8 @@ class AudioMessageWaveForm: UIView {
 //        self.WaveFormView.
         self.layer.addSublayer(shapeLayerLower)
 
-        ProgressPath.sharedIstance.addLayer(layer: shapeLayerUpper)
-        ProgressPath.sharedIstance.addLayer(layer: shapeLayerLower)
+        progressPath.addLayer(layer: shapeLayerUpper)
+        progressPath.addLayer(layer: shapeLayerLower)
     }
 
     private func setOutroDraw(pathUp: UIBezierPath?,
@@ -191,12 +196,12 @@ class AudioMessageWaveForm: UIView {
         let shapeLayerUpper = CAShapeLayer()
         shapeLayerUpper.frame = self.layer.bounds//self.WaveFormView.layer.bounds
         shapeLayerUpper.path = pathUp?.cgPath
-        shapeLayerUpper.strokeColor = ProgressPath.sharedIstance.upperPathColor.cgColor
+        shapeLayerUpper.strokeColor = progressPath.upperPathColor.cgColor
 
         let shapeLayerLower = CAShapeLayer()
         shapeLayerLower.frame = self.layer.bounds//self.WaveFormView.layer.bounds
         shapeLayerLower.path = pathDown?.cgPath
-        shapeLayerLower.strokeColor =  ProgressPath.sharedIstance.lowerPathColor.cgColor
+        shapeLayerLower.strokeColor =  progressPath.lowerPathColor.cgColor
 
         let strokeEndAnimationCleaner = CABasicAnimation(keyPath: "transform.scale.y")
         strokeEndAnimationCleaner.duration = duration
@@ -211,17 +216,17 @@ class AudioMessageWaveForm: UIView {
 //        self.WaveFormView.
         self.layer.addSublayer(shapeLayerLower)
 
-        ProgressPath.sharedIstance.addLayer(layer: shapeLayerUpper)
-        ProgressPath.sharedIstance.addLayer(layer: shapeLayerLower)
+        progressPath.addLayer(layer: shapeLayerUpper)
+        progressPath.addLayer(layer: shapeLayerLower)
     }
 }
 
 //Mark:- Auxiliary structures
+struct ReadFile {
+    static var sharedIstance = ReadFile()
 
-struct readFile {
-
-    static var arrayFloatValues:[Float] = []
-    static var points:[CGFloat] = []
+    var arrayFloatValues:[Float] = []
+    var points:[CGFloat] = []
 }
 
 struct ProgressPath {
@@ -247,7 +252,7 @@ struct ProgressPath {
                 layerOfData.removeFromSuperlayer()
             }
 
-            ProgressPath.sharedIstance.layerData?.removeAll()
+            layerData?.removeAll()
         }
     }
 }

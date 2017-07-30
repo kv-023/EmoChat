@@ -12,7 +12,7 @@ protocol AudioRecordPlaybackProtocol: class {
 
     func playAudio(urlFromFireBase url: URL?)
     var audioSecondsVal: Double { get }
-    func analyzeAudioMessage(url: URL)
+    func analyzeAudioMessage(url: URL, waveFormView: AudioMessageWaveForm?)
 }
 
 class AudioMessageView: AdditionalCellView {
@@ -35,7 +35,8 @@ class AudioMessageView: AdditionalCellView {
         didSet{
             if let notNullURL = self.url, notNullURL != "" {
                 let localUrlPath = URL(fileURLWithPath: notNullURL)
-                audioPlaybackDelegate?.analyzeAudioMessage(url: localUrlPath)
+
+                audioPlaybackDelegate?.analyzeAudioMessage(url: localUrlPath, waveFormView: self.WaveFormView)
                 if let currentAudioSecondsVal = audioPlaybackDelegate?.audioSecondsVal {
                     captionLabel.textAlignment = .left
                     captionLabel.text = String(currentAudioSecondsVal) + " sec."
@@ -56,9 +57,9 @@ class AudioMessageView: AdditionalCellView {
     override func fullFillViewFromDataInfo(data: DataForMediaMessageInfoProtocol) {
         super.fullFillViewFromDataInfo(data: data)
 
-        if let castedData = data as? DataForAudioMessageInfoView {
-
-        }
+//        if let castedData = data as? DataForAudioMessageInfoView {
+//
+//        }
     }
 
     override func setDataForMediaContentFromDictionary(dict: [String: Any?]) {

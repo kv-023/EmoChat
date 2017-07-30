@@ -200,7 +200,7 @@ class AudioMessageViewController: UIViewController, AVAudioRecorderDelegate {
         let buf = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: UInt32(file.length))//Buffer
         try! file.read(into: buf)//Read Floats
         //Store the array of floats in the struct
-        readFile.arrayFloatValues = Array(UnsafeBufferPointer(start: buf.floatChannelData?[0], count:Int(buf.frameLength)))
+        ReadFile.sharedIstance.arrayFloatValues = Array(UnsafeBufferPointer(start: buf.floatChannelData?[0], count:Int(buf.frameLength)))
     }
     
     func playingProgress() {

@@ -90,7 +90,6 @@
 		E7B926F21EF1487B0018F5FF /* PopOverVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7B926EC1EF1487B0018F5FF /* PopOverVC.xib */; };
 		E7B926F31EF1487B0018F5FF /* PopOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B926ED1EF1487B0018F5FF /* PopOverViewController.swift */; };
 		E7B926F41EF1487B0018F5FF /* UIColorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B926EE1EF1487B0018F5FF /* UIColorHelper.swift */; };
-		E7F801961F2739FA002AEC3F /* AudioHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F801901F2739FA002AEC3F /* AudioHelper.swift */; };
 		E7F801971F2739FA002AEC3F /* AudioMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F801911F2739FA002AEC3F /* AudioMessageViewController.swift */; };
 		E7F801981F2739FA002AEC3F /* AudioMessageWaveForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F801921F2739FA002AEC3F /* AudioMessageWaveForm.swift */; };
 		E7F8019A1F2739FA002AEC3F /* testAudioMessage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7F801941F2739FA002AEC3F /* testAudioMessage.storyboard */; };
@@ -201,7 +200,6 @@
 		E7B926EC1EF1487B0018F5FF /* PopOverVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopOverVC.xib; sourceTree = "<group>"; };
 		E7B926ED1EF1487B0018F5FF /* PopOverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopOverViewController.swift; sourceTree = "<group>"; };
 		E7B926EE1EF1487B0018F5FF /* UIColorHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorHelper.swift; sourceTree = "<group>"; };
-		E7F801901F2739FA002AEC3F /* AudioHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioHelper.swift; sourceTree = "<group>"; };
 		E7F801911F2739FA002AEC3F /* AudioMessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioMessageViewController.swift; sourceTree = "<group>"; };
 		E7F801921F2739FA002AEC3F /* AudioMessageWaveForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioMessageWaveForm.swift; sourceTree = "<group>"; };
 		E7F801941F2739FA002AEC3F /* testAudioMessage.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = testAudioMessage.storyboard; sourceTree = "<group>"; };
@@ -552,7 +550,6 @@
 			children = (
 				E7AA99BE1F2C8CEF0037BD2A /* Model */,
 				E7AA99B51F2BB3660037BD2A /* View */,
-				E7F801901F2739FA002AEC3F /* AudioHelper.swift */,
 				E7F801911F2739FA002AEC3F /* AudioMessageViewController.swift */,
 				E7F8019C1F274C67002AEC3F /* AudioMessageControl.swift */,
 				E7F801921F2739FA002AEC3F /* AudioMessageWaveForm.swift */,
@@ -798,7 +795,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E7F801961F2739FA002AEC3F /* AudioHelper.swift in Sources */,
 				E7352C261EDED52B0095264E /* Conversation.swift in Sources */,
 				842E8B6C1EF931C900CA3BF2 /* ConversationsDataSource.swift in Sources */,
 				F5E339401EF6DA5500D224BF /* ChatSettingsTableViewController.swift in Sources */,

@@ -45,7 +45,6 @@ class CustomTableViewCell: UITableViewCell {
                         setNullableDataInPreviewContainer()
                     }
                 } else {
-//                    let arrayOfLinks = self.getArrayOfRegexMatchesForURLInText(text: self.message.text)
                 let arrayOfLinks = self.getArrayOfRegexMatchesForURLInText(text: self.originTextInCell)
 
                     if arrayOfLinks.count > 0 {
@@ -71,7 +70,6 @@ class CustomTableViewCell: UITableViewCell {
                     showViewForContent()
                     //parseDataFromMessageTextForCell()
                     getMediaContentFromMessageTextForCell()
-
                 }
 
 
