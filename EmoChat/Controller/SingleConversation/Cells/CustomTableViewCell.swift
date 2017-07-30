@@ -10,17 +10,17 @@ import UIKit
 
 
 class CustomTableViewCell: UITableViewCell {
-    
+
     @IBOutlet weak var userPic: UIImageView!
     @IBOutlet weak var time: UILabel!
     @IBOutlet weak var message: SpecialTextView!
     @IBOutlet weak var background: UIImageView!
     @IBOutlet weak var previewContainer: UIView!
     @IBOutlet weak var heightOfPreviewContainer: NSLayoutConstraint!
-    
+
     weak var delegate: CellDelegate!
     weak var singleConversationControllerDelegate: SingleConversationControllerProtocol?
-    
+
     var temporaryCellHeight:CGFloat = 0
     var extraCellHeiht:CGFloat {
         return heightOfPreviewContainer.constant
@@ -49,6 +49,7 @@ class CustomTableViewCell: UITableViewCell {
                 if arrayOfLinks.count > 0 {
                     //lets show spinner animation
                     showViewForRestUIContent()
+                    //get&show data
                     parseDataFromMessageTextForCell()
                 } else {
                     setNullableDataInPreviewContainer()
@@ -56,30 +57,25 @@ class CustomTableViewCell: UITableViewCell {
 
             }
         case .audio:
-            //                showViewForContent()
             let notNullMessageModel = messageModel as? MessageModelAudio
 
             if notNullMessageModel?.dataForMediaInfoView != nil {
 
                 updateUIForMediaMessageModel()
             } else {
-
+                //lets show spinner animation
                 showViewForContent()
+                //get&show data
                 getMediaContentFromMessageTextForCell()
             }
 
         default:
             break
         }
-
     }
 
-    weak var messageModel: MessageModelGeneric? {
-        didSet {
+    weak var messageModel: MessageModelGeneric? // don't use observers like DidSet.. - it can init memory leaks!!
 
-                }
-    }
-    
     //SHOULD BE OVERRIDDEN IN SUBCLASSES FOR DIFFERENT CONTENT TYPE
     var messageEntity: Message? {
         didSet {
@@ -101,40 +97,39 @@ class CustomTableViewCell: UITableViewCell {
             return self.background.frame
         }
     }
-    
+
     func handler(_ recognizer: UILongPressGestureRecognizer) {
         if recognizer.state == .began {
             delegate.cellDelegate(self, didHandle: .longPress)
         }
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         setInitDataForUI()
     }
-    
+
     private func setInitDataForUI() {
         addRecognizerForMessage()
-        
+
         previewContainer.backgroundColor = UIColor.clear
         setNullableHeightOfPreviewContainer()
     }
-    
+
     func setNullableDataInPreviewContainer() {
-//        removeRestUIInfoViewFromView(view: previewContainer)
         removeViewFromSuperView(view: previewContainer)
         setNullableHeightOfPreviewContainer()
     }
-    
+
     func setNullableHeightOfPreviewContainer() {
         if contentTypeOfMessage != .audio {
             heightOfPreviewContainer.constant = 0
         }
     }
-   
+
     //SHOULD BE OVERRIDDEN TO CHANGE SOURCE FOR TAP RECOGNIZER
-    func addRecognizerForMessage() {        
+    func addRecognizerForMessage() {
         let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(handler))
         message.addGestureRecognizer(recognizer)
     }
@@ -175,7 +170,7 @@ protocol CellDelegate: class {
 
 //MARK:- RegexCheckProtocol ext.
 extension CustomTableViewCell: RegexCheckProtocol {
-
+    
 }
 
 

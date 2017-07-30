@@ -21,13 +21,13 @@ class AudioMessageControl: NSObject, AVAudioRecorderDelegate {//UIViewController
 
     var audioSecondsVal: Double {
         get {
-            //            var valueForReturn: Double = 0.0
-            //            if let tempVal = player.currentItem?.duration {
-            //                valueForReturn = CMTimeGetSeconds(tempVal)
-            //            }
-            let valueForReturn = calcLenthOfAudioFile()
-            return valueForReturn.roundTo(places: 2)
+            //CMTimeGetSeconds(player.currentItem?.duration)
+            return calcLenthOfAudioFile()
         }
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 
     static func cInit() -> AudioMessageControl {
@@ -46,7 +46,7 @@ class AudioMessageControl: NSObject, AVAudioRecorderDelegate {//UIViewController
 
                 DispatchQueue.main.async {
                     if allowed {
-//                        print("Allow")
+                        //                        print("Allow")
                     } else {
                         print("RecordPermission: Dont Allow")
                     }
@@ -57,14 +57,12 @@ class AudioMessageControl: NSObject, AVAudioRecorderDelegate {//UIViewController
         }
 
         // Audio Settings
-
         settings = [
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
             AVSampleRateKey: 12000,
             AVNumberOfChannelsKey: 1,
             AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
         ]
-
     }
 
     //MARK - directoryURL
@@ -74,7 +72,6 @@ class AudioMessageControl: NSObject, AVAudioRecorderDelegate {//UIViewController
         let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
         let documentDirectory = urls[0] as URL
         let soundURL = documentDirectory.appendingPathComponent("sound.m4a")
-//        print(soundURL)
         return soundURL as URL?
     }
 
@@ -109,8 +106,6 @@ class AudioMessageControl: NSObject, AVAudioRecorderDelegate {//UIViewController
         if success {
             print("success")
 
-//            audioMessageToAnalyze(url: audioRecorder.url)
-//            self.WaveFormView.setNeedsDisplay()
         } else {
             audioRecorder = nil
             print("Somthing Wrong.")
@@ -140,7 +135,6 @@ class AudioMessageControl: NSObject, AVAudioRecorderDelegate {//UIViewController
         }
     }
 
-
     //MARK - Play
 
     func urlOfCurrentlyPlayingInPlayer(player: AVPlayer) -> URL? {
@@ -154,64 +148,52 @@ class AudioMessageControl: NSObject, AVAudioRecorderDelegate {//UIViewController
     func calcLenthOfAudioFile() -> Double {
         var valueForReturn: Double = 0
         if let urlFromPlayer = urlOfCurrentlyPlayingInPlayer(player: self.player) {
-            let asset: AVURLAsset = AVURLAsset.init(url: urlFromPlayer)
-            let durationInSeconds: Double = CMTimeGetSeconds(asset.duration)
 
-            valueForReturn = durationInSeconds
+            valueForReturn = calcLenthOfAudioFile(url: urlFromPlayer)
+
         }
         return valueForReturn
     }
 
-//    func showCalcLenthOfAudioFile() {
-//        self.audioSecondsValLabel.text = String(audioSecondsVal)
-//    }
+    func calcLenthOfAudioFile(url: URL) -> Double {
+        var valueForReturn: Double = 0
+
+        let asset: AVURLAsset = AVURLAsset.init(url: url)
+        let durationInSeconds: Double = CMTimeGetSeconds(asset.duration)
+
+        valueForReturn = durationInSeconds
+
+        return valueForReturn.roundTo(places: 2)
+    }
 
     func initPlayer (url: URL) {
-        print("URL: \(url)")
 
-        self.player = AVPlayer(url: url)
-//        self.player.prepareToPlay() //!
+        let playerItem = AVPlayerItem(url: url)
+        self.player.replaceCurrentItem(with: playerItem)
         self.player.volume = 1.0
-        // self.player.play()
-//        self.PSButtonOutfit.setImage(#imageLiteral(resourceName: "PlayAudioMessage"), for: .normal)
         self.audioRecorder = nil
-
-//        showCalcLenthOfAudioFile()
     }
 
     //MARK - audioMessageToAnalyze
 
     func audioMessageToAnalyze(url: URL) {
-        // let url = Bundle.main.url(forResource: url.absoluteString, withExtension: "m4a")
-        let file = try! AVAudioFile(forReading: url)//Read File into AVAudioFile
-        let format = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: file.fileFormat.sampleRate, channels: file.fileFormat.channelCount, interleaved: false)//Format of the file
-
-        let buf = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: UInt32(file.length))//Buffer
+        //Read File into AVAudioFile
+        let file = try! AVAudioFile(forReading: url)
+        //Format of the file
+        let format = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: file.fileFormat.sampleRate, channels: file.fileFormat.channelCount, interleaved: false)
+        //Buffer
+        let buf = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: UInt32(file.length))
         try! file.read(into: buf)//Read Floats
         //Store the array of floats in the struct
         audioMessageWaveForm?.readFile.arrayFloatValues = Array(UnsafeBufferPointer(start: buf.floatChannelData?[0], count:Int(buf.frameLength)))
     }
 
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-
 }
-
-////MARK: - AVAudioPlayerDelegate
-//extension AudioMessageControl: AVAudioPlayerDelegate {
-//
-//    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-//        //       print("player finished!")
-//        audioMessageViewDelegate?.audioPlayerFinishedPlaying()
-//    }
-//}
 
 //MARK:- AudioMessageViewProtocol
 protocol AudioMessageViewProtocol: class {
     func audioPlayerFinishedPlaying()
 }
-
 
 //MARK:- AudioRecordProtocol
 extension AudioMessageControl: AudioRecordProtocol {
@@ -223,12 +205,16 @@ extension AudioMessageControl: AudioRecordProtocol {
     func finishRecordingAudio() -> URL? {
         stopAudioRecorder()
 
-        return audioRecorder.url//urlOfCurrentlyPlayingInPlayer(player: player)
+        return audioRecorder.url
     }
 }
 
 //MARK:- AudioRecordPlayback
 extension AudioMessageControl: AudioRecordPlaybackProtocol {
+
+    func test() {
+
+    }
 
     func analyzeAudioMessage(url: URL, waveFormView: AudioMessageWaveForm?) {
         //try to link wave form, if needed
@@ -236,7 +222,9 @@ extension AudioMessageControl: AudioRecordPlaybackProtocol {
             &&  waveFormView != nil {
             self.audioMessageWaveForm = waveFormView
         }
-        
+
+        self.initPlayer(url: url)
+
         audioMessageToAnalyze(url: url)
     }
 
@@ -251,29 +239,22 @@ extension AudioMessageControl: AudioRecordPlaybackProtocol {
             audioRecorder = nil
         }
 
-
-        //DispatchQueue.main.async {
-//        self.initPlayer(url: notNullUrl)
-
-
-        let playerItem = AVPlayerItem(url: notNullUrl)
-        self.player.replaceCurrentItem(with: playerItem)
+        self.initPlayer(url: notNullUrl)//not necessary!
 
         self.player.play()
         NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying(sender:)),
                                                name: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
-                                               object: playerItem)
-
-
+                                               object: self.player.currentItem)
+        
+        
         if urlOfCurrentlyPlayingInPlayer() != notNullUrl {
             audioMessageToAnalyze(url: notNullUrl)
         }
-
-        //}
+        
     }
-
+    
     func playerDidFinishPlaying(sender: Notification) {
         audioMessageViewDelegate?.audioPlayerFinishedPlaying()
     }
-
+    
 }

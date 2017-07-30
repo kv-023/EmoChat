@@ -10,13 +10,10 @@ import Foundation
 import UIKit
 
 
-//MARK:- Controller for RestUI
-
-
+//MARK:- Controller for Media content
 
 extension CustomTableViewCell {
 
-    //    static var backGroundColorOfExtraView = UIColor.lightGray.withAlphaComponent(0.3)
 
     func getMediaContentFromMessageText(delaySeconds delay: Int = 0) {
 
@@ -35,7 +32,6 @@ extension CustomTableViewCell {
                         self.singleConversationControllerDelegate?.addMessageModelInSingleConversationDictionary(message: notNullMessage,                                                                                                    model: newModel)
                         self.messageModel = newModel
 
-                        //self.updateUI()
                         self.updateUIForMediaMessageModel()
                     }
                 }
@@ -108,10 +104,9 @@ extension CustomTableViewCell {
             return
         }
 
-        // weak var contentViewCell:RestUIInfoView?
         let contentViewCell:Tview? = getContentViewCell()
         contentViewCell?.spinner.startAnimating()
-        contentViewCell?.captionLabel?.text = NSLocalizedString("loading ...", comment: "")//NSLocalizedString("loading ... \(Int(arc4random_uniform(UInt32(240))))", comment: "")
+        contentViewCell?.captionLabel?.text = NSLocalizedString("loading ...", comment: "")
     }
 
     func getContentViewCell<T: ExtraView>() -> T? {
@@ -142,17 +137,9 @@ extension CustomTableViewCell {
         guard itIsRightModelWithMessage() else {
             return
         }
-        //        guard let currentCastedMessageModel = self.messageModel as? Tview? else {
-        //            print ("An error occured durring casted messsage model to type: \(String(describing: viewType))")
-        //            return
-        //        }
 
         weak var contentViewCell:Tview?
 
-        //        guard let messageURLData = messageModel?.messageURLData else {
-        //            return
-        //        }
-        //
         contentViewCell = getContentViewCell()
 
         DispatchQueue.main.async  {
@@ -192,20 +179,17 @@ extension CustomTableViewCell {
 
             downloadGroup.notify(queue: DispatchQueue.main) {
 
-                //                    let tempParsedData = DataForAudioMessageInfoView(dict: dicTemData)
-                //                    contentViewCell?.dataForMediaInfoView = tempParsedData
+                //tempParsedData = DataForAudioMessageInfoView(dict: dicTemData)
+
                 contentViewCell?.setDataForMediaContentFromDictionary(dict: dicTemData)
                 self.messageModel?.dataForMediaInfoView = contentViewCell?.dataForMediaInfoView
 
 //                self.showHideAdditionalInfoFromMessageModel()
-
                 contentViewCell?.spinner.stopAnimating()
             }
         }
 
     }
-
-
 
     //MARK:- UIView creation
     fileprivate func getPrepareXibOfEmbeddedView<Tview: ExtraView>(eraseExtraViews: Bool = true,
@@ -235,10 +219,7 @@ extension CustomTableViewCell {
                                                 arrayOfRequestedViews: &arrayOfViews)
                 }
 
-                //let ccViewHeight = calculateHeightOfView(view: viewForReturn)
-                //setPreviewContainerHeight(height: viewForReturn.heightOriginal)
                 self.previewContainer.layoutIfNeeded()
-                //self.singleConversationControllerDelegate?.resizeSingleConversationCell(cell: self)
 
                 return viewForReturn
             } else {
@@ -253,10 +234,6 @@ extension CustomTableViewCell {
         }
     }
 
-    //    func setPreviewContainerHeight(height: CGFloat) {
-    //        self.heightOfPreviewContainer.constant = height
-    //    }
-
     private func xibToFrameSetup<Tview: ExtraView>(xibName: String) -> Tview {
 
         let contentViewCell = Bundle.main.loadNibNamed(xibName,
@@ -265,7 +242,6 @@ extension CustomTableViewCell {
 
 
         contentViewCell.eraseAllFields()
-        //        contentViewCell.captionLabel.text = NSLocalizedString("loading ...", comment: "")
 
         let ccViewHeight = contentViewCell.bounds.height
         contentViewCell.translatesAutoresizingMaskIntoConstraints = false
