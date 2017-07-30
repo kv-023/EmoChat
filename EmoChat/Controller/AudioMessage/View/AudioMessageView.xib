@@ -23,7 +23,7 @@
                         <constraint firstAttribute="height" constant="46" id="s2N-3Y-RHg"/>
                     </constraints>
                     <state key="normal" title="Button" image="PlayAudioMessage"/>
-                    <state key="selected" image="StopAudioMessage"/>
+                    <state key="selected" image="PauseAudioMessage"/>
                     <connections>
                         <action selector="playStopButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="iqm-2O-Gas"/>
                     </connections>
@@ -74,7 +74,7 @@
         </view>
     </objects>
     <resources>
+        <image name="PauseAudioMessage" width="50" height="50"/>
         <image name="PlayAudioMessage" width="50" height="50"/>
-        <image name="StopAudioMessage" width="50" height="50"/>
     </resources>
 </document>

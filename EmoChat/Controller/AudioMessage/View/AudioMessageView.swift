@@ -9,7 +9,7 @@
 import UIKit
 
 protocol AudioRecordPlaybackProtocol: class {
-
+    weak var audioMessageViewDelegate: AudioMessageViewProtocol? {get set}
     func playAudio(urlFromFireBase url: URL?)
     var audioSecondsVal: Double { get }
     func analyzeAudioMessage(url: URL, waveFormView: AudioMessageWaveForm?)
@@ -21,6 +21,8 @@ class AudioMessageView: AdditionalCellView {
     //    @IBOutlet weak var captionLabel: UILabel!
     @IBAction func playStopButtonPressed(_ sender: UIButton) {
         if let notNullURL = url {
+            sender.isSelected = true
+
             audioPlaybackDelegate?.playAudio(urlFromFireBase: URL(fileURLWithPath: notNullURL))
         }
 
@@ -35,6 +37,7 @@ class AudioMessageView: AdditionalCellView {
         didSet{
             if let notNullURL = self.url, notNullURL != "" {
                 let localUrlPath = URL(fileURLWithPath: notNullURL)
+
 
                 audioPlaybackDelegate?.analyzeAudioMessage(url: localUrlPath, waveFormView: self.WaveFormView)
                 if let currentAudioSecondsVal = audioPlaybackDelegate?.audioSecondsVal {
@@ -103,6 +106,16 @@ class AudioMessageView: AdditionalCellView {
         heightOriginal = self.bounds.height
         //CustomTableViewCell.backGroundColorOfExtraView
         audioPlaybackDelegate = AudioMessageControl.cInit()
+
+        audioPlaybackDelegate?.audioMessageViewDelegate = self
     }
 
+}
+
+//MARK:- AudioMessageViewProtocol implementation
+
+extension AudioMessageView: AudioMessageViewProtocol {
+    func audioPlayerFinishedPlaying() {
+        playStopButton.isSelected = false
+    }
 }

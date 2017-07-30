@@ -278,7 +278,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     }
     
     func removeAtUid(_ uid: String) {
-        if let result = self.findMessageInDictionary(with: uid){
+        if let result = self.findMessageInDictionary(with: uid) {
             messageMediaContentModel.removeValue(forKey: ((messagesArrayWithSection[result.1]?[result.0])?.0)!)
             self.removeMessageFromDictionary(index: result)
             table.reloadData()
@@ -587,12 +587,13 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     private func setMessageModelInCell(currentCell cell: CustomTableViewCell,
                                        message messageEntity: Message?) {
         if let notNullMessageEntity = messageEntity,
-            let messageModelInDictionary = messageMediaContentModel[notNullMessageEntity] as? MessageModel {
+            let messageModelInDictionary = messageMediaContentModel[notNullMessageEntity] as? MessageModelGeneric {
 
             cell.messageModel = messageModelInDictionary
         } else {
             cell.messageModel = nil
         }
+        cell.showHideAdditionalInfoFromMessageModel()
     }
     
     //MARK: - Text view

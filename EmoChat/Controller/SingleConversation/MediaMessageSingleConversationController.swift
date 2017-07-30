@@ -196,6 +196,9 @@ extension CustomTableViewCell {
                 //                    contentViewCell?.dataForMediaInfoView = tempParsedData
                 contentViewCell?.setDataForMediaContentFromDictionary(dict: dicTemData)
                 self.messageModel?.dataForMediaInfoView = contentViewCell?.dataForMediaInfoView
+
+//                self.showHideAdditionalInfoFromMessageModel()
+
                 contentViewCell?.spinner.stopAnimating()
             }
         }

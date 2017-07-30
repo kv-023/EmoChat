@@ -32,52 +32,52 @@ class CustomTableViewCell: UITableViewCell {
         return messageEntity?.content?.content ?? ""
     }
 
+    func showHideAdditionalInfoFromMessageModel() {
+
+        switch  contentTypeOfMessage {
+        case .text:
+            if let notNullMessageModel = messageModel as? MessageModel {
+
+                if notNullMessageModel.containsUrlLinks {
+                    updateUIForMessageModel()
+                } else {
+                    setNullableDataInPreviewContainer()
+                }
+            } else {
+                let arrayOfLinks = self.getArrayOfRegexMatchesForURLInText(text: self.originTextInCell)
+
+                if arrayOfLinks.count > 0 {
+                    //lets show spinner animation
+                    showViewForRestUIContent()
+                    parseDataFromMessageTextForCell()
+                } else {
+                    setNullableDataInPreviewContainer()
+                }
+
+            }
+        case .audio:
+            //                showViewForContent()
+            let notNullMessageModel = messageModel as? MessageModelAudio
+
+            if notNullMessageModel?.dataForMediaInfoView != nil {
+
+                updateUIForMediaMessageModel()
+            } else {
+
+                showViewForContent()
+                getMediaContentFromMessageTextForCell()
+            }
+
+        default:
+            break
+        }
+
+    }
+
     weak var messageModel: MessageModelGeneric? {
         didSet {
 
-            switch  contentTypeOfMessage {
-            case .text:
-                if let notNullMessageModel = messageModel as? MessageModel {
-
-                    if notNullMessageModel.containsUrlLinks {
-                        updateUIForMessageModel()
-                    } else {
-                        setNullableDataInPreviewContainer()
-                    }
-                } else {
-                let arrayOfLinks = self.getArrayOfRegexMatchesForURLInText(text: self.originTextInCell)
-
-                    if arrayOfLinks.count > 0 {
-                        //lets show spinner animation
-                        showViewForRestUIContent()
-                        parseDataFromMessageTextForCell()
-                    } else {
-                        setNullableDataInPreviewContainer()
-                    }
-                    
                 }
-            case .audio:
-//                showViewForContent()
-                if let notNullMessageModel = messageModel as? MessageModelAudio {
-
-                    //if notNullMessageModel.containsUrlLinks {
-//                        updateUIForMessageModel()
-//                    } else {
-//                        setNullableDataInPreviewContainer()
-//                    }
-                } else {
-
-                    showViewForContent()
-                    //parseDataFromMessageTextForCell()
-                    getMediaContentFromMessageTextForCell()
-                }
-
-
-
-            default:
-                break
-            }
-        }
     }
     
     //SHOULD BE OVERRIDDEN IN SUBCLASSES FOR DIFFERENT CONTENT TYPE
@@ -150,9 +150,9 @@ class CustomTableViewCell: UITableViewCell {
 
             var theAddedText:String = ""
             if cell is LeftCell {
-                theAddedText = "received "
+                theAddedText = "📨"
             } else if cell is RightCell {
-                theAddedText =  "sent "
+                theAddedText =  "✉️"
             }
 
             valueForReturn = theAddedText + contentTypeOfMessage.rawValue

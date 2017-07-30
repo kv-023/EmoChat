@@ -184,6 +184,8 @@ extension CustomTableViewCell {
                     let tempParsedData = DataForRestUIInfoView(dict: dicTemData)
                     contentViewCell?.dataForRestUIInfoView = tempParsedData
                     cMessageModel?.dataForRestUIInfoView = tempParsedData
+
+//                    self.showHideAdditionalInfoFromMessageModel()
                     contentViewCell?.spinner.stopAnimating()
                 }
             }

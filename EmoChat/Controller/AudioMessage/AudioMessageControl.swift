@@ -13,6 +13,7 @@ import AVFoundation
 class AudioMessageControl: NSObject, AVAudioRecorderDelegate {//UIViewController,
 
     weak var audioMessageWaveForm: AudioMessageWaveForm?
+    weak var audioMessageViewDelegate: AudioMessageViewProtocol?
     var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
     var settings = [String : Int]()
@@ -191,6 +192,24 @@ class AudioMessageControl: NSObject, AVAudioRecorderDelegate {//UIViewController
         audioMessageWaveForm?.readFile.arrayFloatValues = Array(UnsafeBufferPointer(start: buf.floatChannelData?[0], count:Int(buf.frameLength)))
     }
 
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+}
+
+////MARK: - AVAudioPlayerDelegate
+//extension AudioMessageControl: AVAudioPlayerDelegate {
+//
+//    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+//        //       print("player finished!")
+//        audioMessageViewDelegate?.audioPlayerFinishedPlaying()
+//    }
+//}
+
+//MARK:- AudioMessageViewProtocol
+protocol AudioMessageViewProtocol: class {
+    func audioPlayerFinishedPlaying()
 }
 
 
@@ -234,19 +253,27 @@ extension AudioMessageControl: AudioRecordPlaybackProtocol {
 
 
         //DispatchQueue.main.async {
-        self.initPlayer(url: notNullUrl)
+//        self.initPlayer(url: notNullUrl)
 
 
-//        let playerItem = AVPlayerItem(url: notNullUrl)
-//        self.player.replaceCurrentItem(with: playerItem)
+        let playerItem = AVPlayerItem(url: notNullUrl)
+        self.player.replaceCurrentItem(with: playerItem)
 
         self.player.play()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying(sender:)),
+                                               name: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
+                                               object: playerItem)
+
 
         if urlOfCurrentlyPlayingInPlayer() != notNullUrl {
             audioMessageToAnalyze(url: notNullUrl)
         }
 
         //}
+    }
+
+    func playerDidFinishPlaying(sender: Notification) {
+        audioMessageViewDelegate?.audioPlayerFinishedPlaying()
     }
 
 }
