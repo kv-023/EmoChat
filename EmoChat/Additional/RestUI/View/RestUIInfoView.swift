@@ -8,14 +8,14 @@
 
 import UIKit
 
-class RestUIInfoView: UIView {
+class RestUIInfoView: AdditionalCellView {
 
     @IBOutlet weak var mainImage: UIImageView!
-    @IBOutlet weak var captionLabel: UILabel!
+//    @IBOutlet weak var captionLabel: UILabel!
     @IBOutlet weak var detailLabel: UILabel!
     @IBOutlet weak var urlImageIco: UIImageView!
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
-    var url: String?
+//    @IBOutlet weak var spinner: UIActivityIndicatorView!
+//    override var url: String?
 
     var dataForRestUIInfoView: DataForRestUIInfoView? {
         didSet {
@@ -28,20 +28,32 @@ class RestUIInfoView: UIView {
     var heightOriginal:CGFloat = 0
     weak var dataModel: UrlembedModel?
 
-    func fullFillViewFromDataInfo(data: DataForRestUIInfoView) {
-        captionLabel.text = data.captionLabel
-        detailLabel.text = data.detailLabel
-        urlImageIco.image = data.urlImageIco
-        mainImage.image = data.mainImage
-        url = data.url
+    override func fullFillViewFromDataInfo(data: DataForMediaMessageInfoProtocol) {
+        super.fullFillViewFromDataInfo(data: data)
+
+        if let castedData = data as? DataForRestUIInfoView {
+//            captionLabel.text = data.captionLabel
+//            url = data.url
+            detailLabel.text = castedData.detailLabel
+            urlImageIco.image = castedData.urlImageIco
+            mainImage.image = castedData.mainImage
+        }
     }
 
-    func eraseAllFields() {
+    override func eraseAllFields() {
+        super.eraseAllFields()
+
         captionLabel.text = ""
         detailLabel.text = ""
         urlImageIco.image = UIImage()
         mainImage.image = UIImage()
     }
+
+    override func setDataForMediaContentFromDictionary(dict: [String: Any?]) {
+        let tempDataForMediaInfoView = DataForRestUIInfoView(dict: dict)
+        dataForRestUIInfoView = tempDataForMediaInfoView
+    }
+
 
     override init(frame: CGRect) { // for using CustomView in code
         super.init(frame: frame)

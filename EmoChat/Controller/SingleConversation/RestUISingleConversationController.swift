@@ -13,7 +13,8 @@ import UIKit
 protocol SingleConversationControllerProtocol: class {
 
     func resizeSingleConversationCell(cell: CustomTableViewCell)
-    func addMessageModelInSingleConversationDictionary(message: Message, model: MessageModel?)
+    func addMessageModelInSingleConversationDictionary(message: Message,
+                                                       model: MessageModelGeneric?)
 }
 
 //MARK:- Controller for RestUI
@@ -104,7 +105,12 @@ extension CustomTableViewCell {
 
         weak var contentViewCell:RestUIInfoView?
 
-        guard let messageURLData = messageModel?.messageURLData else {
+        guard let cMessageModel:MessageModel? = messageModel as? MessageModel? else {
+            print("An incorrect model type was given !!")
+            return
+        }
+
+        guard let messageURLData = cMessageModel?.messageURLData else {
             return
         }
 
@@ -114,7 +120,7 @@ extension CustomTableViewCell {
             contentViewCell?.spinner.startAnimating()
         }
 
-        if let notNullDataForRestUIInfoView = self.messageModel?.dataForRestUIInfoView  {
+        if let notNullDataForRestUIInfoView = cMessageModel?.dataForRestUIInfoView  {
             DispatchQueue.main.async {
                 contentViewCell?.fullFillViewFromDataInfo(data: notNullDataForRestUIInfoView)
                 contentViewCell?.spinner.stopAnimating()
@@ -177,7 +183,9 @@ extension CustomTableViewCell {
 
                     let tempParsedData = DataForRestUIInfoView(dict: dicTemData)
                     contentViewCell?.dataForRestUIInfoView = tempParsedData
-                    self.messageModel?.dataForRestUIInfoView = tempParsedData
+                    cMessageModel?.dataForRestUIInfoView = tempParsedData
+
+//                    self.showHideAdditionalInfoFromMessageModel()
                     contentViewCell?.spinner.stopAnimating()
                 }
             }
@@ -186,34 +194,44 @@ extension CustomTableViewCell {
     }
 
     //MARK:- UIView creation
-    private func getPrepareXibOfEmbeddedView(eraseExtraViews: Bool = true) -> RestUIInfoView? {
+    private func getPrepareXibOfEmbeddedView(eraseExtraViews: Bool = true,
+                                             tryToReloadView:Bool = false) -> RestUIInfoView? {
         guard let masterContainer = self.previewContainer else {
             return nil
         }
-        var arrayOfViews = getRestUIInfoViewFromView(view: masterContainer)
 
-        let countOfViews = arrayOfViews.count
-        if countOfViews > 0 {
+        if tryToReloadView {//maybe, later it can be useful
+            var arrayOfViews = getRestUIInfoViewFromView(view: masterContainer)
 
-            let viewForReturn = arrayOfViews[0]
-            //prepare part
-            if let notNullIndexOfElement = arrayOfViews.index(of: viewForReturn) {
-                arrayOfViews.remove(at: notNullIndexOfElement)
+            let countOfViews = arrayOfViews.count
+            if countOfViews > 0 {
+
+                let viewForReturn = arrayOfViews[0]
+                //prepare part
+                if let notNullIndexOfElement = arrayOfViews.index(of: viewForReturn) {
+                    arrayOfViews.remove(at: notNullIndexOfElement)
+                }
+
+                if countOfViews > 1 && eraseExtraViews {
+                    removeRestUIInfoViewFromView(view: masterContainer,
+                                                 arrayOfRequestedViews: &arrayOfViews)
+                }
+
+                //let ccViewHeight = calculateHeightOfView(view: viewForReturn)
+                //setPreviewContainerHeight(height: viewForReturn.heightOriginal)
+                self.previewContainer.layoutIfNeeded()
+                //self.singleConversationControllerDelegate?.resizeSingleConversationCell(cell: self)
+
+                return viewForReturn
+            } else {
+
+                return xibToFrameSetup()
             }
 
-            if countOfViews > 1 && eraseExtraViews {
-                removeRestUIInfoViewFromView(view: masterContainer,
-                                             arrayOfRequestedViews: &arrayOfViews)
-            }
-
-            //let ccViewHeight = calculateHeightOfView(view: viewForReturn)
-            //setPreviewContainerHeight(height: viewForReturn.heightOriginal)
-            self.previewContainer.layoutIfNeeded()
-            //self.singleConversationControllerDelegate?.resizeSingleConversationCell(cell: self)
-
-            return viewForReturn
         } else {
+            removeViewFromSuperView(view: masterContainer)
             return xibToFrameSetup()
+
         }
     }
 
@@ -313,9 +331,4 @@ extension CustomTableViewCell {
         
         return arrayForReturn
     }
-}
-
-//MARK:- RegexCheckProtocol ext.
-extension CustomTableViewCell: RegexCheckProtocol {
-    
 }

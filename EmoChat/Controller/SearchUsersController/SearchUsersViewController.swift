@@ -262,9 +262,30 @@ class SearchUsersViewController: UITableViewController {
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let indexPath = tableView.indexPathForSelectedRow
+
         switch segue.identifier {
         case "showUserInfo"?:
             //transfer self.selectedUser to the next viewController
+            if searchType == .globalUsers {
+                let userInfoVC: UserInfoTableViewController = segue.destination as! UserInfoTableViewController
+                userInfoVC.selectedUser = filteredUsers[(indexPath?.row)!]
+                let backItem = UIBarButtonItem()
+                backItem.title = NSLocalizedString("Back", comment: "Back button")
+                navigationItem.backBarButtonItem = backItem
+                
+                let user: User!
+                user = filteredUsers[(indexPath?.row)!]
+                if let photoURL = user.photoURL, photoURL != "" {
+                    if let image = imageStore.image(forKey: photoURL) {
+                       userInfoVC.selectedUserPhoto = image
+                    }
+                } else {
+                   userInfoVC.selectedUserPhoto = #imageLiteral(resourceName: "question_mark")
+                       // userInfoVC.selectedUserPhoto = #imageLiteral(resourceName: "male")
+                }
+   
+            }
             print("showUserInfo")
         default:
             preconditionFailure("Unexpected segue identifier")

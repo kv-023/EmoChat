@@ -22,13 +22,7 @@ enum UserType {
 
 
 class SingleConversationViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate {
-    
-    //
-    //    private struct Constants {
-    //        static let leadingConstraint: CGFloat = 8.0
-    //    }
-    //
-    
+
     // MARK: - constants
     let leadingConstraintConstant: CGFloat = 8.0
     let trailingConstraintConstant: CGFloat = 8.0
@@ -68,15 +62,20 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     var refresher: UIRefreshControl!
     var cellResized = Set<CustomTableViewCell>()
-    var messageRestModel: [Message: MessageModel?] = [:]
+    var messageMediaContentModel: [Message: MessageModelGeneric?] = [:]
     var messageRecognized: Message!
     var photosArray: [String: UIImage] = [:]
     var group = DispatchGroup()
     var multipleChat = false
     var isEmpty = true
-    
+
+    var currentMessage: ConversationMessage {
+        return  ConversationMessage.sharedInstance
+    }
+
+
     func addNavigationItem () {
-        navigationItem.title = currentConversation.name!
+        navigationItem.title = currentConversation.name ?? "<?>"
         let button = UIButton.init(type: .custom)
         let img = UIImage.init(named: "info")
         button.setImage(img, for: UIControlState.normal)
@@ -104,6 +103,9 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         setUpTextView()
         setUpFrame()
         addNavigationItem()
+
+        currentMessage.linkedTextViewDelegate = textMessage
+        additionalBottomBarView.singleConversationBottomBarDelegate = self
     }
     
     func setObservers () {
@@ -234,18 +236,18 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         return sortedSections.contains(message.time.dayFormatStyle()) ? message.time.dayFormatStyle() : nil
     }
     
-    func addMessageToTheEndOfDictionary (_ message: (Message, UserType)) -> IndexPath {
+    func addMessageToTheEndOfDictionary(_ message: (Message, UserType)) -> IndexPath {
         let nameOfSection = self.findAppropriateSection(for: message.0) ?? self.createNewSection(date: message.0.time)
         self.messagesArrayWithSection[nameOfSection]?.append(message)
         return IndexPath(row: (messagesArrayWithSection[nameOfSection]?.count)! - 1, section: sortedSections.index(of: nameOfSection)!)
     }
     
-    func addMessageAtTheBeginningOfDictionary (_ message: (Message, UserType))  {
+    func addMessageAtTheBeginningOfDictionary(_ message: (Message, UserType))  {
         let nameOfSection = self.findAppropriateSection(for: message.0) ?? self.createNewSection(date: message.0.time)
         self.messagesArrayWithSection[nameOfSection]?.insert(message, at: 0)
     }
     
-    func addMessagesToDictionary (_ messages: [(Message, UserType)]) {
+    func addMessagesToDictionary(_ messages: [(Message, UserType)]) {
         for each in messages.reversed() {
             self.addMessageAtTheBeginningOfDictionary(each)
         }
@@ -257,7 +259,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         
     }
     
-    func insertRows (_ newMessages: [(Message, UserType)]) {
+    func insertRows(_ newMessages: [(Message, UserType)]) {
         self.addMessagesToDictionary(newMessages)
     }
 
@@ -278,8 +280,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     }
     
     func removeAtUid(_ uid: String) {
-        if let result = self.findMessageInDictionary(with: uid){
-            messageRestModel.removeValue(forKey: ((messagesArrayWithSection[result.1]?[result.0])?.0)!)
+        if let result = self.findMessageInDictionary(with: uid) {
+            messageMediaContentModel.removeValue(forKey: ((messagesArrayWithSection[result.1]?[result.0])?.0)!)
             self.removeMessageFromDictionary(index: result)
             table.reloadData()
         }
@@ -289,7 +291,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         manager?.deleteMessage(target.uid!, from: currentConversation)
     }
     
-    func observeDeletion () {
+    func observeDeletion() {
         manager?.observeDeletionOfMessages(in: currentConversation) { uid in
             self.removeAtUid(uid)
         }
@@ -307,7 +309,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         return result
     }
     
-    func observeNewMessage () {
+    func observeNewMessage() {
         manager?.getMessageFromConversation([self.currentConversation]) { (conv, newMessage) in
             if let lastSection = self.sortedSections.last, let lastMessageTime = self.messagesArrayWithSection[lastSection]?.last?.0.time {
                 if lastMessageTime > newMessage.time {
@@ -339,33 +341,55 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     //you don't need to use this method to send message with media content
     @IBAction func sendMessage(_ sender: UIButton) {
-        if textMessage.textColor != UIColor.lightGray && textMessage.containsAlphaNumericCharacters() {
-            let result:MessageOperationResult? = manager?.createMessage(
-                conversation: currentConversation!,
-                sender: currentUser,
-                content: (.text, textMessage.text),
-                isEmoMessage: emoRequestButton.isSelected)
-            
-            switch (result!) {
-            case .successSingleMessage(let message):
-                insertRow((message, .right(.sending)))
-            case .failure(let string):
-                print(string)
-            default:
-                break
-            }
-            
-            scrollToLastMessage()
-            
-            //clean textView
-            textMessage.text = ""
-            textMessage.isScrollEnabled = false;
-            
-            self.textViewMaxHeightConstraint.isActive = false
 
+        guard  (currentMessage.type == .text
+            && textMessage.textColor != UIColor.lightGray
+            && textMessage.containsAlphaNumericCharacters())
+            || currentMessage.type == .audio
+            || currentMessage.type == .photo
+            || currentMessage.type == .video
+            else {
+
+            print("An Error occured during sending the message!")
+            return
         }
+
+        guard let notNullCurrentConversation = currentConversation else {
+            print("An Error occured during sending the message! Current conversation can't be nil !")
+            return
+        }
+
+        manager?.createMessage(conversation: notNullCurrentConversation,
+                               sender: currentUser,
+                               content: currentMessage,
+                               result: { (messageOperationResult) in
+
+                                DispatchQueue.main.async {
+                                    //do all work on main queue
+
+                                    switch (messageOperationResult) {
+                                    case .successSingleMessage(let message):
+                                        self.insertRow((message, .right(.sending)))
+                                    case .failure(let string):
+                                        print(string)
+                                    default:
+                                        break
+                                    }
+
+                                    self.scrollToLastMessage()
+
+                                    //clean textView
+                                    self.currentMessage.eraseAllData()
+
+                                    self.textMessage.isScrollEnabled = false
+                                    
+                                    self.textViewMaxHeightConstraint.isActive = false
+                                }
+        })
+
+
     }
-    
+
     //download 20 more messages
     func updateUI() {
         if let firstMessage = messagesArrayWithSection[sortedSections[0]]!.first?.0 {
@@ -491,7 +515,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         switch message.1 {
         case .left:
             switch message.0.content.0 {
-            case .text :
+            case .text, .audio:
                 guard let cellText = tableView.dequeueReusableCell(withIdentifier: "Left", for: indexPath) as? LeftTextCell else {
                     fatalError("Cell was not casted!")
                 }
@@ -512,8 +536,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 isEmoMessage(message.0, inCell: cellText)
                 
                 return cellText
-            case .audio:
-                return UITableViewCell()
+//            case .audio:
+//                return UITableViewCell()
             case .video:
                 return UITableViewCell()
             case .photo:
@@ -521,7 +545,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             }
         case .right:
             switch message.0.content.0 {
-            case .text :
+            case .text, .audio:
                 guard let cellText = tableView.dequeueReusableCell(withIdentifier: "Right", for: indexPath) as? RightTextCell else {
                     fatalError("Cell was not casted!")
                 }
@@ -537,8 +561,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 }
                 
                 return cellText
-            case .audio:
-                return UITableViewCell()
+//            case .audio:
+//                return UITableViewCell()
             case .video:
                 return UITableViewCell()
             case .photo:
@@ -583,12 +607,13 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     private func setMessageModelInCell(currentCell cell: CustomTableViewCell,
                                        message messageEntity: Message?) {
         if let notNullMessageEntity = messageEntity,
-            let messageModelInDictionary = messageRestModel[notNullMessageEntity] as? MessageModel {
+            let messageModelInDictionary = messageMediaContentModel[notNullMessageEntity] as? MessageModelGeneric {
 
             cell.messageModel = messageModelInDictionary
         } else {
             cell.messageModel = nil
         }
+        cell.showHideAdditionalInfoFromMessageModel()
     }
     
     //MARK: - Text view
@@ -596,6 +621,9 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     func setUpTextView () {
         textMessage.delegate = self
         textMessage.text = NSLocalizedString("Type message...", comment: "")
+
+        currentMessage.setData(content: textMessage.text, type: .text)
+
         textMessage.textColor = .lightGray
         
         textMessage.layer.cornerRadius = 10
@@ -618,6 +646,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             textView.isScrollEnabled = false
             self.textViewMaxHeightConstraint.isActive = false
         }
+        currentMessage.setData(content: textView.text, type: .text)
     }
     
     func textViewDidBeginEditing(_ textView: UITextView){
@@ -645,9 +674,11 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         textView.resignFirstResponder()
         
         self.animateTextViewTransitions(becomeFirstResponder: false)
+        currentMessage.setData(content: textView.text, type: .text)
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+
         scrollToLastMessage()
         return true
     }
@@ -837,9 +868,9 @@ extension SingleConversationViewController: SingleConversationControllerProtocol
     }
     
     func addMessageModelInSingleConversationDictionary(message: Message,
-                                                       model: MessageModel?) {
+                                                       model: MessageModelGeneric?) {
 
-        messageRestModel.updateValue(model, forKey: message)
+        messageMediaContentModel.updateValue(model, forKey: message)
     }
     
 }
@@ -878,6 +909,18 @@ extension CustomTextView {
     
 }
 
+//MARK: - SingleConversationBottomBarProtocol
+
+extension SingleConversationViewController: SingleConversationBottomBarProtocol {
+
+    func setAudioPath(path: String?) {
+
+        if let notNullAudioPath = path {
+            currentMessage.setData(content: notNullAudioPath, type: .audio)
+        }
+    }
+}
+
 // MARK: - Methods for emoMessage
 extension SingleConversationViewController {
     
@@ -893,7 +936,7 @@ extension SingleConversationViewController {
     private func createLabel(rect: CGRect) -> UILabel {
         let label = UILabel(frame: rect)
         label.text = NSLocalizedString("Tap me!", comment: "")
-        label.textColor = UIColor.darkGray
+        label.textColor = UIColor.white
         let center = CGPoint(x: rect.midX, y: rect.midY)
         label.center = center
         label.textAlignment = .center

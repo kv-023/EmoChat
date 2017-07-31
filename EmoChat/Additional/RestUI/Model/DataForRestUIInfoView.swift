@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct DataForRestUIInfoView {
+struct DataForRestUIInfoView: DataForMediaMessageInfoProtocol {
 
     var captionLabel: String?
     var detailLabel: String?

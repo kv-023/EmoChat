@@ -221,7 +221,11 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
         cell.conversationTimeLabel.text = self.getFormattedDate(date: conversation.lastMessageTimeStamp!)
 
         if let lastMessageText = conversation.lastMessage?.content?.content {
-            cell.lastMessageLabel.text = lastMessageText
+            var lastMessageTextRepresent = lastMessageText
+            lastMessageTextRepresent.shrinkUrlAddress()
+
+            cell.lastMessageLabel.text = lastMessageTextRepresent
+
         } else {
             let defaultMessage = NSLocalizedString("No messages yet",
                                                    comment: "")

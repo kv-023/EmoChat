@@ -30,9 +30,14 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
         tableView.contentInset = UIEdgeInsetsMake(-20, 0, 0, 0)
         self.navigationItem.title = NSLocalizedString("Conversation", comment: "")
         
+       sortUsers()
+
+    }
+ 
+    func sortUsers() {
         var usersWithFirstName = [User]()
         var usersWithUsername = [User]()
-       
+        
         for users in conversation.usersInConversation {
             
             if (users.firstName != nil) && (users.secondName != nil) {
@@ -50,13 +55,11 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
             }
         }
         usersWithUsername.sort { $0.username! < $1.username! }
-       
+        
         usersInConversation.append(contentsOf: usersWithFirstName)
         usersInConversation.append(contentsOf: usersWithUsername)
         usersInConversation = usersInConversation.filter{$0.username != currentUser.username}
-
     }
- 
     
     // MARK: - Table view data source
     
@@ -183,6 +186,21 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
+    // MARK: Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        let indexPath = tableView.indexPathForSelectedRow
+
+        if segue.identifier == "showUserInfo" {
+            let userInfoVC: UserInfoTableViewController = segue.destination as! UserInfoTableViewController
+            userInfoVC.selectedUser = usersInConversation[(indexPath?.row)!]
+            userInfoVC.selectedUserPhoto = photosArray[usersInConversation[(indexPath?.row)!].uid]
+            let backItem = UIBarButtonItem()
+            backItem.title = NSLocalizedString("Back", comment: "Back button")
+            navigationItem.backBarButtonItem = backItem
+        }
+    }
 
     // MARK: Loading New Photo
     func loadNewLogo(tapGestureRecognizer: UITapGestureRecognizer) {

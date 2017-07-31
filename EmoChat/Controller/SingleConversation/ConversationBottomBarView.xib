@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,6 +14,7 @@
             <connections>
                 <outlet property="attachFileButton" destination="pnh-CD-xPm" id="wi8-ci-uyH"/>
                 <outlet property="attachPhotoButton" destination="o4Z-5K-Pbs" id="M9U-X3-lct"/>
+                <outlet property="audioRecordButton" destination="hHj-A3-EPI" id="Qh3-Fd-SSk"/>
                 <outlet property="cameraButton" destination="uN0-fV-4QV" id="hTL-Fi-NCg"/>
                 <outlet property="geolocationButton" destination="ff2-ck-JM3" id="NAH-Lu-TZJ"/>
             </connections>
@@ -68,13 +69,21 @@
                                 <constraint firstAttribute="width" secondItem="hHj-A3-EPI" secondAttribute="height" multiplier="1:1" id="aPR-Bl-EPU"/>
                             </constraints>
                             <state key="normal" image="RecordAudioMessage"/>
-                            <state key="selected" image="geoLocationFilled"/>
-                            <state key="highlighted" image="geoLocationFilled"/>
+                            <state key="selected" image="StopAudioMessage"/>
+                            <state key="highlighted" image="RecordAudioMessage"/>
+                            <connections>
+                                <action selector="audioRecordButtonPressed:forEvent:" destination="-1" eventType="touchUpInside" id="OkN-kq-NM5"/>
+                            </connections>
                         </button>
                     </subviews>
                     <constraints>
                         <constraint firstItem="hHj-A3-EPI" firstAttribute="width" secondItem="hHj-A3-EPI" secondAttribute="height" multiplier="1:1" id="Ew6-1S-As8"/>
                     </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="Ew6-1S-As8"/>
+                        </mask>
+                    </variation>
                 </stackView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -91,6 +100,7 @@
     </objects>
     <resources>
         <image name="RecordAudioMessage" width="50" height="50"/>
+        <image name="StopAudioMessage" width="50" height="50"/>
         <image name="attachFilled" width="66" height="66"/>
         <image name="attachImage" width="66" height="66"/>
         <image name="cameraFilled" width="66" height="66"/>

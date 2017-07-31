@@ -83,9 +83,23 @@
 		E7B926F21EF1487B0018F5FF /* PopOverVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7B926EC1EF1487B0018F5FF /* PopOverVC.xib */; };
 		E7B926F31EF1487B0018F5FF /* PopOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B926ED1EF1487B0018F5FF /* PopOverViewController.swift */; };
 		E7B926F41EF1487B0018F5FF /* UIColorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B926EE1EF1487B0018F5FF /* UIColorHelper.swift */; };
+		E7CFFA401F2F298900B29F33 /* ConversationMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CFFA3F1F2F298900B29F33 /* ConversationMessage.swift */; };
+		E7CFFA421F2F299E00B29F33 /* MediaMessageSingleConversationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CFFA411F2F299E00B29F33 /* MediaMessageSingleConversationController.swift */; };
+		E7CFFA441F2F29FB00B29F33 /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CFFA431F2F29FB00B29F33 /* DoubleExtension.swift */; };
+		E7CFFA461F2F2A0C00B29F33 /* MessageModelGeneric.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CFFA451F2F2A0C00B29F33 /* MessageModelGeneric.swift */; };
+		E7CFFA481F2F2AFC00B29F33 /* AdditionalCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CFFA471F2F2AFC00B29F33 /* AdditionalCellView.swift */; };
+		E7CFFA551F2F2DC100B29F33 /* AudioMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CFFA4B1F2F2DC100B29F33 /* AudioMessageView.swift */; };
+		E7CFFA561F2F2DC100B29F33 /* AudioMessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7CFFA4C1F2F2DC100B29F33 /* AudioMessageView.xib */; };
+		E7CFFA571F2F2DC100B29F33 /* testAudioMessage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7CFFA4D1F2F2DC100B29F33 /* testAudioMessage.storyboard */; };
+		E7CFFA581F2F2DC100B29F33 /* AudioMessageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CFFA4F1F2F2DC100B29F33 /* AudioMessageControl.swift */; };
+		E7CFFA591F2F2DC100B29F33 /* AudioMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CFFA501F2F2DC100B29F33 /* AudioMessageViewController.swift */; };
+		E7CFFA5A1F2F2DC100B29F33 /* AudioMessageWaveForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CFFA511F2F2DC100B29F33 /* AudioMessageWaveForm.swift */; };
+		E7CFFA5B1F2F2DC100B29F33 /* DataForAudioMessageInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CFFA531F2F2DC100B29F33 /* DataForAudioMessageInfoView.swift */; };
+		E7CFFA5C1F2F2DC100B29F33 /* MessageModelAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CFFA541F2F2DC100B29F33 /* MessageModelAudio.swift */; };
 		ED1E2D941EDD75B20058B6A6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */; };
 		F54D21761EE7130600B0B177 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54D21751EE7130600B0B177 /* Regex.swift */; };
 		F54D21781EE7149100B0B177 /* AdditionalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54D21771EE7149000B0B177 /* AdditionalViewController.swift */; };
+		F588D5B81F273129009E06C5 /* UserInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F588D5B71F273129009E06C5 /* UserInfoTableViewController.swift */; };
 		F594A2AF1F17CB63007153E0 /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F594A2B11F17CB63007153E0 /* SignUp.storyboard */; };
 		F594A2B21F17CB69007153E0 /* Options.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F594A2B41F17CB69007153E0 /* Options.storyboard */; };
 		F594A2B51F17CB70007153E0 /* ChatSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F594A2B71F17CB70007153E0 /* ChatSettings.storyboard */; };
@@ -96,7 +110,6 @@
 		F594A2C41F17CB90007153E0 /* SearchUsers.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F594A2C61F17CB90007153E0 /* SearchUsers.storyboard */; };
 		F594A2C71F17CB95007153E0 /* UserInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F594A2C91F17CB95007153E0 /* UserInfo.storyboard */; };
 		F5E339401EF6DA5500D224BF /* ChatSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3393F1EF6DA5500D224BF /* ChatSettingsTableViewController.swift */; };
-		FB0B34061F1CCC0F00FC5836 /* SingleConversationDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0B34051F1CCC0F00FC5836 /* SingleConversationDataSource.swift */; };
 		FB4317731EE6C24400770338 /* SignUpFirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4317721EE6C24400770338 /* SignUpFirstViewController.swift */; };
 		FBAC19811EF13E1A0027AF9D /* ConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAC19801EF13E1A0027AF9D /* ConfirmationViewController.swift */; };
 		FBF7A9CA1EF012E600ABADF5 /* SignUpChooseYourPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF7A9C91EF012E600ABADF5 /* SignUpChooseYourPhotoViewController.swift */; };
@@ -183,10 +196,24 @@
 		E7B926EC1EF1487B0018F5FF /* PopOverVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopOverVC.xib; sourceTree = "<group>"; };
 		E7B926ED1EF1487B0018F5FF /* PopOverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopOverViewController.swift; sourceTree = "<group>"; };
 		E7B926EE1EF1487B0018F5FF /* UIColorHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorHelper.swift; sourceTree = "<group>"; };
+		E7CFFA3F1F2F298900B29F33 /* ConversationMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationMessage.swift; sourceTree = "<group>"; };
+		E7CFFA411F2F299E00B29F33 /* MediaMessageSingleConversationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaMessageSingleConversationController.swift; sourceTree = "<group>"; };
+		E7CFFA431F2F29FB00B29F33 /* DoubleExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleExtension.swift; sourceTree = "<group>"; };
+		E7CFFA451F2F2A0C00B29F33 /* MessageModelGeneric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageModelGeneric.swift; sourceTree = "<group>"; };
+		E7CFFA471F2F2AFC00B29F33 /* AdditionalCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdditionalCellView.swift; sourceTree = "<group>"; };
+		E7CFFA4B1F2F2DC100B29F33 /* AudioMessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioMessageView.swift; sourceTree = "<group>"; };
+		E7CFFA4C1F2F2DC100B29F33 /* AudioMessageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AudioMessageView.xib; sourceTree = "<group>"; };
+		E7CFFA4D1F2F2DC100B29F33 /* testAudioMessage.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = testAudioMessage.storyboard; sourceTree = "<group>"; };
+		E7CFFA4F1F2F2DC100B29F33 /* AudioMessageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioMessageControl.swift; sourceTree = "<group>"; };
+		E7CFFA501F2F2DC100B29F33 /* AudioMessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioMessageViewController.swift; sourceTree = "<group>"; };
+		E7CFFA511F2F2DC100B29F33 /* AudioMessageWaveForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioMessageWaveForm.swift; sourceTree = "<group>"; };
+		E7CFFA531F2F2DC100B29F33 /* DataForAudioMessageInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataForAudioMessageInfoView.swift; sourceTree = "<group>"; };
+		E7CFFA541F2F2DC100B29F33 /* MessageModelAudio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageModelAudio.swift; sourceTree = "<group>"; };
 		ED1E2D931EDD75B20058B6A6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ED5291B01EE16F24008F8174 /* EmoChat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EmoChat.entitlements; sourceTree = "<group>"; };
 		F54D21751EE7130600B0B177 /* Regex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
 		F54D21771EE7149000B0B177 /* AdditionalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdditionalViewController.swift; sourceTree = "<group>"; };
+		F588D5B71F273129009E06C5 /* UserInfoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoTableViewController.swift; sourceTree = "<group>"; };
 		F594A2B01F17CB63007153E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/SignUp.storyboard; sourceTree = "<group>"; };
 		F594A2B31F17CB69007153E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Options.storyboard; sourceTree = "<group>"; };
 		F594A2B61F17CB70007153E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/ChatSettings.storyboard; sourceTree = "<group>"; };
@@ -209,7 +236,6 @@
 		F594A2D41F17CBAB007153E0 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		F594A2D51F17CBAB007153E0 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F5E3393F1EF6DA5500D224BF /* ChatSettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatSettingsTableViewController.swift; sourceTree = "<group>"; };
-		FB0B34051F1CCC0F00FC5836 /* SingleConversationDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleConversationDataSource.swift; sourceTree = "<group>"; };
 		FB4317721EE6C24400770338 /* SignUpFirstViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpFirstViewController.swift; sourceTree = "<group>"; };
 		FBAC19801EF13E1A0027AF9D /* ConfirmationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmationViewController.swift; sourceTree = "<group>"; };
 		FBF7A9C91EF012E600ABADF5 /* SignUpChooseYourPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpChooseYourPhotoViewController.swift; sourceTree = "<group>"; };
@@ -230,6 +256,7 @@
 		35C9507B1EF7D733006FA7E6 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				E7CFFA431F2F29FB00B29F33 /* DoubleExtension.swift */,
 				519EFB2B1F1794B800CC33AE /* StringExtension.swift */,
 				35C9507C1EF7D791006FA7E6 /* UIImageExtension.swift */,
 				842E8B6D1EF9330700CA3BF2 /* DateExtension.swift */,
@@ -384,9 +411,10 @@
 		CC13C5E91EF9225600B38E59 /* SingleConversation */ = {
 			isa = PBXGroup;
 			children = (
+				E7CFFA411F2F299E00B29F33 /* MediaMessageSingleConversationController.swift */,
+				E7CFFA3F1F2F298900B29F33 /* ConversationMessage.swift */,
 				CC8B92B31F1FF53300A82AD5 /* Cells */,
 				CC13C5EA1EF9227F00B38E59 /* SingleConversationViewController.swift */,
-				FB0B34051F1CCC0F00FC5836 /* SingleConversationDataSource.swift */,
 				E70F3DBF1F0648D500617235 /* RestUISingleConversationController.swift */,
 				CC13C5EC1EF929AF00B38E59 /* SpecialTextView.swift */,
 				CCF540001F0AB64200F50EE6 /* CustomTextView.swift */,
@@ -483,6 +511,7 @@
 		E7352C221EDED52B0095264E /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				E7CFFA451F2F2A0C00B29F33 /* MessageModelGeneric.swift */,
 				CC13C5D41EF4092900B38E59 /* ArchiverManager.swift */,
 				E7352C231EDED52B0095264E /* Auxiliary.swift */,
 				E7352C2A1EE0139E0095264E /* ModelGenericHelper.swift */,
@@ -493,6 +522,7 @@
 		E7B926E71EF1487B0018F5FF /* Additional */ = {
 			isa = PBXGroup;
 			children = (
+				E7CFFA491F2F2D9100B29F33 /* AudioMessage */,
 				B9D3CD7D1F25F6AF0062BAB9 /* Camera */,
 				E70F3D951F0507D900617235 /* RestUI */,
 				E7883F371EF1611F00E876CC /* Localize.swift */,
@@ -514,6 +544,45 @@
 			path = EmoChatTextField;
 			sourceTree = "<group>";
 		};
+		E7CFFA491F2F2D9100B29F33 /* AudioMessage */ = {
+			isa = PBXGroup;
+			children = (
+				E7CFFA521F2F2DC100B29F33 /* Model */,
+				E7CFFA4A1F2F2DC100B29F33 /* View */,
+				E7CFFA4E1F2F2DC100B29F33 /* Controller */,
+			);
+			path = AudioMessage;
+			sourceTree = "<group>";
+		};
+		E7CFFA4A1F2F2DC100B29F33 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E7CFFA4B1F2F2DC100B29F33 /* AudioMessageView.swift */,
+				E7CFFA4C1F2F2DC100B29F33 /* AudioMessageView.xib */,
+				E7CFFA4D1F2F2DC100B29F33 /* testAudioMessage.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E7CFFA4E1F2F2DC100B29F33 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E7CFFA4F1F2F2DC100B29F33 /* AudioMessageControl.swift */,
+				E7CFFA501F2F2DC100B29F33 /* AudioMessageViewController.swift */,
+				E7CFFA511F2F2DC100B29F33 /* AudioMessageWaveForm.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E7CFFA521F2F2DC100B29F33 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E7CFFA531F2F2DC100B29F33 /* DataForAudioMessageInfoView.swift */,
+				E7CFFA541F2F2DC100B29F33 /* MessageModelAudio.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		EDB7F02033953CB545BB1360 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -532,6 +601,14 @@
 			path = ChatSettingsTableViewController;
 			sourceTree = "<group>";
 		};
+		F588D5B61F2730AB009E06C5 /* UserInfoController */ = {
+			isa = PBXGroup;
+			children = (
+				F588D5B71F273129009E06C5 /* UserInfoTableViewController.swift */,
+			);
+			path = UserInfoController;
+			sourceTree = "<group>";
+		};
 		FB4317711EE6C21800770338 /* SignUpControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -545,6 +622,7 @@
 		FB4317741EE6C2AC00770338 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				E7CFFA471F2F2AFC00B29F33 /* AdditionalCellView.swift */,
 				F54D21751EE7130600B0B177 /* Regex.swift */,
 				E7352C391EE81CB60095264E /* RegexCheckProtocol.swift */,
 				E7352C371EE81B790095264E /* ControllerHelper.swift */,
@@ -572,6 +650,7 @@
 		FB982DDE1EE156B700AC2FCD /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				F588D5B61F2730AB009E06C5 /* UserInfoController */,
 				847120ED1F1B6B1400C34D62 /* WebViewController */,
 				519EFB261F1793BC00CC33AE /* LoginViewController */,
 				84A3C8CE1EF878AA001A9A19 /* ConversationsController */,
@@ -671,6 +750,7 @@
 				519EFB3C1F17971400CC33AE /* send.png in Resources */,
 				519EFB3D1F17971400CC33AE /* transition.gif in Resources */,
 				E70F3DB61F0507D900617235 /* RestUIInfo2.xib in Resources */,
+				E7CFFA571F2F2DC100B29F33 /* testAudioMessage.storyboard in Resources */,
 				3938C27A1EDC27C700D69F88 /* LaunchScreen.storyboard in Resources */,
 				F594A2AF1F17CB63007153E0 /* SignUp.storyboard in Resources */,
 				8439F8C61F04FAB1002C63A6 /* ConversationBottomBarView.xib in Resources */,
@@ -689,6 +769,7 @@
 				F594A2B51F17CB70007153E0 /* ChatSettings.storyboard in Resources */,
 				519EFB3B1F17971400CC33AE /* play-button.png in Resources */,
 				3938C2751EDC27C700D69F88 /* Main.storyboard in Resources */,
+				E7CFFA561F2F2DC100B29F33 /* AudioMessageView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -756,17 +837,22 @@
 				E70F3DB01F0507D900617235 /* RestIU500px.swift in Sources */,
 				E7B926F31EF1487B0018F5FF /* PopOverViewController.swift in Sources */,
 				F54D21761EE7130600B0B177 /* Regex.swift in Sources */,
+				E7CFFA441F2F29FB00B29F33 /* DoubleExtension.swift in Sources */,
 				3938C2721EDC27C700D69F88 /* ViewController.swift in Sources */,
 				A39232841EEFF58E00E70CD9 /* OptionsChangeUsernameTableViewController.swift in Sources */,
 				A39232861EEFF77200E70CD9 /* OptionsChangeEmailTableViewController.swift in Sources */,
 				FBAC19811EF13E1A0027AF9D /* ConfirmationViewController.swift in Sources */,
 				E7883F381EF1611F00E876CC /* Localize.swift in Sources */,
 				CC45A7571EE6D40E00FF13AE /* ManagerFirebase.swift in Sources */,
+				E7CFFA581F2F2DC100B29F33 /* AudioMessageControl.swift in Sources */,
 				E70F3DB41F0507D900617235 /* UrlembedModel.swift in Sources */,
+				E7CFFA5C1F2F2DC100B29F33 /* MessageModelAudio.swift in Sources */,
 				CC13C5EB1EF9227F00B38E59 /* SingleConversationViewController.swift in Sources */,
+				E7CFFA421F2F299E00B29F33 /* MediaMessageSingleConversationController.swift in Sources */,
 				E70F3DC01F0648D500617235 /* RestUISingleConversationController.swift in Sources */,
 				E70F3DB71F0507D900617235 /* RestUIInfoView.swift in Sources */,
 				CC8B92B91F1FF53300A82AD5 /* RightSingleConversationUITableViewCell.swift in Sources */,
+				E7CFFA401F2F298900B29F33 /* ConversationMessage.swift in Sources */,
 				CC13C5D51EF4092900B38E59 /* ArchiverManager.swift in Sources */,
 				E70F3DB21F0507D900617235 /* MessageModel.swift in Sources */,
 				2BF498D81F0C33C700F72EAA /* UIImageViewExtension.swift in Sources */,
@@ -777,11 +863,12 @@
 				E759F3621F128B640045E626 /* DataForRestUIInfoView.swift in Sources */,
 				35F8943A1F00FFE000862BAC /* UserTableViewCell.swift in Sources */,
 				E7B926F11EF1487B0018F5FF /* PopOverHelper.swift in Sources */,
+				E7CFFA481F2F2AFC00B29F33 /* AdditionalCellView.swift in Sources */,
 				843C58C51F1C0D7F00355ACD /* VideoPlayerViewController.swift in Sources */,
 				A3E7E7D11EEFD893006D24BC /* OptionsMainPageTableViewController.swift in Sources */,
 				84530F391F0C35DD00EBFCEB /* UserCell.swift in Sources */,
 				A309F3761EEFED6000DF6449 /* OptionsChangeNumberTableViewController.swift in Sources */,
-				FB0B34061F1CCC0F00FC5836 /* SingleConversationDataSource.swift in Sources */,
+				F588D5B81F273129009E06C5 /* UserInfoTableViewController.swift in Sources */,
 				519EFB2C1F1794B800CC33AE /* StringExtension.swift in Sources */,
 				E7B926EF1EF1487B0018F5FF /* CustomTextFieldWithPopOverInfoBox.swift in Sources */,
 				E70F3DB11F0507D900617235 /* RestUIUrlembed.swift in Sources */,
@@ -789,9 +876,11 @@
 				FBF7A9CA1EF012E600ABADF5 /* SignUpChooseYourPhotoViewController.swift in Sources */,
 				84312F931EE94FB600FAC4D1 /* SearchUsersViewController.swift in Sources */,
 				E7352C281EDED52B0095264E /* Message.swift in Sources */,
+				E7CFFA551F2F2DC100B29F33 /* AudioMessageView.swift in Sources */,
 				A39232881EEFFF8F00E70CD9 /* OptionsChangePhotoNameSecondNameTableViewController.swift in Sources */,
 				E7352C271EDED52B0095264E /* Auxiliary.swift in Sources */,
 				8439F8C81F04FB62002C63A6 /* ConversationBottomBarView.swift in Sources */,
+				E7CFFA5B1F2F2DC100B29F33 /* DataForAudioMessageInfoView.swift in Sources */,
 				35C9507D1EF7D791006FA7E6 /* UIImageExtension.swift in Sources */,
 				E7352C291EDED52B0095264E /* User.swift in Sources */,
 				E70F3DAF1F0507D900617235 /* RestUIStrategy.swift in Sources */,
@@ -799,10 +888,13 @@
 				A30FCEF31EFA7F45006A9E08 /* CurrentUser.swift in Sources */,
 				847120EF1F1B6B3C00C34D62 /* WebViewController.swift in Sources */,
 				FB4317731EE6C24400770338 /* SignUpFirstViewController.swift in Sources */,
+				E7CFFA461F2F2A0C00B29F33 /* MessageModelGeneric.swift in Sources */,
 				B9D3CD7F1F25F7B30062BAB9 /* CameraView.swift in Sources */,
 				E7352C3A1EE81CB60095264E /* RegexCheckProtocol.swift in Sources */,
 				CC13C5ED1EF929AF00B38E59 /* SpecialTextView.swift in Sources */,
 				E70F3DAE1F0507D900617235 /* RestUIHelper.swift in Sources */,
+				E7CFFA5A1F2F2DC100B29F33 /* AudioMessageWaveForm.swift in Sources */,
+				E7CFFA591F2F2DC100B29F33 /* AudioMessageViewController.swift in Sources */,
 				519EFB281F1793BC00CC33AE /* LoginViewController.swift in Sources */,
 				84A3C8D51EF89538001A9A19 /* MessageConversationCell.swift in Sources */,
 				842E8B701EF9DDB100CA3BF2 /* ArrayExtension.swift in Sources */,
