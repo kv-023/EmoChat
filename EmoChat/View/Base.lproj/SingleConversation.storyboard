@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -21,23 +17,23 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="redraw" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="80" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="vGN-hh-QGI">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="624"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="557"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <gestureRecognizers/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Left" rowHeight="60" id="CSw-5x-TuY" customClass="LeftCell" customModule="EmoChat">
-                                        <rect key="frame" x="0.0" y="56" width="375" height="60"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Left" rowHeight="60" id="CSw-5x-TuY" customClass="LeftTextCell" customModule="EmoChat" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="55.5" width="600" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CSw-5x-TuY" id="BTd-Kg-2eo">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gUr-HP-DZc">
-                                                    <rect key="frame" x="58" y="11" width="80" height="31"/>
+                                                    <rect key="frame" x="58" y="11" width="80" height="33"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -47,7 +43,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0NN-eU-7Ai">
-                                                    <rect key="frame" x="8" y="2" width="40" height="40"/>
+                                                    <rect key="frame" x="8" y="4" width="40" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="40" id="XR6-1V-sfw"/>
                                                         <constraint firstAttribute="height" constant="40" id="ueT-Yy-8ab"/>
@@ -60,18 +56,18 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Some text" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="saX-Im-Te1" customClass="SpecialTextView" customModule="EmoChat" customModuleProvider="target">
-                                                    <rect key="frame" x="58" y="11" width="79.5" height="31"/>
+                                                    <rect key="frame" x="58" y="11" width="79.5" height="33"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2BW-ck-jBa">
-                                                    <rect key="frame" x="147.5" y="28.5" width="26" height="13.5"/>
+                                                    <rect key="frame" x="147.5" y="31.5" width="26" height="13.5"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IPA-0c-jFt" userLabel="PreviewContainer">
-                                                    <rect key="frame" x="10" y="45" width="355" height="10"/>
+                                                    <rect key="frame" x="10" y="47" width="580" height="10"/>
                                                     <color key="backgroundColor" red="0.38961728039999999" green="0.66666666669999997" blue="0.49455274090000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="10" id="tkk-xQ-BpS"/>
@@ -84,14 +80,15 @@
                                                 <constraint firstItem="IPA-0c-jFt" firstAttribute="top" secondItem="0NN-eU-7Ai" secondAttribute="bottom" constant="3" id="6vH-qC-Hyf"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="saX-Im-Te1" secondAttribute="bottom" constant="3" id="9YW-Wc-xIf"/>
                                                 <constraint firstItem="gUr-HP-DZc" firstAttribute="centerX" secondItem="saX-Im-Te1" secondAttribute="centerX" id="BIW-Vs-ePC"/>
-                                                <constraint firstItem="IPA-0c-jFt" firstAttribute="top" secondItem="2BW-ck-jBa" secondAttribute="bottom" constant="3" id="CgB-tv-9di"/>
+                                                <constraint firstItem="IPA-0c-jFt" firstAttribute="top" secondItem="2BW-ck-jBa" secondAttribute="bottom" constant="2" id="CgB-tv-9di"/>
                                                 <constraint firstItem="saX-Im-Te1" firstAttribute="leading" secondItem="0NN-eU-7Ai" secondAttribute="trailing" constant="10" id="HCM-R2-10W"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="2BW-ck-jBa" secondAttribute="bottom" constant="3" id="Icu-Do-1mt"/>
                                                 <constraint firstItem="2BW-ck-jBa" firstAttribute="leading" secondItem="saX-Im-Te1" secondAttribute="trailing" constant="10" id="Oeb-ik-Oeq"/>
                                                 <constraint firstItem="gUr-HP-DZc" firstAttribute="height" secondItem="saX-Im-Te1" secondAttribute="height" id="Pv9-bQ-7Qe"/>
                                                 <constraint firstItem="IPA-0c-jFt" firstAttribute="leading" secondItem="BTd-Kg-2eo" secondAttribute="leading" constant="10" id="RO6-2z-kJJ"/>
                                                 <constraint firstAttribute="trailing" secondItem="IPA-0c-jFt" secondAttribute="trailing" constant="10" id="Ywg-N3-SpF"/>
-                                                <constraint firstAttribute="bottom" secondItem="IPA-0c-jFt" secondAttribute="bottom" constant="5" id="cE1-nK-nj5"/>
+                                                <constraint firstItem="saX-Im-Te1" firstAttribute="top" relation="lessThanOrEqual" secondItem="BTd-Kg-2eo" secondAttribute="topMargin" constant="20" id="ZAB-Uu-Qpy"/>
+                                                <constraint firstAttribute="bottom" secondItem="IPA-0c-jFt" secondAttribute="bottom" constant="3" id="cE1-nK-nj5"/>
                                                 <constraint firstItem="saX-Im-Te1" firstAttribute="top" secondItem="BTd-Kg-2eo" secondAttribute="topMargin" constant="3" id="dIW-6i-UX5"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="0NN-eU-7Ai" secondAttribute="bottom" constant="3" id="p5f-as-ej9"/>
                                                 <constraint firstItem="gUr-HP-DZc" firstAttribute="centerY" secondItem="saX-Im-Te1" secondAttribute="centerY" id="xgH-U9-bVx"/>
@@ -108,7 +105,6 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="background" destination="gUr-HP-DZc" id="lc8-22-fVl"/>
-                                            <outlet property="bottomOfPreviewContainer" destination="cE1-nK-nj5" id="B7n-wK-xP8"/>
                                             <outlet property="heightOfPreviewContainer" destination="tkk-xQ-BpS" id="gJM-PP-Ixp"/>
                                             <outlet property="message" destination="saX-Im-Te1" id="zsc-su-htU"/>
                                             <outlet property="previewContainer" destination="IPA-0c-jFt" id="ogs-8V-W8j"/>
@@ -116,15 +112,15 @@
                                             <outlet property="userPic" destination="0NN-eU-7Ai" id="VHP-fV-8gj"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Right" rowHeight="60" id="27m-G8-t2t" customClass="RightCell" customModule="EmoChat" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="116" width="375" height="60"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Right" rowHeight="60" id="27m-G8-t2t" customClass="RightTextCell" customModule="EmoChat" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="115.5" width="600" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="27m-G8-t2t" id="Pim-44-k6V">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qN7-ND-9M4">
-                                                    <rect key="frame" x="238" y="11" width="79" height="31"/>
+                                                    <rect key="frame" x="463" y="11" width="79" height="34"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <gestureRecognizers/>
                                                     <userDefinedRuntimeAttributes>
@@ -135,7 +131,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="D9q-6u-sJ8">
-                                                    <rect key="frame" x="327" y="2" width="40" height="40"/>
+                                                    <rect key="frame" x="552" y="4" width="40" height="40"/>
                                                     <gestureRecognizers/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="40" id="ERP-vc-mzn"/>
@@ -149,26 +145,26 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Some text" textAlignment="right" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mHH-T8-Hcd" customClass="SpecialTextView" customModule="EmoChat" customModuleProvider="target">
-                                                    <rect key="frame" x="237.5" y="11" width="79.5" height="31"/>
+                                                    <rect key="frame" x="462.5" y="11" width="79.5" height="34"/>
                                                     <gestureRecognizers/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ulI-98-iYs">
-                                                    <rect key="frame" x="201.5" y="28.5" width="26" height="13.5"/>
+                                                    <rect key="frame" x="426.5" y="30.5" width="26" height="13.5"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="mSK-UU-5O8">
-                                                    <rect key="frame" x="212.5" y="27" width="15" height="15"/>
+                                                    <rect key="frame" x="437.5" y="29" width="15" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="phj-on-tVe"/>
                                                         <constraint firstAttribute="width" constant="15" id="qr3-Tn-6lx"/>
                                                     </constraints>
                                                 </activityIndicatorView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="chS-2D-a9c" userLabel="PreviewContainer">
-                                                    <rect key="frame" x="10" y="45" width="355" height="10"/>
+                                                    <rect key="frame" x="10" y="47" width="580" height="10"/>
                                                     <color key="backgroundColor" red="0.38961728039999999" green="0.66666666669999997" blue="0.49455274090000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="10" id="Ofi-81-8Wm"/>
@@ -185,7 +181,7 @@
                                                 <constraint firstItem="chS-2D-a9c" firstAttribute="top" secondItem="ulI-98-iYs" secondAttribute="bottom" constant="3" id="J8U-v9-Efr"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="ulI-98-iYs" secondAttribute="bottom" constant="3" id="Ni1-fR-4Hq"/>
                                                 <constraint firstItem="qN7-ND-9M4" firstAttribute="width" secondItem="mHH-T8-Hcd" secondAttribute="width" id="PEY-3I-w1v"/>
-                                                <constraint firstAttribute="bottom" secondItem="chS-2D-a9c" secondAttribute="bottom" constant="5" id="RAo-Vl-8tq"/>
+                                                <constraint firstAttribute="bottom" secondItem="chS-2D-a9c" secondAttribute="bottom" constant="3" id="RAo-Vl-8tq"/>
                                                 <constraint firstItem="mHH-T8-Hcd" firstAttribute="top" secondItem="Pim-44-k6V" secondAttribute="topMargin" constant="3" id="Uv8-Kt-XJb"/>
                                                 <constraint firstAttribute="trailing" secondItem="chS-2D-a9c" secondAttribute="trailing" constant="10" id="Ws7-zd-x6J"/>
                                                 <constraint firstItem="chS-2D-a9c" firstAttribute="top" secondItem="mSK-UU-5O8" secondAttribute="bottom" constant="3" id="d3b-6C-Jzx"/>
@@ -196,7 +192,7 @@
                                                 <constraint firstItem="qN7-ND-9M4" firstAttribute="height" secondItem="mHH-T8-Hcd" secondAttribute="height" id="sH8-Uo-B1E"/>
                                                 <constraint firstItem="mHH-T8-Hcd" firstAttribute="leading" secondItem="ulI-98-iYs" secondAttribute="trailing" constant="10" id="tdp-j6-tUx"/>
                                                 <constraint firstItem="qN7-ND-9M4" firstAttribute="centerY" secondItem="mHH-T8-Hcd" secondAttribute="centerY" id="ulo-H9-BC3"/>
-                                                <constraint firstItem="chS-2D-a9c" firstAttribute="top" secondItem="mHH-T8-Hcd" secondAttribute="bottom" constant="3" id="xbr-EC-OaA"/>
+                                                <constraint firstItem="chS-2D-a9c" firstAttribute="top" secondItem="mHH-T8-Hcd" secondAttribute="bottom" constant="2" id="xbr-EC-OaA"/>
                                                 <constraint firstItem="chS-2D-a9c" firstAttribute="leading" secondItem="Pim-44-k6V" secondAttribute="leading" constant="10" id="y7q-Wr-Wdq"/>
                                             </constraints>
                                             <variation key="default">
@@ -210,7 +206,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="activityIndicator" destination="mSK-UU-5O8" id="FmC-Ld-So9"/>
-                                            <outlet property="bottomOfPreviewContainer" destination="RAo-Vl-8tq" id="yM3-ep-NA9"/>
+                                            <outlet property="background" destination="qN7-ND-9M4" id="yiI-IY-kKT"/>
                                             <outlet property="heightOfPreviewContainer" destination="Ofi-81-8Wm" id="3Ck-u8-pxn"/>
                                             <outlet property="message" destination="mHH-T8-Hcd" id="wsR-Df-zDw"/>
                                             <outlet property="previewContainer" destination="chS-2D-a9c" id="Tq5-Pb-a5l"/>
@@ -224,23 +220,23 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="guk-1E-8hU">
-                                <rect key="frame" x="0.0" y="624" width="375" height="43"/>
+                                <rect key="frame" x="0.0" y="557" width="600" height="43"/>
                                 <subviews>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9RH-qm-2Wd" customClass="ConversationBottomBarView" customModule="EmoChat" customModuleProvider="target">
-                                        <rect key="frame" x="76" y="9" width="257" height="26"/>
+                                        <rect key="frame" x="76" y="9" width="482" height="26"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="26" id="rU4-TI-bO4"/>
                                         </constraints>
                                     </view>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" scrollEnabled="NO" keyboardDismissMode="interactive" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="6Zs-2n-ZAE" customClass="CustomTextView" customModule="EmoChat" customModuleProvider="target">
-                                        <rect key="frame" x="76" y="5" width="257" height="33"/>
+                                        <rect key="frame" x="76" y="5" width="482" height="33"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" spellCheckingType="yes"/>
                                         <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
                                     </textView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ze-E8-Yj2">
-                                        <rect key="frame" x="341" y="9" width="26" height="26"/>
+                                        <rect key="frame" x="566" y="9" width="26" height="26"/>
                                         <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="1ze-E8-Yj2" secondAttribute="height" multiplier="1:1" id="35V-rO-czA"/>
@@ -301,13 +297,13 @@
                                 </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mJO-Ls-y8m">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UgZ-hh-4mR">
-                                        <rect key="frame" x="131" y="285" width="112.5" height="96"/>
+                                        <rect key="frame" x="210" y="222.5" width="180" height="154"/>
                                         <subviews>
                                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="OHU-zc-Qo6">
-                                                <rect key="frame" x="38.5" y="30" width="37" height="37"/>
+                                                <rect key="frame" x="72.5" y="59" width="37" height="37"/>
                                             </activityIndicatorView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -324,7 +320,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trying to establish a connection" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zfn-eE-WSI">
-                                        <rect key="frame" x="78.5" y="389" width="218.5" height="18"/>
+                                        <rect key="frame" x="191" y="384.5" width="218.5" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>

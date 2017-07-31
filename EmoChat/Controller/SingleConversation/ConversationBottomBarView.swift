@@ -8,14 +8,47 @@
 
 import UIKit
 
+protocol AudioRecordProtocol: class {
+
+    func startRecordingAudio()
+    func finishRecordingAudio() -> URL?
+}
+
+protocol SingleConversationBottomBarProtocol: class {
+
+    func setAudioPath(path: String?)
+}
+
 @IBDesignable class ConversationBottomBarView: UIView {
+
+    //MARK: delegates
+    var audioRecordDelegate: AudioRecordProtocol?
+    weak var singleConversationBottomBarDelegate: SingleConversationBottomBarProtocol?
 
     // MARK: - IBOutlets
     @IBOutlet weak var attachFileButton: UIButton!
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var attachPhotoButton: UIButton!
     @IBOutlet weak var geolocationButton: UIButton!
-    
+    @IBOutlet weak var audioRecordButton: UIButton!
+
+    @IBAction func audioRecordButtonPressed(_ sender: UIButton,
+                                            forEvent event: UIEvent) {
+
+        if audioRecordDelegate == nil {
+            audioRecordDelegate = AudioMessageControl.cInit()
+        }
+
+        sender.isSelected = !sender.isSelected
+
+        if sender.isSelected {
+            audioRecordDelegate?.startRecordingAudio()
+        } else {
+            let urlAudio = audioRecordDelegate?.finishRecordingAudio()
+            singleConversationBottomBarDelegate?.setAudioPath(path: urlAudio?.path)
+        }
+    }
+
     // MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)

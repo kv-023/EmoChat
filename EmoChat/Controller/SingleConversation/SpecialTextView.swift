@@ -9,6 +9,15 @@
 import UIKit
 
 class SpecialTextView: UITextView, UITextViewDelegate {
+    var formatedTextForCell: String!
+
+    override var text: String! {
+        didSet{
+            formatedTextForCell = text
+            formatedTextForCell.shrinkUrlAddress()
+        }
+    }
+
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         return super.canPerformAction(action, withSender: sender)
     }

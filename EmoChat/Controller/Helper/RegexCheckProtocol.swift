@@ -120,6 +120,37 @@ extension RegexCheckProtocol {
         return valueForReturn
     }
 
+    func removeTransferProtocolTag(text textForAnalyze: String?) -> String {
+        var valueForReturn: String = ""
+
+        if let notNullText = textForAnalyze {
+            let regexLoginPattern = "(?:https?|ftp|file):\\/\\/|www\\.|ftp\\."
+
+            valueForReturn = Regex.removingRegexMatches(for: regexLoginPattern,
+                                                        in: notNullText,
+                                                        replaceWith: "") ?? notNullText
+
+        }
+        return valueForReturn
+    }
+
+    func getMediaFileNameFromURL(text textForAnalyze: String?) -> String {
+        var valueForReturn: String = ""
+
+        if let notNullText = textForAnalyze {
+            let regexPattern = "(?<=message_voice%)(.*).m4a"
+
+            let arrayOfValueForReturn = Regex.getMatchesInString(for: regexPattern,
+                                                      in: notNullText)
+            if arrayOfValueForReturn.count > 0 {
+                valueForReturn = arrayOfValueForReturn.first!
+            }
+
+        }
+        return valueForReturn
+    }
+
+
 }
 
 //MARK:- regex error explanation
