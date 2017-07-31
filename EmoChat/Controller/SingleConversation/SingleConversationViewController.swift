@@ -865,6 +865,10 @@ extension CustomTextView {
 
 // MARK: - For working with pictures
 extension SingleConversationViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    
+    
+    //Photo library
     func addPhotoLibrary () {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
@@ -876,6 +880,7 @@ extension SingleConversationViewController: UIImagePickerControllerDelegate, UIN
             present(imagePicker, animated: true, completion: nil)}
     }
     
+    //Camera
     func addPhotoCamera () {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
@@ -892,6 +897,8 @@ extension SingleConversationViewController: UIImagePickerControllerDelegate, UIN
         }
     }
     
+    
+    //ImagePicker Protocol methods
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         guard let chosenImage = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
         print(chosenImage)
