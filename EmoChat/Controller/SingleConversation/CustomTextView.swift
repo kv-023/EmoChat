@@ -17,7 +17,7 @@ class CustomTextView: UITextView {
         return !shouldBlockMenuActions && super.canPerformAction(action, withSender: sender)
     }
     
-    override var canBecomeFirstResponder: Bool{
+    override var canBecomeFirstResponder: Bool {
         return true
     }
 
