@@ -467,6 +467,9 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         
         guard let cell = tableView.cellForRow(at: indexPath) else { return }
         guard let blurredView = cell.viewWithTag(blurredViewTag) else { return }
+        guard let message = messagesArrayWithSection[sortedSections[indexPath.section]]![indexPath.row] as? (EmoMessage, UserType) else { return }
+        message.0.emoRecorded = true
+        manager?.removeEmoRequest(message.0.uid!, from: currentConversation)
         
         UIView.animate(withDuration: 0.5, animations: {
             blurredView.alpha = 0.0
@@ -927,7 +930,7 @@ extension SingleConversationViewController: SingleConversationBottomBarProtocol 
 extension SingleConversationViewController {
     
     func isEmoMessage(_ message: Message, inCell cell: UITableViewCell) {
-        if message is EmoMessage {
+        if let emoMessage = message as? EmoMessage, emoMessage.emoRecorded == false {
             makeCellBlurred(cell: cell)
         } else {
             guard let blurredView = cell.viewWithTag(blurredViewTag) else { return }
@@ -963,13 +966,10 @@ extension SingleConversationViewController {
                                        width: textCell.message.frame.width,
                                        height: textCell.message.frame.height - 28.0)
             
-            
             let label = createLabel(rect: blurredView.bounds)
-            
             blurredView.addSubview(label)
+            
             blurredView.layer.cornerRadius = cellCornerRadius
-            textCell.message.gestureRecognizers?.removeAll()
-            textCell.gestureRecognizers?.removeAll()
             textCell.contentView.addSubview(blurredView)
         }
     }

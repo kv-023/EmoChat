@@ -1168,6 +1168,12 @@ class ManagerFirebase {
     }
 
     }
+    
+    // MARK: - EmoMessages
+    
+    func removeEmoRequest(_ uid: String, from conversation: Conversation) {
+        self.ref?.child("conversations/\(conversation.uuid)/messagesInConversation/\(uid)/isEmoRecorded/\(Auth.auth().currentUser!.uid)").removeValue()
+    }
 
 //    func handleAudioSendWithQuee(url: URL, result: @escaping (URL) -> Void) {
 //        //      if let uid = Auth.auth().currentUser?.uid {
