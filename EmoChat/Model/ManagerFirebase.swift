@@ -98,7 +98,7 @@ class ManagerFirebase {
     
     // MARK: Log In
     /*
-        You can pass a closure which take the result as a string
+     You can pass a closure which take the result as a string
      */
     func logIn (email: String, password: String, result: @escaping (UserOperationResult) -> Void) {
         Auth.auth().signIn(withEmail: email,
@@ -118,7 +118,7 @@ class ManagerFirebase {
     
     // MARK: Sign Up
     /*
-        You can pass a closure which take the result as a string
+     You can pass a closure which take the result as a string
      */
     func signUp (email: String, password: String, result: @escaping (UserOperationResult) -> Void) {
         Auth.auth().createUser(withEmail: email,
@@ -136,30 +136,30 @@ class ManagerFirebase {
                                     }
                                 }
         })
-
+        
     }
-
+    
     // MARK: - Add additional info
     //Add email, uid, username and additional info to database. Call this method after succefull sign up.
     func addInfoUser (username: String!, phoneNumber: String?, firstName: String?, secondName: String?, photoURL: String?, result: @escaping (UserOperationResult) -> Void){
         if let user = Auth.auth().currentUser {
-                let uid = user.uid
-                
-                self.ref?.child("users/\(uid)/username").setValue(username)
-                self.ref?.child("users/\(uid)/email").setValue(user.email)
-                if let pN = phoneNumber{
-                    self.ref?.child("users/\(uid)/phoneNumber").setValue(pN)
-                }
-                if let fN = firstName{
-                    self.ref?.child("users/\(uid)/firstName").setValue(fN)
-                }
-                if let sN = secondName{
-                    self.ref?.child("users/\(uid)/secondName").setValue(sN)
-                }
-                if let pURL = photoURL {
-                    self.ref?.child("users/\(uid)/photoURL").setValue(pURL)
-                }
-                result(.success)
+            let uid = user.uid
+            
+            self.ref?.child("users/\(uid)/username").setValue(username)
+            self.ref?.child("users/\(uid)/email").setValue(user.email)
+            if let pN = phoneNumber{
+                self.ref?.child("users/\(uid)/phoneNumber").setValue(pN)
+            }
+            if let fN = firstName{
+                self.ref?.child("users/\(uid)/firstName").setValue(fN)
+            }
+            if let sN = secondName{
+                self.ref?.child("users/\(uid)/secondName").setValue(sN)
+            }
+            if let pURL = photoURL {
+                self.ref?.child("users/\(uid)/photoURL").setValue(pURL)
+            }
+            result(.success)
         } else {
             result(.failure(NSLocalizedString("User isn't authenticated", comment: "")))
         }
@@ -185,16 +185,16 @@ class ManagerFirebase {
      Get authentificated user. Result is the User with additional info and his conversations (but conversations without messages)
      
      Example how to set fetched info in UI
-        m?.getCurrentUser(){ op in
-            switch op {
-            case let .successSingleUser (user):
-                if let fN = user.firstName, let sN = user.secondName{
-                    self.hintsLabel.text = ("\(fN) \(sN)")
-                }
-            default :
-                break
-            }
-        }
+     m?.getCurrentUser(){ op in
+     switch op {
+     case let .successSingleUser (user):
+     if let fN = user.firstName, let sN = user.secondName{
+     self.hintsLabel.text = ("\(fN) \(sN)")
+     }
+     default :
+     break
+     }
+     }
      */
     func getCurrentUser (getUser: @escaping (UserOperationResult) -> Void) {
         
@@ -205,7 +205,7 @@ class ManagerFirebase {
                 let value = snapshot.value as? NSDictionary
                 
                 let userSnapshot = snapshot.childSnapshot(forPath: "users/\(uid)").value as? NSDictionary
-
+                
                 //getting additional info
                 
                 let username = userSnapshot?["username"] as! String
@@ -228,9 +228,9 @@ class ManagerFirebase {
                 }
                 
                 //generate array of conversations
-//                if let conversationsArrayId = conversationsID?.allKeys {
-//                    user.userConversations = self.sortListOfConversations(self.getConversetionsFromSnapshot(value, accordingTo: conversationsArrayId as! [String], currentUserEmail: email))
-//                }
+                //                if let conversationsArrayId = conversationsID?.allKeys {
+                //                    user.userConversations = self.sortListOfConversations(self.getConversetionsFromSnapshot(value, accordingTo: conversationsArrayId as! [String], currentUserEmail: email))
+                //                }
                 
                 //return result
                 getUser(.successSingleUser(user))
@@ -309,8 +309,8 @@ class ManagerFirebase {
     //to sort list of conversation
     private func sortListOfConversations (_ array: [Conversation]) -> [Conversation]{
         /*let sortedArray = array.sorted { (cv1, cv2) -> Bool in
-            return ((cv1.lastMessage?.time.compare((cv2.lastMessage?.time)!)) != nil)
-        }*/
+         return ((cv1.lastMessage?.time.compare((cv2.lastMessage?.time)!)) != nil)
+         }*/
         let sortedArray = array.sorted { (cv1, cv2) -> Bool in
             return ((cv1.lastMessageTimeStamp?.compare(cv2.lastMessageTimeStamp!)) != nil)
         }
@@ -350,7 +350,7 @@ class ManagerFirebase {
                     }
                     self.ref?.child("users/\(uid)/photoURL").setValue(imagePath)
                     result(.success)
-
+                    
                 }
             }
         } else {
@@ -391,35 +391,35 @@ class ManagerFirebase {
         }
     }
     
-
-        
+    
+    
     //MARK: - Conversation logo
     func createLogo (selectedUsers: [User], conversationID: String) -> String {
-            var array = [UIImage]()
+        var array = [UIImage]()
         
-            //create reference
-            let imagePath = "conversLogos/\(conversationID)/logo.jpg"
-            let metaData = StorageMetadata()
-            metaData.contentType = "image/jpeg"
+        //create reference
+        let imagePath = "conversLogos/\(conversationID)/logo.jpg"
+        let metaData = StorageMetadata()
+        metaData.contentType = "image/jpeg"
         
-            for user in selectedUsers {
-                self.getUserPic(from: user.photoURL!, result: { (result) in
-                    switch result {
-                    case let .successUserPic(img):
-                        array.append(img)
-                    default: print("Error")
-                    }
-                })
-            }
-    
-            let finalImage = UIImage.createFinalImg(logoImages: array)
-            let imageData = UIImageJPEGRepresentation(finalImage, 1)
- 
-            self.storageRef.child(imagePath).putData(imageData!, metadata: metaData)
-            self.ref?.child("conversations/\(conversationID)/logoURL").setValue(imagePath)
-        
-            return imagePath
+        for user in selectedUsers {
+            self.getUserPic(from: user.photoURL!, result: { (result) in
+                switch result {
+                case let .successUserPic(img):
+                    array.append(img)
+                default: print("Error")
+                }
+            })
         }
+        
+        let finalImage = UIImage.createFinalImg(logoImages: array)
+        let imageData = UIImageJPEGRepresentation(finalImage, 1)
+        
+        self.storageRef.child(imagePath).putData(imageData!, metadata: metaData)
+        self.ref?.child("conversations/\(conversationID)/logoURL").setValue(imagePath)
+        
+        return imagePath
+    }
     
     
     func loadLogo (_ image: UIImage, conversationID: String, result: @escaping (UserOperationResult) -> Void) {
@@ -474,7 +474,7 @@ class ManagerFirebase {
             result(.failure(NSLocalizedString("User isn't authenticated", comment: "")))
         }
     }
-
+    
     
     private func setUsername (username: String, uid: String) {
         let childUpdates = ["/users/\(uid)/username": username]
@@ -526,7 +526,7 @@ class ManagerFirebase {
             }
         }
     }
-     
+    
     
     //MARK: To check if username is unique
     func checkUserNameUniqness(_ userName: String, result : @escaping (UserOperationResult)->Void) {
@@ -542,32 +542,32 @@ class ManagerFirebase {
             result(.failure(error.localizedDescription))
             
         }
-
+        
     }
-
+    
     //MARK: To search users with a prefix specified. Return array of User
     /*
-        Example for using
-        m?.filterUsers(with: "olg"){array in
-            for u in array {
-                print(u.username)
-            }
-        }
+     Example for using
+     m?.filterUsers(with: "olg"){array in
+     for u in array {
+     print(u.username)
+     }
+     }
      */
     func filterUsers (with text: String, result: @escaping (UserOperationResult) -> Void){
-       let text = text.lowercased()
+        let text = text.lowercased()
         ref?.child("users").queryOrdered(byChild: "username")
             .queryStarting(atValue: text)
             .queryEnding(atValue: text+"\u{f8ff}")
             .observeSingleEvent(of: .value, with: { snapshot in
-            var users = [User]()
-            for u in snapshot.children{
-                users.append(User(data: (u as! DataSnapshot).value as? NSDictionary, uid: snapshot.key))
-            }
-            result(.successArrayOfUsers(users))
-        })
+                var users = [User]()
+                for u in snapshot.children{
+                    users.append(User(data: (u as! DataSnapshot).value as? NSDictionary, uid: snapshot.key))
+                }
+                result(.successArrayOfUsers(users))
+            })
     }
-
+    
     
     //MARK: Return array of friends (contacts)
     func getContacts(from conversations: [Conversation]) -> [User] {
@@ -624,9 +624,9 @@ class ManagerFirebase {
         let key = ref?.child("conversations/").childByAutoId().key
         
         let message = Message(uid: key!,
-            senderId: sender.uid,
-            time: Date(timeIntervalSince1970: TimeInterval(timeStamp.intValue / 1000)),
-            content: (type: content.type, content: content.content))
+                              senderId: sender.uid,
+                              time: Date(timeIntervalSince1970: TimeInterval(timeStamp.intValue / 1000)),
+                              content: (type: content.type, content: content.content))
         
         if let messageRef = ref?.child("conversations/\(conversation.uuid)/messagesInConversation/\(message.uid!)") {
             
@@ -634,53 +634,53 @@ class ManagerFirebase {
             childUpdates.updateValue(message.senderId!, forKey: "senderId")
             childUpdates.updateValue(timeStamp.doubleValue, forKey: "time")
             childUpdates.updateValue(message.content.content, forKey: "content/\((message.content?.type)!)")
-
+            
             messageRef.updateChildValues(childUpdates)
-
+            
             ref?.child("conversations/\(conversation.uuid)/lastMessage").setValue(timeStamp.doubleValue)
             return .successSingleMessage(message)
         } else {
             return .failure(NSLocalizedString("Something went wrong", comment: ""))
         }
     }
-
+    
     func createMessage(conversation: Conversation,
                        sender: User,
                        content: ConversationMessage,
                        result: @escaping (MessageOperationResult) -> Void) {
-
+        
         let failureMessage = MessageOperationResult.failure(NSLocalizedString("Something went wrong", comment: ""))
-
+        
         let timeStamp = NSNumber(value:Date().timeIntervalSince1970 * 1000.0)
         let key = ref?.child("conversations/").childByAutoId().key
-
+        
         let message = Message(uid: key!,
                               senderId: sender.uid,
                               time: Date(timeIntervalSince1970: TimeInterval(timeStamp.intValue / 1000)),
                               content: (type: content.type, content: content.originContent))
-
+        
         if let messageRef = ref?.child("conversations/\(conversation.uuid)/messagesInConversation/\(message.uid!)") {
-
+            
             var childUpdates = [String: Any] ()
             childUpdates.updateValue(message.senderId!, forKey: "senderId")
             childUpdates.updateValue(timeStamp.doubleValue, forKey: "time")
-
+            
             var messageContent: String = ""
             switch message.content.type {
             case .text:
                 messageContent = message.content.content
-
+                
                 self.addContentToMessageInConversation(conversation: conversation,
                                                        message: message,
                                                        messageRef: messageRef,
                                                        messageContent: messageContent,
                                                        childUpdates: &childUpdates,
                                                        timeStamp: timeStamp)
-
+                
                 result (.successSingleMessage(message))
-
+                
             case .audio:
-
+                
                 uploadDataToFirebase(content: message.content.content,
                                      resultString: { (resultString) in
                                         messageContent = resultString
@@ -690,9 +690,9 @@ class ManagerFirebase {
                                                                                messageContent: messageContent,
                                                                                childUpdates: &childUpdates,
                                                                                timeStamp: timeStamp)
-
+                                        
                                         result(.successSingleMessage(message))
-
+                                        
                 })
             default:
                 
@@ -703,39 +703,39 @@ class ManagerFirebase {
             result(failureMessage)
         }
     }
-
+    
     func addContentToMessageInConversation(conversation: Conversation,
-                  message: Message,
-                  messageRef: DatabaseReference,
-                  messageContent: String,
-                  childUpdates: inout [String: Any],
-                  timeStamp: NSNumber) {
-
+                                           message: Message,
+                                           messageRef: DatabaseReference,
+                                           messageContent: String,
+                                           childUpdates: inout [String: Any],
+                                           timeStamp: NSNumber) {
+        
         //shift message content
         message.content.content = messageContent
-
+        
         childUpdates.updateValue(messageContent,
                                  forKey: "content/\((message.content?.type)!)")
-
+        
         messageRef.updateChildValues(childUpdates)
-
+        
         ref?.child("conversations/\(conversation.uuid)/lastMessage").setValue(timeStamp.doubleValue)
     }
-
-
+    
+    
     func uploadDataToFirebase(content: String?,
                               resultString: @escaping (String) -> Void) {
-
-
+        
+        
         let contentData = content ?? ""
         self.handleAudioSendWith(url: URL(fileURLWithPath: contentData),
                                  result:{ (urlFromFireBase) in
-
+                                    
                                     resultString(urlFromFireBase.absoluteString)
         })
     }
-
-
+    
+    
     //MARK: - test
     //some uesr's info was changed
     func valueChanged (action: @escaping (String) -> Void) {
@@ -747,7 +747,7 @@ class ManagerFirebase {
             })
         }
     }
-
+    
     
     func updateConversations (getNewConversation: @escaping (Conversation) -> Void) {
         if let uid = Auth.auth().currentUser?.uid {
@@ -764,7 +764,7 @@ class ManagerFirebase {
                     getNewConversation(newConv)
                 })
                 //action((snapshot.value as? String)!)
-             
+                
                 
             })
             
@@ -784,21 +784,21 @@ class ManagerFirebase {
     
     func getBunchOfMessages (in conversation: Conversation, startingFrom uid: String, count: Int, result: @escaping ([Message]) -> Void) {
         let newRef = self.ref?.child("conversations/\(conversation.uuid)/messagesInConversation")
-            newRef?.queryEnding(atValue: uid).queryLimited(toLast: UInt(count)).queryOrderedByKey().observeSingleEvent(of: .value, with: { (snapshot) in
+        newRef?.queryEnding(atValue: uid).queryLimited(toLast: UInt(count)).queryOrderedByKey().observeSingleEvent(of: .value, with: { (snapshot) in
             //let value = snapshot.value as? [String : AnyObject]
-                var messages = [Message]()
-                for each in snapshot.children {
-                    
-                    let messageDict = (each as! DataSnapshot).value as? NSDictionary
-                    let message = Message(data: messageDict, uid: (each as AnyObject).key)
-                    
-                    guard message.uid! != uid else{
-                        continue
-                    }
-                    messages.append(message)
-                }
+            var messages = [Message]()
+            for each in snapshot.children {
                 
-     //       print(uid)
+                let messageDict = (each as! DataSnapshot).value as? NSDictionary
+                let message = Message(data: messageDict, uid: (each as AnyObject).key)
+                
+                guard message.uid! != uid else{
+                    continue
+                }
+                messages.append(message)
+            }
+            
+            //       print(uid)
             result(messages)
         })
         
@@ -836,18 +836,18 @@ class ManagerFirebase {
                 let conversationDict = conversationSnapshot.value as? [String : AnyObject]
                 if let timeStamp = conversationDict?["lastMessage"] as? NSNumber {
                     let convTuple = conversationTuple(conversationId: "\(conversationSnapshot.key)",
-                                                            timestamp: Date(milliseconds: timeStamp.doubleValue))
+                        timestamp: Date(milliseconds: timeStamp.doubleValue))
                     conversationsIDs.append(convTuple)
                 }
             }
             completionHandler(conversationsIDs)
         })
     }
-   
+    
     func getSortedConversationsIDs(of user: User, completionHandler: @escaping ([conversationTuple]) ->  Void) {
         
         var sortedConversationsArray: [conversationTuple] = []
-
+        
         ref?.child("users/\(user.uid!)/conversations").observeSingleEvent(of: .value, with: { [weak self] (conversationIDs) in
             
             let conversationsDict = conversationIDs.value as? [String : AnyObject] ?? [:]
@@ -915,7 +915,7 @@ class ManagerFirebase {
         var conversations: [Conversation] = []
         
         let conversationsDispatchGroup = DispatchGroup()
-
+        
         ref?.child("conversations").observeSingleEvent(of: .value, with: { [weak self] (snapshot) in
             
             let upperBound: Int!
@@ -942,23 +942,23 @@ class ManagerFirebase {
                         owner: user) {
                         conversations.append(conversation)
                     }
-
+                    
                     self?.getLastMessageOf(conversationID: conversationTuple.conversationId,
                                            from: snapshot,
                                            completionHandler: { (result) in
-                        switch result {
-                        case let .successSingleMessage(message):
-                            
-                            let index = conversations.index(where: { (conversation) -> Bool in
-                                conversation.uuid == conversationTuple.conversationId
-                            })
-                            
-                            conversations[index!].lastMessage = message
-                            
-                            conversationsDispatchGroup.leave()
-                        default:
-                            return
-                        }
+                                            switch result {
+                                            case let .successSingleMessage(message):
+                                                
+                                                let index = conversations.index(where: { (conversation) -> Bool in
+                                                    conversation.uuid == conversationTuple.conversationId
+                                                })
+                                                
+                                                conversations[index!].lastMessage = message
+                                                
+                                                conversationsDispatchGroup.leave()
+                                            default:
+                                                return
+                                            }
                     })
                 } else {
                     let conversationDict = snapshot.childSnapshot(forPath: "\(conversationTuple.conversationId)").value as? [String : AnyObject] ?? [:]
@@ -975,14 +975,14 @@ class ManagerFirebase {
             conversationsDispatchGroup.notify(queue: DispatchQueue.main, execute: {
                 completionHandler(.successArrayOfConversations(conversations))
             })
-        }, withCancel: { (error) in
-            completionHandler(.failure(error.localizedDescription))
+            }, withCancel: { (error) in
+                completionHandler(.failure(error.localizedDescription))
         })
     }
     
     func getSingleConversation(of user: User,
                                tuple: conversationTuple,
-                                completionHandler: @escaping (ConversationOperationResult) -> Void){
+                               completionHandler: @escaping (ConversationOperationResult) -> Void){
         
         ref?.child("conversations/\(tuple.conversationId)").observeSingleEvent(of: .value, with: { [weak self] (snapshot) in
             print(tuple.conversationId)
@@ -1008,14 +1008,14 @@ class ManagerFirebase {
                 
                 let conversationDict = snapshot.value as? [String : AnyObject] ?? [:]
                 if let conversation = self?.getConversation(from: conversationDict,
-                                                         conversationID: tuple.conversationId,
-                                                         withLastMessage: nil,
-                                                         owner: user) {
+                                                            conversationID: tuple.conversationId,
+                                                            withLastMessage: nil,
+                                                            owner: user) {
                     completionHandler(.successSingleConversation(conversation))
                 }
             }
-        }, withCancel: { (error) in
-            completionHandler(.failure(error.localizedDescription))
+            }, withCancel: { (error) in
+                completionHandler(.failure(error.localizedDescription))
         })
     }
     
@@ -1023,7 +1023,7 @@ class ManagerFirebase {
                                   from snapshot: DataSnapshot? = nil,
                                   conversationSnapshot: DataSnapshot? = nil,
                                   completionHandler: @escaping (MessageOperationResult) -> Void) {
-
+        
         let messageRef: DatabaseReference!
         
         if conversationSnapshot != nil {
@@ -1048,11 +1048,11 @@ class ManagerFirebase {
             //sender
             let senderId = messageDict["senderId"] as? String
             //content
-
+            
             let contentDict = messageDict["content"] as! [String : String]
             let contentKeyType = contentDict.first!.key
             let type = MessageContentType(rawValue: contentKeyType) //(contentDict.first?.key)
-
+            
             //nik
             //let content = contentDict["text"]
             var content: String?
@@ -1113,13 +1113,13 @@ class ManagerFirebase {
             result(snapshot.key)
         })
     }
-
+    
     
     func handleAudioSendWith(url: URL, result: @escaping (URL) -> Void) {
-  //      if let uid = Auth.auth().currentUser?.uid {
-            let fileUrl = url
-            let fileName = NSUUID().uuidString + ".m4a"
-
+        //      if let uid = Auth.auth().currentUser?.uid {
+        let fileUrl = url
+        let fileName = NSUUID().uuidString + ".m4a"
+        
         let checkValidation = FileManager.default
         let directoryPath: String = fileUrl.path
         guard checkValidation.fileExists(atPath: directoryPath) else {
@@ -1127,19 +1127,19 @@ class ManagerFirebase {
             result(URL(string: "An error occured! File doesn't exist!")!)
             return
         }
-
+        
         self.storageRef.storage.reference().child("message_voice").child(fileName).putFile(from: fileUrl, metadata: nil) { (metadata, error) in
             if error != nil {
                 print(error?.localizedDescription ?? "Error")
                 result(URL(string: "An error occured!")!)
             }
-
+            
             if let downloadUrl = metadata?.downloadURL() {
                 result(downloadUrl)
             } else {
                 result(URL(string: "An error occured!")!)
             }
-     //   }
+        }
     }
     
     
@@ -1185,16 +1185,8 @@ class ManagerFirebase {
         }
     }
     
-    
-    
-    
-    
-    
-    
-    
 }
 
-    }
 
 //    func handleAudioSendWithQuee(url: URL, result: @escaping (URL) -> Void) {
 //        //      if let uid = Auth.auth().currentUser?.uid {
@@ -1233,4 +1225,4 @@ class ManagerFirebase {
 //        }
 //
 //    }
-}
+//}
