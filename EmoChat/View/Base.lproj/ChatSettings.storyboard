@@ -165,7 +165,7 @@
                                 <connections>
                                     <outlet property="userName" destination="nUn-vm-OR9" id="c4G-uv-f1l"/>
                                     <outlet property="userPic" destination="dO4-3B-Jpu" id="SFM-9L-e6I"/>
-                                    <segue destination="bgU-9T-H2b" kind="show" id="juw-fW-Tjm"/>
+                                    <segue destination="bgU-9T-H2b" kind="show" identifier="showUserInfo" id="juw-fW-Tjm"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
