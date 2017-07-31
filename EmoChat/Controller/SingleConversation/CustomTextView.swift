@@ -12,6 +12,7 @@ class CustomTextView: UITextView {
     
     var shouldBlockMenuActions: Bool = false
     var shouldIgnoreConversationMessageDidSetLink: Bool = false
+    var clearButton: UIButton?
     
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         return !shouldBlockMenuActions && super.canPerformAction(action, withSender: sender)
@@ -30,6 +31,38 @@ class CustomTextView: UITextView {
             shouldIgnoreConversationMessageDidSetLink = false
         }
     }
+
+    func getClearButton() -> UIButton {
+        let kClearButtonWidth: Int = 15
+        let kClearButtonHeight: Int = kClearButtonWidth
+        let curClearButton = UIButton(frame: CGRect(x: 0, y: 0, width: kClearButtonWidth, height: kClearButtonWidth))
+        curClearButton.setImage(UIImage(named: "clearButtonUnpressed.png")!, for: .normal)
+        curClearButton.setImage(UIImage(named: "clearButtonPressed.png")!, for: .highlighted)
+
+        curClearButton.center = CGPoint(x: self.frame.size.width - CGFloat(kClearButtonWidth),
+                                     y: CGFloat(kClearButtonHeight))
+
+        curClearButton.addTarget(self, action: #selector(clearTextView), for: .touchUpInside)
+        self.addSubview(curClearButton)
+
+        return curClearButton
+    }
+
+    func clearTextView() {
+        ConversationMessage.sharedInstance.eraseAllData()
+        removeDeintButton()
+
+        self.becomeFirstResponder()
+    }
+
+    deinit {
+        removeDeintButton()
+    }
+
+    func removeDeintButton() {
+        clearButton?.removeFromSuperview()
+        clearButton = nil
+    }
 }
 
 extension CustomTextView: CustomTextViewProtocol {
@@ -41,7 +74,12 @@ extension CustomTextView: CustomTextViewProtocol {
 
     func setEditingStyle(flag: Bool = true) {
         self.isEditable = flag
-        self.isUserInteractionEnabled = flag
+//        self.isUserInteractionEnabled = flag
+
+        if !flag {
+            clearButton = clearButton ?? getClearButton()
+        }
     }
+
 
 }
