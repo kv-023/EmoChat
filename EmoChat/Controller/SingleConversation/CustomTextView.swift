@@ -50,10 +50,18 @@ class CustomTextView: UITextView {
 
     func clearTextView() {
         ConversationMessage.sharedInstance.eraseAllData()
-        clearButton?.removeFromSuperview()
-        clearButton = nil
+        removeDeintButton()
 
         self.becomeFirstResponder()
+    }
+
+    deinit {
+        removeDeintButton()
+    }
+
+    func removeDeintButton() {
+        clearButton?.removeFromSuperview()
+        clearButton = nil
     }
 }
 

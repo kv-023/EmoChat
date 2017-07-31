@@ -380,6 +380,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                                     self.currentMessage.eraseAllData()
 
                                     self.textMessage.isScrollEnabled = false
+
+                                    self.textMessage.becomeFirstResponder()
                                     
                                     self.textViewMaxHeightConstraint.isActive = false
                                 }
