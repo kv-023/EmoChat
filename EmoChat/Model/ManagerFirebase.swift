@@ -1030,6 +1030,48 @@ class ManagerFirebase {
     
     
     
+    //MARK: - Load photo in condersation
+    //Add photo in conversation to storage and database
+    
+    
+    func addPhotoToConversation (_ image: UIImage, previous url: String?, result: @escaping (UserOperationResult) -> Void) {
+        if let uid = Auth.auth().currentUser?.uid {
+            guard let chosenImageData = UIImageJPEGRepresentation(image, 1) else {
+                result(.failure(NSLocalizedString("Something went wrong", comment: "Undefined error")))
+                return
+            }
+            
+            //create reference
+            let imagePath = "message_photos/\(uid)/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
+            
+            let metaData = StorageMetadata()
+            metaData.contentType = "image/jpeg"
+            
+            //add to firebase
+            
+            self.storageRef.child(imagePath).putData(chosenImageData, metadata: metaData) { (metaData, error) in
+                
+                if error != nil {
+                    result(.failure((error?.localizedDescription)!))
+                } else {
+                    if let previousURL = url {
+                        self.storageRef.child(previousURL).delete { error in
+                            if error != nil {
+                                result(.failure(NSLocalizedString("Previous photo wasn't deleted", comment: "") ))
+                            }
+                        }
+                    }
+                    self.ref?.child("users/\(uid)/photoURL").setValue(imagePath)
+                    result(.success)
+                    
+                }
+            }
+        } else {
+            result(.failure(NSLocalizedString("User isn't authenticated", comment: "")))
+        }
+    }
+    
+    
     
     
     
