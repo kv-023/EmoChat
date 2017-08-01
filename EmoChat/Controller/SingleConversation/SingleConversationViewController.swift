@@ -925,10 +925,20 @@ extension SingleConversationViewController: UIImagePickerControllerDelegate, UIN
     //ImagePicker Protocol methods
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         guard let chosenImage = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
-        
         print(chosenImage)
         
-        manager?.addPhotoToConversation(chosenImage, previous: nil) {
+        savePhotoToFirebase(image: chosenImage)
+        
+        self.dismiss(animated:true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    //Saving photo to firebase
+    func savePhotoToFirebase (image: UIImage) {
+        manager?.addPhotoToConversation(image, previous: nil) {
             result in
             switch result {
             case .success:
@@ -939,12 +949,6 @@ extension SingleConversationViewController: UIImagePickerControllerDelegate, UIN
                 break
             }
         }
-        
-        self.dismiss(animated:true, completion: nil)
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
     }
 }
 
