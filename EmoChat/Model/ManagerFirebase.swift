@@ -654,7 +654,7 @@ class ManagerFirebase {
     func createMessage(conversation: Conversation,
                        sender: User,
                        content: ConversationMessage,
-                       isEmo
+                       isEmoMessage: Bool = false,
                        result: @escaping (MessageOperationResult) -> Void) {
 
         let failureMessage = MessageOperationResult.failure(NSLocalizedString("Something went wrong", comment: ""))
@@ -673,6 +673,13 @@ class ManagerFirebase {
             childUpdates.updateValue(message.senderId!, forKey: "senderId")
             childUpdates.updateValue(timeStamp.doubleValue, forKey: "time")
 
+            if isEmoMessage {
+                let usersInConversation = conversation.usersInConversation.filter { $0.uid != Auth.auth().currentUser?.uid }
+                for user in usersInConversation {
+                    childUpdates.updateValue(false, forKey: "isEmoRecorded/\(user.uid!)")
+                }
+            }
+            
             var messageContent: String = ""
             switch message.content.type {
             case .text:

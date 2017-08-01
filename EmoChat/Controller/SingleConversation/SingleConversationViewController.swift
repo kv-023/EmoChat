@@ -29,6 +29,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     let topConstraintConstant: CGFloat = 8.0
     let blurredViewTag = 228
     let cellCornerRadius: CGFloat = 10.0
+    let emotionTimeRecording = 5.0
     
     // MARK: - IBOutlets
     @IBOutlet weak var cameraPreview: UIView!
@@ -366,6 +367,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         manager?.createMessage(conversation: notNullCurrentConversation,
                                sender: currentUser,
                                content: currentMessage,
+                               isEmoMessage: emoRequestButton.isSelected,
                                result: { (messageOperationResult) in
 
                                 DispatchQueue.main.async {
@@ -475,6 +477,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         message.0.emoRecorded = true
         manager?.removeEmoRequest(message.0.uid!, from: currentConversation)
         self.startCameraSession()
+        self.startEmoRecording()
         
         UIView.animate(withDuration: 0.5, animations: {
             blurredView.alpha = 0.0
@@ -544,6 +547,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 setGeneralVars(cell: cellText, message: message.0)
                 
                 isEmoMessage(message.0, inCell: cellText)
+
                 
                 return cellText
 //            case .audio:
@@ -973,6 +977,10 @@ extension SingleConversationViewController: cameraControllerDelegate {
                                        width: textCell.message.frame.width,
                                        height: textCell.message.frame.height - 28.0)
             
+            print(textCell.message.frame)
+            print(blurredView.frame)
+            print(textCell.message.text)
+            
             let label = createLabel(rect: blurredView.bounds)
             blurredView.addSubview(label)
             
@@ -982,6 +990,23 @@ extension SingleConversationViewController: cameraControllerDelegate {
     }
     
     // MARK: Methods for camera
+    
+    private func startRecording() {
+        cameraController.startSession()
+        cameraController.startCapture()
+        cameraPreview.isHidden = false
+    }
+    
+    func stopRecording() {
+        cameraController.stopSession()
+        cameraController.stopRecording()
+        cameraPreview.isHidden = true
+    }
+    
+    func startEmoRecording() {
+        self.startRecording()
+        self.perform(#selector(stopRecording), with: self, afterDelay: 5.0)
+    }
     
     func getRecordedVideo(recordedVideo: URL) {
         self.recordedVideo = recordedVideo
@@ -996,8 +1021,6 @@ extension SingleConversationViewController: cameraControllerDelegate {
     func startCameraSession() {
         if cameraController.setupSession() {
             cameraController.setupPreview()
-            cameraController.startSession()
-            self.cameraPreview.isHidden = false
         }
     }
 }
