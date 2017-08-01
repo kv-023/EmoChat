@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -60,12 +60,12 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Some text" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="saX-Im-Te1" customClass="SpecialTextView" customModule="EmoChat" customModuleProvider="target">
-                                                    <rect key="frame" x="58" y="11" width="79.5" height="33"/>
+                                                    <rect key="frame" x="58" y="11" width="80" height="33"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2BW-ck-jBa">
-                                                    <rect key="frame" x="147.5" y="31.5" width="26" height="13.5"/>
+                                                    <rect key="frame" x="148" y="31" width="26" height="14"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -124,7 +124,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qN7-ND-9M4">
-                                                    <rect key="frame" x="238" y="11" width="79" height="34"/>
+                                                    <rect key="frame" x="236.5" y="11" width="80" height="34"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <gestureRecognizers/>
                                                     <userDefinedRuntimeAttributes>
@@ -149,19 +149,19 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Some text" textAlignment="right" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mHH-T8-Hcd" customClass="SpecialTextView" customModule="EmoChat" customModuleProvider="target">
-                                                    <rect key="frame" x="237.5" y="11" width="79.5" height="34"/>
+                                                    <rect key="frame" x="237" y="11" width="80" height="34"/>
                                                     <gestureRecognizers/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ulI-98-iYs">
-                                                    <rect key="frame" x="201.5" y="30.5" width="26" height="13.5"/>
+                                                    <rect key="frame" x="201" y="30" width="26" height="14"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="mSK-UU-5O8">
-                                                    <rect key="frame" x="212.5" y="29" width="15" height="15"/>
+                                                    <rect key="frame" x="212" y="29" width="15" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="phj-on-tVe"/>
                                                         <constraint firstAttribute="width" constant="15" id="qr3-Tn-6lx"/>
@@ -301,6 +301,13 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5FR-Of-tvm">
+                                <rect key="frame" x="259" y="516" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="Ge6-tg-6rC"/>
+                                    <constraint firstAttribute="height" constant="100" id="zgJ-37-hd0"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mJO-Ls-y8m">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
@@ -345,8 +352,10 @@
                             <constraint firstItem="mJO-Ls-y8m" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="0dh-de-Jx2"/>
                             <constraint firstItem="vGN-hh-QGI" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="9XJ-Gf-hak"/>
                             <constraint firstItem="guk-1E-8hU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="A04-1T-244"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="5FR-Of-tvm" secondAttribute="trailing" id="ErF-Vj-GDt"/>
                             <constraint firstAttribute="trailing" secondItem="vGN-hh-QGI" secondAttribute="trailing" id="FQa-Eb-mdi"/>
                             <constraint firstItem="mJO-Ls-y8m" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="UJA-DI-aHK"/>
+                            <constraint firstItem="guk-1E-8hU" firstAttribute="top" secondItem="5FR-Of-tvm" secondAttribute="bottom" constant="8" id="bOp-xL-SPi"/>
                             <constraint firstItem="guk-1E-8hU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="eG3-tI-2NV"/>
                             <constraint firstItem="mJO-Ls-y8m" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="eeA-AG-12J"/>
                             <constraint firstItem="guk-1E-8hU" firstAttribute="top" secondItem="vGN-hh-QGI" secondAttribute="bottom" id="g6a-KX-dji"/>
@@ -361,6 +370,7 @@
                     <connections>
                         <outlet property="additionalBottomBarView" destination="9RH-qm-2Wd" id="aem-hs-tpS"/>
                         <outlet property="bottomConstraint" destination="wcy-A5-FQ0" id="YHg-y3-QWv"/>
+                        <outlet property="cameraPreview" destination="5FR-Of-tvm" id="nz7-iQ-O2P"/>
                         <outlet property="emoRequestButton" destination="Ecr-vb-acB" id="vLQ-6J-qZO"/>
                         <outlet property="inputSubView" destination="guk-1E-8hU" id="l5T-s4-E2H"/>
                         <outlet property="loadingIndicator" destination="OHU-zc-Qo6" id="PLR-NL-2OC"/>

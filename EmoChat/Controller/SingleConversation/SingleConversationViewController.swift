@@ -31,6 +31,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     let cellCornerRadius: CGFloat = 10.0
     
     // MARK: - IBOutlets
+    @IBOutlet weak var cameraPreview: UIView!
     @IBOutlet weak var sendMessageButton: UIButton!
     @IBOutlet weak var emoRequestButton: UIButton!
     @IBOutlet weak var plusButton: UIButton!
@@ -52,6 +53,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var noInternetLabel: UILabel!
     
+    var cameraController: CameraView!
     var manager: ManagerFirebase?
     var currentUser: User!
     var currentConversation: Conversation!
@@ -68,6 +70,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     var group = DispatchGroup()
     var multipleChat = false
     var isEmpty = true
+    var recordedVideo: URL!
 
     var currentMessage: ConversationMessage {
         return  ConversationMessage.sharedInstance
@@ -119,6 +122,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         table.dataSource = self
         table.delegate = self
         
+        self.setupCameraControllerView()
         initialSetup()
         
         manager = ManagerFirebase.shared
@@ -470,6 +474,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         guard let message = messagesArrayWithSection[sortedSections[indexPath.section]]![indexPath.row] as? (EmoMessage, UserType) else { return }
         message.0.emoRecorded = true
         manager?.removeEmoRequest(message.0.uid!, from: currentConversation)
+        self.startCameraSession()
         
         UIView.animate(withDuration: 0.5, animations: {
             blurredView.alpha = 0.0
@@ -927,7 +932,9 @@ extension SingleConversationViewController: SingleConversationBottomBarProtocol 
 }
 
 // MARK: - Methods for emoMessage
-extension SingleConversationViewController {
+extension SingleConversationViewController: cameraControllerDelegate {
+    
+    // MARK: Make cell blurred
     
     func isEmoMessage(_ message: Message, inCell cell: UITableViewCell) {
         if let emoMessage = message as? EmoMessage, emoMessage.emoRecorded == false {
@@ -971,6 +978,26 @@ extension SingleConversationViewController {
             
             blurredView.layer.cornerRadius = cellCornerRadius
             textCell.contentView.addSubview(blurredView)
+        }
+    }
+    
+    // MARK: Methods for camera
+    
+    func getRecordedVideo(recordedVideo: URL) {
+        self.recordedVideo = recordedVideo
+    }
+    
+    func setupCameraControllerView() {
+        cameraController = CameraView()
+        cameraController.delegate = self
+        cameraController.camPreview = cameraPreview
+    }
+    
+    func startCameraSession() {
+        if cameraController.setupSession() {
+            cameraController.setupPreview()
+            cameraController.startSession()
+            self.cameraPreview.isHidden = false
         }
     }
 }

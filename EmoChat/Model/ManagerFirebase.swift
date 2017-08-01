@@ -654,6 +654,7 @@ class ManagerFirebase {
     func createMessage(conversation: Conversation,
                        sender: User,
                        content: ConversationMessage,
+                       isEmo
                        result: @escaping (MessageOperationResult) -> Void) {
 
         let failureMessage = MessageOperationResult.failure(NSLocalizedString("Something went wrong", comment: ""))
