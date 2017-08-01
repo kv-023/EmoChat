@@ -1156,7 +1156,7 @@ class ManagerFirebase {
             }
             
             //create reference
-            let imagePath = "message_photos/\(uid)/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
+            let imagePath = "message_photos/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
             
             let metaData = StorageMetadata()
             metaData.contentType = "image/jpeg"
