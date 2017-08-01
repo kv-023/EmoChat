@@ -12,7 +12,7 @@ class CustomTextView: UITextView {
     
     var shouldBlockMenuActions: Bool = false
     var shouldIgnoreConversationMessageDidSetLink: Bool = false
-    var clearButton: UIButton?
+    weak var clearButton: UIButton?
     
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         return !shouldBlockMenuActions && super.canPerformAction(action, withSender: sender)
