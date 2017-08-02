@@ -92,4 +92,11 @@
 "Type message..."                                       = "Type message...";
 "loading ..."                                           = "loading ...";
 
+//UserInfoVC
 "Unknown"                                               = "Unknown";
+"Phone number is unknown"                               = "Phone number is unknown";
+"Cancel"                                                = "Cancel";
+"Error"                                                 = "Error";
+
+
+
