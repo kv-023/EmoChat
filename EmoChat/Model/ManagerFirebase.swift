@@ -666,7 +666,9 @@ class ManagerFirebase {
             childUpdates.updateValue(timeStamp.doubleValue, forKey: "time")
             
             var messageContent: String = ""
+            
             switch message.content.type {
+                
             case .text:
                 messageContent = message.content.content
                 
@@ -690,10 +692,25 @@ class ManagerFirebase {
                                                                                messageContent: messageContent,
                                                                                childUpdates: &childUpdates,
                                                                                timeStamp: timeStamp)
-                                        
                                         result(.successSingleMessage(message))
-                                        
                 })
+                
+            case .photo:
+                print("doshlo")
+                
+//                uploadDataToFirebase(content: message.content.content,
+//                                     resultString: { (resultString) in
+//                                        messageContent = resultString
+                
+                                        addContentToMessageInConversation(conversation: conversation,
+                                                                               message: message,
+                                                                               messageRef: messageRef,
+                                                                               messageContent: messageContent,
+                                                                               childUpdates: &childUpdates,
+                                                                               timeStamp: timeStamp)
+                                        result(.successSingleMessage(message))
+//                })
+                
             default:
                 
                 result(failureMessage)
@@ -1142,48 +1159,42 @@ class ManagerFirebase {
         }
     }
     
+        func addPhotoToConversation (_ image: UIImage, previous url: String?, result: @escaping (UserOperationResult) -> Void) {
+            if let uid = Auth.auth().currentUser?.uid {
+                guard let chosenImageData = UIImageJPEGRepresentation(image, 1) else {
+                    result(.failure(NSLocalizedString("Something went wrong", comment: "Undefined error")))
+                    return
+                }
     
+                //create reference
+                let imagePath = "message_photos/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
     
-    //MARK: - Load photo in condersation
-    //Add photo in conversation to storage and database
+                let metaData = StorageMetadata()
+                metaData.contentType = "image/jpeg"
     
+                //add to firebase
     
-    func addPhotoToConversation (_ image: UIImage, previous url: String?, result: @escaping (UserOperationResult) -> Void) {
-        if let uid = Auth.auth().currentUser?.uid {
-            guard let chosenImageData = UIImageJPEGRepresentation(image, 1) else {
-                result(.failure(NSLocalizedString("Something went wrong", comment: "Undefined error")))
-                return
-            }
-            
-            //create reference
-            let imagePath = "message_photos/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
-            
-            let metaData = StorageMetadata()
-            metaData.contentType = "image/jpeg"
-            
-            //add to firebase
-            
-            self.storageRef.child(imagePath).putData(chosenImageData, metadata: metaData) { (metaData, error) in
-                
-                if error != nil {
-                    result(.failure((error?.localizedDescription)!))
-                } else {
-                    if let previousURL = url {
-                        self.storageRef.child(previousURL).delete { error in
-                            if error != nil {
-                                result(.failure(NSLocalizedString("Previous photo wasn't deleted", comment: "") ))
+                self.storageRef.child(imagePath).putData(chosenImageData, metadata: metaData) { (metaData, error) in
+    
+                    if error != nil {
+                        result(.failure((error?.localizedDescription)!))
+                    } else {
+                        if let previousURL = url {
+                            self.storageRef.child(previousURL).delete { error in
+                                if error != nil {
+                                    result(.failure(NSLocalizedString("Previous photo wasn't deleted", comment: "") ))
+                                }
                             }
                         }
+                        self.ref?.child("users/\(uid)/photoURL").setValue(imagePath)
+                        result(.success)
+    
                     }
-                    self.ref?.child("users/\(uid)/photoURL").setValue(imagePath)
-                    result(.success)
-                    
                 }
+            } else {
+                result(.failure(NSLocalizedString("User isn't authenticated", comment: "")))
             }
-        } else {
-            result(.failure(NSLocalizedString("User isn't authenticated", comment: "")))
         }
-    }
     
 }
 

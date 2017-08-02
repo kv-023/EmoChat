@@ -925,10 +925,12 @@ extension SingleConversationViewController: UIImagePickerControllerDelegate, UIN
     //ImagePicker Protocol methods
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         guard let chosenImage = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
+        
         print(chosenImage)
         
-        savePhotoToFirebase(image: chosenImage)
+        setPhotoPath(path: "ffffff")
         
+        //savePhotoToFirebase(image: chosenImage)
         self.dismiss(animated:true, completion: nil)
     }
     
@@ -936,20 +938,30 @@ extension SingleConversationViewController: UIImagePickerControllerDelegate, UIN
         dismiss(animated: true, completion: nil)
     }
     
-    //Saving photo to firebase
-    func savePhotoToFirebase (image: UIImage) {
-        manager?.addPhotoToConversation(image, previous: nil) {
-            result in
-            switch result {
-            case .success:
-                print("success saving photo")
-            case .failure(let error):
-                print("\(error) fail saving photo")
-            default:
-                break
-            }
+    func setPhotoPath(path: String?) {
+        if let notNullPhotoPath = path {
+            currentMessage.setData(content: notNullPhotoPath, type: .photo)
+            
+            print(notNullPhotoPath)
         }
     }
+    
+    //Saving photo to firebase
+//    func savePhotoToFirebase (image: UIImage) {
+//        manager?.addPhotoToConversation(image, previous: nil) {
+//            result in
+//            switch result {
+//            case .success:
+//                print("success saving photo")
+//            case .failure(let error):
+//                print("\(error) fail saving photo")
+//            default:
+//                break
+//            }
+//        }
+//    }
+    
+    
 }
 
 //MARK: - SingleConversationBottomBarProtocol
