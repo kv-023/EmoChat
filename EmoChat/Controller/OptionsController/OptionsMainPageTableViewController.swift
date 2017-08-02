@@ -17,6 +17,7 @@ class OptionsMainPageTableViewController:  UITableViewController {
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
     
+    var manager: ManagerFirebase!
     var currentUser: CurrentUser!
 
     override func viewDidLoad() {
@@ -24,6 +25,8 @@ class OptionsMainPageTableViewController:  UITableViewController {
         
         //Singleton
         currentUser = CurrentUser.shared
+        manager = ManagerFirebase.shared
+
         currentUser.updateInfoOnView = updateInfoOnView
         updateInfoOnView()
         
@@ -37,6 +40,24 @@ class OptionsMainPageTableViewController:  UITableViewController {
         usernameLabel.text = currentUser.username
         emailLabel.text = currentUser.email
         userImageView.image = currentUser.photo
+    }
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let segueIdentifier = segue.identifier {
+            switch segueIdentifier {
+            case "signOut":
+                switch manager.singOut() {
+                case .failure(let error):
+                    print(error)
+                default:
+                    break
+                }
+                
+            default:
+                break
+            }
+        }
     }
     
 }

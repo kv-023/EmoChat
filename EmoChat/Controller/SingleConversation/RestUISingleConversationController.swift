@@ -185,7 +185,7 @@ extension CustomTableViewCell {
                     contentViewCell?.dataForRestUIInfoView = tempParsedData
                     cMessageModel?.dataForRestUIInfoView = tempParsedData
 
-//                    self.showHideAdditionalInfoFromMessageModel()
+                    //                    self.showHideAdditionalInfoFromMessageModel()
                     contentViewCell?.spinner.stopAnimating()
                 }
             }
@@ -217,10 +217,7 @@ extension CustomTableViewCell {
                                                  arrayOfRequestedViews: &arrayOfViews)
                 }
 
-                //let ccViewHeight = calculateHeightOfView(view: viewForReturn)
-                //setPreviewContainerHeight(height: viewForReturn.heightOriginal)
                 self.previewContainer.layoutIfNeeded()
-                //self.singleConversationControllerDelegate?.resizeSingleConversationCell(cell: self)
 
                 return viewForReturn
             } else {
@@ -307,7 +304,7 @@ extension CustomTableViewCell {
     }
     func removeRestUIInfoViewFromView(view masterView: UIView,
                                       arrayOfRequestedViews: inout [RestUIInfoView]) {
-
+        
         for currentSubview in arrayOfRequestedViews {
             if let notNullIndexOfElement = arrayOfRequestedViews.index(of: currentSubview) {
                 arrayOfRequestedViews.remove(at: notNullIndexOfElement)

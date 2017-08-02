@@ -16,6 +16,7 @@ class OptionsChangePhotoNameSecondNameTableViewController: UITableViewController
     @IBOutlet weak var infoLabel: UILabel!
     var currentUser: CurrentUser!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

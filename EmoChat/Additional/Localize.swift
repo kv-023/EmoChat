@@ -1,3 +1,8 @@
+//
+//  Created by Nikolay Dementiev on 22.06.17.
+//  Copyright © 2017 SoftServe. All rights reserved.
+
+
 //https://www.packtpub.com/books/content/string-management-in-swift
 
 import Foundation

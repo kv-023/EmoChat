@@ -9,7 +9,6 @@
 import UIKit
 
 protocol AudioRecordPlaybackProtocol: class {
-    func test()
     weak var audioMessageViewDelegate: AudioMessageViewProtocol? {get set}
     func playAudio(urlFromFireBase url: URL?)
     var audioSecondsVal: Double { get }
@@ -18,27 +17,22 @@ protocol AudioRecordPlaybackProtocol: class {
 
 class AudioMessageView: AdditionalCellView {
 
-    // look in superView
-    //    @IBOutlet weak var captionLabel: UILabel!
-    //    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    var audioPlaybackDelegate: AudioRecordPlaybackProtocol?
 
     @IBOutlet weak var playStopButton: UIButton!
+    @IBOutlet weak var WaveFormView: AudioMessageWaveForm!
     @IBAction func playStopButtonPressed(_ sender: UIButton) {
         if let notNullURL = url {
             sender.isSelected = true
 
             audioPlaybackDelegate?.playAudio(urlFromFireBase: URL(fileURLWithPath: notNullURL))
+
+            WaveFormView.playingProgress(sec: audioPlaybackDelegate?.audioSecondsVal, uidStream: Auxiliary.getUUID())
         }
-
-        WaveFormView.playingProgress(sec: audioPlaybackDelegate?.audioSecondsVal)
     }
-    @IBOutlet weak var WaveFormView: AudioMessageWaveForm!
-
-
-    var audioPlaybackDelegate: AudioRecordPlaybackProtocol?
 
     override var url: String? {
-        didSet{
+        didSet {
             if let notNullURL = self.url, notNullURL != "" {
                 let localUrlPath = URL(fileURLWithPath: notNullURL)
 
@@ -47,13 +41,13 @@ class AudioMessageView: AdditionalCellView {
                 if let currentAudioSecondsVal = audioPlaybackDelegate?.audioSecondsVal {
                     captionLabel.textAlignment = .left
                     captionLabel.text = String(currentAudioSecondsVal) + " sec."
-                    //audioPlaybackDelegate?.test()
                 }
 
                 WaveFormView.setNeedsDisplay()
             }
         }
     }
+
     override var dataForMediaInfoView: DataForMediaMessageInfoProtocol? {
         didSet {
             if let notNullDataForMediaInfoView = dataForMediaInfoView {
@@ -73,10 +67,10 @@ class AudioMessageView: AdditionalCellView {
         dataForMediaInfoView = tempDataForMediaInfoView
     }
 
-    var heightOriginal:CGFloat = 0
+    var heightOriginal: CGFloat = 0
     //    weak var dataModel: UrlembedModel?
 
-    override   func eraseAllFields() {
+    override  func eraseAllFields() {
         super.eraseAllFields()
 
     }
@@ -93,8 +87,8 @@ class AudioMessageView: AdditionalCellView {
         self.commonInit()
     }
 
-    override func awakeFromNib() {
-        //        addUrlTapRecognizer()
+    deinit {
+        audioPlaybackDelegate = nil
     }
 
     override var backgroundColor: UIColor? {
@@ -110,7 +104,6 @@ class AudioMessageView: AdditionalCellView {
         audioPlaybackDelegate = AudioMessageControl.cInit()
         audioPlaybackDelegate?.audioMessageViewDelegate = self
     }
-
 }
 
 //MARK:- AudioMessageViewProtocol implementation

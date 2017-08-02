@@ -46,7 +46,7 @@ class AudioMessageControl: NSObject, AVAudioRecorderDelegate {//UIViewController
 
                 DispatchQueue.main.async {
                     if allowed {
-                        //                        print("Allow")
+                        //print("Allow")
                     } else {
                         print("RecordPermission: Dont Allow")
                     }
@@ -178,14 +178,22 @@ class AudioMessageControl: NSObject, AVAudioRecorderDelegate {//UIViewController
 
     func audioMessageToAnalyze(url: URL) {
         //Read File into AVAudioFile
-        let file = try! AVAudioFile(forReading: url)
-        //Format of the file
-        let format = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: file.fileFormat.sampleRate, channels: file.fileFormat.channelCount, interleaved: false)
-        //Buffer
-        let buf = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: UInt32(file.length))
-        try! file.read(into: buf)//Read Floats
-        //Store the array of floats in the struct
-        audioMessageWaveForm?.readFile.arrayFloatValues = Array(UnsafeBufferPointer(start: buf.floatChannelData?[0], count:Int(buf.frameLength)))
+        do {
+            let file = try AVAudioFile(forReading: url)
+
+            //let file = try! AVAudioFile(forReading: url)
+            //Format of the file
+            let format = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: file.fileFormat.sampleRate, channels: file.fileFormat.channelCount, interleaved: false)
+            //Buffer
+            let buf = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: UInt32(file.length))
+            try! file.read(into: buf)//Read Floats
+            //Store the array of floats in the struct
+            audioMessageWaveForm?.readFile.arrayFloatValues = Array(UnsafeBufferPointer(start: buf.floatChannelData?[0], count:Int(buf.frameLength)))
+        } catch {
+            print(error.localizedDescription)
+            return
+        }
+        
     }
 
 }
@@ -211,10 +219,6 @@ extension AudioMessageControl: AudioRecordProtocol {
 
 //MARK:- AudioRecordPlayback
 extension AudioMessageControl: AudioRecordPlaybackProtocol {
-
-    func test() {
-
-    }
 
     func analyzeAudioMessage(url: URL, waveFormView: AudioMessageWaveForm?) {
         //try to link wave form, if needed
