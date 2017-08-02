@@ -697,18 +697,15 @@ class ManagerFirebase {
                 
             case .photo:
                 
-//                uploadDataToFirebase(content: message.content.content,
-//                                     resultString: { (resultString) in
-//                                        messageContent = resultString
+                messageContent = message.content.content
                 
-                                        addContentToMessageInConversation(conversation: conversation,
-                                                                               message: message,
-                                                                               messageRef: messageRef,
-                                                                               messageContent: messageContent,
-                                                                               childUpdates: &childUpdates,
-                                                                               timeStamp: timeStamp)
-                                        result(.successSingleMessage(message))
-//                })
+                addContentToMessageInConversation(conversation: conversation,
+                                                  message: message,
+                                                  messageRef: messageRef,
+                                                  messageContent: messageContent,
+                                                  childUpdates: &childUpdates,
+                                                  timeStamp: timeStamp)
+                result(.successSingleMessage(message))
                 
             default:
                 
@@ -1158,42 +1155,48 @@ class ManagerFirebase {
         }
     }
     
-        func addPhotoToConversation (_ image: UIImage, previous url: String?, result: @escaping (UserOperationResult) -> Void) {
-            if let uid = Auth.auth().currentUser?.uid {
-                guard let chosenImageData = UIImageJPEGRepresentation(image, 1) else {
-                    result(.failure(NSLocalizedString("Something went wrong", comment: "Undefined error")))
-                    return
-                }
     
-                //create reference
-                let imagePath = "message_photos/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
+    //MARK: - PHOTO
+    // Dima Zelensky
     
-                let metaData = StorageMetadata()
-                metaData.contentType = "image/jpeg"
     
-                //add to firebase
+    //    func uploadDataToFirebase(content: String?,
+    //                              resultString: @escaping (String) -> Void) {
+    //
+    //
+    //        let contentData = content ?? ""
+    //        self.handleAudioSendWith(url: URL(fileURLWithPath: contentData),
+    //                                 result:{ (urlFromFireBase) in
+    //
+    //                                    resultString(urlFromFireBase.absoluteString)
+    //        })
+    //    }
     
-                self.storageRef.child(imagePath).putData(chosenImageData, metadata: metaData) { (metaData, error) in
-    
-                    if error != nil {
-                        result(.failure((error?.localizedDescription)!))
-                    } else {
-                        if let previousURL = url {
-                            self.storageRef.child(previousURL).delete { error in
-                                if error != nil {
-                                    result(.failure(NSLocalizedString("Previous photo wasn't deleted", comment: "") ))
-                                }
-                            }
-                        }
-                        self.ref?.child("users/\(uid)/photoURL").setValue(imagePath)
-                        result(.success)
-    
-                    }
-                }
-            } else {
-                result(.failure(NSLocalizedString("User isn't authenticated", comment: "")))
+    func addPhotoToConversation (_ image: UIImage, result: @escaping (String) -> Void) {
+        guard let chosenImageData = UIImageJPEGRepresentation(image, 1) else {
+            result(String(NSLocalizedString("Something went wrong", comment: "Undefined error")))
+            return
+        }
+        
+        //create reference
+        let imagePath = "message_photos/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
+        
+        let metaData = StorageMetadata()
+        metaData.contentType = "image/jpeg"
+        
+        //add to firebase
+        self.storageRef.child(imagePath).putData(chosenImageData, metadata: metaData) { (metaData, error) in
+            if error != nil {
+                result(String((error?.localizedDescription)!))
+            }
+            
+            if let downloadUrl = metaData?.downloadURL() {
+                result(String(describing: downloadUrl))
+            }else {
+                result("An error occured!")
             }
         }
+    }
     
 }
 

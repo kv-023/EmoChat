@@ -22,7 +22,7 @@ enum UserType {
 
 
 class SingleConversationViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate {
-
+    
     // MARK: - constants
     let leadingConstraintConstant: CGFloat = 8.0
     let trailingConstraintConstant: CGFloat = 8.0
@@ -66,12 +66,12 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     var group = DispatchGroup()
     var multipleChat = false
     var isEmpty = true
-
+    
     var currentMessage: ConversationMessage {
         return  ConversationMessage.sharedInstance
     }
-
-
+    
+    
     func addNavigationItem () {
         navigationItem.title = currentConversation.name ?? "<?>"
         let button = UIButton.init(type: .custom)
@@ -97,11 +97,11 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         if !connectedToNetwork() {
             noInternetLabel.isHidden = false
         }
-
+        
         setUpTextView()
         setUpFrame()
         addNavigationItem()
-
+        
         currentMessage.linkedTextViewDelegate = textMessage
         additionalBottomBarView.singleConversationBottomBarDelegate = self
     }
@@ -150,7 +150,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 self.multipleChat = true
             }
         })
-  
+        
     }
     
     func setUpFrame() {
@@ -339,7 +339,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     //you don't need to use this method to send message with media content
     @IBAction func sendMessage(_ sender: UIButton) {
-
+        
         guard  (currentMessage.type == .text
             && textMessage.textColor != UIColor.lightGray
             && textMessage.containsAlphaNumericCharacters())
@@ -347,24 +347,24 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             || currentMessage.type == .photo
             || currentMessage.type == .video
             else {
-
-            print("An Error occured during sending the message!")
-            return
+                
+                print("An Error occured during sending the message!")
+                return
         }
-
+        
         guard let notNullCurrentConversation = currentConversation else {
             print("An Error occured during sending the message! Current conversation can't be nil !")
             return
         }
-
+        
         manager?.createMessage(conversation: notNullCurrentConversation,
                                sender: currentUser,
                                content: currentMessage,
                                result: { (messageOperationResult) in
-
+                                
                                 DispatchQueue.main.async {
                                     //do all work on main queue
-
+                                    
                                     switch (messageOperationResult) {
                                     case .successSingleMessage(let message):
                                         self.insertRow((message, .right(.sending)))
@@ -373,21 +373,21 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                                     default:
                                         break
                                     }
-
+                                    
                                     self.scrollToLastMessage()
-
+                                    
                                     //clean textView
                                     self.currentMessage.eraseAllData()
-
+                                    
                                     self.textMessage.isScrollEnabled = false
                                     
                                     self.textViewMaxHeightConstraint.isActive = false
                                 }
         })
-
-
+        
+        
     }
-
+    
     //download 20 more messages
     func updateUI() {
         if let firstMessage = messagesArrayWithSection[sortedSections[0]]!.first?.0 {
@@ -515,8 +515,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 cellText.time.text = message.0.time.formatDate()
                 setGeneralVars(cell: cellText, message: message.0)
                 return cellText
-//            case .audio:
-//                return UITableViewCell()
+                //            case .audio:
+            //                return UITableViewCell()
             case .video:
                 return UITableViewCell()
             case .photo:
@@ -540,8 +540,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 }
                 
                 return cellText
-//            case .audio:
-//                return UITableViewCell()
+                //            case .audio:
+            //                return UITableViewCell()
             case .video:
                 return UITableViewCell()
             case .photo:
@@ -587,7 +587,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                                        message messageEntity: Message?) {
         if let notNullMessageEntity = messageEntity,
             let messageModelInDictionary = messageMediaContentModel[notNullMessageEntity] as? MessageModelGeneric {
-
+            
             cell.messageModel = messageModelInDictionary
         } else {
             cell.messageModel = nil
@@ -600,9 +600,9 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     func setUpTextView () {
         textMessage.delegate = self
         textMessage.text = NSLocalizedString("Type message...", comment: "")
-
+        
         currentMessage.setData(content: textMessage.text, type: .text)
-
+        
         textMessage.textColor = .lightGray
         
         textMessage.layer.cornerRadius = 10
@@ -642,7 +642,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         self.animateTextViewTransitions(becomeFirstResponder: true)
     }
     
-
+    
     func textViewDidEndEditing(_ textView: UITextView){
         if (textView.text == ""){
             textView.text = NSLocalizedString("Type message...", comment: "")
@@ -657,7 +657,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-
+        
         scrollToLastMessage()
         return true
     }
@@ -851,7 +851,7 @@ extension SingleConversationViewController: SingleConversationControllerProtocol
     
     func addMessageModelInSingleConversationDictionary(message: Message,
                                                        model: MessageModelGeneric?) {
-
+        
         messageMediaContentModel.updateValue(model, forKey: message)
     }
     
@@ -892,7 +892,7 @@ extension CustomTextView {
 
 // MARK: - For working with pictures
 extension SingleConversationViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
+    
     //Photo library
     func addPhotoLibrary () {
         let imagePicker = UIImagePickerController()
@@ -925,12 +925,13 @@ extension SingleConversationViewController: UIImagePickerControllerDelegate, UIN
     //ImagePicker Protocol methods
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         guard let chosenImage = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
-        
         print(chosenImage)
         
-        setPhotoPath(path: "ffffff")
-        
-        //savePhotoToFirebase(image: chosenImage)
+        //Save to firebase
+        manager?.addPhotoToConversation(chosenImage) {
+            result in
+            self.setPhotoPath(path: result)
+        }
         self.dismiss(animated:true, completion: nil)
     }
     
@@ -941,35 +942,17 @@ extension SingleConversationViewController: UIImagePickerControllerDelegate, UIN
     func setPhotoPath(path: String?) {
         if let notNullPhotoPath = path {
             currentMessage.setData(content: notNullPhotoPath, type: .photo)
-            
             print(notNullPhotoPath)
         }
     }
-    
-    //Saving photo to firebase
-//    func savePhotoToFirebase (image: UIImage) {
-//        manager?.addPhotoToConversation(image, previous: nil) {
-//            result in
-//            switch result {
-//            case .success:
-//                print("success saving photo")
-//            case .failure(let error):
-//                print("\(error) fail saving photo")
-//            default:
-//                break
-//            }
-//        }
-//    }
-    
-    
 }
 
 //MARK: - SingleConversationBottomBarProtocol
 
 extension SingleConversationViewController: SingleConversationBottomBarProtocol {
-
+    
     func setAudioPath(path: String?) {
-
+        
         if let notNullAudioPath = path {
             currentMessage.setData(content: notNullAudioPath, type: .audio)
         }
