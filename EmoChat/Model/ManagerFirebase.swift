@@ -696,7 +696,6 @@ class ManagerFirebase {
                 })
                 
             case .photo:
-                print("doshlo")
                 
 //                uploadDataToFirebase(content: message.content.content,
 //                                     resultString: { (resultString) in
