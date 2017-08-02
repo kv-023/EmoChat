@@ -497,6 +497,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 cell.transform = CGAffineTransform.identity
             })
         }
+        let message = messagesArrayWithSection[sortedSections[indexPath.section]]![indexPath.row]
+        isEmoMessage(message.0, inCell: cell)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -545,9 +547,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 }
                 cellText.time.text = message.0.time.formatDate()
                 setGeneralVars(cell: cellText, message: message.0)
-                
-                isEmoMessage(message.0, inCell: cellText)
-
                 
                 return cellText
 //            case .audio:
@@ -942,6 +941,7 @@ extension SingleConversationViewController: cameraControllerDelegate {
     
     func isEmoMessage(_ message: Message, inCell cell: UITableViewCell) {
         if let emoMessage = message as? EmoMessage, emoMessage.emoRecorded == false {
+            cell.layoutIfNeeded()
             makeCellBlurred(cell: cell)
         } else {
             guard let blurredView = cell.viewWithTag(blurredViewTag) else { return }
@@ -976,15 +976,12 @@ extension SingleConversationViewController: cameraControllerDelegate {
                                        y: textCell.message.frame.minY + 28.0,
                                        width: textCell.message.frame.width,
                                        height: textCell.message.frame.height - 28.0)
-            
-            print(textCell.message.frame)
-            print(blurredView.frame)
-            print(textCell.message.text)
-            
+
             let label = createLabel(rect: blurredView.bounds)
             blurredView.addSubview(label)
             
             blurredView.layer.cornerRadius = cellCornerRadius
+            blurredView.layoutIfNeeded()
             textCell.contentView.addSubview(blurredView)
         }
     }

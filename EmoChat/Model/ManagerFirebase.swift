@@ -1149,10 +1149,10 @@ class ManagerFirebase {
 
     
     func handleAudioSendWith(url: URL, result: @escaping (URL) -> Void) {
-  //      if let uid = Auth.auth().currentUser?.uid {
-            let fileUrl = url
-            let fileName = NSUUID().uuidString + ".m4a"
-
+        //      if let uid = Auth.auth().currentUser?.uid {
+        let fileUrl = url
+        let fileName = NSUUID().uuidString + ".m4a"
+        
         let checkValidation = FileManager.default
         let directoryPath: String = fileUrl.path
         guard checkValidation.fileExists(atPath: directoryPath) else {
@@ -1160,21 +1160,21 @@ class ManagerFirebase {
             result(URL(string: "An error occured! File doesn't exist!")!)
             return
         }
-
+        
         self.storageRef.storage.reference().child("message_voice").child(fileName).putFile(from: fileUrl, metadata: nil) { (metadata, error) in
             if error != nil {
                 print(error?.localizedDescription ?? "Error")
                 result(URL(string: "An error occured!")!)
             }
-
+            
             if let downloadUrl = metadata?.downloadURL() {
                 result(downloadUrl)
             } else {
                 result(URL(string: "An error occured!")!)
             }
-     //   }
-    }
-
+            //   }
+        }
+        
     }
     
     // MARK: - EmoMessages
