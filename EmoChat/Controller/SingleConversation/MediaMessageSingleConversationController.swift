@@ -48,8 +48,8 @@ extension CustomTableViewCell {
                 return "AudioMessageView"
             case .text:
                 return "RestUIInfo2"
-//            case .photo, .video:
-//                return "NEED-TO-REWRITE !!!"
+                //            case .photo, .video:
+            //                return "NEED-TO-REWRITE !!!"
             default:
                 return "RestUIInfo2"
             }
@@ -179,12 +179,9 @@ extension CustomTableViewCell {
 
             downloadGroup.notify(queue: DispatchQueue.main) {
 
-                //tempParsedData = DataForAudioMessageInfoView(dict: dicTemData)
-
                 contentViewCell?.setDataForMediaContentFromDictionary(dict: dicTemData)
                 self.messageModel?.dataForMediaInfoView = contentViewCell?.dataForMediaInfoView
 
-//                self.showHideAdditionalInfoFromMessageModel()
                 contentViewCell?.spinner.stopAnimating()
             }
         }
@@ -308,20 +305,20 @@ extension CustomTableViewCell {
             guard currentSubview is Tview else {
                 continue
             }
-
+            
             currentSubview.removeFromSuperview()
         }
     }
-
+    
     func removeViewFromSuperView(view masterView: UIView) {
         let subviews = masterView.subviews
-
+        
         for currentSubview in subviews {
             
             currentSubview.removeFromSuperview()
         }
     }
-
+    
     func getRequestedViewFromView<Tview>(view masterView: UIView) -> Array<Tview> {
         let subviews = masterView.subviews
         

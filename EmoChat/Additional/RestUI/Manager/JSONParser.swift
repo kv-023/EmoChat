@@ -89,7 +89,9 @@ class JSONParser: NSObject {
 //                    }
                     // Copy File From Temp Folder To Documents Directory
                     do {
-                        try fileManager.copyItem(atPath: localUrl.path,
+//                        try fileManager.copyItem(atPath: localUrl.path,
+//                                                 toPath: destinationURL.path)
+                        try fileManager.moveItem(atPath: localUrl.path,
                                                  toPath: destinationURL.path)
                     } catch {
                         print(error.localizedDescription)
