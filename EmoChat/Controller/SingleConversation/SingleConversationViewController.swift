@@ -8,6 +8,7 @@
 
 import UIKit
 import SystemConfiguration
+import AVFoundation
 
 enum RightType {
     case sent
@@ -71,7 +72,12 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     var group = DispatchGroup()
     var multipleChat = false
     var isEmpty = true
-    var recordedVideo: URL!
+    var recordedVideo: URL! {
+        didSet {
+            print("Recorded video not null")
+            setVideoPath(path: recordedVideo.path)
+        }
+    }
 
     var currentMessage: ConversationMessage {
         return  ConversationMessage.sharedInstance
@@ -476,7 +482,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         guard let message = messagesArrayWithSection[sortedSections[indexPath.section]]![indexPath.row] as? (EmoMessage, UserType) else { return }
         message.0.emoRecorded = true
         manager?.removeEmoRequest(message.0.uid!, from: currentConversation)
-        self.startCameraSession()
+        //self.startCameraSession()
         self.startEmoRecording()
         
         UIView.animate(withDuration: 0.5, animations: {
@@ -932,6 +938,13 @@ extension SingleConversationViewController: SingleConversationBottomBarProtocol 
             currentMessage.setData(content: notNullAudioPath, type: .audio)
         }
     }
+    
+    func setVideoPath(path: String?) {
+        
+        if let notNullVideoPath = path {
+            currentMessage.setData(content: notNullVideoPath, type: .video)
+        }
+    }
 }
 
 // MARK: - Methods for emoMessage
@@ -989,20 +1002,19 @@ extension SingleConversationViewController: cameraControllerDelegate {
     // MARK: Methods for camera
     
     private func startRecording() {
-        cameraController.startSession()
-        cameraController.startCapture()
+        cameraController.startRecording()
         cameraPreview.isHidden = false
     }
     
     func stopRecording() {
-        cameraController.stopSession()
-        cameraController.stopRecording()
+        cameraController.startRecording()
         cameraPreview.isHidden = true
+        cameraController.stopSession()
     }
     
     func startEmoRecording() {
         self.startRecording()
-        self.perform(#selector(stopRecording), with: self, afterDelay: 5.0)
+        self.perform(#selector(self.stopRecording), with: self, afterDelay: 5.0)
     }
     
     func getRecordedVideo(recordedVideo: URL) {
@@ -1013,11 +1025,13 @@ extension SingleConversationViewController: cameraControllerDelegate {
         cameraController = CameraView()
         cameraController.delegate = self
         cameraController.camPreview = cameraPreview
+        startCameraSession()
     }
     
     func startCameraSession() {
         if cameraController.setupSession() {
             cameraController.setupPreview()
+            cameraController.startSession()
         }
     }
 }

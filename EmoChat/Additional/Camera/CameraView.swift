@@ -150,6 +150,7 @@ class CameraView: NSObject, AVCaptureFileOutputRecordingDelegate {
     
     func startRecording() {
         
+        print(movieOutput.isRecording)
         if movieOutput.isRecording == false {
             
             let connection = movieOutput.connection(withMediaType: AVMediaTypeVideo)
@@ -176,7 +177,7 @@ class CameraView: NSObject, AVCaptureFileOutputRecordingDelegate {
             //EDIT2: And I forgot this
             outputURL = tempURL()
             movieOutput.startRecording(toOutputFileURL: outputURL, recordingDelegate: self)
-            
+            print(movieOutput.isRecording)
         }
         else {
             stopRecording()
