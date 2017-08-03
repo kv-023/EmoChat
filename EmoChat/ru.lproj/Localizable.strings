@@ -96,4 +96,11 @@
 "Type message..."                                       = "Введите сообщение...";
 "loading ..."                                           = "загрузка...";
 
+//UserInfoVC
 "Unknown"                                               = "Неизвестно";
+"Phone number is unknown"                               = "Номер неизвестен";
+"Cancel"                                                = "Отмена";
+"Error"                                                 = "Ошибка";
+"Are you sure you want to call"                         = "Вы действительно хотите позвонить по номеру";
+"Ok"                                                    = "Ок";
+
