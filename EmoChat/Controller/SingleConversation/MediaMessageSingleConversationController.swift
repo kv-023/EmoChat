@@ -48,6 +48,8 @@ extension CustomTableViewCell {
                 return "AudioMessageView"
             case .text:
                 return "RestUIInfo2"
+            case .photo:
+                return "PhotoMessageView"
 //            case .photo, .video:
 //                return "NEED-TO-REWRITE !!!"
             default:
@@ -85,6 +87,9 @@ extension CustomTableViewCell {
             valueForReturn = AudioMessageView.self
         case .text:
             valueForReturn = RestUIInfoView.self
+            
+        case .photo:
+            valueForReturn = PhotoMessageView.self
         //case .photo, .video:
         default:
             break
