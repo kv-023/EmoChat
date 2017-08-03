@@ -497,7 +497,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         switch message.1 {
         case .left:
             switch message.0.content.0 {
-            case .text, .audio:
+            case .text, .audio, .photo:
                 guard let cellText = tableView.dequeueReusableCell(withIdentifier: "Left", for: indexPath) as? LeftTextCell else {
                     fatalError("Cell was not casted!")
                 }
@@ -519,12 +519,12 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             //                return UITableViewCell()
             case .video:
                 return UITableViewCell()
-            case .photo:
-                return UITableViewCell()
+//            case .photo:
+//                return UITableViewCell()
             }
         case .right:
             switch message.0.content.0 {
-            case .text, .audio:
+            case .text, .audio, .photo:
                 guard let cellText = tableView.dequeueReusableCell(withIdentifier: "Right", for: indexPath) as? RightTextCell else {
                     fatalError("Cell was not casted!")
                 }
@@ -544,8 +544,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
             //                return UITableViewCell()
             case .video:
                 return UITableViewCell()
-            case .photo:
-                return UITableViewCell()
+//            case .photo:
+//                return UITableViewCell()
             }
         }
     }

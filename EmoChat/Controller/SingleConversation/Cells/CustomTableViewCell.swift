@@ -68,6 +68,18 @@ class CustomTableViewCell: UITableViewCell {
                 //get&show data
                 getMediaContentFromMessageTextForCell()
             }
+        case .photo:
+            let notNullMessageModel = messageModel as? MessageModelPhoto
+            
+//            if notNullMessageModel?.dataForMediaInfoView != nil {
+//                
+//                updateUIForMediaMessageModel()
+//            } else {
+//                //lets show spinner animation
+//                showViewForContent()
+//                //get&show data
+//                getMediaContentFromMessageTextForCell()
+//            }
 
         default:
             break
