@@ -482,7 +482,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         guard let message = messagesArrayWithSection[sortedSections[indexPath.section]]![indexPath.row] as? (EmoMessage, UserType) else { return }
         message.0.emoRecorded = true
         manager?.removeEmoRequest(message.0.uid!, from: currentConversation)
-        //self.startCameraSession()
         self.startEmoRecording()
         
         UIView.animate(withDuration: 0.5, animations: {
@@ -943,6 +942,7 @@ extension SingleConversationViewController: SingleConversationBottomBarProtocol 
         
         if let notNullVideoPath = path {
             currentMessage.setData(content: notNullVideoPath, type: .video)
+            sendMessage(sendMessageButton)
         }
     }
 }

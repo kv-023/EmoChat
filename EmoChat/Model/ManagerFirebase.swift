@@ -709,6 +709,21 @@ class ManagerFirebase {
                                         result(.successSingleMessage(message))
 
                 })
+                
+            case .video:
+                
+                uploadVideoToFirebase(content: message.content.content,
+                                      resultString: { (resultString) in
+                                        messageContent = resultString
+                                        self.addContentToMessageInConversation(conversation: conversation,
+                                                                               message: message,
+                                                                               messageRef: messageRef,
+                                                                               messageContent: messageContent,
+                                                                               childUpdates: &childUpdates,
+                                                                               timeStamp: timeStamp)
+                                        result(.successSingleMessage(message))
+                })
+                
             default:
                 
                 result(failureMessage)
@@ -737,6 +752,14 @@ class ManagerFirebase {
         ref?.child("conversations/\(conversation.uuid)/lastMessage").setValue(timeStamp.doubleValue)
     }
 
+    func uploadVideoToFirebase(content: String?,
+                               resultString: @escaping (String) -> Void) {
+        
+        let contentData = content ?? ""
+        self.handleVideoSendWith(url: URL(fileURLWithPath: contentData), result: { (urlFromFirebase)  in
+            resultString(urlFromFirebase.absoluteString)
+        })
+    }
 
     func uploadDataToFirebase(content: String?,
                               resultString: @escaping (String) -> Void) {
@@ -1147,6 +1170,33 @@ class ManagerFirebase {
         })
     }
 
+    
+    func handleVideoSendWith(url: URL, result: @escaping (URL) -> Void) {
+        
+        let fileURL = url
+        let fileName = NSUUID().uuidString + ".mp4"
+        
+        let checkValidation = FileManager.default
+        let directoryPath: String = fileURL.path
+        guard checkValidation.fileExists(atPath: directoryPath) else {
+            print("An error occured! directory '\(directoryPath)' doesn't exist!")
+            result(URL(string: "An error occured! File doesn't exist!")!)
+            return
+        }
+        
+        self.storageRef.storage.reference().child("message_videos").child(fileName).putFile(from: fileURL, metadata: nil) { (metadata, error) in
+            if error != nil {
+                print(error?.localizedDescription ?? "Error")
+                result(URL(string: "An error occured!")!)
+            }
+            
+            if let downloadUrl = metadata?.downloadURL() {
+                result(downloadUrl)
+            } else {
+                result(URL(string: "An error occured!")!)
+            }
+        }
+    }
     
     func handleAudioSendWith(url: URL, result: @escaping (URL) -> Void) {
         //      if let uid = Auth.auth().currentUser?.uid {
