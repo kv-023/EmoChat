@@ -43,7 +43,6 @@ class RightTextCell: RightCell {
         didSet {
             //or set media content in ui elements
             let text = NSMutableAttributedString(string: "")
-//            text.append(NSAttributedString(string: (messageEntity?.content!.content)!, attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: CGFloat.init(15.0))]))
             text.append(NSAttributedString(string: getTextForCellText(cell: self),
                                            attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: CGFloat.init(15.0))]))
 
@@ -52,10 +51,6 @@ class RightTextCell: RightCell {
             setNullableDataInPreviewContainer()
         }
     }
-
-//    override func getTextForCellText() -> String {
-//        return "sent " + super.getTextForCellText()
-//    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
