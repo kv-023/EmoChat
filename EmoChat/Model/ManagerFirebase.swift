@@ -562,7 +562,8 @@ class ManagerFirebase {
             .observeSingleEvent(of: .value, with: { snapshot in
             var users = [User]()
             for u in snapshot.children{
-                users.append(User(data: (u as! DataSnapshot).value as? NSDictionary, uid: snapshot.key))
+                
+                users.append(User(data: (u as! DataSnapshot).value as? NSDictionary, uid: (u as! DataSnapshot).key))
             }
             result(.successArrayOfUsers(users))
         })
@@ -593,15 +594,15 @@ class ManagerFirebase {
                                         usersInConversation: members,
                                         messagesInConversation: nil,
                                         lastMessage: nil,
-                                        lastMessageTimeStamp: Date(timeIntervalSince1970: TimeInterval(timeStamp.intValue / 1000)),
+                                        lastMessageTimeStamp: Date(timeIntervalSince1970: TimeInterval(timeStamp.doubleValue / 1000)),
                                         name: name)
         
         if let refConv = ref?.child("conversations/\(conversation.uuid)") {
             
             var childUpdates = [String : Any] ()
             childUpdates.updateValue(timeStamp.doubleValue, forKey: "lastMessage")
-            if members.count > 2 {
-                childUpdates.updateValue(conversation.name!, forKey: "name")
+            if let conversationName = name {
+                childUpdates.updateValue(conversationName, forKey: "name")
             }
             refConv.updateChildValues(childUpdates)
             

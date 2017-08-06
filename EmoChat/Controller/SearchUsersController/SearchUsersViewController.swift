@@ -269,7 +269,8 @@ class SearchUsersViewController: UITableViewController {
             //transfer self.selectedUser to the next viewController
             if searchType == .globalUsers {
                 let userInfoVC: UserInfoTableViewController = segue.destination as! UserInfoTableViewController
-                userInfoVC.selectedUser = filteredUsers[(indexPath?.row)!]
+                userInfoVC.selectedUser = self.selectedUser
+                userInfoVC.currentUser = currentUser
                 let backItem = UIBarButtonItem()
                 backItem.title = NSLocalizedString("Back", comment: "Back button")
                 navigationItem.backBarButtonItem = backItem

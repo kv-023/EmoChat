@@ -484,7 +484,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         let isVideoMessage = messagesArrayWithSection[sortedSections[indexPath.section]]![indexPath.row]
         if isVideoMessage.0.content.0 == .video {
             let videoURL = URL(string: isVideoMessage.0.content.content)
-//            UIApplication.shared.open(url!, options: [:], completionHandler: nil)
             
             let player = AVPlayer(url: videoURL!)
             let playerViewController = AVPlayerViewController()

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class UserInfoTableViewController: UITableViewController {
 
@@ -18,6 +19,11 @@ class UserInfoTableViewController: UITableViewController {
     
     var selectedUser: User!
     var selectedUserPhoto: UIImage!
+    var currentUser: User!
+    
+    let managerFirebase = ManagerFirebase.shared
+    let sendMessageReuseIdentifier = "sendMessageCell"
+    let requiredNumberOfCharachters = 4
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,5 +58,35 @@ class UserInfoTableViewController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if tableView.cellForRow(at: indexPath)?.reuseIdentifier == sendMessageReuseIdentifier {
+            var conversationName = "\(selectedUser.firstName ?? "") \(selectedUser.secondName ?? "")"
+            if conversationName.characters.count < requiredNumberOfCharachters {
+                conversationName = selectedUser.username
+            }
+            let users = [selectedUser!, currentUser!]
+            managerFirebase.createConversation(users, withName: conversationName, completion: { [weak self] (result) in
+                switch result {
+                case let .successSingleConversation(conversation):
+                    self?.performSegue(withIdentifier: "showConversation", sender: conversation)
+                default:
+                    break
+                }
+            })
+            
+        }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showConversation" {
+            let conversationVC = segue.destination as? SingleConversationViewController
+            conversationVC?.currentConversation = sender as? Conversation
+            conversationVC?.currentUser = currentUser
+        }
     }
 }
