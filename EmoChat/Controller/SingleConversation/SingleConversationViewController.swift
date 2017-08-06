@@ -9,6 +9,7 @@
 import UIKit
 import SystemConfiguration
 import AVFoundation
+import AVKit
 
 enum RightType {
     case sent
@@ -478,8 +479,24 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         guard let cell = tableView.cellForRow(at: indexPath) else { return }
-        guard let blurredView = cell.viewWithTag(blurredViewTag) else { return }
+        
+        //ckeck if video message
+        let isVideoMessage = messagesArrayWithSection[sortedSections[indexPath.section]]![indexPath.row]
+        if isVideoMessage.0.content.0 == .video {
+            let videoURL = URL(string: isVideoMessage.0.content.content)
+//            UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+            
+            let player = AVPlayer(url: videoURL!)
+            let playerViewController = AVPlayerViewController()
+            playerViewController.player = player
+            self.present(playerViewController, animated: true) {
+                playerViewController.player!.play()
+            }
+        }
+        
+        //check if it's emo message
         guard let message = messagesArrayWithSection[sortedSections[indexPath.section]]![indexPath.row] as? (EmoMessage, UserType) else { return }
+        guard let blurredView = cell.viewWithTag(blurredViewTag) else { return }
         message.0.emoRecorded = true
         manager?.removeEmoRequest(message.0.uid!, from: currentConversation)
         self.startEmoRecording()
@@ -535,7 +552,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         switch message.1 {
         case .left:
             switch message.0.content.0 {
-            case .text, .audio:
+            case .text, .audio, .video:
                 guard let cellText = tableView.dequeueReusableCell(withIdentifier: "Left", for: indexPath) as? LeftTextCell else {
                     fatalError("Cell was not casted!")
                 }
@@ -553,20 +570,33 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 cellText.time.text = message.0.time.formatDate()
                 setGeneralVars(cell: cellText, message: message.0)
                 
+                if message.0.content.0 == .video {
+                    cellText.message.text = ""
+                    cellText.background.frame = CGRect(x: cellText.background.frame.origin.x, y: cellText.background.frame.origin.y, width: 100, height: 100)
+                    cellText.background.backgroundColor = UIColor.clear
+                    cellText.background.image = #imageLiteral(resourceName: "PlayVideoMessage")
+                    cellText.background.isUserInteractionEnabled = false
+                    cellText.message.isUserInteractionEnabled = false
+                } else {
+                    cellText.background.image = nil
+                    cellText.background.isUserInteractionEnabled = true
+                    cellText.message.isUserInteractionEnabled = true
+                }
+                
                 return cellText
 //            case .audio:
 //                return UITableViewCell()
-            case .video:
-                return UITableViewCell()
             case .photo:
                 return UITableViewCell()
             }
         case .right:
             switch message.0.content.0 {
-            case .text, .audio:
+            case .text, .audio, .video:
+
                 guard let cellText = tableView.dequeueReusableCell(withIdentifier: "Right", for: indexPath) as? RightTextCell else {
                     fatalError("Cell was not casted!")
                 }
+                
                 cellText.message.text = ""
                 setGeneralVars(cell: cellText, message: message.0)
                 switch message.1 {
@@ -578,11 +608,23 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                     break
                 }
                 
+                if message.0.content.0 == .video {
+                    cellText.message.text = ""
+                    cellText.background.frame = CGRect(x: cellText.background.frame.origin.x, y: cellText.background.frame.origin.y, width: 100, height: 100)
+                    cellText.background.backgroundColor = UIColor.clear
+                    cellText.background.image = #imageLiteral(resourceName: "PlayVideoMessage")
+                    cellText.background.isUserInteractionEnabled = false
+                    cellText.message.isUserInteractionEnabled = false
+
+                } else {
+                    cellText.background.image = nil
+                    cellText.background.isUserInteractionEnabled = true
+                    cellText.message.isUserInteractionEnabled = true
+                }
+                
                 return cellText
 //            case .audio:
 //                return UITableViewCell()
-            case .video:
-                return UITableViewCell()
             case .photo:
                 return UITableViewCell()
             }
