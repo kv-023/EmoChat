@@ -665,7 +665,7 @@ class ManagerFirebase {
 
         let message = Message(uid: key!,
                               senderId: sender.uid,
-                              time: Date(timeIntervalSince1970: TimeInterval(timeStamp.intValue / 1000)),
+                              time: Date(timeIntervalSince1970: TimeInterval(timeStamp.doubleValue / 1000)),
                               content: (type: content.type, content: content.originContent))
 
         if let messageRef = ref?.child("conversations/\(conversation.uuid)/messagesInConversation/\(message.uid!)") {
