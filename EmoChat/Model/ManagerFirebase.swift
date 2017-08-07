@@ -1198,7 +1198,37 @@ class ManagerFirebase {
         }
     }
     
+    
+    
+    func getPhotoToLocalFile(imageURL: String) {
+        
+        // Create a reference to the file you want to download
+        let photoRef = storageRef.child(imageURL)
+
+        // Create local filesystem URL
+        let localURL = URL(string: "path")!
+        
+        // Download to the local filesystem
+        let downloadTask = photoRef.write(toFile: localURL) { url, error in
+            if let error = error {
+                // Uh-oh, an error occurred!
+            } else {
+                print("Local file URL for images/island.jpg is returned")
+            }
+        }
+    }
+    
+
+    
+    
+    
 }
+
+
+
+
+
+
 
 
 //    func handleAudioSendWithQuee(url: URL, result: @escaping (URL) -> Void) {

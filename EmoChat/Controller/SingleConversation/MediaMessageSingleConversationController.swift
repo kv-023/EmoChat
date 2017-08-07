@@ -171,21 +171,22 @@ extension CustomTableViewCell {
             
 //            .photo
             if let optRemoteUrl = remoteUrl {
-                ManagerFirebase.shared.getUserPicFullResolution(from: optRemoteUrl) {
-                    result in
-                    switch result {
-                    case .successUserPic(let image):
-                        print("!!!!!!!!!!!!!!!!!\(image)")
-                    case . failure(let error):
-                        print(error)
-                    default:
-                        break
-                    }
-                }
+//                ManagerFirebase.shared.getUserPic(from: optRemoteUrl) {
+//                    result in
+//                    switch result {
+//                    case .successUserPic(let image):
+//                        print("!!!!!!!!!!!!!!!!!!!!!!!!!!1111111111111\(image)")
+//                    case . failure(let error):
+//                        print("!!!!!!!!!!!!!!!!11111\(error)")
+//                    default:
+//                        break
+//                    }
+//                }
+                ManagerFirebase.shared.getPhotoToLocalFile(imageURL: optRemoteUrl)
+                
             }
             
-
-            
+        
             
             
             
