@@ -169,20 +169,20 @@ extension CustomTableViewCell {
             let remoteUrl: String? = self.messageModel?.message?.content.content
             
             
-            //.photo
-//            if let optRemoteUrl = remoteUrl {
-//                ManagerFirebase.shared.getUserPicFullResolution(from: optRemoteUrl) {
-//                    result in
-//                    switch result {
-//                    case .successUserPic(let image):
-//                        print("!!!!!!!!!!!!!!!!!\(image)")
-//                    case . failure(let error):
-//                        print(error)
-//                    default:
-//                        break
-//                    }
-//                }
-//            }
+//            .photo
+            if let optRemoteUrl = remoteUrl {
+                ManagerFirebase.shared.getUserPicFullResolution(from: optRemoteUrl) {
+                    result in
+                    switch result {
+                    case .successUserPic(let image):
+                        print("!!!!!!!!!!!!!!!!!\(image)")
+                    case . failure(let error):
+                        print(error)
+                    default:
+                        break
+                    }
+                }
+            }
             
 
             

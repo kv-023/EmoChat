@@ -1191,7 +1191,7 @@ class ManagerFirebase {
             }
             
             if let downloadUrl = metaData?.downloadURL() {
-                result(String(describing: downloadUrl))
+                result(String(describing: imagePath))
             }else {
                 result("An error occured!")
             }

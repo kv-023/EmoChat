@@ -942,7 +942,6 @@ extension SingleConversationViewController: UIImagePickerControllerDelegate, UIN
     func setPhotoPath(path: String?) {
         if let notNullPhotoPath = path {
             currentMessage.setData(content: notNullPhotoPath, type: .photo)
-            print(notNullPhotoPath)
         }
     }
 }
