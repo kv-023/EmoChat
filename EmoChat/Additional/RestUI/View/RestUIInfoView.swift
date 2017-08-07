@@ -101,12 +101,11 @@ class RestUIInfoView: AdditionalCellView {
                 return
             }
 
-            sharedUIApplication.open(validUrl, options: [:], completionHandler: nil)
-
+            //sharedUIApplication.open(validUrl, options: [:], completionHandler: nil)
             
-            /*let storyboard = UIStoryboard(name: "WebView", bundle: Bundle.main)
+            let storyboard = UIStoryboard(name: "WebView", bundle: Bundle.main)
             let webVC = storyboard.instantiateViewController(withIdentifier: "WebVC") as! WebViewController
-            webVC.url = validUrl
+            webVC.webViewURL = validUrl
             
             var navController: UINavigationController?
             
@@ -118,7 +117,7 @@ class RestUIInfoView: AdditionalCellView {
                 navController = topController as? UINavigationController
             }
             
-            navController?.pushViewController(webVC, animated: true)*/
+            navController?.pushViewController(webVC, animated: true)
         }
     }
 

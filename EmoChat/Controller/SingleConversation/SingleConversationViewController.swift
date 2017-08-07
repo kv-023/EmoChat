@@ -8,6 +8,8 @@
 
 import UIKit
 import SystemConfiguration
+import AVFoundation
+import AVKit
 
 enum RightType {
     case sent
@@ -27,8 +29,12 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     let leadingConstraintConstant: CGFloat = 8.0
     let trailingConstraintConstant: CGFloat = 8.0
     let topConstraintConstant: CGFloat = 8.0
+    let blurredViewTag = 228
+    let cellCornerRadius: CGFloat = 10.0
+    let emotionTimeRecording = 5.0
     
     // MARK: - IBOutlets
+    @IBOutlet weak var cameraPreview: UIView!
     @IBOutlet weak var sendMessageButton: UIButton!
     @IBOutlet weak var emoRequestButton: UIButton!
     @IBOutlet weak var plusButton: UIButton!
@@ -50,6 +56,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var noInternetLabel: UILabel!
     
+    var cameraController: CameraView!
     var manager: ManagerFirebase?
     var currentUser: User!
     var currentConversation: Conversation!
@@ -66,6 +73,12 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     var group = DispatchGroup()
     var multipleChat = false
     var isEmpty = true
+    var recordedVideo: URL! {
+        didSet {
+            print("Recorded video not null")
+            setVideoPath(path: recordedVideo.path)
+        }
+    }
 
     var currentMessage: ConversationMessage {
         return  ConversationMessage.sharedInstance
@@ -117,6 +130,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         table.dataSource = self
         table.delegate = self
         
+        self.setupCameraControllerView()
         initialSetup()
         
         manager = ManagerFirebase.shared
@@ -360,6 +374,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         manager?.createMessage(conversation: notNullCurrentConversation,
                                sender: currentUser,
                                content: currentMessage,
+                               isEmoMessage: emoRequestButton.isSelected,
                                result: { (messageOperationResult) in
 
                                 DispatchQueue.main.async {
@@ -459,6 +474,41 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         table.backgroundView = supportLabel
     }
     
+    // MARK: - UITableViewDelegate
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        guard let cell = tableView.cellForRow(at: indexPath) else { return }
+        
+        //ckeck if video message
+        let isVideoMessage = messagesArrayWithSection[sortedSections[indexPath.section]]![indexPath.row]
+        if isVideoMessage.0.content.0 == .video {
+            let videoURL = URL(string: isVideoMessage.0.content.content)
+            
+            let player = AVPlayer(url: videoURL!)
+            let playerViewController = AVPlayerViewController()
+            playerViewController.player = player
+            self.present(playerViewController, animated: true) {
+                playerViewController.player!.play()
+            }
+        }
+        
+        //check if it's emo message
+        guard let message = messagesArrayWithSection[sortedSections[indexPath.section]]![indexPath.row] as? (EmoMessage, UserType) else { return }
+        guard let blurredView = cell.viewWithTag(blurredViewTag) else { return }
+        message.0.emoRecorded = true
+        manager?.removeEmoRequest(message.0.uid!, from: currentConversation)
+        self.startEmoRecording()
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            blurredView.alpha = 0.0
+        }, completion: { (_) in
+            blurredView.removeFromSuperview()
+        })
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     //MARK: - UITableViewDataSource
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -468,6 +518,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 cell.transform = CGAffineTransform.identity
             })
         }
+        let message = messagesArrayWithSection[sortedSections[indexPath.section]]![indexPath.row]
+        isEmoMessage(message.0, inCell: cell)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -499,7 +551,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         switch message.1 {
         case .left:
             switch message.0.content.0 {
-            case .text, .audio:
+            case .text, .audio, .video:
                 guard let cellText = tableView.dequeueReusableCell(withIdentifier: "Left", for: indexPath) as? LeftTextCell else {
                     fatalError("Cell was not casted!")
                 }
@@ -516,20 +568,34 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 }
                 cellText.time.text = message.0.time.formatDate()
                 setGeneralVars(cell: cellText, message: message.0)
+                
+                if message.0.content.0 == .video {
+                    cellText.message.text = ""
+                    cellText.background.frame = CGRect(x: cellText.background.frame.origin.x, y: cellText.background.frame.origin.y, width: 100, height: 100)
+                    cellText.background.backgroundColor = UIColor.clear
+                    cellText.background.image = #imageLiteral(resourceName: "PlayVideoMessage")
+                    cellText.background.isUserInteractionEnabled = false
+                    cellText.message.isUserInteractionEnabled = false
+                } else {
+                    cellText.background.image = nil
+                    cellText.background.isUserInteractionEnabled = true
+                    cellText.message.isUserInteractionEnabled = true
+                }
+                
                 return cellText
 //            case .audio:
 //                return UITableViewCell()
-            case .video:
-                return UITableViewCell()
             case .photo:
                 return UITableViewCell()
             }
         case .right:
             switch message.0.content.0 {
-            case .text, .audio:
+            case .text, .audio, .video:
+
                 guard let cellText = tableView.dequeueReusableCell(withIdentifier: "Right", for: indexPath) as? RightTextCell else {
                     fatalError("Cell was not casted!")
                 }
+                
                 cellText.message.text = ""
                 setGeneralVars(cell: cellText, message: message.0)
                 switch message.1 {
@@ -541,11 +607,23 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                     break
                 }
                 
+                if message.0.content.0 == .video {
+                    cellText.message.text = ""
+                    cellText.background.frame = CGRect(x: cellText.background.frame.origin.x, y: cellText.background.frame.origin.y, width: 100, height: 100)
+                    cellText.background.backgroundColor = UIColor.clear
+                    cellText.background.image = #imageLiteral(resourceName: "PlayVideoMessage")
+                    cellText.background.isUserInteractionEnabled = false
+                    cellText.message.isUserInteractionEnabled = false
+
+                } else {
+                    cellText.background.image = nil
+                    cellText.background.isUserInteractionEnabled = true
+                    cellText.message.isUserInteractionEnabled = true
+                }
+                
                 return cellText
 //            case .audio:
 //                return UITableViewCell()
-            case .video:
-                return UITableViewCell()
             case .photo:
                 return UITableViewCell()
             }
@@ -898,6 +976,103 @@ extension SingleConversationViewController: SingleConversationBottomBarProtocol 
 
         if let notNullAudioPath = path {
             currentMessage.setData(content: notNullAudioPath, type: .audio)
+        }
+    }
+    
+    func setVideoPath(path: String?) {
+        
+        if let notNullVideoPath = path {
+            currentMessage.setData(content: notNullVideoPath, type: .video)
+            sendMessage(sendMessageButton)
+        }
+    }
+}
+
+// MARK: - Methods for emoMessage
+extension SingleConversationViewController: cameraControllerDelegate {
+    
+    // MARK: Make cell blurred
+    
+    func isEmoMessage(_ message: Message, inCell cell: UITableViewCell) {
+        if let emoMessage = message as? EmoMessage, emoMessage.emoRecorded == false {
+            cell.layoutIfNeeded()
+            makeCellBlurred(cell: cell)
+        } else {
+            guard let blurredView = cell.viewWithTag(blurredViewTag) else { return }
+            blurredView.removeFromSuperview()
+        }
+    }
+    
+    private func createLabel(rect: CGRect) -> UILabel {
+        let label = UILabel(frame: rect)
+        label.text = NSLocalizedString("Tap me!", comment: "")
+        label.textColor = UIColor.white
+        let center = CGPoint(x: rect.midX, y: rect.midY)
+        label.center = center
+        label.textAlignment = .center
+        return label
+    }
+    
+    private func makeCellBlurred(cell: UITableViewCell) {
+        
+        if let blurredView = cell.viewWithTag(blurredViewTag) {
+            blurredView.removeFromSuperview()
+        }
+        
+        let blurEffect = UIBlurEffect(style: .light)
+        let blurredView = UIVisualEffectView(effect: blurEffect)
+        blurredView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        blurredView.tag = blurredViewTag
+        blurredView.clipsToBounds = true
+
+        if let textCell = cell as? CustomTableViewCell {
+            blurredView.frame = CGRect(x: textCell.message.frame.minX,
+                                       y: textCell.message.frame.minY + 28.0,
+                                       width: textCell.message.frame.width,
+                                       height: textCell.message.frame.height - 28.0)
+
+            let label = createLabel(rect: blurredView.bounds)
+            blurredView.addSubview(label)
+            
+            blurredView.layer.cornerRadius = cellCornerRadius
+            blurredView.layoutIfNeeded()
+            textCell.contentView.addSubview(blurredView)
+        }
+    }
+    
+    // MARK: Methods for camera
+    
+    private func startRecording() {
+        cameraController.startRecording()
+        cameraPreview.isHidden = false
+    }
+    
+    func stopRecording() {
+        cameraController.startRecording()
+        cameraPreview.isHidden = true
+        cameraController.stopSession()
+    }
+    
+    func startEmoRecording() {
+        self.startRecording()
+        self.perform(#selector(self.stopRecording), with: self, afterDelay: 5.0)
+    }
+    
+    func getRecordedVideo(recordedVideo: URL) {
+        self.recordedVideo = recordedVideo
+    }
+    
+    func setupCameraControllerView() {
+        cameraController = CameraView()
+        cameraController.delegate = self
+        cameraController.camPreview = cameraPreview
+        startCameraSession()
+    }
+    
+    func startCameraSession() {
+        if cameraController.setupSession() {
+            cameraController.setupPreview()
+            cameraController.startSession()
         }
     }
 }

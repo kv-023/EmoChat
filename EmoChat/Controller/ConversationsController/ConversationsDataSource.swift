@@ -27,7 +27,7 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
                          completionHandler: @escaping() -> Void) {
         
         managerFirebase = ManagerFirebase.shared
-        
+                
         ManagerFirebase.shared.getCurrentUser { [weak self] (result) in
             switch result {
             case let .successSingleUser(user):
@@ -154,7 +154,7 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
                     }) {
                         
                         //set new timeStamp
-                        let newTimeStamp = Date(milliseconds: timestamp.intValue)
+                        let newTimeStamp = Date(milliseconds: timestamp.doubleValue)
                         self?.tupleArray[oldIndex].timestamp = newTimeStamp
                         
                         //Change index in tupleArray

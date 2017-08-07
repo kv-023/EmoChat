@@ -17,6 +17,7 @@ protocol AudioRecordProtocol: class {
 protocol SingleConversationBottomBarProtocol: class {
 
     func setAudioPath(path: String?)
+    func setVideoPath(path: String?)
 }
 
 @IBDesignable class ConversationBottomBarView: UIView {

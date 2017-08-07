@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class UserInfoTableViewController: UITableViewController {
 
@@ -18,6 +19,11 @@ class UserInfoTableViewController: UITableViewController {
     
     var selectedUser: User!
     var selectedUserPhoto: UIImage!
+    var currentUser: User!
+    
+    let managerFirebase = ManagerFirebase.shared
+    let sendMessageReuseIdentifier = "sendMessageCell"
+    let requiredNumberOfCharachters = 4
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,26 +61,49 @@ class UserInfoTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       let indexPathForSelectedRow = tableView.indexPathForSelectedRow
-        tableView.deselectRow(at: indexPath, animated: true)
-
-        if indexPathForSelectedRow?.section == 1 && indexPathForSelectedRow?.row == 0 {
+        
+        if tableView.cellForRow(at: indexPath)?.reuseIdentifier == sendMessageReuseIdentifier {
+            var conversationName = "\(selectedUser.firstName ?? "") \(selectedUser.secondName ?? "")"
+            if conversationName.characters.count < requiredNumberOfCharachters {
+                conversationName = selectedUser.username
+            }
+            let users = [selectedUser!, currentUser!]
+            managerFirebase.createConversation(users, withName: conversationName, completion: { [weak self] (result) in
+                switch result {
+                case let .successSingleConversation(conversation):
+                    self?.performSegue(withIdentifier: "showConversation", sender: conversation)
+                default:
+                    break
+                }
+            })
+            
+        } else if tableView.indexPathForSelectedRow?.section == 1 && tableView.indexPathForSelectedRow?.row == 0 {
 
             if let phoneNumber = selectedUser.phoneNumber {
                 makeCall(number: phoneNumber)
-            
+                
             } else {
                 let alertController = UIAlertController(title: NSLocalizedString("Error", comment: "") , message: NSLocalizedString("Phone number is unknown", comment: "") , preferredStyle: .alert)
-              
+                
                 let actionCancel = UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: .default, handler: { (action) in
                 })
                 
                 alertController.addAction(actionCancel)
                 
                 present(alertController, animated: true, completion: nil)
-
+                
             }
-
+            
+        }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showConversation" {
+            let conversationVC = segue.destination as? SingleConversationViewController
+            conversationVC?.currentConversation = sender as? Conversation
+            conversationVC?.currentUser = currentUser
         }
     }
     

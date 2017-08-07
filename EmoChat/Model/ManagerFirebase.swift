@@ -329,7 +329,7 @@ class ManagerFirebase {
             }
             
             //create reference
-            let imagePath = "userPics/\(uid)/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
+            let imagePath = "userPics/\(uid)/\(Double(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
             
             let metaData = StorageMetadata()
             metaData.contentType = "image/jpeg"
@@ -562,7 +562,8 @@ class ManagerFirebase {
             .observeSingleEvent(of: .value, with: { snapshot in
             var users = [User]()
             for u in snapshot.children{
-                users.append(User(data: (u as! DataSnapshot).value as? NSDictionary, uid: snapshot.key))
+                
+                users.append(User(data: (u as! DataSnapshot).value as? NSDictionary, uid: (u as! DataSnapshot).key))
             }
             result(.successArrayOfUsers(users))
         })
@@ -593,15 +594,15 @@ class ManagerFirebase {
                                         usersInConversation: members,
                                         messagesInConversation: nil,
                                         lastMessage: nil,
-                                        lastMessageTimeStamp: Date(timeIntervalSince1970: TimeInterval(timeStamp.intValue / 1000)),
+                                        lastMessageTimeStamp: Date(timeIntervalSince1970: TimeInterval(timeStamp.doubleValue / 1000)),
                                         name: name)
         
         if let refConv = ref?.child("conversations/\(conversation.uuid)") {
             
             var childUpdates = [String : Any] ()
             childUpdates.updateValue(timeStamp.doubleValue, forKey: "lastMessage")
-            if members.count > 2 {
-                childUpdates.updateValue(conversation.name!, forKey: "name")
+            if let conversationName = name {
+                childUpdates.updateValue(conversationName, forKey: "name")
             }
             refConv.updateChildValues(childUpdates)
             
@@ -618,14 +619,14 @@ class ManagerFirebase {
     }
     
     // MARK: - Messages
-    func createMessage(conversation: Conversation, sender: User, content:(type: MessageContentType, content: String)) -> MessageOperationResult {
+    func createMessage(conversation: Conversation, sender: User, content:(type: MessageContentType, content: String), isEmoMessage: Bool = false) -> MessageOperationResult {
         
         let timeStamp = NSNumber(value:Date().timeIntervalSince1970 * 1000.0)
         let key = ref?.child("conversations/").childByAutoId().key
         
         let message = Message(uid: key!,
             senderId: sender.uid,
-            time: Date(timeIntervalSince1970: TimeInterval(timeStamp.intValue / 1000)),
+            time: Date(timeIntervalSince1970: TimeInterval(timeStamp.doubleValue / 1000)),
             content: (type: content.type, content: content.content))
         
         if let messageRef = ref?.child("conversations/\(conversation.uuid)/messagesInConversation/\(message.uid!)") {
@@ -634,6 +635,13 @@ class ManagerFirebase {
             childUpdates.updateValue(message.senderId!, forKey: "senderId")
             childUpdates.updateValue(timeStamp.doubleValue, forKey: "time")
             childUpdates.updateValue(message.content.content, forKey: "content/\((message.content?.type)!)")
+            
+            if isEmoMessage {
+                let usersInConversation = conversation.usersInConversation.filter { $0.uid != Auth.auth().currentUser?.uid }
+                for user in usersInConversation {
+                    childUpdates.updateValue(false, forKey: "isEmoRecorded/\(user.uid!)")
+                }
+            }
 
             messageRef.updateChildValues(childUpdates)
 
@@ -647,6 +655,7 @@ class ManagerFirebase {
     func createMessage(conversation: Conversation,
                        sender: User,
                        content: ConversationMessage,
+                       isEmoMessage: Bool = false,
                        result: @escaping (MessageOperationResult) -> Void) {
 
         let failureMessage = MessageOperationResult.failure(NSLocalizedString("Something went wrong", comment: ""))
@@ -665,6 +674,13 @@ class ManagerFirebase {
             childUpdates.updateValue(message.senderId!, forKey: "senderId")
             childUpdates.updateValue(timeStamp.doubleValue, forKey: "time")
 
+            if isEmoMessage {
+                let usersInConversation = conversation.usersInConversation.filter { $0.uid != Auth.auth().currentUser?.uid }
+                for user in usersInConversation {
+                    childUpdates.updateValue(false, forKey: "isEmoRecorded/\(user.uid!)")
+                }
+            }
+            
             var messageContent: String = ""
             switch message.content.type {
             case .text:
@@ -694,6 +710,21 @@ class ManagerFirebase {
                                         result(.successSingleMessage(message))
 
                 })
+                
+            case .video:
+                
+                uploadVideoToFirebase(content: message.content.content,
+                                      resultString: { (resultString) in
+                                        messageContent = resultString
+                                        self.addContentToMessageInConversation(conversation: conversation,
+                                                                               message: message,
+                                                                               messageRef: messageRef,
+                                                                               messageContent: messageContent,
+                                                                               childUpdates: &childUpdates,
+                                                                               timeStamp: timeStamp)
+                                        result(.successSingleMessage(message))
+                })
+                
             default:
                 
                 result(failureMessage)
@@ -722,6 +753,14 @@ class ManagerFirebase {
         ref?.child("conversations/\(conversation.uuid)/lastMessage").setValue(timeStamp.doubleValue)
     }
 
+    func uploadVideoToFirebase(content: String?,
+                               resultString: @escaping (String) -> Void) {
+        
+        let contentData = content ?? ""
+        self.handleVideoSendWith(url: URL(fileURLWithPath: contentData), result: { (urlFromFirebase)  in
+            resultString(urlFromFirebase.absoluteString)
+        })
+    }
 
     func uploadDataToFirebase(content: String?,
                               resultString: @escaping (String) -> Void) {
@@ -764,41 +803,60 @@ class ManagerFirebase {
                     getNewConversation(newConv)
                 })
                 //action((snapshot.value as? String)!)
-             
-                
             })
             
         }
     }
     
+    private func getMessageFromSnapshot(snapshot: DataSnapshot, message: inout Message?, messageDictionary: NSDictionary, uid: String) -> Message {
+        if snapshot.hasChild("isEmoRecorded"), snapshot.hasChild("isEmoRecorded/\(Auth.auth().currentUser!.uid)") {
+            message = EmoMessage(data: messageDictionary, uid: uid)
+            return message!
+        } else {
+            message = Message(data: messageDictionary, uid: uid)
+            return message!
+        }
+    }
+    
     func getMessageFromConversation (_ allConversations: [Conversation], result: @escaping (Conversation, Message) -> Void) {
         for eachConv in allConversations{
-            self.ref?.child("conversations/\(eachConv.uuid)/messagesInConversation").queryLimited(toLast: 3).observe(.childAdded, with: {(snapshot) in
+            self.ref?.child("conversations/\(eachConv.uuid)/messagesInConversation").queryLimited(toLast: 3).observe(.childAdded, with: { [weak self] (snapshot) in
+                
                 let uidMessage = snapshot.key
                 let messageSnapshot = snapshot.value as? NSDictionary
-                let message = Message(data: messageSnapshot, uid: uidMessage)
-                result(eachConv, message)
+                
+                var message: Message?
+                message = self?.getMessageFromSnapshot(snapshot: snapshot, message: &message, messageDictionary: messageSnapshot!, uid: uidMessage)
+        
+                result(eachConv, message!)
             })
         }
     }
     
     func getBunchOfMessages (in conversation: Conversation, startingFrom uid: String, count: Int, result: @escaping ([Message]) -> Void) {
         let newRef = self.ref?.child("conversations/\(conversation.uuid)/messagesInConversation")
-            newRef?.queryEnding(atValue: uid).queryLimited(toLast: UInt(count)).queryOrderedByKey().observeSingleEvent(of: .value, with: { (snapshot) in
+        newRef?.queryEnding(atValue: uid).queryLimited(toLast: UInt(count)).queryOrderedByKey().observeSingleEvent(of: .value, with: { [weak self] (snapshot) in
             //let value = snapshot.value as? [String : AnyObject]
-                var messages = [Message]()
-                for each in snapshot.children {
-                    
-                    let messageDict = (each as! DataSnapshot).value as? NSDictionary
-                    let message = Message(data: messageDict, uid: (each as AnyObject).key)
-                    
-                    guard message.uid! != uid else{
-                        continue
-                    }
-                    messages.append(message)
-                }
+            var messages = [Message]()
+            for each in snapshot.children {
                 
-     //       print(uid)
+                let messageDict = (each as! DataSnapshot).value as? NSDictionary
+                
+                //start
+
+                let messageSnapshot = each as! DataSnapshot
+                var message: Message?
+                message = self?.getMessageFromSnapshot(snapshot: messageSnapshot, message: &message, messageDictionary: messageDict!, uid: (each as AnyObject).key)
+
+                //end
+                
+                guard message!.uid! != uid else {
+                    continue
+                }
+                messages.append(message!)
+            }
+            
+            //       print(uid)
             result(messages)
         })
         
@@ -985,7 +1043,6 @@ class ManagerFirebase {
                                 completionHandler: @escaping (ConversationOperationResult) -> Void){
         
         ref?.child("conversations/\(tuple.conversationId)").observeSingleEvent(of: .value, with: { [weak self] (snapshot) in
-            print(tuple.conversationId)
             
             if snapshot.childSnapshot(forPath: "messagesInConversation").exists() {
                 
@@ -1115,11 +1172,38 @@ class ManagerFirebase {
     }
 
     
+    func handleVideoSendWith(url: URL, result: @escaping (URL) -> Void) {
+        
+        let fileURL = url
+        let fileName = NSUUID().uuidString + ".mp4"
+        
+        let checkValidation = FileManager.default
+        let directoryPath: String = fileURL.path
+        guard checkValidation.fileExists(atPath: directoryPath) else {
+            print("An error occured! directory '\(directoryPath)' doesn't exist!")
+            result(URL(string: "An error occured! File doesn't exist!")!)
+            return
+        }
+        
+        self.storageRef.storage.reference().child("message_videos").child(fileName).putFile(from: fileURL, metadata: nil) { (metadata, error) in
+            if error != nil {
+                print(error?.localizedDescription ?? "Error")
+                result(URL(string: "An error occured!")!)
+            }
+            
+            if let downloadUrl = metadata?.downloadURL() {
+                result(downloadUrl)
+            } else {
+                result(URL(string: "An error occured!")!)
+            }
+        }
+    }
+    
     func handleAudioSendWith(url: URL, result: @escaping (URL) -> Void) {
-  //      if let uid = Auth.auth().currentUser?.uid {
-            let fileUrl = url
-            let fileName = NSUUID().uuidString + ".m4a"
-
+        //      if let uid = Auth.auth().currentUser?.uid {
+        let fileUrl = url
+        let fileName = NSUUID().uuidString + ".m4a"
+        
         let checkValidation = FileManager.default
         let directoryPath: String = fileUrl.path
         guard checkValidation.fileExists(atPath: directoryPath) else {
@@ -1127,21 +1211,27 @@ class ManagerFirebase {
             result(URL(string: "An error occured! File doesn't exist!")!)
             return
         }
-
+        
         self.storageRef.storage.reference().child("message_voice").child(fileName).putFile(from: fileUrl, metadata: nil) { (metadata, error) in
             if error != nil {
                 print(error?.localizedDescription ?? "Error")
                 result(URL(string: "An error occured!")!)
             }
-
+            
             if let downloadUrl = metadata?.downloadURL() {
                 result(downloadUrl)
             } else {
                 result(URL(string: "An error occured!")!)
             }
-     //   }
+            //   }
+        }
+        
     }
-
+    
+    // MARK: - EmoMessages
+    
+    func removeEmoRequest(_ uid: String, from conversation: Conversation) {
+        self.ref?.child("conversations/\(conversation.uuid)/messagesInConversation/\(uid)/isEmoRecorded/\(Auth.auth().currentUser!.uid)").removeValue()
     }
 
 //    func handleAudioSendWithQuee(url: URL, result: @escaping (URL) -> Void) {

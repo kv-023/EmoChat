@@ -24,9 +24,12 @@ class ConversationsController: UITableViewController {
         tableView.dataSource = conversationsDataSource
         conversationsDataSource.tableView = tableView
         
-        conversationsDataSource.updateTableView(self.tableView) { 
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+
+        conversationsDataSource.updateTableView(self.tableView) {
             print(self.conversationsDataSource.currentUser.userConversations!.count)
             self.tableView.reloadData()
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false	
         }
     }
     

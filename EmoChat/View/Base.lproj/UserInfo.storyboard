@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="N0o-6h-Tfo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="N0o-6h-Tfo">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -147,7 +147,7 @@
                             </tableViewSection>
                             <tableViewSection id="G1j-Rd-Kft">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="SdE-RF-67R">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="sendMessageCell" id="SdE-RF-67R">
                                         <rect key="frame" x="0.0" y="313" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SdE-RF-67R" id="VUT-bO-gUH">
@@ -167,9 +167,6 @@
                                                 <constraint firstAttribute="bottom" secondItem="5XI-1i-5eP" secondAttribute="bottom" id="iId-SP-sG4"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="JRk-0I-Iuj" kind="show" id="sNm-Pl-Y5t"/>
-                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -210,6 +207,7 @@
                         <outlet property="phoneNumber" destination="RLJ-9h-DDq" id="bka-nG-38L"/>
                         <outlet property="userPic" destination="o8j-BA-5Km" id="8Jy-uH-F0n"/>
                         <outlet property="usernameLabel" destination="Hbo-yd-eo1" id="Vfv-hk-NXI"/>
+                        <segue destination="JRk-0I-Iuj" kind="show" identifier="showConversation" id="veI-4M-Mek"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="625-bz-Wx0" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -236,7 +236,7 @@ class SearchUsersViewController: UITableViewController {
                                                          withName: textField?.text,
                                                          completion: { (result) in
                     switch result {
-                    case let .successSingleConversation(conversation):
+                    case .successSingleConversation(_):
                         print("success")
                         //_ = self!.managerFirebase.createLogo(selectedUsers: self!.checkmarkedFriends, conversationID: conversation.uuid)
                     default:
@@ -269,7 +269,8 @@ class SearchUsersViewController: UITableViewController {
             //transfer self.selectedUser to the next viewController
             if searchType == .globalUsers {
                 let userInfoVC: UserInfoTableViewController = segue.destination as! UserInfoTableViewController
-                userInfoVC.selectedUser = filteredUsers[(indexPath?.row)!]
+                userInfoVC.selectedUser = self.selectedUser
+                userInfoVC.currentUser = currentUser
                 let backItem = UIBarButtonItem()
                 backItem.title = NSLocalizedString("Back", comment: "Back button")
                 navigationItem.backBarButtonItem = backItem
