@@ -611,6 +611,23 @@ class ManagerFirebase {
                 
                 ref?.child("users/\(member.uid!)/conversations/\(conversation.uuid)").setValue(true)
             }
+            
+            if members.count == 2 {
+                let usersInConversation = conversation.usersInConversation.filter { $0.uid != Auth.auth().currentUser?.uid }
+                let user = usersInConversation.first!
+                
+                print(Auth.auth().currentUser?.uid ?? "no uid")
+                print(user.uid)
+                
+                
+                ref?.child("users/\(user.uid ?? "")/contacts/\(Auth.auth().currentUser?.uid ?? "")").setValue(true)
+                ref?.child("users/\(Auth.auth().currentUser?.uid ?? "")/contacts/\(user.uid ?? "")").setValue(true)
+                
+            }
+            
+            
+
+            
             completion(.successSingleConversation(conversation))
         } else {
             completion(.failure(NSLocalizedString("Conversation was not created", comment: "")))

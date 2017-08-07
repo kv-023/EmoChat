@@ -122,6 +122,7 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
                     self?.tupleArray.insert(tuple, at: insertIndex)
                     
                     self?.currentUser.userConversations?.insert(conversation, at: insertIndex)
+                    self?.observeConversationTimeStamp()
                     
                     let insertIndexPath = IndexPath(row: insertIndex, section: 0)
                     self?.tableView.beginUpdates()
@@ -140,7 +141,7 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
     }
     
     private func observeConversationTimeStamp() {
-        
+        managerFirebase.observerTuplesRef?.removeAllObservers()
         for object in tupleArray {
             
             managerFirebase.observerTuplesRef?.child("conversations/\(object.conversationId)").observe(.childChanged, with: { [weak self] (conversationSnapshot) in
