@@ -22,7 +22,7 @@ class SignUpFirstViewController: EmoChatUIViewController, UITextFieldDelegate, R
     @IBOutlet weak var theScrollView: UIScrollView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     let backgroundManager = SwiftyGifManager.defaultManager
-    let backgroundGif = UIImage(gifName: "giphy.gif", levelOfIntegrity: 1.2)
+    let backgroundGif = UIImage(gifName: "giphy.gif", levelOfIntegrity: 1.0)
     var manager: ManagerFirebase?
     var enteredEmail: String?
     var enteredUsername: String?
