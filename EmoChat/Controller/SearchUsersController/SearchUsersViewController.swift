@@ -238,7 +238,7 @@ class SearchUsersViewController: UITableViewController {
                     switch result {
                     case .successSingleConversation(_):
                         print("success")
-                        //_ = self!.managerFirebase.createLogo(selectedUsers: self!.checkmarkedFriends, conversationID: conversation.uuid)
+
                     default:
                         print("Conversation was not created")
                     }
@@ -283,7 +283,6 @@ class SearchUsersViewController: UITableViewController {
                     }
                 } else {
                    userInfoVC.selectedUserPhoto = #imageLiteral(resourceName: "question_mark")
-                       // userInfoVC.selectedUserPhoto = #imageLiteral(resourceName: "male")
                 }
    
             }

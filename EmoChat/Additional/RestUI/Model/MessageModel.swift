@@ -10,53 +10,23 @@ import Foundation
 
 class MessageModel: MessageModelGeneric {
 
-//    weak var message: Message?
     var dataForRestUIInfoView: DataForRestUIInfoView?
-    var messageURLData: MessageURLDataType = [:] {
-        didSet {
-//            for (key3, value3) in messageURLData {
-//                print("key: \(key3), value:\(String(describing: value3))")
-//            }
-        }
-    }
+    var messageURLData: MessageURLDataType = [:]
     var containsUrlLinks: Bool {
         return messageURLData.count > 0
     }
 
     var messageURLDataIsReady:Bool = false
 
-//    //get data from model
-//    var senderId: String {
-//        return message?.senderId ?? ""
-//    }
-////    var uid: String? {
-////        return message?.uid
-////    }
-//    var time: Date? {
-//        return message?.time
-//    }
-//    var content:MessageContentDataType? {
-//        return message?.content
-//    }
-//    var messageText: String {
-//        return content?.content ?? ""
-//    }
-
     override init() {
         super.init()
-//        messageURLData = [:]
+
     }
 
     deinit {
+
         messageURLData = [:]
-//        message = nil
     }
-
-//    convenience init(message: Message) {
-//        self.init()
-//        self.message = message
-//    }
-
 
     //prepare data for conversation's cell
     func getParseDataFromResource(delaySeconds delay: Int = 0,
@@ -95,14 +65,3 @@ class MessageModel: MessageModelGeneric {
         })
     }
 }
-
-//
-//extension MessageModel: Hashable {
-//    var hashValue: Int {
-//        return self.uid?.hashValue ?? 0
-//    }
-//}
-//
-//func == (lhs: MessageModel, rhs: MessageModel) -> Bool {
-//    return lhs.uid == rhs.uid
-//}

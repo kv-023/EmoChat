@@ -37,7 +37,6 @@ class AudioMessageWaveForm: UIView {
         let upperHeightMultiplier: CGFloat = 200
         let lowerHeightMultiplier: CGFloat = 110
 
-        //let step:CGFloat =  CGFloat(readFile.points.count/Int(rect.width))
         //Loop the array
         for _ in readFile.points {
             //Distance between points

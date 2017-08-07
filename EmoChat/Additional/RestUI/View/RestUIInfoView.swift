@@ -11,11 +11,8 @@ import UIKit
 class RestUIInfoView: AdditionalCellView {
 
     @IBOutlet weak var mainImage: UIImageView!
-//    @IBOutlet weak var captionLabel: UILabel!
     @IBOutlet weak var detailLabel: UILabel!
     @IBOutlet weak var urlImageIco: UIImageView!
-//    @IBOutlet weak var spinner: UIActivityIndicatorView!
-//    override var url: String?
 
     var dataForRestUIInfoView: DataForRestUIInfoView? {
         didSet {
@@ -32,8 +29,7 @@ class RestUIInfoView: AdditionalCellView {
         super.fullFillViewFromDataInfo(data: data)
 
         if let castedData = data as? DataForRestUIInfoView {
-//            captionLabel.text = data.captionLabel
-//            url = data.url
+            
             detailLabel.text = castedData.detailLabel
             urlImageIco.image = castedData.urlImageIco
             mainImage.image = castedData.mainImage
@@ -100,8 +96,6 @@ class RestUIInfoView: AdditionalCellView {
                 print(errorMessage1 + " \(notNullURLString)")
                 return
             }
-
-            //sharedUIApplication.open(validUrl, options: [:], completionHandler: nil)
             
             let storyboard = UIStoryboard(name: "WebView", bundle: Bundle.main)
             let webVC = storyboard.instantiateViewController(withIdentifier: "WebVC") as! WebViewController

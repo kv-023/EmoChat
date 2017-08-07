@@ -9,8 +9,8 @@
 import UIKit
 
 class SignUpFirstViewController: EmoChatUIViewController, UITextFieldDelegate, RegexCheckProtocol {
-	
-	@IBOutlet weak var backgroundAnimated: UIImageView!
+
+    @IBOutlet weak var backgroundAnimated: UIImageView!
     @IBOutlet weak var username: CustomTextFieldWithPopOverInfoBox!
     @IBOutlet weak var email: CustomTextFieldWithPopOverInfoBox!
     @IBOutlet weak var password: CustomTextFieldWithPopOverInfoBox!
@@ -21,18 +21,18 @@ class SignUpFirstViewController: EmoChatUIViewController, UITextFieldDelegate, R
     @IBOutlet weak var confirmationLabel: UILabel!
     @IBOutlet weak var theScrollView: UIScrollView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-	let backgroundManager = SwiftyGifManager.defaultManager
-	let backgroundGif = UIImage(gifName: "giphy.gif", levelOfIntegrity: 1.2)
-	var manager: ManagerFirebase?
-	var enteredEmail: String?
-	var enteredUsername: String?
-	var enteredPassword: String?
-	var firstName: String?
-	var lastName: String?
-	var phoneNumber: String?
-	var image: UIImage?
-	var returned: Bool?
-	var edited = false
+    let backgroundManager = SwiftyGifManager.defaultManager
+    let backgroundGif = UIImage(gifName: "giphy.gif", levelOfIntegrity: 1.2)
+    var manager: ManagerFirebase?
+    var enteredEmail: String?
+    var enteredUsername: String?
+    var enteredPassword: String?
+    var firstName: String?
+    var lastName: String?
+    var phoneNumber: String?
+    var image: UIImage?
+    var returned: Bool?
+    var edited = false
 	
     var usernameValid = false {
 		
@@ -116,18 +116,17 @@ class SignUpFirstViewController: EmoChatUIViewController, UITextFieldDelegate, R
         super.didReceiveMemoryWarning()
     }
 
-	@IBAction func textFieldDidBeginEditing(_ textField: UITextField) {
-		
-		if textField.text == "" {
-			(textField as! CustomTextFieldWithPopOverInfoBox).imageQuestionShowed = false;
-		}
-	}
+    @IBAction func textFieldDidBeginEditing(_ textField: UITextField) {
+
+        if textField.text == "" {
+            (textField as! CustomTextFieldWithPopOverInfoBox).imageQuestionShowed = false;
+        }
+    }
 
     @IBAction func usernameEdited(_ sender: UITextField) {
 
-		usernameValid = sender.text != "" ? usernameIsValid(userName: sender.text) : true;
+        usernameValid = sender.text != "" ? usernameIsValid(userName: sender.text) : true;
         edited = true
-
     }
 
     @IBAction func emailEdited(_ sender: UITextField) {
@@ -140,15 +139,15 @@ class SignUpFirstViewController: EmoChatUIViewController, UITextFieldDelegate, R
     @IBAction func passwordEdited(_ sender: UITextField) {
 
 		passwordValid = sender.text != "" ? passwordIsValid(userPassword: sender.text) : true;
-        edited = true
 
+        edited = true
     }
 
     @IBAction func confirmationEdited(_ sender: UITextField) {
 
 		passwordConfirmationValid = sender.text != "" ? passwordIsValid(userPassword: sender.text): true
-        edited = true
 
+        edited = true
     }
 
     @IBAction func nextIsPressed(_ sender: UIButton) {

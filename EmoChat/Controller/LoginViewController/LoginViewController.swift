@@ -167,8 +167,6 @@ class LoginViewController: EmoChatUIViewController, UITextFieldDelegate {
 		
 	}
 	
-	
-	
 	// MARK: - Capture action of login button
 	
 	@IBAction func loginAction(_ sender: UIButton)	{
@@ -302,7 +300,6 @@ class LoginViewController: EmoChatUIViewController, UITextFieldDelegate {
 			
 			return true
 			
-		}
-		
+		}		
 }
 

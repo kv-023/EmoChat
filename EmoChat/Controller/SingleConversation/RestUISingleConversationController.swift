@@ -42,7 +42,6 @@ extension CustomTableViewCell {
                         self.singleConversationControllerDelegate?.addMessageModelInSingleConversationDictionary(message: notNullMessage,                                                                                                    model: newModel)
                         self.messageModel = newModel
 
-                        //self.updateUI()
                         self.updateUIForMessageModel()
                     }
                 }
@@ -185,7 +184,6 @@ extension CustomTableViewCell {
                     contentViewCell?.dataForRestUIInfoView = tempParsedData
                     cMessageModel?.dataForRestUIInfoView = tempParsedData
 
-                    //                    self.showHideAdditionalInfoFromMessageModel()
                     contentViewCell?.spinner.stopAnimating()
                 }
             }

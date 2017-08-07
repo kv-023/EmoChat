@@ -30,6 +30,7 @@ class AudioMessageView: AdditionalCellView {
             WaveFormView.playingProgress(sec: audioPlaybackDelegate?.audioSecondsVal, uidStream: Auxiliary.getUUID())
         }
     }
+    var heightOriginal: CGFloat = 0
 
     override var url: String? {
         didSet {
@@ -66,9 +67,6 @@ class AudioMessageView: AdditionalCellView {
         let tempDataForMediaInfoView = DataForAudioMessageInfoView(dict: dict)
         dataForMediaInfoView = tempDataForMediaInfoView
     }
-
-    var heightOriginal: CGFloat = 0
-    //    weak var dataModel: UrlembedModel?
 
     override  func eraseAllFields() {
         super.eraseAllFields()

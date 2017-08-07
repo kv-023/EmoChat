@@ -255,7 +255,7 @@ extension CustomTableViewCell {
         setConstrainInSubView(embeddedView: contentViewCell, parrentView: self.previewContainer)
         self.previewContainer.layoutIfNeeded()
 
-        //        self.singleConversationControllerDelegate?.resizeSingleConversationCell(cell: self)
+        //self.singleConversationControllerDelegate?.resizeSingleConversationCell(cell: self)
 
         let radiuR:CGFloat = 10
         self.previewContainer.layer.cornerRadius = radiuR

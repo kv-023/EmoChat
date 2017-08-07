@@ -88,7 +88,6 @@ class CameraView: NSObject, AVCaptureFileOutputRecordingDelegate {
     
     func setupCaptureMode(_ mode: Int) {
         // Video Mode
-        
     }
     
     //MARK:- Camera Session
@@ -132,7 +131,6 @@ class CameraView: NSObject, AVCaptureFileOutputRecordingDelegate {
     func startCapture() {
         
         startRecording()
-        
     }
     
     //EDIT 1: I FORGOT THIS AT FIRST

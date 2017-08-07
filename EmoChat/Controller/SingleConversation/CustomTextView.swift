@@ -74,7 +74,6 @@ extension CustomTextView: CustomTextViewProtocol {
 
     func setEditingStyle(flag: Bool = true) {
         self.isEditable = flag
-//        self.isUserInteractionEnabled = flag
 
         if !flag {
             clearButton = clearButton ?? getClearButton()

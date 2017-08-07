@@ -21,7 +21,7 @@ class AudioMessageControl: NSObject, AVAudioRecorderDelegate {//UIViewController
 
     var audioSecondsVal: Double {
         get {
-            //CMTimeGetSeconds(player.currentItem?.duration)
+
             return calcLenthOfAudioFile()
         }
     }
@@ -195,7 +195,6 @@ class AudioMessageControl: NSObject, AVAudioRecorderDelegate {//UIViewController
         }
         
     }
-
 }
 
 //MARK:- AudioMessageViewProtocol
@@ -238,14 +237,15 @@ extension AudioMessageControl: AudioRecordPlaybackProtocol {
             print("url for audio playing can't be nil !")
             return
         }
+
         if audioRecorder != nil {
             audioRecorder.stop()
             audioRecorder = nil
         }
 
         self.initPlayer(url: notNullUrl)//not necessary!
-
         self.player.play()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying(sender:)),
                                                name: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
                                                object: self.player.currentItem)

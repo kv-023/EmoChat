@@ -10,8 +10,6 @@ import Foundation
 
 class MessageModelAudio: MessageModelGeneric {
 
-//    var dataForMediaInfoView: DataForAudioMessageInfoView?
-
     //prepare data for conversation's cell
     func getParseDataFromResource(delaySeconds delay: Int = 0,
                                   completion: @escaping(_ allDone: Bool) -> Void) {

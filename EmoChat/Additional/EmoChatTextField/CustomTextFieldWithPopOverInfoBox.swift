@@ -25,7 +25,6 @@ class CustomTextFieldWithPopOverInfoBox: UITextField {
     }
     var popOverVC: PopOverViewController?
 
-    //    @IBInspectable
     var imageQuestionShowed: Bool = false {
         didSet {
             hideOrShowImageQuestion()
@@ -58,7 +57,7 @@ class CustomTextFieldWithPopOverInfoBox: UITextField {
         imgTopInset = dataContainer.imgTopInset
         imgBottomInset = dataContainer.imgBottomInset
 
-        image = dataContainer.questionImage//UIImage(named: "question")
+        image = dataContainer.questionImage
 
         let weight = self.bounds.height - (imgTopInset + imgBottomInset)
 
@@ -112,7 +111,6 @@ class CustomTextFieldWithPopOverInfoBox: UITextField {
     //MARK: popOverWindow
 
     func openPopOverVC() {
-        //        if  let vcPopOver = UIStoryboard(name: "PopOverView", bundle: nil).instantiateViewController(withIdentifier: "popoverViewController") as? PopUpViewController {
 
         if  let vcPopOver = popOverVC {
 

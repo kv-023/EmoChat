@@ -76,8 +76,6 @@ class WebViewController: UIViewController {
         layer.videoOrientation = orientation
         
         cameraController.previewLayer.frame = camPreview.bounds
-        //previewLayer.frame = camPreview.bounds
-        
     }
     
     override func viewDidLayoutSubviews() {
@@ -114,11 +112,9 @@ class WebViewController: UIViewController {
     
     func stopRecording() {
         cameraController.stopRecording()
-        
-        
+
         let title = NSLocalizedString("Record", comment: "")
         videoButton.titleLabel?.text = title
-        
     }
     
     // MARK: - Navigation
@@ -139,8 +135,6 @@ class WebViewController: UIViewController {
     @IBAction func actionVideoButton(_ sender: Any) {
         startCapture()
     }
-    
-    
 }
 
 extension WebViewController: cameraControllerDelegate {

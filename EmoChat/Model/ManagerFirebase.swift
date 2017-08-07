@@ -215,8 +215,7 @@ class ManagerFirebase {
                 let phonenumber = userSnapshot?["phoneNumber"] as! String?
                 let photoURL = userSnapshot?["photoURL"] as! String?
                 //getting array of conversation ids
-                //let conversationsID = userSnapshot?["conversations"] as? NSDictionary
-                
+
                 //create user without conversations and contacts
                 
                 let user = User(email: email, username: username, phoneNumber: phonenumber, firstName: firstname, secondName: secondname, photoURL: photoURL, uid: uid)
@@ -228,11 +227,6 @@ class ManagerFirebase {
                 }
                 
                 //generate array of conversations
-//                if let conversationsArrayId = conversationsID?.allKeys {
-//                    user.userConversations = self.sortListOfConversations(self.getConversetionsFromSnapshot(value, accordingTo: conversationsArrayId as! [String], currentUserEmail: email))
-//                }
-                
-                //return result
                 getUser(.successSingleUser(user))
             }) { (error) in
                 getUser(.failure(error.localizedDescription))
@@ -302,8 +296,8 @@ class ManagerFirebase {
             
             conversations.append(conversation)
         }
+
         return conversations
-        
     }
     
     //to sort list of conversation
@@ -314,11 +308,10 @@ class ManagerFirebase {
         let sortedArray = array.sorted { (cv1, cv2) -> Bool in
             return ((cv1.lastMessageTimeStamp?.compare(cv2.lastMessageTimeStamp!)) != nil)
         }
+
         return sortedArray
     }
-    
-    
-    
+
     //MARK: - UserPic
     //Add photo of user's profile to storage and database
     func addPhoto (_ image: UIImage, previous url: String?, result: @escaping (UserOperationResult) -> Void) {
@@ -358,7 +351,6 @@ class ManagerFirebase {
         }
     }
     
-    
     //MARK: Return userPic
     func getUserPic (from userURL: String, result: @escaping (UserOperationResult) -> Void) {
         let photoRef = storageRef.child(userURL)
@@ -390,8 +382,6 @@ class ManagerFirebase {
             }
         }
     }
-    
-
         
     //MARK: - Conversation logo
     func createLogo (selectedUsers: [User], conversationID: String) -> String {
@@ -420,8 +410,7 @@ class ManagerFirebase {
         
             return imagePath
         }
-    
-    
+
     func loadLogo (_ image: UIImage, conversationID: String, result: @escaping (UserOperationResult) -> Void) {
         if (Auth.auth().currentUser?.uid) != nil {
             guard let chosenImageData = UIImageJPEGRepresentation(image, 1) else {
@@ -819,7 +808,6 @@ class ManagerFirebase {
                     
                     getNewConversation(newConv)
                 })
-                //action((snapshot.value as? String)!)
             })
             
         }
@@ -872,8 +860,7 @@ class ManagerFirebase {
                 }
                 messages.append(message!)
             }
-            
-            //       print(uid)
+
             result(messages)
         })
         
@@ -1250,42 +1237,4 @@ class ManagerFirebase {
     func removeEmoRequest(_ uid: String, from conversation: Conversation) {
         self.ref?.child("conversations/\(conversation.uuid)/messagesInConversation/\(uid)/isEmoRecorded/\(Auth.auth().currentUser!.uid)").removeValue()
     }
-
-//    func handleAudioSendWithQuee(url: URL, result: @escaping (URL) -> Void) {
-//        //      if let uid = Auth.auth().currentUser?.uid {
-//
-//
-//        let fileUrl = url
-//        let fileName = NSUUID().uuidString + ".m4a"
-//
-//        let checkValidation = FileManager.default
-//        let directoryPath: String = fileUrl.path
-//        guard checkValidation.fileExists(atPath: directoryPath) else {
-//            print("An error occured! directory '\(directoryPath)' doesn't exist!")
-//            return
-//        }
-//
-//
-//        self.storageRef.storage.reference().child("message_voice").child(fileName).putFile(from: fileUrl, metadata: nil) { (metadata, error) in
-//            downloadGroup.leave()
-//
-//            if error != nil {
-//                print(error?.localizedDescription ?? "Error")
-//                result(URL(string: "An error occured!")!)
-//            }
-//
-//            if let downloadUrl = metadata?.downloadURL() {
-//                result(downloadUrl)
-//            } else {
-//                result(URL(string: "An error occured!")!)
-//            }
-//            //   }
-//        }
-//        downloadGroup.wait()
-////        downloadGroup.notify(queue: DispatchQueue.main) { // 2
-////            completion?(storedError)
-////        }
-//        }
-//
-//    }
 }

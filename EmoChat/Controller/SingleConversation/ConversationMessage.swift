@@ -29,7 +29,7 @@ class ConversationMessage {
             case .audio:
                 theAddedText = "🎤"
                 fallthrough
-//            case .photo, .video
+            //case .photo, .video
             default:
                 content =  theAddedText + type.rawValue
                 break

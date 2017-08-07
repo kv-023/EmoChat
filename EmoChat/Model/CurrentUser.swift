@@ -56,10 +56,7 @@ class CurrentUser {
     var contacts: [User] = []
     
     var updateInfoOnView: (() -> Void)?
-    
-    
-    
-    
+   
     private init() {}
     
     // MARK: -  Login
@@ -291,10 +288,6 @@ class CurrentUser {
             }
         }
     }
-    
-    
-    
-    
 }
 
 

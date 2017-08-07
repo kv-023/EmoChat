@@ -11,8 +11,6 @@ typealias linkedTableType = [String: Bool]
 protocol FireBaseEmoChat {
 
     var uuid: String {get set}
-//    func collectDataFromModelInstance() -> linkedTableType
-
 }
 
 extension FireBaseEmoChat {
@@ -39,5 +37,4 @@ extension FireBaseEmoChat {
         return tempArrayData
         
     }
-
 }

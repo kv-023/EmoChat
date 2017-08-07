@@ -34,18 +34,4 @@ class Conversation {
         self.lastMessageTimeStamp = lastMessageTimeStamp
         self.name = name
     }
-    
-//    init?(conversationId: String, usersInConversation: [User], messagesInConversation: [Message]?, lastMessage: Message?) {
-//        
-//        guard (usersInConversation.count) > 1
-//        else {
-//            return nil
-//        }
-//        
-//        self.lastMessage = lastMessage
-//        self.uuid = conversationId
-//        self.usersInConversation = usersInConversation
-//        self.messagesInConversation = messagesInConversation
-//        
-//    }
 }

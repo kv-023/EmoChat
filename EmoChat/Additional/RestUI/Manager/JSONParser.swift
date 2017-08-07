@@ -13,7 +13,7 @@ class JSONParser: NSObject {
 
     static let sharedInstance = JSONParser()
     
-    //MARK - downloadImage
+    //MARK: - downloadImage
     
     func downloadImage(url: String,
                        result: @escaping (UIImage?) -> Void) {
@@ -52,13 +52,12 @@ class JSONParser: NSObject {
                 let fileManager = FileManager.default
 
                 //Get documents directory URL
-//                let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
-                let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+               let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
                 let documentsDirectory = URL(fileURLWithPath: path)
 
                 var fileName = ""
                 if  newFileName == "" {
-                    fileName = localUrl.lastPathComponent//.appendingFormat(".m4a")
+                    fileName = localUrl.lastPathComponent
                     fileName = fileName.replacingOccurrences(of: ".tmp", with: "")
                     fileName = fileName.appendingFormat(".m4a")
                 } else {
@@ -74,7 +73,7 @@ class JSONParser: NSObject {
                                                         withIntermediateDirectories: false,
                                                         attributes: nil)
                     } catch {
-                        //print(error.localizedDescription)
+                        print(error.localizedDescription)
                     }
                 }
 
@@ -82,22 +81,14 @@ class JSONParser: NSObject {
                 let destinationURLExists = (try? destinationURL.checkResourceIsReachable()) ?? false
                 // Check if file exist
                 if !destinationURLExists {
-//                    do{
-//                        try fileManager.removeItem(at: documentsDirectory)
-//                    } catch {
-//                        print(error.localizedDescription)
-//                    }
-                    // Copy File From Temp Folder To Documents Directory
+                    // move File From Temp Folder To Documents Directory
                     do {
-//                        try fileManager.copyItem(atPath: localUrl.path,
-//                                                 toPath: destinationURL.path)
-                        try fileManager.moveItem(atPath: localUrl.path,
+                       try fileManager.moveItem(atPath: localUrl.path,
                                                  toPath: destinationURL.path)
                     } catch {
                         print(error.localizedDescription)
                     }
                 }
-
 
                 result(destinationURL)
             } else { // need this to avoid everlasting loop

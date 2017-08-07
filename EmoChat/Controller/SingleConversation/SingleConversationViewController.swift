@@ -21,8 +21,6 @@ enum UserType {
     case right (RightType)
 }
 
-
-
 class SingleConversationViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate {
 
     // MARK: - constants
@@ -437,9 +435,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         }
     }
     
-    
-    
-    
     //MARK: - Photos
     
     func downloadPhotos () {
@@ -583,8 +578,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 }
                 
                 return cellText
-//            case .audio:
-//                return UITableViewCell()
             case .photo:
                 return UITableViewCell()
             }
@@ -622,8 +615,6 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                 }
                 
                 return cellText
-//            case .audio:
-//                return UITableViewCell()
             case .photo:
                 return UITableViewCell()
             }

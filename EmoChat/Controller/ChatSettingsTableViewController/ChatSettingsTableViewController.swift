@@ -90,19 +90,6 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
             logoCell.conversTitle.text = conversation.name!
             logoCell.conversLogo.clipsToBounds = true
             logoCell.conversLogo.layer.cornerRadius =  logoCell.conversLogo.frame.size.height / 2
-          //  logoCell.conversLogo.contentMode = .scaleAspectFill
-            
-           // if let imageData = userDefaults.value(forKey: kDefaultsCellLogo),
-           //     let image = UIImage(data: imageData  as! Data) {
-            
-            
-                //logoCell.conversLogo.image = UIImage.createFinalImg(logoImages: avatar )
-                
-          //  } else {
-            
-              //  logoCell.conversLogo.image =
-            
-          //  }
             
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(loadNewLogo))
             logoCell.conversLogo.isUserInteractionEnabled = true
