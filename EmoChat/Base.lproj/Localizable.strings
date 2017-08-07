@@ -1,0 +1,102 @@
+//  Created by Nikolay Dementiev on 14.06.17.
+
+
+//first sign-up screen
+"ssign-up-error.aapp.regex-check.user-name"             = "User name should contain minimum 5 characters and be without spec. symbols!";
+"ssign-up-error.aapp.regex-check.email"                 = "e-mail should be correct!";
+"ssign-up-error.aapp.regex-check.password"              = "Password should contain minimum 6 characters!";
+"ssign-up-error.aapp.regex-check.password-confirmation" = "Password confirmation should match with password!";
+
+//second sign-up screen
+"ssign-up-error.aapp.regex-check.name"                  = "Name should contain max. 18 characters and only 'a-z/(A-Z)' symbols!";
+"ssign-up-error.aapp.regex-check.last-name"             = "Last name should contain max. 18 characters and only 'a-z/(A-Z)' symbols!";
+"ssign-up-error.aapp.regex-check.phone"                 = "Phone should contain max. 13 characters and only '+' and '0-9' symbols!";
+
+//log-in screen
+"llog-in-error.aapp.regex-check.email"                  = "Correct email form is 'name@email.com'";
+"llog-in-error.aapp.regex-check.password"               = "Password should contain minimum 6 characters!";
+
+
+//LoginViewController
+"Email must not be empty"                               = "Email must not be empty";
+"Password must not be empty"                            = "Password must not be empty";
+"You have succesfuly logged in"                         = "You have succesfuly logged in";
+"Please confirm your e-mail"                            = "Please confirm your e-mail";
+
+//SignUp First Controller
+"Enter valid username"                                  = "Enter valid username";
+"Username"                                              = "Username";
+"Enter valid email"                                     = "Enter valid email";
+"Enter valid password"                                  = "Enter valid password";
+"Password"                                              = "Password";
+"Enter valid confirmation"                              = "Enter valid confirmation";
+"Confirmation"                                          = "Confirmation";
+"Enter username"                                        = "Enter username";
+"Enter email"                                           = "Enter email";
+"Passwords do not match"                                = "Passwords do not match";
+"Enter password"                                        = "Enter password";
+
+"Username field must not be empty!"                     = "Username field must not be empty!";
+"Email field must not be empty!"                        = "Email field must not be empty!";
+"Confirmation field must not be empty!"                 = "Confirmation field must not be empty!";
+"Password doesn't match with your previous input"       = "Password doesn't match with your previous input";
+"Password field must not be empty!"                     = "Password field must not be empty!";
+
+//SignUp AdditionalInfo
+"Enter valid name"                                      = "Enter valid name";
+"Enter valid last name"                                 = "Enter valid last name";
+
+//SignUp Photo
+"Camera Error"                                          = "Camera Error";
+"Some promlems with camera, use the library"            = "Some promlems with camera, use the library";
+"Camera"                                                = "Camera";
+
+//ConversationsDataSource
+"Yesterday"                                             = "Yesterday";
+
+//Chat settings
+"CONVERSATION SETTINGS"                                 = "CONVERSATION SETTINGS";
+"USERS IN CONVERSATION"                                 = "USERS IN CONVERSATION";
+"Choose new conversation logo"                          = "Choose new conversation logo";
+"Image Source"                                          = "Image Source";
+"Cancel"                                                = "Cancel";
+"Photo Library"                                         = "Photo Library";
+"Conversation"                                          = "Conversation";
+
+//OptionsChangeController
+"Enter valid Email"                                     = "Enter valid Email";
+"Email is valid"                                        = "Email is valid";
+"Phone number is valid"                                 = "Phone number is valid";
+"Username is taken"                                     = "Username is taken";
+"Username is valid"                                     = "Username is valid";
+"Enter valid username"                                  = "Enter valid username";
+"Enter valid phone number"                              = "Enter valid phone number";
+
+//SearchUsersViewController
+"Create Conversation"                                   = "Create Conversation";
+"Search users..."                                       = "Search users";
+"Done"                                                  = "Done";
+"Contacts"                                              = "Contacts";
+"Global search"                                         = "Global search";
+"New Conversation"                                      = "New Conversation";
+"Create conversation with"                              = "Create conversation with";
+"Yes"                                                   = "Yes";
+"No"                                                    = "No";
+"Enter conversation name"                               = "Enter conversation name";
+
+//SingleConversVC
+"Back"                                                  = "Back";
+"Delete"                                                = "Delete";
+"Copy"                                                  = "Copy";
+"No messages yet"                                       = "No messages yet";
+"Type message..."                                       = "Type message...";
+"loading ..."                                           = "loading ...";
+
+//UserInfoVC
+"Unknown"                                               = "Unknown";
+"Phone number is unknown"                               = "Phone number is unknown";
+"Cancel"                                                = "Cancel";
+"Error"                                                 = "Error";
+"Ok"                                                    = "Ok";
+
+

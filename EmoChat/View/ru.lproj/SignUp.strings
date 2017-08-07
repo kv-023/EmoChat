@@ -1,0 +1,78 @@
+
+/* Class = "UILabel"; text = "Password Confirmation"; ObjectID = "62g-Tg-EsS"; */
+"62g-Tg-EsS.text"        = "Подтвердите пароль";
+
+/* Class = "UILabel"; text = "Username"; ObjectID = "6Ij-XM-eqz"; */
+"6Ij-XM-eqz.text"        = "Имя пользователя";
+
+/* Class = "UITextField"; placeholder = "Last Name"; ObjectID = "99n-cr-ZCN"; */
+"99n-cr-ZCN.placeholder" = "Фамилия";
+
+/* Class = "UILabel"; text = "Sign Up"; ObjectID = "BO6-O5-Iq6"; */
+"BO6-O5-Iq6.text"        = "Регистрация";
+
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "HJb-Ym-7I8"; */
+"HJb-Ym-7I8.normalTitle" = "Далее";
+
+/* Class = "UILabel"; text = "Enter additional information"; ObjectID = "Hgc-iB-6hF"; */
+"Hgc-iB-6hF.text"        = "Введите дополнительную информацию";
+
+/* Class = "UILabel"; text = "First Name(Optional)"; ObjectID = "LCL-ww-oww"; */
+"LCL-ww-oww.text"        = "Имя";
+
+/* Class = "UILabel"; text = "Last Name(Optional)"; ObjectID = "LqO-ul-sLY"; */
+"LqO-ul-sLY.text"        = "Фамилия";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "OMK-br-5WK"; */
+"OMK-br-5WK.placeholder" = "Пароль";
+
+/* Class = "UITextField"; placeholder = "First Name"; ObjectID = "PU8-J7-b5o"; */
+"PU8-J7-b5o.placeholder" = "Имя";
+
+/* Class = "UITextField"; placeholder = "Username"; ObjectID = "Ukb-gh-bfQ"; */
+"Ukb-gh-bfQ.placeholder" = "Имя пользователя";
+
+/* Class = "UIButton"; normalTitle = "Previous"; ObjectID = "W7j-h6-A8S"; */
+"W7j-h6-A8S.normalTitle" = "Назад";
+
+/* Class = "UIButton"; normalTitle = "Sign Up"; ObjectID = "bE3-7I-ZhS"; */
+"bE3-7I-ZhS.normalTitle" = "Далее";
+
+/* Class = "UILabel"; text = "Password"; ObjectID = "dvh-cr-cK7"; */
+"dvh-cr-cK7.text"        = "Пароль";
+
+/* Class = "UILabel"; text = "Sign Up"; ObjectID = "emn-TJ-Inz"; */
+"emn-TJ-Inz.text"        = "Регистрация";
+
+/* Class = "UILabel"; text = "Choose your photo"; ObjectID = "fGk-em-0fR"; */
+"fGk-em-0fR.text"        = "Выберите фото";
+
+/* Class = "UITextField"; placeholder = "Phone"; ObjectID = "grV-rO-WY0"; */
+"grV-rO-WY0.placeholder" = "Номер телефона";
+
+/* Class = "UILabel"; text = "Email"; ObjectID = "hGF-RW-dHh"; */
+"hGF-RW-dHh.text"        = "Email";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "kCK-6T-a7R"; */
+"kCK-6T-a7R.placeholder" = "Email";
+
+/* Class = "UILabel"; text = "Sign Up"; ObjectID = "kUQ-ki-z5Z"; */
+"kUQ-ki-z5Z.text"        = "Регистрация";
+
+/* Class = "UILabel"; text = "Enter necessary information"; ObjectID = "qQX-6E-IIm"; */
+"qQX-6E-IIm.text"        = "Введите основную иформацию";
+
+/* Class = "UIButton"; normalTitle = "Back"; ObjectID = "s6A-D1-FiA"; */
+"s6A-D1-FiA.normalTitle" = "Назад";
+
+/* Class = "UIButton"; normalTitle = "Previous"; ObjectID = "v9q-d0-2c7"; */
+"v9q-d0-2c7.normalTitle" = "Назад";
+
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "vZr-Km-jC3"; */
+"vZr-Km-jC3.normalTitle" = "Далее";
+
+/* Class = "UILabel"; text = "Phone (Optional)"; ObjectID = "x1p-IZ-hU1"; */
+"x1p-IZ-hU1.text"        = "Номер телефона";
+
+/* Class = "UITextField"; placeholder = "Password Confirmation"; ObjectID = "yUb-wW-TKM"; */
+"yUb-wW-TKM.placeholder" = "Подтвердите пароль";

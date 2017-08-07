@@ -7,7 +7,9 @@ target 'EmoChat' do
 
 end
 
-pod 'Firebase', '>= 2.5.1'
-pod ‘Firebase/Core’
-pod ‘Firebase/Database’
-pod ‘Firebase/Auth'
+pod 'Firebase', '= 4.0.0'
+pod 'Firebase/Core'
+pod 'Firebase/Database'
+pod 'Firebase/Auth'
+pod 'Firebase/Storage'
+
