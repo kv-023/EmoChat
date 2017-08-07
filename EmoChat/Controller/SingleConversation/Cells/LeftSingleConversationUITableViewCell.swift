@@ -17,8 +17,6 @@ class LeftCell: CustomTableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-
-
 }
 
 class LeftTextCell: LeftCell {
@@ -32,7 +30,6 @@ class LeftTextCell: LeftCell {
             if let enterText = name {
                 text.append(enterText)
             }
-//            text.append(NSAttributedString(string: (messageEntity?.content!.content)!, attributes: [NSFontAttributeName : UIFont.systemFont(ofSize: CGFloat.init(15.0))]))
             text.append(NSAttributedString(string: getTextForCellText(cell: self),
                                            attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: CGFloat.init(15.0))]))
 
@@ -42,10 +39,6 @@ class LeftTextCell: LeftCell {
         }
     }
 
-//    override func getTextForCellText() -> String {
-//        return "received " + super.getTextForCellText()
-//    }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
