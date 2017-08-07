@@ -32,7 +32,7 @@ class OptionsMainPageTableViewController:  UITableViewController {
     }
     
     func updateInfoOnView() {
-        nameAndLastNameLabel.text = "\(currentUser.firstName ?? "Name") \(currentUser.secondName ?? "Lastname")"
+        nameAndLastNameLabel.text = "\(currentUser.firstName ?? "") \(currentUser.secondName ?? "")"
         phoneNumberLabel.text = currentUser.phoneNumber
         usernameLabel.text = currentUser.username
         emailLabel.text = currentUser.email
