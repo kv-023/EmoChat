@@ -572,6 +572,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                     cellText.background.isUserInteractionEnabled = false
                     cellText.message.isUserInteractionEnabled = false
                 } else {
+                    cellText.background.backgroundColor = UIColor.lightGray
                     cellText.background.image = nil
                     cellText.background.isUserInteractionEnabled = true
                     cellText.message.isUserInteractionEnabled = true
@@ -609,6 +610,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                     cellText.message.isUserInteractionEnabled = false
 
                 } else {
+                    cellText.background.backgroundColor = UIColor.lightGray
                     cellText.background.image = nil
                     cellText.background.isUserInteractionEnabled = true
                     cellText.message.isUserInteractionEnabled = true
