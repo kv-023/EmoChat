@@ -48,7 +48,7 @@ class CustomTextView: UITextView {
         return curClearButton
     }
 
-    func clearTextView() {
+    @objc func clearTextView() {
         ConversationMessage.sharedInstance.eraseAllData()
         removeDeintButton()
 

@@ -270,16 +270,16 @@ extension CustomTableViewCell {
 
     private func setConstrainInSubView(embeddedView myView: UIView,
                                        parrentView hostView: UIView) {
-        let leading = NSLayoutConstraint(item: myView, attribute: NSLayoutAttribute.leading, relatedBy: NSLayoutRelation.equal, toItem: hostView, attribute: NSLayoutAttribute.leading, multiplier: 1, constant: 0)
+        let leading = NSLayoutConstraint(item: myView, attribute: NSLayoutConstraint.Attribute.leading, relatedBy: NSLayoutConstraint.Relation.equal, toItem: hostView, attribute: NSLayoutConstraint.Attribute.leading, multiplier: 1, constant: 0)
         self.addConstraint(leading)
 
-        let bottom = NSLayoutConstraint(item: myView, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: hostView, attribute: NSLayoutAttribute.bottom, multiplier: 1, constant: 0)
+        let bottom = NSLayoutConstraint(item: myView, attribute: NSLayoutConstraint.Attribute.bottom, relatedBy: NSLayoutConstraint.Relation.equal, toItem: hostView, attribute: NSLayoutConstraint.Attribute.bottom, multiplier: 1, constant: 0)
         self.addConstraint(bottom)
 
-        let trailing = NSLayoutConstraint(item: myView, attribute: NSLayoutAttribute.trailing, relatedBy: NSLayoutRelation.equal, toItem: hostView, attribute: NSLayoutAttribute.trailing, multiplier: 1, constant: 0)
+        let trailing = NSLayoutConstraint(item: myView, attribute: NSLayoutConstraint.Attribute.trailing, relatedBy: NSLayoutConstraint.Relation.equal, toItem: hostView, attribute: NSLayoutConstraint.Attribute.trailing, multiplier: 1, constant: 0)
         self.addConstraint(trailing)
 
-        let top = NSLayoutConstraint(item: myView, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: hostView, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 0)
+        let top = NSLayoutConstraint(item: myView, attribute: NSLayoutConstraint.Attribute.top, relatedBy: NSLayoutConstraint.Relation.equal, toItem: hostView, attribute: NSLayoutConstraint.Attribute.top, multiplier: 1, constant: 0)
 
         self.addConstraint(top)
     }

@@ -18,7 +18,7 @@ extension UIViewController {
         view.addGestureRecognizer(tap)
     }
     
-    func dismissKeyboard() {
+    @objc func dismissKeyboard() {
         view.endEditing(true)
     }
 }
@@ -40,7 +40,7 @@ extension UITextField {
         self.layer.masksToBounds = true
     }
 
-    func redBorder() {
+    @objc func redBorder() {
         self.layer.cornerRadius = 7.0
         self.layer.borderWidth = 1.0
         self.layer.borderColor = UIColor.red.cgColor

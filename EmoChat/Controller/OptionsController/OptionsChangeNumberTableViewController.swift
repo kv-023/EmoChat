@@ -73,7 +73,7 @@ class OptionsChangeNumberTableViewController: UITableViewController, UITextField
     
     @IBAction func phoneNumberEditingDidBegin(_ sender: UITextField) {
         let code = getCountryCode()
-        if (changeNumberTextField.text?.characters.count)! < code.characters.count {
+        if (changeNumberTextField.text?.count)! < code.count {
             changeNumberTextField.text = code
         }
     }
@@ -81,13 +81,13 @@ class OptionsChangeNumberTableViewController: UITableViewController, UITextField
     @IBAction func phoneNumberEditingDidEnd(_ sender: UITextField) {
         let code = getCountryCode()
         
-        if (changeNumberTextField.text?.characters.count)! <= code.characters.count {
+        if (changeNumberTextField.text?.count)! <= code.count {
             changeNumberTextField.text = ""
         }
     }
     
     // MARK: - Saving to firebase and singleton current user
-    func saveNumber(sender: UIBarButtonItem) {
+    @objc func saveNumber(sender: UIBarButtonItem) {
         if phoneIsValid(uname: changeNumberTextField.text!){
             currentUser.changePhoneNumber(phoneNumber: changeNumberTextField.text)
         }

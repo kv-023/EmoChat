@@ -9,7 +9,7 @@
 import UIKit
 
 protocol AudioRecordPlaybackProtocol: class {
-    weak var audioMessageViewDelegate: AudioMessageViewProtocol? {get set}
+    var audioMessageViewDelegate: AudioMessageViewProtocol? {get set}
     func playAudio(urlFromFireBase url: URL?)
     var audioSecondsVal: Double { get }
     func analyzeAudioMessage(url: URL, waveFormView: AudioMessageWaveForm?)

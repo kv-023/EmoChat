@@ -23,7 +23,7 @@ class VideoPlayerViewController: UIViewController {
         
         avPlayerLayer = AVPlayerLayer(player: avPlayer)
         avPlayerLayer.frame = view.bounds
-        avPlayerLayer.videoGravity = AVLayerVideoGravityResizeAspect
+        avPlayerLayer.videoGravity = AVLayerVideoGravity.resizeAspect
         videoView.layer.insertSublayer(avPlayerLayer, at: 0)
         
         let playerItem = AVPlayerItem(url: videoURL as URL)

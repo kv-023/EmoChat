@@ -27,17 +27,17 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 }
 
-let _gifImageKey = malloc(4)
-let _cacheKey = malloc(4)
-let _currentImageKey = malloc(4)
-let _displayOrderIndexKey = malloc(4)
-let _syncFactorKey = malloc(4)
-let _haveCacheKey = malloc(4)
-let _loopCountKey = malloc(4)
-let _displayingKey = malloc(4)
-let _isPlayingKey = malloc(4)
-let _animationManagerKey = malloc(4)
-let _delegateKey = malloc(4)
+let _gifImageKey = malloc(4)!
+let _cacheKey = malloc(4)!
+let _currentImageKey = malloc(4)!
+let _displayOrderIndexKey = malloc(4)!
+let _syncFactorKey = malloc(4)!
+let _haveCacheKey = malloc(4)!
+let _loopCountKey = malloc(4)!
+let _displayingKey = malloc(4)!
+let _isPlayingKey = malloc(4)!
+let _animationManagerKey = malloc(4)!
+let _delegateKey = malloc(4)!
 
 @objc public protocol SwiftyGifDelegate {
 	@objc optional func gifDidStart()
@@ -313,11 +313,11 @@ extension UIImageView {
 	}
 	
 	// PRAGMA - get / set associated values
-	fileprivate func value<T>(_ key:UnsafeMutableRawPointer?, _ defaultValue:T) -> T {
+	fileprivate func value<T>(_ key:UnsafeMutableRawPointer, _ defaultValue:T) -> T {
 		return (objc_getAssociatedObject(self, key) as? T) ?? defaultValue
 	}
 	
-	fileprivate func possiblyNil<T>(_ key:UnsafeMutableRawPointer?) -> T? {
+	fileprivate func possiblyNil<T>(_ key:UnsafeMutableRawPointer) -> T? {
 		let result = objc_getAssociatedObject(self, key)
 		if result == nil {
 			return nil

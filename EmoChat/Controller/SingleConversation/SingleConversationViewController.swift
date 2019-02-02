@@ -87,8 +87,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         navigationItem.title = currentConversation.name ?? "<?>"
         let button = UIButton.init(type: .custom)
         let img = UIImage.init(named: "info")
-        button.setImage(img, for: UIControlState.normal)
-        button.addTarget(self, action:#selector(conversationInfoPressed), for: UIControlEvents.touchUpInside)
+        button.setImage(img, for: UIControl.State.normal)
+        button.addTarget(self, action:#selector(conversationInfoPressed), for: UIControl.Event.touchUpInside)
         button.frame = CGRect.init(x: 0, y: 0, width: 25, height: 25)
         let barButton = UIBarButtonItem.init(customView: button)
         self.navigationItem.rightBarButtonItem = barButton
@@ -96,11 +96,11 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     
     func initialSetup () {
         table.estimatedRowHeight = table.rowHeight
-        table.rowHeight = UITableViewAutomaticDimension
+        table.rowHeight = UITableView.automaticDimension
         table.alwaysBounceVertical = false
         refresher = UIRefreshControl()
         table.backgroundView = refresher
-        refresher.addTarget(self, action: #selector(updateUI), for: UIControlEvents.valueChanged)
+        refresher.addTarget(self, action: #selector(updateUI), for: UIControl.Event.valueChanged)
         table.alwaysBounceVertical = true
         loadingIndicator.startAnimating()
         loadingIndicator.hidesWhenStopped = true
@@ -173,7 +173,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     }
     
     //MARK: - Nav item
-    func conversationInfoPressed() {
+    @objc func conversationInfoPressed() {
         let vc = UIStoryboard(name:"ChatSettings", bundle:nil).instantiateViewController(withIdentifier: "chatSettings") as! ChatSettingsTableViewController
        
         vc.conversation = currentConversation
@@ -221,11 +221,11 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     }
     
     //functionality
-    func copyAction(_ sender: Any?) {
+    @objc func copyAction(_ sender: Any?) {
         UIPasteboard.general.string = messageRecognized.content!.content
     }
     
-    func deleteAction(_ sender: Any?) {
+    @objc func deleteAction(_ sender: Any?) {
         deleteMessage(messageRecognized)
     }
     
@@ -404,7 +404,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     }
 
     //download 20 more messages
-    func updateUI() {
+    @objc func updateUI() {
         if let firstMessage = messagesArrayWithSection[sortedSections[0]]!.first?.0 {
             self.refresher.endRefreshing()
             let initialOffset = self.table.contentOffset.y
@@ -557,7 +557,7 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
                         return user.uid == message.0.senderId
                     })
                     var name = NSMutableAttributedString(string: "")
-                    name = NSMutableAttributedString(string: (user?.getNameOrUsername())!, attributes: [NSFontAttributeName : UIFont.boldSystemFont(ofSize: CGFloat.init(15.0))])
+                    name = NSMutableAttributedString(string: (user?.getNameOrUsername())!, attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font) : UIFont.boldSystemFont(ofSize: CGFloat.init(15.0))]))
                     name.append(NSAttributedString(string: "\n"))
                     cellText.name = name
                 }
@@ -739,13 +739,13 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
     //MARK: - Keyboard actions
     
     func setupKeyboardObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: .UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: .UIKeyboardWillHide, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: .UIKeyboardWillChangeFrame, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
     
-    func handleKeyboardWillHide (notification: Notification) {
-        if let keyboardDuration = (notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue {
+    @objc func handleKeyboardWillHide (notification: Notification) {
+        if let keyboardDuration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue {
             
             self.bottomConstraint.constant = 0
             UIView.animate(withDuration: keyboardDuration, animations: {
@@ -754,8 +754,8 @@ class SingleConversationViewController: UIViewController, UITextViewDelegate, UI
         }
     }
     
-    func handleKeyboardWillShow (notification: Notification) {
-        if let keyboardSize = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect, let keyboardDuration = (notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue {
+    @objc func handleKeyboardWillShow (notification: Notification) {
+        if let keyboardSize = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect, let keyboardDuration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue {
             self.bottomConstraint.constant = keyboardSize.height
             UIView.animate(withDuration: keyboardDuration,
                            animations: {
@@ -944,7 +944,7 @@ extension SingleConversationViewController : CellDelegate {
 extension CustomTextView {
     
     func containsAlphaNumericCharacters() -> Bool {
-        let charsArray = Array(self.text.characters)
+        let charsArray = Array(self.text)
         let result = charsArray.filter { (character) -> Bool in
             if String(character) == " " || String(character) == "\n" {
                 return false
@@ -1040,7 +1040,7 @@ extension SingleConversationViewController: cameraControllerDelegate {
         cameraPreview.isHidden = false
     }
     
-    func stopRecording() {
+    @objc func stopRecording() {
         cameraController.startRecording()
         cameraPreview.isHidden = true
         cameraController.stopSession()
@@ -1068,4 +1068,15 @@ extension SingleConversationViewController: cameraControllerDelegate {
             cameraController.startSession()
         }
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
 }

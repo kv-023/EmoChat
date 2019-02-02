@@ -60,7 +60,7 @@ final class UrlembedModel: ParserDataModel {
 
         //try to download photo as usual
         if type?.lowercased() == typeOfData.photo.description
-            && (url?.characters.count ?? 0) == 0 {
+            && (url?.count ?? 0) == 0 {
 
             url = originUrl
             text = originUrl

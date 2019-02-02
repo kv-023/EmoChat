@@ -27,7 +27,7 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
     override func viewDidLoad() {
         super.viewDidLoad()
         manager = ManagerFirebase.shared
-        tableView.contentInset = UIEdgeInsetsMake(-20, 0, 0, 0)
+        tableView.contentInset = UIEdgeInsets.init(top: -20, left: 0, bottom: 0, right: 0)
         self.navigationItem.title = NSLocalizedString("Conversation", comment: "")
         
        sortUsers()
@@ -190,7 +190,7 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
     }
 
     // MARK: Loading New Photo
-    func loadNewLogo(tapGestureRecognizer: UITapGestureRecognizer) {
+    @objc func loadNewLogo(tapGestureRecognizer: UITapGestureRecognizer) {
     
         let imagePicker = UIImagePickerController()
     
@@ -218,9 +218,12 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
     
 
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+// Local variable inserted by Swift 4.2 migrator.
+let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+
     
-        guard let chosenImage = info[UIImagePickerControllerEditedImage] as? UIImage else { return }
+        guard let chosenImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.editedImage)] as? UIImage else { return }
     
         logoCell.conversLogo.clipsToBounds = true
         logoCell.conversLogo.image = chosenImage
@@ -244,4 +247,14 @@ class ChatSettingsTableViewController: UITableViewController, UIImagePickerContr
         self.dismiss(animated:true, completion: nil)
     }
 
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
+	return input.rawValue
 }

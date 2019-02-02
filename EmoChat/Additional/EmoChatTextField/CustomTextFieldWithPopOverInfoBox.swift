@@ -46,7 +46,7 @@ class CustomTextFieldWithPopOverInfoBox: UITextField {
     }
 
     //MARK: question mark button
-    private func commonInit() {
+    @objc func commonInit() {
         clipsToBounds = true
 
         textInfoForQuestionLabel = "smth went wrong..."
@@ -110,7 +110,7 @@ class CustomTextFieldWithPopOverInfoBox: UITextField {
 
     //MARK: popOverWindow
 
-    func openPopOverVC() {
+    @objc func openPopOverVC() {
 
         if  let vcPopOver = popOverVC {
 
@@ -153,7 +153,7 @@ class CustomTextFieldWithPopOverInfoBox: UITextField {
             let rect: CGRect = notNullText.boundingRect(with:
                 CGSize(width: maxWidth, height:CGFloat.greatestFiniteMagnitude),
                                                         options: ([.usesLineFragmentOrigin, .usesFontLeading]),
-                                                        attributes: [NSFontAttributeName: UIFont(name: "Arial", size: 16) ?? 15],
+                                                        attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): UIFont(name: "Arial", size: 16) ?? 15]),
                                                         context: nil)
 
             textHeight = max(rect.size.height + 5, minimumTextHeight)
@@ -163,7 +163,7 @@ class CustomTextFieldWithPopOverInfoBox: UITextField {
     }
 
 
-    override func redBorder() {
+    @objc override func redBorder() {
         super.redBorder()
 
        // shake()
@@ -184,7 +184,7 @@ class CustomTextFieldWithPopOverInfoBox: UITextField {
 	           withTranslation translation : Float? = nil, delay: Double) {
 		let animation : CABasicAnimation = CABasicAnimation(keyPath: "transform.translation.x")
 		animation.beginTime = CACurrentMediaTime() + delay
-		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+		animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
 		animation.repeatCount = count ?? 2
 		animation.duration = (duration ?? 0.5)/TimeInterval(animation.repeatCount)
 		animation.autoreverses = true
@@ -206,4 +206,15 @@ fileprivate struct HelperForCustomTextFieldWithPopOverInfoBox {
     
     let questionImage = UIImage(named: "question")
     
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
 }

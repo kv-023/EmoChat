@@ -89,17 +89,17 @@ class SignUpFirstViewController: EmoChatUIViewController, UITextFieldDelegate, R
         self.hideKeyboard()
         
         //Scroll when keyboard is shown
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:UIResponder.keyboardWillHideNotification, object: nil)
         
         //Create Firebase manager
         manager = ManagerFirebase.shared
 
     }
     
-    func keyboardWillShow(notification:NSNotification){
+    @objc func keyboardWillShow(notification:NSNotification){
         var userInfo = notification.userInfo!
-        var keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+        var keyboardFrame:CGRect = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
         keyboardFrame = self.view.convert(keyboardFrame, from: nil)
         
         var contentInset:UIEdgeInsets = self.theScrollView.contentInset
@@ -107,7 +107,7 @@ class SignUpFirstViewController: EmoChatUIViewController, UITextFieldDelegate, R
         self.theScrollView.contentInset = contentInset
     }
     
-    func keyboardWillHide(notification:NSNotification){
+    @objc func keyboardWillHide(notification:NSNotification){
         let contentInset:UIEdgeInsets = UIEdgeInsets.zero
         self.theScrollView.contentInset = contentInset
     }

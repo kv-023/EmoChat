@@ -81,8 +81,8 @@ class RestUIInfoView: AdditionalCellView {
         detailLabel.addGestureRecognizer(tapRecognizer2)
     }
 
-    func handler(_ sender: UITapGestureRecognizer) {
-        if sender.state == UIGestureRecognizerState.ended {
+    @objc func handler(_ sender: UITapGestureRecognizer) {
+        if sender.state == UIGestureRecognizer.State.ended {
 
             let errorMessage1 = "an error occurred while open url:"
             guard let notNullURLString = self.url,

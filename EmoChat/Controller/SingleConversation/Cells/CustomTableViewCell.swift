@@ -98,7 +98,7 @@ class CustomTableViewCell: UITableViewCell {
         }
     }
 
-    func handler(_ recognizer: UILongPressGestureRecognizer) {
+    @objc func handler(_ recognizer: UILongPressGestureRecognizer) {
         if recognizer.state == .began {
             delegate.cellDelegate(self, didHandle: .longPress)
         }

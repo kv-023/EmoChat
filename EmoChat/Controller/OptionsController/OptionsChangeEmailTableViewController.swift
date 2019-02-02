@@ -42,7 +42,7 @@ class OptionsChangeEmailTableViewController: UITableViewController, UITextFieldD
     }
     
     // MARK: - Save to firebasen and current user
-    func saveEmail(sender: UIBarButtonItem) {
+    @objc func saveEmail(sender: UIBarButtonItem) {
         if emailIsValid(userEmail: changeEmailTextField.text){
             currentUser.changeEmail(newEmail: changeEmailTextField.text!)
         }

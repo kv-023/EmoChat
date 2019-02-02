@@ -177,7 +177,7 @@ class SearchUsersViewController: UITableViewController {
     }
     
     // MARK: - Searching
-    func filterContent(for searchText: String) {
+    @objc func filterContent(for searchText: String) {
         switch searchType {
         case .contacts:
             filteredFriends = friends.filter({ (friend) -> Bool in
@@ -208,7 +208,7 @@ class SearchUsersViewController: UITableViewController {
     }
     
     // MARK: - Actions
-    func createConversationAction(_ sender: UIBarButtonItem) {
+    @objc func createConversationAction(_ sender: UIBarButtonItem) {
         var usernames = ""
         
         for (index, user) in checkmarkedFriends.enumerated() {
@@ -225,7 +225,7 @@ class SearchUsersViewController: UITableViewController {
                                          comment: "Usernames") + " \(usernames) ?"
         let alertController = UIAlertController(title: title,
                                       message: message,
-                                      preferredStyle: UIAlertControllerStyle.alert)
+                                      preferredStyle: UIAlertController.Style.alert)
         
         let yesAction = UIAlertAction(title: NSLocalizedString("Yes", comment: ""), style: .default) { [weak self] (action) in
 

@@ -54,17 +54,17 @@ RegexCheckProtocol {
         self.hideKeyboard()
         
         //Scroll when keyboard is up
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:UIResponder.keyboardWillHideNotification, object: nil)
         
         manager = ManagerFirebase.shared
         alert = UIAlertController(title: "Warning", message: nil, preferredStyle: .alert)
         alert?.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
     }
     
-    func keyboardWillShow(notification:NSNotification){
+    @objc func keyboardWillShow(notification:NSNotification){
         var userInfo = notification.userInfo!
-        var keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+        var keyboardFrame:CGRect = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
         keyboardFrame = self.view.convert(keyboardFrame, from: nil)
         
         var contentInset:UIEdgeInsets = self.theScrollView.contentInset
@@ -72,7 +72,7 @@ RegexCheckProtocol {
         self.theScrollView.contentInset = contentInset
     }
     
-    func keyboardWillHide(notification:NSNotification){
+    @objc func keyboardWillHide(notification:NSNotification){
         let contentInset:UIEdgeInsets = UIEdgeInsets.zero
         self.theScrollView.contentInset = contentInset
     }
@@ -122,7 +122,7 @@ RegexCheckProtocol {
     
     @IBAction func phoneNumberChanged(_ sender: UITextField) {
         
-        if (phoneField.text?.characters.count)! == 0 {
+        if (phoneField.text?.count)! == 0 {
             phoneField.text = "+"
         }
 
@@ -140,7 +140,7 @@ RegexCheckProtocol {
 		
 		let code = getCountryCode()
 
-		if (phoneField.text?.characters.count)! < code.characters.count {
+		if (phoneField.text?.count)! < code.count {
             phoneField.text = code
 			
 		}
@@ -150,7 +150,7 @@ RegexCheckProtocol {
 		
 		let code = getCountryCode()
 
-        if (phoneField.text?.characters.count)! <= code.characters.count {
+        if (phoneField.text?.count)! <= code.count {
             phoneField.text = ""
         }
 

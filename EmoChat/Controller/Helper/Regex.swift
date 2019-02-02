@@ -46,7 +46,7 @@ struct Regex {
         do {
             let regex = try NSRegularExpression(pattern: regex,
                                                 options:[.caseInsensitive])
-            let range = NSMakeRange(0, text.characters.count)
+            let range = NSMakeRange(0, text.count)
             valueForReturn = regex.stringByReplacingMatches(in: text,
                                                             options: [],
                                                             range: range,
