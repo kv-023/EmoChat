@@ -68,8 +68,8 @@ protocol SingleConversationBottomBarProtocol: class {
         view.frame = bounds
         // Auto-layout stuff.
         view.autoresizingMask = [
-            UIViewAutoresizing.flexibleWidth,
-            UIViewAutoresizing.flexibleHeight
+            UIView.AutoresizingMask.flexibleWidth,
+            UIView.AutoresizingMask.flexibleHeight
         ]
         // Show the view.
         addSubview(view)

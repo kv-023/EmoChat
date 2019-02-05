@@ -231,7 +231,7 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
             let defaultMessage = NSLocalizedString("No messages yet",
                                                    comment: "")
             let attributedString = NSAttributedString(string: defaultMessage,
-                                            attributes: [NSFontAttributeName : UIFont.italicSystemFont(ofSize: cell.lastMessageLabel.font.pointSize)])
+                                            attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font) : UIFont.italicSystemFont(ofSize: cell.lastMessageLabel.font.pointSize)]))
             cell.lastMessageLabel.attributedText = attributedString
         }
         
@@ -278,7 +278,7 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
         return false
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         switch editingStyle {
         case .delete:
@@ -317,4 +317,15 @@ class ConversationsDataSource: NSObject, UITableViewDataSource {
             return date.dayFormatStyle()
         }
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
 }

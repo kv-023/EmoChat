@@ -68,10 +68,10 @@ class User: NSObject, NSCoding {
      */
     init (data: NSDictionary?, uid: String?) {
         
-        self.username = data?["username"] as! String
+        self.username = data?["username"] as? String
         self.firstName = data?["firstName"] as! String?
         self.secondName = data?["secondName"] as! String?
-        self.email = data?["email"] as! String
+        self.email = data?["email"] as? String
         self.phoneNumber = data?["phoneNumber"] as! String?
         self.photoURL = data?["photoURL"] as! String?
         self.uid = uid

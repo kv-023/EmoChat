@@ -64,7 +64,7 @@ class UserInfoTableViewController: UITableViewController {
         
         if tableView.cellForRow(at: indexPath)?.reuseIdentifier == sendMessageReuseIdentifier {
             var conversationName = "\(selectedUser.firstName ?? "") \(selectedUser.secondName ?? "")"
-            if conversationName.characters.count < requiredNumberOfCharachters {
+            if conversationName.count < requiredNumberOfCharachters {
                 conversationName = selectedUser.username
             }
             let users = [selectedUser!, currentUser!]
@@ -115,7 +115,7 @@ class UserInfoTableViewController: UITableViewController {
         let alertController = UIAlertController(title: "", message: str + " \n\(number)?",preferredStyle: .alert)
         
         let actionYes = UIAlertAction(title: NSLocalizedString("Yes", comment: ""), style: .default, handler: { (action) in
-                application.open(phoneURL, options: [:], completionHandler: nil)
+                application.open(phoneURL, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
         })
         
         let actionNo = UIAlertAction(title: NSLocalizedString("No", comment: ""), style: .destructive, handler: { (action) in
@@ -126,4 +126,9 @@ class UserInfoTableViewController: UITableViewController {
             
         present(alertController, animated: true, completion: nil)
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }

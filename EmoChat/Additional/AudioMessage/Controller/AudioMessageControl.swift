@@ -40,7 +40,10 @@ class AudioMessageControl: NSObject, AVAudioRecorderDelegate {//UIViewController
     func initiateSVariable() {
         recordingSession = AVAudioSession.sharedInstance()
         do {
-            try recordingSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
+            try recordingSession.setCategory(AVAudioSession.Category.playAndRecord,
+                                             mode: AVAudioSession.Mode.default,
+                                             options: AVAudioSession.CategoryOptions.allowBluetooth)
+
             try recordingSession.setActive(true)
             recordingSession.requestRecordPermission() { allowed in
 
@@ -183,9 +186,9 @@ class AudioMessageControl: NSObject, AVAudioRecorderDelegate {//UIViewController
 
             //let file = try! AVAudioFile(forReading: url)
             //Format of the file
-            let format = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: file.fileFormat.sampleRate, channels: file.fileFormat.channelCount, interleaved: false)
+            guard let format = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: file.fileFormat.sampleRate, channels: file.fileFormat.channelCount, interleaved: false) else { return }
             //Buffer
-            let buf = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: UInt32(file.length))
+            guard let buf = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: UInt32(file.length)) else { return }
             try! file.read(into: buf)//Read Floats
             //Store the array of floats in the struct
             audioMessageWaveForm?.readFile.arrayFloatValues = Array(UnsafeBufferPointer(start: buf.floatChannelData?[0], count:Int(buf.frameLength)))
@@ -257,8 +260,13 @@ extension AudioMessageControl: AudioRecordPlaybackProtocol {
         
     }
     
-    func playerDidFinishPlaying(sender: Notification) {
+    @objc func playerDidFinishPlaying(sender: Notification) {
         audioMessageViewDelegate?.audioPlayerFinishedPlaying()
     }
     
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
+	return input.rawValue
 }

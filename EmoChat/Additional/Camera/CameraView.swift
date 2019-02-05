@@ -29,32 +29,29 @@ class CameraView: NSObject, AVCaptureFileOutputRecordingDelegate {
         // Configure previewLayer
         previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         previewLayer.frame = camPreview.bounds
-        previewLayer.videoGravity = AVLayerVideoGravityResizeAspect
+        previewLayer.videoGravity = AVLayerVideoGravity(rawValue: convertFromAVLayerVideoGravity(AVLayerVideoGravity.resizeAspect))
         camPreview.layer.addSublayer(previewLayer)
     }
     
     
     func setupSession() -> Bool {
         
-        captureSession.sessionPreset = AVCaptureSessionPresetHigh
+        captureSession.sessionPreset = AVCaptureSession.Preset(rawValue: convertFromAVCaptureSessionPreset(AVCaptureSession.Preset.high))
         
         // Setup Camera
         
-        let session = AVCaptureDeviceDiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaTypeVideo, position: .unspecified)
-        guard let cameras = (session?.devices.flatMap { $0 }), !cameras.isEmpty else {
+        let session = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType(rawValue: convertFromAVMediaType(AVMediaType.video)), position: .unspecified)
+        let cameras = session.devices
+
+        if !cameras.isEmpty {
             return false
         }
-        var frontCamera: AVCaptureDevice?
-        
-        //2
-        for camera in cameras {
-            if camera.position == .front {
-                frontCamera = camera
-            }
-        }
+
+        //AVCaptureDevice
+        let frontCamera = cameras.filter{($0.position == .front)}.first
         
         do {
-            let input = try AVCaptureDeviceInput(device: frontCamera)
+            let input = try AVCaptureDeviceInput(device: frontCamera!)
             if captureSession.canAddInput(input) {
                 captureSession.addInput(input)
                 activeInput = input
@@ -65,7 +62,7 @@ class CameraView: NSObject, AVCaptureFileOutputRecordingDelegate {
         }
         
         // Setup Microphone
-        let microphone = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeAudio)
+        guard let microphone = AVCaptureDevice.default(for: AVMediaType(rawValue: convertFromAVMediaType(AVMediaType.audio))) else { return false }
         
         do {
             let micInput = try AVCaptureDeviceInput(device: microphone)
@@ -151,7 +148,7 @@ class CameraView: NSObject, AVCaptureFileOutputRecordingDelegate {
         print(movieOutput.isRecording)
         if movieOutput.isRecording == false {
             
-            let connection = movieOutput.connection(withMediaType: AVMediaTypeVideo)
+            let connection = movieOutput.connection(with: AVMediaType(rawValue: convertFromAVMediaType(AVMediaType.video)))
             if (connection?.isVideoOrientationSupported)! {
                 connection?.videoOrientation = currentVideoOrientation()
             }
@@ -161,11 +158,11 @@ class CameraView: NSObject, AVCaptureFileOutputRecordingDelegate {
             }
             
             let device = activeInput.device
-            if (device?.isSmoothAutoFocusSupported)! {
+            if (device.isSmoothAutoFocusSupported) {
                 do {
-                    try device?.lockForConfiguration()
-                    device?.isSmoothAutoFocusEnabled = false
-                    device?.unlockForConfiguration()
+                    try device.lockForConfiguration()
+                    device.isSmoothAutoFocusEnabled = false
+                    device.unlockForConfiguration()
                 } catch {
                     print("Error setting configuration: \(error)")
                 }
@@ -174,7 +171,7 @@ class CameraView: NSObject, AVCaptureFileOutputRecordingDelegate {
             
             //EDIT2: And I forgot this
             outputURL = tempURL()
-            movieOutput.startRecording(toOutputFileURL: outputURL, recordingDelegate: self)
+            movieOutput.startRecording(to: outputURL, recordingDelegate: self)
             print(movieOutput.isRecording)
         }
         else {
@@ -190,11 +187,11 @@ class CameraView: NSObject, AVCaptureFileOutputRecordingDelegate {
         }
     }
     
-    func capture(_ captureOutput: AVCaptureFileOutput!, didStartRecordingToOutputFileAt fileURL: URL!, fromConnections connections: [Any]!) {
+    func fileOutput(_ captureOutput: AVCaptureFileOutput, didStartRecordingTo fileURL: URL, from connections: [AVCaptureConnection]) {
         
     }
     
-    func capture(_ captureOutput: AVCaptureFileOutput!, didFinishRecordingToOutputFileAt outputFileURL: URL!, fromConnections connections: [Any]!, error: Error!) {
+    func fileOutput(_ captureOutput: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
         if (error != nil) {
             print("Error recording movie: \(error!.localizedDescription)")
         } else {
@@ -214,4 +211,19 @@ extension CameraView {
 
 protocol cameraControllerDelegate: NSObjectProtocol {
     func getRecordedVideo(recordedVideo: URL)
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVLayerVideoGravity(_ input: AVLayerVideoGravity) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVCaptureSessionPreset(_ input: AVCaptureSession.Preset) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVMediaType(_ input: AVMediaType) -> String {
+	return input.rawValue
 }

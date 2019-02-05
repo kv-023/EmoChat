@@ -316,7 +316,7 @@ class ManagerFirebase {
     //Add photo of user's profile to storage and database
     func addPhoto (_ image: UIImage, previous url: String?, result: @escaping (UserOperationResult) -> Void) {
         if let uid = Auth.auth().currentUser?.uid {
-            guard let chosenImageData = UIImageJPEGRepresentation(image, 1) else {
+            guard let chosenImageData = image.jpegData(compressionQuality: 1) else {
                 result(.failure(NSLocalizedString("Something went wrong", comment: "Undefined error")))
                 return
             }
@@ -403,7 +403,7 @@ class ManagerFirebase {
             }
     
             let finalImage = UIImage.createFinalImg(logoImages: array)
-            let imageData = UIImageJPEGRepresentation(finalImage, 1)
+            let imageData = finalImage.jpegData(compressionQuality: 1)
  
             self.storageRef.child(imagePath).putData(imageData!, metadata: metaData)
             self.ref?.child("conversations/\(conversationID)/logoURL").setValue(imagePath)
@@ -413,7 +413,7 @@ class ManagerFirebase {
 
     func loadLogo (_ image: UIImage, conversationID: String, result: @escaping (UserOperationResult) -> Void) {
         if (Auth.auth().currentUser?.uid) != nil {
-            guard let chosenImageData = UIImageJPEGRepresentation(image, 1) else {
+            guard let chosenImageData = image.jpegData(compressionQuality: 1) else {
                 result(.failure(NSLocalizedString("Something went wrong", comment: "Undefined error")))
                 return
             }
@@ -940,7 +940,7 @@ class ManagerFirebase {
                     if let name = user.firstName, let secondName = user.secondName{
                         conversationName = "\(name) \(secondName)"
                     } else {
-                        conversationName = "\(user.username)"
+                        conversationName = String(describing: "\(user.username ?? "")")
                     }
                 }
             }

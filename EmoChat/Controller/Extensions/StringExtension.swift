@@ -18,9 +18,9 @@ extension String {
     func shrinkText(maxAllowableLength maxLength: Int = 30,
                     fillerSpaceBetween filler: String = "<...>") -> String {
 
-        let mediana: Int = (maxLength - filler.characters.count) / 2
-        let firstSymbol = String(characters.prefix(mediana))
-        let lastSymbol = String(characters.suffix(mediana))
+        let mediana: Int = (maxLength - filler.count) / 2
+        let firstSymbol = String(prefix(mediana))
+        let lastSymbol = String(suffix(mediana))
         let textShrinked: String = "☞" + firstSymbol + filler + lastSymbol
 
         return textShrinked
@@ -36,7 +36,7 @@ extension String: RegexCheckProtocol {
                                    fillerSpaceBetween filler: String = "<...>") {
 
         var newString: String = self
-        if newString.characters.count > maxLength {
+        if newString.count > maxLength {
 
             let arrayOfLinks = self.getArrayOfRegexMatchesForURLInText(text: newString)
 
@@ -51,7 +51,7 @@ extension String: RegexCheckProtocol {
             }
         }
         
-        if self.characters.count > newString.characters.count {
+        if self.count > newString.count {
             self = newString
         }
     }

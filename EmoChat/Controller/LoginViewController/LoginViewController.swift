@@ -84,7 +84,7 @@ class LoginViewController: EmoChatUIViewController, UITextFieldDelegate {
 
 		UIView.animate(withDuration: duration,
 		               delay: delay,
-		               options: UIViewAnimationOptions.curveLinear,
+		               options: UIView.AnimationOptions.curveLinear,
 		               animations: {
 						button.alpha = alpha
 		}, completion: nil)
@@ -176,10 +176,12 @@ class LoginViewController: EmoChatUIViewController, UITextFieldDelegate {
 		let textFields = (emailField, passwordField)
 		
 		// Check textFields on empty input in case of login button pressed
-		
+
 		switch textFields {
 			
-		case let(email, password) where (email.imageQuestionShowed || email.text == "") && (password.imageQuestionShowed || password.text == "") :
+        case let(email, password) where
+            (email?.imageQuestionShowed ?? false || email?.text ?? "" == "") &&
+            (password?.imageQuestionShowed ?? false || password?.text ?? "" == "") :
 			
 			// Alert to user of email and password input
 
@@ -200,7 +202,8 @@ class LoginViewController: EmoChatUIViewController, UITextFieldDelegate {
 			emailField.shake(count: 1, for: 0.05, withTranslation: 15, delay: 0)
 			passwordField.shake(count: 1, for: 0.05, withTranslation: 15, delay: 0)
 			
-		case let(email, password) where (email.imageQuestionShowed || email.text == "") && !password.imageQuestionShowed :
+        case let(email, password) where (email?.imageQuestionShowed ?? false || email?.text ?? "" == "") &&
+            !(password?.imageQuestionShowed ?? false) :
 			
 			// Alert user of empty password and add shake animation
 			
@@ -213,7 +216,8 @@ class LoginViewController: EmoChatUIViewController, UITextFieldDelegate {
 
 			emailField.shake(count: 1, for: 0.05, withTranslation: 15, delay: 0)
 			
-		case let(email, password) where !email.imageQuestionShowed && (password.imageQuestionShowed || password.text == "") :
+        case let(email, password) where !(email?.imageQuestionShowed ?? false) &&
+            (password?.imageQuestionShowed ?? false || password?.text ?? "" == "") :
 			
 			// Alert user of empty email and add shake animation
 			

@@ -53,7 +53,7 @@ class WebViewController: UIViewController {
     }
     
     //temp action
-    func rightButtonAction(sender: UIBarButtonItem) {
+    @objc func rightButtonAction(sender: UIBarButtonItem) {
         performSegue(withIdentifier: "showVideo", sender: recordedVideo)
     }
     
@@ -124,7 +124,7 @@ class WebViewController: UIViewController {
         switch identifier {
         case "showVideo":
             let vc = segue.destination as! VideoPlayerViewController
-            vc.videoURL = sender as! URL
+            vc.videoURL = sender as? URL
         default:
             preconditionFailure("Wrong segue identifier")
         }
