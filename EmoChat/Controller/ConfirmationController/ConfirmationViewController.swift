@@ -20,21 +20,31 @@ class ConfirmationViewController: UIViewController {
     var lastName: String?
     var phoneNumber: String?
     var image: UIImage?
+	let backgroundManager = SwiftyGifManager.defaultManager
+	let backgroundGif = UIImage(gifName: "giphy.gif", levelOfIntegrity: 1.0)
 
     override func viewDidLoad() {
-        super.viewDidLoad()
+		
+		super.viewDidLoad()
+		self.backgroundAnimated.setGifImage(backgroundGif, manager: backgroundManager)
+
         manager = ManagerFirebase.shared
         emailLabel.text = email
-        // Do any additional setup after loading the view.
+		emailLabel.textColor = UIColor.black
+
     }
 
     override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+		
+		super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+		
     }
     
     @IBAction func okIsPressed(_ sender: UIButton) {
+
         if email != nil {
+
             manager?.logIn(email: email!, password: password!) {
                 result in
                 switch result {
@@ -43,13 +53,16 @@ class ConfirmationViewController: UIViewController {
                 default:
                     self.performSegue(withIdentifier: "login", sender: self)
                 }
+
             }
         } else {
+
             performSegue(withIdentifier: "login", sender: self)
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		
         if segue.identifier == "choosePhoto" {
             let destination: SignUpChooseYourPhotoViewController = segue.destination as! SignUpChooseYourPhotoViewController
             destination.username = username
@@ -60,5 +73,6 @@ class ConfirmationViewController: UIViewController {
             destination.phoneNumber = phoneNumber
             destination.image = image
         }
+
     }
 }

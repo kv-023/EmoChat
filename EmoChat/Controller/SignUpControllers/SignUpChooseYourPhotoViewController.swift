@@ -26,7 +26,9 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
     var manager: ManagerFirebase?
     var image: UIImage?
     var edited = false
-    
+	let backgroundManager = SwiftyGifManager.defaultManager
+	let backgroundGif = UIImage(gifName: "giphy.gif", levelOfIntegrity: 1.0)
+	
     var userImage: UIImage?
     var warning: UIAlertController?
     
@@ -45,7 +47,7 @@ class SignUpChooseYourPhotoViewController: UIViewController, UIImagePickerContro
     override func viewDidLoad() {
 		
 		super.viewDidLoad()
-       // backgroundAnimated.loadGif(name: "giphy")
+		self.backgroundAnimated.setGifImage(backgroundGif, manager: backgroundManager)
 
         let storage = Storage.storage()
         storageRef = storage.reference()
